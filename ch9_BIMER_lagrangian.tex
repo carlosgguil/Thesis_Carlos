@@ -1,0 +1,109 @@
+\chapter{Spray learning from resolved atomization simulations of BIMER}
+	\label{ch:bimer_test_bench}
+
+\section{Introduction}
+
+\section{Injector definition for resolved atomization hole}
+
+\section{Extrapolation of injectors to rest of multipoint holes}
+
+The 
+
+\subsection{Injectors geometry}
+
+\begin{equation}
+\boldsymbol{x}_0 =  \begin{pmatrix} - 38.5 ~\mathrm{mm} \\ r \cos \alpha_0 \\ r \sin \alpha_0 \end{pmatrix}
+\end{equation}
+
+\begin{equation}
+\boldsymbol{x}_i =  \begin{pmatrix} - 38.5 ~\mathrm{mm} \\ r \cos \alpha_i \\ r \sin \alpha_i \end{pmatrix}
+\end{equation}
+
+
+\subsection{General procedure}
+
+\begin{enumerate}
+
+	\item Obtain parameters for SLI of injector 0 (baseline parameters):
+	
+	\begin{equation}
+	\alpha_0  ~~ ; ~~ \boldsymbol{n}_0 ~~ ; ~~ \theta_0 = 90 - \alpha_0 - atan \left( \frac{n_y}{n_z} \right) ~~ ; 
+	\end{equation}
+
+	\item Get parameters for SLI of injector $i$ from baseline:
+	
+	\begin{equation}
+	\alpha_i = \alpha_0 - i \Delta \alpha 
+	\end{equation}
+	
+	\begin{equation}
+	\boldsymbol{n}_i = 
+	\end{equation}
+	
+	\begin{equation}
+	\theta_1 = \theta_0
+	\end{equation}
+	
+
+\end{enumerate}
+
+\subsection{Definition of coordinate systems and operations}
+
+The global coordinate system is:
+
+\begin{equation}
+\boldsymbol{x} =  \begin{pmatrix} x \\ y \\ z \end{pmatrix}
+\end{equation}
+
+The local (crossflow) coordinate system is:
+
+\begin{equation}
+\boldsymbol{x}^{cr} = \begin{pmatrix} x^c \\ y^c \\ z^c \end{pmatrix}
+\end{equation}
+
+with the following equivalences between local and global systems :
+
+\begin{equation}
+\boldsymbol{x}^c = \boldsymbol{n}  ~~~~ ; ~~~~ \boldsymbol{z}^c = \boldsymbol{x}  ~~~~ ; ~~~~ \boldsymbol{y}^c =  \boldsymbol{z}^c \times \boldsymbol{x}^c
+\end{equation}
+
+where the rotation matrix being:
+
+\begin{equation}
+\boldsymbol{R} = \begin{pmatrix} \boldsymbol{x}^{c^T} \\ \boldsymbol{y}^{c^T} \\ \boldsymbol{x}^{c^T} \end{pmatrix}
+\end{equation}
+
+More elegantly expresses:
+
+\begin{equation}
+\boldsymbol{R} = \begin{pmatrix} x^c_x & x^c_y & x^c_z \\ y^c_x & y^c_y & y^c_z \\ z^c_x & z^c_y & z^c_z \end{pmatrix}
+\end{equation}
+
+%\begin{equation}
+%\boldsymbol{x} =  \begin{pmatrix} 1 & 2 & -3 \\ 4 & 0 & 1 \end{pmatrix}
+%\end{equation}
+
+
+Transformation for droplet locations is translation + rotation
+
+\begin{equation}
+\boldsymbol{x}^c_\mathrm{dr} = \boldsymbol{R} \left( \boldsymbol{x}_\mathrm{dr} -  \boldsymbol{x}_0 \right)
+\end{equation}
+
+For droplet velocities, transformation is only rotation:
+
+\begin{equation}
+\boldsymbol{u}^c_\mathrm{dr} = \boldsymbol{R} \boldsymbol{u}_\mathrm{dr}
+\end{equation}
+
+Inverse transform then:
+
+\begin{equation}
+\boldsymbol{x}_\mathrm{inj} = \boldsymbol{x}_0 + \boldsymbol{R}^{-1} \boldsymbol{x}_\mathrm{inj}^c
+\end{equation}
+
+\begin{equation}
+\boldsymbol{u}_\mathrm{inj} = \boldsymbol{R}^{-1} \boldsymbol{u}_\mathrm{inj}^c
+\end{equation}
+
+\section{Conclusion}

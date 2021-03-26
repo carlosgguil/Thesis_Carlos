@@ -1,0 +1,103 @@
+\chapter{Extra JICF}
+
+The jet in cross-flow (JICF) consists of a jet injected into a main channel through a nozzle, which then encounters a stream of air flowing in its perpendicular direction (named crossflow). The injected jet can be gaseous or liquid (such as water or kerosene). From the point of view of aeronautical combustors, the second type is the one of interest; hence, hereafter JICF will refer to the liquid jet in cross-flow, unless otherwise stated. \\\\
+
+
+Look at this relation between these parameters, shown in the paper of Madabushi:
+
+\begin{equation}
+Re_l^2 = \frac{q We_{aero}}{Oh^2}
+\end{equation}
+
+
+\textbf{This was before in the secondary atomization section}:
+
+Another spatial location of interest in atomization is the \textbf{breakdown point}. Meanwhile breakup is the point at which the liquid ligaments arising from primary atomization undergo significant rupture, the breakdown point is the location at which a significant loss of momentum occurs in the jet. Usually the breakdown point depends on $q$ and $We$, and it is located downstream the breakup point, i.e. in the secondary atomization zone \citepColor[ref:ragucci_breakup_breakdown].
+
+\section{Gaseous JICF}
+
+
+Several studies have been made on the JICF by using gaseous air in the main jet, both experimentally (\textbf{CITE examples}) and numerically (\textbf{CITE examples}). 
+
+One study performed in \textbf{Dynamics and control of JICF} shows a comparison between \textbf{experimental} and \textbf{numerical} study. The experimental bench is not shown, but the conditions under which the experiments were performed (and therefore, the simulations) are given.
+
+A nice simulation is seen in \textbf{2010 - Stability of a JICF}.
+
+\subsection{Nozzle geometry effect}
+
+An interesting article is the one from \textbf{1995 - Crossflow Mixing of Noncircular Jets}. \textbf{Experiments} (not numerics) are carried out to study the "mixing" of a turbulent jet in the crossflow mainstream.
+
+Some comments:
+
+\begin{itemize}
+
+\item It is never explicitly said that the injected fluid is air. However, it is said that the jet speed is 62.5 ft/s (imperial units, yeah, these americans!) and the crossflow stream speed is 21.8, making a momentum ratio of 8.2. This means that both densities are equal ($\rho_l = \rho_g$), so the fluids are the same:
+
+\begin{equation}
+q = \frac{\rho_l u_l^2}{\rho_g u_g^2} = \frac{u_l^2}{u_g^2} = \frac{62.5^2}{21.8^2} = 8.2
+\end{equation}
+
+\item Different shapes are tried for the nozzle: circular, square, elliptical and a combination rectangle-ellipse. These shapes have an associated \textbf{aspect ratio} which might be interesting to study in our simulations.
+
+\item The effect of the shape on penetration of the jet and the \textsl{jet mixture fraction} (which it is NEVER explained how it is defined) are related to the orifices.
+
+\item In this paper, only results from experiments are stated. The test bench can be taken into account in our list of experiments about the JICF. 
+
+\item Correlations are used for the penetration lengths. These ones can be compared with the ones from the experiments of liquid JICF (Raguci ...).
+
+\end{itemize}
+
+
+\section{LIQUID JICF}
+
+REALLY NICE experiments conducted in the article \textbf{2006 - Near field behaviour of a JICF}. The text bench is shown. Correlations are given (check the references as well). Insight is done in the penetration and breakup of the jet. Their experimental test bench is used for the simulations performed in the article \textbf{2011 - Impact of density ratio on stability of JICF}, which must also be checked.
+
+A good \textbf{numerical} study is performed in \textbf{2008 - Primary breakup of turbulent liquid jets in crossflow}
+
+A general experimental study has been conducted in the MsC Thesis \textbf{2004 - Liquid jets in subsonic crossflow}.
+
+\textbf{NOTE}: the article \textsl{Breakup and atomization of a kerosene jet in crossflow at elevated pressure} (2002) by Becker and Hassa (DLR), seems REALLY INTERESTING. Check how to get it. \\\\
+
+QUESTION: swirling, or non-swirling JICF ?
+
+\subsection{Nozzle geometry effects}
+
+For the moment it seems that no one is working on the effects of the geometry on the liquid JICF, which is good. However, more literature needs to be checked to be completely sure about this.
+
+Some ideas:
+
+\begin{itemize}
+
+	\item From the nozzle geometry study of the gaseous JICF, a good idea is to study the effect of the AR.
+	
+	\item Following the same line, it could be nice to simulate the liquid JICF with the same geometries as the study of the gaseous JICF. The momentum ratio could also be kept, for exmaple.
+
+\end{itemize}
+
+\section{EXPERIMENTS}
+
+\begin{itemize}
+
+\item UTRC/NASA Lewis. For gas JICF. Found in  \textbf{1995 - Crossflow Mixing of Noncircular Jets}.
+
+\item Energy Research Consultants, liquid JICF with water. Found in \textbf{2006 - Near field behaviour of a JICF}.
+
+\item N/A. The article \textsl{Breakup and atomization of a kerosene jet in crossflow at elevated pressure} (2002) by Becker and Hassa (DLR) performs experiments with kerosene.
+
+\item Ragucci. Liquid jet, with kerosene.
+
+\item University of Cincinnati, check the following (I guess they use the same test bench):
+
+ \begin{itemize}
+ 
+    \item MsC Thesis \textbf{2004 - Liquid jets in subsonic crossflow}. The test bench is shown. It is nice because \textbf{both water and Jet-A} are simulated.
+    
+    \item PhD thesis \textbf{2006 - Experimental Investigations of Steady and Dynamic Behaviour of Transverse Liquid Jets}. Water and jet-A are simulated.
+ 
+ \end{itemize}
+
+\item Experimental results shown in \textbf{Dynamics and control of JICF}, but the test bench is not shown. Gas is used.
+
+\item Georgia Tech, PhD thesis \textbf{2012 - Gopala - Breakup characteristics of liquid JI subsonic CF}.
+
+\end{itemize}

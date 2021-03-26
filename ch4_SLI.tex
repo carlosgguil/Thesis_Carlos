@@ -1,0 +1,698 @@
+\chapter{Models for lagrangian injection}
+	\label{ch:sli_development}
+
+%\section{Introduction}
+
+Describe here the flowchart of our models and their ingredients. 
+If other models are developed, add them here too.
+
+\begin{itemize}
+
+	\item Flowchart
+	
+	\item Spray definition: with f function ? Or with lagrangian formalisms ?
+	
+	\item Spray sampling (reference to chapter JICF resolved simulations)	
+	
+	\item Spray convergence (MSE error definition [mention to Cramer-von Mises], quadtrees local refinement ... )
+	
+	\item Injectors creation (spatial refinement, quadtrees local refinement,)
+
+	\item Secondary atomization models.
+	
+	\item Actuator line method for dense core modelling
+
+\end{itemize}
+
+\section{Introduction}
+
+\section{Description of sprays}
+
+\section{Models flowchart}
+
+
+The flowchart of the models is shown in Figure \ref{fig:SLI_flowchart}. The main workflow of information to build lagrangian injectors is shown in the central part of the figure, where each block is explained in a different chapter of this manuscript:
+
+
+\begin{enumerate}
+
+	\item Resolved atomization simulations are performed to build a database (Chapter \ref{ch:jicf_resolved_simulations}).
+	
+	\item This database is used and processed by the models to learn the spray state and build lagrangian injectors (Chapter \ref{ch:sli_development}).
+	
+	\item Lagrangian simulations are initialized with the injectors developed with this methodology (Ch. \ref{ch:jicf_lgs_simulations}) 
+
+
+\end{enumerate}
+
+Additionally, there are more submodels to take into account:
+
+\begin{itemize}
+
+	\item The bottom row represents the processes comprising the learning part of the lagrangian injectors: spray sampling ($\S$\ref{subsec:SLI_spray_sampling}), spray convergence ($\S$\ref{subsec:SLI_spray_convergence}) and spatial discretization of the injectors ($\S$\ref{subsec:SLI_spatial_discretization}).
+	
+	\item The top boxes represent the submodels that add more detailed physics into the methodology. Currently there are two: 
+	
+	\begin{itemize}
+	
+		\item \textbf{Dense core learning} in order to take into account the perturbation effect of the liquid dense structures (i.e. the liquid dense core in the JICF) in the gaseous phase during lagrangian simulations ($\S$\ref{sec:dense_core_modelling}). The information to characterize the dense core is taken from the resolved simulations and later imposed into lagrangian ones.
+		
+		\item \textbf{Secondary atomization models} to consider further possible breakup of spherical droplets during lagrangian simulations $\S$ \ref{sec:dense_core_modelling}).
+		
+	\end{itemize}
+
+
+\end{itemize}
+
+
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=false,width=17cm]{./part2_developments/figures_ch4_SLI/SLI_flowchart_with_pictures}
+	\caption{Flowchart for proposed models of lagrangian injection.}
+	\label{fig:SLI_flowchart}
+\end{figure}
+
+
+
+
+
+\section{Lagrangian injectors learning}
+
+
+\subsection{Spray sampling}
+\label{subsec:SLI_spray_sampling}
+
+\subsubsection*{Identification of liquid structures in resolved simulations}
+
+The first step in the learning process is to obtain the spray from resolved atomization simulations. For this purpose, droplets must be identified in space. According to the ACLS methodology ($\S$\ref{subsec:ch2_ACLS}), liquid regions are identified by values of the level set $\psi > 0.5$, and the interface $\Gamma$ is located at $\psi = 0.5$. It is possible then to identify and tag individual liquid structures as independent closed regions of $\Gamma$, whose domain is denoted as $\Omega_l$. Each structure can then be characterized by its volume $V_\mathrm{dr}$, its center of mass location $\textbf{x}_\mathrm{dr}$ and velocity $\textbf{u}_\mathrm{dr}$, and maximum and minimum distances from the interface to the center of mass $R_\mathrm{max}$ and $R_\mathrm{min}$, as depicted in Figure \ref{fig:droplet_sampling_parameters}. The formulas used for calculating these parameters are shown in Table \ref{tab:sampling_parameters}. 
+
+\begin{table}[!h]
+\centering
+\caption{Parameters sampled from resolved atomization simulation}
+\begin{tabular}{|c|c|c|}
+\hline
+Parameter & Definition & Description \\
+\hline
+\hline
+$V_\mathrm{dr}$ & $\displaystyle \int_{\Omega_l} d \textbf{x}$ & Volume enclosed by interface  \\
+\hline
+$\textbf{x}_\mathrm{dr}$ & $\displaystyle \frac{1}{V} \int_{\Omega_l} \boldsymbol{x} d \textbf{x}$ &   Location of center of mass \\
+\hline
+$\textbf{u}_\mathrm{dr}$ & $\displaystyle \frac{1}{V} \int_{\Omega_l} \textbf{u} \left( \boldsymbol{x} \right) d \textbf{x}$ & Velocity of center of mass  \\
+\hline
+$r_\mathrm{max}$ & $\displaystyle \max \left( \textbf{x} - \textbf{x}_\mathrm{dr}  \right) \forall \textbf{x} \in \Omega_l$ & Maximum distance to center of mass \\
+\hline
+$r_\mathrm{min}$ & $\displaystyle \min \left( \textbf{x} - \textbf{x}_\mathrm{dr}  \right) \forall \textbf{x} \in \Omega_l$ & Minimum distance to center of mass \\
+\hline
+\end{tabular}
+\label{tab:sampling_parameters}
+\end{table}
+
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=false,scale=0.5]{./part2_developments/figures_ch4_SLI/droplet_sampling_parameters}
+	\caption{Parameters characterizing liquid structures sampled in resolved atomization simulations. }
+	\label{fig:droplet_sampling_parameters}
+\end{figure}
+
+In order to get statistics for spray characterization, it is useful to define a characteristic size of each liquid structure. For this purpose, an equivalent radius $R_\mathrm{dr}$ is calculated from the liquid volume $V$:
+
+\begin{equation}
+r_\mathrm{dr} = \sqrt[3]{\frac{3 V_\mathrm{dr}}{4 \pi}}
+\end{equation}
+
+which is the radius of a sphere containing the same volume as the structure. The equivalent diameter is then $d_\mathrm{dr} = 2 r_\mathrm{dr}$ In cases where sampled structures are spherical droplets, $R_\mathrm{dr}$ is the true radius and, therefore, a representative measure of the droplets' size. On the other hand, if liquid structures are not fully spherical (which is specially true after primary atomization), the equivalent radius does not provide full information on their topology. To determine the deviation of the identified liquid structure from a sphere, the radii $r_\mathrm{max}$ and $r_\mathrm{min}$ can be used to calculate the deformation parameters $\alpha$ and $\beta$ \citepColor[zuzio_improved_2018]:
+
+\begin{equation}
+\alpha = \frac{r_\mathrm{max}}{r_\mathrm{dr}} ~~ ; ~~ \beta = \frac{r_\mathrm{min}}{r_\mathrm{dr}}
+\end{equation}	
+
+By definition, $\alpha \geq 1$ and $\beta \leq 1$. A perfect sphere would present $\alpha = \beta = 1$.
+
+In this work, no distinction between droplets and ligaments has been done to construct the injectors after the learning procedure. Hence, hereafter all liquid structures will be referred as droplets, and the term droplet sampling will be used. Inclusion of distinction between ligaments and droplets (i.e. between non-spherical and spherical structures) could be further taken into account with parameters $\alpha$ and $\beta$ to, for example, modifying drag coefficients in lagrangian simulations at the first steps after injection \citepColor[bagheri_drag_2016]. 
+
+
+\subsubsection*{Sampling procedure}
+
+Droplets are sampled according to their center of mass location. Note that, despite the ACLS methodology being eulerian, liquid structures produced by resolved simulations are being tracked as lagrangian particles (lagrangian tracking). Two sampling methods based on experimental techniques can be used \citepColor[{fig:tropea_droplet_sampling}], their main difference being the topology of the employed probes (see Figure \ref{fig:TAB_droplet_deformation}):
+
+\begin{itemize}
+
+	\item A control volume (unit volume in Figure \ref{fig:TAB_droplet_deformation}) can be defined where particles contained inside are sampled at a particular time instant. This method produces a \textbf{volume distribution}. 
+	
+	\item A surface area (unit area in Figure \ref{fig:TAB_droplet_deformation}) or plane where droplets crossing it during a given time are sampled. A \textbf{flux density distribution} is obtained in this case.
+
+\end{itemize}
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.6]{./part2_developments/figures_ch4_SLI/tropea_droplet_sampling}
+	\caption{Droplet sampling prodecure. Source: \citeColor[tropea_optical_2011]}
+	\label{fig:tropea_droplet_sampling}
+\end{figure}
+
+In this work, droplets crossing surface areas are sampled, hence obtaining flux density distributions. The defined surface areas employed will be hereafter referred as \textbf{sampling planes}. Spray is sampled from resolved atomizations with a sampling rate ensuring that all droplets crossing the plane are collected. Droplets are then accumulated with time, and then statistics are calculated. Choosing a right sampling rate will ensure that at the end of the accumulation process, the mass flow rate in average is the actual rate passing through the sampling plane in the resolved simulations. If the sampling rate is too low, some droplets might be missed and the flow rate captured will not be the right one (\textit{aliasing} phenomenon on the spray sampling procedure). Another technique to measure flow rates directly in resolved atomization simulations, called interior boundaries, has been developed in this thesis. It is later explained, and compared to the rates obtained from the lagrangian tracking procedure, in $\S$\ref{subsubsec:ch5_interior_boundaries}.
+
+
+\subsection{Spray convergence}
+\label{subsec:SLI_spray_convergence}
+
+Simulations using the ACLS/AMR methodology can resolve the atomization process and provide deep insight on the driving physical phenomena. Nevertheless, their main limitation is their cost (see $\S$\ref{subsubsec:ch5_computational_performances}), which increases when more liquid is present in the domain and more droplets are formed. Consequently, the accumulation time of droplets will be finite and, logically, restricted to the physical time being simulated. This can pose a problem when characterizing the spray, since statistics might be converged if the number of sampled droplets is not sufficient.
+
+\colorbox{red}{With this issue in mind}, a methodology to evaluate spray convergence is proposed. The objective is to provide a quantitative measure to assess whether enough droplets have been sampled to obtain reliable statistics \citepColor[vie_particle-laden_2016]. If the spray is converged, then it can be spatially discretized to get local statistics that will conform the injectors ($\S$\ref{subsec:SLI_spatial_discretization}). This convergence criterion is also used to propose another discretization strategy in which refinement is performed following a quadtrees structure (convergence-driven discretization, see $\S$\ref{subsec:SLI_quadtrees_discretization}).
+
+At each time step $t_i$ of the accumulation process, the spray will be formed by a number of droplets $N_{\mathrm{dr},i}$. This number will increase as more particles are accumulated with time, since all droplets sampled previously are also accounted for (hence the name accumulation). One can see this methodology as obtaining a time-averaged spray, since dependence with time is neglected. Statistics can be calculated on the accumulated spray at each time $t_i$, such as the droplet histogram. Figure \ref{fig:spray_convergence_description_accumulation_and_MSE_comparison} left shows an illustrated view of the size histogram evolution at several accumulation instants. The histogram indicates thes probability $f \left( d_\mathrm{dr} \right)$ of finding a droplet of size $d_\mathrm{dr}$ within a class $n$: $d_\mathrm{dr} \in \left[ d_{\mathrm{dr},n}-\Delta d_\mathrm{dr}, d_{\mathrm{dr},n}+\Delta d_\mathrm{dr} \right]$. Its shape will change with the accumulation time until a time when it will not change once more droplets are sampled. At this point, the spray will be considered to be converged. 
+
+The main issue now is to determine quantitatively when the spray is converged. For this purpose, the histograms are compared in pairs at subsequent time instants, $t_i$ and $t_{i-1}$, as shown in Figure \ref{fig:spray_convergence_description_accumulation_and_MSE_comparison} right. The same number and width of droplets classes are used in both histograms. The difference between both histograms is then measured by means of a Mean Squared Error (MSE) function defined as:
+
+\begin{equation}
+MSE^{t_i} = \frac{1}{N} \sum_{n=1}^N \left( f_n^{t_{i-1}} - f_n^{t_i}  \right)^2
+\end{equation}
+
+where $N$ is the total number of classes in the histogram. This criterion is similar to the Carmen-von Mises measure to compare two statistical distributions \citepColor[anderson_distribution_1962]. The MSE can then be calculated at each accumulation time instant and then be normalized by the maximum value obtained, yielding a Normalized Mean Squared Error (NMSE) \citepColor[hanna_flacs_2004]:
+
+\begin{equation}
+NMSE^{t_i} = \frac{MSE^{t_i}}{\max_{t_i} \left( MSE \right)}
+\end{equation}
+
+The evolution of NMSE can be displayed with time as shown in Figure \ref{fig:NMSE_evolution}. The NMSE decreases with accumulation time until reaching a plateau, where the ?NMSE does not move significantly. Convergence is achieved at this plateau, which is defined for values of the NMSE below a threshold $\varepsilon_\mathrm{th}$.
+
+\begin{equation}
+NMSE < \varepsilon_\mathrm{th}
+\end{equation}
+
+where $\varepsilon_\mathrm{th}$ is set to $0.01$ (i.e. $1 \%$).
+
+
+\begin{figure}[ht]
+     \centering
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch4_SLI/size_distribution_evolution_with_accumulation}
+     \end{subfigure}
+     %\hfill
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+          \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch4_SLI/size_distribution_histograms_comparison}
+     \end{subfigure}
+        \caption{\textsl{Left}: Size histogram evolution with accumulation time of droplets. \textsl{Right}: comparison of two droplet size histograms from two consecutive time instants.}
+	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
+        \label{fig:spray_convergence_description_accumulation_and_MSE_comparison}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.35]{./part2_developments/figures_ch4_SLI/spray_convergence}
+	\caption{Evolution or Normalized Mean Squared Error (NMSE) with respect to the spray accumulation time. \textbf{IMPROVE THIS}}
+	\label{fig:NMSE_evolution}
+\end{figure}
+
+It is worth noting that the convergence criterion based on NMSE introduced in this section depends solely on the equivalent droplets size $d_\mathrm{dr}$. Future work would include to extend this criterion to other magnitudes fundamental for a proper spray representation, such as velocities and flow rates. 
+
+Furthermore, a time-independent spray has been considered in all the previous process by accumulating droplets and calculating statistics which do not depend on the time in which they were sampled. A perspective in this respect would be to obtain a transient spray in order to create unsteady numerical injectors. This could be useful in systems where thermoacoustic instabilities appear and there are fluctuations in the injected flow rates, such as aeronautical gas turbines \citepColor[lieuwen_unsteady_2012].
+
+
+%\subsubsection*{Old formulation}
+%
+%
+%A Mean Squared Error (MSE) function is used:
+%
+%\begin{equation}
+%MSE = \frac{1}{n} \sum_{i=1}^n \left( P_{N_{\mathrm{dr},2}} - P_{N_{\mathrm{dr},1}} \right)^2
+%\end{equation}
+
+
+
+\subsection{Spatial discretization of sprays}
+\label{subsec:SLI_spatial_discretization}
+
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=false,width=10cm]{./part2_developments/figures_ch4_SLI/plane_injection_sketch}
+	\caption{Injection parametrization}
+	\label{fig:SLI_injection}
+\end{figure}
+
+\subsection{Convergence-driven discretization}
+\label{subsec:SLI_quadtrees_discretization}
+
+
+\subsection{Injectors definition}
+
+Statistics are obtained 
+
+Time-averaged  and RMS parameters are of a quantity $f$ are defined respectively as follows:
+
+\begin{equation}
+\overline{f} = \frac{1}{T} \sum f \left( t_i \right) \delta t_i
+\end{equation}
+
+\begin{equation}
+f_\mathrm{RMS} = \sqrt{\overline{f^2} - \overline{f}^2}
+\end{equation}
+
+
+
+\subsubsection*{Injection location}
+
+\subsubsection*{Injection velocity}
+
+Velocity at injection can be specified as follows:
+
+\begin{equation}
+\boldsymbol{u}_\mathrm{p} = \overline{\boldsymbol{u}} 
+\end{equation}
+
+
+\begin{equation}
+\boldsymbol{u}_\mathrm{p} = \overline{\boldsymbol{u}} + \boldsymbol{r}^T \boldsymbol{u}_{RMS}
+\end{equation}
+
+\begin{equation}
+ \overline{\boldsymbol{u}} = \left( ~ \overline{u} ~~ \overline{v} ~~ \overline{w} ~ \right)^T
+\end{equation}
+
+\begin{equation}
+\boldsymbol{u}_{Inj} = \left( ~ \overline{u} ~~ \alpha \overline{v} ~~ \alpha \overline{w} ~ \right)^T
+\end{equation}
+
+
+\begin{equation}
+\boldsymbol{u}_{RMS}= \left( ~ u_{RMS} ~~ v_{RMS} ~~ w_{RMS} ~ \right)^T
+\end{equation}
+
+\begin{equation}
+\boldsymbol{u}_\mathrm{p} = \left( ~ \overline{u} ~~ 0 ~~ 0 ~ \right)^T
+\end{equation}
+
+\begin{equation}
+\boldsymbol{u}_\mathrm{p}= \boldsymbol{u}_{Gas}
+\end{equation}
+
+where $\boldsymbol{r}$ is a vector of random numbers $\in [-\sqrt{3}, \sqrt{3}]$, and $\overline{\boldsymbol{u}}$ and $\boldsymbol{u}_{RMS}$ are respectively the mean and RMS velocities of the sampled droplets at the injection element.
+
+\begin{equation}
+\boldsymbol{r} \sim \mathcal{N} \left( \mu = 0, \sigma = 1 \right)
+\end{equation}
+
+\subsubsection*{Volume-weighting the velocity}
+
+As it is later shown in $\S$\textbf{?}, the droplets mean velocities can be weighted by their mean profiles:
+
+\begin{equation}
+\displaystyle \left\langle \textbf{u} \right\rangle_V = \frac{\sum{i=1}^{N_\mathrm{dr}} \textbf{u}_i V_i}{\sum{i=1}^{N_\mathrm{dr}} V_i}
+\end{equation}
+
+In the same fashion, the RMS can also be "volume-weighted" by applying the former expression:
+
+\begin{equation}
+\textbf{u}_{RMS,V} = \sqrt{\displaystyle \left\langle \textbf{u}^2 \right\rangle_V - \displaystyle \left\langle \textbf{u} \right\rangle_V^2}
+\end{equation}
+
+
+
+
+\subsubsection*{Injector topology}
+
+
+%\section{Physics modeling}
+
+\section{Dense core blockage effect modeling}
+	\label{sec:dense_core_modelling}
+	
+One key point of the resolved atomization simulations is that they can account for the liquid-gaseous interaction without the need to be modelled or accounted for with source terms in the governing equations. This allows that the perturbation effects from the gas to the liquid, which influence spray dispersion, can be properly captured. In the jet in crossflow this influence is paramount, since the liquid coherent structures impose a blockage effect to the gaseous phase that creates vortical structures downstream the liquid injection nozzle (see Figure \textbf{??} and $\S$\ref{subsec:ch5_dense_core_in_ACLS_simus}).
+
+These perturbations effects are not taken into account \textsl{a priori} in dispersed phase simulations, since the coherent structures are not present. Some approaches have succeeded in emulating this interaction between phases by injecting lagrangian big droplets according to the the blob method \citepColor[reitz_modeling_1987] and adding a two-way coupling between liquid and gaseous phases \citemColor[apte_les_2003,senoner_simulation_2010]. Other studies have solved and kept the liquid coherent structures with VOF to capture the interaction, and then performed lagrangian injection and spray transport \citemColor[arienti_aerodynamic_2006,fontes_improved_2019].
+
+In this work, the blockage effect is modeled in dispersed phase computations by means of the Actuator Line Method (ALM). This method has been, to the author's knowledge up to date, in wind turbine simulations for representing the effect of the tower and blades in the gaseous field, which creates strong turbulence. Firstly, a review on the theory and some previous works in ALM is done. Secondly, the way ...
+
+
+
+\subsection{Actuator Line Method}
+
+
+
+
+As shown in Fig. (\textbf{Ref. to figure in introduction}), the dense core has a perturbation effect towards the gas phase. This is accounted for with the Actuator Line Method (ALM): \textbf{Sorensen 2002}, \textbf{Benard 2018}, \textbf{Houtin-Mongrolle 2020}.
+
+\subsection{Dense core representation as an actuator}
+
+
+
+\subsection{Forces determination}
+
+
+
+\section{Secondary atomization modeling}
+
+In disperse phase simulations, spray is modeled by a set of spherical and rigid particles whose dynamics are governed by the point-particle equations described in $\S$\ref{sec:ch3_EL_formalisms}. Due to these assumptions, particles will not break by their interaction with the gaseous phase as in the resolved atomization simulations. Nevertheless, further breakup can be taken into account by means of secondary atomization models. The most important parameter governing secondary atomization is the Weber number based on the relative velocities between liquid and gas $u_\mathrm{rel}$:
+
+\begin{equation}
+\label{eq:We_secondary_atomization_definition}
+We = \frac{\rho_g u_\mathrm{rel}^2 r}{\sigma} 
+\end{equation}
+
+Different mechanisms produce secondary atomization depending on the value of We, see Fig. \textbf{ref:fig??}. Existing models for secondary atomization have been developed for each particular mode of breakup, such as the WAVE model for high Weber numbers (\textbf{ref:Reitz 1987}) or the Taylor Analogy Breakup (TAB) model for low ones \citepColor[orourke_tab_1987]. The former model predicts breakup by following a linear stability analysis considering Kelvin-Helmholtz waves as the governing breakup mechanisms, while the latter makes an analogy between a droplet and a second-order mechanical system. Nevertheless, up to date there is not a model which accounts for all different breakup mechanisms and that can capture all the physical complexity of secondary atomization.
+
+In this work, three atomization models have been implemented and tested: the TAB model, the Enhanced TAB model \citepColor[tanner_liquid_1997], and the stochastic model of Gorokhovski (\textbf{ref:Goro}). They are described in the following sections.
+
+\subsection{Taylor Analogy Breakup}
+
+
+\begin{figure}[h!]
+	\centering
+	\includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch4_SLI/TAB_analogy}
+	\caption{Taylor analogy breakup between a droplet and a mechanical system with spring and damper. The undeformed droplet is represented by the dashed line, while the thick solid line depicts the droplet after deformation. $x$ is the displacement from the deformed to the undeformed states.}
+	\label{fig:TAB_droplet_deformation}
+\end{figure}
+
+The Taylor Analogy Breakup (TAB) model is one the first secondary atomization models. Developed by \citeColor[orourke_tab_1987], it makes an analogy between a droplet and a mechanical system as shown in Fig. \ref{fig:TAB_droplet_deformation}. Breakup occurrence is estimated by solving the ordinary differential equation (ODE) representing the oscillating dynamics of the mechanical system depicted:
+
+\begin{equation}
+\label{ref:TAB_ODE_x}
+m \ddot{x} = F - k x - c \dot{x}
+\end{equation}
+
+where $x$ is the displacement from the droplet's equator due to deformation, $m$ is the mass, $F$ is the external force, $k$ is the spring constant and $c$ is the damping coefficient. The Taylor analogy makes a comparison between this mechanical system and the droplet, producing the following relation between constants:
+
+\begin{equation}
+\frac{F}{m} = C_F \frac{\rho_g u_\mathrm{rel}^2}{\rho_l r} ~~~~ ; ~~~~ \frac{k}{m} = C_k \frac{\sigma}{\rho_l r^3} ~~~~ ; ~~~~ \frac{c}{m} = C_d \frac{\mu_l}{\mu_g r^2}
+\end{equation}
+
+where $C_F = 1/3$, $C_k = 8$, $C_d = 5$ are constants, $r$ the droplet radius, $\rho$ the density, $\sigma$ the surface tension, $\mu$ the viscosity, and the subscripts $l$ and $g$ indicate liquid and gases respectively. 
+
+The deformation $x$ can be expressed by a non-dimensionless parameter $y$, hereafter referred as droplet distorsion, whose equivalence is $y = x / \left( C_b r \right)$, where $C_b = 0.5$ is a constant. Using the expressions from the Taylor analogy and introducing the change of variable $y$, the ODE (\ref{ref:TAB_ODE_x}) changes to:
+
+\begin{equation}
+\label{eq:TAB_ODE}
+\ddot{y} = \frac{C_F}{C_b} \frac{\rho_g}{\rho_l} \frac{u_{rel}^2}{r^2} - \frac{C_k \sigma}{\rho_l r^3} y - \frac{C_d \mu_l}{\rho_l r^2} \dot{y}
+\end{equation}
+
+This expression governs the breakup of droplets, which will happen for $y > 1$ (i.e. when the amplitude of the oscillation $x$ equals the radius of the undeformed droplet). For solving this equation, it is useful to introduce the following parameters:
+
+\begin{subequations}
+\label{eq:TAB_td_omega_definition}
+\begin{align}
+t_d &= \frac{2 \rho_l r^2}{C_d \mu_l} \\
+\omega^2 &= C_k \frac{\sigma}{\rho_l r^3} - \frac{1}{t_d^2}
+\end{align}
+\end{subequations}
+
+where $t_d$ is the oscillation damping time and $\omega$ is the oscillations frequency. With these definition, the solution to Eq. (\ref{eq:TAB_ODE}) is:
+
+\begin{equation}
+\label{eq:yTAB_equation_general}
+y \left( t \right) = We_c + e^{- t / t_d} \left[ \left( y_0 - We_c \right) \cos \left( \omega t \right) + \frac{1}{\omega}\left( \dot{y}_0 + \frac{y_0 - We_c}{t_d} \right) \sin \left( \omega t \right)   \right]
+\end{equation}
+
+where $We_c = \frac{C_F}{C_k C_b} We = We / 12$ with the constants previously defined. The distorsion rate can be obtained by differentiating the former expression with time:
+
+\begin{equation}
+\label{eq:dydtTAB_equation_general}
+\dot{y} \left( t \right) = \frac{We_c - y \left( t \right) }{t_d} + e^{- t / t_d} \left[ \left( \dot{y}_0 + \frac{y_0 - We_c}{t_d} \right) \cos \left( \omega t \right) - \omega \left( y_0 - We_c \right) \sin \left( \omega t \right)  \right]
+\end{equation}
+
+As it can be seen, the previous equations are continuous. For numerical implementation of the algorithm, it is more convenient to express them in their corresponding discrete form:
+
+\begin{equation}
+\label{eq:yTAB_equation_discrete}
+y^{n+1} = We_c + e^{- dt / t_d} \left[ \left( y^n - We_c \right) \cos \left( \omega dt \right) + \frac{1}{\omega}\left( \dot{y}^n + \frac{y^n - We_c}{t_d} \right) \sin \left( \omega dt \right)   \right]
+\end{equation}
+
+\begin{equation}
+\label{eq:dydtTAB_equation_discrete}
+\dot{y}^{n+1} = \frac{We_c - y^{n+1} }{t_d} + e^{- dt / t_d} \left[ \left( \dot{y}^n + \frac{y^n - We_c}{t_d} \right) \cos \left( \omega dt \right) - \omega \left( y^n - We_c \right) \sin \left( \omega dt \right)  \right]
+\end{equation}
+
+where the subindexes $n$ and $n+1$ indicate two consecutive time instants where $dt$ is the timestep. 
+
+To estimate breakup, firstly $\omega^2$ is calculated with Eq. (\ref{eq:TAB_td_omega_definition}b). According to its value, two options are present:
+
+\begin{itemize}
+
+	\item If $\omega^2 < 0$, oscillations are not present. Hence, the droplet does not deform and the values for droplets distorsion and distorsion rate are set to $0$: $y^{n+1} = y^n = 0$.
+	
+	\item If $\omega^2 > 0$, breakup is possible. In this case, the amplitude of oscillations $A$ is calculated:
+	
+	\begin{equation}
+	A = \sqrt{\left( y^n - We_c \right)^2 + \left( \dot{y}^n / \omega \right)^2}
+	\end{equation}
+
+\end{itemize}
+
+Again, the value of $A$ will present two different alternatives:
+
+\begin{itemize}
+
+	\item If $We_c + A \leq 1$, then $y^n \leq 1$ and droplet will not break. Deformation and deformation rate will then be updated by applying Eqs. (\ref{eq:yTAB_equation_discrete}) and (\ref{eq:dydtTAB_equation_discrete}).
+	
+	\item If $We_c + A > 1$, breakup is possible. A breakup timestep $dt_{bu}$ is then calculated as the smallest root of the following equation:
+	
+	\begin{equation}
+	\label{eq:TAB_dtbu_obtention}
+	We_c + A \cos \left( \omega dt_{bu} + \phi  \right) = 1
+	\end{equation}
+
+\end{itemize}
+
+where the phase $\phi$ is obtained from the following:
+
+\begin{equation}
+\cos \phi = \frac{\dot{y}^n - We_c}{A} ~~~~ ; ~~~~ \sin \phi = - \frac{\dot{y}^n}{A \omega}
+\end{equation}
+
+Breakup will then occur in the case that $dt < dt_{bu}$, or also if updating the deformation it is found that $y^{n+1} > 1$. Once breakup is triggered, the associated droplet (named parent) will divide into one or several smaller particles (named children). The mean size of children droplets $r_{32}$ is obtained through an energy balance between the produced droplets and the parent with radius $r$, yielding the following relation between both sizes:
+
+\begin{equation}
+\label{eq:TAB_model_radius_ratio}
+\frac{r}{r_{32}} = 1 + \frac{8 K}{20} + \frac{\rho_l r^3}{\sigma} \dot{y}^2 \left( \frac{6 K - 5}{120} \right)
+\end{equation}
+
+where $K = 10/3$ is a constant. Now, radii of children droplets $r_{ch}$ are randomly chosen from a Rosin-Rammler distribution \footnote{In the original work by \citeColor[orourke_tab_1987], a $\chi^2$ distribution is used} with characteristic diameter $r_{32}$ and factor $q = 3.5$. Inverting Eq. (\ref{eq:rossin_rammler_distribution}) yields:
+
+\begin{equation}
+r_{ch} = r_{32} \sqrt[3.5]{- \log \left( 1 - Q \right) }
+\end{equation}
+
+where $Q$ is the value for the CDF. To sample droplets from this distribution, $Q$ is sampled from a uniform distribution $\in [0,1]$. The resulting random number is introduced in the previous expression, yielding a value for one children droplet. This procedure is repeated until the volume of all children droplets equals the volume of the parent, hence conserving mass. Children droplets are then randomly located along the surface of the parent droplet. They will all inherit the velocity of the parent droplet, plus a component $v_\perp$ with magnitude:
+
+\begin{equation}
+\label{eq:TAB_v_perp}
+v_\perp = C_v C_b r \dot{y}^n
+\end{equation}
+
+where $C_v \approx 1$. The direction of $v_\perp$ is randomly chosen in a plane normal to the relative velocity $u_\mathrm{rel}$. Finally, all children droplets all initialised with $y = \dot{y} = 0$.
+
+
+
+\subsection{Enhanced TAB model}
+
+The main disadvantage of the TAB model is the underprediction of droplets size. To overcome this problem, an improved version of the TAB model was developed by \citeColor[tanner_liquid_1997], named Enhanced Taylor-Analogy Breakup (ETAB). Breakup is predicted and triggered in the same way as in TAB, but the size of children droplet is estimated differently. While TAB makes use of an energy balance \citepColor[orourke_tab_1987], ETAB considers that the droplet production rate is proportional to the number of children droplets. Mathematically, this proportionality is expressed by the following exponential decay law:
+
+\begin{equation}
+\label{eq:ETAB_rate_production_law}
+\frac{d m_\mathrm{ch}}{dt} = - 3 K_\mathrm{br} m_\mathrm{ch}
+\end{equation}
+
+where $m_\mathrm{ch}$ is the mass of children droplets. This law depends on the atomization regime through the breakup constant $K_\mathrm{br}$, which depends on $We$ and the oscillation frequency $\omega$:
+
+\begin{equation}
+\label{eq:ETAB_Kbr_equation}
+K_{br} =
+\left\{
+    \begin{split}
+    k_1 \omega \,\,\mathrm{if}\,\,We \leq We_t \\ 
+    k_2 \omega \sqrt{We} \,\,\mathrm{if}\,\,We > We_t
+    \end{split}
+\right.
+\end{equation}
+
+where $k_1$ and $k_2$ are constants, and $We_t$ is a transition Weber number between bag and stripping breakup regimes, set to 80 \citepColor[tanner_liquid_1997]. The bag breakup $k_1$ is obtained from the following expression to make a smooth transition between both regimes:
+
+\begin{equation}
+k_1 = k_1^* \left[\left(  \frac{k_2}{k_1^*} \left( \sqrt{We_t} - 1 \right) \right) \left( \frac{We}{We_t} \right)^4 + 1 \right]
+\end{equation}
+
+where $k_1^* = 2/9$. The stripping breakup constant is fixed to $k_2 = 2/9$.
+
+The size of children droplets is calculated by integrating the production law Eq. (\ref{eq:ETAB_rate_production_law}):
+
+\begin{equation}
+\label{eq:ETAB_model_radius_ratio}
+\frac{r_{ch}}{r} = e ^{-K_{br} t_{bu}}
+\end{equation}
+
+where $t_{bu}$ is estimated as in the TAB model, Eq. (\ref{eq:TAB_dtbu_obtention}). All children droplets generated from a parent with radius $r$ will have identical size $r_{ch}$. Finally, children will inherit parent's velocity plus a normal component given by:
+
+\begin{equation}
+v_\perp = C_A C_b r \left(\dot{y}^n\right)^2 
+\end{equation}
+
+whose direction is randomly chosen in a plane normal to the relative velocity $u_\mathrm{rel}$. In this expression, $C_A$ is a constant determined from an energy balance:
+
+\begin{equation}
+C_A^2 = 3 \left( 1 - \frac{r_{ch}}{r} + \frac{5}{72} C_D We \right) \frac{\omega^2}{\dot{y}^2}
+\end{equation}
+
+being $C_D$ is the drag coefficient of the parent droplet, Eq. (\ref{eq:Re_CD_droplet}). Note that $v_\perp$ defined by the ETAB model differs from TAB's Eq. (\ref{eq:TAB_v_perp}) by considering $C_A$ to be dependent on the breakup regime.
+
+
+\subsection{Gorokhovski stochastic model}
+
+Both TAB and ETAB models were derived using the Taylor analogy breakup. The TAB model is known to underdetermine the diameter of the children droplets and to not distinguish between breakup regimes, producing too many droplets when the Weber number is high. Hence, the applicability of TAB is restricted to breakup at low $We$. ETAB tried to solve this issue by considering an exponential decay law for the size of children droplets which would depend on the breakup regime. Both models are, however, deterministic in the sense that a single range of droplet sizes is considered when breakup is produced.
+
+A different secondary atomization model not based on the Taylor analogy was derived by \citeColor[gorokhovski_stochastic_2001]. This model circumvents the deterministic approach of the TAB family of models by accounting for a range of children droplet sizes when breakup occurs. This is done by using a stochastic approach based on Kolmogorov's theory of breakup \citepColor[kolmogorov_log-normal_1941]. Following this theory, the evolution of droplet's sizes is represented by a Fokker-Planck equation: 
+
+\begin{equation}
+\frac{\partial T \left( \ln r, t \right)}{\partial t} = - \nu  \langle \xi \rangle  \frac{\partial T \left( \ln r, t \right)}{\partial \left( \ln r \right)} + \frac{1}{2} \nu  \langle \xi^2 \rangle  \frac{\partial^2 T \left( \ln r, t \right)}{\partial \left( \ln r \right)^2}
+\end{equation}
+
+where $T \left( \ln r, t \right)$ is the cumulative distribution of droplets sizes, $\nu$ the breakup frequency, and  $\langle \xi \rangle$ and $ \langle \xi^2 \rangle$ are parameters. After some mathematical development \citepColor[apte_les_2003], the cumulative distribution function can be expressed as:
+
+\begin{equation}
+\label{eq:gorokhovski_T_CDF}
+T \left( \ln r, t \right) = \frac{1}{2} \left( 1 + \erf \left( \frac{\ln r - \ln r_{ch} - \langle \xi \rangle }{\sqrt{2 \langle \xi^2 \rangle}}\right)  \right)
+\end{equation}
+
+This function will be later used to obtain the size of children droplets. The previous step is to determine when breakup occurs. In this model, two criteria are used:
+
+\begin{itemize}
+
+	\item Parent droplets must be larger than a critical radius $r_\mathrm{cr}$. This value is determined from a critical Weber number $e_\mathrm{crit} = 6$:
+	
+	\begin{equation}
+	r_\mathrm{crit} = \frac{We_\mathrm{crit} \sigma}{\rho_g u_\mathrm{rel}^2}
+	\end{equation}
+	
+	\item The residence time of the particles must be larger than a computed breakup time $t_\mathrm{bu}$:
+	
+	\begin{equation}
+	t_{bu} = B \sqrt{\frac{\rho_l}{\rho_g}} \frac{r}{u_{rel}}
+	\end{equation}
+	
+	where $B = \sqrt{3}$.
+
+\end{itemize}
+
+If both $r > r_\mathrm{crit}$ and $t > t_{bu}$ (both criteria must be met) as given by the previous expressions, breakup occurs. In this case, size of children droplet is obtained from the cumulative density function $T \left( \ln r_{ch}, t \right)$, Eq. (\ref{eq:gorokhovski_T_CDF}), from which $ln r_{ch}$ can be solved:
+ 
+ 
+\begin{equation}
+\ln r_{ch} = \ln r + \langle \xi \rangle  + \sqrt{2 \langle \xi^2 \rangle} \erf^{-1} \left(  2 T - 1 \right)
+\end{equation}
+
+The size of children droplets are then obtained by sampling a random value of $T$ from a uniform distribution between $0$ and $1$, and then applying the previous equation. The parameters $\langle \xi \rangle$ and $\langle \xi^2 \rangle$ are the parameters of the model, and can be calculated from the following equations:
+
+\begin{subequations}
+\label{eq:gorokhovski_epsilon_parameters_definition}
+\begin{align}
+\langle \xi \rangle &=  K_1 \ln \left(  \frac{We_c}{We}  \right) \\
+- \frac{\langle \xi \rangle}{\langle \xi^2 \rangle} &=  K_2 \ln \left( \frac{r}{r_{ch}} \right)
+\end{align}
+\end{subequations}
+
+where $K_1$ and $K_2$ are the constants of the model, which are of order unity. The constant $K_1$ controls the mean size of children droplets, while $K_2$ influences its standard deviation.
+
+
+
+
+
+
+\subsection{Analysis of sizes and number of children droplets}
+
+An analysis of sizes and estimated number of droplets produced by each model is done in the following lines.
+
+The estimated number of children for each model can be obtained as:
+
+\begin{equation}
+N_{ch} = \left( \frac{r}{r_{ch}} \right)^3
+\end{equation}
+
+\paragraph{Gorokhovski} Constants $K_1$, $K_2$ need to be tuned. \textbf{2009 Apte} uses the values $K_1 = 0.6$ and $K_2 = 1$ for simulating spray in a swirl injector. \textbf{Senoner PhD 2010} uses $K_1 = 0.1$, $K_2 = 0.8$ for simulating a diesel spray injected in a high-pressure chamber; and the values  $K_1 = 0.02$, $K_2 = 0.16$ for simulating a high-pressure jet in crossflow. The effect of these two constants will be investigated in our models.
+
+As done for the models from the TAB family, a mean size for children droplets can be estimated. The parameter $\xi$ from Eq. (\ref{eq:gorokhovski_T_CDF}) is defined as $\xi = \ln \left( \frac{r_{ch}}{r}  \right)$. Introducing this expression into Eq. (\ref{eq:gorokhovski_epsilon_parameters_definition}a) 
+
+\begin{equation}
+\langle \ln \left( \frac{r_{ch}}{r}  \right) \rangle = K_1  \ln \left(  \frac{We_c}{We}  \right) 
+\end{equation}
+
+By rearranging this equation we can express the mean size of children droplets:
+
+\begin{equation}
+\langle  \frac{r_{ch}}{r} \rangle = \left( \frac{We_c}{We} \right)^{K_1}
+\end{equation}
+
+This equation confirms the previous statement that the constant $K_1$ has a direct influence on the size of children droplet generated: the larger $K_1$ is, the smaller children droplets are (since the ratio $We_c/We < 1$). Generated children droplet can still undergo further breakup if they meet the breakup conditions (cascade effect), so decreasing $K_1$ would a priori limit the size of droplets (and hence their number) only in each iteration. Nevertheless, this can suppose a smooth transition of breakup towards equilibrium, which would ensure that the Weber number of children droplets is closer to its critical value (i.e. the limit of breakup). An aggressive breakup, which could be produced with a low value of $K_1$, could generate many children droplets from a parent particle with very small size that would not be found in reality (see Figures \ref{fig:r_ratio_gorok} and \ref{fig:N_ch_gorok}).
+
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.2]{./part2_developments/figures_ch4_SLI/ratio_droplet_size_TAB}
+	\caption{Ratio of mean droplet for TAB family of models}
+	\label{fig:r_ratio_TAB}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.2]{./part2_developments/figures_ch4_SLI/ratio_droplet_size_gorok}
+	\caption{Ratio of mean droplet for Gorokhovski model}
+	\label{fig:r_ratio_gorok}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.2]{./part2_developments/figures_ch4_SLI/N_ch_TAB}
+	\caption{Estimated number of children for TAB family of models}
+	\label{fig:N_ch_TAB}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.2]{./part2_developments/figures_ch4_SLI/N_ch_gorok}
+	\caption{Estimated number of children for Gorokhovski model}
+	\label{fig:N_ch_gorok}
+\end{figure}
+
+
+
+\section{Subgrid models for turbulent dispersion}
+
+\subsubsection*{Review}
+
+Regarding turbulent dispersion models, there are the ones used in RANS studies:
+
+\begin{itemize}
+
+	\item \textbf{2016 Eckel} mentions two dispersion models: Gosmann and Ioannides (the classic) (1983), (Blumcke et al. 1993)
+	
+	\item \textbf{Fontes 2018} uses the Langevin dispersion model introduced in Sommerfeld 2001
+
+	\item \textbf{Belmar 2020} presents a turbulent dispersion model by O'Rourke.
+
+\end{itemize}
+
+For LES, Iafrate 2016 shows a good modelling of turbulent dispersion applied to gasoline injection ($\S$8.2 Impact de la turbulence sous-maille), based on references 120-124.
+
+Also, references I have for LES are 2015 Minier, Minier ref. 57, 2014 Urzay - Particle-laden flows.
+
+A nice one is the techical report Amsden 1989 - KIVA II.
+
+OJO: reference OKongo and Bellan de Minier ref. 57 puede ser fundamental, hace analisis de particulas con distintas velocidades inyectadas !!
+
+
+\section{Conclusions}
+
+This chapter has presented the methodology 
+
+
+For further development of the models, the following perspectives are proposed:
+
+\begin{itemize}
+
+	\item In the \textbf{lagrangian injectors learning} part, the deformation of the liquid structures sampled in resolved atomization simulations could be considered to impose a modified drag coefficient in the dispershed phase simulations. This would allow for a more accurate transport of the lagrangian spray, specially at the first time instants of injection before secondary breakup takes place. Also, the transient spray obtained through the accumulation process can be considered to develop an unsteady injection model, which could be useful in reactive cases where thermoacoustic oscillations take place, such as gas turbine and rocket engines. The convergence criterion, defined as a MSE norm on the droplet diameters, could be extended to include other parameters such as liquid velocities and mass flow rates.
+
+\end{itemize}

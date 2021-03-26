@@ -1,0 +1,158 @@
+\documentclass[twoside]{report}
+
+
+
+
+% Load the packages
+\include{packages_load}
+
+
+% Greek letters inkscape:
+% L
+
+% Headers and footers
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+
+
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+
+\pagestyle{fancy}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RE]{}
+\fancyhead[LO]{}
+%\fancyhead[RO]{Guides and tutorials}
+\fancyfoot[CE,CO]{\thepage}
+
+\begin{document}
+
+% Include the cover
+\begin{titlepage}
+	\include{cover}
+\end{titlepage}
+
+\pagenumbering{roman}
+
+	\newpage
+
+\shipout\null % Blank page
+
+
+\setcounter{page}{3}
+\tableofcontents
+\newpage
+
+
+\include{acknowledgements}
+\newpage
+\include{nomenclature}
+\newpage
+\include{abstract}
+\newpage
+\listoffigures
+\addcontentsline{toc}{chapter}{List of Figures}
+\newpage
+\listoftables
+\addcontentsline{toc}{chapter}{List of Tables}
+\newpage
+
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+\renewcommand{\thechapter}{\arabic{chapter}}
+\titleformat{\chapter}[display]
+{\bfseries\Huge}
+{\filleft{\chaptertitlename} \Huge\thechapter}
+{1ex}
+{
+\filleft}
+[\vspace{1ex}%
+\titlerule]
+
+%
+
+%----------- Part 0: Intro --------------
+\include{ch1_introduction}
+
+	\newpage
+	
+%----------- Part I: Numerical approaches --------------
+\part{Numerical approaches to model injection systems}
+
+
+\include{ch2_numerical_methods_resolved_atomization}
+
+\newpage
+
+\include{ch3_numerical_methods_disperse_phase}
+
+
+\newpage
+
+
+
+
+
+%----------- Part II: Building SLI  --------------
+\part{Building lagrangian injectors from resolved atomization simulations}
+
+%\include{part2_developments/chapter_JICF}
+
+
+\include{ch4_SLI}
+
+\newpage 
+
+\include{ch5_JICF_resolved}
+
+\newpage
+	
+	
+\include{ch6_JICF_lagrangian}
+
+\newpage
+
+
+
+
+%----------- Part III: Application --------------
+\part{Application to a multipoint injector}
+
+
+%\chapter{Experimental setup and operating conditions}
+
+\include{ch7_BIMER_aero}
+
+\newpage
+
+\include{ch8_BIMER_resolved}
+
+\newpage
+
+\include{ch9_BIMER_lagrangian}
+
+%\chapter{Resolved atomization simulations}
+
+
+%\chapter{Lagrangian simulations}
+
+
+	\newpage
+
+%	\newpage
+%
+
+
+
+\fancyhead[LO]{}
+\fancyhead[RO]{Bibliography}
+\nocite{*}
+\addcontentsline{toc}{chapter}{Bibliography}
+% If Natbib is used for bibliography
+\bibliography{bibliography_thesis}
+% If biblatex is used:
+%\printbibliographyphyFile}
+
+
+\end{document}

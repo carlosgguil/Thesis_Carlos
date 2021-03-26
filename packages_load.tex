@@ -1,0 +1,104 @@
+
+%\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
+%\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+%\usepackage{amsfonts}
+%\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage[left=2.5cm,right=2.5cm,top=2cm,bottom=2cm]{geometry}  % marges
+\usepackage{color}
+\usepackage{xcolor}
+\setcounter{secnumdepth}{4} % augmentation de la num?rotation des sous-sections
+\setcounter{tocdepth}{3} % augmentation de la profondeur de la table des mati?res
+
+%\setlength{\parindent}{0cm} %Para las sangrias
+
+% Ce package je ne sais pas pour qu'il soit utilisé
+\usepackage{titlesec}
+
+% Ce package est pour plusiers rangées
+\usepackage{multirow}
+
+% Ce package est pour la représentation des molécules. Il a besoin de chemist.sty et assurechemist.sty
+\usepackage{chemist}
+
+% Ce package est pour la représentation des nombres et des unités de mesure
+%\usepackage{si}
+
+\usepackage{svg}
+
+\usepackage{bm}
+
+% Ce package est pour écrire les références avec natbit dans le Harvard style
+%\usepackage{natbib}
+%\addbibresource{files/bibliographyFile.bib}
+
+
+% Ce package est pour écrire les références avec biblatex: biblatex.sty, etoolbox.sty, logreq.sty, logreq.def, url.sty
+%\usepackage{biblatex}
+%\usepackage{cite}
+%\addbibresource{bibliographyFile.bib}
+%\DeclareNameAlias{sortname}{family-given}
+%\DeclareNameAlias{default}{family-given}
+
+% Ce package fait que les phrases ou expressions changent de ligne
+\usepackage{makecell}
+
+% Pour les hyperreferences
+\usepackage[hidelinks]{hyperref}
+
+% Pour changer l'orientation des foies
+\usepackage{pdflscape}
+\usepackage{lscape}
+%\usepackage[paper=portrait,pagesize]{typearea} % Careful! Changes all the document into portrait mode!
+
+% Pour emphatiser des equations (tables ...)
+%\usepackage{empheq}
+
+% Pour changer localement les margins
+\usepackage{changepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Pour la bibliographie %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Bibliographie avec natbib:
+\usepackage{natbib}
+\bibliographystyle{agsm} %agsm, unsrtnat
+
+\usepackage{subcaption}
+
+%% Bibliographie avec biblatex
+%\usepackage[backend=bibtex]{biblatex}
+%\addbibresource{files/bibliographyFile.bib}
+%\DeclareNameAlias{sortname}{family-given}
+%\DeclareNameAlias{default}{family-given}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\citeColor}[1][]{{\color{blue}\cite{#1}}}
+\newcommand{\citepColor}[1][]{({\color{blue}\citealt{#1}})}
+\newcommand{\citemColor}[1][]{({\color{blue}\citealt{#1}})}
+
+\newcommand{\introductoryParagraph}[1]{%
+\begin{adjustwidth}{1in}{1in}
+\textsl{#1}
+\end{adjustwidth}
+}
+
+\usepackage{gensymb}
+
+\usepackage{fancyhdr}
+
+\usepackage{empheq}
+\usepackage{relsize}
+
+\usepackage{upgreek}
+
+% PACKAGES TO ADD 
+%\usepackage{enumitem}   % https://stackoverflow.com/questions/2007627/latex-how-can-i-create-nested-lists-which-look-this-1-1-1-1-1-1-1-2-1-2
+
+\DeclareMathOperator\erf{erf}

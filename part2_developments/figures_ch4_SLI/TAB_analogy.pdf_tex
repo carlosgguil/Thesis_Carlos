@@ -1,0 +1,61 @@
+%% Creator: Inkscape inkscape 0.92.0, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'TAB_analogy.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{321.8129441bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.83012836)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{TAB_analogy.pdf}}%
+    \put(0.80526003,0.09908765){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{x}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{TAB_analogy.pdf}}%
+    \put(0.66949138,0.6489596){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{urel}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{TAB_analogy.pdf}}%
+    \put(0.47868128,0.41994122){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{r}}}%
+    \put(0.35906838,0.34236878){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{k}}}%
+    \put(0.41816429,0.21169166){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{c}}}%
+  \end{picture}%
+\endgroup%
