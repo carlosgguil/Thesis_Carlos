@@ -30,7 +30,7 @@ Comment statistical approaches ( 2000 SUbramanian, 2013 Vie, Vie 2013). Mention 
 
 In this chapter, 
 
-\section{Euler-Euler formalisms for dispersed phase}
+\section{Eulerian formalisms for dispersed phase}
 
 One common numerical method to solve
 
@@ -84,7 +84,7 @@ For the disperse phase, the corresponding equations are:
 
 Details on the equations and on their terms is not given here, as the EE method will not be used in this project. A more rigorous explanation of this model can be found in \citeColor[jaegle_large_2009] and in \citeColor[lancien_etude_2018].
 
-\section{Euler-Lagrange formalisms for spray transport}
+\section{Lagrangian point particle representation}
 \label{sec:ch3_EL_formalisms}
 
 
@@ -167,9 +167,26 @@ m_p C_{P_\mathrm{g}} \frac{d T_p}{d t} &= h_p \pi d_p^2 \left( T_\mathrm{g} - T_
 \end{align}
 \end{subequations}
 
-\section{State of the art on lagrangian injection models}
+\section{Lagrangian injection models for multipoint injection}
 \label{sec:ch3_state_art_lagrangian_injection}
 
-\subsection{Models based on empirical laws}
+A classification of models for liquid injection in dispersed phase computations is proposed in Figure \ref{fig:state_art_injection}.
 
-\subsection{The jet in crossflow}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{./part1_numerical_approaches/figures_ch3/state_art_lagrangian}
+	\caption{Classification of lagrangian injection models}
+	\label{fig:state_art_injection}
+\end{figure}
+
+\subsection{Airblast spray}
+
+Basically Chaussonnet.
+
+\subsection{Hollow cone spray}
+
+Basically FIMUR.
+
+\subsection{Liquid jet in crossflow}
+
+Aqui viene el arsenal.
