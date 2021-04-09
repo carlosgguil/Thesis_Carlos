@@ -239,6 +239,30 @@ Furthermore, a time-independent spray has been considered in all the previous pr
 \subsection{Convergence-driven discretization}
 \label{subsec:SLI_quadtrees_discretization}
 
+\subsubsection{Theory and concepts}
+
+\subsubsection{Numerical implementation}
+
+The numerical implementation of the process works as follows:
+
+\begin{enumerate}
+
+	\item From global spray, create a 3x3 grid (\textbf{parent grid}).
+	
+	\item From global spray, create a 6x6 grid (\textbf{children grid}).
+	
+	\item Map children elements to parent elements to check local convergence:
+	
+	\begin{enumerate}
+	
+		\item If all children elements belonging to parent element are converged, \textbf{refine}: keep statistics from 6X6 grid.
+		
+		\item If not all children elements are converged, then \textbf{unrefine}: store parent elements characteristics into grid (mean and RMS velocities, SMD, volume flux),  and divide flux by 4.
+	
+	\end{enumerate}
+
+\end{enumerate}
+
 
 \subsection{Injectors definition}
 
