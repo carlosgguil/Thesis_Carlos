@@ -3,22 +3,39 @@
 
 \section{Introduction}
 
-The previous chapter presented numerical methodologies applicable to separate two-phase flows. These are useful for solving problems where the dynamics of atomization need to be accurately resolved. Nonetheless, those methods cannot be applied in the dispersed phase regime, where atomization is complete and a spray composed of spherical droplets is fully formed. Such problems, often found when studying reactive processes where fuel is being injected into a combustion chamber, need a different representation of the liquid phase so that 1) the spray can be transported with acceptable computational costs and 2) can include more complex physics relevant to reactive problems, such as evaporation and combustion.
+The previous chapter presented numerical methodologies applicable to separate two-phase flows. These are useful for solving problems where the dynamics of atomization need to be accurately resolved. Nonetheless, those methods cannot be applied in the dispersed phase regime, where atomization is complete (or almost complete) and a spray composed of individual droplets is formed. Such problems, often found when studying reactive processes where fuel is injected into a combustion chamber, need a different representation of the liquid phase so that 1) the spray can be transported with acceptable computational costs and 2) can include more complex physics relevant to reactive problems, such as evaporation and combustion.
 
-Physics of dispersed phase flows are mainly distinguished from the separate regime by two main characteristics: small characteristic length scales (often smaller than the grid resolution), a very low liquid volume fraction. In the first case, the small scales will produce a strong interaction with the surrounding gas (??).
+The spray generated in the dispersed phase regime is mainly distinguished from liquid in the separate regime by the following features (represented in Figure \ref{fig:atomization_regimes_herrmann}):
 
-According to the value of the volume fraction, one can distinguish between intermediate regime (for moderately high values) and the dilute regime (for lower values). As illustrated in Figure \ref{fig:atomization_regimes_herrmann}, in the former case the distance between particles will be low, while in the latter the separation is larger. In terms of modeling, this means that in one case the interaction between droplets should be taken into account (four-way coupling), while in the other not (two-way coupling). 
+\begin{itemize}
+
+	\item The characteristic length scales of the particles. In dispersed phase flows, these ones are low and usually smaller than the resolution of the main grid.
+	
+	\item The value of the liquid volume fraction $\alpha_l$. In dispersed phase flows, $\alpha_l < 1$. According its value, one can distinguish between dense regime (moderate values of $\alpha_l$, particles are close to each other) and dilute regime (lower values of $\alpha_l$, usually below $10^{-3}$, particles are far from each other).
+
+\end{itemize}
+
+The numerical formalisms to resolved dispersed phase flows will hence depend on these two characteristics. It is also important to consider the interaction with the gaseous phase, since this one will depend by the resolution of the main grid. The interaction between the liquid and gaseous phases in dispersed phase flows can be quantified by means of the Stokes number $St$, defined as the ratio between the characteristic time-scale of a liquid particle $\tau_p$ and a characteristic time of the gaseous phase $\tau_g$: 
+
+\begin{equation}
+\label{eq:Stokes_number_definition_general}
+St = \frac{\tau_p}{\tau_g}
+\end{equation}
+
+A classification of numerical methods to simulate dispersed phase flows based on the volume fraction and the Stokes number has been done by \textbf{ref:2009-Balachandar}, shown in Figure \ref{fig:balachandar_numerical_methods_representation}. As it can be seen, the Stokes number will depend on the numerical methodology used to resolve the gaseous phase: in DNS, the smallest scales of turbulence with characteristic size $\upeta$ will be resolved and will have a characteristic time $\tau_k$, while in LES the smallest scales resolved $\upxi$ will be larger and their time-scales will be different ($\tau_\upxi$). Regarding the volume fraction, coupling strategies between liquid particles and gas can be used depending on its value: in the dilute regime particles are far from each other and the interactions among them can be neglected (one and two-way coupling), while in the dense regime the interaction between particles must be taken into account (four-way coupling). The difference between one and two-way coupling depends on if the influence of the liquid phase onto the gas is considered with source terms (two-way coupling) or if it is neglected, so that the gaseous phase will not be perturbed by the particles (one-way coupling).
 
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.5]{./part1_numerical_approaches/figures_ch3/balachandar_disperse_phase_classification}
-	\caption{Several numerical approaches to solve dispersed phase flows. Classification is done with respect to the liquid volume fraction and to the Stokes number or, equivalently, to the ratio of largest to smallest length scales, which depend on the numerical resolution.  Source: \textbf{ref:2009-Balachandar}}
+	\includegraphics[scale=0.6]{./part1_numerical_approaches/figures_ch3/balachandar_disperse_phase_classification}
+	\caption{Several numerical approaches to solve dispersed phase flows. Classification is done with respect to the liquid volume fraction (here defined as $\phi$) and to the Stokes number or, equivalently, to the ratio of largest to smallest length scales, which depend on the numerical resolution.  Source: \textbf{ref:2009-Balachandar}}
 	\label{fig:balachandar_numerical_methods_representation}
 \end{figure}
 
 
-One of the main characteristics
+\subsection{Existing approaches to model dispersed phase flows}
+
+
 
 Several approaches exist to study disperse phase. 
 
