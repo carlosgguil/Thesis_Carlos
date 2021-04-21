@@ -9,13 +9,7 @@ The fact that the injected liquid is kerosene is
 
 Here we describe the aerodynamic simulations performed with BIMER. Two operating points are simulated:
 
-\begin{itemize}
 
-	\item \citeColor[providakis_etude_2013] for \textbf{validation} of aerodynamic simulations, since this operating point shows experimental data for these conditions. Some experimental results are shown in the thesis of \citeColor[cheneau_etude_2019]
-	
-	\item \citeColor[renaud_high-speed_2015] for \textbf{application} only, once validation has been done. This condition does not present data on the aerodynamic state, but it will be used to simulate the spray (firstly resolved atomization without validation, and later validation on the lagrangian simulations).
-
-\end{itemize}
 
 \section{Experimental setup}
 
@@ -28,7 +22,7 @@ Dodecane properties are shown in Table \ref{tab:dodecane_properties}
 \hline
 $\rho$ [kg m$^{-3}]$   & $\mu$ [Pa s]   & $\sigma$ [N/m]  \\
 \hline
-750 & & \\
+750 & $1.36 \cdot 10^{-3}$ & $22 \cdot 10^{-3}$ \\
 \hline
 \end{tabular}
 \label{tab:dodecane_properties}
@@ -37,13 +31,59 @@ $\rho$ [kg m$^{-3}]$   & $\mu$ [Pa s]   & $\sigma$ [N/m]  \\
 
 \section{Choice of operating points}
 
+In first place, the 
+
+Gaseous flow simulations of BIMER have been performed for two operating conditions tested experimentally, with the purpose of using one condition for validation and the other for application:
+
+\begin{itemize}
+
+	\item \textbf{Validation} of the gaseous simulations is performed with the operating point tested experimentally by \citeColor[providakis_etude_2013], since this one presents data on the non-reactive aerodynamic field. The simulations are also compared to numerical results obtained for this same operating condition by \citeColor[cheneau_etude_2019]. 
+	
+	\item \textbf{Application} to the setup condition tested by \citeColor[renaud_high-speed_2015]. This study shows data on non-reactive spray characteristics, and hence it will be used as the application case to run the full workflow formerly introduced in Chapter \ref{ch:sli_development}. It is, nowever, not used for validating the gaseous simulations since it does not present pertinent data.
+
+\end{itemize}
+
+Both ope
+
+\begin{table}[!h]
+\centering
+\caption{Operating points for performing non-reactive gaseous simulations}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Operating condition   &  $\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}]$  & $\mu_g$ [Pa s] & $p$ [Pa]  \\
+\hline
+\hline
+Validation \citepColor[providakis_etude_2013] & 53 & 473 & 0.746089 & $2.571 \cdot 10^{-5}$ & 101300 \\
+\hline
+Application \citepColor[renaud_high-speed_2015] & 43.1 & 433 & 0.816382 & $2.3911 \cdot 10^{-5}$ & 101300 \\
+\hline
+\end{tabular}
+\label{tab:gaseous_operating_points_BIMER}
+\end{table}
+
+\begin{table}[!h]
+\centering
+\caption{BIMER operating point to validate non-reactive gaseous simulations tested by \citeColor[providakis_etude_2013]}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+$\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}]$  & $\mu_g$ [Pa s] & $p$ [Pa]  \\
+\hline
+\hline
+53 & 473 & 0.746089 & $2.571 \cdot 10^{-5}$ & 101300 \\
+\hline
+\end{tabular}
+\label{tab:gaseous_operating_point_Providakis}
+\end{table}
+
+
+
 \section{Numerical setup}
 
 \section{Validation of gaseous field}
 
 Show nice streamlines (Fig. 6.4 Esclapez-1) and PVC. It would be nice to compare them for both operating conditions
 
-\section{Application conditions}
+\section{Application point}
 
 \section{Conclusion}
 
