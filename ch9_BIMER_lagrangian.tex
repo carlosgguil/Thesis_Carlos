@@ -3,6 +3,47 @@
 
 \section{Introduction}
 
+\section{Numerical setup}
+
+For performing dispersed phase simulations, the operating point defined in Table \ref{tab:liquid_operating_point_Renaud} is simulated. The staging factor is $\alpha = 15$, meaning that $15 \%$ of the total liquid flow rate is injected through the pilot stage and the remaining liquid through the multipoint. For total flow rate of $\dot{m}_l = 1.64 g s^{-1}$, the multipoint stage injects a total $\dot{m}_{l,takeoff} = 1.39 g s^{-1}$ (hence $0.139 g s^{-1}$ per injector), and a value of $\dot{m}_{l,pilot} = 0.25 g s^{-1}$ is introduced through the pilot stage.
+
+\subsection{Multipoint stage injection}
+
+For the multipoint stage, the injectors obtained in Chapter \ref{ch:bimer_resolved_atomization} ($\S$ \textbf{Section??}) are used. These injectors were, however, obtained from the simulations of one single injector. In order to initialise the rest of multipoint injection holes (for a total of 10 in BIMER, see Figure \textbf{Figure??}), new numerical injectors need to be defined in each hole by making a revolution of the available ones. This revolution is possible due to the radial of BIMER in terms of injectors location (which are equally spaced to a distance of 25 mm from the center with a radial difference of 36 $\degree$) and the multipoint vane locations: each injection hole is located at the same location between two vanes, hence seeing the same incoming air (see Figure \textbf{Figure??})).
+
+Each injector will deliver a mass flow rate of $\dot{m}_{l,takeoff} = 0.139 g s^{-1}$, equivalent to a flow rate of $Q_l = 185.3 mm^3 s^{-1}$.
+
+
+\subsection{Pilot stage injection}
+
+Since pilot stage has not been simulated with the injection models developed in this thesis, another methodology must be employed. Given that the pilot of BIMER injects fuel following a hollow cone configuration, the LISA model will be used (\textbf{ref:Guedot-thesis}). 
+
+The input parameters for the LISA model to inject a hollow cone spray are summarized in Table \ref{tab:LISA_model_parameters}. They intend to replicate the pilot injection by \citeColor[renaud_high-speed_2015]. For the angle, an initial value of 30 $\degree$ is chosen (Stefano first guess), it can be iterated as we keep on refining the simulations. For the rayon, I have no idea what to do.
+
+For the injection diameter, the following correlation used by Lefebvre for pressure-swirl sprays is used:
+
+\begin{equation}
+SMD = 2.25 \left( \sigma \dot{m}_f \mu_l \right)^{0.25} \rho_g^{-0.25}  \Delta P^{-0.5}
+\end{equation}
+
+where $\Delta P$ is the pressure drop in the pilot nozzle. According to \citeColor[renaud_high-speed_2015], (p. 24, or 46 PDF), pilot liquid is injected at $2.7 MPa$ to the chamber at atmospheric pressure. By taking this pressure drop, and using the values given in Table \ref{tab:liquid_operating_point_Renaud}, this correlation provides a SMD of $15 \mu m$ (\textbf{CHECK THIS}).
+\begin{table}[!h]
+\centering
+\caption{LISA model setup for pilot injection}
+\begin{tabular}{|c|c|}
+\hline
+Parameter & Value \\
+\hline
+Mass flow rate $\dot{m} [g s^{-1}]$ & 0.25 \\
+\hline
+Rayon $R [mm]$ & ?? \\
+\hline
+Mean angle $\overline{\theta} [\degree]$ & ?? \\
+\hline
+\end{tabular}
+\label{tab:LISA_model_parameters}
+\end{table}
+
 \section{Injector definition for resolved atomization hole}
 
 \section{Extrapolation of injectors to rest of multipoint holes}
