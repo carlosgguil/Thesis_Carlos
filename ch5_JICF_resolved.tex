@@ -43,21 +43,143 @@ Describe here all our simulations done with JICF, what we have achieved with the
 
 \end{itemize}
 
+\newpage 
+
 \section{Introduction}
 
 \section{Experimental test case}
 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{./part2_developments/figures_ch5_resolved_JICF/experiment_JICF_DLR}
+	\caption{\textsl{Left}: Experimental setup at DLR. \textsl{Right}: liquid nozzle geometry employed in the experimental study. Source: }
+	\label{fig:experiment_JICF_DLR}
+\end{figure}
+
+Numerical simulations are validated with the experimental correlation obtained by~\cite{ref:Becker2002} for the vertical jet penetration. It has been obtained by testing experimentally several operating conditions, and has a standard deviation of value $0.81$. The correlation corresponds to the trajectory of the jet's windward side, and is given by:
+
+\begin{equation}
+    \label{eq:jicf_trajectory_becker}
+    \frac{z}{d_\mathrm{inj}} = 1.57 \mathrm{q}^{0.36} \ln \left( 1 + 3.81 \frac{x}{d_\mathrm{inj}} \right)
+\end{equation}
+
+The accuracy of the mean numerical trajectories can be quantitatively assessed by defining a $L_2$ error as in Eq.~(\ref{eq:L2_JICF}): 
+
+\begin{equation}
+\label{eq:L2_JICF}
+    L_2 = \sqrt{\frac{1}{N}   \sum_{i=1}^N \left( \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{exp},i} -   \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{num},i} \right)^2}
+\end{equation}
+
 \section{Computational setup}
 
 
-
 \section*{Numerical domain}
+
+
+\begin{figure}[ht]
+     \centering
+     \includeinkscape[scale=0.4]{./part2_developments/figures_ch5_resolved_JICF/DLR_becker_numerical_config}
+      \caption{Numerical domain and boundary conditions of the experimental test bench of fdsq. \textsl{Left}: complete domain. \textsl{Right}: detailed view of the injection nozzle. All dimensions are in mm.}
+      \label{fig:numerical_setup_maquette_JICF_DLR}
+\end{figure}
 
 \section*{Operating conditions}
 
 %\section{YALES2 code (??)}
 
+\section{Numerical computation of jet trajectory}
+
+As explained in $\S$\ref{sec:ch1_fuel_injection_technology}, one of the most important features of a jet in crossflow is its trajectory. Experimental studies (\textbf{ref?}) often provide correlations for the trajectory of the windward side of the jet, such as the one from Eq. (\ref{eq:jicf_trajectory_becker}). These correlations depend on factors such as the momentum flux ratio $q$, the injection diameter $d_\mathrm{inj}$ and, in some case (\textbf{ref:Ragucci}), in the Weber number $We$. The overall dependency of the trajectory on these parameters is still unknown and an ongoing research topic.
+
+It is therefore of interest, to obtain the trajectory for the jet penetration in the performed resolved simulations. Several methods can be used for this purpose. This section describes four possible methodologies, two based on processing instantaneous trajectories and two based on processing the mean $\psi$ field. The results obtained with these methodologies are shown in $\S$\ref{sec:results_JICF_resolved}.
+
+\subsection{Methods based on instantaneous trajectories}
+
+One possible way of obtaining tra
+
+\begin{figure}[ht]
+     \centering
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch5_resolved_JICF/trajectories_obtention/instantaneous_interface_3D}
+         %\caption{Instantaneous jet interface}
+     \end{subfigure}
+     %\hfill
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch5_resolved_JICF/trajectories_obtention/instantaneous_interface_y0}
+         %\caption{Contour of instantaneous interface at plane y = 0}
+     \end{subfigure}
+        \caption{\textsl{Left}: instantaneous jet interface. \textsl{Right}: contour of instantaneous interface at plane y = 0}
+	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
+        \label{fig:trajectory_obtention_instantaneous_general}
+\end{figure}
+
+
+\subsubsection*{Non-monotonic trajectory}
+
+
+\begin{figure}[ht]
+     \centering
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch5_resolved_JICF/trajectories_obtention/method_a_sweep_nonMonotonic}
+         %\caption{Instantaneous jet interface}
+     \end{subfigure}
+     %\hfill
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch5_resolved_JICF/trajectories_obtention/method_a_inst_trajectory}
+         %\caption{Contour of instantaneous interface at plane y = 0}
+     \end{subfigure}
+        \caption{Obtention of non-monotonic instantaneous trajectory. \textsl{Left}: sweep process along z axis of interface points. \textsl{Right}: instantaneous trajectory.}
+	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
+        \label{fig:trajectory_obtention_instantaneous_method_a}
+\end{figure}
+
+
+\subsubsection*{Monotonic trajectory}
+
+
+\begin{figure}[ht]
+     \centering
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch5_resolved_JICF/trajectories_obtention/method_b_sweep_monotonic}
+         %\caption{Instantaneous jet interface}
+     \end{subfigure}
+     %\hfill
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch5_resolved_JICF/trajectories_obtention/method_b_inst_trajectory}
+         %\caption{Contour of instantaneous interface at plane y = 0}
+     \end{subfigure}
+        \caption{Obtention of monotonic instantaneous trajectory. \textsl{Left}: sweep process along z axis of interface points, excluding points whose vertical location is lower than the vertical location of the previous ones. \textsl{Right}: instantaneous trajectory.}
+	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
+        \label{fig:trajectory_obtention_instantaneous_method_b}
+\end{figure}
+
+
+\subsection{Methods based on the mean levelset field}
+
+Another possibility to obtain mean trajectories is by using the mean field of the levelset magnitude, $\overline{\phi}$. 
+
+\subsubsection*{Maximum gradient method}
+
+This method is more similar to the experimental methods presented in \textbf{ref:2002-Becker} and \textbf{ref:2008-Freitag}, since they obtain the trajectory as the contour giving the maximum intensity gradient in the vertical direction in processed images of the mean jet.
+
+\begin{equation}
+\max \left( \nabla \overline{\phi} \right)
+\end{equation}
+
+\subsubsection*{Trajectory as iso-contour of mean levelset}
+
+
+
+
+
 \section{Results}
+\label{sec:results_JICF_resolved}
 
 \subsection{Validation with experimental trajectory}
 
@@ -72,6 +194,20 @@ Describe here all our simulations done with JICF, what we have achieved with the
 \subsubsection{Sampling procedure for droplets}
 
 \subsubsection{Droplets size distributions}
+
+\subsubsection{Definition of characteristic times}
+
+Several characteristic times can be defined in a jet in crossflow:
+
+\begin{itemize}
+
+	\item Characteristic time of ligaments passage at given planes, $t_\mathrm{pas}$
+	
+	\item Characteristic time related to the frequency of the instabilities causing column breakup, $t_\mathrm{ins}$
+	
+	\item Physical definition according to ...
+
+\end{itemize}
 
 \subsubsection{Direct measurement of fluxes (interior boundaries)}
 \label{subsubsec:ch5_interior_boundaries}

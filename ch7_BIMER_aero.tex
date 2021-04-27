@@ -1,5 +1,5 @@
 \chapter{Gaseous flow in BIMER multipoint injector}
-	\label{ch:bimer_test_bench}
+	\label{ch9:bimer_test_bench_and_aero}
 
 \section{Introduction}
 
@@ -79,9 +79,69 @@ $\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}]$  & $\mu_g$ [Pa s] 
 
 \section{Numerical setup}
 
+\section{Mesh independence study}
+
 \section{Validation of gaseous field}
 
-Show nice streamlines (Fig. 6.4 Esclapez-1) and PVC. It would be nice to compare them for both operating conditions
+Results are contained here: $Ongoing - BIMER - postprocessing - aero$. They were discussed in the pilotage of 16 March 2021.
+
+%Show nice streamlines (Fig. 6.4 Esclapez-1) and PVC. It would be nice to compare them for both operating conditions
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.7]{./part3_applications/figures_aero/quantitative_view_mean_velocity_field}
+	\caption{Mean velocity field .}
+	\label{fig:quantitative_view_mean_velocity_field}
+\end{figure}
+
+
+\subsection{Qualitative validation}
+
+
+See Figure \ref{fig:validation_qualitative_u}: \ref{fig:validation_qualitative_u_mean} and \ref{fig:validation_qualitative_u_rms}.
+
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{1.0\textwidth}
+	\centering
+   \includegraphics[scale=1.0]{./part3_applications/figures_aero/validation_qualitative_u_mean}
+   \caption{Mean axial velocity}
+   \label{fig:validation_qualitative_u_mean} 
+\end{subfigure}
+\begin{subfigure}[b]{1.0\textwidth}
+	\centering
+   \includegraphics[scale=1.0]{./part3_applications/figures_aero/validation_qualitative_u_rms}
+   \caption{RMS axial velocity}
+   \label{fig:validation_qualitative_u_rms}
+\end{subfigure}
+\caption{Fields of axial velocity in enclosed region from Figure \ref{fig:quantitative_view_mean_velocity_field}. \textsl{Left}: experimental results. \textsl{Center}: numerical results obtained by \citeColor[cheneau_etude_2019]. \textsl{Right}: results from present work.}
+\label{fig:validation_qualitative_u}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{1.0\textwidth}
+	\centering
+   \includegraphics[scale=1.0]{./part3_applications/figures_aero/validation_qualitative_v_mean}
+   \caption{Mean vertical velocity}
+   \label{fig:validation_qualitative_v_mean} 
+\end{subfigure}
+\begin{subfigure}[b]{1.0\textwidth}
+	\centering
+   \includegraphics[scale=1.0]{./part3_applications/figures_aero/validation_qualitative_v_rms}
+   \caption{RMS vertical velocity}
+   \label{fig:validation_qualitative_v_rms}
+\end{subfigure}
+\caption{Fields of vertical velocity in enclosed region from Figure \ref{fig:quantitative_view_mean_velocity_field}. \textsl{Left}: experimental results. \textsl{Center}: numerical results obtained by \citeColor[cheneau_etude_2019]. \textsl{Right}: results from present work.}
+\label{fig:validation_qualitative_v}
+\end{figure}
+
+
+
+
+
+\subsection{Quantitative validation}
 
 \section{Application point}
 

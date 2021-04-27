@@ -59,10 +59,9 @@ One of the first concepts aiming at reducing emissions is the \textbf{Rich-Burn,
 	\label{fig:NOX_motivation_and_RQL}
 \end{figure}
 
-
 The need of reducing NO$_\mathrm{x}$ emissions to the levels settled by authorities led to the development of lean combustion strategies, usually referred as low-NO$_\mathrm{x}$ (\textbf{ref:1980-Tacina}). In order to foster lean combustion, low-NO$_\mathrm{x}$ concepts introduce an excess of air at the vicinity of the injector: around $70 ~\%$ of air is introduced in the combustion chamber at this location (primary zone), while the rest is used further downstream for effusion cooling. Compared to conventional combustors, where around $30 ~\%$ of air is injected in the primary zone and the rest is introduced further downstream through dilution holes, this allows to reduce the length of the combustion chamber and hence the residence time of combustion, directly linked to NO$_\mathrm{x}$ formation \citepColor[lefebvre_gas_2010]. Furthermore, operating directly at lean regimes will also reduce the formation of soot and CO emissions, which is the main disadvantage of RQL. One of the first lean combustion concepts is the \textbf{Lean Direct Injection} (\textbf{LDI}) technology (\textbf{ref:Tacina-1983}, see Dunn-Ranking p. 163 PDF), where fuel is directly introduced into the reaction zone without previous premixing. Lower peak temperatures and residence times are obtained, hence reducing pollutant formation. Contrarily, LDI concepts can produce a non-uniform combustion if mixing is not complete. In this respect, the \textbf{Lean Premixed Prevaporized} (\textbf{LPP}) technology appeared to palliate this issue (\textbf{ref:Bittlinger-1999}): a premixing length is added before the reaction zone, so that complete evaporation of fuel and mixing can take place before triggering combustion. LPP concepts need, however, a longer combustion chamber to account for the dilution zone, and are more prone to suffer autoignition, flashback and thermoacoustic instabilities.
 
-A good trade-off between both LDI and LPP is obtained with \textbf{Multi-Staged Fuel Injection} (MSFI) (\textbf{ref:2006-Penanhoat}). Fuel is introduced in the combustion chamber through two main stages: a \textbf{pilot stage} for flame stabilization purposes, and a \textbf{main stage} (also called multipoint or take-off stage) where the most of premixing takes place (see Figure \ref{fig:foust_TAPS} left). The combination of both injection systems creates a flame that burns in lean conditions and reduces combustion instabilities compared to other low-NO$_\mathrm{x}$ concepts (\textbf{ref:Barbosa-2009}, see Renaud 2015 thesis). The percentage of fuel introduced through each stage can be controlled in order to optimize the combustion performance depending on the flight phase: this procedure is called staging. Considerable reductions in emissions can be obtained with MSFI in conditions where most of NO$_\mathrm{x}$ is produced, such as climb and cruise. Figure \ref{fig:foust_TAPS} right shows the improvements in pollution of a multi-staged fuel injector named Twin Annular Premixing Swirler (TAPS) \citepColor[foust_development_2012] compared to a RQL combustor.
+A good trade-off between both LDI and LPP is obtained with \textbf{Multi-Staged Fuel Injection} (MSFI) (\textbf{ref:2006-Penanhoat}). Fuel is introduced in the combustion chamber through two main stages: a \textbf{pilot stage} for flame stabilization purposes, and a \textbf{take-off stage} (also called multipoint ) where the most of premixing takes place (see Figure \ref{fig:foust_TAPS} left). The combination of both injection systems creates a flame that burns in lean conditions and reduces combustion instabilities compared to other low-NO$_\mathrm{x}$ concepts (\textbf{ref:Barbosa-2009}, see Renaud 2015 thesis). The percentage of fuel introduced through each stage can be controlled in order to optimize the combustion performance depending on the flight phase: this procedure is called staging. Considerable reductions in emissions can be obtained with MSFI in conditions where most of NO$_\mathrm{x}$ is produced, such as climb and cruise. Figure \ref{fig:foust_TAPS} right shows the improvements in pollution of a multi-staged fuel injector named Twin Annular Premixing Swirler (TAPS) \citepColor[foust_development_2012] compared to a RQL combustor.
 
 \begin{figure}[h!]
 	\centering
@@ -71,24 +70,137 @@ A good trade-off between both LDI and LPP is obtained with \textbf{Multi-Staged 
 	\label{fig:foust_TAPS}
 \end{figure}
 
-MSFI are a promising technology for fuel injection in aeronautical combustors, and manufacturers such as Safran are working in developing these systems for their application in future engines. Since their main characteristic is fuel staging, processes prior to combustion (such as injection, atomization and mixing) are fundamental for MSFI performance, and their proper comprehension is paramount to optimize such systems. The next sections makes a review on the two-phase flow physical mechanisms of injection and atomization relevant to MSFI.
+MSFI are a promising technology for fuel injection in aeronautical combustors, and manufacturers such as Safran are working in developing these systems for their application in future engines. Since their main characteristic is fuel staging, processes prior to combustion (such as injection, atomization and mixing) are fundamental for MSFI performance, and their proper comprehension is paramount to optimize such systems. The next sections makes a review on the two-phase flow physical mechanisms of injection and atomization relevant to these injection systems.
 
 
 \section{Fuel injection technology}
+\label{sec:ch1_fuel_injection_technology}
+
+An example of a multipoint injector is shown in Figure \ref{fig:multipoint_injector_snecma}. Fuel is injected through two inlets: a central nozzle (the pilot stage), where fuel is injected with a pressure-swirl atomizer spreading as a \textbf{hollow cone} spray, and the multipoint injectors located in a crown around the central injector (the take-off stage), where fuel is injected in a \textbf{jet in crossflow} configuration. As seen in the figure, these two injection systems will produce atomization of the fuel shortly after the injection location. Furthermore, a third atomization mechanisms is if the opening angle of the hollow cone is large enough; in this case, liquid can impinge the walls of the injector and break due to the interaction with the aerodynamics and the liquid wall, forming an \textbf{airblast} spray. As a consequence of these three atomization mechanisms, a dispersed spray will be formed further downstream the injection chamber. This spray will be later able to evaporate, mix with the surrounding air and burn in the combustion process.
+
+%\begin{figure}[ht]
+%     \centering
+%     \begin{subfigure}[b]{0.45\textwidth}
+%         \centering
+%         \includeinkscape[inkscapelatex=false,scale=0.35]{./part0_intro/multipoint_injector_snecma}
+%     \end{subfigure}
+%     %\hfill
+%     \begin{subfigure}[b]{0.45\textwidth}
+%         \centering
+%          \includegraphics[scale=0.5]{./part0_intro/BIMER_swirler}
+%     \end{subfigure}
+%        \caption{\textsl{Left}: Size histogram evolution with accumulation time of droplets. \textsl{Right}: comparison of two droplet size histograms from two consecutive time instants.}
+%	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
+%        \label{fig:multipoint_injectors}
+%\end{figure}
+
+\begin{figure}[ht]
+     \centering
+     \includeinkscape[inkscapelatex=false,scale=0.5]{./part0_intro/multipoint_injector_snecma}
+      \caption{Multipoint injector from SNECMA (source: \ref{jaegle_large_2009}) showing the atomization mechanisms present in MSFI systems.}
+      \label{fig:multipoint_injector_snecma}
+\end{figure}
+
+This thesis aims at studying the non-reactive processes of injection and atomization, but not the reactive phenomena of evaporation, mixing and combustion. Hence, in the subsequent sections the process of atomization is described. In particular, emphasis is done in the jet in crossflow configuration found in MSFI, which has been the object of study of this thesis.
+
+\subsection*{The atomization process}
+
+Liquid fuel injected into combustion chamber cannot be evaporated straightforward because the specific surface of fuel (i.e. the surface of fuel which is in contact with the continuous gas) is not high enough. Hence, this specific surface is increased by breaking the continuous liquid jet into smaller fragments in the process of atomization. \textbf{ref:Lefebvre-atom} defines atomization as \textsl{the process by which a liquid jet or sheet is disintegrated by the kinetic energy of the liquid, by the exposure to
+high-velocity air or gas, or by mechanical energy applied externally through a rotating or vibrating device}.
+
+Atomization is triggered by instabilities which are found naturally in liquids jets. \textbf{ref:Rayleight-1978} found that jet breakup oin smaller drops is produced due to the growth of small disturbances in the liquid. This disturbances are amplified by the aerodynamic interaction with the surrounding air, enhancing the energy transfer between both phases. Turbulence of the liquid jet also amplifies these disturbances: if the fuel is being injected in a turbulent state (i.e. at a high Reynolds number), atomization will occur promptly. 
+
+Atomization is generally divided by the scientific community in two parts primary atomization and the secondary atomization. In primary atomization, the continuous liquid phase breaks into big ligaments and droplets. These fragments then split into small droplets during the secondary atomization. Figure \ref{fig:atomization_regimes_herrmann} shows a schematic sketch of liquid jet injection and the atomization process. Two main regimes of atomization are distinguished:
+
+\begin{itemize}
+
+	\item \textbf{Primary atomization}.  See the regimes in Figure \ref{fig:regimes_atomization_primary}.
+	
+	\item \textbf{Secondary atomization}.  See the regimes in Figure \ref{fig:regimes_atomization_secondary}.
+
+\end{itemize}
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.5]{./part0_intro/atomization-regimes-scheme}
-	\caption{Atomization breakup regimes \citepColor[herrmann_modeling_2003]}
+	\caption{Atomization breakup regimes. Source: \citeColor[herrmann_modeling_2003]}
 	\label{fig:atomization_regimes_herrmann}
 \end{figure}
-
-\subsection*{Atomization process}
 
 Explain two-phase flows phenomenology (injection + atomization) here. 
 
 Explain airblast, hollow-cone, jicf.
 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{./part0_intro/regimes_atomization_primary}
+	\caption{Primary atomization regimes. Source: \textbf{ref:lefebvre-atomization-sprays}}
+	\label{fig:regimes_atomization_primary}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{./part0_intro/regimes_atomization_secondary}
+	\caption{Secondary atomization regimes. Source: \textbf{ref:pilch-and-erman-1987}}
+	\label{fig:regimes_atomization_secondary}
+\end{figure}
+
+
+\subsection*{Jet in crossflow atomization}
+
+In a liquid JICF, the liquid jet faces a transverse stream of air at the nozzle exit. The liquid jet is bended towards the trajectory of the airflow, and then starts to suffer from atomization. The aerodynamic interaction with the airflow and the inertia of the jet will be responsible for all the processes involved: it will influence
+the penetration of the liquid jet, how fine and prompt the atomization will be and the later mixing with the air. In a reactive configuration, atomization will be followed by evaporation into gaseous fuel, mixing with air and finally combustion. Figure \ref{fig:JICF_multiphysics} illustrates all the multi-physical processes involved in a liquid JICF from fuel injection until combustion, relevant for the application inside future aeronautical combustors.
+
+
+\begin{figure}[ht]
+     \centering
+     \includeinkscape[scale=0.75]{./part0_intro/JICF_multiphysics}
+      \caption{Multi-physics phenomena in a reactive jet in crossflow. }
+      \label{fig:JICF_multiphysics}
+\end{figure}
+
+The atomization process in liquid JICF has been studied experimentally by several authors (\textbf{ref:} Adelberg 1968, Wu et al. 1997, Becker et Hassa 1999, Freitag et Hassa 2008). Their studies have identified two main mechanisms of primary breakup:
+
+\begin{itemize}
+
+	\item \textbf{Column breakup}. Surface waves on the liquid column start to grow until the jet breaks into ligaments,
+which eventually turn into droplets during secondary atomization. An example is shown in Figure \ref{fig:JICF_breakup_mechanisms_freitag}
+left, showing the surface waves caused by Kelvin-Helmholtz instabilities. This type of breakup occurs
+when the aerodynamic interaction is not too strong (low relative liquid-air velocities).
+
+\item \textbf{Surface breakup}. A strong aerodynamic interaction (large relative liquid-air velocity, high viscosity,
+etc.) produces the disintegration of the liquid jet by means of shear. Ligaments and droplets are
+stripped off the sides of the jet, which eventually is torn apart into droplets. Surface breakup can be
+appreciated in Figure \ref{fig:JICF_breakup_mechanisms_freitag} right.
+
+\end{itemize}
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{./part0_intro/JICF_breakup-mechanisms_freitag}
+	\caption{Experimental images of kerosene JICF breakup. \textsl{Left}: column breakup. \textsl{Left}: surface breakup. Source: \textbf{ref:freitag-and-hassa}}
+	\label{fig:JICF_breakup_mechanisms_freitag}
+\end{figure}
+
+Explain trajectory, breakup/breakdown points, influences of parameters, breakup regimes.
+
+
+
 \section{Objective and thesis outline}
     %\addcontentsline{toc}{section}{\protect\numberline{}Manuscript organisation}
+    
+The purpose of this thesis is to develop a new methodology to build lagrangian injectors for performing dispersed phase simulations. 
+
+The thesis is divided in three main sections as follows:
+
+\begin{itemize}
+
+	\item \textbf{Part I} shows the state of the art in numerical methods to simulate two-phase flows. Different strategies are used depending on the atomization regimes as shown in Figure \ref{fig:atomization_regimes_herrmann}. Chapter \ref{ch2:numerical_methods_resolved_atomization} reviews methodologies aiming at resolving atomization, applicable to dense regimes and useful when the atomization dynamics need to be known, but out of scope for reactive simulations including combustion. Chapter \ref{ch3:disperse_phase_methods} discusses methodologies to simulate dispersed-phase problems, with a particular emphasis on the state of the art in lagrangian methodologies to simulate injection in MSI.
+	
+	\item \textbf{Part II} describes the design and application of the methodology developed in this thesis. This methodology is thoroughly described in Chapter . Then, application of this methodology to build lagrangian injectors in an academic non-reactive kerosene jet in crossflow test case is done in Chapter \ref{ch5:jicf_resolved_simulations}. The obtained injectors are then applied in the same configuration to initialise dispersed phase simulations in Chapter \ref{ch4:sli_development}.
+	
+	\item \textbf{Part III} focuses on the application of the injection models in an academic MSFI tested at EM2C named BIMER. An introduction to the test bench and simulations of the aerodynamic field are presented in Chapter \ref{ch9:bimer_test_bench_and_aero}. Then, Chapter \ref{ch8:bimer_resolved_atomization} describes resolved simulations of the atomization process in BIMER performed for one multipoint injector, from which lagrangian injectors are learnt. Finally, Chapter \ref{ch9:BIMER_lagrangian} shows the application of the learnt injectors to initialise lagrangian injection in the take-off stage of BIMER.
+
+\end{itemize}
 
