@@ -7,11 +7,28 @@ The jet in crossflow atomizer from the previous chapters is an academic test cas
 
 The fact that the injected liquid is kerosene is 
 
-Here we describe the aerodynamic simulations performed with BIMER. Two operating points are simulated:
+This chapter introduces the experimental test bench BIMER and the numerical setup for replicating this geometry. Non-reactive simulations of the aerodynamic flow field without liquid injection are reported. Two experimental operating points are simulated: one studied in the thesis of \citeColor[providakis_etude_2013] for validating the numerical simulations, and another one studied by \citeColor[renaud_high-speed_2015] that will be used for performing a two-phase study in Chapters \ref{ch8:bimer_resolved_atomization} and \ref{ch9:BIMER_lagrangian}.
 
 
 
 \section{Experimental setup}
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=1.0]{./part3_applications/figures_ch7_aero/BIMER_test_bench_expe_maquette}
+	\caption{BIMER experimental test bench schematic view. Source: \citeColor[cheneau_etude_2019].}
+	\label{fig:BIMER_test_bench_expe_maquette}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.7]{./part3_applications/figures_ch7_aero/BIMER_swirler}
+	\caption{Swirler injector of the BIMER test bench, showing pilot and take-off stages. \textsl{Left}: schematic cross-section of the injector, indicating air and liquid inlets. \textbf{Right}: experimental view of the injector. Source: \citeColor[renaud_high-speed_2015].}
+	\label{fig:BIMER_swirler}
+\end{figure}
+
+
 
 Dodecane properties are shown in Table \ref{tab:dodecane_properties}
 
@@ -30,6 +47,8 @@ $\rho$ [kg m$^{-3}]$   & $\mu$ [Pa s]   & $\sigma$ [N/m]  \\
 
 
 \section{Choice of operating points}
+
+
 
 In first place, the 
 
@@ -89,7 +108,7 @@ Results are contained here: $Ongoing - BIMER - postprocessing - aero$. They were
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.7]{./part3_applications/figures_aero/quantitative_view_mean_velocity_field}
+	\includegraphics[scale=0.7]{./part3_applications/figures_ch7_aero/quantitative_view_mean_velocity_field}
 	\caption{Mean velocity field .}
 	\label{fig:quantitative_view_mean_velocity_field}
 \end{figure}
@@ -105,13 +124,13 @@ See Figure \ref{fig:validation_qualitative_u}: \ref{fig:validation_qualitative_u
 \centering
 \begin{subfigure}[b]{1.0\textwidth}
 	\centering
-   \includegraphics[scale=1.0]{./part3_applications/figures_aero/validation_qualitative_u_mean}
+   \includegraphics[scale=1.0]{./part3_applications/figures_ch7_aero/validation_qualitative_u_mean}
    \caption{Mean axial velocity}
    \label{fig:validation_qualitative_u_mean} 
 \end{subfigure}
 \begin{subfigure}[b]{1.0\textwidth}
 	\centering
-   \includegraphics[scale=1.0]{./part3_applications/figures_aero/validation_qualitative_u_rms}
+   \includegraphics[scale=1.0]{./part3_applications/figures_ch7_aero/validation_qualitative_u_rms}
    \caption{RMS axial velocity}
    \label{fig:validation_qualitative_u_rms}
 \end{subfigure}
@@ -123,13 +142,13 @@ See Figure \ref{fig:validation_qualitative_u}: \ref{fig:validation_qualitative_u
 \centering
 \begin{subfigure}[b]{1.0\textwidth}
 	\centering
-   \includegraphics[scale=1.0]{./part3_applications/figures_aero/validation_qualitative_v_mean}
+   \includegraphics[scale=1.0]{./part3_applications/figures_ch7_aero/validation_qualitative_v_mean}
    \caption{Mean vertical velocity}
    \label{fig:validation_qualitative_v_mean} 
 \end{subfigure}
 \begin{subfigure}[b]{1.0\textwidth}
 	\centering
-   \includegraphics[scale=1.0]{./part3_applications/figures_aero/validation_qualitative_v_rms}
+   \includegraphics[scale=1.0]{./part3_applications/figures_ch7_aero/validation_qualitative_v_rms}
    \caption{RMS vertical velocity}
    \label{fig:validation_qualitative_v_rms}
 \end{subfigure}

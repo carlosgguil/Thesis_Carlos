@@ -22,24 +22,25 @@ The numerical formalisms to resolved dispersed phase flows will hence depend on 
 St = \frac{\tau_p}{\tau_g}
 \end{equation}
 
-A classification of numerical methods to simulate dispersed phase flows based on the volume fraction and the Stokes number has been done by \textbf{ref:2009-Balachandar}, shown in Figure \ref{fig:balachandar_numerical_methods_representation}. As it can be seen, the Stokes number will depend on the numerical methodology used to resolve the gaseous phase: in DNS, the smallest scales of turbulence with characteristic size $\upeta$ will be resolved and will have a characteristic time $\tau_k$, while in LES the smallest scales resolved $\upxi$ will be larger and their time-scales will be different ($\tau_\upxi$). Regarding the volume fraction, coupling strategies between liquid particles and gas can be used depending on its value: in the dilute regime particles are far from each other and the interactions among them can be neglected (one and two-way coupling), while in the dense regime the interaction between particles must be taken into account (four-way coupling). The difference between one and two-way coupling depends on if the influence of the liquid phase onto the gas is considered with source terms (two-way coupling) or if it is neglected, so that the gaseous phase will not be perturbed by the particles (one-way coupling).
+A classification of numerical methods to simulate dispersed phase flows based on the volume fraction and the Stokes number has been done by \citeColor[balachandar_scaling_2009], shown in Figure \ref{fig:balachandar_numerical_methods_representation}. As it can be seen, the Stokes number will depend on the numerical methodology used to resolve the gaseous phase: in DNS, the smallest scales of turbulence with characteristic size $\upeta$ will be resolved and will have a characteristic time $\tau_k$, while in LES the smallest scales resolved $\upxi$ will be larger and their time-scales will be different ($\tau_\upxi$). Regarding the volume fraction, coupling strategies between liquid particles and gas can be used depending on its value: in the dilute regime particles are far from each other and the interactions among them can be neglected (one and two-way coupling), while in the dense regime the interaction between particles must be taken into account (four-way coupling). The difference between one and two-way coupling depends on if the influence of the liquid phase onto the gas is considered with source terms (two-way coupling) or if it is neglected, so that the gaseous phase will not be perturbed by the particles (one-way coupling).
 
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.6]{./part1_numerical_approaches/figures_ch3/balachandar_disperse_phase_classification}
-	\caption{Several numerical approaches to solve dispersed phase flows. Classification is done with respect to the liquid volume fraction (here defined as $\phi$) and to the Stokes number or, equivalently, to the ratio of largest to smallest length scales, which depend on the numerical resolution.  Source: \textbf{ref:2009-Balachandar}}
+	\caption{Several numerical approaches to solve dispersed phase flows. Classification is done with respect to the liquid volume fraction (here defined as $\phi$) and to the Stokes number or, equivalently, to the ratio of largest to smallest length scales, which depend on the numerical resolution.  Source: \citeColor[balachandar_scaling_2009]}
 	\label{fig:balachandar_numerical_methods_representation}
 \end{figure}
 
 
-\subsection{Existing approaches to model dispersed phase flows}
+\section{Numerical approaches to model dispersed phase flows}
+
 
 
 
 Several approaches exist to study disperse phase. 
 
-Comment statistical approaches ( 2000 SUbramanian, 2013 Vie, Vie 2013). Mention that they are out of the scope of this thesis, so we are gonna focus on EE and EL.
+
 
 %\section{Spray characterisation (??)}
 
@@ -47,61 +48,47 @@ Comment statistical approaches ( 2000 SUbramanian, 2013 Vie, Vie 2013). Mention 
 
 In this chapter, 
 
-\section{Eulerian formalisms for dispersed phase}
+\subsection{Spray representation}
 
-One common numerical method to solve
+A spray composed of dispersed droplets can be characterized by means of a number density function $f$. This function depends on time $t$, space $\textbf{x}$, velocity $\textbf{v}$ and radius $r$, and can be expressed as follows (\textbf{ref:2000-subramanian}):
 
-An Eulerian description of the fluid flow (EE) takes a control volume and averages the properties of the fluid flow within it. Both the carrier and dispersed phase are resolved in the same grid, which can save computational time. For characterizing the dispersed phase, averaged properties and statistical tools are used to solve the Navier-Stokes equations. It presents, however, the following disadvantages \citepColor[garcia_developpement_2009]:
+\begin{equation}
+f \left( t, \textbf{x}, \textbf{v}, r \right) = \sum_{p=1}^{N_d} \delta \left( \textbf{x} - \textbf{x}_p \left( t \right) \right)  \delta \left( \textbf{v} - \textbf{v}_p \left( t \right) \right) \delta \left( \textbf{r} - \textbf{r}_p \left( t \right) \right)
+\end{equation}
 
-\begin{enumerate}
+where $N_d$ is the number of droplets in the spray, and $\textbf{x}_p$, $\textbf{v}_p$ and $r_p$ are each individual particles position, velocity and radius respectively. The function $f$ contains all the necessary information to represent the spray. The number of droplets in a spatial region $\left[ \textbf{x} + d\textbf{x} \right]$, 
 
-\item A non-robust system of equations is produced.
-
-\item Interactions of the particles with the walls and among themselves are very difficult (if not impossible) to model.
-
-\end{enumerate}
-
-The carrier phase is solved from the Navier-Stokes equations (\ref{eq:navier-stokes}) applied to gas, neglecting the conservation of species as there are no chemical reactions. In order to develop the equations for the disperse, the following assumptions need to be made \citepColor[lancien_etude_2018]:
-
-\begin{enumerate}
-
-\item The atomization process is complete: no further breakup occurs, and the particles are perfectly spherical droplets.
-
-\item The density ratio between gas and liquid allows to assume that the only force exerted by the carrier phase on the droplets is drag.
-
-\item The temperature, and therefore the sensible enthalpy, is assumed to be homogeneous inside each droplet.
-
-\item A dilute spray assumption is made ($\alpha_l < 0.01$), so the liquid volume fraction is negligible before the gaseous one: $\alpha_g = 1 - \alpha_l \approx 1$. This leads to the next two hypotheses.
-
-\item The interactions between droplets are negligible.
-
-\item The liquid phase has little influence over the carrier phase, which allows the use of a probability density function conditioned by one realization.
-
-\item The spray is mono-disperse and mono-kinetic: at one point in time and space, the droplets all have the same diameter and velocity.
-
-\item Similarly, at one point in time and space, the droplets have the same temperature.
-
-%\item Random uncorrelated motion is neglected.
-
-\end{enumerate}
-
-For the disperse phase, the corresponding equations are:
+By integrating the function $f$ one can obtain the density of droplets 
 
 
-\begin{subequations}
-\label{eq:EE_disperse_phase}
-\begin{align}
-\frac{\partial \breve{n}_l}{\partial t} + \frac{\partial \breve{n}_l \breve{u}_{l,i}}{\partial x_i} &= 0 \\
-\frac{\partial \rho_l \breve{\alpha}_l}{\partial t} + \frac{\partial \rho_l \breve{\alpha}_l \breve{u}_{l,i}}{\partial x_i} &= - \Gamma \\
-\frac{\partial \rho_l \breve{\alpha}_l \breve{u}_{l,j}}{\partial t} + \frac{\partial \rho_l \breve{\alpha}_l \breve{u}_{l,i} \breve{u}_{l,j}}{\partial x_i} &= \mathcal{T} \left( u''_{p,j} \right) - \Gamma \breve{u}_{l,j} + F_{d,j} \\
-\frac{\partial \rho_l \breve{\alpha}_l \delta \breve{\theta}_l}{\partial t} + \frac{\partial \rho_l \breve{\alpha}_l \breve{u}_{l,i} \delta \breve{\theta}_l }{\partial x_i} &= \mathcal{T} \left( \frac{1}{2} u''_{p,j} u''_{p,j} \right) + \mathcal{U}_\theta - \Gamma \delta \breve{\theta}_l + W_\theta \\
-\frac{\partial \rho_l \breve{\alpha}_l \breve{h}_{s,l} }{\partial t} + \frac{\partial \rho_l \breve{\alpha}_l \breve{u}_{l,i} \breve{h}_{s,l} }{\partial x_i} &= \Lambda_l + \Phi_l 
-\end{align}
-\end{subequations}
+%The modeling of dispersed two-phase flows is based on a mesoscopic
+%description of the dispersed phase. Particles are assumed to be spherical
+%and fully characterized by a small set of variables: position x ,
+%radius r (or more generally a size variable denoted by ϕ ), velocity v
+%and temperature θ . In most applications, the particle number density
+%function contains all the necessary information on the dispersed phase.
+%By definition, f (t,x,r, v,θ )dxdrdvdθ denotes the averaged number
+%of droplets with a size in [r,r + dr], a velocity in [v, v + dv], a temperature
+%in [θ ,θ + dθ ] and located in the volume [x,x + dx] at time t .
 
-Details on the equations and on their terms is not given here, as the EE method will not be used in this project. A more rigorous explanation of this model can be found in \citeColor[jaegle_large_2009] and in \citeColor[lancien_etude_2018].
+\begin{equation}
+\frac{\partial f}{\partial t} + \nabla_\textbf{x} \left( \textbf{v} f \right) + \nabla_\textbf{v} \left( \textbf{F} f \right) + \frac{\partial E_S f}{\partial S} + \frac{\partial E_T f}{\partial T}
+\end{equation}
 
-\section{Lagrangian point particle representation}
+where $\textbf{x}$, $\textbf{v}$, $S$ and $T$ are each individual particle's position, velocity, surface and temperature, respectively; $F$ is the force acting on the particle, and $E_S$ and $E_T$ are respectively the exchange terms due to mass (evaporation rate) and energy (heat transfer).
+
+Introduce the William-Boltzmann equation (2010 Vie, 20111 Murrone). 
+
+\subsection{Direct approaches}
+
+Make reference to Figure \ref{fig:balachandar_numerical_methods_representation}: fully resolved (FCM, 2010 Vie) and lagrangian point-particle (LPP or DPS, 2010 Vie). 
+
+Explain that LPP will be used, and hence it will be discussed in $\S$\ref{sec:ch3_EL_formalisms}.
+
+
+
+
+\subsection{Lagrangian point particle representation}
 \label{sec:ch3_EL_formalisms}
 
 
@@ -184,14 +171,41 @@ m_p C_{P_\mathrm{g}} \frac{d T_p}{d t} &= h_p \pi d_p^2 \left( T_\mathrm{g} - T_
 \end{align}
 \end{subequations}
 
+\subsection{Other approaches}
+
+Mention eulereian methods (mesoscopic, quadrature, maybe also stochastic methods). Mention that they're out of the scope of this thesis. Comment statistical approaches ( 2000 SUbramanian, 2010 Vie, Vie 2013). Mention that they are out of the scope of this thesis, so we are gonna focus on EE and EL.
+
+
 \section{Lagrangian injection models for multipoint injection}
 \label{sec:ch3_state_art_lagrangian_injection}
 
-A classification of models for liquid injection in dispersed phase computations is proposed in Figure \ref{fig:state_art_injection}.
+A classification of models for liquid injection in dispersed phase computations is proposed in Figure \ref{fig:state_art_injection}. Each category has the following advantages and disadvantages (see presentation 2020 12 15):
 
-\begin{figure}[h!]
+\begin{itemize}
+
+	\item \textbf{Based on empirical laws}. \textcolor{green}{Advantage}: embedded physics. \textcolor{red}{Disadvantage}: restricted to geometry and operating conditions of development.
+	
+	\item \textbf{Injection of fully developed spray}. \textcolor{green}{Advantage}: droplets size distributions directly imposed. \textcolor{red}{Disadvantage}: Primary atomization neglected.
+	
+	\item \textbf{Effect of dense spray in gaseous phase}. \textcolor{green}{Advantage}: in JICF, taking into account blockage effect. \textcolor{red}{Disadvantage}: None.
+	
+	\item \textbf{Addition of secondary atomization model}. Good if atomziation not present.
+	
+	\item \textbf{Reference spray learning}. So far, and to our knowledge, there are no available models that can use a reference spray to learn boundary conditions (droplet sizes, velocity distributions, spatial location of injectors) for dispersed phase computations. \textcolor{green}{Advantage}: Applicable to generic injectors and 
+	wide range of operating conditions.  \textcolor{red}{Disadvantage}: Need of detailed spray characterisation from simulations or experiments.
+
+\end{itemize}
+
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[scale=0.5]{./part1_numerical_approaches/figures_ch3/state_art_lagrangian}
+%	\caption{Classification of lagrangian injection models}
+%	\label{fig:state_art_injection}
+%\end{figure}
+
+\begin{figure}[h!]	
 	\centering
-	\includegraphics[scale=0.5]{./part1_numerical_approaches/figures_ch3/state_art_lagrangian}
+	\includeinkscape[inkscapelatex=true,scale=0.75]{./part1_numerical_approaches/figures_ch3/state_art_lagrangian}
 	\caption{Classification of lagrangian injection models}
 	\label{fig:state_art_injection}
 \end{figure}

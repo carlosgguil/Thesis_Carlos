@@ -27,6 +27,29 @@ SMD = 2.25 \left( \sigma \dot{m}_f \mu_l \right)^{0.25} \rho_g^{-0.25}  \Delta P
 \end{equation}
 
 where $\Delta P$ is the pressure drop in the pilot nozzle. According to \citeColor[renaud_high-speed_2015], (p. 24, or 46 PDF), pilot liquid is injected at $2.7 MPa$ to the chamber at atmospheric pressure. By taking this pressure drop, and using the values given in Table \ref{tab:liquid_operating_point_Renaud}, this correlation provides a SMD of $15 \mu m$ (\textbf{CHECK THIS}).
+
+\subsubsection*{LISA model for injection}
+
+For performing pilot injection, the LISA model available in YALES2 is used (\textbf{ref:guedot-thesis}). 
+
+\begin{equation}
+X = \frac{A_a}{A_0} = \left( \frac{R_a}{R_0} \right)^2 \frac{\sin^2 \gamma_s}{1 + \cos^2 \gamma_s}
+\end{equation}
+
+where $R_a$ is the minimum injection radius, $R_0$ the maximum, and $\gamma_s$ is the mean injection angle. The inputs to the model are $\gamma_s$ and $R_0$, so from the previous equation $X$ can be obtained and the radius $R_a$ can be solved:
+
+\begin{equation}
+R_a^2 = R_0^2 X
+\end{equation}
+
+The axial velocity imposed to the particles $u_x$ is obtained through the following expression:
+
+\begin{equation}
+u_x = \frac{\dot{m}}{\rho_l \pi \left( R_0^2 - R_a^2 \right)} = \frac{\dot{m}}{\rho_l \pi R_0^2 \left( 1 - X^2 \right)} 
+\end{equation}
+
+\textbf{OJO}: in Renaud's application case ($\dot{m} = 0.25 ~ g/s$, see Table \ref{tab:LISA_model_parameters}), taking $R_0 = 0.125 ~mm$ gives an axial velocity of $u_x = 7.9 ~ m/s$. This created an almost-point injection, as it can be seen in the simulations. If we take $R_0 = 1.5 ~mm$ (the radius of the hollow cone patch), droplets are injected along all the hollow cone patch. However, the axial velocity imposed is $u_x = 0.05 ~m/s$. So we'll go towards the large radius.
+
 \begin{table}[!h]
 \centering
 \caption{LISA model setup for pilot injection}
