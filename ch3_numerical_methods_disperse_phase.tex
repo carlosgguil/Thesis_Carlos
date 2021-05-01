@@ -32,23 +32,17 @@ A classification of numerical methods to simulate dispersed phase flows based on
 	\label{fig:balachandar_numerical_methods_representation}
 \end{figure}
 
+In this chapter, numerical strategies to simulate dispersed phase flows are reviewed. Section \ref{sec:ch3_numerical_approaches_dispersed_phase} summarizes some of the available formalisms that can be chosen for solving a dispersed phase problem, with special emphasis on the lagrangian point-particle approach which is employed in this thesis. Then, section \ref{sec:ch3_state_art_lagrangian_injection} presents the state of the art on lagrangian methods to simulate fuel injection in MSFI systems, which is the starting point of the works presented in this thesis.
 
 \section{Numerical approaches to model dispersed phase flows}
+\label{sec:ch3_numerical_approaches_dispersed_phase}
+
+
+%The different dispersed phase methodologies aim at resolving Eq. (\ref{eq:WBE_spray_representation}), either by approximating this equation to obtain the function $f$ or by making point-particles assumptions, as shown in Figure \ref{fig:balachandar_numerical_methods_representation}. This chapter makes a review of some of these strategies, with special emphasis on the lagrangian point-particle approach which is employed in this thesis.
 
 
 
-
-Several approaches exist to study disperse phase. 
-
-
-
-%\section{Spray characterisation (??)}
-
-%Maybe this can be a subsection of the next section ?
-
-In this chapter, 
-
-\subsection{Spray representation}
+\subsection{Statistical methods}
 
 A spray composed of dispersed droplets can be characterized by means of a number density function $f$. This function depends on time $t$, space $\textbf{x}$, velocity $\textbf{v}$ and radius $r$, and can be expressed as follows (\textbf{ref:2000-subramanian}):
 
@@ -56,40 +50,61 @@ A spray composed of dispersed droplets can be characterized by means of a number
 f \left( t, \textbf{x}, \textbf{v}, r \right) = \sum_{p=1}^{N_d} \delta \left( \textbf{x} - \textbf{x}_p \left( t \right) \right)  \delta \left( \textbf{v} - \textbf{v}_p \left( t \right) \right) \delta \left( \textbf{r} - \textbf{r}_p \left( t \right) \right)
 \end{equation}
 
-where $N_d$ is the number of droplets in the spray, and $\textbf{x}_p$, $\textbf{v}_p$ and $r_p$ are each individual particles position, velocity and radius respectively. The function $f$ contains all the necessary information to represent the spray. The number of droplets in a spatial region $\left[ \textbf{x} + d\textbf{x} \right]$, 
-
-By integrating the function $f$ one can obtain the density of droplets 
-
-
-%The modeling of dispersed two-phase flows is based on a mesoscopic
-%description of the dispersed phase. Particles are assumed to be spherical
-%and fully characterized by a small set of variables: position x ,
-%radius r (or more generally a size variable denoted by ϕ ), velocity v
-%and temperature θ . In most applications, the particle number density
-%function contains all the necessary information on the dispersed phase.
-%By definition, f (t,x,r, v,θ )dxdrdvdθ denotes the averaged number
-%of droplets with a size in [r,r + dr], a velocity in [v, v + dv], a temperature
-%in [θ ,θ + dθ ] and located in the volume [x,x + dx] at time t .
+where $N_d$ is the number of droplets in the spray, and $\textbf{x}_p$, $\textbf{v}_p$ and $r_p$ are each individual particles position, velocity and radius respectively. The function $f$ contains all the necessary information to represent the spray. This function is governed by a William-Boltzmann Equation (\textbf{ref:williams-1958}, see Ref. 40 Murrone):
 
 \begin{equation}
-\frac{\partial f}{\partial t} + \nabla_\textbf{x} \left( \textbf{v} f \right) + \nabla_\textbf{v} \left( \textbf{F} f \right) + \frac{\partial E_S f}{\partial S} + \frac{\partial E_T f}{\partial T}
+\label{eq:WBE_spray_representation}
+\frac{\partial f}{\partial t} + \nabla_{\textbf{x}_p} \left( \textbf{v}_p f \right) + \nabla_{\textbf{v}_p} \left( \textbf{F}_p f \right) + \frac{\partial E_{S_p} f}{\partial S_p} + \frac{\partial E_{T_p} f}{\partial T_p}
 \end{equation}
 
-where $\textbf{x}$, $\textbf{v}$, $S$ and $T$ are each individual particle's position, velocity, surface and temperature, respectively; $F$ is the force acting on the particle, and $E_S$ and $E_T$ are respectively the exchange terms due to mass (evaporation rate) and energy (heat transfer).
-
-Introduce the William-Boltzmann equation (2010 Vie, 20111 Murrone). 
-
-\subsection{Direct approaches}
-
-Make reference to Figure \ref{fig:balachandar_numerical_methods_representation}: fully resolved (FCM, 2010 Vie) and lagrangian point-particle (LPP or DPS, 2010 Vie). 
-
-Explain that LPP will be used, and hence it will be discussed in $\S$\ref{sec:ch3_EL_formalisms}.
+where $\textbf{x}_p$, $\textbf{v}_p$, $S_p$ and $T_p$ are each individual particle's position, velocity, surface and temperature, respectively; $F$ is the force acting on the particle, and $E_S$ and $E_T$ are respectively the exchange terms due to mass (evaporation rate) and energy (heat transfer). Statistical approaches aim at determining the function $f$ by solving/approximating Eq. (\ref{eq:WBE_spray_representation}). Stochastic methods to solve for the dispersed phase include the stochastic lagrangian approach of \textbf{ref:Dukowicz-1980} (see Vie 2010 or Cheneau 2019), eulerian methods considering a monodisperse (\textbf{ref:drew-passmann-1995}, see Vie 2010) or a polydisperse spray (\textbf{ref:lauren-massog-2001}, see Vie 2010), and quadrature methods (see Vie 2010). These methods are out of the scope of the present work and hence are not discussed here.
 
 
 
+\subsection{Eulerian methods}
+
+Eulerian methods, also called Euler-Euler formalism (EE), are widely used to model dispersed two-phase flows. The same grid is used for resolving both the carrier and dispersed phases. The carrier phase is solved from the Navier-Stokes equations ($\S$\ref{sec:ch2_governing_equations}) applied to the gas. For characterizing the dispersed phase, averaged properties and statistical tools are used to solve the Navier-Stokes equations. These methods present, however, difficulties when dealing with the polydispersion of the spray and when modeling the particles collisions and interactions with the walls \citepColor[garcia_developpement_2009].
+
+To solve for the dispersed phase, a well-known eulerian formalism is the mesoscopic approach. The particles are described according to the kinetic theory of gases formulated by \textbf{ref:chapman-cowling-1970} (see Lancien thesis), so that mesoscopic variables are used to get averaged properties of the spray. In order to develop the equations for the dispersed phase, several assumptions need to be made \citepColor[lancien_etude_2018]:
+
+\begin{enumerate}
+
+\item The atomization process is complete, particles are perfectly spherical and non-deformable.
+
+\item The only force exerted by the carrier phase on the droplets is drag.
+
+\item Temperature is homogeneous inside each droplet.
+
+\item Spray is dilute: $\alpha_l < 0.01$.
+
+\item The interactions between droplets are neglected.
+
+\item The spray is mono-disperse and mono-kinetic: at one point in time and space, the droplets all have the same diameter and velocity.
+
+\item Similarly, at one point in time and space, all droplets have the same temperature.
+
+%\item Random uncorrelated motion is neglected.
+
+\end{enumerate}
+
+With these assumptions, the dispersed phase is represented by the following equations based on statistical averages of the spray \citeColor[lancien_etude_2018]:
+
+\begin{subequations}
+\label{eq:EE_disperse_phase}
+\begin{align}
+\frac{\partial \overline{n}_l}{\partial t} + \nabla \left( \overline{n}_l \overline{\textbf{u}}_l \right)  &= 0 \\
+\frac{\partial \rho_l \overline{\alpha}_l}{\partial t} + \nabla \left( \rho_l \overline{\alpha}_l \overline{\textbf{u}}_l \right) &= - \Gamma \\
+\frac{\partial \rho_l \overline{\alpha}_l \overline{u}_{l,i}}{\partial t} + \nabla \left( \rho_l \overline{\alpha}_l \overline{\textbf{u}}_l \overline{u}_{l,i} \right) &= F_{d,i} - \overline{u}_{l,i} \Gamma  + \nabla \overline{\overline{\pmb{\tau}}}_l^{sgs} \\
+\frac{\partial \rho_l \overline{\alpha}_l \overline{h}_l}{\partial t} + \nabla \left( \rho_l \overline{\alpha}_l \overline{\textbf{u}}_l  \overline{h}_l \right) &=  - \overline{h}_l  \Gamma + \overline{\Phi}
+\end{align}
+\end{subequations}
+
+where $n_l$ is the number density of the particles, $\Gamma$ the evaporation rate, $F_{d}$ the drag force, $\overline{\overline{\pmb{\tau}}}_l^{sgs}$ the subgrid tensor of the liquid phase, $\overline{h}_l$ the liquid enthalpy and $\overline{\Phi}$ the conduction flux term. The exchange between phases is taken into account by the right hand sides of the previous expressions. As it is observed, multiphysics phenomena such as mass exchange due to evaporation and energy transfer can be taken into account with the corresponding exchange terms.  This is one of the advantage of the dispersed phase modelling of two-phase flows as opposed to the fully-resolved atomization methods presented in Chapter \ref{ch2:numerical_methods_resolved_atomization}. 
 
 \subsection{Lagrangian point particle representation}
 \label{sec:ch3_EL_formalisms}
+
+Another well-know methodology to simulate dispersed phases systems, broadly employed in aerospace applications, is the lagrangian point particle (LPP) representation (see Figure \ref{fig:balachandar_numerical_methods_representation}). In lagrangian formalisms, the gas is resolved in the main eulerian grid, but the particles conforming the dispersed phase are tracked individually and represented by a different set of equations. Since the dispersed phase is not resolved in the main grid, these method is usually referred as Euler-Lagrange (EL) formalism.
 
 
 The Lagrangian description (EL) does not use an averaging process in the grid for the fluid phase, but tracks each fluid particle individually. Every droplet is represented by its own equations which are not solved in the main grid (i.e. the Eulerian grid used to represent the carrier phase). This can make convergence difficult and hinders the introduction of parallelism techniques. However, the resulting system of equations is robust, the time per iteration is usually lower than for the EE description, and the drop-drop and drop-wall interactions are easier to model.
@@ -171,9 +186,6 @@ m_p C_{P_\mathrm{g}} \frac{d T_p}{d t} &= h_p \pi d_p^2 \left( T_\mathrm{g} - T_
 \end{align}
 \end{subequations}
 
-\subsection{Other approaches}
-
-Mention eulereian methods (mesoscopic, quadrature, maybe also stochastic methods). Mention that they're out of the scope of this thesis. Comment statistical approaches ( 2000 SUbramanian, 2010 Vie, Vie 2013). Mention that they are out of the scope of this thesis, so we are gonna focus on EE and EL.
 
 
 \section{Lagrangian injection models for multipoint injection}

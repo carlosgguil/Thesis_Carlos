@@ -3,38 +3,49 @@
 
 \section{Introduction}
 
-The jet in crossflow atomizer from the previous chapters is an academic test case of fuel representative of LPP systems. Its study is of interest for aeronautical gas turbines since it uses kerosene as injected liquid and it has been tested in a high-pressure environment. Yet, its
+Part II has been devoted to the development of models for lagrangian injection. The methodology to build the models has been detailed in Chapter \ref{ch4:sli_development}. In a first approach, the models have been constructed from resolved atomization simulations of a liquid jet in crossflow in Chapter \ref{ch5:jicf_resolved_simulations}. Then, the built models have been applied to perform dispersed phase simulations of the same configuration in Chapter \ref{ch6:jicf_lgs_simulations}.
 
-The fact that the injected liquid is kerosene is 
+The next chapters show the application of the models to a swirled MSFI burner more representative of industrial systems. The same rationale as in Part II is followed: models for lagrangian injection are built from resolved atomization simulations of one multipoint injector hole (Chapter \ref{ch8:bimer_resolved_atomization}), and then applied to initialise dispersed phase simulations of the full take-off stage (Chapter \ref{ch9:BIMER_lagrangian}). 
 
-This chapter introduces the experimental test bench BIMER and the numerical setup for replicating this geometry. Non-reactive simulations of the aerodynamic flow field without liquid injection are reported. Two experimental operating points are simulated: one studied in the thesis of \citeColor[providakis_etude_2013] for validating the numerical simulations, and another one studied by \citeColor[renaud_high-speed_2015] that will be used for performing a two-phase study in Chapters \ref{ch8:bimer_resolved_atomization} and \ref{ch9:BIMER_lagrangian}.
-
+Prior to the application of the models, this chapter introduces the experimental test bench and the numerical setup replicating this geometry. Non-reactive simulations of the aerodynamic flow field without liquid injection are reported. Two experimental operating points are simulated: one studied in the thesis of \citeColor[providakis_etude_2013] for validating the numerical simulations, and another one studied by \citeColor[renaud_high-speed_2015] that will be used for performing a two-phase study in Chapters \ref{ch8:bimer_resolved_atomization} and \ref{ch9:BIMER_lagrangian}.
 
 
 \section{Experimental setup}
 
+Banc à Injection Multiple pour les Ecoulements Réactifs (BIMER) is an experimental rig developed at the laboratory EM2C and destinated to the study of reactive phenomena in MSFI systems. Originally studied by \textbf{ref:Barbosa-2008-thesis} (see Renaud thesis) with gaseous fuel, its study was later extended to liquid fuel by the works of \citeColor[providakis_etude_2013] and \citeColor[renaud_high-speed_2015].
+
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=1.0]{./part3_applications/figures_ch7_aero/BIMER_test_bench_expe_maquette}
+	\includegraphics[scale=0.4]{./part3_applications/figures_ch7_aero/BIMER_test_bench_expe_maquette}
 	\caption{BIMER experimental test bench schematic view. Source: \citeColor[cheneau_etude_2019].}
 	\label{fig:BIMER_test_bench_expe_maquette}
 \end{figure}
 
+The test bench is shown in Figure \ref{fig:BIMER_test_bench_expe_maquette}. Air is introduced into a cylindrical plenum where the multipoint burner is located. The injector is then connected to a combustion chamber with a length of $500 ~mm$ and a rectangular cross section 150 x 150 mm$^2$. The lateral walls are made of quartz to allow for optical access to the interior of the chambers, while the top and bottom walls are cooled with water. Exhaust gases are evacuated at the end of the chamber through a collector. Two different fuel feeding lines are connected to each stage of the injector. 
+
+A detailed view of the burner is shown in Figure \ref{fig:BIMER_swirler}. Each stage has a swirler and a liquid injector. The swirlers will give a rotating motion to the air coming from the plenum. The stages are designed as follows:
+
+\begin{itemize}
+
+	\item The \textbf{pilot stage} consists of a swirler with 18 vanes located in a crown with inner and outer diameters of 30 and 45 mm. These vanes have a width of 6 mm and a 42 $\degree$ inclination angle. Fuel injected through the pilot will form a hollow cone.
+	
+	\item The \textbf{take-off stage} consists of a swirler with 20 vanes of 35 $\degree$ inclination, 10 mm wide spanning between inner and outer diameters of 55 and 75 mm. The swirl number generated is close to 1. Regarding liquid delivery, 10 injection holes with $0.3$ mm diameter are located equally spaced along the multipoint annulus, and with the same radial distance to the center of the pilot injector. Each hole is aligned with the center of a vane (one hole every two vanes), and the vanes are placed so that the swirls of each stage are co-rotating.
+
+\end{itemize}
+
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.7]{./part3_applications/figures_ch7_aero/BIMER_swirler}
-	\caption{Swirler injector of the BIMER test bench, showing pilot and take-off stages. \textsl{Left}: schematic cross-section of the injector, indicating air and liquid inlets. \textbf{Right}: experimental view of the injector. Source: \citeColor[renaud_high-speed_2015].}
+	\includegraphics[scale=0.6]{./part3_applications/figures_ch7_aero/BIMER_swirler}
+	\caption{Swirled injector of the BIMER test bench. \textsl{Left}: schematic cross-section of the injector, indicating air and liquid inlets. \textbf{Right}: experimental view of the injector. Source: \citeColor[renaud_high-speed_2015].}
 	\label{fig:BIMER_swirler}
 \end{figure}
 
-
-
-Dodecane properties are shown in Table \ref{tab:dodecane_properties}
+The test bench operates at atmospheric pressure. Air can be preheated up to a temperature of $600 K$. The injected fuel through each stage is dodecane. Kerosene was not used since at a laboraty scale it can present risk of coking and its complex chemistry hinders the analysis of the flames \citepColor[providakis_etude_2013]. Hence, dodecane was chosen due to its more simple composition and to its similar properties to kerosene. Dodecane properties of interest for this work are shown in Table \ref{tab:dodecane_properties}.
 
 \begin{table}[!h]
 \centering
-\caption{Physical properties of dodecane fuel.}
+\caption{Physical properties of dodecane fuel (C$_{12}$H$_26$) at 20 $\degree$C}
 \begin{tabular}{|c|c|c|}
 \hline
 $\rho$ [kg m$^{-3}]$   & $\mu$ [Pa s]   & $\sigma$ [N/m]  \\
@@ -163,6 +174,18 @@ See Figure \ref{fig:validation_qualitative_u}: \ref{fig:validation_qualitative_u
 \subsection{Quantitative validation}
 
 \section{Application point}
+
+\subsection{Determination of bulk gas velocity}
+
+Two methods:
+
+\begin{itemize}
+
+	\item According to \textbf{ref:Barbosa-2008}, a $80 \%$ of the air flow rate goes through the take-off stage and $20 \%$ goes through the take-off one. The study of \citeColor[renaud_high-speed_2015] shows that the percentage through the pilot is actually $13.5 \%$, hence $86.5 \%$ goes through the take-off. Considering the application point in Table \ref{tab:gaseous_operating_points_BIMER}, this makes a total of $\dot{m}_{a,take-off} = 37.2815 ~ $ g s$^{-1}$, which in terms of flow rate is $Q = \dot{m} / \rho_g = 0.04567 $ m$^{3}$ s$^{-1}$. Considering that this flow rate is split through 20 vanes, then per canal the flow rate is $Q_a = 2.2833 \cdot 10^{-3}$ m$^{3}$ s$^{-1}$.
+
+\end{itemize}
+
+
 
 \section{Conclusion}
 
