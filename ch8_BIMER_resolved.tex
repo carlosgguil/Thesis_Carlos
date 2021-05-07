@@ -37,6 +37,73 @@ $\alpha$ [$\%$] & $\dot{m}_{l,pilot}$ & $\dot{m}_{l,takeoff}$ & \\
 
 \section{Liquid injection through one multipoint hole}
 
+\subsection{Determination of bulk gas velocity}
+
+Two methods to determine bulk gas velocity:
+
+\begin{itemize}
+
+	\item According to \textbf{ref:Barbosa-2008}, a $80 \%$ of the air flow rate goes through the take-off stage and $20 \%$ goes through the take-off one. The study of \citeColor[renaud_high-speed_2015] shows that the percentage through the pilot is actually $13.5 \%$, hence $86.5 \%$ goes through the take-off. Considering the application point in Table \ref{tab:gaseous_operating_points_BIMER}, this makes a total of $\dot{m}_{a,take-off} = 37.2815 ~ $ g s$^{-1}$, which in terms of flow rate is $Q = \dot{m} / \rho_g = 0.04567 $ m$^{3}$ s$^{-1}$. Considering that this flow rate is split through 20 vanes, then per canal the flow rate is $Q_a = 2.2833 \cdot 10^{-3}$ m$^{3}$ s$^{-1}$. With an area of 6 x 10 mm$^2$ (see Fig. \ref{fig:gas_injection_area_multipoint}), the estimated bulk velocity is $u_g = Q / A = 38 ~ m/s$
+	
+	\item Nah
+
+\end{itemize}
+
+The momentum flux ratio $q$ can now be calculated:
+
+\begin{equation}
+q = \frac{\rho_l u_l^2}{\rho_g u_g^2} = \frac{750 \cdot 2.6^2}{0.816382 \cdot 38.05^2} = 4.36
+\end{equation}
+
+And also the $We$ number based on the gaseous flow:
+
+\begin{equation}
+We_g = \frac{\rho_g d_{inj} u_g^2}{\sigma} = \frac{0.816382 \cdot 0.3 mm \cdot 38.05^2}{25.35 10^{-3}} \approx 14
+\end{equation}
+
+
+\begin{table}[!h]
+\centering
+\caption{Operating point}
+\begin{tabular}{|c|c|}
+\hline
+$u_g$ [m s$^{-1}$] &  38 \\
+\hline
+$u_l$ [m s$^{-1}$] &  2.6 \\
+\hline
+\hline
+$q$ & 4 \\ %4.3 \\
+\hline
+$We_g$ & 14 \\
+\hline
+\end{tabular}
+\label{tab:bimer_sps_operating_point}
+\end{table}
+
+
+%\begin{figure}[h!]	
+%	\centering
+%	\includeinkscape[inkscapelatex=false,scale=0.75]{./part1_numerical_approaches/figures_ch3/gas_injection_area_multipoint}
+%	\caption{Area to calculate bulk gas velocity}
+%	\label{fig:gas_injection_area_multipoint}
+%\end{figure}
+
+\subsection{Characteristic times}
+
+The characteristic time scale by \textbf{ref:ranger-nicholls(1969} (see 2003 Sallam) can be used:
+
+\begin{equation}
+\tau_c = \sqrt{\frac{\rho_l}{\rho_g}} \frac{d_\mathrm{inj}}{u_g} = \sqrt{\frac{750}{0.816382 }} \frac{0.3 ~mm}{38} = 0.24 ~ms
+\end{equation}
+
+%According to \textbf{2016 Eckel}, the velocity is not the gaseous one but the relative:
+%
+%\begin{equation}
+%\tau_c = \sqrt{\frac{\rho_l}{\rho_g}} \frac{d_\mathrm{inj}}{u_\mathrm{rel}} = \sqrt{\frac{750}{0.816382 }} \frac{0.3 ~mm}{38 - 2.6} = 0.26
+%\end{equation}
+%
+%which is actually very similar.
+
 \section{Injectors learning}
 
 \section{Conclusion}

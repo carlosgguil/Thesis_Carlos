@@ -1,6 +1,10 @@
 \chapter{Models for lagrangian injection}
 	\label{ch4:sli_development}
 
+Chapter \ref{ch3:disperse_phase_methods} ...
+
+In particular, $\S$\ref{sec:ch3_state_art_lagrangian_injection} presented a literature review of models for performing lagrangian injection in MSFI systems. 
+
 %\section{Introduction}
 
 Describe here the flowchart of our models and their ingredients. 
@@ -379,7 +383,7 @@ In disperse phase simulations, spray is modeled by a set of spherical and rigid 
 We = \frac{\rho_g u_\mathrm{rel}^2 r}{\sigma} 
 \end{equation}
 
-Different mechanisms produce secondary atomization depending on the value of We, see Fig. \textbf{ref:fig??}. Existing models for secondary atomization have been developed for each particular mode of breakup, such as the WAVE model for high Weber numbers \citepColor[reitz_modeling_1987] or the Taylor Analogy Breakup (TAB) model for low ones \citepColor[orourke_tab_1987]. The former model predicts breakup by following a linear stability analysis considering Kelvin-Helmholtz waves as the governing breakup mechanisms, while the latter makes an analogy between a droplet and a second-order mechanical system. Nevertheless, up to date there is not a model which accounts for all different breakup mechanisms and that can capture all the physical complexity of secondary atomization.
+Different mechanisms produce secondary atomization depending on the value of We, see Fig. \ref{fig:regimes_atomization_secondary}. Existing models for secondary atomization have been developed for each particular mode of breakup, such as the WAVE model for high Weber numbers \citepColor[reitz_modeling_1987] or the Taylor Analogy Breakup (TAB) model for low ones \citepColor[orourke_tab_1987]. The former model predicts breakup by following a linear stability analysis considering Kelvin-Helmholtz waves as the governing breakup mechanisms, while the latter makes an analogy between a droplet and a second-order mechanical system. Nevertheless, up to date there is not a model which accounts for all different breakup mechanisms and that can capture all the physical complexity of secondary atomization.
 
 In this work, three atomization models have been implemented and tested: the TAB model, the Enhanced TAB model \citepColor[tanner_liquid_1997], and the stochastic model of \citeColor[gorokhovski_stochastic_2001]. They are described in the following sections.
 
@@ -565,6 +569,7 @@ being $C_D$ is the drag coefficient of the parent droplet, Eq. (\ref{eq:Re_CD_dr
 
 
 \subsection{Gorokhovski stochastic model}
+\label{subsec:ch4_goro_model}
 
 Both TAB and ETAB models were derived using the Taylor analogy breakup. The TAB model is known to underdetermine the diameter of the children droplets and to not distinguish between breakup regimes, producing too many droplets when the Weber number is high. Hence, the applicability of TAB is restricted to breakup at low $We$. ETAB tried to solve this issue by considering an exponential decay law for the size of children droplets which would depend on the breakup regime. Both models are, however, deterministic in the sense that a single range of droplet sizes is considered when breakup is produced.
 
@@ -601,7 +606,7 @@ This function will be later used to obtain the size of children droplets. The pr
 
 \end{itemize}
 
-If both $r > r_\mathrm{crit}$ and $t > t_{bu}$ (both criteria must be met) as given by the previous expressions, breakup occurs. In this case, size of children droplet is obtained from the cumulative density function $T \left( \ln r_{ch}, t \right)$, Eq. (\ref{eq:gorokhovski_T_CDF}), from which $ln r_{ch}$ can be solved:
+If both $r > r_\mathrm{crit}$ and $t > t_{bu}$ (both criteria must be met) as given by the previous expressions, breakup occurs. In this case, size of children droplet is obtained from the cumulative density function $T \left( \ln r_{ch}, t \right)$, Eq. (\ref{eq:gorokhovski_T_CDF}), from which $\ln r_{ch}$ can be solved:
  
  
 \begin{equation}

@@ -36,8 +36,8 @@ A detailed view of the burner is shown in Figure \ref{fig:BIMER_swirler}. Each s
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.6]{./part3_applications/figures_ch7_aero/BIMER_swirler}
-	\caption{Swirled injector of the BIMER test bench. \textsl{Left}: schematic cross-section of the injector, indicating air and liquid inlets. \textbf{Right}: experimental view of the injector. Source: \citeColor[renaud_high-speed_2015].}
+	\includegraphics[scale=0.7]{./part3_applications/figures_ch7_aero/BIMER_swirler}
+	\caption{Swirled injector of the BIMER test bench. \textsl{Left}: schematic cross-section of the injector, indicating air and liquid inlets. \textsl{Right}: experimental view of the injector. Source: \citeColor[renaud_high-speed_2015].}
 	\label{fig:BIMER_swirler}
 \end{figure}
 
@@ -78,36 +78,24 @@ Both ope
 \begin{table}[!h]
 \centering
 \caption{Operating points for performing non-reactive gaseous simulations}
-\begin{tabular}{|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-Operating condition   &  $\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}]$  & $\mu_g$ [Pa s] & $p$ [Pa]  \\
+Operating condition   &  Reference & $\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}]$  & $\mu_g$ [Pa s] & $p$ [atm]  \\
 \hline
 \hline
-Validation \citepColor[providakis_etude_2013] & 53 & 473 & 0.746089 & $2.571 \cdot 10^{-5}$ & 101300 \\
+Validation &  \citeColor[providakis_etude_2013] & 53 & 473 & 0.746089 & $2.571 \cdot 10^{-5}$ & 1 \\
 \hline
-Application \citepColor[renaud_high-speed_2015] & 43.1 & 433 & 0.816382 & $2.3911 \cdot 10^{-5}$ & 101300 \\
+Application & \citeColor[renaud_high-speed_2015] & 43.1 & 433 & 0.816382 & $2.391 \cdot 10^{-5}$ & 1 \\
 \hline
 \end{tabular}
 \label{tab:gaseous_operating_points_BIMER}
 \end{table}
 
-\begin{table}[!h]
-\centering
-\caption{BIMER operating point to validate non-reactive gaseous simulations tested by \citeColor[providakis_etude_2013]}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-$\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}]$  & $\mu_g$ [Pa s] & $p$ [Pa]  \\
-\hline
-\hline
-53 & 473 & 0.746089 & $2.571 \cdot 10^{-5}$ & 101300 \\
-\hline
-\end{tabular}
-\label{tab:gaseous_operating_point_Providakis}
-\end{table}
-
 
 
 \section{Numerical setup}
+
+Describe meshes, choices, parameters.
 
 \section{Mesh independence study}
 
@@ -175,15 +163,6 @@ See Figure \ref{fig:validation_qualitative_u}: \ref{fig:validation_qualitative_u
 
 \section{Application point}
 
-\subsection{Determination of bulk gas velocity}
-
-Two methods:
-
-\begin{itemize}
-
-	\item According to \textbf{ref:Barbosa-2008}, a $80 \%$ of the air flow rate goes through the take-off stage and $20 \%$ goes through the take-off one. The study of \citeColor[renaud_high-speed_2015] shows that the percentage through the pilot is actually $13.5 \%$, hence $86.5 \%$ goes through the take-off. Considering the application point in Table \ref{tab:gaseous_operating_points_BIMER}, this makes a total of $\dot{m}_{a,take-off} = 37.2815 ~ $ g s$^{-1}$, which in terms of flow rate is $Q = \dot{m} / \rho_g = 0.04567 $ m$^{3}$ s$^{-1}$. Considering that this flow rate is split through 20 vanes, then per canal the flow rate is $Q_a = 2.2833 \cdot 10^{-3}$ m$^{3}$ s$^{-1}$.
-
-\end{itemize}
 
 
 

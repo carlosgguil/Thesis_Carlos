@@ -52,6 +52,8 @@ With the objective of reducing NO$_\mathrm{x}$ emissions in aeronautical engines
 
 One of the first concepts aiming at reducing emissions is the \textbf{Rich-Burn, Quick-Quench, Lean-Burn} (\textbf{RQL})  \citepColor[novick_low_1981]. RQL systems split the combustion process in three stages. Firstly combustion begins in a fuel-rich primary zone close to the injector, where the NO$_\mathrm{x}$ rate is low (see Figure \ref{fig:NOX_motivation_and_RQL} left). Then, a quick mixing of the unburnt fuel takes place with fresh air to finally burn in lean conditions. This procedure allows to decrease NO$_\mathrm{x}$ emissions as depicted by the low-NO$_\mathrm{x}$ route depicted in Figure \ref{fig:NOX_motivation_and_RQL}. However, a fine and complete fuel atomization is needed so that a fast mixing takes place; otherwise, unburnt fuel could produce extra smoke and soot in the rich-burn region \citepColor[el-asrag_simulation_2007]. This hinders the proper operation of RQL chambers in regimes where fuel can hardly be atomized, such as during altitude relight.
 
+\newpage
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.65]{./part0_intro/NOX_motivation_and_RQL}
@@ -76,7 +78,7 @@ MSFI are a promising technology for fuel injection in aeronautical combustors, a
 \section{Fuel injection technology}
 \label{sec:ch1_fuel_injection_technology}
 
-An example of a multipoint injector is shown in Figure \ref{fig:multipoint_injector_snecma}. Fuel is injected through two inlets: a central nozzle (the pilot stage), where fuel is injected with a pressure-swirl atomizer spreading as a \textbf{hollow cone} spray, and the multipoint injectors located in a crown around the central injector (the take-off stage), where fuel is injected in a \textbf{jet in crossflow} configuration. As seen in the figure, these two injection systems will produce atomization of the fuel shortly after the injection location. Furthermore, a third atomization mechanisms is if the opening angle of the hollow cone is large enough; in this case, liquid can impinge the walls of the injector and break due to the interaction with the aerodynamics and the liquid wall, forming an \textbf{airblast} spray. As a consequence of these three atomization mechanisms, a dispersed spray will be formed further downstream the injection chamber. This spray will be later able to evaporate, mix with the surrounding air and burn in the combustion process.
+Figure \ref{fig:multipoint_injector_snecma} shows a MSFI injector with the atomization mechanisms present in these systems. Fuel is injected through two inlets: a central nozzle (the pilot stage), where fuel is injected with a pressure-swirl atomizer spreading as a \textbf{hollow cone} spray, and the multipoint injectors located in a crown around the central injector (the take-off stage), where fuel is injected in a \textbf{jet in crossflow} configuration (JICF). As seen in the figure, these two injection systems will produce liquid atomization shortly after the injection location. Furthermore, a third breakup mechanisms is if the opening angle of the hollow cone is large enough; in this case, liquid can impinge the walls of the injector and break due to the interaction between aerodynamics and the liquid wall, forming an \textbf{airblast} spray. As a consequence of these three atomization mechanisms, a dispersed spray will be formed further downstream the injection chamber. This dispersed spray will be later able to evaporate, mix with the surrounding air and burn in the combustion process.
 
 %\begin{figure}[ht]
 %     \centering
@@ -94,18 +96,31 @@ An example of a multipoint injector is shown in Figure \ref{fig:multipoint_injec
 %        \label{fig:multipoint_injectors}
 %\end{figure}
 
+
+
 \begin{figure}[ht]
      \centering
-     \includeinkscape[inkscapelatex=false,scale=0.5]{./part0_intro/multipoint_injector_snecma}
+     \includeinkscape[inkscapelatex=false,scale=0.55]{./part0_intro/multipoint_injector_snecma}
       \caption{Multipoint injector from SNECMA (source: \citeColor[jaegle_large_2009]) showing the atomization mechanisms present in MSFI systems.}
       \label{fig:multipoint_injector_snecma}
 \end{figure}
 
-This thesis aims at studying the non-reactive processes of injection and atomization, but not the reactive phenomena of evaporation, mixing and combustion. Hence, in the subsequent sections the process of atomization is described. In particular, emphasis is done in the jet in crossflow configuration found in MSFI, which has been the object of study of this thesis.
+A view of the several multiphysical phenomena found within a combustor is shown in Figure \ref{fig:JICF_multiphysics} with an example of reactive jet in crossflow (JICF). Liquid fuel is injected through the injection nozzle as a coherent jet. Instabilities start taking place after injection which will eventually break the jet into large blobs and ligaments during a process known as \textbf{primary atomization} (or primary breakup). Resulting liquid structures will then break into smaller droplets during \textbf{secondary atomization} (or secondary breakup) until the droplets reach a small size and a spherical shape. As a consequence of the atomization process, the specific surface of the spray (i.e. the amount of liquid surface which is in contact with the continuous gas) is large and hence \textbf{evaporation} can take place. Gaseous fuel can then \textbf{mix} with the surrounding air  to produce an ignitable mixture that can finally burn in the \textbf{combustion} process. At the same time, there are other physical mechanisms taking place in the combustion, such as drop-drop interactions, wall-drop interactions and droplet combustion. All these processes are generally found within gas turbines.
+
+\begin{figure}[ht]
+     \centering
+     \includeinkscape[scale=0.75]{./part0_intro/JICF_multiphysics}
+      \caption{Multi-physics phenomena in a reactive jet in crossflow. }
+      \label{fig:JICF_multiphysics}
+\end{figure}
+
+As illustrated in Figures \ref{fig:multipoint_injector_snecma} and \ref{fig:JICF_multiphysics}, the atomization process is responsible for the generation of droplets. It is necessary that the size of these droplets is small enough so that the liquid specific surface is large and fuel can burn efficiently. Otherwise, unburnt fuel and inefficient combustion can increase the production of pollutants such as NO$_x$ and soot. Understanding the driving mechanisms of atomization is therefore essential for the correct design of atomizers and injectors. However, its study is not trivial due to its multi-scale nature, since it involves a wide range of length-scales from the injector size till the diameter of the smallest droplets, which is often several orders of magnitude smaller.  The rest of this section is then devoted to introducing the fundamentals of atomization and the jet in crossflow phenomenon, which is of special interest for MSFI systems and constitutes a big part of this thesis.
 
 \subsection*{The atomization process}
 
-Liquid fuel injected into combustion chamber cannot be evaporated straightforward because the specific surface of fuel (i.e. the surface of fuel which is in contact with the continuous gas) is not high enough. Hence, this specific surface is increased by breaking the continuous liquid jet into smaller fragments in the process of atomization. \citepColor[lefebvre_atomization_2017] defines atomization as \textsl{the process by which a liquid jet or sheet is disintegrated by the kinetic energy of the liquid, by the exposure to
+Atomization is generally divided into two 
+
+Liquid fuel injected into combustion chamber cannot be evaporated straightforward because the is not high enough. Hence, this specific surface is increased by breaking the continuous liquid jet into smaller fragments in the process of atomization. \citepColor[lefebvre_atomization_2017] defines atomization as \textsl{the process by which a liquid jet or sheet is disintegrated by the kinetic energy of the liquid, by the exposure to
 high-velocity air or gas, or by mechanical energy applied externally through a rotating or vibrating device}.
 
 Atomization is triggered by instabilities which are found naturally in liquids jets. \citeColor[rayleigh_instability_1878] found that jet breakup oin smaller drops is produced due to the growth of small disturbances in the liquid. This disturbances are amplified by the aerodynamic interaction with the surrounding air, enhancing the energy transfer between both phases. Turbulence of the liquid jet also amplifies these disturbances: if the fuel is being injected in a turbulent state (i.e. at a high Reynolds number), atomization will occur promptly. 
@@ -140,24 +155,18 @@ Explain airblast, hollow-cone, jicf.
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.5]{./part0_intro/regimes_atomization_secondary}
+	\includegraphics[scale=1.0]{./part0_intro/regimes_atomization_secondary}
 	\caption{Secondary atomization regimes. Source: \citeColor[pilch_use_1987]}
 	\label{fig:regimes_atomization_secondary}
 \end{figure}
 
 
-\subsection*{Jet in crossflow atomization}
+\subsection*{Liquid jet in crossflow}
 
 In a liquid JICF, the liquid jet faces a transverse stream of air at the nozzle exit. The liquid jet is bended towards the trajectory of the airflow, and then starts to suffer from atomization. The aerodynamic interaction with the airflow and the inertia of the jet will be responsible for all the processes involved: it will influence
 the penetration of the liquid jet, how fine and prompt the atomization will be and the later mixing with the air. In a reactive configuration, atomization will be followed by evaporation into gaseous fuel, mixing with air and finally combustion. Figure \ref{fig:JICF_multiphysics} illustrates all the multi-physical processes involved in a liquid JICF from fuel injection until combustion, relevant for the application inside future aeronautical combustors.
 
 
-\begin{figure}[ht]
-     \centering
-     \includeinkscape[scale=0.75]{./part0_intro/JICF_multiphysics}
-      \caption{Multi-physics phenomena in a reactive jet in crossflow. }
-      \label{fig:JICF_multiphysics}
-\end{figure}
 
 The atomization process in liquid JICF has been studied experimentally by several authors \citemColor[adelberg_breakup_1968,wu_breakup_1997,becker_breakup_2002,freitag_spray_2008]. Their studies have identified two main mechanisms of primary breakup:
 
@@ -175,7 +184,6 @@ appreciated in Figure \ref{fig:JICF_breakup_mechanisms_freitag} right.
 
 \end{itemize}
 
-
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.5]{./part0_intro/JICF_breakup-mechanisms_freitag}
@@ -183,12 +191,26 @@ appreciated in Figure \ref{fig:JICF_breakup_mechanisms_freitag} right.
 	\label{fig:JICF_breakup_mechanisms_freitag}
 \end{figure}
 
+
+
 Explain trajectory, breakup/breakdown points, influences of parameters, breakup regimes.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{./part0_intro/jicf_breakup_regime_wu}
+	\caption{Breakup map for liquid jet in crossflow. Source: \citeColor[wu_breakup_1997]}
+	\label{fig:jicf_breakup_regime_wu}
+\end{figure}
+
 
 
 
 \section{Objective and thesis outline}
+\label{sec:ch1_objective_thesis_outline}
     %\addcontentsline{toc}{section}{\protect\numberline{}Manuscript organisation}
+
+Numerical simulations are a powerful tool for studying the physical mechanisms inside gas turbines, as they give access to all the variables of interest and to physical regions which are unreachable with experimental facilities. Furthermore, for reactive problems they are     
+    
     
 The purpose of this thesis is to develop a new methodology to build lagrangian injectors for performing dispersed phase simulations. 
 

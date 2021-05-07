@@ -77,7 +77,7 @@
 %\DeclareNameAlias{default}{family-given}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\newcommand{\citepBlackColor}[1][]{({\color{black}\citealt{#1}})}
 \newcommand{\citeWhiteColor}[1][]{{\color{white}\cite{#1}}}
 \newcommand{\citeColor}[1][]{{\color{blue}\cite{#1}}}
 \newcommand{\citepColor}[1][]{({\color{blue}\citealt{#1}})}
@@ -121,8 +121,11 @@
 \renewcommand\nomgroup[1]{%
   \item[\bfseries
   \ifstrequal{#1}{A}{Acronyms}{%
+  \ifstrequal{#1}{G}{Dimensionless numbers}{
   \ifstrequal{#1}{G}{Greek Symbols}{%
-  \ifstrequal{#1}{R}{Roman Symbols}{}}}%
+  \ifstrequal{#1}{R}{Roman Symbols}{%
+  \ifstrequal{#1}{Sb}{Subscripts}{%
+  \ifstrequal{#1}{Sp}{Superscripts}{}}}}}}%
 ]}
 %]\vspace{10pt}} % this is to add vertical space between the groups.
 
