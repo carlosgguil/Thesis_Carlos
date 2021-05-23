@@ -12,17 +12,16 @@ Prior to the application of the models, this chapter introduces the experimental
 
 \section{Experimental setup}
 
-Banc à Injection Multiple pour les Ecoulements Réactifs (BIMER) is an experimental rig developed at the laboratory EM2C and destinated to the study of reactive phenomena in MSFI systems. Originally studied by \textbf{ref:Barbosa-2008-thesis} (see Renaud thesis) with gaseous fuel, its study was later extended to liquid fuel by the works of \citeColor[providakis_etude_2013] and \citeColor[renaud_high-speed_2015].
+Banc à Injection Multiple pour les Ecoulements Réactifs (BIMER) is a test rig developed at the laboratory EM2C destinated to the study of reactive phenomena in MSFI systems. Originally studied by \citeColor[barbosa_etude_2008] with gaseous fuel, its study was later extended to liquid fuel by the works of \citeColor[providakis_etude_2013] and \citeColor[renaud_high-speed_2015].
 
+The test bench is shown in Figure \ref{fig:BIMER_test_bench_expe_maquette}. Air is introduced into a cylindrical plenum where the MSFI burner is located. The injector is then connected to a combustion chamber with a length of $500$ mm and a rectangular cross section 150 x 150 mm$^2$. The lateral walls are made of quartz to allow for optical access to the interior, while the top and bottom walls are cooled with water. Exhaust gases are evacuated at the end of the chamber through a collector. Two different fuel feeding lines are connected to each stage of the injector. 
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.4]{./part3_applications/figures_ch7_aero/BIMER_test_bench_expe_maquette}
-	\caption{BIMER experimental test bench schematic view. Source: \citeColor[cheneau_etude_2019].}
+	\includegraphics[scale=0.5]{./part3_applications/figures_ch7_aero/BIMER_test_bench_expe_maquette}
+	\caption[BIMER experimental test bench]{BIMER experimental test bench. Source: \citeColor[cheneau_etude_2019].}
 	\label{fig:BIMER_test_bench_expe_maquette}
 \end{figure}
-
-The test bench is shown in Figure \ref{fig:BIMER_test_bench_expe_maquette}. Air is introduced into a cylindrical plenum where the multipoint burner is located. The injector is then connected to a combustion chamber with a length of $500 ~mm$ and a rectangular cross section 150 x 150 mm$^2$. The lateral walls are made of quartz to allow for optical access to the interior of the chambers, while the top and bottom walls are cooled with water. Exhaust gases are evacuated at the end of the chamber through a collector. Two different fuel feeding lines are connected to each stage of the injector. 
 
 A detailed view of the burner is shown in Figure \ref{fig:BIMER_swirler}. Each stage has a swirler and a liquid injector. The swirlers will give a rotating motion to the air coming from the plenum. The stages are designed as follows:
 
@@ -48,7 +47,7 @@ The test bench operates at atmospheric pressure. Air can be preheated up to a te
 \caption{Physical properties of dodecane fuel (C$_{12}$H$_26$) at 20 $\degree$C}
 \begin{tabular}{|c|c|c|}
 \hline
-$\rho$ [kg m$^{-3}]$   & $\mu$ [Pa s]   & $\sigma$ [N/m]  \\
+$\rho$ [kg m$^{-3}$]   & $\mu$ [Pa s]   & $\sigma$ [N m$^{-1}$]  \\
 \hline
 750 & $1.36 \cdot 10^{-3}$ & $22 \cdot 10^{-3}$ \\
 \hline
@@ -59,33 +58,29 @@ $\rho$ [kg m$^{-3}]$   & $\mu$ [Pa s]   & $\sigma$ [N/m]  \\
 
 \section{Choice of operating points}
 
-
-
-In first place, the 
-
-Gaseous flow simulations of BIMER have been performed for two operating conditions tested experimentally, with the purpose of using one condition for validation and the other for application:
+Gaseous flow simulations of BIMER have been performed for two operating conditions tested experimentally \citemColor[providakis_etude_2013,renaud_high-speed_2015]. One condition is used for validation of the aerodynamic simulations, while the other is used as application to obtain a developed aerodynamic field for initialising two-phase computations in the next chapters:
 
 \begin{itemize}
 
 	\item \textbf{Validation} of the gaseous simulations is performed with the operating point tested experimentally by \citeColor[providakis_etude_2013], since this one presents data on the non-reactive aerodynamic field. The simulations are also compared to numerical results obtained for this same operating condition by \citeColor[cheneau_etude_2019]. 
 	
-	\item \textbf{Application} to the setup condition tested by \citeColor[renaud_high-speed_2015]. This study shows data on non-reactive spray characteristics, and hence it will be used as the application case to run the full workflow formerly introduced in Chapter \ref{ch:sli_development}. It is, nowever, not used for validating the gaseous simulations since it does not present pertinent data.
+	\item \textbf{Application} to the setup condition tested by \citeColor[renaud_high-speed_2015]. This study shows data on non-reactive spray characteristics, and hence it will be used as the application case to run the full flowchart formerly introduced in Chapter \ref{ch4:sli_development}. %It is, however, not used for validating the gaseous simulations since it does not present pertinent data.
 
 \end{itemize}
 
-Both ope
+The parameters corresponding to both operating points are listed in Table \ref{tab:gaseous_operating_points_BIMER}. 
 
 \begin{table}[!h]
 \centering
 \caption{Operating points for performing non-reactive gaseous simulations}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-Operating condition   &  Reference & $\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}]$  & $\mu_g$ [Pa s] & $p$ [atm]  \\
+Operating condition    & $\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}]$  & $\mu_g$ [Pa s] & $p$ [atm]  & Reference\\
 \hline
 \hline
-Validation &  \citeColor[providakis_etude_2013] & 53 & 473 & 0.746089 & $2.571 \cdot 10^{-5}$ & 1 \\
+Validation &   53 & 473 & 0.746089 & $2.571 \cdot 10^{-5}$ & 1 & \citeColor[providakis_etude_2013]\\
 \hline
-Application & \citeColor[renaud_high-speed_2015] & 43.1 & 433 & 0.816382 & $2.391 \cdot 10^{-5}$ & 1 \\
+Application  & 43.1 & 433 & 0.816382 & $2.391 \cdot 10^{-5}$ & 1 & \citeColor[renaud_high-speed_2015] \\
 \hline
 \end{tabular}
 \label{tab:gaseous_operating_points_BIMER}
@@ -95,11 +90,61 @@ Application & \citeColor[renaud_high-speed_2015] & 43.1 & 433 & 0.816382 & $2.39
 
 \section{Numerical setup}
 
-Describe meshes, choices, parameters.
 
-\section{Mesh independence study}
+\subsection{Computational geometry}
+
+The computational configuration of the BIMER test bench is shown in Figure \ref{fig:BIMER_geometry_full_domain}. Air is introduced into the plenum through a cylindrical nozzle. The MSFI burner is located at the end of the plenum. A divergent nozzle connected the burner with the combustion chamber. At the end of the chamber, a region representing the atmosphere is located with a coflow of air at low speed ($5$ m/s) and the outlet of the domain.  
+
+\begin{figure}[h!]
+	\centering
+	\includeinkscape[inkscapelatex=false,scale=0.25]{./part3_applications/figures_ch7_aero/BIMER_geometry_full_domain}
+	\caption{Numerical configuration of BIMER test bench}
+	\label{fig:BIMER_geometry_full_domain}
+\end{figure}
+
+Figure \ref{fig:BIMER_geometry_flower_details} gives a detailed view of the MSFI burner. Both the take-off and pilot stages are represented as in the experimental geometry, with the fuel injectors and the gaseous swirlers. Fuel feeding lines and other represented have not been modeled due to their geometrical complexity \citepColor[cheneau_etude_2019]. The flower, whose main function is to fix the burner to the test rig, has been included in the computational domain since it may affect the incoming gaseous field.
+
+\begin{figure}[h!]
+	\centering
+	\includeinkscape[inkscapelatex=false,scale=0.25]{./part3_applications/figures_ch7_aero/BIMER_geometry_flower_details}
+	\caption[Details of multipoint injector from BIMER test bench.]{Details of multipoint injector from BIMER test bench. \textsl{Left}: side view indicating same features of Figure \ref{fig:BIMER_swirler}. \textsl{Right}: isometric view of the injector, with a zoom-in region showing the multipoint injector.}
+	\label{fig:BIMER_geometry_flower_details}
+\end{figure}
+
+\subsection{Meshes}
+
+About the meshes, the two used are (see .tex file): %\textbf{mesh_31e6_face_sizing.msh} (bad) and \textbf{mesh_37e6.msh} (good, last mesh)
+
+Steps to follow (for this section):
+
+\begin{enumerate}
+	
+	\item \textbf{DONE} Show numerical domain with dimensions (as done in JICF, with a similar geometry to the one by Cheneau 2019).
+	
+	\item Recover meshes (all, including Vie). Give details on the two (or three) meshes I've used. Mention that we are gonna compare with the meshes by Aymeric (i.e. Cheneau).
+	
+	\item Maybe give details on the parameters/boundary conditions ?
+
+\end{enumerate}
+
+
 
 \section{Validation of gaseous field}
+
+Steps to follow (for this section):
+
+\begin{enumerate}
+	
+	\item Recover both simulations for Providakis with all meshes used.
+	
+	\item Show mean field (velocities, indicate, IRZ, ORZ, vortical structures ...) for finest simulation
+	
+	\item \textbf{Qualitative results}: show validation with finest simulation.
+	
+	\item \textbf{Quantitative results}: show validation with all simulations (two meshes used Y2, results by Cheneau, and results obtained with the meshes of Aymeric).
+	
+
+\end{enumerate}
 
 Results are contained here: $Ongoing - BIMER - postprocessing - aero$. They were discussed in the pilotage of 16 March 2021.
 
@@ -111,6 +156,8 @@ Results are contained here: $Ongoing - BIMER - postprocessing - aero$. They were
 	\caption{Mean velocity field .}
 	\label{fig:quantitative_view_mean_velocity_field}
 \end{figure}
+
+\subsection{Mesh independence study}
 
 
 \subsection{Qualitative validation}
@@ -162,8 +209,20 @@ See Figure \ref{fig:validation_qualitative_u}: \ref{fig:validation_qualitative_u
 \subsection{Quantitative validation}
 
 \section{Application point}
+	\label{ch7:BIMER_application_point}
 
+Steps to follow (for this section):
 
+\begin{enumerate}
+	
+	\item Take the only simulation performed (with finest mesh).
+	
+	\item Show mean field, velocity field.
+	
+	\item Show PVC, vortical structures, try to get some interesting results (get inspired by Esclapez, for example).
+	
+
+\end{enumerate}
 
 
 \section{Conclusion}

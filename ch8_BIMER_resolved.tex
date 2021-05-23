@@ -1,7 +1,32 @@
 \chapter{Spray learning from resolved atomization simulations of BIMER}
 	\label{ch8:bimer_resolved_atomization}
 
+Steps to follow (for this chapter):
+
+\begin{enumerate}
+
+	\item Intro: make it atractive. Specify that we are gonna simulate just one multipoint injector.
+	
+	\item Numerical setup: specify that :
+
+		\begin{itemize}
+		
+			\item Fine mesh from the previous chapter is used
+			
+			\item One multipoint injector is going to be simulated (make zoom, nice pictures and graphs showing it)
+			
+			\item The simulation detailed in $\S$\ref{ch7:BIMER_application_point} is used as initial solution
+			
+			\item Describe the operating point ($q$, $We$). Mention how the bulk gas velocity has been obtained.
+		
+		\end{itemize}
+	
+\end{enumerate}
+
+
 \section{Introduction}
+
+
 
 \section{Numerical setup}
 
@@ -43,7 +68,7 @@ Two methods to determine bulk gas velocity:
 
 \begin{itemize}
 
-	\item According to \textbf{ref:Barbosa-2008}, a $80 \%$ of the air flow rate goes through the take-off stage and $20 \%$ goes through the take-off one. The study of \citeColor[renaud_high-speed_2015] shows that the percentage through the pilot is actually $13.5 \%$, hence $86.5 \%$ goes through the take-off. Considering the application point in Table \ref{tab:gaseous_operating_points_BIMER}, this makes a total of $\dot{m}_{a,take-off} = 37.2815 ~ $ g s$^{-1}$, which in terms of flow rate is $Q = \dot{m} / \rho_g = 0.04567 $ m$^{3}$ s$^{-1}$. Considering that this flow rate is split through 20 vanes, then per canal the flow rate is $Q_a = 2.2833 \cdot 10^{-3}$ m$^{3}$ s$^{-1}$. With an area of 6 x 10 mm$^2$ (see Fig. \ref{fig:gas_injection_area_multipoint}), the estimated bulk velocity is $u_g = Q / A = 38 ~ m/s$
+	\item According to \citeColor[barbosa_etude_2008], a $80 \%$ of the air flow rate goes through the take-off stage and $20 \%$ goes through the take-off one. The study of \citeColor[renaud_high-speed_2015] shows that the percentage through the pilot is actually $13.5 \%$, hence $86.5 \%$ goes through the take-off. Considering the application point in Table \ref{tab:gaseous_operating_points_BIMER}, this makes a total of $\dot{m}_{a,take-off} = 37.2815 ~ $ g s$^{-1}$, which in terms of flow rate is $Q = \dot{m} / \rho_g = 0.04567 $ m$^{3}$ s$^{-1}$. Considering that this flow rate is split through 20 vanes, then per canal the flow rate is $Q_a = 2.2833 \cdot 10^{-3}$ m$^{3}$ s$^{-1}$. With an area of 6 x 10 mm$^2$ (see Fig. \ref{fig:gas_injection_area_multipoint}), the estimated bulk velocity is $u_g = Q / A = 38 ~ m/s$
 	
 	\item Nah
 

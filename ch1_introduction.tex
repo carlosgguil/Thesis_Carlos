@@ -25,14 +25,14 @@ Emissions of NO$_\mathrm{x}$ are a big concern due to their harmful effect in he
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.6]{./part0_intro/NOx_emissions_with_OPR}
-	\caption{Evolution of NO$_x$ emissions with several generations of aircraft engines. Source: \citepColor[easa_european_2019]}
+	\caption[Evolution of NO$_x$ emissions with several generations of aircraft engines]{Evolution of NO$_x$ emissions with several generations of aircraft engines. Source: \citepColor[easa_european_2019]}
 	\label{fig:NOX_emissions_with_OPR}
 \end{figure}
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.6]{./part0_intro/NOx_emissions_forecast_report2019}
-	\caption{NO$_x$ emission forecasts from 2017 to 2040. Source: \citepColor[easa_european_2019]}
+	\caption[NO$_x$ emission forecasts from 2017 to 2040]{NO$_x$ emission forecasts from 2017 to 2040. Source: \citepColor[easa_european_2019]}
 	\label{fig:NOX_forecasts}
 \end{figure}
 
@@ -105,7 +105,7 @@ Figure \ref{fig:multipoint_injector_snecma} shows a MSFI injector with the atomi
       \label{fig:multipoint_injector_snecma}
 \end{figure}
 
-A view of the several multiphysical phenomena found within a combustor is shown in Figure \ref{fig:JICF_multiphysics} with an example of reactive jet in crossflow (JICF). Liquid fuel is injected through the injection nozzle as a coherent jet. Instabilities start taking place after injection which will eventually break the jet into large blobs and ligaments during a process known as \textbf{primary atomization} (or primary breakup). Resulting liquid structures will then break into smaller droplets during \textbf{secondary atomization} (or secondary breakup) until the droplets reach a small size and a spherical shape. As a consequence of the atomization process, the specific surface of the spray (i.e. the amount of liquid surface which is in contact with the continuous gas) is large and hence \textbf{evaporation} can take place. Gaseous fuel can then \textbf{mix} with the surrounding air  to produce an ignitable mixture that can finally burn in the \textbf{combustion} process. At the same time, there are other physical mechanisms taking place in the combustion, such as drop-drop interactions, wall-drop interactions and droplet combustion. All these processes are generally found within gas turbines.
+A view of the several multiphysical phenomena found within a combustor is shown in Figure \ref{fig:JICF_multiphysics} with an example of reactive liquid jet in crossflow (JICF). Liquid fuel is injected through the injection nozzle as a coherent jet. Instabilities start taking place after injection which will eventually break the jet into large blobs and ligaments during a process known as \textbf{primary atomization} (or primary breakup). Resulting liquid structures will then break into smaller droplets during \textbf{secondary atomization} (or secondary breakup) until the droplets reach a small size and a spherical shape. As a consequence of the atomization process, the specific surface of the spray (i.e. the amount of liquid surface which is in contact with the continuous gas) is large and hence \textbf{evaporation} can take place. Gaseous fuel can then \textbf{mix} with the surrounding air  to produce an ignitable mixture that can finally burn in the \textbf{combustion} process. At the same time, there are other physical mechanisms taking place in the combustion, such as drop-drop interactions, wall-drop interactions and droplet combustion. All these processes are generally found within gas turbines.
 
 \begin{figure}[ht]
      \centering
@@ -118,22 +118,20 @@ As illustrated in Figures \ref{fig:multipoint_injector_snecma} and \ref{fig:JICF
 
 \subsection*{The atomization process}
 
-Atomization is generally divided into two 
+After liquid injection, atomization is the mechanisms through which coherent, dense liquid is fractured into smaller liquid structures. \citeColor[lefebvre_atomization_2017] define atomization as \textsl{the process by which a liquid jet or sheet is disintegrated by the kinetic energy of the liquid, by the exposure to
+high-velocity air or gas, or by mechanical energy applied externally through a rotating or vibrating device}. Its purpose is to increase the liquid specific surface to allow for the evaporation of fuel.
 
-Liquid fuel injected into combustion chamber cannot be evaporated straightforward because the is not high enough. Hence, this specific surface is increased by breaking the continuous liquid jet into smaller fragments in the process of atomization. \citepColor[lefebvre_atomization_2017] defines atomization as \textsl{the process by which a liquid jet or sheet is disintegrated by the kinetic energy of the liquid, by the exposure to
-high-velocity air or gas, or by mechanical energy applied externally through a rotating or vibrating device}.
+Atomization is triggered by instabilities which are found naturally in liquids jets. \citeColor[rayleigh_instability_1878] found that jet breakup in smaller drops is produced due to the growth of small disturbances in the liquid. Instabilities are amplified by the aerodynamic interaction with the surrounding air, enhancing the energy transfer between both phases. Turbulence of the jet also amplifies these disturbances: if liquid is injected in a high turbulent state, atomization will occur promptly and breakup will be governed by the aerodynamic forces, while if the jet is injected at low speed the breakup will be governed by surface tension and capillary forces, and the breakup morphology will be different. Regimes of atomization are distinguished according to two main dimensionless numbers, the \textbf{Reynolds number} $Re$ and the \textbf{Weber number} $We$:
 
-Atomization is triggered by instabilities which are found naturally in liquids jets. \citeColor[rayleigh_instability_1878] found that jet breakup oin smaller drops is produced due to the growth of small disturbances in the liquid. This disturbances are amplified by the aerodynamic interaction with the surrounding air, enhancing the energy transfer between both phases. Turbulence of the liquid jet also amplifies these disturbances: if the fuel is being injected in a turbulent state (i.e. at a high Reynolds number), atomization will occur promptly. 
+\begin{equation}
+	Re = \frac{\rho u D}{\mu} ~~~~~~ ;  ~~~~~~ We = \frac{\rho u^2 D}{\sigma}
+\end{equation}
 
-Atomization is generally divided by the scientific community in two parts primary atomization and the secondary atomization. In primary atomization, the continuous liquid phase breaks into big ligaments and droplets. These fragments then split into small droplets during the secondary atomization. Figure \ref{fig:atomization_regimes_herrmann} shows a schematic sketch of liquid jet injection and the atomization process. Two main regimes of atomization are distinguished:
+where $\rho$ is density, $\mu$ the viscosity, $\sigma$ the surface tension, $u$ is a characteristic velocity (usually the liquid velocity or the relative velocities between liquid and gas), $D$ a characteristic length (usually the nozzle diameter or the droplet size). The Reynolds number represents the ratio between the aerodynamic forces and the viscous ones: a high $Re$ indicates a high turbulent state and a dominance of inertia as the main breakup mechanism, while a low $Re$ means laminar flow and a predominant role of viscosity. The Weber number defines the relative importance of aerodynamic forces with respect to capillary forces. From these definitions applied to the liquid phase, $Re_l$ and $We_l$, a third ratio measuring the relative importance between viscous and surface tension forces, called \textbf{Ohnesorge number}, can be defined:
 
-\begin{itemize}
-
-	\item \textbf{Primary atomization}.  See the regimes in Figure \ref{fig:regimes_atomization_primary}.
-	
-	\item \textbf{Secondary atomization}.  See the regimes in Figure \ref{fig:regimes_atomization_secondary}.
-
-\end{itemize}
+\begin{equation}
+Oh = \frac{\sqrt{We_l}}{Re_l} = \frac{\mu_l}{\sqrt{\rho_l D \sigma}}
+\end{equation}
 
 \begin{figure}[h!]
 	\centering
@@ -142,79 +140,249 @@ Atomization is generally divided by the scientific community in two parts primar
 	\label{fig:atomization_regimes_herrmann}
 \end{figure}
 
-Explain two-phase flows phenomenology (injection + atomization) here. 
+Figure \ref{fig:atomization_regimes_herrmann} illustrates liquid jet injection and atomization. The latter is generally divided by the scientific community in two different regimes, which are commonly found in all disintegrations of jets independently of the injection methodology:
 
-Explain airblast, hollow-cone, jicf.
+\begin{itemize}
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.5]{./part0_intro/regimes_atomization_primary}
-	\caption{Primary atomization regimes. Source: \citeColor[lefebvre_atomization_2017]}
-	\label{fig:regimes_atomization_primary}
-\end{figure}
+	\item \textbf{Primary atomization} is the process by which a liquid jet or sheet breaks from a dense structure into primary structures such as large blobs and ligaments. It is highly dependent on the injector system (pressure-swirl atomizer, jet in crossflow, airblast ...) and its characteristics (internal geometry, discharge pressure, discharge coefficient, liquid turbulent state ...). As shown in Figure \ref{fig:atomization_regimes_herrmann}, regions where primary atomization takes place are characterized by high characteristic length scales $l$ (larger than the grid resolution) and high liquid volume fractions, features of what is known as the \textbf{dense regime}. Numerical methods targeted to solve for primary atomization are addressed in Chapter \ref{ch3:disperse_phase_methods}. 
+	
+	Several regimes of primary atomization are distinguished, classified accordingly to the liquid flow state. These regimes, shown in Figure \ref{fig:regimes_atomization_primary}, depend on $Re_l$ and $Oh$ based on the liquid velocity and in the injection diameter $d_0$. As it can be seen, for a fixed value of $Oh$ the governing breakup mechanisms changes if the injection velocity increases (i.e. if $Re_l$ is increases, so turbulence will play a more dominant role). For the $\textbf{Rayleigh regime}$ at low values of $Re_l$, surface tension is the responsible for creating axisymmetric oscillations of the jet with large wavelengths that will make it break into structures larger than the nozzle diameter. Aerodynamic effects are negligible, being capillary forces the leading physical phenomena, and breakup occurs at several nozzle diameter locations downstream the injection point. As $Re_l$ increases, the relative velocity between the liquid and gas phases is higher and aerodynamic forces cannot be neglected, contributing to the destabilizing waves that create droplets of the size of the nozzle diameter and a faster atomization, yet still occurring at several diameters downstream the injector (\textbf{first wind induced} regime). An slightly larger $Re_l$ will swift the dominant breakup role of capillary forces to inertial ones, the wavelenghts of instabilities being amplified by liquid turbulent eddies which break the jet into droplets smaller than the injection nozzle (\textbf{second wind induced}). Finally, at even larger values of $Re_l$ capillary forces can be neglected and the breakup is solely governed by aerodynamics, creating small droplets generated right at the nozzle exit (\textbf{atomization} regime).
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=1.0]{./part0_intro/regimes_atomization_secondary}
-	\caption{Secondary atomization regimes. Source: \citeColor[pilch_use_1987]}
-	\label{fig:regimes_atomization_secondary}
-\end{figure}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[scale=0.45]{./part0_intro/regimes_atomization_primary}
+		\caption{Primary atomization regimes in jets. Source: \citeColor[lefebvre_atomization_2017]}
+		\label{fig:regimes_atomization_primary}
+	\end{figure}
+
+	
+	\item \textbf{Secondary atomization} occurs after primary atomization, once the main liquid structures have been ejected from the jet or sheet and are broken into smaller structures. Injector characteristics and the turbulent state of the coherent liquid do not play a fundamental role anymore, but it is the interaction between the liquid structures and the surrounding air what will dominate secondary breakup. Figure \ref{fig:atomization_regimes_herrmann} shows as secondary atomization disintegrated the liquid structures until a developed spray composed of spherical droplets that do not breakup anymore is formed. During secondary atomization, the spray undergoes a transition from the dense regime found in primary atomization to a \textbf{dilute regime} where the characteristic length scales of liquid (i.e. the droplets diameters) are very small and the liquid volume fraction is very low. Between the dense and dilute regimes, an \textbf{intermediate} regime can be defined where values of volume fraction and comprised between those of the dense and dilute ones. The lower liquid volume fractions and small sizes (usually smaller than the mesh resolution) found in these regimes require numerical resolution through methods different from those devoted to resolve primary atomization. Such methods are introduced in Chapter \ref{ch3:disperse_phase_methods}.
+	
+	As the main phenomenon governing secondary atomization is the interaction between the liquid and the gas, this process can be characterized by means of the Weber number based on the relative velocity between phases:
+	
+	\begin{equation}
+	We = \frac{\rho_g u_\mathrm{rel}^2 r}{\sigma} 
+	\end{equation}
+	
+	where $u_\mathrm{rel} = | u_l - u_g  |$ and $r$ is a characteristic length of the liquid structures (the radius for spherical droplets). The gaseous density is taken as representative one. Different regimes of primary atomization, universal for any injector geometry and injection system, are depicted in Figure \ref{fig:regimes_atomization_secondary}. For large numbers of $We$ (i.e. high relative velocities and/or large length scales) the breakup is \textbf{catastrophic}, and particles are disintegrated into a large number of very small droplets due to shear forces causing stripping. As $We$ decreases the topology of structures found during atomization changes and breakup becomes less aggressive. For small values of $We$, particles split into a small number of droplets due to \textbf{bag} or \textbf{vibrational} breakups. For $We < 12$, breakup hardly occurs and droplets are said to be in equilibrium with the surrounding air: atomization is complete. This value is called the \textbf{critical Weber number}. 
+	
+	The interactions among droplets (drop-drop) and between droplets and walls (drop-wall), both illustrated in Figure \ref{fig:JICF_multiphysics} also produce secondary atomization with different governing mechanisms than the drop-air interaction. These particular phenomena are not addressed in this thesis and hence they will not be further discussed.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[scale=1.0]{./part0_intro/regimes_atomization_secondary}
+		\caption{Secondary atomization regimes. Source: \citeColor[pilch_use_1987]}
+		\label{fig:regimes_atomization_secondary}
+	\end{figure}
+
+\end{itemize}
+
 
 
 \subsection*{Liquid jet in crossflow}
 
-In a liquid JICF, the liquid jet faces a transverse stream of air at the nozzle exit. The liquid jet is bended towards the trajectory of the airflow, and then starts to suffer from atomization. The aerodynamic interaction with the airflow and the inertia of the jet will be responsible for all the processes involved: it will influence
-the penetration of the liquid jet, how fine and prompt the atomization will be and the later mixing with the air. In a reactive configuration, atomization will be followed by evaporation into gaseous fuel, mixing with air and finally combustion. Figure \ref{fig:JICF_multiphysics} illustrates all the multi-physical processes involved in a liquid JICF from fuel injection until combustion, relevant for the application inside future aeronautical combustors.
+Contrarily to secondary atomization, whose behaviour is not influenced by the injection system, primary atomization is highly dependent on the injector configuration. As a consequence, different liquid structures and characteristic sizes are present in MSFI systems due to the different atomization mechanisms (see Figure \ref{fig:multipoint_injector_snecma}). One characteristic breakup mechanism of MSFI is the one from the take-off stage, which injects fuel in a particular configuration known as liquid jet in crossflow (JICF). This section discusses primary atomization and the influencing parameters of JICF, which is the injection configuration studied in this thesis.
 
+In a liquid JICF, a stream of air flows perpendicularly to the direction of liquid injection, as shown in Figure \ref{fig:JICF_multiphysics}. The liquid jet leaves the nozzle and bends towards the crossflow direction, undergoing primary and secondary atomization which creates a developed spray further downstream the injection point. The aerodynamic interaction with the surrounding air is of paramount importance: it influences the jet breakup, vertical penetration and the atomization process, which will eventually affect the mixing process prior to combustion in reactive applications.
 
+%\subsubsection*{Breakup process}
 
-The atomization process in liquid JICF has been studied experimentally by several authors \citemColor[adelberg_breakup_1968,wu_breakup_1997,becker_breakup_2002,freitag_spray_2008]. Their studies have identified two main mechanisms of primary breakup:
+The atomization process in liquid JICF has been investigated experimentally by several authors \citemColor[adelberg_breakup_1968,wu_breakup_1997,becker_breakup_2002,ragucci_trajectory_2007,freitag_spray_2008]. These studies have generally identified two main mechanisms of primary breakup:
 
 \begin{itemize}
 
-	\item \textbf{Column breakup}. Surface waves on the liquid column start to grow until the jet breaks into ligaments,
-which eventually turn into droplets during secondary atomization. An example is shown in Figure \ref{fig:JICF_breakup_mechanisms_freitag}
-left, showing the surface waves caused by Kelvin-Helmholtz instabilities. This type of breakup occurs
-when the aerodynamic interaction is not too strong (low relative liquid-air velocities).
+	\item \textbf{Column breakup}. Surface waves on the liquid column start to grow until the jet breaks into ligaments, which eventually turn into droplets during secondary atomization. An example is shown in Figure \ref{fig:JICF_breakup_mechanisms_freitag} left, showing the surface waves caused by instabilities. This type of breakup occurs when the aerodynamic interaction is not too strong (low relative liquid-air velocities).
 
-\item \textbf{Surface breakup}. A strong aerodynamic interaction (large relative liquid-air velocity, high viscosity,
-etc.) produces the disintegration of the liquid jet by means of shear. Ligaments and droplets are
-stripped off the sides of the jet, which eventually is torn apart into droplets. Surface breakup can be
-appreciated in Figure \ref{fig:JICF_breakup_mechanisms_freitag} right.
+\item \textbf{Surface breakup}. A strong aerodynamic interaction (large relative liquid-air velocity, high viscosity, etc.) produces the disintegration of the liquid jet by means of shear. Ligaments and droplets are
+stripped off the sides of the jet, which eventually is torn apart into droplets. Surface breakup can be appreciated in Figure \ref{fig:JICF_breakup_mechanisms_freitag} right. 
 
 \end{itemize}
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.5]{./part0_intro/JICF_breakup-mechanisms_freitag}
+	\includegraphics[scale=0.65]{./part0_intro/JICF_breakup-mechanisms_freitag}
 	\caption{Experimental images of kerosene JICF breakup. \textsl{Left}: column breakup. \textsl{Left}: surface breakup. Source: \citeColor[freitag_spray_2008]}
 	\label{fig:JICF_breakup_mechanisms_freitag}
 \end{figure}
 
+As in any two-phase problem, the physical and breakup characteristics of a JICF can be represented by means of dimensionless numbers. In liquids jet in crossflow, the main two governing factors are the \textbf{momentum flux ratio} $q$ and the \textbf{Weber number based on the gaseouos phase} $We_g$, defined in Eq. (\ref{eq:q_and_We_JICF_parameters}). The former parameter represents the relation between the momentum, or kinetic energies, of the liquid and gaseous phases, while the latter represents the relative contribution of the gaseous phase to capillary forces. 
 
+\begin{equation}
+\label{eq:q_and_We_JICF_parameters}
+	q = \frac{\rho_l u_l^2}{\rho_g u_g^2} ~~~~~~ ;  ~~~~~~ We_g = \frac{\rho_g u_g^2 d_\mathrm{inj}}{\sigma}
+\end{equation}
 
-Explain trajectory, breakup/breakdown points, influences of parameters, breakup regimes.
+The influence of these factors in the breakup process of liquid jets in crossflow has been experimentally studied by \ref{fig:jicf_breakup_regime_wu}, resulting in a breakup map of Figure \ref{fig:jicf_breakup_regime_wu}. Column and surface breakup, which are the main primary atomization regimes, are separated by the dividing line that indicates the transitional $q$ value between both regimes to be inversely proportional to $We_g$. For column breakup, several atomization modes appear depending on the value of $We_g$. Figure \ref{fig:jicf_breakup_sallam} shows experimental snapshots of these modes. As it is shown, for low $We_g$ (capillary and bag regimes) the breakup is dominated by capillary forces and the jet stays coherent until several nozzle diameters downstream the injection point, once the jet has bent and its cross section has been deformed. Waves are clearly observed in the windward side of the jet (i.e. the face in contact with the incoming air), and the wavelength of liquid surfaces $\lambda$ can be defined as the distance between two nodes.  For higher $We_g$ (multimode and shear regimes), instabilities causing breakup are also observed developing along the windward side of the jet, but it is also noticeable the stripping of liquid ligaments and droplets at the sides of the jets due to aerodynamic shear. For the shear breakup these stripped-off structures appear close to the injection point, hindering the optical access to the jet structure and atomization characteristics further downstream. This was also observed for the surface breakup mode in Figure \ref{fig:JICF_breakup_mechanisms_freitag} right. Another noticeable characteristic is that the wavelengths $\lambda$ decrease for larger values of $We_g$. \citeColor[sallam_breakup_2004] found that the order of magnitudes of the wavelenghts with respect to the injection diameter is $\lambda/d_\mathrm{inj} > 1$ for capillary breakup, $\lambda/d_\mathrm{inj} \approx 1$ for bag breakup, $0.1 < \lambda/d_\mathrm{inj} < 1$ for the multimode regime and $\lambda/d_\mathrm{inj} \approx 0.1$ for shear breakup. The main responsible mechanisms of generating these surface waves are either Kelvin-Helmholtz and Rayleigh-Taylor instabilities. The former ones are said to be the dominating mechanisms for the waves observed in Figure \ref{fig:jicf_breakup_sallam} \citepColor[sallam_breakup_2004]. It is believed that the prevalence of either one or another mode depends on the density ratio between fluid and gas, being the Rayleigh-Taylor the main dominant mechanisms for high density rations \citepColor[ghods_detailed_2013]. Nevertheless, the appearance and dependence of each instability mode is not certainly known nowadays and remains an open question requiring further research.
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.5]{./part0_intro/jicf_breakup_regime_wu}
+	\includegraphics[scale=0.55]{./part0_intro/jicf_breakup_regime_wu}
 	\caption{Breakup map for liquid jet in crossflow. Source: \citeColor[wu_breakup_1997]}
 	\label{fig:jicf_breakup_regime_wu}
 \end{figure}
 
+\begin{figure}[h!]
+	\centering
+	\includeinkscape[inkscapelatex=true,scale=0.7]{./part0_intro/jicf_breakup_sallam}
+	\caption[Primary breakup processes in liquid jet in crossflow]{Primary breakup processes in liquid jet in crossflow. Air flows from right to left. (a) No breakup, $We_g = 0$. (b) Capillary breakup, $We_g = 3$. (c) Bag breakup, $We_g = 8$. (d) Multimode breakup, $We_g = 30$. (e) Shear breakup, $We_g = 220$. Source: \citeColor[sallam_breakup_2004]}
+	\label{fig:jicf_breakup_sallam}
+\end{figure}
 
+Another very important characteristic of the liquid jet in crossflow is its penetration, since in real configurations it will determine the region where evaporation and mixing takes place and, later, the flame structure. The near-field jet penetration can be quantified by means of the \textbf{vertical trajectory} of the jet, which gives the mean contour of its windward side. This trajectory can be experimentally obtained either from instantaneous snapshots of the jet (Figure \ref{fig:inst_and_mean_jets_ragucci} left) or from average images (Figure \ref{fig:inst_and_mean_jets_ragucci} right), each experimentalist using its own methods. From experimental studies, the trajectory is generally given by correlations relating the vertical trajectory $z$ with the axial coordinate $x$. Some experimental correlations are shown in Table \ref{tab:correlations_experimental_JICF}, where $We_{ae} = \rho_g u_l^2 d_\mathrm{inj}/\sigma$. Figure \ref{fig:inst_and_mean_jets_ragucci} right shows the jet correlation from \citeColor[ragucci_breakup_2007] overlapped with the average jet view.
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.6]{./part0_intro/ragucci_jet_penetration}
+	\caption{Instantaneous and averages images of a liquid jet in crossflow. Source: \citeColor[ragucci_breakup_2007]}
+	\label{fig:inst_and_mean_jets_ragucci}
+\end{figure}
+
+
+\begin{table}[!h]
+\centering
+\caption{Correlations for the jet trajectory of the JICF}
+\begin{tabular}{c|c|c|c}
+\hline
+$z / d_\mathrm{inj}$ & Liquid  & Range of validity & Reference  \\
+\hline
+\hline
+\multirow{2}{*}{$1.37 \sqrt{q \left( \frac{x}{d_\mathrm{inj}} \right)}$} & \multirow{2}{*}{ Water } & $3.4 < q < 185$ & \multirow{2}{*}{\citeColor[wu_breakup_1997]} \\
+& & $57 < We_{ae} < 1200$ & \\
+\hline
+\multirow{3}{*}{$1.57 \mathrm{q}^{0.36} \ln \left( 1 + 3.81 \frac{x}{d_\mathrm{inj}} \right)$} & \multirow{3}{*}{ Kerosene } & $1 < q < 12$  & \multirow{3}{*}{\citeColor[becker_breakup_2002]} \\
+& & $90 < We_{ae} < 2120$ &  \\
+& & $2 < x/d_\mathrm{inj}< 22$ & \\
+\hline
+\multirow{2}{*}{ $2.27 q^{0.44} We_{ae}^{-0.012} \left( \frac{x}{d_\mathrm{inj}} \right)^{0.367}$ }  & \multirow{2}{*}{Kerosene} & $5 < q < 280$  & \multirow{2}{*}{\citeColor[ragucci_breakup_2007]} \\
+& & $7 < We_{ae} < 340$ & \\
+\hline
+\multirow{3}{*}{ $1.6 q^{0.4} \ln \left( 1 + 3.81 \left( \frac{x}{d_\mathrm{inj}} \right) \right)$} & \multirow{3}{*}{Kerosene} & $3 < q < 24$ & \multirow{3}{*}{\citeColor[freitag_spray_2008]} \\
+& & $39 < We_{ae} < 3281$ & \\
+& & $1.4 < x/d_\mathrm{inj}< 50$ & \\
+\hline
+\end{tabular}
+\label{tab:correlations_experimental_JICF}
+\end{table}
+
+
+%\begin{table}[!h]
+%\centering
+%\caption{Correlations for the jet trajectory of the JICF}
+%\begin{tabular}{c|c|c|c}
+%\hline
+%$z / d_\mathrm{inj}$ & Liquid  & Range of validity & Reference  \\
+%\hline
+%\hline
+%$1.37 \sqrt{q \left( \frac{x}{d_\mathrm{inj}} \right)}$ & Water & $3.4 < q < 185$ &\citeColor[wu_breakup_1997] \\
+%\hline
+%$2.27 q^{0.44} We_{ae}^{-0.012} \left( \frac{x}{d_\mathrm{inj}} \right)^{0.367}$   & Kerosene & $5 < q < 280$  & \citeColor[ragucci_breakup_2007] \\
+%\hline
+%\multirow{2}{*}{ $1.6 q^{0.4} \ln \left( 1 + 3.81 \left( \frac{x}{d_\mathrm{inj}} \right) \right)$} & \multirow{2}{*}{Kerosene} & $3 < q < 24$ & \multirow{2}{*}{\citeColor[freitag_spray_2008]} \\
+%& & $1.4 < x/d_\mathrm{inj}< 50$ & \\
+%\hline
+%\end{tabular}
+%\label{tab:correlations_experimental_JICF}
+%\end{table}
+
+
+In general, all the correlations from Table \ref{tab:correlations_experimental_JICF} show a dependence of the jet trajectory with the injection diameter $d_\mathrm{inj}$ and the momentum flux ratio $q$. These are the two main parameters governing the jet penetration. The larger the injection diameter, the further the jet will penetrate. This is attributed to a more coherent jet: if $d_\mathrm{inj}$ increases, more liquid mass flow is injected, so the jet carries more momentum and is able to withstand more stiffly the
+interaction with the airstream. Furthermore, atomization of a thicker jet will produce larger droplets that
+will travel further due to their ballistic properties. For the momentum flux ratio, increasing its value also increases the jet penetration. This is clearly seen in Table \ref{tab:correlations_experimental_JICF}, as the exponent factor of $q$ is positive in all correlations. Figure \ref{fig:parametric_JICF_q_ratio} shows the $q$ effect in the jet penetration. Regarding the influence of the air velocity (or equivalently, $We_g$), it does not have a direct effect in the jet penetration, as the correlations from Table \ref{tab:correlations_experimental_JICF} do not show any dependence with $We_g$. This is observed in Figure \ref{fig:parametric_JICF_air_velocity}, which shows instantaneous snapshots of a liquid JICF for several values of $u_g$. The main effect of increasing the gas velocity is the transition from column to surface breakup mechanisms, as given by the breakup map of Figure \ref{fig:jicf_breakup_regime_wu}. Nevertheless, it is seen that by increasing $u_g$, the far-field penetration is reduced due to a finer atomization: for low values of $u_g$, column breakup generates bigger droplets whose ballistic properties allow them to penetrate further in the vertical direction, while higher values of the gas velocity generate smaller droplets both from surface and column breakup mechanisms that will relax faster towards the air velocity and direction. \citeColor[becker_breakup_2002] tested a kerosene JICF with several gas velocities and measured the granulometry of the developed spray at a plane located 80 mm downstream the injection nozzle, obtaining the following relation between the Sauter Mean Diameter (SMD) and the kinetic energy of the gas which confirms how the mean droplet size decreases with increasing gas velocity:
+
+\begin{equation}
+SMD = 429 \left( \rho_g u_g^2 \right)^{-0.24}
+\end{equation}
+
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.45]{./part0_intro/parametric_JICF_q_ratio}
+	\caption{Effect of $q$ ratio. From left to right: $q = 3, 6, 12, 24$. Fixed values: $d_{inj} = 0.5 ~mm$, $u_g = 75 ~m/s$, $p_\infty = 4 ~\mathrm{bar}$. Source: \citeColor[freitag_spray_2008].}
+	\label{fig:parametric_JICF_q_ratio}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.45]{./part0_intro/parametric_JICF_air_velocity}
+	\caption{Effect of air velocity. From left to right: $u_g = 25, 50, 75, 100 ~m/s$. Fixed values: $d_{inj} = 0.5 ~mm$, $q = 6$, $p_\infty = 4 ~\mathrm{bar}$. Source: \citeColor[freitag_spray_2008].}
+	\label{fig:parametric_JICF_air_velocity}
+\end{figure}
+
+%Regarding internal nozzle effects Internal nozzle effects: effect of L/D ratio, some words on cavitation and hydraulic flip (ref. Chemloul).
+
+\section{Numerical simulations of fuel injection and combustion }
+
+The previous section has illustrated the heterogeneity of phenomena which are found in injection systems relevant to gas turbines, with a special focus on MSFI technology aiming at reducing NO$_\mathrm{x}$ formation. The study of these phenomena with experimental facilities is often restricted to academic cases without complex geometries due to difficult optic visualization. Furthermore, experiments do not have access to all the magnitudes of interest involved in the problem, and in some cases involving combustion or detonation they can involve safety issues.
+
+An alternative to study and design injection and combustion systems is the use of numerical simulations with Computational Fluid Dynamics (CFD). This tool has gained popularity in the last decades due to the increase in computational performances and the appearance of High Performance Computing (HPC), which allows to perform simulations of complex problems in parallel machines. CFD simulations can provide insightful information in the physical mechanisms and variables of interest, they do not have limitations regarding optical access and are free of hazards. Therefore, numerical simulations have become a powerful tool for the design of combustion systems and the understanding of the underlying fundamental physical phenomena.
+
+In order to resolve a given physical problem, the proper modeling strategy and numerical methods to perform CFD simulations must be chosen. Depending on the required accuracy and the computational resources available, three main approaches can be used to resolve numerically the Navier-Stokes equations. From lower to higher accuracy (and equivalently, from lower to higher computational cost), these approaches are:
+
+\begin{enumerate}
+
+	\item \textbf{Reynolds Averaged Navier Stokes} (RANS). The governing equations are averaged and the mean flow field is solved. Extra terms appear in the equations which need closure terms. All the turbulence spectrum, from Taylor to Kolmogorov characteristic length scales, is modelled. RANS can provide mean values and are good to characterize pressure drop in certain configurations, but are not best suited for solving transient problems.
+	
+	\item \textbf{Large-Eddy Simulations} (LES). A low-pass filter is applied to the Navier-Stokes equations, so that the characteristic scales under the filter size are modelled and the scales with larger size are resolved. For solving the smallest scales, a turbulence model is required which accounts for the viscous dissipation. One of the most well-known filters is the Smagorinsky model \citemColor[smagorinsky_general_1963,germano_dynamic_1991].
+	
+	\item \textbf{Direct Numerical Simulations} (DNS). In such simulations, all the turbulence characteristic scales are solved and no models are applied. Hence, DNS is an accurate tool for properly resolving turbulence. Nevertheless, its high computational cost reduces the application of DNS to reduced geometries and canonical test cases, and nowadays its application to full industrial configurations is not reachable.
+
+\end{enumerate}
+
+These three methodologies are widely used for aerodynamic and hydrodynamic problems involving one fluid phase. Two-phase flow problems also make use of these equations, but they additional equations or modeling tools to consider the interaction between phases. For cases involving liquid and gas, which are of interest in automotive and aeronautical engines, this interaction is dominated by surface tension $\sigma$. In terms of numerical modeling, surface tension creates a discontinuity in pressure and viscosity (as demonstrated later in $\S$\ref{sec:ch2_governing_equations}) that needs to be dealt with mathematical tools, for instance by adding extra forcing terms in the governing equation for momentum. Furthermore, different methods and modeling methodologies will be used depending on the problem to solve, since the multi-scale, complexity and richness of the physical phenomena in two-phase flows (illustrated in $\S$\ref{sec:ch1_fuel_injection_technology}) does not allow to use a single numerical formalism to solve simultaneously all processes involved.
+
+One large family of numerical methods is the one devoted to resolve accurately atomization. The underlying interest is to capture the dynamics of primary and secondary atomization, its governing physical mechanisms and the interaction with the gaseous phase. For this purpose, the main approach is to perform CFD simulations where the Navier-Stokes equations are resolved for each phase with LES or DNS. Then, additional equations are added in order to determine the evolution of the interface (e.g. level-set methods) or the liquid volume fraction (e.g. volume of fluid methods). These simulations are usually denoted as \textbf{resolved} or \textbf{eulerian}. Figure \ref{fig:DNS_simulations_jets} shows two instantaneous jets solved with a resolved atomization approach, where the interface dynamics have been solved with level-set methods. A diesel jet coloured by axial velocity and a liquid jet in crossflow are shown. In both cases, ligaments and droplets generated by the atomization process can be clearly appreciated. In this document, Chapter \ref{ch2:numerical_methods_resolved_atomization} presents numerical methods used nowadays for resolving injection and atomization.
+
+\begin{figure}[h!]
+	\centering
+   \includegraphics[scale=0.4]{./part0_intro/jets_DNS_simulations}
+	\caption[Direct numerical simulations of primary atomization in liquid jets.]{Direct numerical simulations of primary atomization in liquid jets. \textsl{Left}: diesel jet, from \citepColor[shinjo_simulation_2010]. \textsl{Right}: liquid jet in crossflow, from \citeColor[herrmann_detailed_2009].}
+	\label{fig:DNS_simulations_jets}
+\end{figure}
+
+Methodologies for resolving atomization are envisaged to capture the multi-scale nature of atomization, dedicating huge computational resources to solve from the biggest to the smallest scales and the interaction between phases. Nevertheless, the size of the smallest structures and droplets captured are often limited by the grid resolution, and due to their high cost cannot be easily coupled with additional physical equations to solve for the evaporation and combustion processes. To tackle these problems, different strategies are used, often circumventing atomization by injecting a spray represented by liquid spherical particles. These particles compose a \textbf{dispersed-phase system} where the gaseous phase is resolved by the Navier-Stokes equations and the particles representing the liquid phase evolve according to the dynamics of point-particle systems in \textbf{lagrangian simulations}. The coupling between both phases is done through exchange terms of mass, momentum and energy, and hence evaporation and combustion can be easily modelled in these simulations. Figure \ref{fig:lagrangian_simulations_jets} shows also two jets, diesel and jet in crossflow, simulated with lagrangian approaches. Contrarily to the resolved jets of Figure \ref{fig:DNS_simulations_jets}, here all the liquid phase is represented by means of spherical particles and the dynamics of atomization are not appreciated. In contrast, these simulations are computationally much cheaper than the former ones and can be applied to reactive computations in complex geometries as shown in Figure \ref{fig:lagrangian_simulations_jets}, where a full combustor is studied. In lagrangian simulations, the injection process is fundamental and needs to be properly modeled by injecting the right droplets sizes and velocities distributions. Chapter \ref{ch3:disperse_phase_methods} shows the state of the art on several numerical tools to approach dispersed two-phase phase systems, with special emphasis on lagrangian methods and their application to approach liquid jet in crossflow injection.
+
+\begin{figure}[h!]
+	\centering
+   \includegraphics[scale=0.5]{./part0_intro/jets_lagrangian_simulations}
+	\caption[Lagrangian simulations of liquid jets.]{Lagrangian simulations of liquid jets. \textsl{Left}: diesel jet, from  \citeColor[apte_les_2003]. \textsl{Right}: liquid jet in crossflow, from \citeColor[behzad_kiva-based_2010].}
+	\label{fig:lagrangian_simulations_jets}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+   \includegraphics[scale=0.45]{./part0_intro/reactive_LES_combustor_Moin}
+	\caption[Large Eddy Simulation of a Pratt \& Whitney combustor.]{Large Eddy Simulation of a Pratt \& Whitney combustor. \textsl{Left}: fuel spray injection, where liquid phase is represented by lagrangian droplets. \textsl{Right}: combustion simulation. Source: \citeColor[moin_large-eddy_2006].}
+	\label{fig:reactive_LES_combustor_Moin}
+\end{figure}
+
+Recently, new methodologies have emerged to represent more accurately the spray by coupling dispersed phase with lagrangian simulations. \citeColor[michaelides_multiphase_2017] make a distinction of these coupling methodologies in two main categories: Direct Coupling Approach (DCA) and Statistical Coupling Approach (SCA), shown in Figure \ref{fig:coupled_EE_EL_approaches_Michaelides}. In DCA, primary atomization is simulated with eulerian approaches, and resolved eulerian droplets are transformed into spherical droplets which are later transported with the lagrangian equations. Conversion criteria based on droplets size and sphericity are used. This approach has been studied by several authors who have demonstrated its capabilities to simulate non-reactive problems \citemColor[herrmann_parallel_2010,zuzio_improved_2018], but has not yet been applied to combustion cases. In SCA, an eulerian simulation resolves the jet up to a plane after atomization has taken place where droplets are sampled (SC layer in Figure \ref{fig:coupled_EE_EL_approaches_Michaelides}). Then, the information on the sampled spray is used to inject lagrangian droplets, which are then transported further downstream.
+
+\begin{figure}[h!]
+	\centering
+   \includegraphics[scale=0.5]{./part0_intro/coupled_EE_EL_approaches_Michaelides}
+	\caption[Schematic of coupled Eulerian–Lagrangian approaches for liquid atomization.]{Schematic of coupled Eulerian–Lagrangian approaches for liquid atomization. \textsl{Left}: direct coupling approach, DCA. \textsl{Right}: statistical coupling approach, SCA. Source: \citeColor[michaelides_multiphase_2017].}
+	\label{fig:coupled_EE_EL_approaches_Michaelides}
+	% Michaelides, p. 1140
+\end{figure}
 
 
 \section{Objective and thesis outline}
 \label{sec:ch1_objective_thesis_outline}
     %\addcontentsline{toc}{section}{\protect\numberline{}Manuscript organisation}
 
-Numerical simulations are a powerful tool for studying the physical mechanisms inside gas turbines, as they give access to all the variables of interest and to physical regions which are unreachable with experimental facilities. Furthermore, for reactive problems they are     
-    
+The interest in performing lagrangian simulations to study combustion within gas turbines has seen a huge increase in the recent decades due to the potential of this methodology for modeling multi-physics problems with reduced computational costs. To accurately initialise perform such simulations, lagrangian particles needs to be properly injected by prescribing droplets sizes and velocities in the right spatial location. Often, distributions measured experimentally are in such simulations to recover the dispersed spray obtained further downstream. This requires, of course, the existence of experimental test benches which are representative of the geometry and operating conditions simulated, sometimes which is not always possible. Other approaches make use of simulations to obtain these distributions, which 
+
+
+
+the injection process of lagrangian droplets needs to be properly modeled by introducing droplets sizes and velocities representative of the dispersed spray formed after at
+
+
     
 The purpose of this thesis is to develop a new methodology to build lagrangian injectors for performing dispersed phase simulations. 
 
-The thesis is divided in three main sections as follows:
+This thesis has been performed with Safran Group under the ITN programme ANNULIGhT, funded by the H2020 Marie Curie actions. The manuscript is divided in three main sections as follows:
 
 \begin{itemize}
 

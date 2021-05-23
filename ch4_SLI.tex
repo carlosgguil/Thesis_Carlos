@@ -1,38 +1,97 @@
 \chapter{Models for lagrangian injection}
 	\label{ch4:sli_development}
 
-Chapter \ref{ch3:disperse_phase_methods} ...
-
-In particular, $\S$\ref{sec:ch3_state_art_lagrangian_injection} presented a literature review of models for performing lagrangian injection in MSFI systems. 
-
-%\section{Introduction}
-
-Describe here the flowchart of our models and their ingredients. 
-If other models are developed, add them here too.
-
-\begin{itemize}
-
-	\item Flowchart
-	
-	\item Spray definition: with f function ? Or with lagrangian formalisms ?
-	
-	\item Spray sampling (reference to chapter JICF resolved simulations)	
-	
-	\item Spray convergence (MSE error definition [mention to Cramer-von Mises], quadtrees local refinement ... )
-	
-	\item Injectors creation (spatial refinement, quadtrees local refinement,)
-
-	\item Secondary atomization models.
-	
-	\item Actuator line method for dense core modelling
-
-\end{itemize}
-
 \section{Introduction}
 
-\section{Description of sprays}
+Chapter \ref{ch3:disperse_phase_methods} introduced numerical formalisms to represent dispersed two-phase flows. Special emphasis was given to the lagrangian representation of the fluid phase, as it is a widely employed approch in aerospace applications due to its low computational cost with respect to other formalisms and its ability to account for extra physics such as collisions, evaporation and combustion. The chapter culminated  $\S$\ref{sec:ch3_state_art_lagrangian_injection} with the presentation of lagrangian models to model fuel injection in MSFI systems, giving extra attention to the state of the art in methodologies for simulating JICF. 
 
-\section{Models flowchart}
+In this work, a novel numerical methodology to build numerical injectors for performing dispersed phase simulations in MSFI systems has been developed. The injectors build with this methodology have been baptised as Smart Lagrangian Injectors (SLI). Figure \ref{fig:state_art_injection} shows the location of the new method into the proposed classification of existing numerical models for lagrangian injection: SLI are built by learning a reference spray, which can be obtained either experimentally or numerically. Simulations performed with SLI will also account for the interaction of the dense liquid phase with the surrounding gas (blockage effect in liquid JICF) and secondary atomization models for further breakup of lagrangian particles.
+
+This chapter details the underlying theory of SLI, showing all the key modeling ingredients. Section \ref{sec:ch4_spray_description} introduces mathematical foundations representing the spray which are used by describing the models in Section \ref{sec:ch4_models_flowchart}. The learning methodology to build injectors from a reference spray is defined in Section \ref{sec:ch4_SLI_learning}. Finally, the theory of the models blocks accounting for the blockage effect and secondary atomization models are discussed respectively in Sections \ref{sec:ch4_dense_core_modelling} and \ref{sec:ch4_secondary_atomization_modeling}.
+ 
+
+%In this work, this new methodology has been applied to model liquid JICF injection, whose reference spray for the learning process has been obtained by performing resolved simulations of atomization with an academic test case. The results of these simulations are shown in Chapter \ref{ch5:jicf_resolved_simulations}. In a latter step, the SLI built from these simulations are applied to initialise dispersed phase computations for the same configuration in Chapter \ref{ch6:jicf_lgs_simulations}. Finally, all the methodology is applied in Part \ref{part3:BIMER} to a multipoint burner.
+
+\section{Mathematical description of sprays}
+	\label{sec:ch4_spray_description}
+
+In $\S$\ref{subsec:ch3_statistical_methods}, dispersed sprays resulting from atomization were described by a function $f$ which represented the number density function of droplets. By a proper determination and integration of $f$, all the characteristics from spray can be obtained. Several methods targeting the determination of $f$ were discussed in Chapter \ref{ch3:disperse_phase_methods}, from statistical approaches to the LPP representation. Even if only statistical approaches make use of the WBE formulation, LPP can be considered as an approximation to the $f$ function by considering the point particle approximation. Consequently, since in this work the LPP representation is chosen to represent dispersed phase flows, a mathematical representation of dispersed sprays based on the function $f$ as given by Eq. (\ref{eq:f_spray_description_subramanian}) is used.
+
+% NOTE: we use the general formulation for sampling surfaces as specified in latex-equations.
+
+Using this rationale, then the spray produced by atomization can be described by a continuous function $f$:
+
+\begin{equation}
+f \left( t, \textbf{x}, \textbf{u}, r \right) 
+\end{equation}
+
+which is defined in the whole spatial domain $\Omega \left( \boldsymbol{x} \right)$, $\forall \boldsymbol{x} = \left\lbrace x, y, z \right\rbrace^T \in {R}^3$. 
+
+
+We are interested in sampling the spray in a surface $\mathcal{S}$ which is part of the whole spatial domain: $\mathcal{S} \subset \Omega $. The spray sampled in this surface is described by a continuous function $f$:
+
+\begin{equation}
+\label{eq:f_general}
+ f \left( t, \textbf{x}, \textbf{u}, r \right) = F \left( t, \textbf{x}, \textbf{u}, r \right) \forall \mathrm{\boldsymbol{x} \in \mathcal{S}} 
+\end{equation}
+
+As $f$ is defined in a surface, it can be spatially represented by only two coordinates. These two coordinates, called surface coordinates, can be expressed as a vector $\boldsymbol{s} = \left\lbrace \xi, \eta \right\rbrace$. They can represent any type of surface, from cartesian to curvilinear ones. Therefore, the function $f$ can be expressed in terms of the surface coordinates as:
+
+\begin{equation}
+\label{eq:f_surface_coordinates}
+f \left( \boldsymbol{s}, D, t \right)  
+\end{equation}
+
+As both expressions (\ref{eq:f_general}) and (\ref{eq:f_surface_coordinates}) are idential, there must be a relation between the cartesian coordinates $\boldsymbol{x} = \left\lbrace x, y, z \right\rbrace$ and the surface coordinates $\boldsymbol{s} = \left\lbrace \xi, \eta \right\rbrace^T$. This relation can be expressed as follows:
+
+\begin{equation}
+\label{eq:morphism_general_definition}
+h : \boldsymbol{x} \rightarrow \boldsymbol{s}
+\end{equation}
+
+% Cool about morphisms: https://www.euclideanspace.com/maths/discrete/structure/map/morphism/index.htm
+
+where $h$ is a mapping function, or morphism, that will transform the cartesian coordinates $\boldsymbol{x}$ to the surface coordinates $\boldsymbol{s}$.
+
+Our interest will be, in a first approach, to obtain a converged spray which is time-independent. Therefore, we can integrate our function $f$ with time:
+
+\begin{equation}
+\label{eq:f_general_time_integrated}
+f \left( \boldsymbol{s}, D \right) = \frac{1}{T} \int_0^T f \left( \boldsymbol{s}, D, t \right) dt
+\end{equation}
+
+where $T$ is a sampling time. 
+
+In order to get statistics from an eulerian formulation, we will sample the spray in a surface $\Delta S$ which is contained within the sampling surface: $\Delta S \subset \mathcal{S}$. This means that our function $f \left( \boldsymbol{s}, D \right)$, which is defined $\forall \boldsymbol{s} = \left\lbrace \xi, \eta \right\rbrace \in \boldsymbol{R}^2$, will be integrated in a smaller surface $\Delta S$ with dimensions $\Delta \xi$ and $\Delta \eta$. This will yield a new function named $g$:
+
+\begin{equation}
+\label{eg:g_general}
+g \left( \boldsymbol{s}, D \right) = \frac{1}{\Delta S} \iint_{\Delta S} f \left( \boldsymbol{s}, D \right) dS = \frac{1}{\Delta \xi \Delta \eta} \int_\xi^{\xi + \Delta \xi} \int_\eta^{\eta + \Delta \eta}  f \left( \boldsymbol{s}, D \right) d\xi d\eta
+\end{equation}
+
+where the integration boundaries delimit the region of interest. Note that, in this case, the function $g \left( \boldsymbol{s}, D \right)$ will be discrete: for any pair of surface coordinates $\boldsymbol{s}$ which that belong to a given spatial region $\Delta S$, the same value of $g$ will hold. The function $g \left( \boldsymbol{s}, D \right)$ will define hereafter what we call \textbf{spatially refined statistics}.
+
+In a last step, we might be interested in looking at statistics that characterize the full domain $\mathcal{S}$. Hence, spatial integration must be performed in the whole sampling surface. These \textbf{spatially integrated statistics} will be calculated as follows:
+
+\begin{equation}
+f \left( D \right) = g \left( D \right) = \frac{1}{\mathcal{S}} \iint_{\mathcal{S}} f \left( \boldsymbol{s}, D \right) dS
+\end{equation}
+
+Note that in this case it is indifferent to use either $f$ or $g$ functions, as both of them will produce a scalar value (except for the dependency with the diameter $D$, which is idential in both formulations).
+
+\subsubsection{With spatial discretization}
+
+Spray can be defined in discrete coordinates by expressing Eq. (\ref{eg:g_jicf}) instead as follows (see pilotage 2020-11-16:
+
+\begin{equation}
+\label{eg:g_jicf}
+f_\mathrm{j,k} \left( \boldsymbol{s}_\mathrm{j,k}, D \right) = \frac{1}{\Delta y \Delta z} \int_{y_\mathrm{j-1/2}}^{y_\mathrm{j+1/2}} \int_{z_\mathrm{k-1/2}}^{z_\mathrm{k+1/2}}  f \left( \boldsymbol{s}, D \right) dy dz
+\end{equation}
+
+
+
+\section{Models for lagrangian injection}
+	\label{sec:ch4_models_flowchart}
 
 
 The flowchart of the models is shown in Figure \ref{fig:SLI_flowchart}. The main workflow of information to build lagrangian injectors is shown in the central part of the figure, where each block is explained in a different chapter of this manuscript:
@@ -59,9 +118,9 @@ Additionally, there are more submodels to take into account:
 	
 	\begin{itemize}
 	
-		\item \textbf{Dense core learning} in order to take into account the perturbation effect of the liquid dense structures (i.e. the liquid dense core in the JICF) in the gaseous phase during lagrangian simulations ($\S$\ref{sec:dense_core_modelling}). The information to characterize the dense core is taken from the resolved simulations and later imposed into lagrangian ones.
+		\item \textbf{Dense core learning} in order to take into account the perturbation effect of the liquid dense structures (i.e. the liquid dense core in the JICF) in the gaseous phase during lagrangian simulations ($\S$\ref{sec:ch4_dense_core_modelling}). The information to characterize the dense core is taken from the resolved simulations and later imposed into lagrangian ones.
 		
-		\item \textbf{Secondary atomization models} to consider further possible breakup of spherical droplets during lagrangian simulations $\S$ \ref{sec:dense_core_modelling}).
+		\item \textbf{Secondary atomization models} to consider further possible breakup of spherical droplets during lagrangian simulations $\S$ \ref{subsec:SLI_spatial_discretization}).
 		
 	\end{itemize}
 
@@ -81,6 +140,7 @@ Additionally, there are more submodels to take into account:
 
 
 \section{Lagrangian injectors learning}
+	\label{sec:ch4_SLI_learning}
 
 
 \subsection{Spray sampling}
@@ -125,7 +185,7 @@ In order to get statistics for spray characterization, it is useful to define a 
 r_\mathrm{dr} = \sqrt[3]{\frac{3 V_\mathrm{dr}}{4 \pi}}
 \end{equation}
 
-which is the radius of a sphere containing the same volume as the structure. The equivalent diameter is then $d_\mathrm{dr} = 2 r_\mathrm{dr}$ In cases where sampled structures are spherical droplets, $R_\mathrm{dr}$ is the true radius and, therefore, a representative measure of the droplets' size. On the other hand, if liquid structures are not fully spherical (which is specially true after primary atomization), the equivalent radius does not provide full information on their topology. To determine the deviation of the identified liquid structure from a sphere, the radii $r_\mathrm{max}$ and $r_\mathrm{min}$ can be used to calculate the deformation parameters $\alpha$ and $\beta$ \citepColor[zuzio_improved_2018]:
+which is the radius of a sphere containing the same volume as the structure. The equivalent diameter is then $d_\mathrm{dr} = 2 r_\mathrm{dr}$. In cases where sampled structures are spherical droplets, $R_\mathrm{dr}$ is the true radius and, therefore, a representative measure of the droplets' size. On the other hand, if liquid structures are not fully spherical (which is specially true after primary atomization), the equivalent radius does not provide full information on their topology. To determine the deviation of the identified liquid structure from a sphere, the radii $r_\mathrm{max}$ and $r_\mathrm{min}$ can be used to calculate the deformation parameters $\alpha$ and $\beta$ \citepColor[zuzio_improved_2018]:
 
 \begin{equation}
 \alpha = \frac{r_\mathrm{max}}{r_\mathrm{dr}} ~~ ; ~~ \beta = \frac{r_\mathrm{min}}{r_\mathrm{dr}}
@@ -349,11 +409,11 @@ In the same fashion, the RMS can also be "volume-weighted" by applying the forme
 %\section{Physics modeling}
 
 \section{Dense core blockage effect modeling}
-	\label{sec:dense_core_modelling}
+	\label{sec:ch4_dense_core_modelling}
 	
-One key point of the resolved atomization simulations is that they can account for the liquid-gaseous interaction without the need to be modelled or accounted for with source terms in the governing equations. This allows that the perturbation effects from the gas to the liquid, which influence spray dispersion, can be properly captured. In the jet in crossflow this influence is paramount, since the liquid coherent structures impose a blockage effect to the gaseous phase that creates vortical structures downstream the liquid injection nozzle (see Figure \textbf{??} and $\S$\ref{subsec:ch5_dense_core_in_ACLS_simus}).
+One key point of the resolved atomization simulations is that they can account for the liquid-gaseous interaction without the need to be modelled or accounted for with source terms in the governing equations. This allows capturing the perturbation effect from the liquid jet to the gaseous phase, which created vortical structures that affect droplets dispersion. In the jet in crossflow this influence is paramount, since the liquid coherent structures impose a blockage effect to the gaseous phase that creates vortical structures downstream the liquid injection nozzle (see Figure \textbf{??} and $\S$\ref{subsec:ch5_dense_core_in_ACLS_simus}).
 
-These perturbations effects are not taken into account \textsl{a priori} in dispersed phase simulations, since the coherent structures are not present. Some approaches have succeeded in emulating this interaction between phases by injecting lagrangian big droplets according to the the blob method \citepColor[reitz_modeling_1987] and adding a two-way coupling between liquid and gaseous phases \citemColor[apte_les_2003,senoner_simulation_2010]. Other studies have solved and kept the liquid coherent structures with VOF to capture the interaction, and then performed lagrangian injection and spray transport \citemColor[arienti_aerodynamic_2006,fontes_improved_2019].
+Perturbation effects are not taken into account \textsl{a priori} in dispersed phase simulations, since the coherent structures are not present. As illustrated in $\S$\ref{sec:ch3_state_art_lagrangian_injection},s ome approaches have succeeded in emulating this interaction between phases by injecting lagrangian big droplets according to the the blob method \citepColor[reitz_modeling_1987] and adding a two-way coupling between liquid and gaseous phases \citemColor[apte_les_2003,senoner_simulation_2010]. Other studies have solved and kept the liquid coherent structures with VOF to capture the interaction, and then performed lagrangian injection and spray transport \citemColor[arienti_aerodynamic_2006,fontes_improved_2019].
 
 In this work, the blockage effect is modeled in dispersed phase computations by means of the Actuator Line Method (ALM). This method has been, to the author's knowledge up to date, in wind turbine simulations for representing the effect of the tower and blades in the gaseous field, which creates strong turbulence. Firstly, a review on the theory and some previous works in ALM is done. Secondly, the way ...
 
@@ -361,10 +421,14 @@ In this work, the blockage effect is modeled in dispersed phase computations by 
 
 \subsection{Actuator Line Method}
 
+Mention \ref{sorensen_numerical_2002} and \citeColor[benard_large-eddy_2018].
+
+ALM is a methodology
 
 
+As shown in Figure (\textbf{Ref. to figure in introduction}), the dense core has a perturbation effect towards the gas phase. The resulting vortical structures will influence the dispersion of the droplets generated by atomization due to turbulent interaction. Therefore,
 
-As shown in Fig. (\textbf{Ref. to figure in introduction}), the dense core has a perturbation effect towards the gas phase. This is accounted for with the Actuator Line Method (ALM): \textbf{Sorensen 2002}, \textbf{Benard 2018}, \textbf{Houtin-Mongrolle 2020}.
+ This is accounted for with the Actuator Line Method (ALM): \textbf{Sorensen 2002}, \textbf{Benard 2018}, \textbf{Houtin-Mongrolle 2020}.
 
 \subsection{Dense core representation as an actuator}
 
@@ -375,6 +439,7 @@ As shown in Fig. (\textbf{Ref. to figure in introduction}), the dense core has a
 
 
 \section{Secondary atomization modeling}
+\label{sec:ch4_secondary_atomization_modeling}
 
 In disperse phase simulations, spray is modeled by a set of spherical and rigid particles whose dynamics are governed by the point-particle equations described in $\S$\ref{sec:ch3_EL_formalisms}. Due to these assumptions, particles will not break by their interaction with the gaseous phase as in the resolved atomization simulations. Nevertheless, further breakup can be taken into account by means of secondary atomization models. The most important parameter governing secondary atomization is the Weber number based on the relative velocities between liquid and gas $u_\mathrm{rel}$:
 
