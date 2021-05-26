@@ -47,14 +47,18 @@ Describe here all our simulations done with JICF, what we have achieved with the
 
 \section{Introduction}
 
+The previous chapter has detailed the theory of the proposed models to build lagrangian injectors for initialising dispersed phase simulations, named Smart Lagrangian Injectors (SLI). These models, nowadays in its earliest state of maturity, are intended to be generic and applicable to a broad range of operating conditions and injector configurations. To show its capabilities, they have been developed in their first stage with resolved simulations of liquid jet in crossflow (JICF) configuration. This chapter details these simulations, performed with the software YALES2 (\textbf{ref:2011-moureau-design}). % \textbf{https://reader.elsevier.com/reader/sd/pii/S1631072110002111?token=9137B6903478D4E8E427F5D8218DFC3EB42446DB034970B14BA9DE87AA7E80D130124A7EF8D8608D21D5D465CCE05A4F&originRegion=eu-west-1&originCreation=20210524114835}
+
+The fundamentals and the physics of non-reactive JICF have been introduced in $\S$\ref{sec:ch1_fuel_injection_technology}. This chapter shows the results, analysis and injectors obtained from a kerosene JICF simulation replicating the experimental facility tested by \citeColor[becker_breakup_2002]. This configuration is used for validating the models. Section \ref{sec:ch5_experimental_bench} displays the experimental test bench, whose numerical setup and operating conditions chosen for numerical computations are detailed in Section \ref{sec:computational_setup}.
 
 
 \section{Experimental test case}
+	\label{sec:ch5_experimental_bench}
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.5]{./part2_developments/figures_ch5_resolved_JICF/experiment_JICF_DLR}
-	\caption{\textsl{Left}: Experimental setup at DLR. \textsl{Right}: liquid nozzle geometry employed in the experimental study. Source: }
+	\caption{\textsl{Left}: Experimental setup at DLR. \textsl{Right}: liquid nozzle geometry employed in the experimental study. Source: \citeColor[becker_breakup_2002]}
 	\label{fig:experiment_JICF_DLR}
 \end{figure}
 
@@ -73,6 +77,7 @@ The accuracy of the mean numerical trajectories can be quantitatively assessed b
 \end{equation}
 
 \section{Computational setup}
+	\label{sec:computational_setup}
 
 
 \section*{Numerical domain}
@@ -81,7 +86,7 @@ The accuracy of the mean numerical trajectories can be quantitatively assessed b
 \begin{figure}[ht]
      \centering
      \includeinkscape[scale=0.4]{./part2_developments/figures_ch5_resolved_JICF/DLR_becker_numerical_config}
-      \caption{Numerical domain and boundary conditions of the experimental test bench of fdsq. \textsl{Left}: complete domain. \textsl{Right}: detailed view of the injection nozzle. All dimensions are in mm.}
+      \caption{Numerical domain and boundary conditions of the experimental test bench of \citeColor[becker_breakup_2002]. \textsl{Left}: complete domain. \textsl{Right}: detailed view of the injection nozzle. All dimensions are in mm.}
       \label{fig:numerical_setup_maquette_JICF_DLR}
 \end{figure}
 
@@ -90,7 +95,7 @@ The accuracy of the mean numerical trajectories can be quantitatively assessed b
 %\section{YALES2 code (??)}
 
 \section{Numerical computation of jet trajectory}
-\label{sec:ch5_jicf_trajectories}
+	\label{sec:ch5_jicf_trajectories}
 
 As explained in $\S$\ref{sec:ch1_fuel_injection_technology}, one of the most important features of a jet in crossflow is its trajectory. Experimental studies (\textbf{ref?}) often provide correlations for the trajectory of the windward side of the jet, such as the one from Eq. (\ref{eq:jicf_trajectory_becker}). These correlations depend on factors such as the momentum flux ratio $q$, the injection diameter $d_\mathrm{inj}$ and, in some case (\textbf{ref:Ragucci}), in the Weber number $We$. The overall dependency of the trajectory on these parameters is still unknown and an ongoing research topic.
 
@@ -169,7 +174,7 @@ Another possibility to obtain mean trajectories is by using the mean field of th
 
 \subsubsection*{Maximum gradient method}
 
-This method is more similar to the experimental methods presented in \textbf{ref:2002-Becker} and \textbf{ref:2008-Freitag}, since they obtain the trajectory as the contour giving the maximum intensity gradient in the vertical direction in processed images of the mean jet.
+This method is more similar to the experimental methods presented in \citeColor[becker_breakup_2002] and \citeColor[freitag_spray_2008], since they obtain the trajectory as the contour giving the maximum intensity gradient in the vertical direction in processed images of the mean jet.
 
 \begin{equation}
 \max \left( \nabla \overline{\phi} \right)
@@ -243,6 +248,13 @@ A spectral analysis is performed to obtain the characteristic breakup frequencie
 %Find a more attractive name
 
 \subsection{Spatial discretization of sprays}
+
+\section{Learning injectors}
+
+\subsection{Operating point at high We}
+
+\subsection{Operating point at low We}
+
 
 \section{Conclusions}
 

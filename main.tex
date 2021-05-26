@@ -30,21 +30,29 @@
 
 \pagenumbering{roman}
 \newpage
-%\shipout\null % Blank page
+
+%\shipout\null % Blank page 
+%\stepcounter{page}
 %\newpage
+%\setcounter{page}{3}
 %\include{citas_espanol_frances}
 %\newpage
+
 \shipout\null % Blank page
-\setcounter{page}{3}
+\stepcounter{page}
 \tableofcontents
 \newpage
 \include{acknowledgements}
+
 %\newpage
 %\shipout\null % Blank page
+%\stepcounter{page}
 %\newpage
 %\include{cita_zafon}
+
 \newpage
 \shipout\null % Blank page
+\stepcounter{page}
 \newpage
 \include{nomenclature}
 \newpage
