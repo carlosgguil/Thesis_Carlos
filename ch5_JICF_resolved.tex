@@ -94,14 +94,16 @@ The accuracy of the mean numerical trajectories can be quantitatively assessed b
 
 %\section{YALES2 code (??)}
 
-\section{Numerical computation of jet trajectory}
+\section{Tools and methodologies}
+
+\subsection{Numerical computation of jet trajectory}
 	\label{sec:ch5_jicf_trajectories}
 
 As explained in $\S$\ref{sec:ch1_fuel_injection_technology}, one of the most important features of a jet in crossflow is its trajectory. Experimental studies (\textbf{ref?}) often provide correlations for the trajectory of the windward side of the jet, such as the one from Eq. (\ref{eq:jicf_trajectory_becker}). These correlations depend on factors such as the momentum flux ratio $q$, the injection diameter $d_\mathrm{inj}$ and, in some case (\textbf{ref:Ragucci}), in the Weber number $We$. The overall dependency of the trajectory on these parameters is still unknown and an ongoing research topic.
 
 It is therefore of interest, to obtain the trajectory for the jet penetration in the performed resolved simulations. Several methods can be used for this purpose. This section describes four possible methodologies, two based on processing instantaneous trajectories and two based on processing the mean $\psi$ field. The results obtained with these methodologies are shown in $\S$\ref{sec:results_JICF_resolved}.
 
-\subsection{Methods based on instantaneous trajectories}
+\subsubsection{Methods based on instantaneous trajectories}
 
 One possible way of obtaining tra
 
@@ -124,8 +126,9 @@ One possible way of obtaining tra
 \end{figure}
 
 
-\subsubsection*{Non-monotonic trajectory}
+%\subsubsection*{Non-monotonic trajectory}
 
+\paragraph{{Non-monotonic trajectory}}
 
 \begin{figure}[ht]
      \centering
@@ -146,7 +149,8 @@ One possible way of obtaining tra
 \end{figure}
 
 
-\subsubsection*{Monotonic trajectory}
+%\subsubsection*{Monotonic trajectory}
+\paragraph{Monotonic trajectory}
 
 
 \begin{figure}[ht]
@@ -168,11 +172,11 @@ One possible way of obtaining tra
 \end{figure}
 
 
-\subsection{Methods based on the mean levelset field}
+\subsubsection{Methods based on the mean levelset field}
 
 Another possibility to obtain mean trajectories is by using the mean field of the levelset magnitude, $\overline{\phi}$. 
 
-\subsubsection*{Maximum gradient method}
+\paragraph{Maximum gradient method}
 
 This method is more similar to the experimental methods presented in \citeColor[becker_breakup_2002] and \citeColor[freitag_spray_2008], since they obtain the trajectory as the contour giving the maximum intensity gradient in the vertical direction in processed images of the mean jet.
 
@@ -180,16 +184,22 @@ This method is more similar to the experimental methods presented in \citeColor[
 \max \left( \nabla \overline{\phi} \right)
 \end{equation}
 
-\subsubsection*{Trajectory as iso-contour of mean levelset}
+\paragraph{Trajectory as iso-contour of mean levelset}
 
 
 
+\subsection{Direct measurement of fluxes (interior boundaries)}
+\label{subsec:ch5_interior_boundaries}
+
+Droplet sampling is performed by tracking the center of mass of resolved structures and checking when it crosses the sampling planes. 
+
+
+
+The sampling procedure of droplets is based on a lagrangian tracking of their center of mass. The position of the center of mass before and
 
 
 \section{Results}
 \label{sec:results_JICF_resolved}
-
-\subsection{Validation with experimental trajectory}
 
 \subsection{Jet topology and breakup}
 
@@ -197,9 +207,16 @@ This method is more similar to the experimental methods presented in \citeColor[
 
 \subsubsection{Effect of operating point}
 
+\subsection{Validation with experimental trajectory}
+
+
 \subsection{Spray characterization}
 
-\subsubsection{Sampling procedure for droplets}
+
+
+%\subsubsection{Sampling procedure for droplets}
+
+
 
 \subsubsection{Droplets size distributions}
 
@@ -219,13 +236,11 @@ Several characteristic times can be defined in a jet in crossflow:
 
 \end{itemize}
 
-\subsubsection{Direct measurement of fluxes (interior boundaries)}
-\label{subsubsec:ch5_interior_boundaries}
-
-\subsection{Dense core effect and characterization}
-\label{subsec:ch5_dense_core_in_ACLS_simus}
 
 \subsection{Mass conservation in ACLS}
+
+\subsection{Gaseous field and dense core characterization}
+\label{subsec:ch5_dense_core_in_ACLS_simus}
 
 \subsection{Frequential analysis}
 
