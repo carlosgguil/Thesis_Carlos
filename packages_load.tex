@@ -134,3 +134,25 @@
 \newcommand{\nomunit}[1]{%
 \renewcommand{\nomentryend}{\hspace*{\fill}#1}}
 %----------------------------------------------
+
+
+%%%%% For appendices %%%%%
+%\usepackage[toc,page]{appendix}
+\usepackage[titletoc]{appendix} % Para apéndices: http://stackoverflow.com/questions/5690679/add-appendix-before-a-in-thesis-toc
+\usepackage{chngcntr} %Para los apéndices: http://tex.stackexchange.com/questions/85776/change-figure-numbering-for-appendix
+
+%%%%% Thick lines, ref: https://tex.stackexchange.com/questions/41758/how-can-i-reproduce-this-table-with-thick-lines
+\makeatletter
+\newcommand{\thickhline}{%
+    \noalign {\ifnum 0=`}\fi \hrule height 1pt
+    \futurelet \reserved@a \@xhline
+}
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1pt\hskip\tabcolsep}}
+\makeatother
+
+
+% Redefine paragraph command
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}

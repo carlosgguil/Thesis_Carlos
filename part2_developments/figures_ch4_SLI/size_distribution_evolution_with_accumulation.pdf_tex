@@ -1,0 +1,70 @@
+%% Creator: Inkscape inkscape 0.92.0, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'size_distribution_evolution_with_accumulation.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{586.34922099bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.58464192)%
+    \put(0.4038259,-0.16307582){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{size_distribution_evolution_with_accumulation.pdf}}%
+    \put(0.05961427,0.52864229){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$f \left( d_\mathrm{dr} \right)$}}}%
+    \put(0.08502429,0.27932532){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{t$_{i-1}$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{size_distribution_evolution_with_accumulation.pdf}}%
+    \put(0.54218566,0.03374193){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$d_\mathrm{dr}$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{size_distribution_evolution_with_accumulation.pdf}}%
+    \put(0.56340274,0.15997924){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$d_\mathrm{dr,n}$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{size_distribution_evolution_with_accumulation.pdf}}%
+    \put(0.58074404,0.27426685){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\Delta d_\mathrm{dr}$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{size_distribution_evolution_with_accumulation.pdf}}%
+    \put(0.48326647,0.36642136){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{t}}}%
+    \put(0.50854924,0.48412021){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{t$_{i+1}$}}}%
+    \put(0.28747452,0.34103081){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{t$_{i}$}}}%
+    \put(0.10237975,0.32601407){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(0.10496394,0.3492716){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(0.43729089,-0.79877434){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+  \end{picture}%
+\endgroup%

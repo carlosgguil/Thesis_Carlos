@@ -153,11 +153,10 @@ The first step in the learning process is to obtain the spray from resolved atom
 \begin{table}[!h]
 \centering
 \caption{Parameters sampled from resolved atomization simulation}
-\begin{tabular}{|c|c|c|}
-\hline
+\begin{tabular}{ccl}
+\thickhline
 Parameter & Definition & Description \\
-\hline
-\hline
+\thickhline
 $V_\mathrm{dr}$ & $\displaystyle \int_{\Omega_l} d \textbf{x}$ & Volume enclosed by interface  \\
 \hline
 $\textbf{x}_\mathrm{dr}$ & $\displaystyle \frac{1}{V} \int_{\Omega_l} \boldsymbol{x} d \textbf{x}$ &   Location of center of mass \\
@@ -167,7 +166,7 @@ $\textbf{u}_\mathrm{dr}$ & $\displaystyle \frac{1}{V} \int_{\Omega_l} \textbf{u}
 $r_\mathrm{max}$ & $\displaystyle \max \left( \textbf{x} - \textbf{x}_\mathrm{dr}  \right) \forall \textbf{x} \in \Omega_l$ & Maximum distance to center of mass \\
 \hline
 $r_\mathrm{min}$ & $\displaystyle \min \left( \textbf{x} - \textbf{x}_\mathrm{dr}  \right) \forall \textbf{x} \in \Omega_l$ & Minimum distance to center of mass \\
-\hline
+\thickhline
 \end{tabular}
 \label{tab:sampling_parameters}
 \end{table}
@@ -253,12 +252,12 @@ where $\varepsilon_\mathrm{th}$ is set to $0.01$ (i.e. $1 \%$).
      \centering
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
-         \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch4_SLI/size_distribution_evolution_with_accumulation}
+         \includeinkscape[inkscapelatex=true,scale=0.35]{./part2_developments/figures_ch4_SLI/size_distribution_evolution_with_accumulation}
      \end{subfigure}
      %\hfill
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
-          \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch4_SLI/size_distribution_histograms_comparison}
+          \includeinkscape[inkscapelatex=true,scale=0.45]{./part2_developments/figures_ch4_SLI/size_distribution_histograms_comparison}
      \end{subfigure}
         \caption{\textsl{Left}: Size histogram evolution with accumulation time of droplets. \textsl{Right}: comparison of two droplet size histograms from two consecutive time instants.}
 	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
@@ -388,16 +387,26 @@ where $\boldsymbol{r}$ is a vector of random numbers $\in [-\sqrt{3}, \sqrt{3}]$
 
 \subsubsection*{Volume-weighting the velocity}
 
-As it is later shown in $\S$\textbf{?}, the droplets mean velocities can be weighted by their mean profiles:
+As it is later shown in $\S$\textbf{?}, the droplets mean velocities can be weighted by their volumes:
+
+%\begin{equation}
+%\displaystyle \left\langle \textbf{u} \right\rangle_\mathrm{VW} = \frac{\sum_{i=1}^{N_\mathrm{dr}} \textbf{u}_i V_i}{\sum_{i=1}^{N_\mathrm{dr}} V_i}
+%\end{equation}
 
 \begin{equation}
-\displaystyle \left\langle \textbf{u} \right\rangle_V = \frac{\sum{i=1}^{N_\mathrm{dr}} \textbf{u}_i V_i}{\sum{i=1}^{N_\mathrm{dr}} V_i}
+\displaystyle \overline{ \textbf{u} }_\mathrm{VW} = \frac{\sum_{i=1}^{N_\mathrm{dr}} \textbf{u}_i V_i}{\sum_{i=1}^{N_\mathrm{dr}} V_i}
 \end{equation}
 
 In the same fashion, the RMS can also be "volume-weighted" by applying the former expression:
 
 \begin{equation}
-\textbf{u}_{RMS,V} = \sqrt{\displaystyle \left\langle \textbf{u}^2 \right\rangle_V - \displaystyle \left\langle \textbf{u} \right\rangle_V^2}
+\textbf{u}_\mathrm{RMS,VW} = \sqrt{\displaystyle \overline{\textbf{u}^2 }_\mathrm{VW} - \displaystyle \overline{\textbf{u} }_\mathrm{VW}^2}
+\end{equation}
+
+So:
+
+\begin{equation}
+\boldsymbol{u}_\mathrm{p,VW} = \overline{\boldsymbol{u}}_\mathrm{VW}  + \boldsymbol{r}^T \boldsymbol{u}_\mathrm{RMS,VW} 
 \end{equation}
 
 
@@ -484,7 +493,7 @@ The deformation $x$ can be expressed by a non-dimensionless parameter $y$, herea
 \ddot{y} = \frac{C_F}{C_b} \frac{\rho_g}{\rho_l} \frac{u_{rel}^2}{r^2} - \frac{C_k \sigma}{\rho_l r^3} y - \frac{C_d \mu_l}{\rho_l r^2} \dot{y}
 \end{equation}
 
-This expression governs the breakup of droplets, which will happen for $y > 1$ (i.e. when the amplitude of the oscillation $x$ equals the radius of the undeformed droplet). For solving this equation, it is useful to introduce the following parameters:
+This expression governs the breakup of droplets, which occurs for $y > 1$ (i.e. when the amplitude of the oscillation $x$ equals the radius of the undeformed droplet). For solving this equation, it is useful to introduce the following parameters:
 
 \begin{subequations}
 \label{eq:TAB_td_omega_definition}
@@ -520,9 +529,9 @@ y^{n+1} = We_c + e^{- dt / t_d} \left[ \left( y^n - We_c \right) \cos \left( \om
 \dot{y}^{n+1} = \frac{We_c - y^{n+1} }{t_d} + e^{- dt / t_d} \left[ \left( \dot{y}^n + \frac{y^n - We_c}{t_d} \right) \cos \left( \omega dt \right) - \omega \left( y^n - We_c \right) \sin \left( \omega dt \right)  \right]
 \end{equation}
 
-where the subindexes $n$ and $n+1$ indicate two consecutive time instants where $dt$ is the timestep. 
+where the subindexes $n$ and $n+1$ indicate two consecutive time instants separated by the timestep $dt$.
 
-To estimate breakup, firstly $\omega^2$ is calculated with Eq. (\ref{eq:TAB_td_omega_definition}b). According to its value, two options are present:
+To estimate breakup, firstly $\omega^2$ is calculated with Eq. (\ref{eq:TAB_td_omega_definition}b). According to its value, two scenarios are possible:
 
 \begin{itemize}
 
@@ -655,7 +664,7 @@ This function will be later used to obtain the size of children droplets. The pr
 
 \begin{itemize}
 
-	\item Parent droplets must be larger than a critical radius $r_\mathrm{cr}$. This value is determined from a critical Weber number $e_\mathrm{crit} = 6$:
+	\item Parent droplets must be larger than a critical radius $r_\mathrm{cr}$. This value is determined from a critical Weber number $We_\mathrm{crit} = 6$:
 	
 	\begin{equation}
 	r_\mathrm{crit} = \frac{We_\mathrm{crit} \sigma}{\rho_g u_\mathrm{rel}^2}

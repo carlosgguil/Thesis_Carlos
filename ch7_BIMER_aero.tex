@@ -14,7 +14,7 @@ Prior to the application of the models, this chapter introduces the experimental
 
 Banc à Injection Multiple pour les Ecoulements Réactifs (BIMER) is a test rig developed at the laboratory EM2C destinated to the study of reactive phenomena in MSFI systems. Originally studied by \citeColor[barbosa_etude_2008] with gaseous fuel, its study was later extended to liquid fuel by the works of \citeColor[providakis_etude_2013] and \citeColor[renaud_high-speed_2015].
 
-The test bench is shown in Figure \ref{fig:BIMER_test_bench_expe_maquette}. Air is introduced into a cylindrical plenum where the MSFI burner is located. The injector is then connected to a combustion chamber with a length of $500$ mm and a rectangular cross section 150 x 150 mm$^2$. The lateral walls are made of quartz to allow for optical access to the interior, while the top and bottom walls are cooled with water. Exhaust gases are evacuated at the end of the chamber through a collector. Two different fuel feeding lines are connected to each stage of the injector. 
+The test bench is shown in Figure \ref{fig:BIMER_test_bench_expe_maquette}. Air is introduced into a cylindrical plenum where the MSFI burner is located. The injector is then connected to a combustion chamber with a length of $500$ mm and a rectangular cross section 150x150 mm$^2$. The lateral walls are made of quartz to allow for optical access to the interior, while the top and bottom walls are cooled with water. Exhaust gases are evacuated at the end of the chamber through a collector. Two different fuel feeding lines are connected to each stage of the injector. 
 
 \begin{figure}[h!]
 	\centering
@@ -45,12 +45,12 @@ The test bench operates at atmospheric pressure. Air can be preheated up to a te
 \begin{table}[!h]
 \centering
 \caption{Physical properties of dodecane fuel (C$_{12}$H$_26$) at 20 $\degree$C}
-\begin{tabular}{|c|c|c|}
-\hline
+\begin{tabular}{ccc}
+\thickhline
 $\rho$ [kg m$^{-3}$]   & $\mu$ [Pa s]   & $\sigma$ [N m$^{-1}$]  \\
-\hline
+\thickhline
 750 & $1.36 \cdot 10^{-3}$ & $22 \cdot 10^{-3}$ \\
-\hline
+\thickhline
 \end{tabular}
 \label{tab:dodecane_properties}
 \end{table}
@@ -73,15 +73,13 @@ The parameters corresponding to both operating points are listed in Table \ref{t
 \begin{table}[!h]
 \centering
 \caption{Operating points for performing non-reactive gaseous simulations}
-\begin{tabular}{|c|c|c|c|c|c|c|}
-\hline
+\begin{tabular}{ccccccc}
+\thickhline
 Operating condition    & $\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}]$  & $\mu_g$ [Pa s] & $p$ [atm]  & Reference\\
-\hline
-\hline
+\thickhline
 Validation &   53 & 473 & 0.746089 & $2.571 \cdot 10^{-5}$ & 1 & \citeColor[providakis_etude_2013]\\
-\hline
 Application  & 43.1 & 433 & 0.816382 & $2.391 \cdot 10^{-5}$ & 1 & \citeColor[renaud_high-speed_2015] \\
-\hline
+\thickhline
 \end{tabular}
 \label{tab:gaseous_operating_points_BIMER}
 \end{table}
