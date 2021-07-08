@@ -16,7 +16,7 @@ Each injector will deliver a mass flow rate of $\dot{m}_{l,takeoff} = 0.139 g s^
 
 \subsection{Pilot stage injection}
 
-Since pilot stage has not been simulated with the injection models developed in this thesis, another methodology must be employed. Given that the pilot of BIMER injects fuel following a hollow cone configuration, the LISA model will be used (\textbf{ref:Guedot-thesis}). 
+Since pilot stage has not been simulated with the injection models developed in this thesis, another methodology must be employed. Given that the pilot of BIMER injects fuel following a hollow cone configuration, the LISA model will be used \citepColor[guedot_developpement_2015]. 
 
 The input parameters for the LISA model to inject a hollow cone spray are summarized in Table \ref{tab:LISA_model_parameters}. They intend to replicate the pilot injection by \citeColor[renaud_high-speed_2015]. For the angle, an initial value of 30 $\degree$ is chosen (Stefano first guess), it can be iterated as we keep on refining the simulations. For the rayon, I have no idea what to do.
 
@@ -30,7 +30,7 @@ where $\Delta P$ is the pressure drop in the pilot nozzle. According to \citeCol
 
 \subsubsection*{LISA model for injection}
 
-For performing pilot injection, the LISA model available in YALES2 is used (\textbf{ref:guedot-thesis}). 
+For performing pilot injection, the LISA model available in YALES2 is used \citepColor[guedot_developpement_2015]. 
 
 \begin{equation}
 X = \frac{A_a}{A_0} = \left( \frac{R_a}{R_0} \right)^2 \frac{\sin^2 \gamma_s}{1 + \cos^2 \gamma_s}

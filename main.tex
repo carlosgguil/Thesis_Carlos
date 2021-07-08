@@ -21,12 +21,29 @@
 %\fancyhead[RO]{Guides and tutorials}
 \fancyfoot[CE,CO]{\thepage}
 
+
+
+% volume fraction reference in document:
+% \ref{eq:vol_frac_definition}
+
 \begin{document}
 
+
+% Portada:
+% https://tlsflyleaf.onada.fr/
+
 % Include the cover
+% My cover
 \begin{titlepage}
 	\include{cover}
 \end{titlepage}
+
+%%%% Toulouse Cover %%%%%%%%%%% https://tlsflyleaf.onada.fr/
+%\include{cover_toulouse}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \pagenumbering{roman}
 \newpage
@@ -49,6 +66,9 @@
 %\stepcounter{page}
 %\newpage
 %\include{cita_zafon}
+
+
+
 
 \newpage
 \shipout\null % Blank page
@@ -84,67 +104,40 @@
 
 %----------- Part 0: Intro --------------
 \include{ch1_introduction}
+\newpage	
 
-	\newpage
-	
 %----------- Part I: Numerical approaches --------------
 \part{Numerical approaches to model injection systems}
 
-
 \include{ch2_numerical_methods_resolved_atomization}
-
 \newpage
 
 \include{ch3_numerical_methods_disperse_phase}
-
-
 \newpage
 
 
 
 
 
-%----------- Part II: Building SLI  --------------
+%%----------- Part II: Building SLI  --------------
 \part{Building lagrangian injectors from resolved atomization simulations}
-
-%\include{part2_developments/chapter_JICF}
-
-
+%%\include{part2_developments/chapter_JICF}
 \include{ch4_SLI}
-
 \newpage 
-
 \include{ch5_JICF_resolved}
-
 \newpage
-	
-	
 \include{ch6_JICF_lagrangian}
-
 \newpage
-
-
-
-
-%----------- Part III: Application --------------
+%
+%%----------- Part III: Application --------------
 \part{Application to a multipoint injector}
-\label{part3:BIMER}
-
-
+%\label{part3:BIMER}
 \include{ch7_BIMER_aero}
-
 \newpage
-
 \include{ch8_BIMER_resolved}
-
 \newpage
-
 \include{ch9_BIMER_lagrangian}
 
-%\chapter{Resolved atomization simulations}
-
-
-%\chapter{Lagrangian simulations}
 
 
 	\newpage
@@ -166,10 +159,10 @@
 %%%%% Appendices
 \newpage
 
-\begin{appendices}
-\input{appendix_A_JICF_BL_SETUP}
-%\newpage
-%\input{appendix_B_JICF_BL_SETUP_parabollic}
-\end{appendices}
+%\begin{appendices}
+%\input{appendix_A_JICF_BL_SETUP}
+%%\newpage
+%%\input{appendix_B_JICF_BL_SETUP_parabollic}
+%\end{appendices}
 
 \end{document}

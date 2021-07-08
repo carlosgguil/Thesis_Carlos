@@ -150,6 +150,20 @@ $We_g$ & 14 \\
 \label{tab:bimer_sps_operating_point}
 \end{table}
 
+\begin{table}[!h]
+\centering
+\caption{Operating point}
+\begin{tabular}{cccc}
+\thickhline
+$u_g$ [m s$^{-1}$] &  $u_l$ [m s$^{-1}$] & $q$ &  $We_g$  \\
+\hline
+38 &  2.6 & 4 & 15 \\
+\thickhline
+\end{tabular}
+\label{tab:bimer_sps_operating_point}
+\end{table}
+
+
 
 %\begin{figure}[h!]	
 %	\centering
@@ -160,10 +174,16 @@ $We_g$ & 14 \\
 
 \subsection{Characteristic times}
 
-The characteristic time scale by \textbf{ref:ranger-nicholls(1969} (see 2003 Sallam) can be used:
+The characteristic time scale by \citeColor[ranger_aerodynamics_1968] can be used:
 
 \begin{equation}
-\tau_c = \sqrt{\frac{\rho_l}{\rho_g}} \frac{d_\mathrm{inj}}{u_g} = \sqrt{\frac{750}{0.816382 }} \frac{0.3 ~mm}{38} = 0.24 ~ms
+\tau_c = \sqrt{\frac{\rho_l}{\rho_g}} \frac{d_\mathrm{inj}}{u_g} = \sqrt{\frac{750}{0.816382 }} \frac{0.3 ~\mathrm{mm}}{38} = 0.24 ~\mathrm{ms}
+\end{equation}
+
+We can also define as in Eq. (\ref{eq:jicf_tau_injector}):
+
+\begin{equation}
+\tau_\mathrm{ph} = \frac{d_\mathrm{inj}}{u_l} = \frac{0.3 ~\mathrm{mm}}{2.6} = 0.12 ~\mathrm{ms}
 \end{equation}
 
 %According to \textbf{2016 Eckel}, the velocity is not the gaseous one but the relative:

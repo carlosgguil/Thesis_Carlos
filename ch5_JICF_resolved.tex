@@ -47,7 +47,7 @@ Describe here all our simulations done with JICF, what we have achieved with the
 
 \section{Introduction}
 
-The previous chapter has detailed the theory of the proposed models to build lagrangian injectors for initialising dispersed phase simulations, named Smart Lagrangian Injectors (SLI). These models, nowadays in its earliest state of maturity, are intended to be generic and applicable to a broad range of operating conditions and injector configurations. To show its capabilities, they have been developed in their first stage with resolved simulations of liquid jet in crossflow (JICF) configuration. This chapter details these simulations, performed with the software YALES2 (\textbf{ref:2011-moureau-design}). % \textbf{https://reader.elsevier.com/reader/sd/pii/S1631072110002111?token=9137B6903478D4E8E427F5D8218DFC3EB42446DB034970B14BA9DE87AA7E80D130124A7EF8D8608D21D5D465CCE05A4F&originRegion=eu-west-1&originCreation=20210524114835}
+The previous chapter has detailed the theory of the proposed models to build lagrangian injectors for initialising dispersed phase simulations, named Smart Lagrangian Injectors (SLI). These models, nowadays in its earliest state of maturity, are intended to be generic and applicable to a broad range of operating conditions and injector configurations. To show its capabilities, they have been developed in their first stage with resolved simulations of liquid jet in crossflow (JICF) configuration. This chapter details these simulations, performed with the software YALES2 \citepColor[moureau_design_2011]. % \textbf{https://reader.elsevier.com/reader/sd/pii/S1631072110002111?token=9137B6903478D4E8E427F5D8218DFC3EB42446DB034970B14BA9DE87AA7E80D130124A7EF8D8608D21D5D465CCE05A4F&originRegion=eu-west-1&originCreation=20210524114835}
 
 The fundamentals and the physics of non-reactive JICF have been introduced in $\S$\ref{sec:ch1_fuel_injection_technology}. This chapter shows the results, analysis and injectors obtained from a kerosene JICF simulation replicating the experimental facility tested by \citeColor[becker_breakup_2002]. This configuration is used for validating the models. Section \ref{sec:ch5_experimental_bench} displays the experimental test bench, whose numerical setup and operating conditions chosen for numerical computations are detailed in Section \ref{sec:computational_setup}.
 
@@ -79,9 +79,9 @@ A correlation for the trajectory of the jet was obtained experimentally by analy
 \section{Computational setup}
 	\label{sec:computational_setup}
 
-\subsection*{Numerical domain}
+\subsection*{Numerical domain and baseline mesh}
 
-Figure \ref{fig:numerical_setup_maquette_JICF_DLR} shows the computational domain developed to replicate the simulations of the test bench shown in Figure \ref{fig:experiment_JICF_DLR}. The duct is modelled as a plenum consisting of a box of dimensions 25x40x270 mm$^3$. The hydraulic diameter of the duct cross section, which is used to calculate the gas Reynolds number, is $D_h = 30.8$ mm. A magnified view of the nozzle is also shown, with diameter $0.45$ mm and straight section length of 0.7 mm prior to injection to keep $L/D = 1.56$ as in the experiments. The boundary conditions are also indicated. The plenum walls use a wall law of logarithmic type except closer to the domain pressure outlet, which have been set to slip walls to avoid backflow. The nozzle walls are rigid walls. For the liquid inlet, a Poiseuille profile has been specified, while in the gaseous inlet a velocity profile has been set in order to recover the boundary layer thickness of between 4 and 5 mm upstream the injection nozzle as described in the experiments (see Appendix \ref{app:JICF_BL_setup} for details). 
+Figure \ref{fig:numerical_setup_maquette_JICF_DLR} shows the computational domain developed to replicate the simulations of the test bench shown in Figure \ref{fig:experiment_JICF_DLR}. The duct is modelled as a plenum consisting of a box of dimensions 25x40x270 mm$^3$. The hydraulic diameter of the duct cross section, which is used to calculate the gas Reynolds number, is $D_h = 30.8$ mm. A magnified view of the nozzle is also shown, with diameter $0.45$ mm and straight section length of 0.7 mm prior to injection to keep $L/D = 1.56$ as in the experiments. The boundary conditions are also indicated. The plenum walls use a wall law of logarithmic type except closer to the domain pressure outlet, which have been set to slip walls to avoid backflow. The nozzle walls are rigid walls. For the liquid inlet, a Poiseuille profile has been specified, while in the gaseous inlet a mean velocity profile has been set in order to recover the boundary layer thickness of between 4 and 5 mm upstream the injection nozzle as described in the experiments (see Appendix \ref{app:JICF_BL_setup} for details). Due to the high Reynolds number at the gaseous inlet (see Table \ref{tab:jicf_operating_conditions}), synthetic turbulence is added in the liquid inlet with a fluctuating value $u' = 0.1 u_g$ and a characteristic eddies size $l_e$ equal to one-sixth the channel height.
 
 \begin{figure}[ht]
      \centering
@@ -90,20 +90,21 @@ Figure \ref{fig:numerical_setup_maquette_JICF_DLR} shows the computational domai
       \label{fig:numerical_setup_maquette_JICF_DLR}
 \end{figure}
 
-An overview of the baseline mesh is shown in Figure \ref{fig:jicf_dlr_mesh}. It is composed of 28 million tetrahedral cells. The baseline cell size in the channel is ??, while smaller elements have been located in the liquid nozzle. The region close to the injector has been refined. This mesh is used initially in all the simulations performed, and it will change dynamically as liquid is introduced in the domain due to the AMR routine. 
+Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane at $y = 0$ is displayed. It is composed of 28 million tetrahedral cells. The baseline cell size in the channel upstream liquid injection is 1.5 mm, while the cells located in the downstream region have an average size of 3 mm. The grid is refined at the near-field region to 0.7 mm and inside the discharge section of the liquid nozzle to $20 \mu m$. This mesh is used at the beginning of all the simulations performed, but then it change dynamically in each simulation as more liquid is introduced in the domain due to the AMR routine that refines the mesh at the liquid-gas interface ($\S$\ref{sec:YALES2}). Simulations are performed with the ACLS methodology describe in $\S$\ref{subsec:ch2_ACLS}.
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.7]{./part2_developments/figures_ch5_resolved_JICF/jicf_dlr_mesh}
-	\caption{Baseline mesh used for the JICF study. \colorbox{red}{OJO: de Felix. Sacar foto aqui!}}
+	\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch5_resolved_JICF/jicf_mesh/jicf_mesh}
+	\caption{Baseline JICF mesh, showing magnified views of the near-field and nozzle regions.}
 	\label{fig:jicf_dlr_mesh}
 \end{figure}
+
 
 \subsection*{Operating conditions}
 
 Two operating conditions tested experimentally in \citeColor[becker_breakup_2002] have been simulated. Both of them have the same momentum ration $q = 6$ but differ in the Weber number: $We_g = 830$ (low Weber) and $We_g = 1470$ (low Weber). According to the values of $q$ and $We_g$, the former condition corresponds to surface breakup dominating regime while the latter is located at the dividing line between column and surface breakup. Figure \ref{fig:location_JICF_ops_in_breakup_map} shows the location of both operating points in the breakup map of \citeColor[wu_breakup_1997]. The physical magnitudes and dimensionless numbers of both operating points are shown in Table \ref{tab:jicf_operating_conditions}. Apart from the values $q$ and $We_g$, the dimensionless numbers in  Eq. (\ref{eq:dimensionless_numbers_jicf}) are also calculated: the liquid and gaseous Reynolds numbers $Re_g$ and $Re_g$ respectively, Ohnesorge number $Oh$, aerodynamic Weber $We_\mathrm{aero}$, relative Weber $We_\mathrm{rel}$ and density ratio $r$. These numbers have been added since they are defined in several experimental studies \citeColor[wu_breakup_1997,becker_breakup_2002,ragucci_trajectory_2007] to characterize the operating points tested. 
 
-For performing the computations of resolved atomization, the ACLS methodology combined with the AMR routine described in $\S$\ref{subsec:ch2_ACLS} is used. For each simulation, two interface mesh sizes have been simulated: $\Delta x_\mathrm{min} = 20 \mu m$ (coarse case) and $\Delta x_\mathrm{min} = 10 \mu m$ (fine case). Therefore, a total of four simulations have been done. The nomenclature for each simulation, which is used hereafter in this document, is introduced in Table \ref{tab:jicf_resolved_simulations_performed}.
+For performing the computations of resolved atomization, the ACLS methodology combined with the AMR routine described in $\S$\ref{subsec:ch2_ACLS} is used. For each simulation, two interface mesh sizes have been simulated: $\Delta x_\mathrm{min} = 20 ~\mu m$ (coarse case) and $\Delta x_\mathrm{min} = 10 ~\mu m$ (fine case). Therefore, a total of four simulations have been done. The nomenclature for each simulation, which is used hereafter in this document, is introduced in Table \ref{tab:jicf_resolved_simulations_performed}.
 
 %\begin{subequations}
 %\label{eq:dimensionless_numbers_jicf}
@@ -146,6 +147,12 @@ Gas bulk velocity & $u_g$ & m s$^{-1}$ & 75 & 100 \\
 Liquid bulk velocity & $u_l$ & m s$^{-1}$ & 17.5  & 23.33 \\
 %\hline
 Liquid flow rate & $Q_l$ & mm$^3$ s$^{-1}$ & 2783  & 3710 \\
+%\hline
+Gas pressure & $p_g$ & bar &  6 & 6 \\
+%\hline
+Gas temperature & $T_g$ & K & 290 & 290 \\
+%\hline
+Liquid temperature & $T_l$ & K & 288 & 288 \\
 %\hline
 Gas density & $\rho_g$ & kg m$^{-3}$ &  7.21 & 7.21 \\
 %\hline
@@ -217,11 +224,13 @@ $\Delta x_\mathrm{min}$ [$\mu$m]  &  \multicolumn{2}{c}{\textbf{Operating condit
 \subsection{Numerical computation of jet trajectory}
 	\label{sec:ch5_jicf_trajectories}
 
-As explained in $\S$\ref{sec:ch1_fuel_injection_technology}, one of the most important features of a jet in crossflow is its penetration. Experimental studies often provide correlations for the trajectory of the windward side of the jet (see Table \ref{tab:correlations_experimental_JICF}), such as the one from Eq. (\ref{eq:jicf_trajectory_becker}). These correlations depend on factors such as the momentum flux ratio $q$, the injection diameter $d_\mathrm{inj}$ and, in some case \citepColor[ragucci_trajectory_2007], in the Weber number $We$. The overall dependency of the trajectory on these parameters is still unknown and an ongoing research topic.
+One of the most important characteristics of a jet in crossflow is its trajectory (see $\S$\ref{sec:ch1_fuel_injection_technology}). This feature will determine how far the jet penetrates in the domain and has a paramount effect on the latter evaporation and mixing processes, hence affecting the flame dynamics. Experimental studies often provide correlations for the trajectory of the windward side of the jet (see Table \ref{tab:correlations_experimental_JICF}), such as the one from Eq. (\ref{eq:jicf_trajectory_becker}). These correlations depend on factors such as the momentum flux ratio $q$, the injection diameter $d_\mathrm{inj}$ and, in some case \citepColor[ragucci_trajectory_2007], in the Weber number $We$. The overall dependency of the trajectory on these parameters is still unknown.
 
-It is therefore of interest, to obtain the trajectory for the jet penetration in the performed resolved simulations. Several methods can be used for this purpose. This section describes four possible methodologies, two based on processing instantaneous trajectories and two based on processing the mean $\psi$ field. The results obtained with these methodologies are shown in $\S$\ref{sec:results_JICF_resolved}.
+It is therefore of interest, to obtain the trajectory for the jet penetration in the performed resolved simulations. 
 
-\subsubsection{Methods based on instantaneous trajectories}
+Several methods can be used for this purpose. This section describes four possible methodologies, two based on processing instantaneous trajectories and two based on processing the mean $\psi$ field. The results obtained with these methodologies are shown in $\S$\ref{sec:results_JICF_resolved}.
+
+\subsubsection*{Methods based on instantaneous trajectories}
 
 One possible way of obtaining tra
 
@@ -246,7 +255,7 @@ One possible way of obtaining tra
 
 %\subsubsection*{Non-monotonic trajectory}
 
-\paragraph{{Non-monotonic trajectory}} 
+\paragraph*{{Non-monotonic trajectory}} 
 
 This works well
 
@@ -270,7 +279,7 @@ This works well
 
 
 %\subsubsection*{Monotonic trajectory}
-\paragraph{Monotonic trajectory} 
+\paragraph*{Monotonic trajectory} 
 
 This works well too !
 
@@ -294,16 +303,16 @@ This works well too !
 \end{figure}
 
 
-\subsubsection{Methods based on the mean levelset field}
+\subsubsection*{Methods based on the mean levelset field}
 
-Another possibility to obtain mean trajectories is by using the mean field of the levelset magnitude, $\overline{\phi}$. 
+Another possibility to obtain mean trajectories is by using the mean field of the levelset function, $\overline{\psi}$ (Eq. \ref{eq:ACLS_psi_definition}). 
 
 \paragraph{Maximum gradient method}
 
 This method is more similar to the experimental methods presented in \citeColor[becker_breakup_2002] and \citeColor[freitag_spray_2008], since they obtain the trajectory as the contour giving the maximum intensity gradient in the vertical direction in processed images of the mean jet.
 
 \begin{equation}
-\max \left( \nabla \overline{\phi} \right)
+\max \left( \nabla \overline{\psi} \right)
 \end{equation}
 
 \paragraph{Trajectory as iso-contour of mean levelset}
@@ -322,6 +331,8 @@ The sampling procedure of droplets is based on a lagrangian tracking of their ce
 
 In the ACLS simulations, a 
 
+Mass flow rates are defined by Eq. (\ref{eq:mass_flow_rate_definition_general}).
+
 Liquid flow rates are calculated from the levelset function $\phi$ with the following equation:
 
 \begin{equation}
@@ -333,11 +344,20 @@ where $\partial \Omega$ is the surface where integration is performed (i.e. the 
 
 \begin{figure}[ht]
      \centering
-     \includeinkscape[inkscapelatex=false,scale=0.6]{./part2_developments/figures_ch5_resolved_JICF/sampling_planes_with_IBs}
-     \caption{Planes where fluxes are measured with interior boundaries. \colorbox{red}{Poner una imagen mas bonita} }
+     \includeinkscape[inkscapelatex=false,scale=0.4]{./part2_developments/figures_ch5_resolved_JICF/sampling_planes_with_IBs}
+     \caption{Snapshot of a JICF simulation showing the sampling planes (in grey) and the different filming regions.}
 	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
       \label{fig:jicf_interior_boundaries_surface_measurements}
 \end{figure}
+
+\begin{figure}[ht]
+     \centering
+     \includeinkscape[inkscapelatex=false,scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/jicf_IBs_sketch}
+     \caption{Interior boundaries discretization for obtention of bounded flow rates.}
+	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
+      \label{fig:jicf_IBs_sketch}
+\end{figure}
+
 
 
 %\begin{figure}[ht]
@@ -364,6 +384,66 @@ where $\partial \Omega$ is the surface where integration is performed (i.e. the 
 \label{sec:results_JICF_resolved}
 
 
+\subsection{Definition of characteristic times}
+
+In order to analyse the convergence and results of the four simulations performed, it is useful to relate the simulation times to characteristic times relating the liquid. Three characteristic times are considered in this work:
+
+\begin{itemize}
+	
+	\item $\tau_\mathrm{liq}$: the characteristic liquid phase time from \citeColor[ranger_aerodynamics_1968], defined as:
+	
+	\begin{equation}
+	\tau_\mathrm{liq} = \sqrt{\frac{\rho_l}{\rho_g}} \frac{d_\mathrm{inj}}{u_g}
+	\end{equation}
+	
+	\item $\tau_\mathrm{ph}$: a characteristic physical time of the JICF, defined as:
+	
+	\begin{equation}
+	\label{eq:jicf_tau_injector}
+	\tau_\mathrm{ph} = \frac{d_\mathrm{inj}}{u_l}
+	\end{equation}
+
+	\item $\tau_\mathrm{str}$: the characteristic time from ligaments stripping from the dense core. This value is obtained by counting the number of liquid structures that emanate from the liquid column in a given time period.
+
+\end{itemize}
+
+For each simulation, the different characteristic times are defined in Table \ref{tab:jicf_characteristic times}. The values $\tau_\mathrm{liq}$ and $\tau_\mathrm{ph}$, depend obviously on the operating condition and not on the mesh resolution, since they are have been obtained from mathematical formulas. On the other hand, the characteristic time $\tau_\mathrm{str}$ has been obtained from each simulation and a dependency on the mesh resolution employed can be expected. 
+
+\begin{table}[!h]
+\centering
+\caption{Characteristic times in JICF simulations}
+\begin{tabular}{lccc}
+\thickhline
+\textbf{Case} & $\tau_\mathrm{liq}$ [ms] & $\tau_\mathrm{ph}$ [ms] & $\tau_\mathrm{str}$ [ms] \\
+\thickhline 
+UG75\_DX10  & 0.047 & 0.019 & \\
+UG75\_DX20  & 0.047 & 0.019 & \\
+UG100\_DX10 & 0.063 & 0.026 & \\
+UG100\_DX20 & 0.063 & 0.026 & \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_characteristic times}
+\end{table}
+
+We can also define characteristic times as droplets reach the sampling planes. For it, we can make a specific table for each case and each plane:
+
+\begin{table}[!h]
+\centering
+\caption{Characteristic droplet times in JICF simulations}
+\begin{tabular}{lcccc}
+\thickhline
+\textbf{Case} & $x = 5 mm$ & $x = 10 mm$ & $x = 15 mm$  & $x = 20 mm$ \\
+\thickhline 
+UG75\_DX10  & & & - & - \\
+UG75\_DX20  & & & & \\
+UG100\_DX10 & & & - & -\\
+UG100\_DX20 & & & & \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_characteristic_droplet_sampling_times}
+\end{table}
+
+\subsection{Jet establishment}
 
 \subsection{Jet topology and breakup}
 
@@ -381,52 +461,6 @@ The accuracy of the mean numerical trajectories can be quantitatively assessed b
     L_2 = \sqrt{\frac{1}{N}   \sum_{i=1}^N \left( \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{exp},i} -   \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{num},i} \right)^2}
 \end{equation}
 
-
-
-\subsection{Characteristic times}
-
-$\tau_\mathrm{lig}$ is the ligament stripping time from the liquid column.
-$\tau_\mathrm{ph}$ is defined as:
-
-\begin{equation}
-\tau_\mathrm{ph} = \frac{d_\mathrm{inj}}{u_l}
-\end{equation}
-
-
-
-\begin{table}[!h]
-\centering
-\caption{Characteristic physical times in JICF simulations}
-\begin{tabular}{ccc}
-\thickhline
-\textbf{Case} & $\tau_\mathrm{lig}$ & $\tau_\mathrm{ph}$ \\
-\thickhline 
-UG75\_DX10  & & \\
-UG75\_DX20  & & \\
-UG100\_DX10 & & \\
-UG100\_DX20 & & \\
-\thickhline
-\end{tabular}
-\label{tab:jicf_characteristic times}
-\end{table}
-
-We can also define characteristic times as droplets reach the sampling planes. For it, we can make a specific table for each case and each plane:
-
-\begin{table}[!h]
-\centering
-\caption{Characteristic droplet times in JICF simulations}
-\begin{tabular}{ccccc}
-\thickhline
-\textbf{Case} & $x = 5 mm$ & $x = 10 mm$ & $x = 15 mm$  & $x = 20 mm$ \\
-\thickhline 
-UG75\_DX10  & & & - & - \\
-UG75\_DX20  & & & & \\
-UG100\_DX10 & & & - & -\\
-UG100\_DX20 & & & & \\
-\thickhline
-\end{tabular}
-\label{tab:jicf_characteristic_droplet_sampling_times}
-\end{table}
 
 
 
@@ -463,6 +497,8 @@ The time evolution of flow rates for case UG100\_DX20 is shown in Figure \ref{fi
 \label{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX20}
 \end{figure}
 
+\newpage
+
 \begin{figure}[ht]
 \centering
 \begin{subfigure}[b]{0.45\textwidth}
@@ -496,6 +532,7 @@ The time evolution of flow rates for case UG100\_DX20 is shown in Figure \ref{fi
 \label{fig:IB_liquid_flow_rate_mean_RMS_evolution_UG100_DX20}
 \end{figure}
 
+\newpage
 
 \begin{figure}[ht]
 \centering
@@ -573,19 +610,139 @@ The time evolution of flow rates for case UG100\_DX20 is shown in Figure \ref{fi
 
 
 
-
+\newpage
 
 \subsection{Mass conservation in ACLS}
 
 %\subsubsection{Sampling procedure for droplets}
 
+\newpage
 
 \subsection{Spray characterization}
 
+The number of droplets accumulated in each sampling plane for all the simulations performed in shown in Figure \ref{tab:jicf_Ndr_accumulated}.
 
-\subsubsection{Droplets size distributions}
+\begin{table}[!h]
+\centering
+\caption{Number of droplets accumulated in JICF simulations}
+\begin{tabular}{rcccc}
+\thickhline
+\textbf{Case} & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  & $x = 20$ mm \\
+\thickhline 
+UG75\_DX10  & 14233 & 20677 & - & - \\
+UG75\_DX20  &  6882 & 12224 & 12077 & 9440 \\
+UG100\_DX10 & 16442 & 11087 & - & -\\
+UG100\_DX20 & 21824 & 17793 & 9476 & 11041 \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_Ndr_accumulated}
+\end{table}
 
-Show histograms with lognormal fit (from Lefebvre equation and from optimal fit).
+
+\subsubsection{Deformation variation with axial distance}
+
+\subsubsection{Granulometry}
+
+Sprays generated by atomization processes can be characterized by means of distributions. A given spray where the sizes of the droplets are known can be studied by representing distributions which express the probability of finding a droplet diameter or volume in that spray. Size distributions are usually representing by the notation $f_0 \left( D \right)$, while volume distributions are denoted by $f_3 \left( D \right)$. Two types of distributions are possible: discrete (histograms) or continuous. In the former, the spectrum of droplets size is divided into several range of droplets named bins or classes, and the number of droplets comprised within each class each counted. Histograms are the usual way of representing the granulometry when the size of droplets is directly available, such as in most experimental campaings and computational studies resolving atomization. Continuous distributions, however, are often used to fit discrete distributions obtained experimentally and are used for making simplified models for spray injection in lagrangian simulations, since they can represent the spray by functions depending on few parameters. Examples of function widely used in sprays are the lognormal, Rosin-Rammler and Nukiyama-Tanasama distributions \citepColor[lefebvre_atomization_2017]. 
+
+Since in the resolved simulations performed in the work the size and volume of droplets are known (formally, the volume is known but the size is estimated with Eq. \ref{eq:ch4_r_equivalent_calculation}), probability histograms can be plotted. Figure \ref{fig:JICF_histograms_ug100_dx20} shows size (left) and volume (right) histograms for the sprays obtained from the case UG100\_DX20. The number of classes has been calculated according to Rice's rule, which estimates this value as $N_\mathrm{bins} = \sqrt[3]{2 N_\mathrm{dr}}$ \citepColor[terrel_oversmoothed_1985].
+
+
+
+
+Size distributions can be represented by means of histograms relating the probability of finding a droplet with a given size with respect to the diameter, $f_0 \left( D \right)$.
+
+
+
+In \citeColor[lefebvre_atomization_2017] ...
+
+
+
+\textbf{Log-normal distribution}. This distribution function is more representative of certain types of atomizers, such as the spray produced by the jet in crossflow. In contrast to the normal distribution, the log-normal distribution takes the logarithm of the particle diameter as a variable. It is given by the following expression, where $\overline{D}_{ng}$ is the geometric mean size of the logarithmic droplet size and $s_g$ is the geometric standard deviation:
+
+\begin{equation}
+ f_0 \left( D \right) = \frac{d N}{d D} =  \frac{1}{D  \sqrt{2 \pi \ln \left( s_g \right)^2}} \exp \left[ - \frac{1}{2 } \left( \frac{\ln D - \ln \overline{D}_{ng}}{\ln s_g}   \right)^2 \right]
+\end{equation}
+%
+\begin{equation}
+\overline{D}_{ng} = \exp \left(  \frac{\sum_i \ln D_i }{N_\mathrm{droplets}} \right) 
+\end{equation}
+
+\begin{equation}
+s_g = \exp \sqrt{  \frac{\sum_i \ln \left( D_i / \overline{D}_{ng} \right) ^2 }{N_\mathrm{droplets}} }
+\end{equation}
+
+
+
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x05_number_histogram.eps}
+   \caption{x = 5 mm, number histogram}
+   %\label{} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x05_volume_histogram.eps}
+   \caption{x = 5 mm, volume histogram}
+   %\label{}
+\end{subfigure}
+\vskip\baselineskip
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x10_number_histogram.eps}
+   \caption{x = 10 mm, number histogram}
+   %\label{} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x10_volume_histogram.eps}
+   \caption{x = 10 mm, volume histogram}
+   %\label{}
+\end{subfigure}
+\vskip\baselineskip
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x15_number_histogram.eps}
+   \caption{x = 15 mm, number histogram}
+   %\label{} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x15_volume_histogram.eps}
+   \caption{x = 15 mm, volume histogram}
+   %\label{}
+\end{subfigure}
+\vskip\baselineskip
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x20_number_histogram.eps}
+   \caption{x = 20 mm, number histogram}
+   %\label{} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x20_volume_histogram.eps}
+   \caption{x = 20 mm, volume histogram}
+   %\label{}
+\end{subfigure}
+\caption{Histograms and lognormal fits for sampling planes in case UG100\_DX20}
+\label{fig:JICF_histograms_ug100_dx20}
+\end{figure}
+
+
+\begin{figure}[ht]
+\centering
+   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/SMD_values.eps}
+   \caption{Evolution of SMD with axial distance for each simulation}
+   \label{}
+\end{figure}
 
 \subsubsection{Definition of characteristic times}
 

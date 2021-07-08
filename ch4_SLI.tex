@@ -12,37 +12,36 @@ This chapter details the underlying theory of SLI, showing all the key modeling 
 
 %In this work, this new methodology has been applied to model liquid JICF injection, whose reference spray for the learning process has been obtained by performing resolved simulations of atomization with an academic test case. The results of these simulations are shown in Chapter \ref{ch5:jicf_resolved_simulations}. In a latter step, the SLI built from these simulations are applied to initialise dispersed phase computations for the same configuration in Chapter \ref{ch6:jicf_lgs_simulations}. Finally, all the methodology is applied in Part \ref{part3:BIMER} to a multipoint burner.
 
+
+
 \section{Mathematical description of sprays}
 	\label{sec:ch4_spray_description}
 
-In $\S$\ref{subsec:ch3_statistical_methods}, dispersed sprays resulting from atomization were described by a function $f$ which represented the number density function of droplets. By a proper determination and integration of $f$, all the characteristics from spray can be obtained. Several methods targeting the determination of $f$ were discussed in Chapter \ref{ch3:disperse_phase_methods}, from statistical approaches to the LPP representation. Even if only statistical approaches make use of the WBE formulation, LPP can be considered as an approximation to the $f$ function by considering the point particle approximation. Consequently, since in this work the LPP representation is chosen to represent dispersed phase flows, a mathematical representation of dispersed sprays based on the function $f$ as given by Eq. (\ref{eq:f_spray_description_subramanian}) is used.
+In $\S$\ref{subsec:ch3_statistical_methods}, dispersed sprays resulting from atomization were described by a function $f$ which represented the number density function of droplets. By a proper determination and integration of $f$, all the characteristics from spray can be obtained. Several methods targeting the determination of $f$ were discussed in Chapter \ref{ch3:disperse_phase_methods}, from statistical approaches to the LPP representation. Even if only statistical approaches make use of the WBE formulation, LPP can be considered as an approximation to the $f$ function by considering the point particle approximation. Consequently, since in this work the LPP representation is chosen to represent dispersed phase flows, a mathematical representation of dispersed sprays based on the function $f$ as given by Eq. (\ref{eq:f_spray_description_subramanian}) is used. This section intends to provide some theoretical foundations for the developed models from a generic, mathematical perspective. The rest of the chapter will be dedicated to explain how this formulation is applied in the current work. \\
 
-% NOTE: we use the general formulation for sampling surfaces as specified in latex-equations.
+\subsection{General formulation}
 
-Using this rationale, then the spray produced by atomization can be described by a continuous function $f$:
+The spray produced by atomization can be described by a continuous function $F$:
 
 \begin{equation}
-f \left( t, \textbf{x}, \textbf{u}, r \right) 
+F \left( t, \textbf{x}, \textbf{u}, D \right) 
 \end{equation}
 
-which is defined in the whole spatial domain $\Omega \left( \boldsymbol{x} \right)$, $\forall \boldsymbol{x} = \left\lbrace x, y, z \right\rbrace^T \in {R}^3$. 
-
-
-We are interested in sampling the spray in a surface $\mathcal{S}$ which is part of the whole spatial domain: $\mathcal{S} \subset \Omega $. The spray sampled in this surface is described by a continuous function $f$:
+which is defined in the whole spatial domain $\Omega \left( \boldsymbol{x} \right)$, $\forall \boldsymbol{x} = \left\lbrace x, y, z \right\rbrace^T \in {R}^3$. It is of interest to sample the spray crossing a surface $\mathcal{S}$ belonging to the whole spatial domain: $\mathcal{S} \subset \Omega $. The spray sampled in this surface is described by a continuous function $f$:
 
 \begin{equation}
 \label{eq:f_general}
- f \left( t, \textbf{x}, \textbf{u}, r \right) = F \left( t, \textbf{x}, \textbf{u}, r \right) \forall \mathrm{\boldsymbol{x} \in \mathcal{S}} 
+ f \left( t, \textbf{x}, \textbf{u}, D \right) = F \left( t, \textbf{x}, \textbf{u}, D \right) ~ \forall ~ \mathrm{\boldsymbol{x} \in \mathcal{S}} 
 \end{equation}
 
-As $f$ is defined in a surface, it can be spatially represented by only two coordinates. These two coordinates, called surface coordinates, can be expressed as a vector $\boldsymbol{s} = \left\lbrace \xi, \eta \right\rbrace$. They can represent any type of surface, from cartesian to curvilinear ones. Therefore, the function $f$ can be expressed in terms of the surface coordinates as:
+As $f$ is defined in a surface, it can be spatially represented by only two coordinates. These surface coordinates can be expressed as a vector $\boldsymbol{s} = \left\lbrace \xi, \eta \right\rbrace$. They can represent any type of surface, from cartesian to curvilinear. Therefore, the function $f$ can be expressed in terms of $\boldsymbol{s}$ as:
 
 \begin{equation}
 \label{eq:f_surface_coordinates}
-f \left( \boldsymbol{s}, D, t \right)  
+f \left( t, \boldsymbol{s}, \textbf{u}, D \right)  
 \end{equation}
 
-As both expressions (\ref{eq:f_general}) and (\ref{eq:f_surface_coordinates}) are idential, there must be a relation between the cartesian coordinates $\boldsymbol{x} = \left\lbrace x, y, z \right\rbrace$ and the surface coordinates $\boldsymbol{s} = \left\lbrace \xi, \eta \right\rbrace^T$. This relation can be expressed as follows:
+Since both Eqs. (\ref{eq:f_general}) and (\ref{eq:f_surface_coordinates}) are identical, there is an equivalence between $\boldsymbol{x} = \left\lbrace x, y, z \right\rbrace$ and $\boldsymbol{s} = \left\lbrace \xi, \eta \right\rbrace^T$. This relation can be expressed mathematically as:
 
 \begin{equation}
 \label{eq:morphism_general_definition}
@@ -51,47 +50,67 @@ h : \boldsymbol{x} \rightarrow \boldsymbol{s}
 
 % Cool about morphisms: https://www.euclideanspace.com/maths/discrete/structure/map/morphism/index.htm
 
-where $h$ is a mapping function, or morphism, that will transform the cartesian coordinates $\boldsymbol{x}$ to the surface coordinates $\boldsymbol{s}$.
+where $h$ is a mapping function, or morphism, that will transform from cartesian coordinates $\boldsymbol{x}$ to surface coordinates $\boldsymbol{s}$. \\
 
-Our interest will be, in a first approach, to obtain a converged spray which is time-independent. Therefore, we can integrate our function $f$ with time:
+In this work, the spray is sampled over a time period $T$ and then considered stationary. Therefore, the dependence with time can be eliminated by integration:
 
 \begin{equation}
 \label{eq:f_general_time_integrated}
-f \left( \boldsymbol{s}, D \right) = \frac{1}{T} \int_0^T f \left( \boldsymbol{s}, D, t \right) dt
+f \left( \boldsymbol{s}, \boldsymbol{u}, D \right) = \frac{1}{T} \int_0^T f \left( t, \boldsymbol{s}, \boldsymbol{u}, \right) dt
 \end{equation}
 
-where $T$ is a sampling time. 
-
-In order to get statistics from an eulerian formulation, we will sample the spray in a surface $\Delta S$ which is contained within the sampling surface: $\Delta S \subset \mathcal{S}$. This means that our function $f \left( \boldsymbol{s}, D \right)$, which is defined $\forall \boldsymbol{s} = \left\lbrace \xi, \eta \right\rbrace \in \boldsymbol{R}^2$, will be integrated in a smaller surface $\Delta S$ with dimensions $\Delta \xi$ and $\Delta \eta$. This will yield a new function named $g$:
+Finally, the for a better characterization of the spray, the sampling surface $\mathcal{S}$ is spatially discretized into several elements, or probes, of size $\Delta S$. In this way, the spray within each probe can be independently characterized to provide \textbf{spatially refined statistics}. The 
 
 \begin{equation}
-\label{eg:g_general}
-g \left( \boldsymbol{s}, D \right) = \frac{1}{\Delta S} \iint_{\Delta S} f \left( \boldsymbol{s}, D \right) dS = \frac{1}{\Delta \xi \Delta \eta} \int_\xi^{\xi + \Delta \xi} \int_\eta^{\eta + \Delta \eta}  f \left( \boldsymbol{s}, D \right) d\xi d\eta
+\label{eg:f_discrete}
+f_\mathrm{j,k} \left( \boldsymbol{s}_\mathrm{j,k}, \boldsymbol{u}, D \right) = \frac{1}{\Delta \xi \Delta \eta} \int_{\xi_\mathrm{j-1/2}}^{\xi_\mathrm{j+1/2}} \int_{\eta_\mathrm{k-1/2}}^{\eta_\mathrm{k+1/2}}  f \left( \boldsymbol{s}, D \right) d\xi d\eta
 \end{equation}
 
-where the integration boundaries delimit the region of interest. Note that, in this case, the function $g \left( \boldsymbol{s}, D \right)$ will be discrete: for any pair of surface coordinates $\boldsymbol{s}$ which that belong to a given spatial region $\Delta S$, the same value of $g$ will hold. The function $g \left( \boldsymbol{s}, D \right)$ will define hereafter what we call \textbf{spatially refined statistics}.
 
-In a last step, we might be interested in looking at statistics that characterize the full domain $\mathcal{S}$. Hence, spatial integration must be performed in the whole sampling surface. These \textbf{spatially integrated statistics} will be calculated as follows:
+%To get statistics from an eulerian formulation, spray sampling is performed in a surface $\Delta S$ which is contained within the sampling surface: $\Delta S \subset \mathcal{S}$. Hence the function $f \left( \boldsymbol{s}, D \right)$, which is defined $\forall \boldsymbol{s} = \left\lbrace \xi, \eta \right\rbrace \in \boldsymbol{R}^2$, will be integrated in a smaller regions $\Delta S$ with dimensions $\Delta \xi$ and $\Delta \eta$. This produces a new function named $g$:
+%
+%\begin{equation}
+%\label{eg:g_general}
+%g \left( \boldsymbol{s}, \boldsymbol{u}, D \right) = \frac{1}{\Delta S} \iint_{\Delta S} f \left( \boldsymbol{s}, \boldsymbol{u}, D \right) dS = \frac{1}{\Delta \xi \Delta \eta} \int_{\xi - \Delta \eta /2}^{\xi + \Delta \xi} \int_{\eta - \Delta \eta /2}^{\eta + \Delta \eta/2}  f \left( \boldsymbol{s}, \boldsymbol{u}, D \right) d\xi d\eta
+%\end{equation}
+
+%where the integration boundaries delimit the region of interest. Note that, in this case, the function $g \left( \boldsymbol{s}, D \right)$ will be discrete: for any pair of surface coordinates $\boldsymbol{s}$ which that belong to a given spatial region $\Delta S$, the same value of $g$ will hold. The function $g \left( \boldsymbol{s}, D \right)$ will define hereafter what we call \textbf{spatially refined statistics}.
+%
+%In a last step, we might be interested in looking at statistics that characterize the full domain $\mathcal{S}$. Hence, spatial integration must be performed in the whole sampling surface. These \textbf{spatially integrated statistics} will be calculated as follows:
+%
+%\begin{equation}
+%f \left( D \right) = g \left( D \right) = \frac{1}{\mathcal{S}} \iint_{\mathcal{S}} f \left( \boldsymbol{s}, D \right) dS
+%\end{equation}
+%
+%Note that in this case it is indifferent to use either $f$ or $g$ functions, as both of them will produce a scalar value (except for the dependency with the diameter $D$, which is idential in both formulations).
+
+\subsection{Spray formulation in jet in crossflow}
+
+
 
 \begin{equation}
-f \left( D \right) = g \left( D \right) = \frac{1}{\mathcal{S}} \iint_{\mathcal{S}} f \left( \boldsymbol{s}, D \right) dS
+\label{eg:f_discrete_jicf}
+f_\mathrm{j,k} \left( \boldsymbol{s}_\mathrm{j,k}, \boldsymbol{u}, D \right) = \frac{1}{\Delta y \Delta z} \int_{y_\mathrm{j-1/2}}^{y_\mathrm{j+1/2}} \int_{z_\mathrm{k-1/2}}^{z_\mathrm{k+1/2}}  f \left( \boldsymbol{s}, D \right) dy dz
 \end{equation}
 
-Note that in this case it is indifferent to use either $f$ or $g$ functions, as both of them will produce a scalar value (except for the dependency with the diameter $D$, which is idential in both formulations).
-
-\subsubsection{With spatial discretization}
-
-Spray can be defined in discrete coordinates by expressing Eq. (\ref{eg:g_jicf}) instead as follows (see pilotage 2020-11-16:
-
-\begin{equation}
-\label{eg:g_jicf}
-f_\mathrm{j,k} \left( \boldsymbol{s}_\mathrm{j,k}, D \right) = \frac{1}{\Delta y \Delta z} \int_{y_\mathrm{j-1/2}}^{y_\mathrm{j+1/2}} \int_{z_\mathrm{k-1/2}}^{z_\mathrm{k+1/2}}  f \left( \boldsymbol{s}, D \right) dy dz
-\end{equation}
-
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch4_SLI/JICF_spray_formulation}
+	\caption{Illustration of SLI working principle.}
+	\label{fig:JICF_spray_formulation}
+\end{figure}
 
 
 \section{Models for lagrangian injection}
 	\label{sec:ch4_models_flowchart}
+
+
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch4_SLI/SLI_graphic_description}
+	\caption{Illustration of SLI working principle \textbf{CHANGE FIGURE TO NEW CONFIG WITHOUT SIDE WALLS}.}
+	\label{fig:SLI_graphic_description}
+\end{figure}
 
 
 The flowchart of the models is shown in Figure \ref{fig:SLI_flowchart}. The main workflow of information to build lagrangian injectors is shown in the central part of the figure, where each block is explained in a different chapter of this manuscript:
@@ -178,9 +197,10 @@ $r_\mathrm{min}$ & $\displaystyle \min \left( \textbf{x} - \textbf{x}_\mathrm{dr
 	\label{fig:droplet_sampling_parameters}
 \end{figure}
 
-In order to get statistics for spray characterization, it is useful to define a characteristic size of each liquid structure. For this purpose, an equivalent radius $R_\mathrm{dr}$ is calculated from the liquid volume $V$:
+In order to get statistics for spray characterization, it is useful to define a characteristic size of each liquid structure. For this purpose, an equivalent radius $r_\mathrm{dr}$ is calculated from the liquid volume $V$:
 
 \begin{equation}
+\label{eq:ch4_r_equivalent_calculation}
 r_\mathrm{dr} = \sqrt[3]{\frac{3 V_\mathrm{dr}}{4 \pi}}
 \end{equation}
 
@@ -233,19 +253,29 @@ The main issue now is to determine quantitatively when the spray is converged. F
 MSE^{t_i} = \frac{1}{N} \sum_{n=1}^N \left( f_n^{t_{i-1}} - f_n^{t_i}  \right)^2
 \end{equation}
 
-where $N$ is the total number of classes in the histogram. This criterion is similar to the Carmen-von Mises measure to compare two statistical distributions \citepColor[anderson_distribution_1962]. The MSE can then be calculated at each accumulation time instant and then be normalized by the maximum value obtained, yielding a Normalized Mean Squared Error (NMSE) \citepColor[hanna_flacs_2004]:
+where $N$ is the total number of classes in the histogram. This criterion is similar to the Cramer-von Mises measure to compare two statistical distributions \citepColor[anderson_distribution_1962]. The MSE can then be calculated at each accumulation time instant and then be normalized by the maximum value obtained, yielding a Normalized Mean Squared Error (NMSE) \citepColor[hanna_flacs_2004]:
 
 \begin{equation}
 NMSE^{t_i} = \frac{MSE^{t_i}}{\max_{t_i} \left( MSE \right)}
 \end{equation}
 
-The evolution of NMSE can be displayed with time as shown in Figure \ref{fig:NMSE_evolution}. The NMSE decreases with accumulation time until reaching a plateau, where the ?NMSE does not move significantly. Convergence is achieved at this plateau, which is defined for values of the NMSE below a threshold $\varepsilon_\mathrm{th}$.
+The evolution of NMSE can be displayed with time as shown in Figure \ref{fig:NMSE_evolution}. The NMSE decreases with accumulation time until reaching a plateau, where the NMSE does not move significantly. Convergence is achieved at this plateau, which is defined for values of the NMSE below a threshold $\varepsilon_\mathrm{th}$.
 
 \begin{equation}
 NMSE < \varepsilon_\mathrm{th}
 \end{equation}
 
-where $\varepsilon_\mathrm{th}$ is set to $0.01$ (i.e. $1 \%$).
+where $\varepsilon_\mathrm{th}$ is set to $0.03$ (i.e. $3 \%$).
+
+An additional criterion for convergence is added, which is the variation of the NMSE in the last 10 iterations. Hence, statistical convergence of the spray makes use of the following two criteria:
+
+\begin{itemize}
+
+	\item NMSE must be below $\varepsilon_\mathrm{th}$, as shown in the previous equation.
+	
+	\item In the last 10 iterations, the NMSE must be decreasing and lower to $\varepsilon_\mathrm{th}$.
+
+\end{itemize}
 
 
 \begin{figure}[ht]
@@ -266,16 +296,27 @@ where $\varepsilon_\mathrm{th}$ is set to $0.01$ (i.e. $1 \%$).
 
 
 
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[scale=0.35]{./part2_developments/figures_ch4_SLI/spray_convergence}
+%	\caption{Evolution or Normalized Mean Squared Error (NMSE) with respect to the spray accumulation time. \textbf{IMPROVE THIS}}
+%	\label{fig:NMSE_evolution}
+%\end{figure}
+
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.35]{./part2_developments/figures_ch4_SLI/spray_convergence}
-	\caption{Evolution or Normalized Mean Squared Error (NMSE) with respect to the spray accumulation time. \textbf{IMPROVE THIS}}
+	\includegraphics[scale=0.15]{./part2_developments/figures_ch4_SLI/spray_convergence.eps}
+	\caption[Evolution of Normalized Mean Squared Error (NMSE) with respect to spray accumulation time.]{Evolution of Normalized Mean Squared Error (NMSE) with respect to spray accumulation time (solid line). The dashed line indicates the chosen threshold of $\varepsilon_\mathrm{th} = 3 \%$).}
 	\label{fig:NMSE_evolution}
 \end{figure}
+
+
 
 It is worth noting that the convergence criterion based on NMSE introduced in this section depends solely on the equivalent droplets size $d_\mathrm{dr}$. Future work would include to extend this criterion to other magnitudes fundamental for a proper spray representation, such as velocities and flow rates. 
 
 Furthermore, a time-independent spray has been considered in all the previous process by accumulating droplets and calculating statistics which do not depend on the time in which they were sampled. A perspective in this respect would be to obtain a transient spray in order to create unsteady numerical injectors. This could be useful in systems where thermoacoustic instabilities appear and there are fluctuations in the injected flow rates, such as aeronautical gas turbines \citepColor[lieuwen_unsteady_2012].
+
+Improvements in the statistical convergence of spray include the combination of spray accumulation with information theory techniques \citemColor[panao_assessment_2012,panao_statistical_2020].
 
 
 %\subsubsection*{Old formulation}
@@ -325,6 +366,14 @@ The numerical implementation of the process works as follows:
 	\end{enumerate}
 
 \end{enumerate}
+
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch4_SLI/quadtrees_tree_structure}
+	\caption[Adaptive mesh refinement of injectors according to a quadtrees structure]{Adaptive mesh refinement of injectors according to a quadtrees structure. \textsl{Left}: quadtree structure, where the converged elements refined are shadowed. \textsl{Right}: resulting discretized injector. }
+	\label{fig:quadtrees_tree_structure}
+\end{figure}
+
 
 
 \subsection{Injectors definition}
@@ -420,30 +469,204 @@ So:
 \section{Dense core blockage effect modeling}
 	\label{sec:ch4_dense_core_modelling}
 	
-One key point of the resolved atomization simulations is that they can account for the liquid-gaseous interaction without the need to be modelled or accounted for with source terms in the governing equations. This allows capturing the perturbation effect from the liquid jet to the gaseous phase, which created vortical structures that affect droplets dispersion. In the jet in crossflow this influence is paramount, since the liquid coherent structures impose a blockage effect to the gaseous phase that creates vortical structures downstream the liquid injection nozzle (see Figure \textbf{??} and $\S$\ref{subsec:ch5_dense_core_in_ACLS_simus}).
+A very important feature of the resolved atomization simulations is the resolution of the liquid-gas interaction. This allows capturing the perturbation effect from the liquid jet to the gaseous phase, which created turbulent structures that affect droplets dispersion. In the jet in crossflow this influence is paramount, since the liquid coherent structures impose a blockage effect to the gaseous phase that creates vortices downstream the liquid injection nozzle (see Figure \ref{fig:arienti_2006_jicf} and $\S$\ref{subsec:ch5_dense_core_in_ACLS_simus}).
 
-Perturbation effects are not taken into account \textsl{a priori} in dispersed phase simulations, since the coherent structures are not present. As illustrated in $\S$\ref{sec:ch3_state_art_lagrangian_injection},s ome approaches have succeeded in emulating this interaction between phases by injecting lagrangian big droplets according to the the blob method \citepColor[reitz_modeling_1987] and adding a two-way coupling between liquid and gaseous phases \citemColor[apte_les_2003,senoner_simulation_2010]. Other studies have solved and kept the liquid coherent structures with VOF to capture the interaction, and then performed lagrangian injection and spray transport \citemColor[arienti_aerodynamic_2006,fontes_improved_2019].
+Perturbation effects are not taken into account \textsl{a priori} in dispersed phase simulations, since the coherent structures are not present. As illustrated in $\S$\ref{sec:ch3_state_art_lagrangian_injection}, some approaches have succeeded in emulating this interaction between phases by injecting lagrangian big droplets according to the the blob method \citepColor[reitz_modeling_1987] and adding a two-way coupling between liquid and gaseous phases \citemColor[apte_les_2003,senoner_simulation_2010]. Other studies have solved and kept the liquid coherent structures with VOF to capture the interaction, and then performed lagrangian injection and spray transport \citemColor[arienti_aerodynamic_2006,fontes_improved_2019].
 
-In this work, the blockage effect is modeled in dispersed phase computations by means of the Actuator Line Method (ALM). This method has been, to the author's knowledge up to date, in wind turbine simulations for representing the effect of the tower and blades in the gaseous field, which creates strong turbulence. Firstly, a review on the theory and some previous works in ALM is done. Secondly, the way ...
-
+In this work, the blockage effect is modeled in dispersed phase computations by means of the Actuator Line Method (ALM). This method has been, to the author's knowledge up to date, in wind turbine simulations for representing the effect of the tower and blades in the gaseous field, which creates strong turbulence. Firstly, a review on the theory and some previous works in ALM is done. Secondly, a simple model for modeling the dense core with ALM is proposed. This model will be later fed from the resolved atomization simulations of Chapter \ref{ch5:jicf_resolved_simulations} and applied to dispersed phase computations in Chapter \ref{ch6:jicf_lgs_simulations}.
 
 
 \subsection{Actuator Line Method}
 
-Mention \ref{sorensen_numerical_2002} and \citeColor[benard_large-eddy_2018].
+A proper modeling of wind turbines and windfarms requires an accurate representation of the wakes generated by the presence and movement of the blades. Since performing DNS is unaffordable due to the wide range of space and time scales found in these problems, LES are often used. For a proper representation of the wakes in these computations, aerodynamic models are added to consider the effect of the moving blades. The first of these models is the Actuator Disk Method (ADM), developed originally by \citeColor[sorensen_unsteady_1992]. The moving blades are modeled as a disk which has interacts with the incoming air. This perturbation is taken into account by means of body forces in the Navier-Stokes equations that influence the gaseous flow field. The purpose of ADM is the determination and imposition of these forces.
 
-ALM is a methodology
+An extension of the ADM was done later by \citeColor[sorensen_numerical_2002], known as \textbf{Actuator Line Method} (ALM). In this case, the moving bodies are not represented by a disk but by lines representing the rotor blades. Each individual blade is discretized by points which are equally spaced by a length $w$. A body force is imposed in each blade point. The cross section of a blade has an airfoil shape (see Figure \ref{fig:ALM_airfoil_and_mollification_benard} left), so the forces imposed by ALM to the flow field can be calculated from Blade Element Momentum (BEM) theory \citepColor[hansen_aerodynamics_2015]:
+
+\begin{subequations}
+\label{eq:ALM_lift_drag_definitions}
+\begin{align}
+L &= \frac{1}{2} \rho_g u_\mathrm{rel}^2 c \left( r \right) w C_L \left( r \right) \\
+D &= \frac{1}{2} \rho_g u_\mathrm{rel}^2 c \left( r \right) w C_D \left( r \right)
+\end{align}
+\end{subequations}
+
+where $L$ is lift, $D$ is drag, $u_\mathrm{rel}$ the relative velocity, $c \left( r \right)$ the chord size at the span direction $r$, and $C_L \left( r \right)$ and $C_D \left( r \right)$ lift and drag coefficients respectively. With this methodology, the variation of the forces along the span direction can be taken into account thorough changing chord and coefficients. The chord is given by the blade geometry, while the lift and drag coefficients are tabulated for a given airfoil.
 
 
-As shown in Figure (\textbf{Ref. to figure in introduction}), the dense core has a perturbation effect towards the gas phase. The resulting vortical structures will influence the dispersion of the droplets generated by atomization due to turbulent interaction. Therefore,
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.4]{./part2_developments/figures_ch4_SLI/ALM_airfoil_and_mollification_benard}
+	\caption[ALM illustration of a velocity triangle and geometrical conventions in an airfoil and mollification of a point force on several nodes of an unstructured grid]{ALM illustration of a velocity triangle and geometrical conventions in an airfoil (\textsl{left}) and mollification of a point force on several nodes of an unstructured grid (\textsl{right}). Source: \citeColor[benard_large-eddy_2018].}
+	\label{fig:ALM_airfoil_and_mollification_benard}
+\end{figure} 
+ 
 
- This is accounted for with the Actuator Line Method (ALM): \textbf{Sorensen 2002}, \textbf{Benard 2018}, \textbf{Houtin-Mongrolle 2020}.
+In the computational domain, the body forces cannot be directly applied in a single point since it would create a numerical singularity in the Navier-Stokes equations. Therefore, the body source term is applied using a mollifying function $\eta$ that distributes the body force $f$ from the forces calculated at each blade element:
+
+\begin{equation}
+\textbf{f} \left( \textbf{x}, t \right) = - \sum_{e=1}^{N} \left( L \textbf{e}_L + D \textbf{e}_D \right) \eta \left( |\textbf{r} - \textbf{r}_e| \right)
+\end{equation}
+
+where $\textbf{e}_L$ and $\textbf{e}_D$ are the unit vectors along the lift and drag directions (Figure \ref{fig:ALM_airfoil_and_mollification_benard} left), the subscript $e$ refers to each blade element and the mollifying function is defined as:
+
+\begin{equation}
+\eta \left( d \right) = \frac{1}{\epsilon^3 \pi^{3/2}} \exp \left[ - \left( \frac{d}{\epsilon} \right)^2 \right]
+\end{equation}
+
+where $\epsilon = 2 w$. The mollification process is depicted in Figure \ref{fig:ALM_airfoil_and_mollification_benard} right. The simplicity of ALM and its applicability to represent the perturbations created by solid blades have seen its application to model the interaction with other bodies, such as towers in wind turbines \citeColor[benard_large-eddy_2018], and to use it for generating synthetic turbulence in the grids \citepColor[houtin-mongrolle_actuator_2020]).
+
+%As shown in Figure (\textbf{Ref. to figure in introduction}), the dense core has a perturbation effect towards the gas phase. The resulting vortical structures will influence the dispersion of the droplets generated by atomization due to turbulent interaction. Therefore,
+
 
 \subsection{Dense core representation as an actuator}
 
+%In this work, ALM is used to model the perturbation effect of the JICF dense core on the gaseous field in dispersed phase simulations. 
+
+As depicted in Figure \ref{fig:arienti_2006_jicf}, the presence of the dense core creates a wake and vortical structures further downstream. This interaction can be captured in resolved atomization simulations (see $\S$\textbf{????} of Chapter \ref{ch5:jicf_resolved_simulations}), but not in dispersed phase simulations where the coherent liquid structures are neglected. Since these liquid-gas interactions can have a strong influence on the dispersion of droplets in the developed spray region, it is of interest to model this effect in dispersed phase simulations. For this purpose, ALM is used.
+
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=false,width=13cm]{./part2_developments/figures_ch4_SLI/ALM_DC_learning}
+	\caption[Representation of the dense core as an actuator]{Representation of the dense core as an actuator, showing lateral (\textsl{left}) and frontal (\textsl{right}) views of the jets. \textsl{Top}: schematic dense core from a resolved simulation. \textsl{Bottom}: actuator line model of the dense core.}
+	\label{fig:ALM_DC_learning}
+\end{figure}
+
+Figure \ref{fig:ALM_DC_learning} shows the representation of the dense core (top figures) as an actuator line model (bottom figures). Its complex topology is emulated by a frustum with increasing chord from the bottom ($c = d_\mathrm{inj}$) to the top ($c = W$). The frustum has a length $L$ and an inclination angle $\theta$ which are obtained as the breakup point coordinates $(x_b, z_b)$ of the dense core from resolved atomization simulations: $L = \sqrt{x_b^2 + z_b^2}$ and $\theta = \tan^{-1} \left( z_b / x_b\right)$. The actuator points where discrete forces are placed are equally-spaced with a distance $w$ along the center line of the frustum. The number of points $N_p$ also needs to be specified in the ALM model.
+
+Apart from the geometry, the forces applied to the actuator points also need to be specified. In this model, instead of specifying coefficients as done in wind turbine blades, the forces will be directly imposed in the actuator points. As shown in Figure \ref{fig:ALM_DC_learning}c, the force in the actuator will evolve linearly from the bottom to the top in order to take into account the real increasing cross-section of the actuator, which has the effect of increasing drag \citepColor[mashayek_jet_2006]. The force acts in a direction normal to the axis of the frustum. Therefore, the imposed forces can therefore be decomposed into two components: a drag force $D$ along the $x$ direction and a lift force $L$ along the $z$ direction. As each point force is specified at each actuator point $\left( x_p, z_p \right)$, the decomposition holds as follows:
+
+\begin{equation}
+\textbf{F} \left( x_p, z_p \right) = D \left( x_p, z_p \right) \textbf{i} + L \left( x_p, z_p \right) \textbf{k} 
+\end{equation}
+
+where $\textbf{i}$ and $\textbf{k}$ are the unit vectors in the $x$ and $z$ directions. To obtain these forces, the net force applied to the dense core $\textbf{F}_\mathrm{DC}$ is obtained from the resolved simulations, see Figure \ref{fig:ALM_DC_learning}a. This force is assumed to act in the same direction as the forces $\textbf{F} \left( x_p, z_p \right)$ from the actuator model, and is split into the several forces that are applied to the actuator points. Therefore, the following condition must be fulfilled:
+
+\begin{equation}
+\sum_{p=1}^{N_p} | \textbf{F} \left( x_p, z_p \right)| = | \textbf{F}_\mathrm{DC} |
+\end{equation}
+
+where $| \textbf{F}_\mathrm{DC} |$ is obtained from the resolved simulations (see next section for details on its calculation). As the forces $| \textbf{F} \left( x_p, z_p \right)|$ increase linearly along the actuator, its evolution is represented by the following expression accordingly to the vertical coordinates $z_p$ of the actuator points:
+
+\begin{equation}
+|\textbf{F} \left( x_p, z_p \right) | = | \textbf{F}_\mathrm{DC} | \frac{z_p}{\sum_{p=1}^{N_p} z_p}
+\end{equation}
+
+And finally, the drag and lift forces to impose are calculated as follows:
+
+\begin{subequations}
+\label{eq:ALM_lift_drag_definitions}
+\begin{align}
+L \left( z_p \right) &= |\textbf{F} \left( x_p, z_p \right) | \sin \theta = | \textbf{F}_\mathrm{DC} | \sin \theta \frac{z_p}{\sum_{p=1}^{N_p} z_p} \\
+D \left( z_p \right) &= |\textbf{F} \left( x_p, z_p \right) | \cos \theta = | \textbf{F}_\mathrm{DC} | \cos \theta \frac{z_p}{\sum_{p=1}^{N_p} z_p}
+\end{align}
+\end{subequations}
+
+Therefore, the forces imposed to the actuator points are parametrized by the dense core net force $| \textbf{F}_\mathrm{DC} |$, the actuator inclination $\theta$ and the actuator points. Table \ref{tab:alm_parameters} shows a recap of the parameters used in the proposed model. %The actuator chords shown in Figure \ref{fig:ALM_DC_learning} are not shown in this model since the increase in cross-section is directly contained in the linear evolution of the forces, Eqs. (\ref{eq:ALM_lift_drag_definitions}).
+
+\begin{table}[!h]
+\centering
+\caption{Parameters of an actuator representing the dense core}
+\begin{tabular}{ccc}
+\thickhline
+\textbf{Parameter} & \textbf{Units} & \textbf{Description} \\ 
+\thickhline
+$L$ & mm & Actuator length  \\
+$c_0$ & mm & Chord at base of actuator \\
+$c_L$ & mm & Chord at tip of actuator \\
+$\theta$ & $\degree$ & Dense core inclination  \\
+$N_p$ & - & Number of actuator points \\
+$| \textbf{F}_\mathrm{DC} |$ & N & Dense core net force\\
+\thickhline 
+\end{tabular}
+\label{tab:alm_parameters}
+\end{table}
 
 
-\subsection{Forces determination}
+\subsection{Determination of forces}
+
+The forces to impose in the actuator model are learnt from the resolved atomization simulation. For this purpose, the forces are firstly calculated in these simulations by calculating the corresponding term of the momentum equation (\ref{eq:momentum_conservation_general_integral}):
+
+\begin{equation}
+\boldsymbol{F}_\mathrm{DC} = \boldsymbol{F}_p + \boldsymbol{F}_\tau = \int_{\partial \Omega_{DC}} \left( \underbrace{- p \boldsymbol{n}}_{\mathrm{Pressure}} + \underbrace{2 \mu \overline{\overline{\epsilon}} \boldsymbol{n}}_{\mathrm{Shear}}  \right) dS 
+\end{equation}
+
+where $\partial \Omega_{DC}$ denotes the dense core surface. $\boldsymbol{F} $ has two contributions: a pressure force term and a shear force term. In a first instance, the shear term is neglected (see next section for details). Therefore, the total force term is reduced to the pressure force:
+
+\begin{equation}
+\label{eq:ALM_Fp_complete_integral}
+\boldsymbol{F}_\mathrm{DC} = \boldsymbol{F}_p = - \int_{\partial \Omega_{DC}} p \boldsymbol{n} dS 
+\end{equation}
+
+To simplify this expression, the forces in the windward and leeward sides of the dense core are assumed to be constant as indicated in Figure \ref{fig:ALM_DC_learning}a by the red and blue arrows, respectively. The surface of the dense core can be approximated according to the actuator model as $\partial \Omega_\mathrm{DC} \approx S_\mathrm{DC} = \frac{1}{2} \left( c_0 + c_L \right) L$. Therefore, Eq. (\ref{eq:ALM_Fp_complete_integral}) can be reduced to
+
+
+\begin{equation}
+\boxed{
+|\boldsymbol{F}_\mathrm{DC}| \left( p_\mathrm{windward} - p_\mathrm{leeward} \right) S_{DC} 
+}
+\end{equation}
+
+
+%The approximation of considering the pressures as both sides as equal is done in this model as it has been observed in the resolved simulations (see Figure \textbf{????}), but requires further research and might be a source of error. 
+
+It must be taken into account that the current model has been derived considering the dense core as a rigid body immersed in a fluid. Its geometry has been approximated by observations of the dense core shape in resolved atomization simulations, and have been taken as constant. In reality, the dense core is a deformable body whose topology (breakup point, inclination, length) changes with time. Future works on deriving more thorough models intending to represent the dense core should take into account these transient properties \citeColor[patil_liquid_2021].
+
+\subsubsection*{Neglecting the shear force term}
+
+For a body immersed in a fluid, the shear force is defined as:
+
+\begin{equation}
+\boldsymbol{F}_\tau = \int_{\partial \Omega_\mathrm{DC}} 2 \mu \overline{\overline{\epsilon}} \boldsymbol{n} dS
+\end{equation}
+
+where $\overline{\overline{\epsilon}}$ is the deformation tensor:
+
+\begin{equation}
+\overline{\overline{\epsilon}} = \frac{1}{2} \left( \nabla \boldsymbol{u} + \left(\nabla \boldsymbol{u}\right)^T \right)
+\end{equation}
+
+The forces $\boldsymbol{F}_\tau$ cannot be easily calculated with the current methodology. Instead, a more simple expression of the shear forces based on a friction coefficient $C_f$ and a reference surface $S$ is used \citemColor[soedarmo_simplified_2018,johnston_investigation_1984]:
+
+\begin{equation}
+\label{eq:ALM_model_Ftau}
+\boldsymbol{F}_\tau = \frac{1}{2} \rho_g u_g^2 S C_f 
+\end{equation}
+
+The friction coefficient $C_f$ is obtained from the following expression \citepColor[yang_new_2017]:
+
+\begin{equation}
+\label{eq:ALM_model_Cf}
+C_f = 0.37 \left( \log Re_x \right)^{-2.584}
+\end{equation}
+
+where $Re_x$ is the Reynolds number based on the incoming velocity and the distance along the dense core.
+
+
+The relative intensity of the force $\boldsymbol{F}_p$ with respect to $\boldsymbol{F}_\tau$ can be measured by dividing expressions (\ref{eq:ALM_Fp_complete_integral}) and (\ref{eq:ALM_model_Ftau}), plugging also Eq. (\ref{eq:ALM_model_Cf}):
+
+\begin{equation}
+\label{eq:rF_definition}
+r_F = \frac{| \boldsymbol{F}_p| }{| \boldsymbol{F}_\tau |} = \frac{\Delta p}{0.185 \rho_g u_g^2 \left( \log Re_x \right)^{-2.584}}
+\end{equation}
+
+
+Where $\Delta p \sim O \left( 10^4 \right) $ in the operating points studied (see Table \ref{tab:jicf_operating_conditions} and Figure \textbf{????}). So considering this value, the expression for $r_F$ can be approximated by:
+
+\begin{equation}
+r_F \sim \frac{10^5}{\rho_g u_g^2 \left( \log Re_x \right)^{-2.584}}
+\end{equation}
+
+According to the operating points studied, the values of $Re_x$ can range from $10^3$ to $10^5$. In such points, $\rho_g = 7.21$ kg m$^{-3}$ and $u_g = 75, 100$ m s$^{-1}$. With these values, the expression of $r_F$ can be plotted as a function of $Re_x$ in Figure \ref{fig:ALM_rF_vs_Rex}. As observed, the ratio $r_F$ presents values between 10 to 90 for the $Re_x$ range of interest. These ratios mean that the pressure force $\boldsymbol{F}_p$ is between 10 and 90 times the shear force $\boldsymbol{F}_\tau$. Therefore, $|\boldsymbol{F}_\tau| << |\boldsymbol{F}_p|$ and only the contribution of the pressure force is considered to calculate the dense core net force.
+
+
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{./part2_developments/figures_ch4_SLI/ALM_rF_vs_Rex.eps}
+	\caption{Force ratio with $Re_x$.}
+	\label{fig:ALM_rF_vs_Rex}
+\end{figure}
 
 
 
@@ -474,7 +697,7 @@ In this work, three atomization models have been implemented and tested: the TAB
 The Taylor Analogy Breakup (TAB) model is one the first secondary atomization models. Developed by \citeColor[orourke_tab_1987], it makes an analogy between a droplet and a mechanical system as shown in Fig. \ref{fig:TAB_droplet_deformation}. Breakup occurrence is estimated by solving the ordinary differential equation (ODE) representing the oscillating dynamics of the mechanical system depicted:
 
 \begin{equation}
-\label{ref:TAB_ODE_x}
+\label{eq:TAB_ODE_x}
 m \ddot{x} = F - k x - c \dot{x}
 \end{equation}
 
@@ -486,7 +709,7 @@ where $x$ is the displacement from the droplet's equator due to deformation, $m$
 
 where $C_F = 1/3$, $C_k = 8$, $C_d = 5$ are constants, $r$ the droplet radius, $\rho$ the density, $\sigma$ the surface tension, $\mu$ the viscosity, and the subscripts $l$ and $g$ indicate liquid and gases respectively. 
 
-The deformation $x$ can be expressed by a non-dimensionless parameter $y$, hereafter referred as droplet distorsion, whose equivalence is $y = x / \left( C_b r \right)$, where $C_b = 0.5$ is a constant. Using the expressions from the Taylor analogy and introducing the change of variable $y$, the ODE (\ref{ref:TAB_ODE_x}) changes to:
+The deformation $x$ can be expressed by a non-dimensionless parameter $y$, hereafter referred as droplet distorsion, whose equivalence is $y = x / \left( C_b r \right)$, where $C_b = 0.5$ is a constant. Using the expressions from the Taylor analogy and introducing the change of variable $y$, the ODE (\ref{eq:TAB_ODE_x}) changes to:
 
 \begin{equation}
 \label{eq:TAB_ODE}
@@ -573,7 +796,15 @@ Breakup will then occur in the case that $dt < dt_{bu}$, or also if updating the
 \frac{r}{r_{32}} = 1 + \frac{8 K}{20} + \frac{\rho_l r^3}{\sigma} \dot{y}^2 \left( \frac{6 K - 5}{120} \right)
 \end{equation}
 
-where $K = 10/3$ is a constant. Now, radii of children droplets $r_{ch}$ are randomly chosen from a Rosin-Rammler distribution \footnote{In the original work by \citeColor[orourke_tab_1987], a $\chi^2$ distribution is used} with characteristic diameter $r_{32}$ and factor $q = 3.5$. Inverting Eq. (\ref{eq:rossin_rammler_distribution}) yields:
+where $K = 10/3$ is a constant. Now, radii of children droplets $r_{ch}$ are randomly chosen from a Rosin-Rammler distribution \footnote{In the original work by \citeColor[orourke_tab_1987], a $\chi^2$ distribution is used} with characteristic diameter $r_{32}$ and factor $q = 3.5$: 
+
+
+\begin{equation}
+\label{eq:rossin_rammler_distribution}
+Q \left( r \right) = 1 - \exp\left(  - \left( \frac{r}{r_{0.632}} \right)^q \right)
+\end{equation}
+
+which can be inverted to obtain $r_{ch}$:
 
 \begin{equation}
 r_{ch} = r_{32} \sqrt[3.5]{- \log \left( 1 - Q \right) }
@@ -762,34 +993,34 @@ This equation confirms the previous statement that the constant $K_1$ has a dire
 
 
 
-\section{Subgrid models for turbulent dispersion}
+%\section{Subgrid models for turbulent dispersion}
+%
+%\subsubsection*{Review}
+%
+%Regarding turbulent dispersion models, there are the ones used in RANS studies:
+%
+%\begin{itemize}
+%
+%	\item \textbf{2016 Eckel} mentions two dispersion models: Gosmann and Ioannides (the classic) (1983), (Blumcke et al. 1993)
+%	
+%	\item \textbf{Fontes 2018} uses the Langevin dispersion model introduced in Sommerfeld 2001
+%
+%	\item \textbf{Belmar 2020} presents a turbulent dispersion model by O'Rourke.
+%
+%\end{itemize}
+%
+%For LES, Iafrate 2016 shows a good modelling of turbulent dispersion applied to gasoline injection ($\S$8.2 Impact de la turbulence sous-maille), based on references 120-124.
+%
+%Also, references I have for LES are 2015 Minier, Minier ref. 57, 2014 Urzay - Particle-laden flows.
+%
+%A nice one is the techical report Amsden 1989 - KIVA II.
+%
+%OJO: reference OKongo and Bellan de Minier ref. 57 puede ser fundamental, hace analisis de particulas con distintas velocidades inyectadas !!
 
-\subsubsection*{Review}
 
-Regarding turbulent dispersion models, there are the ones used in RANS studies:
+\section{Conclusions and perspectives}
 
-\begin{itemize}
-
-	\item \textbf{2016 Eckel} mentions two dispersion models: Gosmann and Ioannides (the classic) (1983), (Blumcke et al. 1993)
-	
-	\item \textbf{Fontes 2018} uses the Langevin dispersion model introduced in Sommerfeld 2001
-
-	\item \textbf{Belmar 2020} presents a turbulent dispersion model by O'Rourke.
-
-\end{itemize}
-
-For LES, Iafrate 2016 shows a good modelling of turbulent dispersion applied to gasoline injection ($\S$8.2 Impact de la turbulence sous-maille), based on references 120-124.
-
-Also, references I have for LES are 2015 Minier, Minier ref. 57, 2014 Urzay - Particle-laden flows.
-
-A nice one is the techical report Amsden 1989 - KIVA II.
-
-OJO: reference OKongo and Bellan de Minier ref. 57 puede ser fundamental, hace analisis de particulas con distintas velocidades inyectadas !!
-
-
-\section{Conclusions}
-
-This chapter has presented the methodology 
+In this chapter, the models 
 
 
 For further development of the models, the following perspectives are proposed:

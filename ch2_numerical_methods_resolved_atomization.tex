@@ -1,10 +1,9 @@
-
 \chapter{Numerical methods to simulate resolved atomization}
 	\label{ch2:numerical_methods_resolved_atomization}
 
 \section{Introduction}
 
-\textbf{MAKE LINK WITH FINAL PART OF INTRODUCTION WHEN IT IS DONE}
+%\textbf{MAKE LINK WITH FINAL PART OF INTRODUCTION WHEN IT IS DONE}
 
 Resolution of two-phase flows requires a suitable description of each phase and a careful treatment of the liquid-gas interface. From a numerical point of view, the multi-scale nature of atomization makes it impossible to use the same methods for resolving atomization accurately and for transporting a developed spray, since the characteristic length scales differ by several orders of magnitude. Consequently, different numerical methodologies must be chosen according to the targeted problem. Furthermore, if multi-physical phenomena, such as evaporation or combustion, are present, the range of possible models to be applied becomes even narrower.
 
@@ -25,24 +24,26 @@ The first step to choose a proper methodology is to identify the type of regime 
 
 \end{itemize}
 
+%Different numerical models have been developed to solve two-phase flows. Due to the differences aforementioned, each method will target problems involving mainly either separate or disperse phase. Volume of fluid ($\S$\ref{subsec:ch2_VOF}) or level-set ($\S$\ref{subsec:ch2_ACLS}) methods are suitable for solving primary atomization, but becomes inefficient when applying it to a cluster of small particles product of secondary atomization. Lagrangian methods, dealt in Chapter \ref{ch3:disperse_phase_methods}, are suitable to represent disperse phase systems containing droplets moving individually, but cannot properly represent a dense liquid region with high volume fraction and would need extra modeling to represent the physics more accurately \citepColor[reitz_modeling_1987].
+
+A thorough classification of existing numerical methods for two-phase flows is shown in Figure \ref{fig:classification_numerical_methods_mirjalili}. Methods aiming at solving disperse-phase flows use often a two-fluid formulation, since the description of each phase is done with separate equations. On the other hand, methods addressing separate phases are based on a one-fluid formulation, since basically the same governing equations are solved but distinguishing between phases via their different physical properties. This requires a specific treatment of the interface and the jump conditions in pressure due to surface tension, which each method handles differently. 
+
+\newpage
+
 \begin{figure}[h!]	
 	\centering
 	\includeinkscape[inkscapelatex=false,scale=0.75]{./part1_numerical_approaches/figures_ch2/TPF_approaches_example}
-	\caption{Two-phase systems classification. \textsl{Left}: separate flow, where both phases are easily distinguished and the interface $\Gamma$ can easily be tracked. \textsl{Right}: dispersed phase flow, where individual fluid particles (disperse phase) are surrounded by the gas (carrier phase). In such systems, the interface can hardly be tracked due to the higher surface-to-volume ratio.}
+	\caption[Two-phase systems classification]{Two-phase systems classification. \textsl{Left}: separate flow, where both phases are easily distinguished and the interface $\Gamma$ can easily be tracked. \textsl{Right}: dispersed phase flow, where individual fluid particles (disperse phase) are surrounded by the gas (carrier phase). In such systems, the interface can hardly be tracked due to the higher surface-to-volume ratio.}
 	\label{fig:TPF_droplets_example}
 \end{figure}
 
-%Different numerical models have been developed to solve two-phase flows. Due to the differences aforementioned, each method will target problems involving mainly either separate or disperse phase. Volume of fluid ($\S$\ref{subsec:ch2_VOF}) or level-set ($\S$\ref{subsec:ch2_ACLS}) methods are suitable for solving primary atomization, but becomes inefficient when applying it to a cluster of small particles product of secondary atomization. Lagrangian methods, dealt in Chapter \ref{ch3:disperse_phase_methods}, are suitable to represent disperse phase systems containing droplets moving individually, but cannot properly represent a dense liquid region with high volume fraction and would need extra modeling to represent the physics more accurately \citepColor[reitz_modeling_1987].
-
-An \colorbox{red}{insightful} classification of existing numerical methods for two-phase flows is shown in Figure \ref{fig:classification_numerical_methods_mirjalili}. Methods aiming at solving disperse-phase flows use often a two-fluid formulation, since the description of each phase is often done with separate equations. On the other hand, methods addressing separate phases are based on a one-fluid formulation, since basically the same governing equations are solved but distinguishing between phases via their different physical properties. This requires a specific treatment of the interface and the jump conditions in pressure due to surface tension, which each method will handle differently. 
-
-This chapter gives an overview on the state-of-the-art in numerical methods applicable to resolve separate phase regimes. Section \ref{sec:ch2_governing_equations} introduces the governing equations of non-reactive two phase flows, beginning by introducing the Reynolds Transport Theorem and applying it to obtain mass and momentum conservation laws. Section \ref{sec:ch2_eulerian_approaches_dense_regime} presents the numerical methodologies reviewed: diffuse interface, front-tracking, Volume of Fluid (VOF), and Accurate Conservative Level-Set coupled with Ghost-Fluid Method (ACLS/GMF). The last one is the methodology used in this thesis for performing resolved simulation atomizations in Chapter \ref{ch5:jicf_resolved_simulations}.
+This chapter gives an overview on the state-of-the-art in numerical methods applicable to resolve separate phase regimes. Section \ref{sec:ch2_governing_equations} introduces the governing equations of non-reactive two phase flows, beginning by introducing the Reynolds Transport Theorem and applying it to obtain mass and momentum conservation laws. Section \ref{sec:ch2_eulerian_approaches_dense_regime} presents the numerical methodologies reviewed: diffuse interface, front-tracking, Volume of Fluid (VOF), and Accurate Conservative Level-Set coupled with Ghost-Fluid Method (ACLS/GMF). The last one is the methodology used in this thesis for performing resolved simulation atomizations in Chapters 5 and 8.%\ref{ch5:jicf_resolved_simulations} and \ref{ch8:bimer_resolved_atomization}.
 
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=1.0]{./part1_numerical_approaches/figures_ch2/classification_numerical_methods_mirjalili}
-	\caption{Numerical methods to simulate two-phase flows. Ellipses denote interface-capturing methods. Sharp-interface methods are denoted by a white background, while the grey one indicates diffuse-interface methods. Source: \citeColor[mirjalili_interface-capturing_2017]}
+	\caption[Numerical methods to simulate two-phase flows.]{Numerical methods to simulate two-phase flows. Ellipses denote interface-capturing methods. Sharp-interface methods are denoted by a white background, while the grey one indicates diffuse-interface methods. Source: \citeColor[mirjalili_interface-capturing_2017]}
 	\label{fig:classification_numerical_methods_mirjalili}
 \end{figure}
 
@@ -82,9 +83,9 @@ The latter equation can also be seen as another expression for the RTT particula
 }
 \end{equation}
 
-This formulation of the relates the lagrangian formulation of a system (left hand side, corresponding to the control mass) with the eulerian formulation (right hand side, corresponding to the control volume). 
+This formulation relates the lagrangian formulation of a system (left hand side, corresponding to the control mass) with the eulerian formulation (right hand side, corresponding to the control volume). 
 
-In this document all the control volumes selected for performing balances will be fixed in space, so their boundaries not move. Consequently, $\boldsymbol{u_c} = 0$ and hence Eq. (\ref{eq:reynolds_transport_theorem_general_controlVolume}) becomes $\frac{d}{dt} \int_\Omega \phi dV =  \int_\Omega \partial \phi/\partial t ~ dV$.
+In most of the problems, all the control volumes selected for performing balances are fixed in space, so their boundaries not move. Consequently, $\boldsymbol{u_c} = 0$ and hence Eq. (\ref{eq:reynolds_transport_theorem_general_controlVolume}) becomes $\frac{d}{dt} \int_{\scriptsize{\Omega}} \phi dV =  \int_{\scriptsize{\Omega}} \partial \phi/\partial t ~ dV$.
 
 \subsubsection*{Application to two-phase flows}
 	\label{subsec:RTT_applied_to_TPS_with_interface}
@@ -203,7 +204,7 @@ A global expression for mass conservation can be obtained by substituting $\phi 
 \frac{d}{dt} \int_{\Omega_m} \rho dV =   \int_{\Omega}  \frac{\partial \rho}{\partial t}  dV + \int_{\partial \Omega} \rho \boldsymbol{u} \cdot \boldsymbol{n} dS + \int_\mathsmaller{\Gamma} \left( \rho_\mathrm{l} - \rho_\mathrm{g} \right) \left( \boldsymbol{u}_{\scriptsize{\Gamma}} \cdot \boldsymbol{n}_{\scriptsize{\Gamma}} \right) dS
 \end{equation}
 
-In conditions where mass exchange takes place, such as the hot environment within combustion chambers, high temperature might produce evaporation of the liquid phase into gaseous phase. In such cases, the left hand side term of the former equation would be a sink term different to zero. However in this work mass exchange is not considered, so this term is zero:
+In conditions where mass exchange takes place, such as the reactive environment within combustion chambers, high temperature might produce evaporation of the liquid phase into gaseous phase. In such cases, the left hand side term of the former equation would be a sink term different to zero. For non-reactive applications, where mass exchange does not take place, this term is zero:
 
 \begin{equation}
 \int_{\Omega}  \frac{\partial \rho}{\partial t}  dV + \int_{\partial \Omega} \rho \boldsymbol{u} \cdot \boldsymbol{n} dS + \int_\mathsmaller{\Gamma} \left( \rho_\mathrm{l} - \rho_\mathrm{g} \right) \left( \boldsymbol{u}_{\scriptsize{\Gamma}} \cdot \boldsymbol{n}_{\scriptsize{\Gamma}}\right) dS = 0
@@ -224,20 +225,21 @@ As both $\rho_\mathrm{l}$ and $\rho_\mathrm{g}$ are always positive, and $\rho_\
 }
 \end{equation}
 
-which means that the flow velocity normal to the interface must be zero, i.e. there is no liquid or gas crossing the interface. 
+which implicates that the flow velocity normal to the interface must be zero, i.e. there is no liquid or gas crossing the interface. 
 
 \subsubsection*{Mass conservation in separate phases}
 	\label{eq:mass_conservation_separated_phases}
 
-Two-phase flows must ensure mass conservation for each phase. This can be done by applying the RTT as given by Eqs. (\ref{eq:RTT_general_twoEquations}) to the field $\phi = \rho$. However this formulation introduces the need to deal with the liquid-gas interface, which is often changing in time. A more useful formulation can be developed by the strong form given by (\ref{eq:mass_conservation_general_integral}) to each phase separately \citepColor[drew_theory_1999]. For making it properly, it is necessary to introduce before the definition of \textbf{volumetric fraction} for a phase $k$, $\alpha_k$:
+Two-phase flows must ensure mass conservation for each phase. This can be done by applying the RTT as given by Eqs. (\ref{eq:RTT_general_twoEquations}) to the field $\phi = \rho$. However this formulation introduces the need to deal with the liquid-gas interface, which is often changing in time. A more useful formulation can be developed by the strong form given by (\ref{eq:mass_conservation_general_integral}) to each phase separately \citepColor[drew_theory_1999]. For making it properly, it is necessary to introduce before the definition of \textbf{volume fraction} for the phase $k$, $\alpha_k$:
 
 \begin{equation}
+\label{eq:vol_frac_definition}
 \alpha_k = \frac{V_k}{V}
 \end{equation}
 
 This magnitude determines the quantity of a given fluid $k$ that is contained in a considered volume $V$. By definition, it follows that $\sum_{k=1}^\mathrm{N_{phases}} \alpha_k = 1$. It can be defined for both gas and liquid phases, $\alpha_\mathrm{g}$ and $\alpha_\mathrm{l}$, so then $\alpha_\mathrm{g} + \alpha_\mathrm{l} = 1$.
 
-Once the volumetric fractions for liquid and gas have been defined, the continuity equation (\ref{eq:mass_conservation_general_differential}) can be defined for each phase as follows:
+Once the volume fractions for liquid and gas are defined, the continuity equation (\ref{eq:mass_conservation_general_differential}) can be defined for each phase as follows:
 
 \begin{subequations}
 \begin{align}
@@ -256,7 +258,7 @@ The integral balance can be obtained by integrating both expressions over a fixe
 \end{align}
 \end{subequations}
 
-These equations present two components: a transient term and a surface term. The transient term has an effect when the mass of any phase is growing inside the control volume, e.g. at the first instants of fuel injection, when the fuel mass is increasing with time. Once a steady-state has been reached, this term becomes $0$. The surface term accounts for the mass fluxes that are entering of leaving the system through its boundaries. From this term, the \textbf{mass flow rate} $\dot{m}$ of a flux going though an area $A$ can be defined as:
+These equations present two components: a transient term and a surface term. The transient term has an effect when the mass of any phase is growing inside the control volume, e.g. at the first instants of fuel injection, when the fuel mass is increasing with time. Once a steady-state has been reached, this term becomes $0$. The surface term accounts for the mass fluxes entering or leaving the system through its boundaries. From this term, the \textbf{mass flow rate} $\dot{m}$ of a flux going though an area $A$ can be defined as:
 
 \begin{equation}
 \boxed{
@@ -374,7 +376,7 @@ As shown by this relation, the effect of surface tension it to introduce a disco
 
 \subsubsection*{Momentum conservation in separate phases}
 
-Following the same procedure of $\S$\ref{eq:mass_conservation_separated_phases}, the volumetric fraction is used to formulate momentum equations in strong form. Equation (\ref{eq:momentum_conservation_general_differential}) can be applied to each phase for getting separate conservation equations of momentum. However, it must be taken into account that there can be exchange of momentum from one phase to another, something which was not taken into account in the mass equations because it is assumed that there is no mass exchange. This \textbf{momentum exchange} between both phases can be accounted for by adding a source term $\dot{\boldsymbol{s}}$. Then, the strong form of momentum conservation equations for each phase take the following form:
+Following the same procedure of $\S$\ref{eq:mass_conservation_separated_phases}, the volume fraction is used to formulate momentum equations in the strong form. Eq. (\ref{eq:momentum_conservation_general_differential}) can be applied to each phase for getting separate conservation equations of momentum. However, the \textbf{momentum exchange} between both phases must be accounted for through a source term $\dot{\boldsymbol{s}}$. Then, the strong form of momentum conservation equations for each phase take the following form:
 
 \begin{subequations}
 \begin{align}
@@ -401,7 +403,7 @@ where $\dot{\boldsymbol{S}} = \int_{\partial {\Omega}} \dot{\boldsymbol{s}} dV$.
 }
 \end{equation}
 
-The right-hand side includes all the contributions from surface and body forces to the change of momentum of the system, plus the source term that will account for the momentum exchange between phases. The surface forces will be all group in the term $\boldsymbol{F}_s$, while the body forces will be denoted as $\boldsymbol{F}_b$. If the transient term of the left-hand side is called $\dot{\boldsymbol{J}}$ and the momentum fluxes are separated into inlet and outlet fluxes, then the momentum conservation for separated phases can be written as follows:
+The right-hand side includes all the contributions from surface and body forces to the change of momentum of the system, plus the source term that will account for the momentum exchange between phases. The surface forces are grouped in the term $\boldsymbol{F}_s$, while the body forces are denoted as $\boldsymbol{F}_b$. If the transient term of the left-hand side is called $\dot{\boldsymbol{J}}$ and the momentum fluxes are separated into inlet and outlet fluxes, then the momentum conservation for separated phases can be written as follows:
 
 \begin{subequations}
 \label{eq:momentum_conservation_general_bothPhases_transient}
@@ -414,23 +416,23 @@ The right-hand side includes all the contributions from surface and body forces 
 \section{Eulerian approaches for dense regime}
 \label{sec:ch2_eulerian_approaches_dense_regime}
 
-Previously, the governing laws for fluid dynamics have been stated in their weak and strong forms. They have been extended to two-phase flows by introducing the volume fraction into the equations and by distinguishing between phases. It has been proved that surface tension introduces a discontinuity in the momentum equation, something the numerical method must deals with. This section presents several interface-capturing methods represented in Fig. \ref{fig:classification_numerical_methods_mirjalili} widely used to solve two-phase flow systems. 
+Previously, the governing laws for fluid dynamics have been stated in their weak and strong forms. They have been extended to two-phase flows by introducing the volume fraction into the equations and by distinguishing between phases. It has been proved that surface tension introduces a discontinuity in the momentum equation, something the numerical methods have to deal with. This section presents several interface-capturing methods represented in Fig. \ref{fig:classification_numerical_methods_mirjalili} widely used to solve two-phase flow systems. 
 
 
 \subsection{Diffuse interface methods}
 \label{subsec:ch2_DI_methods}
 
-Diffuse interface is not formerly a method, but a family of them. The interface is not found at a precise spatial location, but is distributed along a transition region where both phases coexist. The liquid fraction of gas and liquid phases must add to 1: $\alpha_l + \alpha_g = 1$. Figure \ref{fig:DI_vs_VOF} shows a droplet solved with a diffuse interface method and a sharp interface (VOF) in the same grid, \colorbox{red}{demonstrating clearly how the interface definition is straightforward in the latter but not so easily to track in the former}.
+Diffuse interface comprises a family of numerical methods in which the interface is not found at a precise spatial location, but is distributed along a transition region where both phases coexist. The volume fraction of gas and liquid phases must add to 1: $\alpha_l + \alpha_g = 1$. Figure \ref{fig:DI_vs_VOF} displays a droplet solved with a diffuse interface method and a sharp interface (VOF, see $\S$\ref{subsec:ch2_VOF}) in the same grid, clearly showing how the interface can be easily tracked in the latter case but not in the former. %\colorbox{red}{demonstrating clearly how the interface definition is straightforward in the latter but not so easily to track in the former}.
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.35]{./part1_numerical_approaches/figures_ch2/DI_vs_VOF_Mirjalili}
-	\caption{Comparison of a droplet solved in a 20x20 grid by a diffuse interface method (\textit{left}) and a sharp-interface VOF method (\textit{right}). Source: \citeColor[mirjalili_comparison_2019]}
+	\caption[Comparison of a droplet solved in a 20x20 grid by a diffuse interface method  and a sharp-interface VOF method]{Comparison of a droplet solved in a 20x20 grid by a diffuse interface method (\textit{left}) and a sharp-interface VOF method (\textit{right}). Source: \citeColor[mirjalili_comparison_2019]}
 	\label{fig:DI_vs_VOF}
 \end{figure}
 
 
-A class of diffuse-interface methods arousing recent interest in immiscible, incompressible two-phase flows are the phase field methods. Originally, they make use of the Cahn-Hilliard equations \citepColor[cahn_free_1958]. Their derivation is based on the minimisation of a free energy functional, which leads to a typical convection-diffusion equation with source terms. This equation presents the main disadvantage that it is written in a non-conservative form, and hence it is not suitable for its application in immiscible flows \citepColor[mirjalili_conservative_2020]. This issue was later solved by \citeColor[chiu_conservative_2011], who claimed that the following second order equation can be used with the same purpose and applied to immiscible flows:
+A class of diffuse-interface methods arousing recent interest in immiscible, incompressible two-phase flows are the phase field methods. Originally, they make use of the Cahn-Hilliard equations \citepColor[cahn_free_1958]. Their derivation is based on the minimisation of a free energy functional, which leads to a typical convection-diffusion equation with source terms. This equation presents the main disadvantage that is written in a non-conservative form, and hence it is not suitable for application in immiscible flows \citepColor[mirjalili_conservative_2020]. This issue was later solved by \citeColor[chiu_conservative_2011], who claimed that the following second order equation can be used with the same purpose and applied to immiscible flows:
 
 \begin{equation}
 \frac{\partial \psi}{\partial t} + \nabla \left( \textbf{u}  \psi \right) = \nabla \left[ \gamma \left( \epsilon \nabla \psi - \psi \left( 1 - \psi \right) \frac{\nabla \psi}{| \nabla \psi |} \right) \right]
@@ -458,12 +460,12 @@ The front-tracking method is, according to the classification of Figure \ref{fig
 \textbf{u} = \frac{d \textbf{x}}{d t}
 \end{equation}
 
-where the velocity $\textbf{u}$ is obtained by solving the flow field. As lagrangian particles are used, the interface is not solved in the same grid as the liquid and gas fields, see Fig. \ref{front_tracking_tryggvason}. This makes this method more of a lagrangian nature than an eulerian one in the sense that the interface is resolved separately from the main grid. Yet, both phases are solved with an eulerian formalisms within the same grid, making this method eulerian since it aims mainly at solving  separate-phase problems as indicated in Fig. \ref{fig:TPF_droplets_example} left. There are indeed interface-tracking methods dealing with the interface from an eulerian perspective, such as the Marker and Cell (MAC) method \citepColor[mckee_mac_2008].
+where the velocity $\textbf{u}$ is obtained by solving the flow field. As lagrangian particles are used, the interface is not solved in the same grid as the liquid and gas fields, see Figure \ref{fig:front_tracking_tryggvason}. This makes this method more of a lagrangian nature than an eulerian one in the sense that the interface is resolved separately from the main grid. Yet, both phases are solved with an eulerian formalisms within the same grid; hence, this method is categorized as eulerian since it aims mainly at solving separate-phase problems as indicated in Figure \ref{fig:TPF_droplets_example} left. There are indeed interface-tracking methods dealing with the interface from an eulerian perspective, such as the Marker and Cell (MAC) method \citepColor[mckee_mac_2008].
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.5]{./part1_numerical_approaches/figures_ch2/front-tracking_triggvason}
-	\caption{Illustration of the front-tracking method: both fluids are solved in the main grid while the interface is represented by a front of particles. Source: \citeColor[tryggvason_front-tracking_2001]}
+	\caption[Illustration of the front-tracking method]{Illustration of the front-tracking method: both fluids are solved in the main grid while the interface is represented by a front of particles. Source: \citeColor[tryggvason_front-tracking_2001]}
 	\label{fig:front_tracking_tryggvason}
 \end{figure}
 
@@ -474,7 +476,7 @@ where the velocity $\textbf{u}$ is obtained by solving the flow field. As lagran
 
 % VOF reference: 2C. Hirth and B. Nichols. “Volume of Fluid (VOF) method for the dynamics of free boundaries”. In: Journal of Computational Physics 39 (1979), pp. 201–225
 
-The Volume of Fluid method (VOF) is the first numerical methodologies developed to solve for liquid-gas interfaces in free surface flows, introduced originally by \citeColor[hirt_volume_1981]. It is included among the methods using a \textbf{sharp-interface} approach, as opposed to diffuse interface which were succinctly discussed in the previous section. They have been extensively studied in literature , and have been applied for both structured \citemColor[scardovelli_direct_1999,fuster_simulation_2009] and unstructured \citemColor[jofre_3-d_2014,ivey_conservative_2017] grids. VOF methods identify the liquid regions according to their liquid volume fraction $\alpha_l$ defined in Eq.(\ref{eq:volume_fraction_definition}). The volume fraction scalar is transported with an advection equation:
+The Volume of Fluid method (VOF) is the first numerical methodologies developed to solve for liquid-gas interfaces in free surface flows, introduced originally by \citeColor[hirt_volume_1981]. It is included among the methods using a \textbf{sharp-interface} approach, as opposed to diffuse interface which were succinctly discussed previously. They have been extensively studied in literature, and have been applied for both structured \citemColor[scardovelli_direct_1999,fuster_simulation_2009] and unstructured \citemColor[jofre_3-d_2014,ivey_conservative_2017] grids. VOF methods identify the liquid regions according to their liquid volume fraction $\alpha_l$ defined in Eq. (\ref{eq:vol_frac_definition}). The volume fraction scalar is transported with an advection equation:
 
 \begin{equation}
 	\label{eq:VOF_alpha_advection}
@@ -491,13 +493,13 @@ The material properties, density $\rho$ and viscosity $\mu$, are calculated from
 \end{subequations}
 
 
-The biggest advantage of VOF is the mass conservation, as it is ensured when solving \ref{eq:VOF_alpha_advection}. On the other side, its main challenge if the difficulty of reconstructing the interface from the transported $\alpha_\mathrm{l}$ field, as illustrated in Figure \ref{fig:VOF_illustration_drawback}. According to the approach used to reconstruct the interface, VOF methods can be classified as algebraic or geometric \citemColor[mirjalili_interface-capturing_2017,pirozzoli_algebraic_2019].
+The biggest advantage of VOF is the mass conservation, as it is ensured when solving Eq. (\ref{eq:VOF_alpha_advection}). On the other side, its main challenge is the difficulty of reconstructing the interface from the transported $\alpha_\mathrm{l}$ field, as illustrated in Figure \ref{fig:VOF_illustration_drawback}. According to the approach used to reconstruct the interface, VOF methods can be classified as algebraic or geometric \citemColor[mirjalili_interface-capturing_2017,pirozzoli_algebraic_2019].
 
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.5]{./part1_numerical_approaches/figures_ch2/VOF}
-	\caption{Application of VOF method, where dark is liquid and white is gas. \textsl{Left}: original $\alpha_\mathrm{l}$ field. \textsl{Middle}: transported $\alpha_\mathrm{l}$ field. \textsl{Right}: interface reconstruction, where a non-smooth interface can be appreciated. Source: \citeColor[odier_simulation_2006]}
+	\caption[Application of VOF method]{Application of VOF method, where dark is liquid and white is gas. \textsl{Left}: original $\alpha_\mathrm{l}$ field. \textsl{Middle}: transported $\alpha_\mathrm{l}$ field. \textsl{Right}: interface reconstruction, where a non-smooth interface can be appreciated. Source: \citeColor[odier_simulation_2006]}
 	\label{fig:VOF_illustration_drawback}
 \end{figure}
 
@@ -517,6 +519,7 @@ A well-known class of interface-capturing approaches for two-phase flows are the
 Classical level set methods \citepColor[osher_level_2003] distinguish between liquid and gaseous phases by introducing the smooth, signed-distance function to the interface $\phi(\textbf{x},t)$ :
 
 \begin{equation}
+\label{eq:LS_phi_definition}
 \phi \left( \textbf{x},t \right)=\pm |\textbf{x}\left( t \right)-\textbf{x}_{\scriptsize{\Gamma}} \left( t \right)|
 \end{equation}
 
@@ -527,7 +530,7 @@ According to this definition, the interface is located at $\phi(\textbf{x},t) = 
 	\frac{\partial \phi}{\partial t} + \nabla \cdot \left( \phi \boldsymbol{u} \right) = 0
 \end{equation}
 
-When applying the previous expression, the function $\phi$ will be distorted and its smoothness will be lost. To solvent this, the profile of $\phi$ is reshaped using a reinitialization equation \citepColor[sussman_level_1994] However, mass conservation is not ensured after the reinitialization process due to the nature of the distance function $\phi$. In this sense, \citeColor[olsson_conservative_2005] tried to reduce the conservation errors by introducing the hyperbolic tangent function $\psi$:
+When applying the previous expression, the function $\phi$ will be distorted and its smoothness will be lost. To solvent this, the profile of $\phi$ is reshaped using a reinitialization equation \citepColor[sussman_level_1994]. Nevertheless, mass conservation is not ensured after the reinitialization process due to the nature of the distance function $\phi$. In this sense, \citeColor[olsson_conservative_2005] tried to reduce the conservation errors by introducing the hyperbolic tangent function $\psi$:
 
 \begin{equation}
 \label{eq:ACLS_psi_definition}
@@ -573,13 +576,13 @@ As indicated in Eq. (\ref{eq:acls_reinit_2008}), the reinitialization process ha
     \left[ p \right]_{\scriptsize{\Gamma}} = p_{l,{\scriptsize{\Gamma}}} - p_{g,{\scriptsize{\Gamma}}}  = \sigma \kappa_{\scriptsize{\Gamma}} + 2 \left[ \mu \right]_{\scriptsize{\Gamma}} \textbf{n}^T \cdot \nabla \textbf{u} \cdot \textbf{n}
 \end{equation}
 
-where $\kappa_\Gamma$ is the interface mean curvature and $\mu$ is the dynamic viscosity. Using this formulation, surface tension forces $\sigma\kappa_\Gamma$ are embedded in the pressure jump. \\
+where $\kappa_{\scriptsize{\Gamma}}$ is the interface mean curvature and $\mu$ is the dynamic viscosity. Using this formulation, surface tension forces $\sigma\kappa_{\scriptsize{\Gamma}}$ are embedded in the pressure jump. \\
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.6\textwidth]{./part1_numerical_approaches/figures_ch2/ACLS_psi_phi_janodet_JCP}
        \centering
-    \caption{Representation of distance functions $\phi$ and $\psi$. The signed-distance function $\phi$ has been normalized by $\delta_\psi = 4\varepsilon$ for visualization. Source: \textbf{ref:Janodet-2021-JCP}.}
+    \caption[Representation of distance functions $\phi$ and $\psi$ in the ACLS methodology]{Representation of distance functions $\phi$ and $\psi$ in the ACLS methodology. The signed-distance function $\phi$ has been normalized by $\delta_\psi = 4\varepsilon$ for visualization. Source: \textbf{ref:Janodet-2021-JCP, update when ready}.}
     \label{fig:psi_phi_profiles_janodet_2021_JCP}
 \end{figure}
 
@@ -599,7 +602,7 @@ where $\phi_{\mathrm{map}}=\varepsilon\ln\left({\psi}/({1-\psi})\right)$ is an a
 \label{eq:curvature_Goldman}
 \end{equation}
 
-where $\mathcal{H} \left( \phi \right)$ is the Hessian matrix of the distance function. To reduce numerical errors, a Geometric-Projection Marker Method (GPMM) is used reconstruct $\phi$ at the nodes in a narrow band around the interface \citepColor[janodet_unstructured_2019]. The GFM method is also used to deal with the interface pressure jump. Both phases are solved with a one-fluid formulation by solving Navier-Stokes and evaluating the physical properties at each spatial location with:
+where $\mathcal{H} \left( \phi \right)$ is the Hessian matrix of the distance function. To reduce numerical errors, a Geometric-Projection Marker Method (GPMM) is used to reconstruct $\phi$ at the nodes in a narrow band around the interface \citepColor[janodet_unstructured_2019]. The GFM method is also used to deal with the interface pressure jump. Both phases are solved with a one-fluid formulation by solving Navier-Stokes and evaluating the physical properties at each spatial location with:
 
 \begin{subequations}
 \begin{align}
@@ -608,25 +611,49 @@ where $\mathcal{H} \left( \phi \right)$ is the Hessian matrix of the distance fu
 \end{align}
 \end{subequations}
 
-
-
 where $H$ is the Heaviside function.
-
-
-
-
-
 
 \subsubsection*{Coupling with dynamic mesh adaptation}
 
-To better resolve the atomization dynamics and save computational resources, the ACLS/GFM method is coupled to an Adaptive Mesh Refinement (AMR) strategy for increasing the mesh resolution at the liquid-gas interface at an affordable cost \citepColor[leparoux_primary_2018]. In AMR, the target element size at the interface $\Delta x_\mathrm{min}$ and  the number of cells with this size $N_p$ are specified by the user. The spatial region containing elements with size $\Delta x_\mathrm{min}$ has a width $2 N_p\Delta x_\mathrm{min}$, see Figure \ref{fig:AMR_strategy}. The mesh is dynamically refined throughout the computation with an automatic distance-based triggering ensuring that the interface always remains within this region. In its vicinity, the cell size increases linearly with controlled slope until the baseline cell size $\Delta x_\mathrm{init}$. AMR will be used in all the resolved atomization simulations presented in this thesis. Hence, the full methodology used to performed this simulations will be referred from now on as ACLS/AMR.
+To better resolve the atomization dynamics and save computational resources, the ACLS/GFM method is coupled to an Adaptive Mesh Refinement (AMR) strategy for increasing the mesh resolution at the liquid-gas interface at an affordable cost \citepColor[leparoux_primary_2018]. In AMR, the target element size at the interface $\Delta x_\mathrm{min}$ and  the number of cells with this size $N_p$ are specified by the user. The spatial region containing elements with size $\Delta x_\mathrm{min}$ has a width $2 N_p\Delta x_\mathrm{min}$, see Figure \ref{fig:AMR_strategy}. The mesh is dynamically refined throughout the computation with an automatic distance-based triggering ensuring that the interface always remains within this region. In its vicinity, the cell size increases linearly with controlled slope until the baseline cell size $\Delta x_\mathrm{init}$. AMR will be used in all the resolved atomization simulations presented in this thesis. Hence, the full methodology used to performed this simulations will be hereafter referred as ACLS/AMR.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.6\textwidth]{./part1_numerical_approaches/figures_ch2/AMR}
        \centering
-    \caption{Illustration of dynamic mesh adaptation with Adaptive Mesh Refinement. Source: \citepColor[leparoux_primary_2018].}
+    \caption[Illustration of dynamic mesh adaptation with Adaptive Mesh Refinement]{Illustration of dynamic mesh adaptation with Adaptive Mesh Refinement. Source: \citepColor[leparoux_primary_2018].}
     \label{fig:AMR_strategy}
 \end{figure}
+%
+%\section{YALES2 solver}
+%\label{sec:YALES2}
+%
+%In this work, all simulations presented have been performed with the software YALES2 (\textbf{ref:paper-Y2-vincent-luc}).
+%
+%Simulations presented in this study were performed with the LES code YALES, based on the Finite
+%Volume Method (FVM). It is capable of handling unstructured meshes of billions of elements.
+%The transport equations are integrated into control volumes built around each node of the mesh,
+%represented in Figure \ref{fig:Y2_control_volume}.
+%Physical quantities, such as pressure, velocity and scalars are stored at the nodes. Several
+%schemes are available for the explicit time advancement, for instance, first, second and third-order
+%Runge-Kutta. A more recent scheme proposed by Kraushaar [??] called TFV4A is also available.
+%The latter combines Runge-Kutta and Lax-Wendroff methods. Spatial integration is done by a 4th
+%order scheme. More details on the spatial discretization can be found in Vantieghem’s thesis [??].
+%
+%
+%\begin{figure}[ht]
+%    \centering
+%    \includegraphics[width=0.6\textwidth]{./part1_numerical_approaches/figures_ch2/Y2_control_volume}
+%       \centering
+%    \caption{Control volume based on a mesh node in YALES2. The mesh node is $\textbf{x}_p$, while $\overline{\textbf{x}}_p$ is the barycenter of the control volume. Source: (\textbf{ref:paper-Y2-vincent-luc}).}
+%    \label{fig:Y2_control_volume}
+%\end{figure}
+%
+%For resolving atomization, YALES2 accounts of a SPray Solver (SPS) that implements the ACLS method combined with AMR detailed in $\S$\ref{subsec:ch2_ACLS}.
+%
+%
+%
+
+
 
 

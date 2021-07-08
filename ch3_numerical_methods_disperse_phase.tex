@@ -1,5 +1,5 @@
 \chapter{Numerical methods to simulate dispersed phase}
-\label{ch3:disperse_phase_methods}
+	\label{ch3:disperse_phase_methods}
 
 \section{Introduction}
 
@@ -15,7 +15,7 @@ The spray generated in the dispersed phase regime is mainly distinguished from l
 
 \end{itemize}
 
-The numerical formalisms to resolved dispersed phase flows will hence depend on these two characteristics. It is also important to consider the interaction with the gaseous phase, since this one will depend by the resolution of the main grid. The interaction between the liquid and gaseous phases in dispersed phase flows can be quantified by means of the Stokes number $St$, defined as the ratio between the characteristic time-scale of a liquid particle $\tau_p$ and a characteristic time of the gaseous phase $\tau_g$: 
+The numerical formalisms to resolve dispersed phase flows will hence depend on these two characteristics. It is also important to consider the interaction with the gaseous phase, since this its resolution depends of the main grid. The interaction between the liquid and gaseous phases in dispersed phase flows can be quantified by means of the Stokes number $St$, defined as the ratio between the characteristic time-scale of a liquid particle $\tau_p$ and a characteristic time of the gaseous phase $\tau_g$: 
 
 \begin{equation}
 \label{eq:Stokes_number_definition_general}
@@ -28,7 +28,7 @@ A classification of numerical methods to simulate dispersed phase flows based on
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.6]{./part1_numerical_approaches/figures_ch3/balachandar_disperse_phase_classification}
-	\caption{Several numerical approaches to solve dispersed phase flows. Classification is done with respect to the liquid volume fraction (here defined as $\phi$) and to the Stokes number or, equivalently, to the ratio of largest to smallest length scales, which depend on the numerical resolution.  Source: \citeColor[balachandar_scaling_2009]}
+	\caption[Numerical approaches to solve dispersed phase flows]{Numerical approaches to solve dispersed phase flows. Classification is done with respect to the liquid volume fraction (here defined as $\phi$) and to the Stokes number or, equivalently, to the ratio of largest to smallest length scales, which depend on the numerical resolution.  Source: \citeColor[balachandar_scaling_2009]}
 	\label{fig:balachandar_numerical_methods_representation}
 \end{figure}
 
@@ -63,7 +63,7 @@ where $\textbf{x}_p$, $\textbf{u}_p$, $S_p$ and $T_p$ are each individual partic
 
 \subsection{Eulerian methods}
 
-Eulerian methods, also called Euler-Euler formalism (EE), are widely used to model dispersed two-phase flows. The same grid is used for resolving both the carrier and dispersed phases. The carrier phase is solved from the Navier-Stokes equations ($\S$\ref{sec:ch2_governing_equations}) applied to the gas. For characterizing the dispersed phase, averaged properties and statistical tools are used to solve the Navier-Stokes equations. These methods present, however, difficulties when dealing with the polydispersion of the spray and when modeling the particles collisions and interactions with the walls \citepColor[garcia_developpement_2009].
+Eulerian methods, also called Euler-Euler formalism (EE), are widely used to model dispersed two-phase flows. The same grid is used for resolving both the carrier and dispersed phases. The carrier phase is solved from the Navier-Stokes equations ($\S$\ref{sec:ch2_governing_equations}) applied to the gas. For characterizing the dispersed phase, averaged properties and statistical tools are used. These methods present, however, difficulties when dealing with the polydispersion of the spray and when modeling the particles collisions and interactions with the walls \citepColor[garcia_developpement_2009].
 
 To solve for the dispersed phase, a well-known eulerian formalism is the mesoscopic approach. The particles are described according to the kinetic theory of gases formulated by \citeColor[chapman_mathematical_1970], so that mesoscopic variables are used to get averaged properties of the spray. In order to develop the equations for the dispersed phase, several assumptions need to be made \citepColor[lancien_etude_2018]:
 
@@ -75,7 +75,7 @@ To solve for the dispersed phase, a well-known eulerian formalism is the mesosco
 
 \item Temperature is homogeneous inside each droplet.
 
-\item Spray is dilute: $\alpha_l < 0.01$.
+\item Spray is dilute: $\alpha_l < 10^{-2}$.
 
 \item The interactions between droplets are neglected.
 
@@ -104,9 +104,9 @@ where $n_l$ is the number density of the particles, $\Gamma$ the evaporation rat
 \subsection{Lagrangian point particle representation}
 \label{sec:ch3_EL_formalisms}
 
-\subsubsection*{Dynamics of liquid particles}
-
 Another well-know methodology to simulate dispersed phases systems, broadly employed in aerospace applications, is the lagrangian point particle (LPP) representation. In this formalism, the gas is resolved in the main eulerian grid, but the particles conforming the dispersed phase are tracked individually and represented by a different set of equations. Since the carrier phase is solved in an eulerian grid and the dispersed phase is modeled separately, these method is usually referred as the Euler-Lagrange (EL) formalism. This can make convergence difficult and hinders the introduction of parallelism techniques. As advantages, the resulting the time per iteration is usually lower than for the EE description, and the drop-drop and drop-wall interactions are easier to model.
+
+\subsubsection*{Dynamics of liquid particles}
 
 For describing particles in the lagrangian framework, each particle will be modelled according to the \textbf{Discrete Particle Simulation} (DPS) approach. In DPS, liquid particles are completely spherical, robust, and defined spatially as points, so that the location of each parcel can be represented by a single position vector. With these assumptions, the \textbf{dynamic equations} for a particle $p$ are \citepColor[maxey_equation_1983]:
 
@@ -118,7 +118,7 @@ For describing particles in the lagrangian framework, each particle will be mode
 \end{align}
 \end{subequations}
 
-where $\textbf{x}_p$ and $\textbf{u}_p$ are the position and velocity of the particle, $\textbf{v}_r = \boldsymbol{u}_p  - \boldsymbol{u}_g$ the relative velocity between the particle and the gas, $\rho_\mathrm{g}$ and $\rho_p$ are the gas and liquid particle densities, $C_D$ a drag coefficient, and $d_p$ the particle diameter. Equation (\ref{eq:TPF_lagrange_dynamic_eqs}b) is the momentum equation of the droplet and contains the contributions of the two forces considered: the drag force and the gravitational forces. The former ones are usually the main mechanism of momentum transfer between phases, while the latter are often several orders of magnitude below the first ones and can be neglected (specially at high speeds, where drag takes even more importance). 
+where $\textbf{x}_p$ and $\textbf{u}_p$ are the position and velocity of the particle, $\textbf{v}_r = \boldsymbol{u}_p  - \boldsymbol{u}_g$ the relative velocity between the particle and the gas, $\rho_\mathrm{g}$ and $\rho_p$ are the gas and liquid particle densities, $C_D$ a drag coefficient, and $d_p$ the particle diameter. Equation (\ref{eq:TPF_lagrange_dynamic_eqs}b) is the momentum equation of the droplet and contains the contributions of the two forces considered: the drag force and the gravitational forces. The former ones are usually the main mechanism of momentum transfer between phases, while the latter are often several orders of magnitude below the first ones and can often be neglected (specially at high speeds, where drag dominates the momentum transfer). 
 
 The drag coefficient of the particles $C_d$ can be evaluated with the following expression, obtained experimentally by \citeColor[schiller_drag_1935]:
 
@@ -135,7 +135,7 @@ C_D =
 
 where $Re = \rho_\mathrm{g} | \boldsymbol{v_r} | d_p / \mu_\mathrm{g} $ is the Reynolds number based on the relative velocity and particle diameter. \\
 
-When considering a lagrangian approach, the influence of the carrier phase on the liquid particles will have a determining effect on their motion. This influence can be quantified by means of the Stokes number defined previously in Eq. (\ref{eq:Stokes_number_definition_general}). This magnitude indicates how the droplet responds to fluctuations of the gas flow. If $St << 1$, the droplet will follow perfectly the fluctuations of the gas flow. On the contrary, if $St >> 1$ the droplets will rather neglect the flow trajectories and follow a ballistic trajectory. 
+When considering a lagrangian approach, the influence of the carrier phase on the liquid particles will have a determining effect on their motion. This influence can be quantified by means of the Stokes number defined previously by Eq. (\ref{eq:Stokes_number_definition_general}). This magnitude indicates how the droplet responds to fluctuations of the gas flow. If $St << 1$, the droplet will follow perfectly the fluctuations of the gas flow. On the contrary, if $St >> 1$ the droplets will rather neglect the flow trajectories and follow a ballistic trajectory. 
 
 For evaluating the Stokes number, the characteristic timescale for each phase need to be determined. The gaseous timescale can be determined as $\tau_g = d_p / | \textbf{u}_p |$. Particle timescales can be estimated from the following expression \citepColor[maxey_equation_1983]:
 
@@ -177,13 +177,13 @@ where $T_\mathrm{g}$ is the gas temperature, $h_p$ is the film coefficient of th
 \section{Stage of the art in injection models for MSFI systems}
 \label{sec:ch3_state_art_lagrangian_injection}
 
-Several numerical formalisms for modeling the dispersed phase in two-phase flows have been introduced in the previous section. Each one having its own advantages and disadvantages, the choice of formalism will depend on the characteristics of the problem to solve. In this work, the lagrangian representation presented in $\S$\ref{sec:ch3_EL_formalisms} is used to model the dispersed phase due to its low computational cost and its applicability to account for polydispersity of the spray.%, which is of particular interest to develop realistic lagrangian injectors as stated in $\S$\ref{sec:ch1_objective_thesis_outline}.
+Several numerical formalisms for modeling the dispersed phase in two-phase flows have been introduced in the previous section. The choice of formalism will depend on the characteristics of the problem to solve. In this work, the lagrangian representation presented in $\S$\ref{sec:ch3_EL_formalisms} is used to model the dispersed phase due to its low computational cost and its applicability to account for polydispersity of the spray.%, which is of particular interest to develop realistic lagrangian injectors as stated in $\S$\ref{sec:ch1_objective_thesis_outline}.
 
 In the case of aerospace applications, the first step when performing disperse phase simulations is to introduce the lagrangian droplets in the domain with the proper boundary conditions. This is achieved by means of \textbf{lagrangian injection models}, which is the main interest of the present work. The fact of using a lagrangian approach for representing the particles has the advantage of allowing the injection of a polydisperse spray from the beginning of the simulation, something which is not possible with other dispersed formalisms such as the eulerian ones. This is of particular interest for performing injection in realistic systems, such as in MSFI configurations presented in $\S$\ref{sec:ch1_fuel_injection_technology}. 
 
-This section presents the state of the art in models for lagrangian injection with particular interest to MSFI systems. Figure \ref{fig:state_art_injection} proposes a classification for existing models in literature grouped in a Venn diagram, distinguishing five categories and their interactions. Each research work is located according to the characteristics of the model employed, and the configuration of application within the MSFI models (hollow cone, airblast and JICF) is also specified. Several models are \textbf{based on empirical laws} obtained from experimental works, with the advantage that the physics of the problem are already embedded in these laws, but with the disadvantage that the application of these models is restricted to the geometry and operating conditions of the test. Regarding the size of injected droplets, it is found that the \textbf{injection of a fully developed spray} is usually performed, often obtained from experiments providing the spray granulometry further downstream the injection nozzle where atomization is fully complete. In the sense of droplet transport, it is sometimes interesting to consider the \textbf{effect of the dense spray in the gaseous phase}: in some configurations (specially in the JICF), coherent structures of the dense regime where primary atomization takes place might perturb the gaseous flow which will consequently affect the convection of droplets further downstream. Since the dense regime is neglected in lagrangian computations, this liquid-gas interaction is not taken directly taken into account, so the droplet transport might not be well resolved. In this respect, some methodologies have considered this interaction. Furthermore,  \textbf{secondary breakup of particles} in lagrangian simulations can be considered by means of secondary atomization models. This is specially useful in the cases which do not inject a developed spray, as the initial droplets will have a larger size than the diameters found in the equivalent real configuration. Independently of evaporation, the decrease of droplets size up to a value which is in equilibrium with the surrounding air can be accounted for with these models.
+This section presents the state of the art in models for lagrangian injection with particular focus on MSFI systems. Figure \ref{fig:state_art_injection} proposes a classification for existing models in literature grouped in a Venn diagram, distinguishing five categories and their interactions. Each research work is located according to the characteristics of the model employed, and the configuration of application within the MSFI models (hollow cone, airblast and JICF) is also specified. Several models are \textbf{based on empirical laws} obtained from experimental works, with the advantage that the physics of the problem are already embedded in these laws, but with the disadvantage that the application of these models is restricted to the geometry and operating conditions of the test. Regarding the size of injected droplets, it is found that the \textbf{injection of a fully developed spray} is usually performed, often obtained from experiments providing the spray granulometry further downstream the injection nozzle where atomization is fully complete. In the sense of droplet transport, it is sometimes necessary to consider the \textbf{effect of the dense spray in the gaseous phase}: in some configurations (specially in the JICF), coherent structures of the dense regime where primary atomization takes place might perturb the gaseous flow which will consequently affect the convection of droplets further downstream. Since the dense regime is neglected in lagrangian computations, this liquid-gas interaction is not taken directly taken into account, so the droplet transport might not be well resolved. In this respect, some methodologies have considered this interaction. Furthermore,  \textbf{secondary breakup of particles} in lagrangian simulations can be considered by means of secondary atomization models. This is specially useful in models which do not inject a developed spray, as the initial droplets will have a larger size than the diameters found in the equivalent real configuration. Independently of evaporation, the decrease of droplets size up to a value which is in equilibrium with the surrounding air can be accounted for with these models.
 
-In the last place, a category called \textbf{reference spray learning} is present in Figure \ref{fig:state_art_injection}. It would include models that can use a reference spray to learn its characteristics (droplets sizes, velocity distributions and injection location) and impose realistic spray boundary conditions in dispersed phase simulations. As main advantage, such models could be applied to a wide range of injector configurations and operating conditions. Nevertheless, they require a proper characterization of the spray coming from simulations or experiments. This thesis aims at providing a numerical methodology for developing injection models that are able to follow this reference spray learning process. These models are explained in Chapter \ref{ch4:sli_development}, so they will not be further discussed in this chapter. The next lines are then devoted to explain some of the injection models in Figure \ref{fig:state_art_injection} which are of interest for MSFI systems, whose main mechanisms of injection are shown in Figure \ref{fig:multipoint_injector_snecma}.
+In the last place, a category called \textbf{reference spray learning} is present in Figure \ref{fig:state_art_injection}. It would include models that can use a reference spray to learn its characteristics (droplets sizes, velocity distributions and injection location) and impose realistic spray boundary conditions in dispersed phase simulations. As main advantage, such models could be applied to a wide range of injector configurations and operating conditions. Nevertheless, they require a proper characterization of the spray coming from simulations or experiments. This thesis aims at providing a numerical methodology for developing injection models that are able to follow this reference spray learning process. These models are explained in Chapter \ref{ch4:sli_development}, so they will not be further discussed in this section. The next lines are then devoted to explain some of the injection models in Figure \ref{fig:state_art_injection} which are of interest for MSFI systems, whose main mechanisms of injection are shown in Figure \ref{fig:multipoint_injector_snecma}.
 
 %Each category has the following advantages and disadvantages (see presentation 2020 12 15):
 %
@@ -224,7 +224,7 @@ Pressure-swirl atomizers for delivering fuel through the pilot stage in multi-st
 
 \subsubsection*{FIM-UR model}
 
-Fuel Injection Model by Upstream Reconstruction (FIM-UR) is an injection model which prescribes a developed spray in pressure-swirl atomizers, neglecting the atomization process. In its original formulation by \citepColor[sanjose_fuel_2011], a monodisperse spray is imposed. The extension to polydisperse sprays has been done by \citeColor[vie_accounting_2013].
+Fuel Injection Model by Upstream Reconstruction (FIM-UR) is an injection model which prescribes a developed spray in pressure-swirl atomizers, neglecting the atomization process. In its original formulation by \citeColor[sanjose_fuel_2011], a monodisperse spray is imposed. The extension to polydisperse sprays has been done by \citeColor[vie_accounting_2013].
 
 The principles of FIM-UR are shown in Figure \ref{fig:FIMUR_methodology}. The spray is imposed at an injection location $x_i$, whose boundary conditions are obtained by reconstruction from the properties at the real injection location $x_0$. FIM-UR can be applied for both EL and EE simulations, with the difference that the latter require additional analytical calculations to determine the momentum transfer and the entrained air mass flow rate. Both cases use the same model inputs: the spray is characterized by the diameter of droplets $d$ and the half-spray mean angle $\theta_s$, and the atomizer is parametrized by its exit radius $R_0$ and the injected liquid mass flow rate $\dot{m}_l$. Then, empirical formulas for pressure-swirl atomizers are used to calculate the remaining parameters of the model. The ratio $X$ of the air core surface $A_a$ to the discharge orifice surface $A_o$, called the contraction ratio, is given by \citeColor[rizk_internal_1985]:
 
@@ -232,7 +232,7 @@ The principles of FIM-UR are shown in Figure \ref{fig:FIMUR_methodology}. The sp
 X = \frac{A_a}{A_0} = \left( \frac{R_a}{R_0} \right)^2 = \frac{\sin^2 \theta_s}{1 + \cos^2 \theta_s}
 \end{equation}
 
-From this formula, the air core radius $R_a$ can be solved. The contraction ratio, can now be used to estimate the discharge coefficient of the atomizer \citepColor[lefebvre_atomization_2017]:
+From this formula, the air core radius $R_a$ can be solved. The contraction ratio $X$ can now be used to estimate the discharge coefficient of the atomizer \citepColor[lefebvre_atomization_2017]:
 
 \begin{equation}
 C_D = 1.17 \sqrt{\frac{\left( 1 - X \right)^3}{1 + X}}
@@ -272,7 +272,7 @@ where $\mu$, $\sigma$ are respectively the mean and variance of the gaussian pro
     \centering
     \includegraphics[width=0.7\textwidth]{./part1_numerical_approaches/figures_ch3/FIMUR}
        \centering
-    \caption{FIMUR model for injection in pressure-swirl atomizers. Source: \citeColor[sanjose_fuel_2011].}
+    \caption[FIMUR model for injection in pressure-swirl atomizers]{FIMUR model for injection in pressure-swirl atomizers. Source: \citeColor[sanjose_fuel_2011].}
     \label{fig:FIMUR_methodology}
 \end{figure}
 
@@ -280,7 +280,7 @@ where $\mu$, $\sigma$ are respectively the mean and variance of the gaussian pro
 
 \subsubsection*{LISA model}
 
-The FIM-UR model as introduced in the previous section has the main disadvantages that the mean angle prescribed $\theta_s$ cannot always be ensured. To solvent these issues, \citeColor[guedot_developpement_2015] proposed the Liquid Injection for Swirled Atomizers (LISA) model. This methodology, described in Figure \ref{fig:LISA_methodology}, follows the same baseline as FIM-UR, but proposes some modifications to keep the mean spray angle constant.
+The main disadvantage of the FIM-UR model is the inability to prescribe the mean angle $\theta_s$ in certain cases. To solvent this issue, \citeColor[guedot_developpement_2015] proposed the Liquid Injection for Swirled Atomizers (LISA) model. This methodology, described in Figure \ref{fig:LISA_methodology}, follows the same baseline as FIM-UR, but proposes some modifications to keep the mean spray angle constant.
 
 The model inputs are the liquid mass flow rate $\dot{m}_l$, the spray mean angle $\theta_s$ and the atomizer exit radius $R_0$. The principles are identical to FIM-UR: droplets have no radial velocity at injection, and the axial velocity is obtained from mass conservation with the injected flow rate. Hence, both are calculated respectively with Equations (\ref{eq:ch3_FIMUR_velocities_at_x0}a) and (\ref{eq:ch3_FIMUR_velocities_at_x0}b). The tangential velocity imposed is calculated according to the derivations of \citeColor[guedot_developpement_2015]:
 
@@ -304,13 +304,13 @@ u_\theta \left( r \right) = u_z  \frac{r}{R_S^0} \tan \sigma_s
 
 In MSFI, at certain operating conditions the liquid injected through the pilot or take-off stages can impinge the walls of the atomizer forming an airblast spray, see Figure \ref{fig:multipoint_injector_snecma}. Airblast sprays have been extensively studied \citemColor[lefebvre_airblast_1980, gepperth_pre-filming_2010] and used in industrial burners, found in atomizers of type plain jet or prefilmers \citepColor[lefebvre_atomization_2017].
 
-Regarding numerical approaches to simulate airblast sprays, a phenomenological model was derived by \citeColor[chaussonnet_new_2016] called PAMELA (Primary Atomization Model for prEfilming airbLAst injectors). This model uses results obtained in the KIT-ITS airblast experiment by \citeColor[gepperth_pre-filming_2010] for predicting initial conditions for droplets sizes and velocities. Correlations and laws for droplets sizes are derived by observing the breakup mechanisms found in airblast spray, shown in Figure \ref{airblast_breakup_mechanism_chaussonnet}. This thesis does not address airblast atomization and hence the PAMELA model is no longer discussed here, the interested reader is referred to \citeColor[chaussonnet_modeling_2014] and \citeColor[chaussonnet_new_2016] for more details.
+Regarding numerical approaches to simulate airblast sprays, a phenomenological model was derived by \citeColor[chaussonnet_new_2016] called PAMELA (Primary Atomization Model for prEfilming airbLAst injectors). This model uses results obtained in the KIT-ITS airblast experiment by \citeColor[gepperth_pre-filming_2010] for predicting initial conditions for droplets sizes and velocities. Correlations and laws for droplets sizes are derived by observing the breakup mechanisms found in airblast spray, shown in Figure \ref{fig:airblast_breakup_mechanism_chaussonnet}. This thesis does not address airblast atomization and hence the PAMELA model is no longer discussed here, the interested reader is referred to \citeColor[chaussonnet_modeling_2014] and \citeColor[chaussonnet_new_2016] for more details.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.8\textwidth]{./part1_numerical_approaches/figures_ch3/airblast_breakup_mechanism_chaussonnet}
        \centering
-    \caption{Breakup mechanism in an airblast prefilmer spray. Source: \citeColor[chaussonnet_new_2016].}
+    \caption[Breakup mechanism in an airblast prefilmer spray]{Breakup mechanism in an airblast prefilmer spray. Source: \citeColor[chaussonnet_new_2016].}
     \label{fig:airblast_breakup_mechanism_chaussonnet}
 \end{figure}
 
@@ -320,9 +320,9 @@ Regarding numerical approaches to simulate airblast sprays, a phenomenological m
 
 \subsection{Liquid jet in crossflow}
 
-Several numerical approaches have been used to study liquid jet in crossflow injection, whose phenomenology has been introduced in $\S$\ref{sec:ch1_fuel_injection_technology}. Some works \citemColor[herrmann_detailed_2009,pai_role_2009,behzad_surface_2016,li_detailed_2018] have been devoted to resolved simulations of the atomization process, performed with the methodologies introduched in Chapter \ref{ch2:numerical_methods_resolved_atomization}. Such studies are useful to get insight on the dynamics and the underlying physical phenomena governing breakup, as well as to obtain information on the size and velocity distributions of droplets generated. However, these methods are computationally expensive and become unfeasible for simulating realistic gas turbines and coupling other problems such as evaporation and combustion. To solvent this issue, numerical models based on dispersed phase computations can be used. The rest of this chapter makes a review of such methodologies.
+Several numerical approaches have been used to study liquid jet in crossflow injection, whose phenomenology has been introduced in $\S$\ref{sec:ch1_fuel_injection_technology}. Some works \citemColor[herrmann_detailed_2009,pai_role_2009,behzad_surface_2016,li_detailed_2018] have been devoted to resolved simulations of the atomization process, performed with the methodologies introduced in Chapter \ref{ch2:numerical_methods_resolved_atomization}. Such studies are useful to get insight on the dynamics and the underlying physical phenomena governing breakup, as well as to obtain information on the size and velocity distributions of droplets generated. However, these methods are computationally expensive and become unfeasible for simulating realistic gas turbines and coupling other problems such as evaporation and combustion. To solvent this issue, numerical models based on dispersed phase computations can be used. The rest of this chapter makes a review of such methodologies.
 
-Figure \ref{fig:jaegle_jicf_modeling_approaches} shows four possible modeling approaches for performing simulations of liquid jet in crossflow. The approach (a) is the direct simulation of the jet (resolved atomization) mentioned in the last paragraph. The other three englobe several ways of tackling JICF simulations with a lagrangian perspective, where droplets are injected. All the categories from Figure \ref{fig:jaegle_jicf_modeling_approaches} take into account, one way or another, the liquid column (dense core) and hence its influence on the gaseous phase. The methods presented in this section are classified accordingly to the depicted lagrangian approaches, and are shown in chronological order.
+Figure \ref{fig:jaegle_jicf_modeling_approaches} shows four possible modeling approaches for performing simulations of liquid jet in crossflow. The approach (a) is the direct simulation of the jet (resolved atomization) mentioned in the last paragraph. The other three englobe several ways of tackling JICF simulations from a lagrangian perspective, where droplets are injected. All the categories from Figure \ref{fig:jaegle_jicf_modeling_approaches} take into account, one way or another, the liquid column (dense core) and hence its influence on the gaseous phase. The methods presented in this section are classified accordingly to the depicted lagrangian approaches, and are shown in chronological order.
 
 \begin{figure}[ht]
     \centering
@@ -336,10 +336,12 @@ Figure \ref{fig:jaegle_jicf_modeling_approaches} shows four possible modeling ap
 
 \subsubsection*{Blob model combined with secondary atomization \citepBlackColor[apte_les_2003]}
 
+%\citeColor[apte_les_2003] performed simulations of a water JICF. The objective of their work was to test a secondary atomization model in simulations representative of realistic gas-turbine configurations. The atomization model is described in Chapter 4 of this document. For performing injection, droplets with size of the nozzle diameter were introduced perpendicularly to the crossflow. Their velocity is the bulk liquid velocity at injection. This methodology is inspired on the blob model developed by \citeColor[reitz_modeling_1987], who simulated simulated diesel jets by injecting droplets of the diameter size which were later broke by action of a breakup model. 
+
+
 \citeColor[apte_les_2003] performed simulations of a water JICF. The objective of their work was to test a secondary atomization model in simulations representative of realistic gas-turbine configurations. The atomization model is described in this document in $\S$\ref{subsec:ch4_goro_model}. For performing injection, droplets with size of the nozzle diameter were introduced perpendicularly to the crossflow. Their velocity is the bulk liquid velocity at injection. This methodology is inspired on the blob model developed by \citeColor[reitz_modeling_1987], who simulated simulated diesel jets by injecting droplets of the diameter size which were later broke by action of a breakup model. 
 
-The model by \citeColor[apte_les_2003] is included in the (b) category of Figure \ref{fig:jaegle_jicf_modeling_approaches}. Due to their initial big size, the droplets can easily influence the incoming gaseous flow field by means of two-way coupling between lagrangian particles and gas. Figure \ref{fig:apte_2003_jicf} shows the results obtained by \citeColor[apte_les_2003], showing the jet leaving the nozzle composed of big droplets. These particles bend towards the crossflow direction aerodynamic interaction 
- and break into smaller sizes due to the action of the secondary atomization model. The black and white contours denote the axial gas velocity profile at the central plane, showing the perturbation effect of the liquid onto the crossflow.
+The model by \citeColor[apte_les_2003] is included in the (b) category of Figure \ref{fig:jaegle_jicf_modeling_approaches}. Due to their initial big size, the droplets can easily influence the incoming gaseous flow field by means of two-way coupling between lagrangian particles and gas. Figure \ref{fig:apte_2003_jicf} shows the results obtained by \citeColor[apte_les_2003], showing the jet leaving the nozzle composed of big droplets. These particles bend towards the crossflow direction due to the aerodynamic interaction and break into smaller sizes due to the action of the secondary atomization model. The black and white contours denote the axial gas velocity profile at the central plane, showing the perturbation effect of the liquid onto the crossflow.
 
 \begin{figure}[ht]
     \centering
@@ -351,7 +353,7 @@ The model by \citeColor[apte_les_2003] is included in the (b) category of Figure
 
 \subsubsection*{Modeling the liquid-gas interaction with resolved dense core \citepBlackColor[arienti_aerodynamic_2006]}
 
-\citeColor[arienti_aerodynamic_2006] focused their work on capturing the liquid-gas interaction between the liquid column and the gaseous crossflow. For this purpose, they combined a VOF method (see $\S$\ref{subsec:ch2_VOF}) to solve for the dense core with a lagrangian approach to inject and transport droplets. By properly solving for the continuous liquid phase, the blockage effect is directly taken into account without the need of any extra models. Figure \ref{fig:arienti_2006_jicf} left shows front and side views (top and bottom, respectively) of the the dense core resolved by VOF (snapshots a) and of the mean gaseous vector fields at the same planes (snapshots b). It is easily seen that vortices created by the presence of the dense core are captured in both planes with this strategy, hence demonstrating its applicability to model the liquid-gas interaction.
+\citeColor[arienti_aerodynamic_2006] focused their work on capturing the liquid-gas interaction between the liquid column and the gaseous crossflow. For this purpose, they combined a VOF method (see $\S$\ref{subsec:ch2_VOF}) to solve for the dense core with a lagrangian approach to inject and transport droplets. By properly solving for the continuous liquid phase, the blockage effect is directly taken into account without the need of any extra models. Figure \ref{fig:arienti_2006_jicf} left shows front and side views (top and bottom, respectively) of the the dense core resolved by VOF (snapshot a) and of the mean gaseous vector fields at the same planes (snapshot b). Vortices created by the presence of the dense core are captured in both planes with this strategy, hence demonstrating its applicability to model the liquid-gas interaction.
 
 Injection of lagrangian particles is performed at several locations alongside the liquid column, equally space between the nozzle exit and the column breakup point. Droplets sizes are obtained from experimental correlations, while the initial velocity is the continuous phase velocity (i.e. from the liquid column) at the same location plus a fluctuating component obtained as the product between a gaussian PDF and the local turbulent velocity from VOF. Figure \ref{fig:arienti_2006_jicf} right shows a instantaneous snapshot of the spray, showing the dense core and the injected droplets colored by their diameter. Additional submodels considered in the computation include dispersion models to account for turbulent fluctuations during droplets transport \citepColor[gosman_aspects_1983] and the wave secondary atomization model developed by \citeColor[reitz_modeling_1987].
 
@@ -360,7 +362,7 @@ Injection of lagrangian particles is performed at several locations alongside th
     \centering
     \includegraphics[width=0.7\textwidth]{./part1_numerical_approaches/figures_ch3/arienti_2006_jicf}
        \centering
-    \caption{Jet in crossflow simulated with VOF plus lagrangian approach. \textsl{Left}: dense core view and vector lines showing vortical structures. \textsl{Right}: instantaneous snapshot of droplets injected along the dense core. Source: \citeColor[arienti_aerodynamic_2006].}
+    \caption[Jet in crossflow simulated with VOF plus lagrangian approach.]{Jet in crossflow simulated with VOF plus lagrangian approach. \textsl{Left}: dense core view and vector lines showing vortical structures. \textsl{Right}: instantaneous snapshot of droplets injected along the dense core. Source: \citeColor[arienti_aerodynamic_2006].}
     \label{fig:arienti_2006_jicf}
 \end{figure}
 
@@ -410,13 +412,13 @@ where $l_\mathrm{col}$ is the length of the liquid column, $u_c$ is the streamwi
     \centering
     \includegraphics[width=1.0\textwidth]{./part1_numerical_approaches/figures_ch3/jaegle_senoner_modeling_strategies}
        \centering
-    \caption{\textsl{Left}: classification of different regions of the liquid jet atomization. \textsl{Center}:  column model considered by \citeColor[jaegle_large_2009], neglecting the intermediate zone and secondary breakup. \textsl{Right}: column model considered by  \citeColor[senoner_simulation_2010].}
+    \caption[Schemes showing numerical models for liquid jets in crossflow]{Schemes showing numerical models for liquid jets in crossflow. \textsl{Left}: classification of different regions of the liquid jet atomization. \textsl{Center}:  column model considered by \citeColor[jaegle_large_2009], neglecting the intermediate zone and secondary breakup. \textsl{Right}: column model considered by  \citeColor[senoner_simulation_2010].}
     \label{fig:jaegle_senoner_modeling_strategies}
 \end{figure}
 
 \subsubsection*{Combining shear breakup with blob method and secondary atomization \citepBlackColor[senoner_simulation_2010]}
 
-A similar approach to the previous one has been explored by \citeColor[senoner_simulation_2010]. In the same way as \citeColor[jaegle_large_2009] (and simulating the same experimental configuration), the breakup point is calculated from Equations (\ref{eq:jaegle_breakup_point}). This location defines then the column region where the modified law of Equations (\ref{eq:momentum_jaegle_model}) is applied. Regarding surface breakup, the same methodology used by the previous model is used, where droplets are injected with the properties given in Equations (\ref{eq:surface_breakup_jaegle_model}).
+A similar approach to the previous one has been explored by \citeColor[senoner_simulation_2010]. In the same way as \citeColor[jaegle_large_2009] (and in the same experimental configuration), the breakup point is calculated from Eqs. (\ref{eq:jaegle_breakup_point}). This location defines then the column region where the modified law of Eqs. (\ref{eq:momentum_jaegle_model}) is applied. Regarding surface breakup, the same methodology used by the previous model is used, where droplets are injected with the properties given in Eqs. (\ref{eq:surface_breakup_jaegle_model}).
 
 The main difference of the approach by \citeColor[senoner_simulation_2010] lies on the size of particles size at injection. While the previous model injects a developed spray, the current one injects big droplets as in the blob method by \citeColor[reitz_modeling_1987], similarly as applied to a JICF case by \citeColor[apte_les_2003] explain previously in this section. In this case, droplets injected at $\left( x_\mathrm{inj}, y_\mathrm{inj}, z_\mathrm{inj} \right)$ have a constant size given by the following expression:
 
@@ -431,14 +433,15 @@ where $\lambda_s \approx 0.15 d_\mathrm{inj}$ is the wavelength of the column su
     \centering
     \includegraphics[width=0.6\textwidth]{./part1_numerical_approaches/figures_ch3/jaegle_senoner_lagrangian_fields}
        \centering
-    \caption{Instantaneous axial gaseous velocity field on the plane y = 0 mm together with the lagrangian
+    \caption[Instantaneous axial gaseous velocity field on the plane y = 0 mm together with the lagrangian
+droplets.]{Instantaneous axial gaseous velocity field on the plane y = 0 mm together with the lagrangian
 droplets. q = 6. \textsl{Top}: numerical results by \citeColor[jaegle_large_2009]. \textsl{Bottom}: numerical results by \citeColor[senoner_simulation_2010].}
     \label{fig:jaegle_senoner_lagrangian_fields}
 \end{figure}
 
 \subsubsection*{Semi-empirical model for shear breakup regime \citepBlackColor[eckel_semi-empirical_2016]}
 
-Following the line of modeling shear breakup, \citeColor[eckel_semi-empirical_2016] developed a semi-empirical model for this regime. The numerical strategy is depicted in Figure \ref{fig:eckel_2016_modeling_strategy}. This approach injects cylindrical parcels (a,b) mimicking the dense structures of the liquid column which are tracked with a lagrangian formalism and transported with a modified drag law (c). These cylinders have the same diameter as the injection orifice.  As the parcels move, droplets modeling shear breakup are stripped-off the column (d) with properties (mass flow rate, sizes, velocities) given by experimental laws (e). The parcels will then lose mass until they reach a residence time corresponding to the breakup of the liquid column (f), moment at which they are broken into smaller, spherical droplets representing column breakup (g). This approach is continuously performed to model the jet behavious (h). Dispersion models are used for enhancing the droplet transport \citepColor[gosman_aspects_1983]. Models to account for secondary breakup are not needed, as the employed approach generates a developed spray. A snapshot of the resulting jet is shown in Figure \ref{fig:eckel_2016_jet}, where the difference between the liquid column made of cylindrical parcels and the developed spray zone composed by spherical droplets is clearly visible. 
+Following the line of modeling shear breakup, \citeColor[eckel_semi-empirical_2016] developed a semi-empirical model for this regime. The numerical strategy is depicted in Figure \ref{fig:eckel_2016_modeling_strategy}. This approach injects cylindrical parcels (a,b) mimicking the dense structures of the liquid column which are tracked with a lagrangian formalism and transported with a modified drag law (c). These cylinders have the same diameter as the injection orifice.  As the parcels move, droplets modeling shear breakup are stripped-off the column (d) with properties (mass flow rate, sizes, velocities) given by experimental laws (e). The parcels will then lose mass until they reach a residence time corresponding to the breakup of the liquid column (f), when they are broken into smaller, spherical droplets representing column breakup (g). This approach is continuously performed to model the jet behaviour (h). Dispersion models are used for enhancing the droplet transport \citepColor[gosman_aspects_1983]. Models to account for secondary breakup are not needed, as the employed approach generates a developed spray. A snapshot of the resulting jet is shown in Figure \ref{fig:eckel_2016_jet}, where the difference between the liquid column made of cylindrical parcels and the developed spray zone composed by spherical droplets is clearly visible. 
 
 \begin{figure}[ht]
     \centering
@@ -485,7 +488,7 @@ Figure \ref{fig:fan_2018_jets_penetration} shows a lateral view of the sprays an
 
 \subsubsection*{Hybrid model for jet in crossflow injection \citepBlackColor[fontes_improved_2019]}
 
-One of the most recent works (up to date) focused on JICF modeling has been performed by \citeColor[fontes_improved_2019]. As in the study by \citeColor[arienti_aerodynamic_2006], this approach combines a direct resolution method (VOF) for solving the liquid column with an injection procedure for lagrangian droplets. Experimental correlations are used to obtain column breakup location. The liquid-gas interaction due to the dense core presence is therefore taken into account (Figure \ref{fig:fontes_2019_lagrangian_fields} left). Injection of lagrangian droplets is performed at the column breakup location (Figure \ref{fig:fontes_2019_lagrangian_fields} right), their velocity is equal to the liquid eulerian velocity at this point and their size is obtained from experimental correlations. Two operating points at low $We$ were simulated with this methodology, surface breakup was not modeled since it was not present at these conditions. 
+One of the most recent works (up to date) focused on JICF modeling has been performed by \citeColor[fontes_improved_2019]. As in the study by \citeColor[arienti_aerodynamic_2006], this approach combines a direct resolution method (VOF) for solving the liquid column with an injection procedure for lagrangian droplets. Experimental correlations are used to obtain column breakup location. The liquid-gas interaction due to the dense core presence is therefore taken into account (Figure \ref{fig:fontes_2019_lagrangian_fields} left). Injection of lagrangian droplets is performed at the column breakup location (Figure \ref{fig:fontes_2019_lagrangian_fields} right): their velocity is equal to the liquid eulerian velocity at this point and their size is obtained from experimental correlations. Two operating points at low $We$ were simulated with this methodology, surface breakup was not modeled since it was not present at these conditions. 
 
 \begin{figure}[ht]
     \centering

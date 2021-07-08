@@ -1,0 +1,78 @@
+%% Creator: Inkscape inkscape 0.92.0, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'SLI_graphic_description.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{1507.78538318bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.29566915)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{SLI_graphic_description.pdf}}%
+    \put(0.0284645,0.260083){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{Resolved atomization simulation}}}}%
+    \put(0.24834422,0.03219593){\color[rgb]{0,0,0}\rotatebox{-0.67883335}{\makebox(0,0)[lb]{\smash{Sampling plane}}}}%
+    \put(1.3332482,-0.32429071){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{SLI_graphic_description.pdf}}%
+    \put(0.52920029,0.25978396){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{Dispersed phase simulation}}}}%
+    \put(0.38381684,0.20076534){\color[rgb]{0,0,0}\rotatebox{-0.67883335}{\makebox(0,0)[lb]{\smash{Size/velocity \\ distributions}}}}%
+    \put(0.53051694,0.14533232){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Actuator line \\      model}}}%
+    \put(0.68069875,0.21510782){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Lagrangian injector}}}%
+    \put(0.38746277,0.11673234){\color[rgb]{0,0,0}\rotatebox{-0.67883335}{\makebox(0,0)[lb]{\smash{Momentum \\  exchange}}}}%
+    \put(0.86487951,0.23024639){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{   Secondary \\ breakup model}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{SLI_graphic_description.pdf}}%
+    \put(0.05911845,0.06915025){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{x}}}%
+    \put(0.01952484,0.10575942){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{z}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{SLI_graphic_description.pdf}}%
+    \put(0.55725367,0.06185599){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{x}}}%
+    \put(0.51766006,0.09846518){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{z}}}%
+    \put(1.18013985,-0.02336167){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(1.18114479,-0.01431726){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(1.31038046,-0.46077061){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{SLI_graphic_description.pdf}}%
+    \put(0.02760149,0.15015376){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Crossflow}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{SLI_graphic_description.pdf}}%
+    \put(0.11179729,0.02399733){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{Liquid}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{SLI_graphic_description.pdf}}%
+  \end{picture}%
+\endgroup%
