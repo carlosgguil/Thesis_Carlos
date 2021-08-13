@@ -30,7 +30,7 @@ sp = spray
 t_char = sp.time_instants[0]*1e3 # Arrival time of first droplet to plane
    
 x_values = (sp.t_acc_array - sp.time_instants[0])*1e3
-x_values = x_values/t_char
+x_values = x_values/t_char*10
 x_label = 'Accumulation time [-]'    
 y_values = sp.cost_array
 y_label = r'Normalized MSE (\%)'
@@ -49,6 +49,7 @@ plt.tick_params(
     top=False,         # ticks along the top edge are off
     labelbottom=False) # labels along the bottom edge are off
 '''
+plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'spray_convergence.pdf')
 plt.savefig(folder_manuscript+'spray_convergence.eps',format='eps',dpi=1000)

@@ -249,9 +249,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="-438.15333"
-     inkscape:cy="814.06967"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="-67.304813"
+     inkscape:cy="972.92236"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -416,17 +416,17 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:6.61458349px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="90.058723"
-       y="-14.577555"
+       x="85.247871"
+       y="-13.508476"
        id="text4520-9-0-1"><tspan
          sodipodi:role="line"
          id="tspan4518-8-2-2"
-         x="90.058723"
-         y="-14.577555"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.93333244px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.26458332">Multipoint injector</tspan></text>
+         x="85.247871"
+         y="-13.508476"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.93333244px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.26458332">Liquid injection point</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.96499997;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend-6-8-4-7)"
-       d="M 218.54924,-19.549243 201.11895,42.957662"
+       d="M 153.53734,-8.5879335 201.11895,42.957662"
        id="path4522-9-1-1-4"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
@@ -451,7 +451,7 @@
          id="tspan4518-0"
          x="-236.86714"
          y="181.31818"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.93333244px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.26458332">Divergent nozzle</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.93333244px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.26458332">Diffusor</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.96499997;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend-2-7)"
        d="m -223.81916,-16.750326 -112.05213,6.24408"

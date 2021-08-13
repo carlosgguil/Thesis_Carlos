@@ -55,13 +55,13 @@ The fundamentals and the physics of non-reactive JICF have been introduced in $\
 \section{Experimental test case}
 	\label{sec:ch5_experimental_bench}
 
-The experimental configuration tested by \citeColor[becker_breakup_2002] is shown in Figure \ref{fig:experiment_JICF_DLR}. The test rig is shown at the left. Liquid kerosene is injected through the atomizer ports to a quartz glass duct of rectangular cross section $25$x$40$ mm$^2$. The duct inlet is located at $120$ mm upstream the injection port. The boundary layer thickness developing along the bottom of the duct has been measured experimentally just upstream the atomizer, being between $4$ and $5$ mm. The lateral walls allow for optical access from the atomizer port until a location at 100 mm downstream. Air is introduced through two separate channels, a main one and a supplementary one. The main airflow is injected at the inlet of the quartz duct, while the supplementary one passes around it. Both airflows merge at the end of the duct and leave the domain through a common exit acting as a sonic throttle. The velocity inside the quartz can then be tuned by varying the size of the nozzle and the supplementary air flow rate. In the experiments performed, the range of air velocities goes from $u_g = 50$ to 100 m/s and the range of pressure from $p$ = 1.5 to 15 bar, hence allowing the study high-pressure conditions. The air temperature is maintained to $T_g = 290$ K. The fuel tested was kerosen Jet A-1 with density $\rho_l = 795$ kg m$^{-3}$ and surface tension $\sigma = 22 \cdot 10^{-3}$ N m$^{-1}$.
+The experimental configuration tested by \citeColor[becker_breakup_2002] is shown in Figure \ref{fig:experiment_JICF_DLR}. The test rig is shown at the left. Liquid kerosene is injected through the atomizer ports to a quartz glass duct of rectangular cross section $25$x$40$ mm$^2$. The duct inlet is located at $120$ mm upstream the injection port. The boundary layer thickness developing along the bottom of the duct has been measured experimentally just upstream the atomizer, being between $4$ and $5$ mm. The lateral walls allow for optical access from the atomizer port until a location at 100 mm downstream. Air is introduced through two separate channels, a main one and a supplementary one. The main airflow is injected at the inlet of the quartz duct, while the supplementary one passes around it. Both airflows merge at the end of the duct and leave the domain through a common exit acting as a sonic throttle. The velocity inside the quartz can then be tuned by varying the size of the nozzle and the supplementary air flow rate. In the experiments performed, the range of air velocities goes from $u_g = 50$ to 100 m/s and the range of pressure from $p$ = 1.5 to 15 bar, hence allowing the study high-pressure conditions. The air temperature is maintained to $T_g = 290$ K. The fuel tested was kerosene Jet A-1 with density $\rho_l = 795$ kg m$^{-3}$ and surface tension $\sigma = 22 \cdot 10^{-3}$ N m$^{-1}$.
 
 The liquid injection nozzle can be seen in Figure \ref{fig:experiment_JICF_DLR} right. It consists of a plain jet nozzle of $d_\mathrm{inj} =  0.45$ mm diameter and $L/d_\mathrm{inj}$ ratio of 1.56 with sharp edges. The average discharge coefficient for the mass flow rates of interest in the experimental studies is $0.6$. More details on the test rig can be found in \citeColor[brandt_experimental_1997].
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.45]{./part2_developments/figures_ch5_resolved_JICF/experiment_JICF_DLR}
+	\includegraphics[scale=0.35]{./part2_developments/figures_ch5_resolved_JICF/experiment_JICF_DLR}
 	\caption[JICF experimental setup]{JICF experimental setup. \textsl{Left}: Test rig. \textsl{Right}: liquid nozzle geometry employed in the experimental study. Source: \citeColor[becker_breakup_2002]}
 	\label{fig:experiment_JICF_DLR}
 \end{figure}
@@ -79,28 +79,29 @@ A correlation for the trajectory of the jet was obtained experimentally by analy
 \section{Computational setup}
 	\label{sec:computational_setup}
 
-\subsection*{Numerical domain and baseline mesh}
+%\subsection*{Numerical domain and baseline mesh}
 
-Figure \ref{fig:numerical_setup_maquette_JICF_DLR} shows the computational domain developed to replicate the simulations of the test bench shown in Figure \ref{fig:experiment_JICF_DLR}. The duct is modelled as a plenum consisting of a box of dimensions 25x40x270 mm$^3$. The hydraulic diameter of the duct cross section, which is used to calculate the gas Reynolds number, is $D_h = 30.8$ mm. A magnified view of the nozzle is also shown, with diameter $0.45$ mm and straight section length of 0.7 mm prior to injection to keep $L/D = 1.56$ as in the experiments. The boundary conditions are also indicated. The plenum walls use a wall law of logarithmic type except closer to the domain pressure outlet, which have been set to slip walls to avoid backflow. The nozzle walls are rigid walls. For the liquid inlet, a Poiseuille profile has been specified, while in the gaseous inlet a mean velocity profile has been set in order to recover the boundary layer thickness of between 4 and 5 mm upstream the injection nozzle as described in the experiments (see Appendix \ref{app:JICF_BL_setup} for details). Due to the high Reynolds number at the gaseous inlet (see Table \ref{tab:jicf_operating_conditions}), synthetic turbulence is added in the liquid inlet with a fluctuating value $u' = 0.1 u_g$ and a characteristic eddies size $l_e$ equal to one-sixth the channel height.
+Figure \ref{fig:numerical_setup_maquette_JICF_DLR} shows the computational domain developed to replicate the simulations of the test bench shown in Figure \ref{fig:experiment_JICF_DLR}. The duct is modelled as a plenum consisting of a box of dimensions 25x40x270 mm$^3$. The hydraulic diameter of the duct cross section, which is used to calculate the gas Reynolds number, is $D_h = 30.8$ mm. A magnified view of the nozzle is also shown, with diameter $0.45$ mm and straight section length of 0.7 mm prior to injection to keep $L/D = 1.56$ as in the experiments. The boundary conditions are also indicated. The plenum walls use a wall law of logarithmic type except closer to the domain pressure outlet, which have been set to slip walls to avoid backflow. The nozzle walls are rigid walls. For the liquid inlet, a Poiseuille profile has been specified, while in the gaseous inlet a mean velocity profile has been set in order to recover the boundary layer thickness of between 4 and 5 mm upstream the injection nozzle as described in the experiments (see Appendix \ref{app:JICF_BL_setup} for details). Due to the high Reynolds number at the gaseous inlet (see Table \ref{tab:jicf_operating_conditions}), synthetic turbulence is added in the liquid inlet (details given in $\S$\ref{sec:ch5_initial_conditions}).
 
 \begin{figure}[ht]
      \centering
-     \includeinkscape[scale=0.4]{./part2_developments/figures_ch5_resolved_JICF/DLR_becker_numerical_config}
+     \includeinkscape[scale=0.35]{./part2_developments/figures_ch5_resolved_JICF/DLR_becker_numerical_config}
       \caption{Numerical domain and boundary conditions of the experimental test bench of \citeColor[becker_breakup_2002]. \textsl{Left}: complete domain. \textsl{Right}: detailed view of the injection nozzle. All dimensions are in mm.}
       \label{fig:numerical_setup_maquette_JICF_DLR}
 \end{figure}
 
-Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane at $y = 0$ is displayed. It is composed of 28 million tetrahedral cells. The baseline cell size in the channel upstream liquid injection is 1.5 mm, while the cells located in the downstream region have an average size of 3 mm. The grid is refined at the near-field region to 0.7 mm and inside the discharge section of the liquid nozzle to $20 \mu m$. This mesh is used at the beginning of all the simulations performed, but then it change dynamically in each simulation as more liquid is introduced in the domain due to the AMR routine that refines the mesh at the liquid-gas interface ($\S$\ref{sec:YALES2}). Simulations are performed with the ACLS methodology describe in $\S$\ref{subsec:ch2_ACLS}.
+Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane at $y = 0$ is displayed. It is composed of 66 million tetrahedral cells. The baseline cell size in the channel upstream liquid injection is 0.5 mm, while the cells located in the downstream region have an average size of 3 mm. The element size at the near-field region is 0.7 mm, and within the discharge section of the liquid nozzle it is refined to to $20 \mu m$. The justification of this mesh is done at $\S$\ref{sec:ch5_initial_conditions}, where a mesh independence study of the gaseous field is carried out. This mesh is used at the beginning of all the simulations performed, but then it change dynamically in each simulation as more liquid is introduced in the domain due to the AMR routine that refines the mesh at the liquid-gas interface ($\S$\ref{sec:YALES2}). Simulations are performed with the ACLS methodology describe in $\S$\ref{subsec:ch2_ACLS}.
 
 \begin{figure}[h!]
 	\centering
-	\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch5_resolved_JICF/jicf_mesh/jicf_mesh}
-	\caption{Baseline JICF mesh, showing magnified views of the near-field and nozzle regions.}
+	\includeinkscape[inkscapelatex=false,scale=0.7]{./part2_developments/figures_ch5_resolved_JICF/jicf_mesh/jicf_mesh}
+	\caption[Baseline JICF mesh, showing magnified views of the near-field and nozzle regions.]{Baseline JICF mesh, showing magnified views of the near-field and nozzle regions. The red rectangle is the region where meshes are shown in the mesh convergence study of $\S$\ref{sec:ch5_initial_conditions}}
 	\label{fig:jicf_dlr_mesh}
 \end{figure}
 
 
-\subsection*{Operating conditions}
+
+\section{Operating conditions}
 
 Two operating conditions tested experimentally in \citeColor[becker_breakup_2002] have been simulated. Both of them have the same momentum ration $q = 6$ but differ in the Weber number: $We_g = 830$ (low Weber) and $We_g = 1470$ (low Weber). According to the values of $q$ and $We_g$, the former condition corresponds to surface breakup dominating regime while the latter is located at the dividing line between column and surface breakup. Figure \ref{fig:location_JICF_ops_in_breakup_map} shows the location of both operating points in the breakup map of \citeColor[wu_breakup_1997]. The physical magnitudes and dimensionless numbers of both operating points are shown in Table \ref{tab:jicf_operating_conditions}. Apart from the values $q$ and $We_g$, the dimensionless numbers in  Eq. (\ref{eq:dimensionless_numbers_jicf}) are also calculated: the liquid and gaseous Reynolds numbers $Re_g$ and $Re_g$ respectively, Ohnesorge number $Oh$, aerodynamic Weber $We_\mathrm{aero}$, relative Weber $We_\mathrm{rel}$ and density ratio $r$. These numbers have been added since they are defined in several experimental studies \citeColor[wu_breakup_1997,becker_breakup_2002,ragucci_trajectory_2007] to characterize the operating points tested. 
 
@@ -144,11 +145,13 @@ Nozzle diameter & $d_\mathrm{inj}$ & mm & 0.45 & 0.45 \\
 %\hline
 Gas bulk velocity & $u_g$ & m s$^{-1}$ & 75 & 100 \\
 %\hline
+Gas flow rate & $Q_g$ & m$^3$ s$^{-1}$ & 0.075  & 0.1 \\
+%\hline
 Liquid bulk velocity & $u_l$ & m s$^{-1}$ & 17.5  & 23.33 \\
 %\hline
 Liquid flow rate & $Q_l$ & mm$^3$ s$^{-1}$ & 2783  & 3710 \\
 %\hline
-Gas pressure & $p_g$ & bar &  6 & 6 \\
+Ambient pressure & $p_\mathrm{amb}$ & bar &  6 & 6 \\
 %\hline
 Gas temperature & $T_g$ & K & 290 & 290 \\
 %\hline
@@ -188,6 +191,9 @@ Density ratio & $r$ & - & 110 & 110 \\
 \label{tab:jicf_operating_conditions}
 \end{table}
 
+\clearpage
+
+
 \begin{table}[!h]
 \centering
 \caption{Nomenclature for resolved atomization simulations}
@@ -222,17 +228,25 @@ $\Delta x_\mathrm{min}$ [$\mu$m]  &  \multicolumn{2}{c}{\textbf{Operating condit
 %\subsection{Spray sampling in resolved simulations}
 
 \subsection{Numerical computation of jet trajectory}
-	\label{sec:ch5_jicf_trajectories}
+	\label{sec:ch5_tools_jicf_trajectories}
 
-One of the most important characteristics of a jet in crossflow is its trajectory (see $\S$\ref{sec:ch1_fuel_injection_technology}). This feature will determine how far the jet penetrates in the domain and has a paramount effect on the latter evaporation and mixing processes, hence affecting the flame dynamics. Experimental studies often provide correlations for the trajectory of the windward side of the jet (see Table \ref{tab:correlations_experimental_JICF}), such as the one from Eq. (\ref{eq:jicf_trajectory_becker}). These correlations depend on factors such as the momentum flux ratio $q$, the injection diameter $d_\mathrm{inj}$ and, in some case \citepColor[ragucci_trajectory_2007], in the Weber number $We$. The overall dependency of the trajectory on these parameters is still unknown.
+One of the most important characteristics of a jet in crossflow is its trajectory (see $\S$\ref{sec:ch1_fuel_injection_technology}). This feature determines how far the jet penetrates in the domain and has a paramount effect on the latter evaporation and mixing processes, hence affecting the flame dynamics. Experimental studies often provide correlations for the trajectory of the windward side of the jet (see Table \ref{tab:correlations_experimental_JICF}), such as the one from Eq. (\ref{eq:jicf_trajectory_becker}). These correlations depend generally on the momentum flux ratio $q$, the injection diameter $d_\mathrm{inj}$ and, in some case \citepColor[ragucci_trajectory_2007], in the Weber number $We$. The overall dependency of the trajectory on these parameters is still unknown.
 
-It is therefore of interest, to obtain the trajectory for the jet penetration in the performed resolved simulations. 
+Experimentally, researches have used different approaches to obtain trajectories based on the different optical techniques employed. Many works \citemColor[becker_breakup_2002,stenzler_penetration_2003,freitag_spray_2008] obtain instantaneous images of the jet with shadowgraphy techniques and then MIE scattering or emboss-filter operations to obtain binary images where liquid and gas phases can be clearly distinguished. Then, images are averaged and the vertical penetration is obtained by detecting the coordinates where the light intensity gradients are maximum. The image averaging can be performed before or after the filtering operations. These methods, which are based on obtaining the trajectories from mean images, are hereafter denoted as \textbf{mean trajectory methods}. Figure \ref{fig:expe_obtention_of_trajectories} shows an illustration of such experimental methodology from the work by \citeColor[stenzler_penetration_2003]. The filtering operations and way to obtain the light gradients vary among authors. Other works \citepColor[ragucci_trajectory_2007] use the same principles of filtering and binarization, but obtain the trajectories from instantaneous jet images. Then, the instantaneous trajectories are averaged to yield the mean trajectories. These methods are hereafter denoted as \textbf{instantaneous trajectory methods}.
 
-Several methods can be used for this purpose. This section describes four possible methodologies, two based on processing instantaneous trajectories and two based on processing the mean $\psi$ field. The results obtained with these methodologies are shown in $\S$\ref{sec:results_JICF_resolved}.
+From a computational perspective, similar methodologies can be applied to obtain the jet trajectories from simulations. The same sequence of operations as shown in Figure \ref{fig:expe_obtention_of_trajectories} used to process experimental images could be applied to numerical snapshots of the JICF. Nevertheless, the ACLS methodology presents the advantage that the interface can be clearly defined with the $\psi$ function, and hence it can be used to obtain the trajectory by different methods. In this work, four methodologies to obtain the numerical trajectories from JICF resolved simulations are presented. As in the experimental classification previously suggested to obtain trajectories, these methodologies are also distinguished as \textbf{mean trajectory methods} or \textbf{instantaneous trajectory methods}, depending on whether they use the mean or instantaneous $\psi$ field respectively. Two methods for each category are detailed in this section, while the results obtained are shown in $\S$\ref{subsec:ch5_jet_trajectories_results}.
 
-\subsubsection*{Methods based on instantaneous trajectories}
+\begin{figure}[ht]
+     \centering
+     \includeinkscape[inkscapelatex=false,scale=0.6]{./part2_developments/figures_ch5_resolved_JICF/trajectories_obtention/expe_obtention}
+     \caption{Illustration of experimental procedure to obtain trajectories. Figures taken from \citeColor[stenzler_penetration_2003]}
+      \label{fig:expe_obtention_of_trajectories}
+\end{figure}
 
-One possible way of obtaining tra
+
+\subsubsection{Instantaneous trajectory methods}
+
+The averaged numerical trajectories can be obtained from instantaneous solutions of the jet by obtaining the instantaneous trajectories for every solution obtained and then averaging them. Figure \ref{fig:trajectory_obtention_instantaneous_general} shows the procedure to extract the interface contour that is later used to obtain the trajectories. First, the liquid-gas interface is plotted in the domain as a surface of iso-contour $\Gamma: \psi = 0.5$ (Figure \ref{fig:trajectory_obtention_instantaneous_general} left), and then this contour is extracted at the central plane $y = 0$, as indicated by the black line of Figure \ref{fig:trajectory_obtention_instantaneous_general} right. 
 
 \begin{figure}[ht]
      \centering
@@ -247,17 +261,32 @@ One possible way of obtaining tra
          \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch5_resolved_JICF/trajectories_obtention/instantaneous_interface_y0}
          %\caption{Contour of instantaneous interface at plane y = 0}
      \end{subfigure}
-        \caption{\textsl{Left}: instantaneous jet interface. \textsl{Right}: contour of instantaneous interface at plane y = 0}
+        \caption[Procedure to obtain instantaneous trajectories.]{Procedure to obtain instantaneous trajectories. \textsl{Left}: instantaneous jet interface. \textsl{Right}: contour of instantaneous interface at plane y = 0}
 	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
         \label{fig:trajectory_obtention_instantaneous_general}
 \end{figure}
 
+Once the interface is obtained at $y = 0$, the outer contour of the trajectory must be obtained. This is the one corresponding to the windward side of the jet, and hence the one defining the instantaneous trajectory. For its obtention, the $z$ axis is swept and the points belonging to the trajectory are obtained as follows:
+
+\begin{enumerate}
+
+	\item The $z$ axis is discretized in intervals with thickness $\Delta z$. 
+	
+	\item For each interval, the contour point with minimum $x$ coordinate is obtained.
+	
+	\item Points are sorted according to their $x$ coordinate, defining the trajectory.
+
+\end{enumerate}
+
+This procedure is repeated at every instantaneous snapshot of the jet to obtain the instantaneous trajectories. Then, all the trajectories obtained are interpolated to obtain the mean trajectories which can be compared to experimental correlations. This method is similar to the experimental methodology employed by \citeColor[ragucci_trajectory_2007] to obtain mean trajectories, and was used by \citeColor[leparoux_primary_2018] to simulate their experimental configuration and compare numerical trajectories with experiments. However, it differs from the methodology employed by \citeColor[becker_breakup_2002], whose experimental test rig is simulated in this work and who obtain the trajectories with a methodology more similar to the mean trajectory methods (see next point). Still, it is worth to investigate the instantaneous methodologies to obtain the trajectories and to compare them with the mean methods.
+
+The procedure previously described works properly in the dense core, where the interface contour is continuous up to the breakup point $z_b$. After this location, atomization takes place and the detected $\Gamma$ contours belong to ligaments or droplets. In this case, the definition of \textsl{outer trajectory} does not hold as clearly as in the dense core: some contours detected might belong to satellite droplets or to drops originated from surface breakup, and could modify the final average trajectory by lowering it down. With this consideration, two different trajectories are distinguished in the instantaneous methodologies: \textbf{non-monotonic} and \textbf{monotonic} trajectories. These are discussed in the following lines.
 
 %\subsubsection*{Non-monotonic trajectory}
 
 \paragraph*{{Non-monotonic trajectory}} 
 
-This works well
+Non-monotonic instantaneous trajectories can be obtained by applying the methodology as explained in the previous lines, accounting also for the contours which a priori do not pertain to the outer contour of the instantaneous trajectory. This procedure is illustrated in Figure \ref{fig:trajectory_obtention_instantaneous_method_a}: the different points of the trajectory are obtained when sweeping the $z$ axis, and the instantaneous trajectory is obtained by joining these points. Then, sorting all the sampled points along the $x$ axis creates a non-monotonic trajectory since some contour points belong to liquid structures further downstream, see Figure \ref{fig:trajectory_obtention_instantaneous_method_a} right.
 
 \begin{figure}[ht]
      \centering
@@ -269,19 +298,20 @@ This works well
      %\hfill
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
-         \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch5_resolved_JICF/trajectories_obtention/method_a_inst_trajectory}
+         \includeinkscape[inkscapelatex=false,scale=0.34]{./part2_developments/figures_ch5_resolved_JICF/trajectories_obtention/method_a_inst_trajectory}
          %\caption{Contour of instantaneous interface at plane y = 0}
      \end{subfigure}
-        \caption{Obtention of non-monotonic instantaneous trajectory. \textsl{Left}: sweep process along z axis of interface points. \textsl{Right}: instantaneous trajectory.}
+        \caption[Obtention of non-monotonic instantaneous trajectory]{Obtention of non-monotonic instantaneous trajectory. \textsl{Left}: sweep process along z axis of interface points. \textsl{Right}: instantaneous trajectory.}
 	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
         \label{fig:trajectory_obtention_instantaneous_method_a}
 \end{figure}
 
+\clearpage
 
 %\subsubsection*{Monotonic trajectory}
 \paragraph*{Monotonic trajectory} 
 
-This works well too !
+The procedure is identical to the obtention of non-monotonic trajectories with one fundamental difference: when sorting along the $x$ axis, only points with increasing $z$ coordinate are considered. In this way, a monotonic trajectory is obtained, see Figure \ref{fig:trajectory_obtention_instantaneous_method_b} right. 
 
 
 \begin{figure}[ht]
@@ -294,53 +324,86 @@ This works well too !
      %\hfill
      \begin{subfigure}[b]{0.45\textwidth}
          \centering
-         \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch5_resolved_JICF/trajectories_obtention/method_b_inst_trajectory}
+         \includeinkscape[inkscapelatex=false,scale=0.33]{./part2_developments/figures_ch5_resolved_JICF/trajectories_obtention/method_b_inst_trajectory}
          %\caption{Contour of instantaneous interface at plane y = 0}
      \end{subfigure}
-        \caption{Obtention of monotonic instantaneous trajectory. \textsl{Left}: sweep process along z axis of interface points, excluding points whose vertical location is lower than the vertical location of the previous ones. \textsl{Right}: instantaneous trajectory.}
+        \caption[Obtention of monotonic instantaneous trajectory]{Obtention of monotonic instantaneous trajectory. \textsl{Left}: sweep process along z axis of interface points, excluding points whose vertical location is lower than the vertical location of the previous ones. \textsl{Right}: instantaneous trajectory.}
 	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
         \label{fig:trajectory_obtention_instantaneous_method_b}
 \end{figure}
 
+The two instantaneous methodologies described here will provide the same trajectories in the dense core, but will differ after the breakup point. Therefore, the trajectories obtained from this methodology can be compared and used to estimate an average position of the dense core. 
 
-\subsubsection*{Methods based on the mean levelset field}
 
-Another possibility to obtain mean trajectories is by using the mean field of the levelset function, $\overline{\psi}$ (Eq. \ref{eq:ACLS_psi_definition}). 
+\subsubsection{Mean trajectory methods}
+
+Another possibility to obtain mean trajectories is by using the mean field of the levelset function, $\overline{\psi}$. An example of a converged $\overline{\psi}$ field is shown in Figure \ref{fig:trajectory_obtention_mean_methods_c_d} left.. This requires the accumulation of statistics over a certain time (instantaneous trajectories do not need accumulation statistics as long as the instantaneous $\psi$ field is available), but presents the advantage that the jet trajectory can be obtained with one single $\overline{\psi}$ field once convergence is achieved. In this category, two different methods are used: the \textbf{maximum gradient method} and the \textbf{iso-contour method}.
+
+\begin{figure}[ht]
+     \centering
+     \includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch5_resolved_JICF/trajectories_obtention/methods_c_d_and_mean_psi_field}
+     \caption[Methods based on mean trajectories]{Methods based on mean trajectories. \textsl{Left}: $\overline{\psi}$ field. \textbf{Center}: $\max \left( \nabla_z | \overline{\psi} | \right)$ contour. \textsl{Right}: contour $\overline{\psi} = 0.01$.}
+	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
+      \label{fig:trajectory_obtention_mean_methods_c_d}
+\end{figure}
+
+
 
 \paragraph{Maximum gradient method}
 
-This method is more similar to the experimental methods presented in \citeColor[becker_breakup_2002] and \citeColor[freitag_spray_2008], since they obtain the trajectory as the contour giving the maximum intensity gradient in the vertical direction in processed images of the mean jet.
+This method is more similar to the experimental methods presented in \citeColor[becker_breakup_2002], \citeColor[stenzler_penetration_2003] and \citeColor[freitag_spray_2008]. In these works, the jet trajectory is obtained as the contour of the maximum intensity gradient in the vertical direction of the mean jet (see Figure \ref{fig:expe_obtention_of_trajectories}). In a similar fashion, an equivalent postprocessing can be performed in the computations by obtaining the maximum gradient of $\overline{\psi}$ in the vertical direction for each $x$ coordinate: $\max \left( \nabla_z | \overline{\psi} | \right)$. The absolute value of $\overline{\psi}$ is taken because the interest is to retrieve the outer contour where $\overline{\psi}$ decreases along the vertical direction from $1$ (liquid) to 0 (gas), so the gradient is negative. Figure \ref{fig:trajectory_obtention_mean_methods_c_d} center shows an example of a $\max \left( \nabla_z | \overline{\psi} | \right)$ contour.
 
-\begin{equation}
-\max \left( \nabla \overline{\psi} \right)
-\end{equation}
+\paragraph{Trajectory as iso-contour of mean $\overline{\psi}$}
 
-\paragraph{Trajectory as iso-contour of mean levelset}
+A more intuitive methodology is to obtain the trajectory as an iso-contour of the mean levelset field $\overline{\psi}$. This approach has been used to obtain JICF trajectories with simulations using a VOF methodology \citepColor[desclaux_experimental_2020]. In this works, several values for the iso-contour have been tested, and it has been found that the mean trajectories obtained are very sensitive to this value. Finally, a value of $\overline{\psi} = 0.01$ has been identified as the best contour to compare the resulting trajectories with the ones obtained with the rest of methods. Figure \ref{fig:trajectory_obtention_mean_methods_c_d} right shows an example of a an example of a $\overline{\psi} = 0.01$ contour. \\
 
+Table \ref{tab:jicf_tools_trajectories_obtention} shows a summary of the four methodologies presented, and the names used in $\S$\ref{subsec:ch5_jet_trajectories_results} to display the results.
 
+\begin{table}[!h]
+\centering
+\caption{Summary of methods for computing JICF trajectories}
+\begin{tabular}{ccc}
+\thickhline
+Group & Method & Name \\
+\thickhline
+\multirow{2}{*}{Instantaneous} & Non-monotonic & INST\_NM \\
+ & Monotonic & INST\_M \\
+ \hline
+\multirow{2}{*}{Mean} & Maximum gradient & MEAN\_GRAD \\
+ & Iso-contour & MEAN\_CONT \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_tools_trajectories_obtention}
+\end{table}
 
 \subsection{Direct measurement of liquid fluxes}
 \label{subsec:ch5_interior_boundaries}
 
+Droplet sampling procedure, described in $\S$\ref{subsec:SLI_spray_sampling}, is performed by tracking the center of mass of resolved structures and sampling the droplets when they cross the defined sampling planes by lagrangian projection. With this procedure, some droplets are tracked twice and some others might never be tracked. As a consequence, the sampled spray is not actually the \textsl{true} spray that crosses the sampling surfaces in the simulations, but an approximation to it. Therefore, the obtained spray size distributions and sampled mass flow rates are also affected.
 
-
-Droplet sampling is performed by tracking the center of mass of resolved structures and checking when it crosses the sampling planes. 
-
-
-The sampling procedure of droplets is based on a lagrangian tracking of their center of mass. The position of the center of mass before and
-
-In the ACLS simulations, a 
-
-Mass flow rates are defined by Eq. (\ref{eq:mass_flow_rate_definition_general}).
-
-Liquid flow rates are calculated from the levelset function $\phi$ with the following equation:
+In order to compare both the accuracy of the lagrangian projection procedure for tracking droplets, the mass flow rates are compared to flow rates measured directly in the resolved simulations. The direct measurement of liquid fluxes is performed by defining \textbf{interior boundaries} (IBs) in the sampling surfaces. IBs are formed by all the mesh elements contained in the surface, and liquid flow rates can be calculated by applying directly Eq. (\ref{eq:mass_flow_rate_definition_general}) divided by the density, with $\phi = \psi$ being the levelset function:
 
 \begin{equation}
-Q_l = \int_{\partial \Omega} \phi \left( \textbf{u} \cdot \textbf{n} \right) dS
+\label{eq:Q_lIB_general_definition}
+Q_{l,\mathrm{IB}} = \int_{\mathrm{IB}} \psi \left( \textbf{u} \cdot \textbf{n} \right) dS
 \end{equation}
 
-where $\partial \Omega$ is the surface where integration is performed (i.e. the interior boundary), $\textbf{u}$ is the velocity and $\textbf{n}$ is the normal to the plane.
+Figure \ref{fig:jicf_interior_boundaries_surface_measurements} shows an example of IBs located in a JICF simulation. Four IBs are defined in sampling planes perpendicular to the crossflow equally spaced at a distance of 5 mm: $x = 5, 10, 15, 20$ mm. These IBs match the sampling planes where spray is sampled, so that fluxes can be directly compared. Furthermore, four more sampling planes parallel to the wall to quantify the liquid flow rate that impinges the wall, known as filming: $x <5, 10, 15, 20$ mm. Therefore, each combination of sampling and filming IB will conform the outlet surfaces of a control volume enclosing the whole liquid jet (no outlet surfaces are located upstream the injection point as there is no liquid flowing in this direction). The inlet surface corresponds to the liquid nozzle.
 
+
+
+To apply Eq. (\ref{eq:Q_lIB_general_definition}), the fluxes need to be calculated at each IB element and then be added. Figure \ref{fig:jicf_IBs_sketch_calculation} shows an example of IB composed by the mesh elements, and shows a zoom-in view of a single plane element. $e$ Each element is defined by a normal $n_e$ and by three nodes $N_\mathrm{no} = 3$, since the mesh used is tetrahedral. Simulation data is stored at the nodes, so the instantaneous liquid flux passing through each single element can be calculated as:
+
+\begin{equation}
+Q_{l,e} = \frac{1}{N_\mathrm{no}} \sum_{i=1}^{N_\mathrm{no}} \psi_i \textbf{u}_i \textbf{n}_e
+\end{equation}
+
+Then, the total flux in the IB is obtained by applying Eq. (\ref{eq:Q_lIB_general_definition}) in its discrete form as the addition of liquid fluxes passing through all the elements conforming the IB, $N_e$:
+
+\begin{equation}
+\label{eq:Q_lIB_general_definition}
+Q_{l,\mathrm{IB}} = \sum_{e}^{N_e} Q_{l,e}
+\end{equation}
 
 \begin{figure}[ht]
      \centering
@@ -352,10 +415,23 @@ where $\partial \Omega$ is the surface where integration is performed (i.e. the 
 
 \begin{figure}[ht]
      \centering
-     \includeinkscape[inkscapelatex=false,scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/jicf_IBs_sketch}
+     \includeinkscape[inkscapelatex=false,scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/jicf_IBs_sketch_calculation}
+     \caption{Interior boundaries discretization for obtention of bounded flow rates.}
+	% Right figure available in C:\Users\d601630\Desktop\Project related\CLOSED\2020\2020-09-30 - IBs flow rate expression obtention -> test_case.pptx
+      \label{fig:jicf_IBs_sketch_calculation}
+\end{figure}
+
+\subsubsection*{Spatial discretization of IB fluxes}
+
+In the same way as sampled spray can be in-plane discretized to obtain spatial distributions of fluxes and other magnitudes conforming the SLI (see $\S$\ref{subsec:SLI_spatial_discretization}), liquid fluxes measured with IBs can also be spatially discretized to yield a spatial distribution that can be compared to the SLI flow rates. The procedure is shown in Figure \ref{fig:jicf_IBs_sketch_discretization}: a grid composed of rectangular probes can be defined in the IB, so that all elements comprised by the probes are contained. However, it is observed that the rectangular mesh does not fully match the elements distributed in the IB, since the CFD mesh is not uniform and is comprised of tetrahedral elements. Therefore, the requested rectangular probes cannot be obtained in the IB, as it often crosses elements (red line in Figure \ref{fig:jicf_IBs_sketch_discretization} right). Instead, the probes used for calculation of spatially distributed fluxes are adjusted to take into account the elements that are crossed by the requested mesh, as indicated by the green line in Figure \ref{fig:jicf_IBs_sketch_discretization} right. Therefore, the actual probes used for calculation are not rectangular, but fitted to the actual mesh in order to properly calculate the fluxes.
+
+
+\begin{figure}[ht]
+     \centering
+     \includeinkscape[inkscapelatex=false,scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/jicf_IBs_sketch_discretization}
      \caption{Interior boundaries discretization for obtention of bounded flow rates.}
 	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
-      \label{fig:jicf_IBs_sketch}
+      \label{fig:jicf_IBs_sketch_discretization}
 \end{figure}
 
 
@@ -379,12 +455,304 @@ where $\partial \Omega$ is the surface where integration is performed (i.e. the 
 %\end{figure}
 %
 
+\section{Obtention of initial conditions}
+\label{sec:ch5_initial_conditions}
 
-\section{Results}
-\label{sec:results_JICF_resolved}
+Prior to liquid injection, a gaseous field must be initialised in the computations. The objective is to obtain an established velocity profile that reproduces correctly the mean profile with a boundary layer thickness $\delta$ as observed in the experiments, which is reported to be between $4$ and $5$ mm \citepColor[becker_breakup_2002]. For this purpose, a mean profile is injected at the gaseous inlet shown in Figure \ref{fig:numerical_setup_maquette_JICF_DLR} formed by the combination of a boundary layer and a flat outer profile. The details on this mean profile are given in Appendix \ref{app:JICF_BL_setup}. Furthermore, the gaseous flow is turbulent as shown by the high gaseous Reynolds number ($>> 10^4$) in the operating points studied (see Table \ref{tab:jicf_operating_conditions}). Therefore, synthetic turbulence is also injected at the gaseous inlet, hence a random fluctuating component of axial velocity is added to the mean profile. The calculation and effect of synthetic turbulence and the resulting initial solutions are discussed in the following lines.
 
 
-\subsection{Definition of characteristic times}
+\subsection{Inflow conditions: injection of synthetic turbulence}
+
+% References for turbulence injection
+% https://www.cfd-online.com/Wiki/Turbulence_length_scale
+% https://www.cfd-online.com/Wiki/Turbulence_intensity
+% https://www.simscale.com/forum/t/defining-turbulent-boundary-conditions/80895
+
+Prescription of inlet velocity profiles should take into account the contribution of large energy-containing eddies. For this, fluctuations can be added to the mean profiles by specifying either their energy spectrum or their characteristic length scales with their magnitude. These fluctuating components can be obtained by several means. One of the first methods developed consisted of using periodic boundary conditions to reintroduce the outlet velocity field at the inlet in DNS simulations of channels \citemColor[spalart_direct_1988,liu_interaction_1996]. Such methods relied on the presence of self-similary in the channels, which does not always occur, or adding a forcing term at the channel outlet that would reconvert the boundary layer thickness to its value upstream for reintroducing into the inlet. To circumvent these issues, the recycling method was proposed by \citeColor[lund_generation_1998]. This technique consists of obtaining the turbulent data at several planes downstream and inlet, compare the velocity fields and correct the inlet conditions accordingly to match the desired data. Recycling methods have been extended and can be distinguished in weak and strong methods. Other families of techniques include the generation of synthetic turbulence by for superposition of sinusoidal waves \citemColor[kraichnan_diffusion_1970,batten_interfacing_2004] or by moments' determination \citepColor[pamies_generation_2009]. A review of these and other turbulence generation methodologies can be found in \citeColor[wu_inflow_2017].
+
+In YALES2, prescription of turbulent fluctuations in the velocity boundary conditions requires two parameters: the integral length scale of the flow $L_T$ and the fluctuating velocity components $u'$. Since experimental data on the fluctuating field for the configuration of \citepColor[becker_breakup_2002] is not available, both magnitudes are estimated with the following formulas \citepColor[ansys_ansys_2018]:
+% [1] ANSYS, Inc. (2018), "ANSYS Fluent User's Guide, Release 19.0", Equation (6.68). 
+
+\begin{equation}
+u' \approx I u_g  ~~~~ ; ~~~~ L_t \approx 0.07 D_h
+\end{equation}
+
+where $I$ is the turbulent intensity can be obtained from the following correlation:
+
+\begin{equation}
+I = 0.16 Re_g^{-1/8}
+\end{equation}
+
+For each operating point shown in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}, the estimated parameters for specifying turbulent profiles are shown in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}.
+
+
+\subsection*{Characteristic flow-through time}
+
+With the inlet velocity specified with a mean profile and turbulence fluctuations, gaseous simulations can be run to generate initial conditions for the liquid simulations. The initial solution needs to be an established velocity profile where the mean and rms values of velocity components are converged. To get an idea of the flow establishment, the flow-through time in the channel $\tau_\mathrm{ft}$ is defined:
+
+\begin{equation}
+\tau_\mathrm{ft} = \frac{L}{u_g}
+\end{equation}
+
+where $L = 120$ mm is the distance from the inlet to the liquid injector (see Figure \ref{fig:numerical_setup_maquette_JICF_DLR}). This quantity represents the time that a gas particle takes, in average, to reach the liquid injector location. The flow-through times for each operating point are shown in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}.
+
+\begin{table}[!h]
+\centering
+\caption{Parameters characterising inflow turbulent fields and flow-through time $\tau_\mathrm{ft}$ in JICF simulations}
+\begin{tabular}{ccc}
+\thickhline
+\textbf{Parameter} &  \textbf{Low Weber} &  \textbf{High Weber} \\ %
+\thickhline
+$L_t$ [mm] & 3 & 3 \\
+%\hline
+$I$ [\%]& 2.88 & 2.78 \\
+%\hline
+$u'$ [m s$^{-1}$] & 2.5 & 3.0 \\
+%\hline
+$\tau_\mathrm{ft}$ [ms] & 1.6 & 1.2 \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_operating_conditions_turbulent_injection_parameters}
+\end{table}
+
+\subsection{Mesh independence study}
+
+In first place, a mesh independence study has been performed to capture correctly the gaseous turbulent features that can affect the liquid field. For this purpose, 3 grids are tested with the high Weber operating condition. The inlet velocity profile includes the mean velocity profile and the turbulence fluctuations as defined in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}. The meshes differ in the baseline cell size at the region upstream the liquid injection nozzle, which measures $120$ mm (see Figure \ref{fig:numerical_setup_maquette_JICF_DLR}). This is the region of interest for turbulence development, since it is the gaseous field upstream the injection nozzle the one that will affect the liquid jet. \textbf{X} meshes are used with baseline mesh sizes of values $\Delta x_\mathrm{ups} = 1, 0.5, 0.3$ mm, summarized in Table \ref{tab:jicf_mesh_independence_gaseous_study}. The three refinement levels tested in this section are shown in Figure \textbf{XX}, where a magnified view of the red rectangle from Figure \ref{fig:jicf_dlr_mesh} is displayed. The mesh elsewhere is not refined and maintained to the values given previously in $\S$\ref{sec:computational_setup}. %The mesh shown in Figure \ref{fig:jicf_dlr_mesh} is the chosen grid with baseline cell size upstream the injector $\Delta x_\mathrm{ups} = 0.5$ mm.
+
+\begin{table}[!h]
+\centering
+\caption{Configurations tested for the mesh independence study}
+\begin{tabular}{cccccc}
+\thickhline
+Mesh & $\Delta x_\mathrm{ups}$ [mm] &  $\#$ elements & $\#$ nodes \\ %& Minimum cell size $\Delta x$ [$\mu$m]\\ %
+\thickhline
+Coarse & 1.0 & 59,664,589 & 10,510,540 \\
+%\hline
+Fine & 0.5 & 66,264,433 & 11,641,585 \\
+%\hline
+Very fine & 0.3 & 94,192,955 & 17,155,591 \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_mesh_independence_gaseous_study}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mesh_and_up/meshes}
+\caption[Baseline meshes in the region spanning from the inlet to the nozzle injector]{Baseline meshes in the region spanning from the inlet to the nozzle injector. Zoom-in the red rectangle of Figure \ref{fig:numerical_setup_maquette_JICF_DLR}. From left to right: $\Delta x_\mathrm{ups} = 1, 0.5, 0.3$ mm.}
+\label{fig:ics_mesh_independency_study_up_meshes}
+\end{figure}
+
+
+3 simulations have been performed, one per mesh. For flow establishment, the simulations are run for a total physical time of 6 times the flow-through time, i.e. 7.2 ms. From this stage on, statistics are collected. Each simulation has run for a total time of \textbf{??}, which corresponds to $\textbf{??}$ flow through times. This physical time ensures that the parameters of interest, such as mean and RMS velocities are converged.
+
+To illustrate the flow establishment, we are going to look at the evolution of the mean axial velocity $\langle u \rangle$ and mean Turbulent Kinetic Energy (TKE) averaged along the line shown in Figure \ref{fig:mesh_convergence_line_averages}. At this point,  located right upstream the injection nozzle. 
+
+\begin{subequations}
+\label{eq:line_averaged_u_and_TKE}
+\begin{empheq}{align}
+\langle u \rangle &= \frac{1}{L} \int_0^L u \left( z \right) dz  \\
+\langle \mathrm{TKE} \rangle &= \frac{1}{L} \int_0^L \frac{1}{2} \left( \overline{u'\left( z \right)^2} + \overline{v'\left( z \right)^2} + \overline{w'\left( z \right)^2} \right) dz 
+\end{empheq}
+\end{subequations}
+
+\textbf{These integrals can be numerically solved by applying the regla del trapecio as follows (example with TKE):}
+
+\begin{equation}
+\langle TKE \rangle \approx \frac{1}{L} \sum_{i=1}^{N-1} \left( z_{i+1} - z_{i+1} \right) \frac{TKE_{i+1} + TKE_{i+1}}{2}
+\end{equation}
+
+%In the same fashion, we can perform a surface averaged at the plane:
+%
+%
+%\begin{subequations}
+%\label{eq:plane_averaged_u_and_TKE}
+%\begin{empheq}{align}
+%\langle u \rangle &= \frac{1}{A} \int_{\partial \Omega} u \left( y, z \right) dS  \\
+%\langle \mathrm{TKE} \rangle &= \frac{1}{A} \int_{\partial \Omega}  \frac{1}{2} \left( \overline{u'\left( y, z \right)^2} + \overline{v'\left( y, z \right)^2} + \overline{w'\left( y, z \right)^2} \right) dS
+%\end{empheq}
+%\end{subequations}
+%
+%\textbf{These integrals can be numerically solved by applying the regla del trapecio as follows (example with TKE):}
+%
+%\begin{equation}
+%\langle TKE \rangle \approx \frac{1}{A} \sum_{i=1}^{N-1} TKE_{j,k} \Delta y_j \Delta z_k 
+%\end{equation}
+%
+%\begin{equation}
+%\langle TKE \rangle \approx \frac{1}{A} \sum_{i=1}^{N-1} \frac{TKE_{j-0.5,k-0.5} + TKE_{j+0.5,k-0.5} + TKE_{j-0.5,k+0.5} + TKE_{j+0.5,k+0.5}}{4} \left( y_{k-0.5} - y_{k+0.5} \right) \left( z_{k-0.5} - z_{k+0.5} \right) 
+%\end{equation}
+
+
+
+
+%To illustrate the flow establishment, one can look at the evolution of the volume averaged TKE in the whole domain, defined as follows:
+%
+%\begin{equation}
+%\langle TKE \rangle = \frac{1}{V} \int_\Omega \frac{1}{2} \left( \overline{u'^2} + \overline{v'^2} + \overline{w'^2} \right) dV
+%\end{equation}
+%
+%where $V$ is the volume of the computational domain. Figure \textbf{??} shows the results, where the dimensionless time is expressed with respect to the flow-through time: $t* = t / \tau_\mathrm{ft}$. As shown ...
+%
+%Based on RMS:
+%
+%\begin{equation}
+%\langle TKE \rangle_{RMS} = \frac{1}{V} \int_\Omega \frac{1}{2} \left( u_{RMS} + v_{RMS} + w_{RMS} \right) dV
+%\end{equation}
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.125]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_line_averages/U_MEAN.pdf}
+   \caption{Mean axial velocity}
+   %\label{} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.125]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_line_averages/TKE.pdf}
+   \caption{Turbulent Kinetic Energy}
+   %\label{}
+\end{subfigure}
+\caption{Convergence of mean axial velocity and TKE with mesh resolution}
+\label{fig:mesh_convergence_line_averages}
+\end{figure}
+
+
+
+Instantaneous snapshots of the fluctuating axial component $u'$ in the middle plane are shown in Figure \textbf{??}. The black contours denote the lines with $u' = 0$. As shown ... 
+
+\begin{figure}[ht]
+\centering
+\includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mesh_and_up/up_field_instantaneous_both}
+\caption[Instantaneous $u'$ fields from gaseous simulation for the high We case]{Instantaneous $u'$ fields from gaseous simulation for the high We case. The right column shows a zommed-in view of the dashed rectangle from the left column. The black contours indicate the lines with zero instantaneous fluctuation $u' = 0$. From top to bottom $\Delta x_\mathrm{ups} = 1, 0.5, 0.3$ mm.}
+\label{fig:ics_mesh_independency_study_up_fields}
+\end{figure}
+
+The mean velocity and TKE profiles along the line are shown in Figure \textbf{XX}...
+
+In order to compare quantitatively the difference between both meshes, the signals of $u'$ have been monitored at the probes shown by the black dots in Figure ??. Two probes per simulation have been located: one at 1 mm downstream the gaseous inlet (x = 1 mm) and another one 1 mm upstream the liquid injection nozzle (x = 119 mm). The capability of the meshes to transport the resolved turbulent scales, which is of the order of the turbulent fluctuations displayed in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}, is then verified by comparing the fluctuations at both probes.  The velocity signals and normalised spectra are shown in Figure \textbf{??}. As observed ...
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx1p0.eps}
+   %\caption{}
+   %\label{} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p5.eps}
+   %\caption{}
+   %\label{} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p3.eps}
+   %\caption{}
+   %\label{} 
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx1p0.eps}
+   \caption{}
+   %\label{}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p5.eps}
+   \caption{}
+   %\label{}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p3.eps}
+   \caption{}
+   %\label{}
+\end{subfigure}
+
+\caption[YAP]{Probes}
+\label{fig:ics_mesh_independency_study_probes}
+\end{figure}
+
+%\begin{figure}[ht]
+%\centering
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence/up_dx1p0.eps}
+%   %\caption{}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence/spectra_linear_scale_dx1p0.eps}
+%   \caption{}
+%   %\label{}
+%\end{subfigure}
+%
+%\vskip\baselineskip
+%
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence/up_dx0p5.eps}
+%   %\caption{}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence/spectra_linear_scale_dx0p5.eps}
+%   \caption{}
+%   %\label{}
+%\end{subfigure}
+%
+%\vskip\baselineskip
+%
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence/up_dx0p3.eps}
+%   %\caption{}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence/spectra_linear_scale_dx0p3.eps}
+%   \caption{}
+%   %\label{}
+%\end{subfigure}
+%
+%\caption[YAP]{YAP}
+%\label{fig:ics_mesh_independency_study}
+%\end{figure}
+
+
+\subsection{Effect of injecting turbulence}
+
+Once the fine mesh has been chosen as the baseline mesh for the , the effect of injecting turbulence is stated. For this, one simulation without turbulence injection is performed for the high Weber case and compared to the simulation with turbulence injection.
+
+
+
+
+
+\subsection{Initial conditions}
+
+
+
+
+
+
+\section{Definition of characteristic times}
 
 In order to analyse the convergence and results of the four simulations performed, it is useful to relate the simulation times to characteristic times relating the liquid. Three characteristic times are considered in this work:
 
@@ -432,18 +800,101 @@ We can also define characteristic times as droplets reach the sampling planes. F
 \caption{Characteristic droplet times in JICF simulations}
 \begin{tabular}{lcccc}
 \thickhline
-\textbf{Case} & $x = 5 mm$ & $x = 10 mm$ & $x = 15 mm$  & $x = 20 mm$ \\
+\textbf{Case} & $x = 5 mm$ & $x = 10 mm$ & $x = 15 mm$  \\
 \thickhline 
-UG75\_DX10  & & & - & - \\
-UG75\_DX20  & & & & \\
-UG100\_DX10 & & & - & -\\
-UG100\_DX20 & & & & \\
+UG75\_DX10  & 0.1927 & 0.2952 & -  \\
+UG75\_DX20  & 0.2347 & 0.3558 & 0.4567 \\
+UG100\_DX10 & 0.1437 & 0.2187 & - \\
+UG100\_DX20 & 0.1768 & 0.2584 & 0.3628 \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_characteristic_droplet_sampling_times}
 \end{table}
 
+
+\section{Results}
+\label{sec:results_JICF_resolved}
+
+
+
 \subsection{Jet establishment}
+
+A non-dimensional time can be defined as
+
+\begin{equation}
+t^* = \frac{t}{\tau_\mathrm{ph}}
+\end{equation}
+
+The increase in mesh elements is seen in Figure \ref{fig:JICF_nelem_increase}.
+
+\begin{figure}[ht]
+\centering
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/JICF_nelem_increase}
+   %\label{} 
+\caption{Evolution of number of mesh elements with time in JICF simulations}
+\label{fig:JICF_nelem_increase}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[ht]
+\centering
+\includeinkscape[inkscapelatex=false,scale=0.9]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG100_lateral}
+\caption[Lateral view of high We jet at several time instants. ]{Lateral view of high We jet at several time instants. \textsl{Left}: UG100\_DX20. \textsl{Right}: UG100\_DX10.}
+\label{fig:JICF_establishment_UG100_lateral}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[ht]
+\centering
+\includeinkscape[inkscapelatex=false,scale=0.9]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG100_front}
+\caption[Front view of high We jet at several time instants. ]{Front view of high We jet at several time instants. \textsl{Left}: UG100\_DX20. \textsl{Right}: UG100\_DX10.}
+\label{fig:JICF_establishment_UG100_front}
+\end{figure}
+\clearpage
+
+\clearpage
+
+\begin{figure}[ht]
+\centering
+\includeinkscape[inkscapelatex=false,scale=0.9]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG100_top}
+\caption[Top view of high We jet at several time instants. ]{Top view of high We jet at several time instants. \textsl{Left}: UG100\_DX20. \textsl{Right}: UG100\_DX10.}
+\label{fig:JICF_establishment_UG100_top}
+\end{figure}
+
+
+
+
+\clearpage
+
+\begin{figure}[ht]
+\centering
+\includeinkscape[inkscapelatex=false,scale=0.9]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG75_lateral}
+\caption[Lateral view of low We jet at several time instants. ]{Lateral view of low We jet at several time instants. \textsl{Left}: UG75\_DX20. \textsl{Right}: UG75\_DX10.}
+\label{fig:JICF_establishment_UG75_lateral}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[ht]
+\centering
+\includeinkscape[inkscapelatex=false,scale=0.9]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG75_front}
+\caption[Front view of low We jet at several time instants. ]{Front view of low We jet at several time instants. \textsl{Left}: UG75\_DX20. \textsl{Right}: UG75\_DX10.}
+\label{fig:JICF_establishment_UG75_lateral}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[ht]
+\centering
+\includeinkscape[inkscapelatex=false,scale=0.9]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG75_top}
+\caption[Top view of low We jet at several time instants. ]{Top view of low We jet at several time instants. \textsl{Left}: UG75\_DX20. \textsl{Right}: UG75\_DX10.}
+\label{fig:JICF_establishment_UG75_top}
+\end{figure}
+
+\clearpage
 
 \subsection{Jet topology and breakup}
 
@@ -451,17 +902,75 @@ UG100\_DX20 & & & & \\
 
 \subsubsection{Effect of operating point}
 
-\subsection{Jet penetration: validation with experiments}
+\subsection{Jet trajectories}
+\label{subsec:ch5_jet_trajectories_results}
 
+Different methods to obtain trajectories from resolved simulations were proposed in $\S$\ref{sec:ch5_tools_jicf_trajectories}. These methods are summarized in Table \ref{tab:jicf_tools_trajectories_obtention}. In this section, firstly  the four methods described are applied to the simulation UG100\_DX20, the trajectories obtained are then compared and discussed. Secondly, the method MEAN\_GRAD is chosen to perform experimental validation with all simulations from Table \ref{tab:jicf_resolved_simulations_performed}, since this is the numerical methodology more similar to the way in which the experimental correlations in \citeColor[becker_breakup_2002] are obtained.
 
 The accuracy of the mean numerical trajectories can be quantitatively assessed by defining a $L_2$ error as in Eq.~(\ref{eq:L2_JICF}): 
 
 \begin{equation}
 \label{eq:L2_JICF}
-    L_2 = \sqrt{\frac{1}{N}   \sum_{i=1}^N \left( \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{exp},i} -   \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{num},i} \right)^2}
+    L_2 = \sqrt{\frac{1}{N}   \sum_{i=1}^N \left( \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{num},i} -   \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{exp},i} \right)^2}
 \end{equation}
 
 
+
+We can also define an error along the trajectory as follows:
+
+
+
+\begin{equation}
+\varepsilon_i  =  \frac{ \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{num},i} - \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{exp},i} }{ \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{exp},i} }
+\end{equation}
+
+\begin{equation}
+\varepsilon_i  =  \frac{ z/d_\mathrm{inj} \Bigr|_{\mathrm{num},i} - z/d_\mathrm{inj} \Bigr|_{\mathrm{exp},i} }{ z/d_\mathrm{inj} \Bigr|_{\mathrm{exp},i} }
+\end{equation}
+
+
+\subsubsection*{Comparison of methods}
+
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.15]{./part2_developments/figures_ch5_resolved_JICF/results_trajectories/methods_comparison_trajectories_q6uG100.pdf}
+   \caption{Mean trajectories}
+   %\label{} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.15]{./part2_developments/figures_ch5_resolved_JICF/results_trajectories/methods_comparison_L2_evolution_q6uG100.pdf}
+   \caption{$L_2$ error evolution}
+   %\label{}
+\end{subfigure}
+\caption{Trajectories and $L_2$ errors obtained with different methods for case UG100\_DX20}
+\label{fig:JICF_trajectories_and_L2_comparison}
+\end{figure}
+
+\subsubsection*{Experimental validation}
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.15]{./part2_developments/figures_ch5_resolved_JICF/results_trajectories/methods_expe_validation_trajectories_q6uG75.pdf}
+   \caption{Low $We$}
+   %\label{} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.15]{./part2_developments/figures_ch5_resolved_JICF/results_trajectories/methods_expe_validation_trajectories_q6uG100.pdf}
+   \caption{Low $We$}
+   %\label{}
+\end{subfigure}
+\caption{Trajectories obtained with methods MEAN\_GRAD}
+\label{fig:JICF_trajectories_validation}
+\end{figure}
 
 
 \subsection{Direct measurement of liquid flow rates}
@@ -638,6 +1147,8 @@ UG100\_DX20 & 21824 & 17793 & 9476 & 11041 \\
 \label{tab:jicf_Ndr_accumulated}
 \end{table}
 
+For the histograms, we can see 2013 Vie.
+
 
 \subsubsection{Deformation variation with axial distance}
 
@@ -760,8 +1271,21 @@ Several characteristic times can be defined in a jet in crossflow:
 
 
 
-\subsection{Gaseous field and dense core characterization}
+\subsection{Dense core characterization}
 \label{subsec:ch5_dense_core_in_ACLS_simus}
+
+Resolved simulations are characterized by the presence of the dense core, whose presence perturbs the incoming air and creates turbulence downstream the injector. To illustrate this disturbance, the instantaneous axial fluctuations $u'$ and the jet interface are plotted in the middle plane y = 0 in Figure \ref{fig:results_dense_core_modeling_up_field} left. As shown, the jet presence
+
+\begin{figure}[ht]
+\centering
+\includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/up_field_instantaneous}
+\caption[Perturbation effect of the liquid dense core in the gaseous field.]{Instantaneous $u'$ field in a JICF simulation from case UG100\_DX20. The black contours indicate the lines with zero instantaneous fluctuation $u' = 0$, while the white contours denote the location of the interface at the plane.}
+\label{fig:results_dense_core_modeling_up_field}
+\end{figure}
+
+
+
+$\S$\ref{sec:ch4_dense_core_modelling}.
 
 \subsection{Frequential analysis}
 
@@ -785,12 +1309,705 @@ A spectral analysis is performed to obtain the characteristic breakup frequencie
 
 \section{Learning injectors}
 
+
+
 \subsection{Spatial discretization of sprays}
 
-%\subsection{Operating point at high We}
-%
-%\subsection{Operating point at low We}
+\clearpage
 
+\subsection{Case UG75\_DX10}
+
+
+
+%%%%%%%%%%%%%%%% UG75_DX10, x = 5 mm
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_SMD_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_ux_mean_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_uy_mean_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_uz_mean_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_volume_flux_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_ux_rms_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_uy_rms_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_uz_rms_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+\caption{Spray states at x = 5 mm for case UG75\_DX10}
+\label{fig:injectors_sli_uG75_dx10_x05}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%% UG75_DX10, x = 10 mm
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_SMD_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_ux_mean_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_uy_mean_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_uz_mean_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_volume_flux_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_ux_rms_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_uy_rms_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_uz_rms_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+\caption{Spray states at x = 10 mm for case UG75\_DX10}
+\label{fig:injectors_sli_uG75_dx10_x10}
+\end{figure}
+
+
+\clearpage
+
+\subsection{Case UG75\_DX20}
+
+
+
+%%%%%%%%%%%%%%%% UG75_DX20, x = 5 mm
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_SMD_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_ux_mean_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_uy_mean_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_uz_mean_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_volume_flux_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_ux_rms_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_uy_rms_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_uz_rms_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+\caption{Spray states at x = 5 mm for case UG75\_DX20}
+\label{fig:injectors_sli_uG75_dx20_x05}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%% UG75_DX10, x = 10 mm
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_SMD_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_ux_mean_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_uy_mean_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_uz_mean_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_volume_flux_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_ux_rms_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_uy_rms_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_uz_rms_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+\caption{Spray states at x = 10 mm for case UG75\_DX20}
+\label{fig:injectors_sli_uG75_dx20_x10}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%% UG75_DX10, x = 15 mm
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_SMD_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_ux_mean_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_uy_mean_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_uz_mean_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_volume_flux_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_ux_rms_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_uy_rms_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_uz_rms_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+\caption{Spray states at x = 15 mm for case UG75\_DX20}
+\label{fig:injectors_sli_uG75_dx20_x15}
+\end{figure}
+
+
+\clearpage
+
+\subsection{Case UG100\_DX10}
+
+
+
+%%%%%%%%%%%%%%%% UG100_DX10, x = 5 mm
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_SMD_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_ux_mean_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_uy_mean_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_uz_mean_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_volume_flux_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_ux_rms_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_uy_rms_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_uz_rms_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+\caption{Spray states at x = 5 mm for case UG100\_DX10}
+\label{fig:injectors_sli_uG100_dx10_x05}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%% UG100_DX10, x = 10 mm
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_SMD_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_ux_mean_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_uy_mean_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_uz_mean_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_volume_flux_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_ux_rms_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_uy_rms_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_uz_rms_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+\caption{Spray states at x = 10 mm for case UG100\_DX10}
+\label{fig:injectors_sli_uG100_dx10_x10}
+\end{figure}
+
+
+\clearpage
+
+\subsection{Case UG100\_DX20}
+
+
+
+%%%%%%%%%%%%%%%% UG100_DX20, x = 5 mm
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_SMD_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_ux_mean_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_uy_mean_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_uz_mean_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_volume_flux_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_ux_rms_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_uy_rms_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_uz_rms_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+\caption{Spray states at x = 5 mm for case UG100\_DX20}
+\label{fig:injectors_sli_uG100_dx20_x05}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%% UG100_DX10, x = 10 mm
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_SMD_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_ux_mean_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_uy_mean_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_uz_mean_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_volume_flux_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_ux_rms_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_uy_rms_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_uz_rms_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+\caption{Spray states at x = 10 mm for case UG100\_DX20}
+\label{fig:injectors_sli_uG100_dx20_x10}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%% UG100_DX10, x = 15 mm
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_SMD_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_ux_mean_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_uy_mean_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_uz_mean_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_volume_flux_map.eps}
+   %\caption{Case UG100\_DX20: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_ux_rms_map.eps}
+   %\caption{Case UG100\_DX20: filming planes}
+   %\label{}
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_uy_rms_map.eps}
+   %\caption{Case UG100\_DX10: crossflow planes}
+   %\label{} 
+\end{subfigure}
+   \hspace{0.17in}
+\begin{subfigure}[b]{0.22\textwidth}
+	\centering
+   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_uz_rms_map.eps}
+   %\caption{Case UG100\_DX10: filming planes}
+   %\label{}
+\end{subfigure}
+\caption{Spray states at x = 15 mm for case UG100\_DX20}
+\label{fig:injectors_sli_uG100_dx20_x15}
+\end{figure}
+
+
+\clearpage
 
 \section{Conclusions}
 

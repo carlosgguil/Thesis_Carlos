@@ -3,6 +3,38 @@
 
 \section{Introduction}
 
+\begin{table}[!h]
+\centering
+\caption{Operating point to perform gaseous and two-phase simulations tested by \citeColor[renaud_high-speed_2015]}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\multicolumn{4}{|c|}{\textbf{Air properties}} \\
+\hline
+$\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}$]  & $\mu_g$ [Pa s]  \\
+\hline
+43.1 & 433 & 0.816382 & $2.3911 \cdot 10^{-5}$ \\
+\hline
+\hline
+\multicolumn{4}{|c|}{\textbf{Liquid properties}} \\
+\hline
+$\dot{m}_l$ [g s$^{-1}$] & $\rho_l$ [kg m$^{-3}]$   & $\mu_l$ [Pa s]   & $\sigma$ [N/m]   \\
+\hline
+1.64 & 750 & $1.36 \cdot 10^{-3}$ & $25.35 \cdot 10^{-3}$ \\
+\hline
+\hline
+\multicolumn{4}{|c|}{\textbf{Burner staging}} \\
+\hline
+$\alpha$ [$\%$] & $\dot{m}_{l,pilot}$ & $\dot{m}_{l,takeoff}$ & \\
+\hline
+15 & 0.25 & 1.39 & \\
+\hline
+\end{tabular}
+\label{tab:liquid_operating_point_Renaud}
+\end{table}
+
+
+
+
 \section{Numerical setup}
 
 For performing dispersed phase simulations, the operating point defined in Table \ref{tab:liquid_operating_point_Renaud} is simulated. The staging factor is $\alpha = 15$, meaning that $15 \%$ of the total liquid flow rate is injected through the pilot stage and the remaining liquid through the multipoint. For total flow rate of $\dot{m}_l = 1.64 g s^{-1}$, the multipoint stage injects a total $\dot{m}_{l,takeoff} = 1.39 g s^{-1}$ (hence $0.139 g s^{-1}$ per injector), and a value of $\dot{m}_{l,pilot} = 0.25 g s^{-1}$ is introduced through the pilot stage.

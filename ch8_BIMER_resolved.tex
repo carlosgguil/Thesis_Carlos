@@ -23,93 +23,107 @@ Steps to follow (for this chapter):
 	
 \end{enumerate}
 
+\newpage
 
 \section{Introduction}
 
+The multipoint burner BIMER was introduced in Chapter \ref{ch7:bimer_test_bench_and_aero}, where a study of the aerodynamic flow field for the operating conditions of interest was performed. Two operating points were simulated: the one tested by \citeColor[providakis_etude_2013] for which experimental data on the aerodynamic field was available, which was used for validating the simulations performed with YALES2; and the one tested by \citeColor[renaud_high-speed_2015] which provides experimental data on the non-reactive spray state. 
+
+In this chapter, resolved simulations of the atomization process through one injector of the BIMER take-off stage, as done in Chapter \ref{ch5:jicf_resolved_simulations} for the academic JICF test case, are performed. The numerical setup and liquid injection operating point is described in $\S$\textbf{XX}. The flowchart of the models from Figure \ref{fig:SLI_graphic_description} applied to BIMER is shown in $\S$\textbf{XX}. Then, the inlet velocity profiles from the aerodynamic computations which is seen by the atomizer is discussed in $\S$\textbf{XX}. Results from resolved atomization simulations performed for \textbf{XX} interface mesh resolutions are shown in $\S$\textbf{XX}. Finally, injectors learnt and built from such simulations are discussed in $\S$\textbf{XX}. These injectors are later used to initialise spray simulations at BIMER in Chapter \ref{ch9:BIMER_lagrangian}.
 
 
-\section{Numerical setup}
+
+\section{Computational setup}
+
+The computational geometry for performing the resolved atomization simulations is the same one as the one used for the aerodynamic ones, displayed in Figure \ref{fig:BIMER_geometry_full_domain}. The fine mesh from Figure \ref{fig:BIMER_mesh_fine} is used, its details provided in Table \ref{tab:BIMER_meshes_gaseous}. The aerodynamic field described in $\S$\ref{ch7:BIMER_application_point} is used as initial condition for the resolved atomization simulations. The boundary conditions are also the same ones in all the boundary except for the liquid injection point, which for the aerodynamic simulations it was specified as solid wall and for the resolved ones is changed to inlet. 
+
+The location of the liquid injection point in the take-off stage is shown in Figure \ref{fig:BIMER_geometry_flower_details}. The injector consists of a nozzle with 8 mm length and a circular cross-section of diameter 0.3 mm. The injection nozzle can be appreciated in Figure \ref{fig:BIMER_liquid_injector_views}, where the left image shows the nozzle by adding some transparency to the multipoint walls. The direction of the incoming air $u_g$ and the liquid injection $u_l$ are shown, as well as the crossflow direction $x_c$ obtained from the resolved atomization simulations (see $\S$\ref{ch8:resolved_atomization_simulations}). The right top figure shows a rear view of the injection nozzle. The right bottom view shows a magnified view of the rectangular region showing the mesh in the injector. The cell size within the injector has been set to \textbf{XX} mm, and the walls are refined to \textbf{XX} mm.
+
+\begin{figure}[h!]
+	\centering
+	\includeinkscape[inkscapelatex=false,scale=0.3]{./part3_applications/figures_ch8_resolved/geometry_BIMER_liquid_injector_view/BIMER_liquid_injector_views}
+	\caption[View of liquid injection point in BIMER]{View of liquid injection point in BIMER. The right top figure shows the injection nozzle. A zoomed view of the rectangular section is shown in the right bottom display, where a cut of mesh inside the injector is observed.}
+	\label{fig:BIMER_liquid_injector_views}
+\end{figure}
+
+\clearpage
+
+\section{Operating condition}
+
+The ambient conditions and inlet gaseous flow rate for the operating point to study are shown in Table \ref{tab:gaseous_operating_points_BIMER}. These ones characterize the aerodynamic field of the overall burner. To determine now the operating point and classify it into the JICF breakup map, the liquid and gaseous parameters relevant to the single multipoint injector need to be stated.
+
+\subsection{Gaseous phase}
+
+According to \citeColor[barbosa_etude_2008], a $80 \%$ of the air flow rate goes through the take-off stage and $20 \%$ goes through the take-off one. The study of \citeColor[renaud_high-speed_2015] shows that the percentage through the pilot is actually $13.5 \%$, hence $86.5 \%$ goes through the take-off. Considering the application point in Table \ref{tab:gaseous_operating_points_BIMER}, this makes a total of $\dot{m}_{g,\mathrm{takeoff}} = 37.2815 ~ $ g s$^{-1}$, which corresponds to a flow rate $Q = 0.04567 $ m$^{3}$ s$^{-1}$. Considering that this flow rate is split through 20 vanes, then per canal the flow rate is $Q_g = 2.2833 \cdot 10^{-3}$ m$^{3}$ s$^{-1}$. With an area of 6x10 mm$^2$ (see Figure \ref{fig:gas_injection_area_multipoint}), the estimated gas bulk velocity is:
+
+\begin{equation}
+u_g = \frac{Q_g}{A} = 38 ~ \mathrm{m} \mathrm{s}^{-1}
+\end{equation}
+
+\subsection{Liquid phase}
+
+In the operating point studied, the total liquid mass flow rate injected is $\dot{m}_{l,\mathrm{total}} = 1.64$ g s$^{-1}$. The staging parameter, defined in Eq. \ref(\ref{eq:BIMER_staging_parameter}), is $\alpha = 15 ~\%$, meaning that amount of liquid goes through the pilot stage and $85 ~\%$ of fuel goes through the take-off. Therefore, $\dot{m}_{l,\mathrm{pilot}} = 0.25$ g s$^{-1}$ and $\dot{m}_{l,\mathrm{takeoff}} = 1.39$ g s$^{-1}$. This quantity of fuel is injected through 10 injection holes that conform the take-off stage; assuming that fuel repartition is done equally through all the channels, each injector introduces $0.139$ g s$^{-1}$ of dodecane fuel, which is equivalent to a flow rate of $Q_l = 185.3$  mm$^3$ s$^{-1}$ given the dodecane density from Table \ref{tab:dodecane_properties}. From this flow rate, the bulk liquid velocity $u_l$ can be estimated knowing an injection diameter of $d_\mathrm{inj} = 0.3$ mm:
+
+\begin{equation}
+u_l = \frac{Q_l}{\pi d_\mathrm{inj}^2 / 4} = 2.6 ~ \mathrm{m} \mathrm{s}^{-1}
+\end{equation}
+
+
+With the estimate values for liquid and gaseous velocities, the liquid properties given in Table \ref{tab:dodecane_properties} and the gaseous properties from Table \ref{tab:gaseous_operating_points_BIMER}, the momentum flux ratio $q$ and the Weber number based on the gaseous phase $We_g$ can now be calculated:
+
+\begin{subequations}
+\begin{align}
+q &=  \frac{\rho_l u_l^2}{\rho_g u_g^2} \approx 4 \\
+We_g &=  \frac{\rho_g d_{inj} u_g^2}{\sigma} \approx 14
+\end{align}
+\end{subequations}
+
+%\begin{subequations}
+%\begin{align}
+%q &=  \frac{\rho_l u_l^2}{\rho_g u_g^2} = \frac{750 \cdot 2.6^2}{0.816382 \cdot 38.05^2} = 4 \\
+%We_g &=  \frac{\rho_g d_{inj} u_g^2}{\sigma} = \frac{0.816382 \cdot 0.3 mm \cdot 38.05^2}{25.35 10^{-3}} \approx 14
+%\end{align}
+%\end{subequations}
+
+Figure \ref{fig:location_BIMER_op_in_breakup_map} shows the BIMER JICF operating point classified in the breakup diagram of \citeColor[wu_breakup_1997]. As observed, in this case the breakup regime corresponds to bag breakup.
+
+The governing parameters characterizing the BIMER operating point are summarized in Table \ref{tab:bimer_sps_operating_point}. The dimensionless numbers from Eq. (\ref{eq:dimensionless_numbers_jicf}) are also calculated. Two simulations have been performed with two values for the interface mesh size $\Delta x_\mathrm{min}$, the nomenclature for each case is given in Table \ref{tab:BIMER_resolved_simulations_performed}.
+
+\clearpage
+
 
 \begin{table}[!h]
 \centering
-\caption{Operating point to perform gaseous and two-phase simulations tested by \citeColor[renaud_high-speed_2015]}
-\begin{tabular}{|c|c|c|c|}
-\hline
-\multicolumn{4}{|c|}{\textbf{Air properties}} \\
-\hline
-$\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}$]  & $\mu_g$ [Pa s]  \\
-\hline
-43.1 & 433 & 0.816382 & $2.3911 \cdot 10^{-5}$ \\
-\hline
-\hline
-\multicolumn{4}{|c|}{\textbf{Liquid properties}} \\
-\hline
-$\dot{m}_l$ [g s$^{-1}$] & $\rho_l$ [kg m$^{-3}]$   & $\mu_l$ [Pa s]   & $\sigma$ [N/m]   \\
-\hline
-1.64 & 750 & $1.36 \cdot 10^{-3}$ & $25.35 \cdot 10^{-3}$ \\
-\hline
-\hline
-\multicolumn{4}{|c|}{\textbf{Burner staging}} \\
-\hline
-$\alpha$ [$\%$] & $\dot{m}_{l,pilot}$ & $\dot{m}_{l,takeoff}$ & \\
-\hline
-15 & 0.25 & 1.39 & \\
-\hline
-\end{tabular}
-\label{tab:liquid_operating_point_Renaud}
-\end{table}
-
-
-\section{Liquid injection through one multipoint hole}
-
-\subsection{Determination of bulk gas velocity}
-
-Two methods to determine bulk gas velocity:
-
-\begin{itemize}
-
-	\item According to \citeColor[barbosa_etude_2008], a $80 \%$ of the air flow rate goes through the take-off stage and $20 \%$ goes through the take-off one. The study of \citeColor[renaud_high-speed_2015] shows that the percentage through the pilot is actually $13.5 \%$, hence $86.5 \%$ goes through the take-off. Considering the application point in Table \ref{tab:gaseous_operating_points_BIMER}, this makes a total of $\dot{m}_{a,take-off} = 37.2815 ~ $ g s$^{-1}$, which in terms of flow rate is $Q = \dot{m} / \rho_g = 0.04567 $ m$^{3}$ s$^{-1}$. Considering that this flow rate is split through 20 vanes, then per canal the flow rate is $Q_a = 2.2833 \cdot 10^{-3}$ m$^{3}$ s$^{-1}$. With an area of 6 x 10 mm$^2$ (see Fig. \ref{fig:gas_injection_area_multipoint}), the estimated bulk velocity is $u_g = Q / A = 38 ~ m/s$
-	
-	\item Nah
-
-\end{itemize}
-
-The momentum flux ratio $q$ can now be calculated:
-
-\begin{equation}
-q = \frac{\rho_l u_l^2}{\rho_g u_g^2} = \frac{750 \cdot 2.6^2}{0.816382 \cdot 38.05^2} = 4.36
-\end{equation}
-
-And also the $We$ number based on the gaseous flow:
-
-\begin{equation}
-We_g = \frac{\rho_g d_{inj} u_g^2}{\sigma} = \frac{0.816382 \cdot 0.3 mm \cdot 38.05^2}{25.35 10^{-3}} \approx 14
-\end{equation}
-
-\begin{table}[!h]
-\centering
-\caption{JICF operating points studied}
+\caption{BIMER operating point to perform resolved atomization simulations}
 \begin{tabular}{lccc}
 \thickhline
-\textbf{Parameter} & \textbf{Symbol} & \textbf{Units} &  Operating point \\
+\textbf{Parameter} & \textbf{Symbol} & \textbf{Units} &  \textbf{Value} \\
 \thickhline
 Nozzle diameter & $d_\mathrm{inj}$ & mm & 0.3 \\
 %\hline
 Gas bulk velocity & $u_g$ & m s$^{-1}$ & 38 \\
 %\hline
+Gas flow rate & $Q_g$ & mm$^3$ s$^{-1}$ &   \\
+%\hline
 Liquid bulk velocity & $u_l$ & m s$^{-1}$ & 2.6  \\
 %\hline
-Liquid flow rate & $Q_l$ & mm$^3$ s$^{-1}$ &   \\
+Liquid flow rate & $Q_l$ & mm$^3$ s$^{-1}$ & 185.3  \\
 %\hline
-Gas density & $\rho_g$ & kg m$^{-3}$ &  \\
+Ambient pressure & $p_\mathrm{amb}$ & bar &  1 \\
 %\hline
-Liquid density & $\rho_l$ & kg m$^{-3}$ &  \\
+Gas temperature & $T_g$ & K & 433 \\
 %\hline
-Gas viscosity & $\mu_g$ & kg m$^{-1}$ s$^{-1}$ &  \\
+Liquid temperature & $T_l$ & K &  \\
 %\hline
-Liquid viscosity & $\mu_l$ & kg m$^{-1}$ s$^{-1}$ &   \\
+Gas density & $\rho_g$ & kg m$^{-3}$ & 0.82 \\
 %\hline
-Surface tension & $\sigma$ & kg s$^{-2}$ &  0.022  \\
+Liquid density & $\rho_l$ & kg m$^{-3}$ & 750 \\
+%\hline
+Gas viscosity & $\mu_g$ & kg m$^{-1}$ s$^{-1}$ & $2.39 \cdot 10^{-5}$ \\
+%\hline
+Liquid viscosity & $\mu_l$ & kg m$^{-1}$ s$^{-1}$ &  $1.36 \cdot 10^{-3}$ \\
+%\hline
+Surface tension & $\sigma$ & kg s$^{-2}$ &  0.025  \\
 \thickhline
 Gas Reynolds number & $Re_g$ & - & \\
 %\hline
@@ -131,6 +145,49 @@ Density ratio & $r$ & - & \\
 \end{tabular}
 \label{tab:bimer_sps_operating_point}
 \end{table}
+
+\begin{table}[!h]
+\centering
+\caption{Nomenclature for resolved atomization simulations}
+\begin{tabular}{cc}
+\thickhline
+%$\pmb{\Delta} x_\mathrm{min}$ [$\pmb{\mu}$$\textbf{m}])  &  \multicolumn{2}{c}{\textbf{Operating condition}} \\ 
+$\Delta x_\mathrm{min}$ [$\mu$m]  &  Denomination \\ 
+\thickhline
+\textbf{15} & BIMER\_DX15 \\
+\textbf{10} & BIMER\_DX10 \\
+\thickhline
+\end{tabular}
+\label{tab:BIMER_resolved_simulations_performed}
+\end{table}
+
+\begin{figure}[ht]
+     \centering
+     \includeinkscape[inkscapelatex=false,scale=0.5]{./part3_applications/figures_ch8_resolved/BIMER_breakup_regime_our_operating_point}
+     \caption{Location of simulated operating condition in the breakup map by \citeColor[wu_breakup_1997]}
+	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
+      \label{fig:location_BIMER_op_in_breakup_map}
+\end{figure}
+
+
+\clearpage
+
+\section{Models workflow applied to BIMER}
+
+
+
+\section{Initial conditions}
+
+The aerodynamic field inside BIMER for the operating points of interest was discussed in Chapter \ref{ch7:bimer_test_bench_and_aero}. From this study, a fine mesh consisting of 38 million elements was chosen (see Table \ref{tab:BIMER_meshes_gaseous}). The gaseous field for the application point, which is the chosen one to perform spray simulations, was studied in $\S$\ref{ch7:BIMER_application_point}. This solution is taken as the initial condition from the resolved atomization simulations. The mean and RMS velocity fields can be seen in Figure \ref{fig:field_application}. 
+
+
+
+
+
+\section{Resolved atomization simulations}
+\label{ch8:resolved_atomization_simulations}
+
+
 
 \begin{table}[!h]
 \centering

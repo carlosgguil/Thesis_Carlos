@@ -3,7 +3,7 @@
 
 
 
-% Load the packages
+% Load the packagesl
 \include{packages_load}
 
 
@@ -57,6 +57,7 @@
 
 \shipout\null % Blank page
 \stepcounter{page}
+\setcounter{tocdepth}{2}    % entries down to \subsections in the TOC
 \tableofcontents
 \newpage
 \include{acknowledgements}
@@ -121,14 +122,14 @@
 
 %%----------- Part II: Building SLI  --------------
 \part{Building lagrangian injectors from resolved atomization simulations}
-%%\include{part2_developments/chapter_JICF}
+%\include{part2_developments/chapter_JICF}
 \include{ch4_SLI}
 \newpage 
 \include{ch5_JICF_resolved}
 \newpage
 \include{ch6_JICF_lagrangian}
 \newpage
-%
+
 %%----------- Part III: Application --------------
 \part{Application to a multipoint injector}
 %\label{part3:BIMER}
@@ -139,8 +140,10 @@
 \include{ch9_BIMER_lagrangian}
 
 
+%\newpage
+%\include{ch10_conclusions_perspectives}
 
-	\newpage
+\newpage
 
 %	\newpage
 %

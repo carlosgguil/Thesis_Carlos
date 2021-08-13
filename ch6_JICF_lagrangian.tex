@@ -63,6 +63,16 @@ It is tested that ... Two characteristic times are used in the low We case (sinc
 
 \section{Blockage effect modeling}
 
+\section{Relation between volume and mixture fractions}
+
+So we can relate $\overline{\alpha}$ field with the mixture fraction somehow, this will be interesting for people doing combustion. I have developed the following relation between mixture fraction $Z$ and volume fraction $\alpha$ (need to check it properly):
+
+\begin{equation}
+Z = \frac{m_F}{m_F + m_A} = \frac{V_F \rho_F}{V_F \rho_F + V_A \rho_A} = \frac{1}{1 + \frac{V_A}{V_F} \frac{\rho_A}{\rho_F}} = \frac{1}{1 = \frac{\rho_A}{\rho_F} \frac{1 - \alpha}{\alpha}}
+\end{equation}
+
+
+We can also make a link to heat relase, for the interest of combustion studies.
 
 
 \section{Models sensitivity}

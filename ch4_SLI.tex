@@ -103,16 +103,7 @@ f_\mathrm{j,k} \left( \boldsymbol{s}_\mathrm{j,k}, \boldsymbol{u}, D \right) = \
 
 \section{Models for lagrangian injection}
 	\label{sec:ch4_models_flowchart}
-
-
-\begin{figure}[h!]	
-	\centering
-	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch4_SLI/SLI_graphic_description}
-	\caption{Illustration of SLI working principle \textbf{CHANGE FIGURE TO NEW CONFIG WITHOUT SIDE WALLS}.}
-	\label{fig:SLI_graphic_description}
-\end{figure}
-
-
+	
 The flowchart of the models is shown in Figure \ref{fig:SLI_flowchart}. The main workflow of information to build lagrangian injectors is shown in the central part of the figure, where each block is explained in a different chapter of this manuscript:
 
 
@@ -145,14 +136,37 @@ Additionally, there are more submodels to take into account:
 
 
 \end{itemize}
-
-
+	
+	
 \begin{figure}[h!]	
 	\centering
-	\includeinkscape[inkscapelatex=false,width=17cm]{./part2_developments/figures_ch4_SLI/SLI_flowchart_with_pictures}
-	\caption{Flowchart for proposed models of lagrangian injection.}
-	\label{fig:SLI_flowchart}
+	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch4_SLI/SLI_graphic_description_with_learning_boxes}
+	\caption{Illustration of SLI working principle \textbf{CHANGE FIGURE TO NEW CONFIG WITHOUT SIDE WALLS}.}
+	\label{fig:SLI_graphic_description}
 \end{figure}
+
+
+%
+%\section{Models for lagrangian injection (OLD)}
+%	\label{sec:ch4_models_flowchart}
+
+
+%\begin{figure}[h!]	
+%	\centering
+%	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch4_SLI/SLI_graphic_description}
+%	\caption{Illustration of SLI working principle \textbf{CHANGE FIGURE TO NEW CONFIG WITHOUT SIDE WALLS}.}
+%	\label{fig:SLI_graphic_description}
+%\end{figure}
+
+
+
+
+%\begin{figure}[h!]	
+%	\centering
+%	\includeinkscape[inkscapelatex=false,width=17cm]{./part2_developments/figures_ch4_SLI/SLI_flowchart_with_pictures}
+%	\caption{Flowchart for proposed models of lagrangian injection.}
+%	\label{fig:SLI_flowchart}
+%\end{figure}
 
 
 
@@ -217,7 +231,7 @@ In this work, no distinction between droplets and ligaments has been done to con
 
 \subsubsection*{Sampling procedure}
 
-Droplets are sampled according to their center of mass location. Note that, despite the ACLS methodology being eulerian, liquid structures produced by resolved simulations are being tracked as lagrangian particles (lagrangian tracking). Two sampling methods based on experimental techniques can be used \citepColor[{fig:tropea_droplet_sampling}], their main difference being the topology of the employed probes (see Figure \ref{fig:TAB_droplet_deformation}):
+Droplets are sampled according to their center of mass (CM) location. Note that, despite the ACLS methodology being eulerian, liquid structures produced by resolved simulations are being tracked as lagrangian particles (lagrangian tracking). Two sampling methods based on experimental techniques can be used \citepColor[{fig:tropea_droplet_sampling}], their main difference being the topology of the employed probes (see Figure \ref{fig:TAB_droplet_deformation}):
 
 \begin{itemize}
 
@@ -235,7 +249,9 @@ Droplets are sampled according to their center of mass location. Note that, desp
 	\label{fig:tropea_droplet_sampling}
 \end{figure}
 
-In this work, droplets crossing surface areas are sampled, hence obtaining flux density distributions. The defined surface areas employed will be hereafter referred as \textbf{sampling planes}. Spray is sampled from resolved atomizations with a sampling rate ensuring that all droplets crossing the plane are collected. Droplets are then accumulated with time, and then statistics are calculated. Choosing a right sampling rate will ensure that at the end of the accumulation process, the mass flow rate in average is the actual rate passing through the sampling plane in the resolved simulations. If the sampling rate is too low, some droplets might be missed and the flow rate captured will not be the right one (\textit{aliasing} phenomenon on the spray sampling procedure). Another technique to measure flow rates directly in resolved atomization simulations, called interior boundaries, has been developed in this thesis. It is later explained, and compared to the rates obtained from the lagrangian tracking procedure, in $\S$\ref{subsubsec:ch5_interior_boundaries}.
+In this work, droplets crossing surface areas are sampled, hence obtaining flux density distributions. The defined surface areas employed will be hereafter referred as \textbf{sampling planes}. To determine when a droplet is sampled, a sampling rate $T_\mathrm{sample}$ is specified so that the current location and velocities of droplets CM at time $t$ is checked. Then, the location of each droplet at time $t + T_\mathrm{sample}$ is estimated by projecting the position of the center of mass with the current velocities. Droplets whose current location at $t$ and projected location at $t + T_\mathrm{sample}$ is at different sides of a sampling planes are sampled. This procedure is referred as \textbf{lagrangian projection} of droplets. It is computationally cheap, so can be performed in the resolved and dispersed phase computations without highly increasing the cost of the simulations. On the other hand, it has the main disadvantages that 1) some actual crossing droplets might not be sampled and 2) contrarily, some droplets might be sampled twice. These downcomes of the methodology could be circumvented by including a tag field where droplets are assigned an ID number that does not change with time. However, this is not available yet and is difficult to implement, since the atomization process hinders droplet tagging as liquid structures change constantly during primary and secondary breakup.
+
+The sampling rate is chosen so that that all droplets crossing the plane are collected. Droplets are accumulated with time, and then statistics are calculated. Choosing a right sampling rate will ensure that at the end of the accumulation process, the mass flow rate in average is the actual rate passing through the sampling plane in the resolved simulations. If the sampling rate is too low, some droplets might be missed and the flow rate captured will not be the right one (\textit{aliasing} phenomenon on the spray sampling procedure). Another technique to measure flow rates directly in resolved atomization simulations, called interior boundaries, has been developed in this thesis. It is later explained, and compared to the rates obtained from the lagrangian tracking procedure, in $\S$\ref{subsubsec:ch5_interior_boundaries}.
 
 
 \subsection{Spray convergence}
@@ -305,8 +321,8 @@ An additional criterion for convergence is added, which is the variation of the 
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.15]{./part2_developments/figures_ch4_SLI/spray_convergence.eps}
-	\caption[Evolution of Normalized Mean Squared Error (NMSE) with respect to spray accumulation time.]{Evolution of Normalized Mean Squared Error (NMSE) with respect to spray accumulation time (solid line). The dashed line indicates the chosen threshold of $\varepsilon_\mathrm{th} = 3 \%$).}
+	\includegraphics[scale=0.15]{./part2_developments/figures_ch4_SLI/spray_convergence_with_text.eps}
+	\caption[Evolution of Normalized Mean Squared Error (NMSE) with respect to spray accumulation time.]{Evolution of Normalized Mean Squared Error (NMSE) with respect to spray accumulation time (solid line). The dashed line indicates the chosen threshold of $\varepsilon_\mathrm{th} = 3 \%$.}
 	\label{fig:NMSE_evolution}
 \end{figure}
 
@@ -602,7 +618,7 @@ To simplify this expression, the forces in the windward and leeward sides of the
 
 \begin{equation}
 \boxed{
-|\boldsymbol{F}_\mathrm{DC}| \left( p_\mathrm{windward} - p_\mathrm{leeward} \right) S_{DC} 
+|\boldsymbol{F}_\mathrm{DC}| = \left( p_\mathrm{windward} - p_\mathrm{leeward} \right) S_{DC} 
 }
 \end{equation}
 
