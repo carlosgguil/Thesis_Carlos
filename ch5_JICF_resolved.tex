@@ -351,11 +351,23 @@ Another possibility to obtain mean trajectories is by using the mean field of th
 
 \paragraph{Maximum gradient method}
 
-This method is more similar to the experimental methods presented in \citeColor[becker_breakup_2002], \citeColor[stenzler_penetration_2003] and \citeColor[freitag_spray_2008]. In these works, the jet trajectory is obtained as the contour of the maximum intensity gradient in the vertical direction of the mean jet (see Figure \ref{fig:expe_obtention_of_trajectories}). In a similar fashion, an equivalent postprocessing can be performed in the computations by obtaining the maximum gradient of $\overline{\psi}$ in the vertical direction for each $x$ coordinate: $\max \left( \nabla_z | \overline{\psi} | \right)$. The absolute value of $\overline{\psi}$ is taken because the interest is to retrieve the outer contour where $\overline{\psi}$ decreases along the vertical direction from $1$ (liquid) to 0 (gas), so the gradient is negative. Figure \ref{fig:trajectory_obtention_mean_methods_c_d} center shows an example of a $\max \left( \nabla_z | \overline{\psi} | \right)$ contour.
+This method is more similar to the experimental methods presented in \citeColor[becker_breakup_2002], \citeColor[stenzler_penetration_2003] and \citeColor[freitag_spray_2008]. In these works, the jet trajectory is obtained as the contour of the maximum intensity gradient in the vertical direction of the mean jet (see Figure \ref{fig:expe_obtention_of_trajectories}). In a similar fashion, an equivalent postprocessing can be performed in the computations by obtaining the maximum gradient of $\overline{\psi}$ in the vertical direction for each $x$ coordinate: $\max \left( \nabla_z | \overline{\psi} | \right)$. The absolute value of $\overline{\psi}$ is taken because the interest is to retrieve the outer contour where $\overline{\psi}$ decreases along the vertical direction from $1$ (liquid) to 0 (gas), so the gradient is negative. Figure \ref{fig:trajectory_obtention_mean_methods_c_d} center shows an example of a $\max \left( \nabla_z | \overline{\psi} | \right)$ contour. \\
+
+Trajectories are then averaged:
+
+\begin{equation}
+<\max \left( \nabla_z \overline{\phi} \right)> = \frac{1}{T^*} \int_{t^*=0}^{t^*=T^*} \max \left( \nabla_z \overline{\phi} \right) dt^*
+\end{equation}
 
 \paragraph{Trajectory as iso-contour of mean $\overline{\psi}$}
 
 A more intuitive methodology is to obtain the trajectory as an iso-contour of the mean levelset field $\overline{\psi}$. This approach has been used to obtain JICF trajectories with simulations using a VOF methodology \citepColor[desclaux_experimental_2020]. In this works, several values for the iso-contour have been tested, and it has been found that the mean trajectories obtained are very sensitive to this value. Finally, a value of $\overline{\psi} = 0.01$ has been identified as the best contour to compare the resulting trajectories with the ones obtained with the rest of methods. Figure \ref{fig:trajectory_obtention_mean_methods_c_d} right shows an example of a an example of a $\overline{\psi} = 0.01$ contour. \\
+
+Trajectories are then averaged:
+
+\begin{equation}
+<\overline{\psi}> = \frac{1}{T^*} \int_{t^*=0}^{t^*=T^*} \overline{\psi} dt^*
+\end{equation} 
 
 Table \ref{tab:jicf_tools_trajectories_obtention} shows a summary of the four methodologies presented, and the names used in $\S$\ref{subsec:ch5_jet_trajectories_results} to display the results.
 
@@ -499,25 +511,40 @@ where $L = 120$ mm is the distance from the inlet to the liquid injector (see Fi
 \begin{table}[!h]
 \centering
 \caption{Parameters characterising inflow turbulent fields and flow-through time $\tau_\mathrm{ft}$ in JICF simulations}
-\begin{tabular}{ccc}
+\begin{tabular}{ccccc}
 \thickhline
-\textbf{Parameter} &  \textbf{Low Weber} &  \textbf{High Weber} \\ %
+\textbf{Operating point} &  $L_t$ [mm] &  $I$ [\%] & $u'$ [m s$^{-1}$] & $\tau_\mathrm{ft}$ [ms] \\ %
 \thickhline
-$L_t$ [mm] & 3 & 3 \\
+Low Weber & 3 & 2.88 & 2.5 & 1.6 \\
 %\hline
-$I$ [\%]& 2.88 & 2.78 \\
-%\hline
-$u'$ [m s$^{-1}$] & 2.5 & 3.0 \\
-%\hline
-$\tau_\mathrm{ft}$ [ms] & 1.6 & 1.2 \\
+High Weber & 3 & 2.78 & 3.0 & 1.2  \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_operating_conditions_turbulent_injection_parameters}
 \end{table}
 
-\subsection{Mesh independence study}
+%\begin{table}[!h]
+%\centering
+%\caption{Parameters characterising inflow turbulent fields and flow-through time $\tau_\mathrm{ft}$ in JICF simulations}
+%\begin{tabular}{ccc}
+%\thickhline
+%\textbf{Parameter} &  \textbf{Low Weber} &  \textbf{High Weber} \\ %
+%\thickhline
+%$L_t$ [mm] & 3 & 3 \\
+%%\hline
+%$I$ [\%]& 2.88 & 2.78 \\
+%%\hline
+%$u'$ [m s$^{-1}$] & 2.5 & 3.0 \\
+%%\hline
+%$\tau_\mathrm{ft}$ [ms] & 1.6 & 1.2 \\
+%\thickhline
+%\end{tabular}
+%\label{tab:jicf_operating_conditions_turbulent_injection_parameters}
+%\end{table}
 
-In first place, a mesh independence study has been performed to capture correctly the gaseous turbulent features that can affect the liquid field. For this purpose, 3 grids are tested with the high Weber operating condition. The inlet velocity profile includes the mean velocity profile and the turbulence fluctuations as defined in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}. The meshes differ in the baseline cell size at the region upstream the liquid injection nozzle, which measures $120$ mm (see Figure \ref{fig:numerical_setup_maquette_JICF_DLR}). This is the region of interest for turbulence development, since it is the gaseous field upstream the injection nozzle the one that will affect the liquid jet. \textbf{X} meshes are used with baseline mesh sizes of values $\Delta x_\mathrm{ups} = 1, 0.5, 0.3$ mm, summarized in Table \ref{tab:jicf_mesh_independence_gaseous_study}. The three refinement levels tested in this section are shown in Figure \textbf{XX}, where a magnified view of the red rectangle from Figure \ref{fig:jicf_dlr_mesh} is displayed. The mesh elsewhere is not refined and maintained to the values given previously in $\S$\ref{sec:computational_setup}. %The mesh shown in Figure \ref{fig:jicf_dlr_mesh} is the chosen grid with baseline cell size upstream the injector $\Delta x_\mathrm{ups} = 0.5$ mm.
+\subsection{Mesh independence study with high Weber operating point}
+
+In first place, a mesh independence study has been performed to capture correctly the gaseous turbulent features that can affect the liquid field. For this purpose, 3 grids are tested with the high Weber operating condition. The inlet velocity profile includes the mean velocity profile and the turbulence fluctuations as defined in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}. The meshes differ in the baseline cell size at the region upstream the liquid injection nozzle, which measures $120$ mm (see Figure \ref{fig:numerical_setup_maquette_JICF_DLR}). This is the region of interest for turbulence development, since it is the gaseous field upstream the injection nozzle the one that will affect the liquid jet. Three meshes are used with baseline mesh sizes of values $\Delta x_\mathrm{ups} = 1, ~0.5, ~0.3$ mm, summarized in Table \ref{tab:jicf_mesh_independence_gaseous_study}. The three refinement levels tested in this section are shown in Figure \ref{fig:ics_mesh_independency_study_up_meshes}, where a magnified view of the red rectangle from Figure \ref{fig:jicf_dlr_mesh} is displayed. The mesh elsewhere is not refined and maintained to the values given previously in $\S$\ref{sec:computational_setup}. %The mesh shown in Figure \ref{fig:jicf_dlr_mesh} is the chosen grid with baseline cell size upstream the injector $\Delta x_\mathrm{ups} = 0.5$ mm.
 
 \begin{table}[!h]
 \centering
@@ -544,23 +571,23 @@ Very fine & 0.3 & 94,192,955 & 17,155,591 \\
 \end{figure}
 
 
-3 simulations have been performed, one per mesh. For flow establishment, the simulations are run for a total physical time of 6 times the flow-through time, i.e. 7.2 ms. From this stage on, statistics are collected. Each simulation has run for a total time of \textbf{??}, which corresponds to $\textbf{??}$ flow through times. This physical time ensures that the parameters of interest, such as mean and RMS velocities are converged.
-
-To illustrate the flow establishment, we are going to look at the evolution of the mean axial velocity $\langle u \rangle$ and mean Turbulent Kinetic Energy (TKE) averaged along the line shown in Figure \ref{fig:mesh_convergence_line_averages}. At this point,  located right upstream the injection nozzle. 
+A total of four simulations have been performed: one simulation per each mesh with the imposed turbulent fluctuations at the inlet, and one without injecting synthetic turbulence for the resolution $\Delta x_\mathrm{ups} = 0.5$ mm. For flow establishment, the simulations are firstly run for a total physical time of 6 times the flow-through time, i.e. 7.2 ms. From this stage on, statistics are collected. To check the convergence of the simulations, the mean velocity $\langle u \rangle$ and Turbulent Kinetic Energy (TKE) have been integrated along a vertical line upstream the injection point in the middle plane of the domain, see Figure \ref{fig:ics_mesh_independency_study_up_fields} right. These line-integrated magnitudes can be defined as follows:
 
 \begin{subequations}
 \label{eq:line_averaged_u_and_TKE}
 \begin{empheq}{align}
-\langle u \rangle &= \frac{1}{L} \int_0^L u \left( z \right) dz  \\
-\langle \mathrm{TKE} \rangle &= \frac{1}{L} \int_0^L \frac{1}{2} \left( \overline{u'\left( z \right)^2} + \overline{v'\left( z \right)^2} + \overline{w'\left( z \right)^2} \right) dz 
+\langle u \rangle &= \frac{1}{h} \int_0^h u \left( z \right) dz  \\
+\langle \mathrm{TKE} \rangle &= \frac{1}{h} \int_0^h \frac{1}{2} \left( \overline{u'\left( z \right)^2} + \overline{v'\left( z \right)^2} + \overline{w'\left( z \right)^2} \right) dz 
 \end{empheq}
 \end{subequations}
 
-\textbf{These integrals can be numerically solved by applying the regla del trapecio as follows (example with TKE):}
+where $L$ is the line length, which corresponds to the height of the channel. The chosen line is of interest since it is located right before the liquid injector, so the velocity and TKE profiles in this section will be the ones seen by the liquid jet and which will affect its deviation. The integrated values for the deviation are shown in Figure \ref{fig:mesh_convergence_line_averages}, where time is expressed with respect to the flow-through time. As shown ... %Each simulation has run for a total time of \textbf{??}, which corresponds to $\textbf{??}$ flow through times. This physical time ensures that the parameters of interest, such as mean and RMS velocities are converged. % To illustrate the flow establishment, we are going to look at the evolution of the mean axial velocity $\langle u \rangle$ and mean Turbulent Kinetic Energy (TKE) averaged along the line shown in Figure \ref{fig:mesh_convergence_line_averages}. At this point,  located right upstream the injection nozzle. 
 
-\begin{equation}
-\langle TKE \rangle \approx \frac{1}{L} \sum_{i=1}^{N-1} \left( z_{i+1} - z_{i+1} \right) \frac{TKE_{i+1} + TKE_{i+1}}{2}
-\end{equation}
+%\textbf{These integrals can be numerically solved by applying the regla del trapecio as follows (example with TKE):}
+%
+%\begin{equation}
+%\langle TKE \rangle \approx \frac{1}{L} \sum_{i=1}^{N-1} \left( z_{i+1} - z_{i+1} \right) \frac{TKE_{i+1} + TKE_{i+1}}{2}
+%\end{equation}
 
 %In the same fashion, we can perform a surface averaged at the plane:
 %
@@ -615,139 +642,212 @@ To illustrate the flow establishment, we are going to look at the evolution of t
    \caption{Turbulent Kinetic Energy}
    %\label{}
 \end{subfigure}
-\caption{Convergence of mean axial velocity and TKE with mesh resolution}
+\caption{Convergence of line-integrated mean axial velocity and TKE with mesh resolution}
 \label{fig:mesh_convergence_line_averages}
 \end{figure}
 
 
 
-Instantaneous snapshots of the fluctuating axial component $u'$ in the middle plane are shown in Figure \textbf{??}. The black contours denote the lines with $u' = 0$. As shown ... 
+Instantaneous snapshots of the fluctuating axial component $u'$ in the middle plane are shown in Figure \ref{fig:ics_mesh_independency_study_up_fields}. The black contours denote the lines with $u' = 0$. As shown, adding turbulence at the inlet introduces fluctuations that are transported downstream the domain. When no turbulence is added, fluctuations are not present (the black contours at the inlet are due to small numerical fluctuations of $u'$) except close to the walls, since they are created inside the boundary layer where flow is turbulent. It is also observed that the characteristic length of the eddies changes when refining the mesh: for the coarsest mesh ($\Delta x_\mathrm{ups} = 1$ mm), these structures are generally large, while refining the mesh to $\Delta x_\mathrm{ups} = 0.5$ and $0.3$ mm reduced their size. 
+
+To assess the quality of the meshes, it is useful to introduce a criterion for measuring the turbulent resolution. For such purpose, the Pope's criterion $M$ is employed \textbf{ref-pope-criterion}, which is calculated from the ratio between the resolved and sub-grid Turbulent Kinetic Energies,  $\mathrm{TKE}$ and $k_\mathrm{sgs}$ respectively:
+
+\begin{equation}
+M \left( \textbf{x}, t \right) = \frac{k_\mathrm{sgs} \left( \textbf{x}, t \right)}{k_\mathrm{sgs}  \left( \textbf{x}, t \right) + TKE \left( \textbf{x}, t \right)}
+\end{equation}
+
+$M$ represents therefore the ratio between the sub-grid (unresolved) and total TKEs in the domain, and depends on time and space. From its definition it follows that $M = 0$ corresponds to full resolution (i.e. DNS) and $M = 1$ to full modelling (i.e. RANS) of the turbulent flow field. The sub-grid TKE can be obtained from the following expression:
+
+
+\begin{equation}
+k_\mathrm{sgs} = \left( \frac{\nu_t}{0.18 \Delta x} \right)^2
+\end{equation}
+
+where $\nu_t$ is the turbulent kinematic viscosity as given by the dynamic Smagorinsky model \citepColor[germano_dynamic_1991]. 
+
+Figure \ref{fig:ics_mesh_independency_study_POPE_M_fields} shows instantenous fields of Pope's criterion for the four simulations performed. As observed, by reducing the element size more regions with values of $M$ closer to $0$ are present. For $\Delta x = 1$ mm there several zones where $M$ has high values. These ones are overall reduced when reducing the cell size to $0.5$ mm and further to $0.3$ mm. Between these last two cell sizes there are also differences in the $M$ field specially far from the walls. For all cases, the $M$ values close to the walls are higher than in the far-field, indicating that a finer resolution would be needed in the walls to properly capture the turbulent features of the boundary layer. Nevertheless, these ones remain around $M \approx 0.5$ for the meshes with $\Delta x = 0.5$ and $0.3$ mm, indicating enough resolution for LES simulations. Regarding the case without turbulence injection for $\Delta x = 0.5$ mm, the $M$ field shows higher values with respect to the case where turbulence is added, specially closer to the inlet and in the regions outside the boundary layer. 
+
+In order to compare quantitatively the difference between meshes, the signals of $u'$ have been monitored with time at the probes shown by the white crosses in the top of Figure \ref{fig:ics_mesh_independency_study_up_fields}. Two probes have been located: one at 1 mm downstream the gaseous inlet (x = 1 mm) and another one 1 mm upstream the liquid injection nozzle (x = 119 mm), both at a height of 8 mm from the bottom walls. The capability of the meshes to transport the resolved turbulent scales, which is of the order of the turbulent fluctuations displayed in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}, is then verified by comparing the fluctuations and spectra obtained with Fast Fourier Transform (FFT) at both probes in Figure \ref{fig:ics_mesh_independency_study_probes}. Time has been normalised with the flow-through time $\tau_\mathrm{fl}$, and the signals are shown for one passage of $\tau_\mathrm{fl}$ for easiness of visualization. For the coarsest mesh $\Delta x_\mathrm{ups} = 1$ mm (Figure \ref{fig:ics_mesh_independency_study_probes_dx1p0}), the $u'$ sampled closer to the nozzle show similar magnitudes but different frequencies to the one from upstream. The spectra confirms this observation: the FFT of probe A displays clearly dominant frequencies at 8, 17 and 25 $\mathrm{kHz}$ with decreasing intensity, while probe A shows also peaks at these locations but also a high predominance of small frequencies. This shows that the mesh with $\Delta x_\mathrm{ups} = 1$ mm is not fully capable of properly transporting the frequencies of the fluctuations. When the mesh is refined to $\Delta x_\mathrm{ups} = 0.5$ mm (Figure \ref{fig:ics_mesh_independency_study_probes_dx0p5}), the small dominant frequencies are no longer relevant and the dominant frequencies are properly captured, as the match in the peaks of the spectra indicate. In this case, the frequencies 8 and 25 $\mathrm{kHz}$ have larger intensity than 17 $\mathrm{kHz}$ . Refining the mesh to $\Delta x_\mathrm{ups} = 0.3$ mm (Figure \ref{fig:ics_mesh_independency_study_probes_dx0p3}) has no longer effect neither in the magnitude of the fluctuations nor in the spectrum. Finally, the fluctuations and FFT of the simulation performed without turbulence injection for the resolution $\Delta x_\mathrm{ups} = 0.5$ mm is shown Figure \ref{fig:ics_mesh_independency_study_probes_dx0p5_no_turb}. As expected, the frequency of the fluctuations  for probe A is minimal (not observed in the $u'$ graph) and predominant frequencies are low. Further downstream some turbulence develops along the channel and created small fluctuations where no clear dominant frequencies are excited. 
+
+\clearpage
 
 \begin{figure}[ht]
 \centering
 \includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mesh_and_up/up_field_instantaneous_both}
-\caption[Instantaneous $u'$ fields from gaseous simulation for the high We case]{Instantaneous $u'$ fields from gaseous simulation for the high We case. The right column shows a zommed-in view of the dashed rectangle from the left column. The black contours indicate the lines with zero instantaneous fluctuation $u' = 0$. From top to bottom $\Delta x_\mathrm{ups} = 1, 0.5, 0.3$ mm.}
+\caption[Instantaneous $u'$ fields from gaseous simulation for the high Weber case]{Instantaneous $u'$ fields from gaseous simulation for the high Weber case. The right column shows a zoomed-in view of the dashed rectangle from the left column. The black contours indicate the lines with zero instantaneous fluctuation $u' = 0$. From top to bottom $\Delta x_\mathrm{ups} = 1, 0.5, 0.3$ mm.}
 \label{fig:ics_mesh_independency_study_up_fields}
 \end{figure}
 
-The mean velocity and TKE profiles along the line are shown in Figure \textbf{XX}...
+\begin{figure}[ht]
+\centering
+\includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_POPE/pope_instantaneous_all}
+\caption[]{Views of Pope criterion}
+\label{fig:ics_mesh_independency_study_POPE_M_fields}
+\end{figure}
 
-In order to compare quantitatively the difference between both meshes, the signals of $u'$ have been monitored at the probes shown by the black dots in Figure ??. Two probes per simulation have been located: one at 1 mm downstream the gaseous inlet (x = 1 mm) and another one 1 mm upstream the liquid injection nozzle (x = 119 mm). The capability of the meshes to transport the resolved turbulent scales, which is of the order of the turbulent fluctuations displayed in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}, is then verified by comparing the fluctuations at both probes.  The velocity signals and normalised spectra are shown in Figure \textbf{??}. As observed ...
+
 
 \begin{figure}[ht]
 \centering
-\begin{subfigure}[b]{0.3\textwidth}
-	\centering
-   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx1p0.eps}
-   %\caption{}
-   %\label{} 
+\begin{subfigure}[b]{1.0\textwidth}
+	\centering   
+	\includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx1p0.eps}
+	\includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx1p0.eps}
+%	\subfloat[\centering]{{\includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx1p0.eps} }}%
+%    \qquad
+%    \subfloat[\centering]{{ \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx1p0.eps} }}%
+   \caption{Mesh $\Delta x_\mathrm{ups} = 1$ mm}
+   \label{fig:ics_mesh_independency_study_probes_dx1p0}
 \end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.3\textwidth}
+
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{1.0\textwidth}
 	\centering
-   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p5.eps}
-   %\caption{}
-   %\label{} 
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.3\textwidth}
-	\centering
-   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p3.eps}
-   %\caption{}
-   %\label{} 
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p5.eps}
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p5.eps}
+   \caption{Mesh $\Delta x_\mathrm{ups} = 0.5$ mm}
+   \label{fig:ics_mesh_independency_study_probes_dx0p5}
 \end{subfigure}
 
 \vskip\baselineskip
 
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[b]{1.0\textwidth}
 	\centering
-   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx1p0.eps}
-   \caption{}
-   %\label{}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.3\textwidth}
-	\centering
-   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p5.eps}
-   \caption{}
-   %\label{}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.3\textwidth}
-	\centering
-   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p3.eps}
-   \caption{}
-   %\label{}
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p3.eps}
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p3.eps}
+   \caption{{Mesh $\Delta x_\mathrm{ups} = 0.3$ mm}}
+   \label{fig:ics_mesh_independency_study_probes_dx0p3}
 \end{subfigure}
 
-\caption[YAP]{Probes}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{1.0\textwidth}
+	\centering
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p5_no_turb.eps}
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p5_no_turb.eps}
+   \caption{Mesh $\Delta x_\mathrm{ups} = 0.5$ mm without turbulence injection}
+   \label{fig:ics_mesh_independency_study_probes_dx0p5_no_turb}
+\end{subfigure}
+
+\caption[Frequential analysis of the fluctuations at the sampling probes for the simulations at high Weber number.]{Frequential analysis of the fluctuations at the sampling probes for the simulations at high Weber number. \textsl{Left}: $u'$ fluctuations. \textsl{Right}: spectra of the fluctuations obtained through FFT.}
 \label{fig:ics_mesh_independency_study_probes}
 \end{figure}
 
+
+
+
+Finally, the profiles of mean axial velocity $\overline{u}$ and TKE are plotting along the vertical line shown in Figure \ref{fig:ics_mesh_independency_study_up_fields} right for the half-width of the channel. The results are shown in Figure \ref{fig:ics_mesh_independency_study_mean_profiles}. 
+
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
+
+
 %\begin{figure}[ht]
 %\centering
-%\begin{subfigure}[b]{0.45\textwidth}
+%\begin{subfigure}[b]{0.3\textwidth}
 %	\centering
-%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence/up_dx1p0.eps}
+%   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx1p0.eps}
 %   %\caption{}
 %   %\label{} 
 %\end{subfigure}
 %\hfill
-%\begin{subfigure}[b]{0.45\textwidth}
+%\begin{subfigure}[b]{0.3\textwidth}
 %	\centering
-%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence/spectra_linear_scale_dx1p0.eps}
-%   \caption{}
-%   %\label{}
+%   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p5.eps}
+%   %\caption{}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.3\textwidth}
+%	\centering
+%   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p3.eps}
+%   %\caption{}
+%   %\label{} 
 %\end{subfigure}
 %
 %\vskip\baselineskip
 %
-%\begin{subfigure}[b]{0.45\textwidth}
+%\begin{subfigure}[b]{0.3\textwidth}
 %	\centering
-%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence/up_dx0p5.eps}
-%   %\caption{}
-%   %\label{} 
+%   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx1p0.eps}
+%   \caption{}
+%   %\label{}
 %\end{subfigure}
 %\hfill
-%\begin{subfigure}[b]{0.45\textwidth}
+%\begin{subfigure}[b]{0.3\textwidth}
 %	\centering
-%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence/spectra_linear_scale_dx0p5.eps}
+%   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p5.eps}
+%   \caption{}
+%   %\label{}
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.3\textwidth}
+%	\centering
+%   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p3.eps}
 %   \caption{}
 %   %\label{}
 %\end{subfigure}
 %
-%\vskip\baselineskip
-%
-%\begin{subfigure}[b]{0.45\textwidth}
-%	\centering
-%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence/up_dx0p3.eps}
-%   %\caption{}
-%   %\label{} 
-%\end{subfigure}
-%\hfill
-%\begin{subfigure}[b]{0.45\textwidth}
-%	\centering
-%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence/spectra_linear_scale_dx0p3.eps}
-%   \caption{}
-%   %\label{}
-%\end{subfigure}
-%
-%\caption[YAP]{YAP}
-%\label{fig:ics_mesh_independency_study}
+%\caption[YAP]{Probes}
+%\label{fig:ics_mesh_independency_study_probes}
 %\end{figure}
 
-
-\subsection{Effect of injecting turbulence}
-
-Once the fine mesh has been chosen as the baseline mesh for the , the effect of injecting turbulence is stated. For this, one simulation without turbulence injection is performed for the high Weber case and compared to the simulation with turbulence injection.
+\clearpage
 
 
 
 
+%\subsection{Effect of injecting turbulence}
 
-\subsection{Initial conditions}
+%Once the fine mesh has been chosen as the baseline mesh for the , the effect of injecting turbulence is stated. For this, one simulation without turbulence injection is performed for the high Weber case and compared to the simulation with turbulence injection.
 
 
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mean_profiles/U_MEAN_profiles.pdf}
+   \caption{Mean axial velocity}
+   %\label{} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mean_profiles/TKE_profiles.pdf}
+   \caption{Turbulent Kinetic Energy}
+   %\label{}
+\end{subfigure}
+\caption{Profiles of $\overline{u}$ and $TKE$ along the line right upstream the injector.}
+\label{fig:ics_mesh_independency_study_mean_profiles} 
+\end{figure}
+
+
+\subsection{Initial conditions for low Weber operating point}
+
+From the previous analysis, the ...
+
+
+
+\begin{figure}[ht]
+	\centering
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_OP2.eps}
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_OP2.eps}
+   \caption{Mesh $\Delta x_\mathrm{ups} = 0.5$ mm, low-We operating point}
+   \label{fig:ics_probes_OP2}
+\end{figure}
 
 
 
@@ -764,7 +864,7 @@ In order to analyse the convergence and results of the four simulations performe
 	\tau_\mathrm{liq} = \sqrt{\frac{\rho_l}{\rho_g}} \frac{d_\mathrm{inj}}{u_g}
 	\end{equation}
 	
-	\item $\tau_\mathrm{ph}$: a characteristic physical time of the JICF, defined as:
+	\item $\tau_\mathrm{ph}$: a characteristic physical time of the JICF, defined as )\textbf{ref:herrmann-2011}):
 	
 	\begin{equation}
 	\label{eq:jicf_tau_injector}
@@ -812,12 +912,13 @@ UG100\_DX20 & 0.1768 & 0.2584 & 0.3628 \\
 \end{table}
 
 
-\section{Results}
-\label{sec:results_JICF_resolved}
+%\section{Results}
+%\label{sec:results_JICF_resolved}
+
+\section{Jet topology}
 
 
-
-\subsection{Jet establishment}
+\subsection{Flow establishment}
 
 A non-dimensional time can be defined as
 
@@ -840,7 +941,7 @@ The increase in mesh elements is seen in Figure \ref{fig:JICF_nelem_increase}.
 
 \begin{figure}[ht]
 \centering
-\includeinkscape[inkscapelatex=false,scale=0.9]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG100_lateral}
+\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG100_lateral}
 \caption[Lateral view of high We jet at several time instants. ]{Lateral view of high We jet at several time instants. \textsl{Left}: UG100\_DX20. \textsl{Right}: UG100\_DX10.}
 \label{fig:JICF_establishment_UG100_lateral}
 \end{figure}
@@ -849,7 +950,7 @@ The increase in mesh elements is seen in Figure \ref{fig:JICF_nelem_increase}.
 
 \begin{figure}[ht]
 \centering
-\includeinkscape[inkscapelatex=false,scale=0.9]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG100_front}
+\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG100_front}
 \caption[Front view of high We jet at several time instants. ]{Front view of high We jet at several time instants. \textsl{Left}: UG100\_DX20. \textsl{Right}: UG100\_DX10.}
 \label{fig:JICF_establishment_UG100_front}
 \end{figure}
@@ -859,7 +960,7 @@ The increase in mesh elements is seen in Figure \ref{fig:JICF_nelem_increase}.
 
 \begin{figure}[ht]
 \centering
-\includeinkscape[inkscapelatex=false,scale=0.9]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG100_top}
+\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG100_top}
 \caption[Top view of high We jet at several time instants. ]{Top view of high We jet at several time instants. \textsl{Left}: UG100\_DX20. \textsl{Right}: UG100\_DX10.}
 \label{fig:JICF_establishment_UG100_top}
 \end{figure}
@@ -871,7 +972,7 @@ The increase in mesh elements is seen in Figure \ref{fig:JICF_nelem_increase}.
 
 \begin{figure}[ht]
 \centering
-\includeinkscape[inkscapelatex=false,scale=0.9]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG75_lateral}
+\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG75_lateral}
 \caption[Lateral view of low We jet at several time instants. ]{Lateral view of low We jet at several time instants. \textsl{Left}: UG75\_DX20. \textsl{Right}: UG75\_DX10.}
 \label{fig:JICF_establishment_UG75_lateral}
 \end{figure}
@@ -880,29 +981,26 @@ The increase in mesh elements is seen in Figure \ref{fig:JICF_nelem_increase}.
 
 \begin{figure}[ht]
 \centering
-\includeinkscape[inkscapelatex=false,scale=0.9]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG75_front}
+\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG75_front}
 \caption[Front view of low We jet at several time instants. ]{Front view of low We jet at several time instants. \textsl{Left}: UG75\_DX20. \textsl{Right}: UG75\_DX10.}
-\label{fig:JICF_establishment_UG75_lateral}
+\label{fig:JICF_establishment_UG75_front}
 \end{figure}
 
 \clearpage
 
 \begin{figure}[ht]
 \centering
-\includeinkscape[inkscapelatex=false,scale=0.9]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG75_top}
+\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch5_resolved_JICF/JICF_establishment_UG75_top}
 \caption[Top view of low We jet at several time instants. ]{Top view of low We jet at several time instants. \textsl{Left}: UG75\_DX20. \textsl{Right}: UG75\_DX10.}
 \label{fig:JICF_establishment_UG75_top}
 \end{figure}
 
 \clearpage
 
-\subsection{Jet topology and breakup}
+\subsection{Jet breakup}
 
-\subsubsection{Effect of mesh}
 
-\subsubsection{Effect of operating point}
-
-\subsection{Jet trajectories}
+\section{Jet trajectories}
 \label{subsec:ch5_jet_trajectories_results}
 
 Different methods to obtain trajectories from resolved simulations were proposed in $\S$\ref{sec:ch5_tools_jicf_trajectories}. These methods are summarized in Table \ref{tab:jicf_tools_trajectories_obtention}. In this section, firstly  the four methods described are applied to the simulation UG100\_DX20, the trajectories obtained are then compared and discussed. Secondly, the method MEAN\_GRAD is chosen to perform experimental validation with all simulations from Table \ref{tab:jicf_resolved_simulations_performed}, since this is the numerical methodology more similar to the way in which the experimental correlations in \citeColor[becker_breakup_2002] are obtained.
@@ -929,7 +1027,7 @@ We can also define an error along the trajectory as follows:
 \end{equation}
 
 
-\subsubsection*{Comparison of methods}
+\subsection{Comparison of methods}
 
 
 \begin{figure}[ht]
@@ -951,7 +1049,7 @@ We can also define an error along the trajectory as follows:
 \label{fig:JICF_trajectories_and_L2_comparison}
 \end{figure}
 
-\subsubsection*{Experimental validation}
+\subsection{Experimental validation}
 
 \begin{figure}[ht]
 \centering
@@ -973,11 +1071,11 @@ We can also define an error along the trajectory as follows:
 \end{figure}
 
 
-\subsection{Direct measurement of liquid flow rates}
+\section{Direct measurement of liquid flow rates}
 
 Liquid fluxes have been measured in the resolved simulations at the planes shown in Figure \ref{fig:jicf_interior_boundaries_surface_measurements}. In the coarse simulations done with a mesh resolution of $\Delta x_\mathrm{min} = 20 \mu m$, fluxes have been obtained in all planes shown in the sketch. For the fine simulations, results were collected up to x = 10 mm since the liquid was removed shortly afterwards.
 
-\subsubsection*{Obtention of total flow rate}
+\subsection{Obtention of total flow rate}
 
 The time evolution of flow rates for case UG100\_DX20 is shown in Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX20} for both crossflow and filming planes. For the crossflow planes, the 
 
@@ -1114,7 +1212,7 @@ The time evolution of flow rates for case UG100\_DX20 is shown in Figure \ref{fi
 
 
 
-\subsubsection*{Spatial distribution of flow rates in crossflow planes}
+\subsection{Spatial distribution of flow rates in crossflow planes}
 
 
 
@@ -1127,7 +1225,7 @@ The time evolution of flow rates for case UG100\_DX20 is shown in Figure \ref{fi
 
 \newpage
 
-\subsection{Spray characterization}
+\section{Spray characterization}
 
 The number of droplets accumulated in each sampling plane for all the simulations performed in shown in Figure \ref{tab:jicf_Ndr_accumulated}.
 
@@ -1150,9 +1248,9 @@ UG100\_DX20 & 21824 & 17793 & 9476 & 11041 \\
 For the histograms, we can see 2013 Vie.
 
 
-\subsubsection{Deformation variation with axial distance}
+\subsection{Deformation variation with axial distance}
 
-\subsubsection{Granulometry}
+\subsection{Granulometry}
 
 Sprays generated by atomization processes can be characterized by means of distributions. A given spray where the sizes of the droplets are known can be studied by representing distributions which express the probability of finding a droplet diameter or volume in that spray. Size distributions are usually representing by the notation $f_0 \left( D \right)$, while volume distributions are denoted by $f_3 \left( D \right)$. Two types of distributions are possible: discrete (histograms) or continuous. In the former, the spectrum of droplets size is divided into several range of droplets named bins or classes, and the number of droplets comprised within each class each counted. Histograms are the usual way of representing the granulometry when the size of droplets is directly available, such as in most experimental campaings and computational studies resolving atomization. Continuous distributions, however, are often used to fit discrete distributions obtained experimentally and are used for making simplified models for spray injection in lagrangian simulations, since they can represent the spray by functions depending on few parameters. Examples of function widely used in sprays are the lognormal, Rosin-Rammler and Nukiyama-Tanasama distributions \citepColor[lefebvre_atomization_2017]. 
 
@@ -1255,7 +1353,7 @@ s_g = \exp \sqrt{  \frac{\sum_i \ln \left( D_i / \overline{D}_{ng} \right) ^2 }{
    \label{}
 \end{figure}
 
-\subsubsection{Definition of characteristic times}
+\subsection{Definition of characteristic times}
 
 Several characteristic times can be defined in a jet in crossflow:
 
@@ -1271,7 +1369,7 @@ Several characteristic times can be defined in a jet in crossflow:
 
 
 
-\subsection{Dense core characterization}
+\section{Dense core characterization}
 \label{subsec:ch5_dense_core_in_ACLS_simus}
 
 Resolved simulations are characterized by the presence of the dense core, whose presence perturbs the incoming air and creates turbulence downstream the injector. To illustrate this disturbance, the instantaneous axial fluctuations $u'$ and the jet interface are plotted in the middle plane y = 0 in Figure \ref{fig:results_dense_core_modeling_up_field} left. As shown, the jet presence
@@ -1287,7 +1385,7 @@ Resolved simulations are characterized by the presence of the dense core, whose 
 
 $\S$\ref{sec:ch4_dense_core_modelling}.
 
-\subsection{Frequential analysis}
+\section{Frequential analysis}
 
 A spectral analysis is performed to obtain the characteristic breakup frequencies. There are several ways to obtain the desired frequencies:
 
@@ -1301,7 +1399,7 @@ A spectral analysis is performed to obtain the characteristic breakup frequencie
 
 \end{itemize}
 
-\subsection{Computational performances}
+\section{Computational performances}
 \label{subsec:ch5_computational_performances}
 
 %\subsection{Feeding the models (??)}

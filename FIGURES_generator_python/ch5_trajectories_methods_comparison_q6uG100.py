@@ -23,7 +23,7 @@ FFIG = 1.0
 
 
 folder_manuscript='C:/Users/d601630/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/results_trajectories/'
-folder = 'C:/Users/d601630/Desktop/Ongoing/JICF_trajectories/trajectories_SPS/data_last_trajectories_U_inlets'
+folder = 'C:/Users/d601630/Desktop/Ongoing/JICF_trajectories/trajectories_SPS/data_trajectories'
 # Physical parameters (lists, one value per figure)
 q             = 6 #Becker 6, Ragucci 14.2  # Kinetic energy ratio [-]
 d_inj         = 0.45  # Becker 0.45, Ragucci 0.5   # Injector diameter [mm]
@@ -57,7 +57,7 @@ z_max = 15.0
 #%% Load and process trajectories 
 
 # OP1, dx = 20 µm
-directory_op1_dx20     = folder+'/'+op1+'/dx20_LS_REINIT_FALSE_U_user_defined'
+directory_op1_dx20     = folder+'/'+op1+'/dx20'
 data_op1_dx20_method_a = pd.read_csv(directory_op1_dx20+'/method_a_data_trajectory.csv')
 L2_op1_dx20_method_a   = pd.read_csv(directory_op1_dx20+'/method_a_data_L2.csv')
 data_op1_dx20_method_b = pd.read_csv(directory_op1_dx20+'/method_b_data_trajectory.csv')

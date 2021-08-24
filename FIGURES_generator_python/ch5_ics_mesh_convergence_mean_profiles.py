@@ -19,7 +19,8 @@ plt.rcParams['legend.fontsize'] = 40*FFIG
 plt.rcParams['font.size'] = 50*FFIG
 plt.rcParams['lines.linewidth'] =  6*FFIG
 plt.rcParams['legend.loc']      = 'lower right'
-plt.rcParams['text.usetex'] = False
+plt.rcParams['text.usetex'] = True
+plt.rcParams['legend.framealpha'] = 1.0
 
 
 figsize_ = (FFIG*26,FFIG*13)
@@ -27,168 +28,100 @@ figsize_ = (FFIG*26,FFIG*13)
 #%% Cases
 
 # Main folder
-folder_case = './cases_probes/'
-cases = [folder_case + 'irene_mesh_refined_DX0p3_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7/',
-         folder_case + 'irene_mesh_refined_DX0p5_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7/',
-         folder_case + 'irene_mesh_refined_DX0p5_ics_no_actuator_flat_BL_no_turbulence/',
-         folder_case + 'irene_mesh_refined_DX1p0_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7/']
+folder_manuscript='C:/Users/d601630/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mean_profiles/'
+folder = 'C:/Users/d601630/Desktop/Ongoing/ICS_study/u_mean_profiles/cases_probes/'
+
+# Cases
+case_DX1p0 = folder + 'U_irene_mesh_refined_DX1p0_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7/'
+case_DX0p5 = folder + 'U_irene_mesh_refined_DX0p5_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7/'
+case_DX0p3 = folder + 'U_irene_mesh_refined_DX0p3_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7/'
+case_DX0p5_no_turb = folder + 'U_irene_mesh_refined_DX0p5_ics_no_actuator_flat_BL_no_turbulence/'
          
-cases = [folder_case + 'irene_mesh_refined_DX1p0_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7/']
-
-#%% Read probes
-
-time_all_cases = []
-z_all_cases = []
-U_all_cases = []
-TKE_all_cases = []
-TKE_w_RMS_all_cases = []
-for k in cases:
-    
-    # Read probes
-    probe_U = pd.read_csv(k+'line_TKE_U_MEAN.dat',sep='(?<!\\#)\s+',engine='python')      
-    probe_U.columns =  [name.split(':')[1] for name in probe_U.columns]
-    probe_TKE = pd.read_csv(k+'line_TKE_TKE.dat',sep='(?<!\\#)\s+',engine='python')      
-    probe_TKE.columns =  [name.split(':')[1] for name in probe_TKE.columns]
-    probe_TKE_w_RMS = pd.read_csv(k+'line_TKE_TKE_w_RMS.dat',sep='(?<!\\#)\s+',engine='python')      
-    probe_TKE_w_RMS.columns =  [name.split(':')[1] for name in probe_TKE_w_RMS.columns]
-    time = probe_U['total_time'].values
- 
-    time             = []
-    z_t              = []
-    U_mean_t         = []
-    TKE_mean_t       = []
-    TKE_w_RMS_mean_t = []
-    
-    z_i = []
-    U_i = []
-    TKE_i = []
-    TKE_w_RMS_i = []
-    for i in range(len(probe_TKE)):
-        
-        # Check if we change time instant or not
-        if not np.isnan(probe_U.loc[i]['total_time']):
-            z_i.append(probe_U.loc[i]['Z']*1e3)
-            U_i.append(probe_U.loc[i]['U_MEAN(1)'])
-            TKE_i.append(probe_TKE.loc[i]['TKE'])
-            TKE_w_RMS_i.append(probe_TKE_w_RMS.loc[i]['TKE_w_RMS'])
-            
-        else:
-            
-            time.append(probe_U.loc[i-1]['total_time']*1e3)
-            z_t.append(z_i)
-            U_mean_t.append(U_i)
-            TKE_mean_t.append(TKE_i)
-            TKE_w_RMS_mean_t.append(TKE_w_RMS_i)
-            
-            
-            z_i = []
-            U_i = []
-            TKE_i = []
-            TKE_w_RMS_i = []
-    
-    time_all_cases.append(time)
-    z_all_cases.append(z_t)
-    U_all_cases.append(U_mean_t)
-    TKE_all_cases.append(TKE_mean_t)
-    TKE_w_RMS_all_cases.append(TKE_w_RMS_mean_t)
-    
+cases = [case_DX1p0, case_DX0p5, case_DX0p3, case_DX0p5_no_turb]
 
 
-    
-# Filter repeated time values
-p_time_all_cases = []
+# Labels
+labels_ = [r'$ \Delta x_\mathrm{ups} = 1.0 ~\mathrm{mm}$', r'$ \Delta x_\mathrm{ups} = 0.5 ~\mathrm{mm}$',
+           r'$ \Delta x_\mathrm{ups} = 0.3 ~\mathrm{mm}$',r'$ \Delta x_\mathrm{ups} = 0.5 ~\mathrm{mm} ~\mathrm{no~turb.}$']
+
+
+
+# axis labels
+x_label_U_MEAN  = r"$\overline{u} ~ [m . s^{-1}]$"
+x_label_TKE  = r"$TKE ~ [J . kg^{-1}]$"
+y_label = r"$z~[mm]$"
+
+# Format for lines
+c1 = 'k'
+c2 = 'b'
+c3 = 'r'
+c4 = '--b'
+
+y_lim = (0,20)
+
+#%% Read probes data
+
+
+
 p_z_all_cases = []
-p_u_all_cases = []
+p_U_MEAN_all_cases = []
 p_TKE_all_cases = []
 p_TKE_w_RMS_all_cases = []
-for i in range(len(cases)):
-    time = time_all_cases[i]
-    z    = z_all_cases[i]
-    u    = U_all_cases[i]
-    TKE  = TKE_all_cases[i]
-    TKE_w_RMS  = TKE_w_RMS_all_cases[i]
-    
-    p_time  = []; time_max = -1
-    p_u     = []; p_z = []
-    p_TKE   = []; p_TKE_w_RMS = []
-    for j in range(len(time)):
-        t = time[j]
-        if t > time_max:
-            p_time.append(t)
-            p_z.append(z[j])
-            p_u.append(u[j])
-            p_TKE.append(TKE[j])
-            p_TKE_w_RMS.append(TKE_w_RMS[j])
-            time_max = t
+for i in cases:
 
-    
-    p_time_all_cases.append(np.array(p_time))
-    p_z_all_cases.append(np.array(p_z))
-    p_u_all_cases.append(np.array(p_u))
-    p_TKE_all_cases.append(np.array(p_TKE))
-    p_TKE_w_RMS_all_cases.append(np.array(p_TKE_w_RMS))
-
-
-
-#%% Write data to .csv
-    
-for i in range(len(cases)):
-    z = p_z_all_cases[i][-1]
-    U = p_u_all_cases[i][-1]
-    TKE = p_TKE_all_cases[i][-1]
-    TKE_w_RMS = p_TKE_w_RMS_all_cases[i][-1]
-    d = {'z': z, 'U_mean': U, 'TKE_mean': TKE, 'TKE_w_RMS_mean': TKE_w_RMS}
-    df = pd.DataFrame(data = d)
-    df.to_csv(cases[i]+'data_mean_profiles.csv', index = False)
-
-
-#%% 
+    df = pd.read_csv(i+'data_mean_profiles.csv')
     
     
-
-labels_ = cases
-#labels_ = ['Case 1 (no turb.)', 'Case 3 (with turb.)'] 
+    z_ = df['z'].values
+    U_mean_ = df['U_mean'].values
+    TKE_mean_ = df['TKE_mean'].values
+    TKE_w_RMS_mean_ = df['TKE_w_RMS_mean'].values
     
-# Plot U_MEAN profile
+    p_z_all_cases.append(z_)
+    p_U_MEAN_all_cases.append(U_mean_)
+    p_TKE_all_cases.append(TKE_mean_)
+    p_TKE_w_RMS_all_cases.append(TKE_w_RMS_mean_)
+
+
+
+#%% Plots
+
+
+
+# U_mean
 plt.figure(figsize=figsize_)
-for i in range(len(cases)):
-    for j in range(len(p_u_all_cases[i])):
-        plt.plot(p_u_all_cases[i][j], p_z_all_cases[i][j])
-#plt.ylim(-13, 13)
-plt.xlabel(r'u [m/s]')
-plt.ylabel(r"$z ~[\mathrm{mm}]$")
-plt.title("U_MEAN profile")
-#plt.legend(loc='best')
+plt.plot(p_U_MEAN_all_cases[0], p_z_all_cases[0], c1, label=labels_[0])
+plt.plot(p_U_MEAN_all_cases[1], p_z_all_cases[1], c2, label=labels_[1])
+plt.plot(p_U_MEAN_all_cases[2], p_z_all_cases[2], c3, label=labels_[2])
+plt.plot(p_U_MEAN_all_cases[3], p_z_all_cases[3], c4, label=labels_[3])
+plt.ylim(0, 20)
+plt.xlabel(x_label_U_MEAN)
+plt.ylabel(y_label)
+#plt.title('u signal')
+plt.legend(loc='best')
 plt.grid()
-plt.show()
-plt.close()
-
-# Plot TKE profile
-plt.figure(figsize=figsize_)
-for i in range(len(cases)):
-    for j in range(len(p_u_all_cases[i])):
-        plt.plot(p_TKE_all_cases[i][j], p_z_all_cases[i][j])
-#plt.ylim(-13, 13)
-plt.xlabel(r'TKE [J/kg]')
-plt.ylabel(r"$z ~[\mathrm{mm}]$")
-plt.title("TKE profile")
-#plt.legend(loc='best')
-plt.grid()
+plt.tight_layout()
+plt.savefig(folder_manuscript+'U_MEAN_profiles.pdf')
+plt.savefig(folder_manuscript+'U_MEAN_profiles.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
 
-# Plot TKE_w_RMS profile
+# TKE
 plt.figure(figsize=figsize_)
-for i in range(len(cases)):
-    for j in range(len(p_u_all_cases[i])):
-        plt.plot(p_TKE_w_RMS_all_cases[i][j], p_z_all_cases[i][j])
-#plt.ylim(-13, 13)
-plt.xlabel(r'TKE [J/kg]')
-plt.ylabel(r"$z ~[\mathrm{mm}]$")
-plt.title("TKE_w_RMS profile")
+plt.plot(p_TKE_w_RMS_all_cases[0], p_z_all_cases[0], c1, label=labels_[0])
+plt.plot(p_TKE_w_RMS_all_cases[1], p_z_all_cases[1], c2, label=labels_[1])
+plt.plot(p_TKE_w_RMS_all_cases[2], p_z_all_cases[2], c3, label=labels_[2])
+plt.plot(p_TKE_w_RMS_all_cases[3], p_z_all_cases[3], c4, label=labels_[3])
+plt.xlim(0,90)
+plt.ylim(0, 20)
+plt.xlabel(x_label_TKE)
+plt.ylabel(y_label)
+#plt.title('u signal')
 #plt.legend(loc='best')
 plt.grid()
+plt.tight_layout()
+plt.savefig(folder_manuscript+'TKE_profiles.pdf')
+plt.savefig(folder_manuscript+'TKE_profiles.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
-
