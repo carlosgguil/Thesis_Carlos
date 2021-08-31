@@ -54,9 +54,15 @@ op2 = 'q6uG75'
 
 z_max = 15.0
 
+tau_ph_UG75_DX10 = 0.2952
+tau_ph_UG75_DX20 = 0.3558
+tau_ph_UG100_DX10 = 0.2187
+tau_ph_UG100_DX20 = 0.2584
 
-tau_ph_UG100 = 0.026
-tau_ph_UG75 = 0.019
+
+
+x_lim_traj = (-0.5, 17) #(becker_corr.plotD_limits[0][0], becker_corr.plotD_limits[0][1])
+y_lim_traj = (becker_corr.plotD_limits[1][0], z_max)
 
 dt = 1.5e-3 #ms
 
@@ -91,12 +97,12 @@ data_op2_dx10 = pd.read_csv(directory_op2_dx10+'/'+method+'_data_trajectory.csv'
 L2_op2_dx10   = pd.read_csv(directory_op2_dx10+'/'+method+'_data_L2.csv')
 
 #%% Transform  L2 iterations to time
-t_L2_op1_dx20 = (L2_op1_dx20['t'].values - 1)*dt/tau_ph_UG100
-t_L2_op1_dx20_no_turb = (L2_op1_dx20_no_turb['t'].values - 1)*dt/tau_ph_UG100
-t_L2_op1_dx10 = (L2_op1_dx10['t'].values - 1)*dt/tau_ph_UG100
+t_L2_op1_dx20 = (L2_op1_dx20['t'].values - 1)*dt/tau_ph_UG100_DX20
+t_L2_op1_dx20_no_turb = (L2_op1_dx20_no_turb['t'].values - 1)*dt/tau_ph_UG100_DX20
+t_L2_op1_dx10 = (L2_op1_dx10['t'].values - 1)*dt/tau_ph_UG100_DX10
 
-t_L2_op2_dx20 = (L2_op2_dx20['t'].values - 1)*dt/tau_ph_UG75
-t_L2_op2_dx10 = (L2_op2_dx10['t'].values - 1)*dt/tau_ph_UG75
+t_L2_op2_dx20 = (L2_op2_dx20['t'].values - 1)*dt/tau_ph_UG75_DX20
+t_L2_op2_dx10 = (L2_op2_dx10['t'].values - 1)*dt/tau_ph_UG75_DX10
 
 
 #%% Get errors with axial location
@@ -144,19 +150,24 @@ plt.figure(figsize=(FFIG*22,FFIG*15))
 plt.plot(becker_corr.xD, becker_corr.zD_mean, 'k', label=r'Exp. correlation',linewidth=8*FFIG)
 plt.fill_between(becker_corr.xD, becker_corr.zD_lower, 
                  becker_corr.zD_upper, alpha=0.1, facecolor='black')
+
 plt.plot(data_op1_dx10['xD'], data_op1_dx10['zD'], 'b', label = r'UG100\_DX10',linewidth=4*FFIG)
 plt.plot(data_op1_dx20['xD'], data_op1_dx20['zD'], 'r', label = r'UG100\_DX20',linewidth=4*FFIG)
-#plt.plot(data_op1_dx20_no_turb['xD'], data_op1_dx20_no_turb['zD'], '--r', label = r'UG100\_DX20\_NO\_TURB',linewidth=4*FFIG)
-plt.xlabel(r'$x/d_\mathrm{inj}$')
-plt.ylabel(r'$z/d_\mathrm{inj}$')
-plt.xlim(becker_corr.plotD_limits[0][0], becker_corr.plotD_limits[0][1])
-plt.ylim(becker_corr.plotD_limits[1][0], 20.0)#becker_corr.plotD_limits[1][1])
-plt.xlim(0,10)
-plt.ylim(0,12)
+plt.plot(data_op1_dx20_no_turb['xD'], data_op1_dx20_no_turb['zD'], '--r', label = r'UG100\_DX20\_NO\_TURB',linewidth=4*FFIG)
+'''
+plt.plot(data_op1_dx10['xD'], data_op1_dx10['zD'], 'b', label = r'$\Delta x_\Gamma = 10 \mu m$',linewidth=4*FFIG)
+plt.plot(data_op1_dx20['xD'], data_op1_dx20['zD'], 'r', label = r'$\Delta x_\Gamma = 20 \mu m$',linewidth=4*FFIG)
+plt.plot(data_op1_dx20_no_turb['xD'], data_op1_dx20_no_turb['zD'], '--r', label = r'$\Delta x_\Gamma = 20 \mu m,~\mathrm{no~turb.}$',linewidth=4*FFIG)
+'''
+plt.xlabel(r'$x/D$')
+plt.ylabel(r'$z/D$')
+plt.xlim(x_lim_traj)
+plt.ylim(y_lim_traj)
 plt.grid()
 plt.legend(loc='best', numpoints = 2, framealpha=1)
 #plt.title(r' $u_G = 100$ m/s, $\Delta x_\mathrm{min}$ = 20 $\mu$m')
 #plt.title(title)
+#plt.title(r'$(b)$ $q=6$, $We_\infty = 1470$')
 plt.tight_layout()
 plt.savefig(folder_manuscript+'methods_expe_validation_trajectories_q6uG100.pdf')
 plt.savefig(folder_manuscript+'methods_expe_validation_trajectories_q6uG100.eps',format='eps',dpi=1000)
@@ -168,18 +179,21 @@ plt.figure(figsize=(FFIG*22,FFIG*15))
 plt.plot(becker_corr.xD, becker_corr.zD_mean, 'k', label=r'Exp. correlation',linewidth=8*FFIG)
 plt.fill_between(becker_corr.xD, becker_corr.zD_lower, 
                  becker_corr.zD_upper, alpha=0.1, facecolor='black')
+'''
+plt.plot(data_op2_dx10['xD'], data_op2_dx10['zD'], 'y', label = r'$\Delta x_\Gamma = 10 \mu m$',linewidth=4*FFIG)
+plt.plot(data_op2_dx20['xD'], data_op2_dx20['zD'], 'g', label = r'$\Delta x_\Gamma = 20 \mu m$',linewidth=4*FFIG)
+'''
 plt.plot(data_op2_dx10['xD'], data_op2_dx10['zD'], 'y', label = r'UG75\_DX10',linewidth=4*FFIG)
-plt.plot(data_op2_dx20['xD'], data_op2_dx20['zD'], 'g', label = r'UG75\_DX20',linewidth=4*FFIG)
-plt.xlabel(r'$x/d_\mathrm{inj}$')
-plt.ylabel(r'$z/d_\mathrm{inj}$')
-plt.xlim(becker_corr.plotD_limits[0][0], becker_corr.plotD_limits[0][1])
-plt.ylim(becker_corr.plotD_limits[1][0], 20.0)#becker_corr.plotD_limits[1][1])
-plt.xlim(0,10)
-plt.ylim(0,12)
+plt.plot(data_op2_dx20['xD'], data_op2_dx20['zD'], 'g', label = r'UG100\_DX20',linewidth=4*FFIG)
+plt.xlabel(r'$x/D$')
+plt.ylabel(r'$z/D$')
+plt.xlim(x_lim_traj)
+plt.ylim(y_lim_traj)
 plt.grid()
 plt.legend(loc='upper left', numpoints = 2, framealpha=1)
 #plt.title(r' $u_G = 100$ m/s, $\Delta x_\mathrm{min}$ = 20 $\mu$m')
 #plt.title(title)
+#plt.title(r'$(a)$ $q=6$, $We_\infty = 830$')
 plt.tight_layout()
 plt.savefig(folder_manuscript+'methods_expe_validation_trajectories_q6uG75.pdf')
 plt.savefig(folder_manuscript+'methods_expe_validation_trajectories_q6uG75.eps',format='eps',dpi=1000)
@@ -191,11 +205,11 @@ plt.close()
 # L2 error
 plt.figure(figsize=(FFIG*22,FFIG*15))
 #plt.plot(becker_corr.xD, becker_corr.zD_mean, 'k', label=r'Exp. correlation',linewidth=8*FFIG)
-plt.plot(t_L2_op1_dx10, L2_op1_dx10['L2'], 'b', label = r'UG100\_DX10',linewidth=4*FFIG)
-plt.plot(t_L2_op1_dx20, L2_op1_dx20['L2'], 'r', label = r'UG100\_DX20',linewidth=4*FFIG)
-plt.plot(t_L2_op1_dx20_no_turb, L2_op1_dx20_no_turb['L2'], '--r', label = r'UG100\_DX20\_NO\_TURB',linewidth=4*FFIG)
-plt.plot(t_L2_op2_dx10, L2_op2_dx10['L2'], 'y', label = r'UG75\_DX10',linewidth=4*FFIG)
-plt.plot(t_L2_op2_dx20, L2_op2_dx20['L2'], 'g', label = r'UG75\_DX20',linewidth=4*FFIG)
+plt.plot(t_L2_op1_dx10, L2_op1_dx10['L2_to_xD10'], 'b', label = r'UG100\_DX10',linewidth=4*FFIG)
+plt.plot(t_L2_op1_dx20, L2_op1_dx20['L2_to_xD10'], 'r', label = r'UG100\_DX20',linewidth=4*FFIG)
+plt.plot(t_L2_op1_dx20_no_turb, L2_op1_dx20_no_turb['L2_to_xD10'], '--r', label = r'UG100\_DX20\_NO\_TURB',linewidth=4*FFIG)
+plt.plot(t_L2_op2_dx10, L2_op2_dx10['L2_to_xD10'], 'y', label = r'UG75\_DX10',linewidth=4*FFIG)
+plt.plot(t_L2_op2_dx20, L2_op2_dx20['L2_to_xD10'], 'g', label = r'UG75\_DX20',linewidth=4*FFIG)
 plt.xlabel(r'$\mathrm{t}^*$')
 plt.ylabel(r'$L_2$')
 plt.grid()
@@ -222,8 +236,8 @@ plt.plot(data_op2_dx10['xD'].values[1:], error_op2_dx10, 'y', label = r'UG75\_DX
 plt.plot(data_op2_dx20['xD'].values[1:], error_op2_dx20, 'g', label = r'UG75\_DX20',linewidth=4*FFIG)
 plt.xlabel(r'$x/d_\mathrm{inj}$')
 plt.ylabel(r'$\varepsilon~[\%]$')
-plt.xlim(becker_corr.plotD_limits[0][0], becker_corr.plotD_limits[0][1])
-#plt.ylim(-5, 4)#becker_corr.plotD_limits[1][1])
+plt.xlim(x_lim_traj)
+plt.ylim(-40, 30)#becker_corr.plotD_limits[1][1])
 plt.grid()
 #plt.legend(loc='best', numpoints = 2, framealpha=1)
 #plt.title(r' $u_G = 100$ m/s, $\Delta x_\mathrm{min}$ = 20 $\mu$m')

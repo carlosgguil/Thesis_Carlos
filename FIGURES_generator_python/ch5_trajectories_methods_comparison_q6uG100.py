@@ -19,7 +19,7 @@ from functions_methods import get_mean_trajectory_sweep
 
 
 # Change size of figures if wished
-FFIG = 1.0
+FFIG = 0.5
 
 
 folder_manuscript='C:/Users/d601630/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/results_trajectories/'
@@ -36,7 +36,7 @@ plt.rcParams['ytick.labelsize'] = 80*FFIG
 plt.rcParams['axes.labelsize']  = 80*FFIG
 plt.rcParams['axes.labelpad']   = 30*FFIG
 plt.rcParams['axes.titlesize']  = 80*FFIG
-plt.rcParams['legend.fontsize'] = 50*FFIG
+plt.rcParams['legend.fontsize'] = 40*FFIG
 plt.rcParams['font.size'] = 50*FFIG
 plt.rcParams['lines.linewidth'] =  6*FFIG
 plt.rcParams['legend.loc']      = 'lower right'
@@ -53,6 +53,11 @@ op1 = 'q6uG100'
 
 z_max = 15.0
 
+x_lim_traj = (-0.5, 17) #(becker_corr.plotD_limits[0][0], becker_corr.plotD_limits[0][1])
+y_lim_traj = (becker_corr.plotD_limits[1][0], z_max)
+
+tau = 0.2584
+dt = 1.5e-3 #ms
 
 #%% Load and process trajectories 
 
@@ -101,8 +106,8 @@ plt.plot(data_op1_dx20_method_c['xD'], data_op1_dx20_method_c['zD'], 'g', label 
 plt.plot(data_op1_dx20_method_d['xD'], data_op1_dx20_method_d['zD'], 'y', label = r'MEAN\_CONT',linewidth=4*FFIG)
 plt.xlabel(r'$x/d_\mathrm{inj}$')
 plt.ylabel(r'$z/d_\mathrm{inj}$')
-plt.xlim(becker_corr.plotD_limits[0][0], becker_corr.plotD_limits[0][1])
-plt.ylim(becker_corr.plotD_limits[1][0], z_max)#becker_corr.plotD_limits[1][1])
+plt.xlim(x_lim_traj)
+plt.ylim(y_lim_traj)#becker_corr.plotD_limits[1][1])
 plt.grid()
 plt.legend(loc='lower right', numpoints = 2, framealpha=1)
 #plt.title(r' $u_G = 100$ m/s, $\Delta x_\mathrm{min}$ = 20 $\mu$m')
@@ -113,14 +118,19 @@ plt.savefig(folder_manuscript+'methods_comparison_trajectories_q6uG100.eps',form
 plt.show()
 plt.close()
 
+t_method_a = (L2_op1_dx20_method_a['t'].values - 1)*dt/tau
+t_method_b = (L2_op1_dx20_method_b['t'].values - 1)*dt/tau
+t_method_c = (L2_op1_dx20_method_c['t'].values - 1)*dt/tau
+t_method_d = (L2_op1_dx20_method_d['t'].values - 1)*dt/tau
+
 # L2 error
 plt.figure(figsize=(FFIG*22,FFIG*15))
 #plt.plot(becker_corr.xD, becker_corr.zD_mean, 'k', label=r'Exp. correlation',linewidth=8*FFIG)
-plt.plot(L2_op1_dx20_method_a['t'], L2_op1_dx20_method_a['L2'], 'r', label = r'INST\_NN',linewidth=4*FFIG)
-plt.plot(L2_op1_dx20_method_b['t'], L2_op1_dx20_method_b['L2'], 'b', label = r'INST\_M',linewidth=4*FFIG)
-plt.plot(L2_op1_dx20_method_c['t'], L2_op1_dx20_method_c['L2'], 'g', label = r'MEAN\_GRAD',linewidth=4*FFIG)
-plt.plot(L2_op1_dx20_method_d['t'], L2_op1_dx20_method_d['L2'], 'y', label = r'MEAN\_CONT',linewidth=4*FFIG)
-plt.xlabel(r'$\mathrm{Iteration}$')
+plt.plot(t_method_a, L2_op1_dx20_method_a['L2_to_xD10'], 'r', label = r'INST\_NN',linewidth=4*FFIG)
+plt.plot(t_method_b, L2_op1_dx20_method_b['L2_to_xD10'], 'b', label = r'INST\_M',linewidth=4*FFIG)
+plt.plot(t_method_c, L2_op1_dx20_method_c['L2_to_xD10'], 'g', label = r'MEAN\_GRAD',linewidth=4*FFIG)
+plt.plot(t_method_d, L2_op1_dx20_method_d['L2_to_xD10'], 'y', label = r'MEAN\_CONT',linewidth=4*FFIG)
+plt.xlabel(r'$t^*$')
 plt.ylabel(r'$L_2$')
 plt.grid()
 #plt.legend(loc='best', numpoints = 2, framealpha=1)
@@ -143,7 +153,7 @@ plt.plot(data_op1_dx20_method_c['xD'], error_c, 'g', label = r'MEAN\_GRAD',linew
 plt.plot(data_op1_dx20_method_d['xD'], error_d, 'y', label = r'MEAN\_CONT',linewidth=4*FFIG)
 plt.xlabel(r'$x/d_\mathrm{inj}$')
 plt.ylabel(r'$\mathrm{Error}$')
-plt.xlim(becker_corr.plotD_limits[0][0], becker_corr.plotD_limits[0][1])
+plt.xlim(x_lim_traj)
 plt.ylim(-0.5, 4)#becker_corr.plotD_limits[1][1])
 plt.grid()
 #plt.legend(loc='best', numpoints = 2, framealpha=1)

@@ -467,6 +467,19 @@ In the same way as sampled spray can be in-plane discretized to obtain spatial d
 %\end{figure}
 %
 
+\subsection{Extraction of jet dense core}
+
+\begin{figure}[ht]
+     \centering
+     \includeinkscape[inkscapelatex=false,scale=0.22]{./part2_developments/figures_ch5_resolved_JICF/dense_core_extraction}
+     \caption{Extraction of dense core from resolved atomization simulations.}
+     % La solucion es UG75_DX10, r21 sol33
+      \label{fig:dense_core_extraction}
+\end{figure}
+
+
+
+
 \section{Obtention of initial conditions}
 \label{sec:ch5_initial_conditions}
 
@@ -875,6 +888,8 @@ In order to analyse the convergence and results of the four simulations performe
 
 \end{itemize}
 
+
+
 For each simulation, the different characteristic times are defined in Table \ref{tab:jicf_characteristic times}. The values $\tau_\mathrm{liq}$ and $\tau_\mathrm{ph}$, depend obviously on the operating condition and not on the mesh resolution, since they are have been obtained from mathematical formulas. On the other hand, the characteristic time $\tau_\mathrm{str}$ has been obtained from each simulation and a dependency on the mesh resolution employed can be expected. 
 
 \begin{table}[!h]
@@ -925,6 +940,13 @@ A non-dimensional time can be defined as
 \begin{equation}
 t^* = \frac{t}{\tau_\mathrm{ph}}
 \end{equation}
+
+Or:
+
+\begin{equation}
+t^* = \frac{t}{\tau_\mathrm{dr}}
+\end{equation}
+
 
 The increase in mesh elements is seen in Figure \ref{fig:JICF_nelem_increase}.
 
@@ -1368,6 +1390,9 @@ Several characteristic times can be defined in a jet in crossflow:
 \end{itemize}
 
 
+\begin{equation}
+t^* = \frac{t}{\tau_\mathrm{dr}}
+\end{equation}
 
 \section{Dense core characterization}
 \label{subsec:ch5_dense_core_in_ACLS_simus}
@@ -1384,6 +1409,12 @@ Resolved simulations are characterized by the presence of the dense core, whose 
 
 
 $\S$\ref{sec:ch4_dense_core_modelling}.
+
+Patil correlations:
+
+\begin{equation}
+\frac{\overline{z_b}}{d_\mathrm{inj}} = 1.48 q^{0.3} We_g^{0.1} ~~~~; \frac{\overline{x_b}}{d_\mathrm{inj}} = 8.6 q^{-0.4}
+\end{equation}
 
 \section{Frequential analysis}
 
