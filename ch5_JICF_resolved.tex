@@ -353,21 +353,10 @@ Another possibility to obtain mean trajectories is by using the mean field of th
 
 This method is more similar to the experimental methods presented in \citeColor[becker_breakup_2002], \citeColor[stenzler_penetration_2003] and \citeColor[freitag_spray_2008]. In these works, the jet trajectory is obtained as the contour of the maximum intensity gradient in the vertical direction of the mean jet (see Figure \ref{fig:expe_obtention_of_trajectories}). In a similar fashion, an equivalent postprocessing can be performed in the computations by obtaining the maximum gradient of $\overline{\psi}$ in the vertical direction for each $x$ coordinate: $\max \left( \nabla_z | \overline{\psi} | \right)$. The absolute value of $\overline{\psi}$ is taken because the interest is to retrieve the outer contour where $\overline{\psi}$ decreases along the vertical direction from $1$ (liquid) to 0 (gas), so the gradient is negative. Figure \ref{fig:trajectory_obtention_mean_methods_c_d} center shows an example of a $\max \left( \nabla_z | \overline{\psi} | \right)$ contour. \\
 
-Trajectories are then averaged:
-
-\begin{equation}
-<\max \left( \nabla_z \overline{\phi} \right)> = \frac{1}{T^*} \int_{t^*=0}^{t^*=T^*} \max \left( \nabla_z \overline{\phi} \right) dt^*
-\end{equation}
 
 \paragraph{Trajectory as iso-contour of mean $\overline{\psi}$}
 
 A more intuitive methodology is to obtain the trajectory as an iso-contour of the mean levelset field $\overline{\psi}$. This approach has been used to obtain JICF trajectories with simulations using a VOF methodology \citepColor[desclaux_experimental_2020]. In this works, several values for the iso-contour have been tested, and it has been found that the mean trajectories obtained are very sensitive to this value. Finally, a value of $\overline{\psi} = 0.01$ has been identified as the best contour to compare the resulting trajectories with the ones obtained with the rest of methods. Figure \ref{fig:trajectory_obtention_mean_methods_c_d} right shows an example of a an example of a $\overline{\psi} = 0.01$ contour. \\
-
-Trajectories are then averaged:
-
-\begin{equation}
-<\overline{\psi}> = \frac{1}{T^*} \int_{t^*=0}^{t^*=T^*} \overline{\psi} dt^*
-\end{equation} 
 
 Table \ref{tab:jicf_tools_trajectories_obtention} shows a summary of the four methodologies presented, and the names used in $\S$\ref{subsec:ch5_jet_trajectories_results} to display the results.
 
@@ -1091,6 +1080,12 @@ We can also define an error along the trajectory as follows:
 \caption{Trajectories obtained with methods MEAN\_GRAD}
 \label{fig:JICF_trajectories_validation}
 \end{figure}
+
+Slip velocity:
+
+\begin{equation}
+\overline{\textbf{u}}_{\mathrm{sl}} = \overline{\textbf{u}}_l - \overline{\textbf{u}}_g
+\end{equation}
 
 
 \section{Direct measurement of liquid flow rates}

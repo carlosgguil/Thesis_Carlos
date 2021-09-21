@@ -130,7 +130,7 @@ Additionally, there are more submodels to take into account:
 	
 		\item \textbf{Dense core learning} in order to take into account the perturbation effect of the liquid dense structures (i.e. the liquid dense core in the JICF) in the gaseous phase during lagrangian simulations ($\S$\ref{sec:ch4_dense_core_modelling}). The information to characterize the dense core is taken from the resolved simulations and later imposed into lagrangian ones.
 		
-		\item \textbf{Secondary atomization models} to consider further possible breakup of spherical droplets during lagrangian simulations $\S$ \ref{subsec:SLI_spatial_discretization}).
+		\item \textbf{Secondary atomization models} to consider further possible breakup of spherical droplets during lagrangian simulations $\S$\ref{subsec:SLI_spatial_discretization}).
 		
 	\end{itemize}
 
@@ -586,7 +586,7 @@ Therefore, the forces imposed to the actuator points are parametrized by the den
 \thickhline
 \textbf{Parameter} & \textbf{Units} & \textbf{Description} \\ 
 \thickhline
-$L$ & mm & Actuator length  \\
+$x_b, z_b$ & mm & Actuator end point  \\
 $c_0$ & mm & Chord at base of actuator \\
 $c_L$ & mm & Chord at tip of actuator \\
 $\theta$ & $\degree$ & Dense core inclination  \\
@@ -625,7 +625,7 @@ To simplify this expression, the forces in the windward and leeward sides of the
 
 %The approximation of considering the pressures as both sides as equal is done in this model as it has been observed in the resolved simulations (see Figure \textbf{????}), but requires further research and might be a source of error. 
 
-It must be taken into account that the current model has been derived considering the dense core as a rigid body immersed in a fluid. Its geometry has been approximated by observations of the dense core shape in resolved atomization simulations, and have been taken as constant. In reality, the dense core is a deformable body whose topology (breakup point, inclination, length) changes with time. Future works on deriving more thorough models intending to represent the dense core should take into account these transient properties \citeColor[patil_liquid_2021].
+It must be taken into account that the current model has been derived considering the dense core as a rigid body immersed in a fluid. Its geometry has been approximated by observations of the dense core shape in resolved atomization simulations, and have been taken as constant. In reality, the dense core is a deformable body whose topology (breakup point, inclination, length) changes with time. Future works on deriving more thorough models intending to represent the dense core should take into account these transient properties \citepColor[patil_liquid_2021].
 
 \subsubsection*{Neglecting the shear force term}
 
