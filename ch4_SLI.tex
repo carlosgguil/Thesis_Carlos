@@ -19,6 +19,8 @@ This chapter details the underlying theory of SLI, showing all the key modeling 
 
 In $\S$\ref{subsec:ch3_statistical_methods}, dispersed sprays resulting from atomization were described by a function $f$ which represented the number density function of droplets. By a proper determination and integration of $f$, all the characteristics from spray can be obtained. Several methods targeting the determination of $f$ were discussed in Chapter \ref{ch3:disperse_phase_methods}, from statistical approaches to the LPP representation. Even if only statistical approaches make use of the WBE formulation, LPP can be considered as an approximation to the $f$ function by considering the point particle approximation. Consequently, since in this work the LPP representation is chosen to represent dispersed phase flows, a mathematical representation of dispersed sprays based on the function $f$ as given by Eq. (\ref{eq:f_spray_description_subramanian}) is used. This section intends to provide some theoretical foundations for the developed models from a generic, mathematical perspective. The rest of the chapter will be dedicated to explain how this formulation is applied in the current work. \\
 
+\clearpage
+
 \subsection{General formulation}
 
 The spray produced by atomization can be described by a continuous function $F$:
@@ -27,11 +29,11 @@ The spray produced by atomization can be described by a continuous function $F$:
 F \left( t, \textbf{x}, \textbf{u}, D \right) 
 \end{equation}
 
-which is defined in the whole spatial domain $\Omega \left( \boldsymbol{x} \right)$, $\forall \boldsymbol{x} = \left\lbrace x, y, z \right\rbrace^T \in {R}^3$. It is of interest to sample the spray crossing a surface $\mathcal{S}$ belonging to the whole spatial domain: $\mathcal{S} \subset \Omega $. The spray sampled in this surface is described by a continuous function $f$:
+which is defined in the whole spatial domain $\Omega \left( \boldsymbol{x} \right)$, $\forall \boldsymbol{x} = \left\lbrace x, y, z \right\rbrace^T \in {R}^3$. In this first version of SLI, the spray will be characterized in plane surfaces. Therefore, it is of interest to sample the spray crossing a surface $\mathcal{S}$ belonging to the whole spatial domain: $\mathcal{S} \subset \Omega $. The spray sampled in this surface is described by a continuous function $f$:
 
 \begin{equation}
 \label{eq:f_general}
- f \left( t, \textbf{x}, \textbf{u}, D \right) = F \left( t, \textbf{x}, \textbf{u}, D \right) ~ \forall ~ \mathrm{\boldsymbol{x} \in \mathcal{S}} 
+ f \left( t, \textbf{x}, \textbf{u}, D \right) = F \left( t, \textbf{x}, \textbf{u}, D \right) ~ \forall ~ \textbf{x} \in \mathcal{S}
 \end{equation}
 
 As $f$ is defined in a surface, it can be spatially represented by only two coordinates. These surface coordinates can be expressed as a vector $\boldsymbol{s} = \left\lbrace \xi, \eta \right\rbrace$. They can represent any type of surface, from cartesian to curvilinear. Therefore, the function $f$ can be expressed in terms of $\boldsymbol{s}$ as:
@@ -52,41 +54,24 @@ h : \boldsymbol{x} \rightarrow \boldsymbol{s}
 
 where $h$ is a mapping function, or morphism, that will transform from cartesian coordinates $\boldsymbol{x}$ to surface coordinates $\boldsymbol{s}$. \\
 
-In this work, the spray is sampled over a time period $T$ and then considered stationary. Therefore, the dependence with time can be eliminated by integration:
+
+In this work, the variation of the spray characteristics with time will not be considered. Instead, the obtention and study a stationary, converged spray will the the main objective of this first version of SLI. For such purpose, the spray will be sampled with time for a time period $T$ which should be large enough in order to obtain a converged spray (convergence will be discusses in $\S$\ref{subsec:SLI_spray_convergence}), hence eliminating the dependence with time. Mathematically speaking, this can be represented through integration:
 
 \begin{equation}
 \label{eq:f_general_time_integrated}
 f \left( \boldsymbol{s}, \boldsymbol{u}, D \right) = \frac{1}{T} \int_0^T f \left( t, \boldsymbol{s}, \boldsymbol{u}, \right) dt
 \end{equation}
 
-Finally, the for a better characterization of the spray, the sampling surface $\mathcal{S}$ is spatially discretized into several elements, or probes, of size $\Delta S$. In this way, the spray within each probe can be independently characterized to provide \textbf{spatially refined statistics}. The 
+Eventually, for a better characterization of the spray, the sampling surface $\mathcal{S}$ will be spatially discretized into several elements, or probes, of size $\Delta S$. In this way, the spray within each probe can be independently study to provide \textbf{spatially refined statistics}. The representation of spatially refined statistics can be obtained from $f$ by integrating spatially this function within each probe with center $\left( \xi_\mathrm{j}, \eta_\mathrm{k} \right)$:
 
 \begin{equation}
 \label{eg:f_discrete}
 f_\mathrm{j,k} \left( \boldsymbol{s}_\mathrm{j,k}, \boldsymbol{u}, D \right) = \frac{1}{\Delta \xi \Delta \eta} \int_{\xi_\mathrm{j-1/2}}^{\xi_\mathrm{j+1/2}} \int_{\eta_\mathrm{k-1/2}}^{\eta_\mathrm{k+1/2}}  f \left( \boldsymbol{s}, D \right) d\xi d\eta
 \end{equation}
 
-
-%To get statistics from an eulerian formulation, spray sampling is performed in a surface $\Delta S$ which is contained within the sampling surface: $\Delta S \subset \mathcal{S}$. Hence the function $f \left( \boldsymbol{s}, D \right)$, which is defined $\forall \boldsymbol{s} = \left\lbrace \xi, \eta \right\rbrace \in \boldsymbol{R}^2$, will be integrated in a smaller regions $\Delta S$ with dimensions $\Delta \xi$ and $\Delta \eta$. This produces a new function named $g$:
-%
-%\begin{equation}
-%\label{eg:g_general}
-%g \left( \boldsymbol{s}, \boldsymbol{u}, D \right) = \frac{1}{\Delta S} \iint_{\Delta S} f \left( \boldsymbol{s}, \boldsymbol{u}, D \right) dS = \frac{1}{\Delta \xi \Delta \eta} \int_{\xi - \Delta \eta /2}^{\xi + \Delta \xi} \int_{\eta - \Delta \eta /2}^{\eta + \Delta \eta/2}  f \left( \boldsymbol{s}, \boldsymbol{u}, D \right) d\xi d\eta
-%\end{equation}
-
-%where the integration boundaries delimit the region of interest. Note that, in this case, the function $g \left( \boldsymbol{s}, D \right)$ will be discrete: for any pair of surface coordinates $\boldsymbol{s}$ which that belong to a given spatial region $\Delta S$, the same value of $g$ will hold. The function $g \left( \boldsymbol{s}, D \right)$ will define hereafter what we call \textbf{spatially refined statistics}.
-%
-%In a last step, we might be interested in looking at statistics that characterize the full domain $\mathcal{S}$. Hence, spatial integration must be performed in the whole sampling surface. These \textbf{spatially integrated statistics} will be calculated as follows:
-%
-%\begin{equation}
-%f \left( D \right) = g \left( D \right) = \frac{1}{\mathcal{S}} \iint_{\mathcal{S}} f \left( \boldsymbol{s}, D \right) dS
-%\end{equation}
-%
-%Note that in this case it is indifferent to use either $f$ or $g$ functions, as both of them will produce a scalar value (except for the dependency with the diameter $D$, which is idential in both formulations).
-
 \subsection{Spray formulation in jet in crossflow}
 
-
+A more precise, less abstract interpretation of the spray formulation of SLI can be obtained by applying the general formulation to a liquid JICF problem, which has been introduced in $\S$\ref{sec:ch1_fuel_injection_technology}. Figure \ref{fig:JICF_spray_formulation} shows a liquid JICF from a resolved atomization simulation performed with YALES2. As observed, the liquid leaves the injection nozzle as a coherent jet moving along the $z$ direction and then starts bending towards the $x$ direction. Atomization starts taking place and breaking the jet into firstly ligaments and, subsequently, droplets. The resulting droplets from the atomization process conform a spray that can be analyzed by the SLI strategy. Therefore, to study this spray, first droplets need to be sampled in sampling surfaces. In a geometrically simple JICF problem as the one from Figure \ref{fig:JICF_spray_formulation}, the sampling surfaces are planes perpendicular to the crossflow direction $x$ denoted in the figure by $S$. 
 
 \begin{equation}
 \label{eg:f_discrete_jicf}
@@ -96,7 +81,7 @@ f_\mathrm{j,k} \left( \boldsymbol{s}_\mathrm{j,k}, \boldsymbol{u}, D \right) = \
 \begin{figure}[h!]	
 	\centering
 	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch4_SLI/JICF_spray_formulation}
-	\caption{Illustration of SLI working principle.}
+	\caption{Illustration of SLI spray formulation in a liquid JICF.}
 	\label{fig:JICF_spray_formulation}
 \end{figure}
 
@@ -547,21 +532,21 @@ As depicted in Figure \ref{fig:arienti_2006_jicf}, the presence of the dense cor
 	\label{fig:ALM_DC_learning}
 \end{figure}
 
-Figure \ref{fig:ALM_DC_learning} shows the representation of the dense core (top figures) as an actuator line model (bottom figures). Its complex topology is emulated by a frustum with increasing chord from the bottom ($c = d_\mathrm{inj}$) to the top ($c = W$). The frustum has a length $L$ and an inclination angle $\theta$ which are obtained as the breakup point coordinates $(x_b, z_b)$ of the dense core from resolved atomization simulations: $L = \sqrt{x_b^2 + z_b^2}$ and $\theta = \tan^{-1} \left( z_b / x_b\right)$. The actuator points where discrete forces are placed are equally-spaced with a distance $w$ along the center line of the frustum. The number of points $N_p$ also needs to be specified in the ALM model.
+Figure \ref{fig:ALM_DC_learning} shows the representation of the dense core (top figures) as an actuator line model (bottom figures). Its complex topology is emulated by a frustum with increasing chord from the bottom ($c_0 = d_\mathrm{inj}$) to the top ($c_L = W$). The frustum has a length $L$ and an inclination angle $\theta$ which are obtained from the breakup point coordinates $(x_b, z_b)$ of the dense core in resolved atomization simulations: $L = \sqrt{x_b^2 + z_b^2}$ and $\theta = \tan^{-1} \left( z_b / x_b\right)$. The actuator points where discrete forces are placed are equally-spaced with a distance $w$ along the center line of the frustum. The number of points $N_p$ also needs to be specified in the ALM model.
 
-Apart from the geometry, the forces applied to the actuator points also need to be specified. In this model, instead of specifying coefficients as done in wind turbine blades, the forces will be directly imposed in the actuator points. As shown in Figure \ref{fig:ALM_DC_learning}c, the force in the actuator will evolve linearly from the bottom to the top in order to take into account the real increasing cross-section of the actuator, which has the effect of increasing drag \citepColor[mashayek_jet_2006]. The force acts in a direction normal to the axis of the frustum. Therefore, the imposed forces can therefore be decomposed into two components: a drag force $D$ along the $x$ direction and a lift force $L$ along the $z$ direction. As each point force is specified at each actuator point $\left( x_p, z_p \right)$, the decomposition holds as follows:
+Apart from the geometry, the forces applied to the actuator points are also defined. In this model, instead of specifying coefficients as done in wind turbine blades, the forces will be directly imposed in the actuator points. As shown in Figure \ref{fig:ALM_DC_learning}c, the force in the actuator will evolve linearly from the bottom to the top in order to take into account the real increasing cross-section of the actuator, which has the effect of increasing drag \citepColor[mashayek_jet_2006]. The force acts in a direction normal to the axis of the frustum. Therefore, the imposed forces can be decomposed into two components: a drag force $D$ along the $x$ direction and a lift force $L$ along the $z$ direction. As each point force is specified at each actuator point $\left( x_p, z_p \right)$, the decomposition holds as follows:
 
 \begin{equation}
 \textbf{F} \left( x_p, z_p \right) = D \left( x_p, z_p \right) \textbf{i} + L \left( x_p, z_p \right) \textbf{k} 
 \end{equation}
 
-where $\textbf{i}$ and $\textbf{k}$ are the unit vectors in the $x$ and $z$ directions. To obtain these forces, the net force applied to the dense core $\textbf{F}_\mathrm{DC}$ is obtained from the resolved simulations, see Figure \ref{fig:ALM_DC_learning}a. This force is assumed to act in the same direction as the forces $\textbf{F} \left( x_p, z_p \right)$ from the actuator model, and is split into the several forces that are applied to the actuator points. Therefore, the following condition must be fulfilled:
+where $\textbf{i}$ and $\textbf{k}$ are the unit vectors in the $x$ and $z$ directions, respectively. To estimate these forces, the net force applied to the dense core $\textbf{F}_\mathrm{DC}$ is obtained from the resolved simulations, see Figure \ref{fig:ALM_DC_learning}a. This force is assumed to act in the same direction as the forces $\textbf{F} \left( x_p, z_p \right)$ from the actuator model, and is repartitioned (\textbf{XX?Maybe other word?}) into the several forces that are applied to the actuator points. Therefore, the following condition must be fulfilled:
 
 \begin{equation}
 \sum_{p=1}^{N_p} | \textbf{F} \left( x_p, z_p \right)| = | \textbf{F}_\mathrm{DC} |
 \end{equation}
 
-where $| \textbf{F}_\mathrm{DC} |$ is obtained from the resolved simulations (see next section for details on its calculation). As the forces $| \textbf{F} \left( x_p, z_p \right)|$ increase linearly along the actuator, its evolution is represented by the following expression accordingly to the vertical coordinates $z_p$ of the actuator points:
+where $| \textbf{F}_\mathrm{DC} |$ is obtained from the resolved simulations (see $\S$\ref{subsec:ch4_ALM_forces_determination}). As the forces $| \textbf{F} \left( x_p, z_p \right)|$ increase linearly along the actuator, its evolution is represented by the following expression accordingly to the vertical coordinates $z_p$ of the actuator points:
 
 \begin{equation}
 |\textbf{F} \left( x_p, z_p \right) | = | \textbf{F}_\mathrm{DC} | \frac{z_p}{\sum_{p=1}^{N_p} z_p}
@@ -599,6 +584,7 @@ $| \textbf{F}_\mathrm{DC} |$ & N & Dense core net force\\
 
 
 \subsection{Determination of forces}
+\label{subsec:ch4_ALM_forces_determination}
 
 The forces to impose in the actuator model are learnt from the resolved atomization simulation. For this purpose, the forces are firstly calculated in these simulations by calculating the corresponding term of the momentum equation (\ref{eq:momentum_conservation_general_integral}):
 
@@ -641,7 +627,7 @@ where $\overline{\overline{\epsilon}}$ is the deformation tensor:
 \overline{\overline{\epsilon}} = \frac{1}{2} \left( \nabla \boldsymbol{u} + \left(\nabla \boldsymbol{u}\right)^T \right)
 \end{equation}
 
-The forces $\boldsymbol{F}_\tau$ cannot be easily calculated with the current methodology. Instead, a more simple expression of the shear forces based on a friction coefficient $C_f$ and a reference surface $S$ is used \citemColor[soedarmo_simplified_2018,johnston_investigation_1984]:
+The forces $\boldsymbol{F}_\tau$ cannot be easily calculated with the current methodology. Instead, a more simple expression of the shear forces based on a friction coefficient $C_f$ and a reference surface $S$ is used \citemColor[johnston_investigation_1984,soedarmo_simplified_2018]:
 
 \begin{equation}
 \label{eq:ALM_model_Ftau}
@@ -666,13 +652,13 @@ r_F = \frac{| \boldsymbol{F}_p| }{| \boldsymbol{F}_\tau |} = \frac{\Delta p}{0.1
 \end{equation}
 
 
-Where $\Delta p \sim O \left( 10^4 \right) $ in the operating points studied (see Table \ref{tab:jicf_operating_conditions} and Figure \textbf{????}). So considering this value, the expression for $r_F$ can be approximated by:
+Where $\Delta p \sim O \left( 10^4 \right) $ in the operating points studied (see Table \ref{tab:jicf_operating_conditions} and Figure \textbf{????}). Considering this value, the expression for $r_F$ can be estimated to be:
 
 \begin{equation}
 r_F \sim \frac{10^5}{\rho_g u_g^2 \left( \log Re_x \right)^{-2.584}}
 \end{equation}
 
-According to the operating points studied, the values of $Re_x$ can range from $10^3$ to $10^5$. In such points, $\rho_g = 7.21$ kg m$^{-3}$ and $u_g = 75, 100$ m s$^{-1}$. With these values, the expression of $r_F$ can be plotted as a function of $Re_x$ in Figure \ref{fig:ALM_rF_vs_Rex}. As observed, the ratio $r_F$ presents values between 10 to 90 for the $Re_x$ range of interest. These ratios mean that the pressure force $\boldsymbol{F}_p$ is between 10 and 90 times the shear force $\boldsymbol{F}_\tau$. Therefore, $|\boldsymbol{F}_\tau| << |\boldsymbol{F}_p|$ and only the contribution of the pressure force is considered to calculate the dense core net force.
+According to the operating points studied (see Chapter \ref{ch5:jicf_resolved_simulations}), the values of $Re_x$ range from $10^3$ to $10^5$. In such points, $\rho_g = 7.21$ kg m$^{-3}$ and $u_g = 75, 100$ m s$^{-1}$. With these values, the expression of $r_F$ can be plotted as a function of $Re_x$ in Figure \ref{fig:ALM_rF_vs_Rex}. As observed, the ratio $r_F$ presents values between 10 to 90 for the $Re_x$ range of interest. These ratios mean that the pressure force $\boldsymbol{F}_p$ is between 10 and 90 times the shear force $\boldsymbol{F}_\tau$. Therefore, $|\boldsymbol{F}_\tau| << |\boldsymbol{F}_p|$ and only the contribution of the pressure force is considered to calculate the dense core net force.
 
 
 
@@ -680,7 +666,7 @@ According to the operating points studied, the values of $Re_x$ can range from $
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.5]{./part2_developments/figures_ch4_SLI/ALM_rF_vs_Rex.eps}
-	\caption{Force ratio with $Re_x$.}
+	\caption{Force ratio evolution with $Re_x$.}
 	\label{fig:ALM_rF_vs_Rex}
 \end{figure}
 
