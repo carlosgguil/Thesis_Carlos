@@ -28,8 +28,8 @@ figsize_ = (FFIG*26,FFIG*13)
 #%% Cases
 
 # Main folder
-folder_manuscript='C:/Users/d601630/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mean_profiles/'
-folder = 'C:/Users/d601630/Desktop/Ongoing/ICS_study/u_mean_profiles/cases_probes/'
+folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mean_profiles/'
+folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/ICS_study/u_mean_profiles/cases_probes/'
 
 # Cases
 case_OP1 = folder + 'mesh_refined_DX0p5_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7/'

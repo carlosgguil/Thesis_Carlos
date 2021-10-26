@@ -90,7 +90,7 @@ Figure \ref{fig:numerical_setup_maquette_JICF_DLR} shows the computational domai
       \label{fig:numerical_setup_maquette_JICF_DLR}
 \end{figure}
 
-Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane at $y = 0$ is displayed. It is composed of 66 million tetrahedral cells. The baseline cell size in the channel upstream liquid injection is 0.5 mm, while the cells located in the downstream region have an average size of 3 mm. The element size at the near-field region is 0.7 mm, and within the discharge section of the liquid nozzle it is refined to to $20 \mu m$. The justification of this mesh is done at $\S$\ref{sec:ch5_initial_conditions}, where a mesh independence study of the gaseous field is carried out. This mesh is used at the beginning of all the simulations performed, but then it change dynamically in each simulation as more liquid is introduced in the domain due to the AMR routine that refines the mesh at the liquid-gas interface ($\S$\ref{sec:YALES2}). Simulations are performed with the ACLS methodology describe in $\S$\ref{subsec:ch2_ACLS}.
+Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane at $y = 0$ is displayed. It is composed of 66 million tetrahedral cells. The baseline cell size in the channel upstream liquid injection is 0.5 mm, while the cells located in the downstream region have an average size of 3 mm. The element size at the near-field region is 0.7 mm, and within the discharge section of the liquid nozzle it is refined to to $20~\mu m$. The justification of this mesh is done at $\S$\ref{sec:ch5_initial_conditions}, where a mesh independence study of the gaseous field is carried out. This mesh is used at the beginning of all the simulations performed, but then it change dynamically in each simulation as more liquid is introduced in the domain due to the AMR routine that refines the mesh at the liquid-gas interface ($\S$\ref{sec:YALES2}). Simulations are performed with the ACLS methodology describe in $\S$\ref{subsec:ch2_ACLS}.
 
 \begin{figure}[h!]
 	\centering
@@ -608,7 +608,7 @@ A total of four simulations have been performed: one simulation per each mesh wi
 \end{empheq}
 \end{subequations}
 
-where $\overline{u \left( z \right)}$ is the time-averaged, or mean, velocity at each $z$ location and $L$ is the line length, which corresponds to the height of the channel. The chosen line is of interest since it is located right before the liquid injector, so the velocity and TKE profiles in this section will be the ones seen by the liquid jet and which will affect its deviation. The integrated values for the deviation are shown in Figure \ref{fig:mesh_convergence_line_averages}, where time is expressed with respect to the flow-through time. As shown, profiles of both $\langle u \rangle$ and $\langle TKE \rangle$ reach a steady state in all simulations after a simulation time of $30$ time the flow-through time, so statistics are considered to be converged after this value. Therefore, all the statistics shown hereafter will refer to statistically-converged results obtained after $t / \tau_\mathrm{fl} = 30$. Regarding the mesh effect (considering turbulence injection), $\langle u \rangle$ shows a change for the coarse mesh $\Delta x_\mathrm{ups} = 1~\mathrm{mm}$ with respect to $\Delta x_\mathrm{ups} = 0.5, 0.3~\mathrm{mm}$, which show the same value, indicating proper mesh convergence for $\langle u \rangle$ at the selected integration line. Surprisingly, $\langle TKE \rangle$ shows the same value for the three mesh resolutions employed: the mesh seems to have no effect in $\langle TKE \rangle$. Regarding the influence of turbulence injection (with $\Delta x_\mathrm{ups} = 0.5~\mathrm{mm}$), both magnitudes show statistically-converged values lower than the case with turbulence. This is coherent with TKE, since it means that injecting turbulent fluctuations at the inlet increase the turbulent state further downstream. However, no explanation is found of why adding turbulence with the selected methodology changes the value of $\langle u \rangle$. Nevertheless, it is to be noted that these line-integrated values are used only to obtain an idea of the time the flows take to establish, and do not represent magnitudes that can be used for a proper assessment of the mesh independence. As it will later be shown, the TKE profiles represented along here-called integration line are very dependent on the mesh resolution employed.
+where $\overline{u \left( z \right)}$ is the time-averaged, or mean, velocity at each $z$ location; $h$ is the line length, which corresponds to the height of the channel; and $u'$, $v'$ and $w'$ are the fluctuating components of the velocity in the $x$, $y$ and $z$ directions respectively. The chosen line is of interest since it is located right before the liquid injector, so the velocity and TKE profiles in this section will be the ones seen by the liquid jet and which will affect its deviation. The integrated values for the deviation are shown in Figure \ref{fig:mesh_convergence_line_averages}, where time is expressed with respect to the flow-through time. As shown, profiles of both $\langle u \rangle$ and $\langle TKE \rangle$ reach a steady state in all simulations after a simulation time of $30$ time the flow-through time, so statistics are considered to be converged after this value. Therefore, all the statistics shown hereafter will refer to statistically-converged results obtained after $t / \tau_\mathrm{fl} = 30$. Regarding the mesh effect (considering turbulence injection), $\langle u \rangle$ shows a change for the coarse mesh $\Delta x_\mathrm{ups} = 1~\mathrm{mm}$ with respect to $\Delta x_\mathrm{ups} = 0.5, 0.3~\mathrm{mm}$, which show the same value, indicating proper mesh convergence for $\langle u \rangle$ at the selected integration line. Surprisingly, $\langle TKE \rangle$ shows the same value for the three mesh resolutions employed: the mesh seems to have no effect in $\langle TKE \rangle$. Regarding the influence of turbulence injection (with $\Delta x_\mathrm{ups} = 0.5~\mathrm{mm}$), both magnitudes show statistically-converged values lower than the case with turbulence. This is coherent with TKE, since it means that injecting turbulent fluctuations at the inlet increase the turbulent state further downstream. However, no explanation is found of why adding turbulence with the selected methodology changes the value of $\langle u \rangle$. Nevertheless, it is to be noted that these line-integrated values are used only to obtain an idea of the time the flows take to establish, and do not represent magnitudes that can be used for a proper assessment of the mesh independence. As it will later be shown, the TKE profiles represented along here-called integration line are very dependent on the mesh resolution employed.
 
  %Each simulation has run for a total time of \textbf{??}, which corresponds to $\textbf{??}$ flow through times. This physical time ensures that the parameters of interest, such as mean and RMS velocities are converged. % To illustrate the flow establishment, we are going to look at the evolution of the mean axial velocity $\langle u \rangle$ and mean Turbulent Kinetic Energy (TKE) averaged along the line shown in Figure \ref{fig:mesh_convergence_line_averages}. At this point,  located right upstream the injection nozzle. 
 
@@ -679,24 +679,42 @@ where $\overline{u \left( z \right)}$ is the time-averaged, or mean, velocity at
 
 Instantaneous snapshots of the fluctuating axial component $u'$ in the middle plane are shown in Figure \ref{fig:ics_mesh_independency_study_up_fields}. The black contours denote the lines with $u' = 0$. As shown, adding turbulence at the inlet introduces fluctuations that are transported downstream the domain. When no turbulence is added, fluctuations are not present (the black contours at the inlet are due to small numerical fluctuations of $u'$) except close to the walls, since they are created inside the boundary layer where flow is intrinsically turbulent. It is also observed that the characteristic length of the eddies changes when refining the mesh: for the coarsest mesh ($\Delta x_\mathrm{ups} = 1$ mm), these structures are generally large, while refining the mesh to $\Delta x_\mathrm{ups} = 0.5$ and $0.3$ mm reduced their size. 
 
-To assess the quality of the meshes, it is useful to introduce a criterion for measuring the turbulent resolution. For such purpose, the Pope's criterion $M$ is employed \textbf{ref-pope-criterion}, which is calculated from the ratio between the resolved and sub-grid Turbulent Kinetic Energies,  $\mathrm{TKE}$ and $k_\mathrm{sgs}$ respectively:
+%% OJO: Pope criterion
+%
+%To assess the quality of the meshes, it is useful to introduce a criterion for measuring the turbulent resolution. For such purpose, the Pope's criterion $M$ is employed \textbf{ref-pope-criterion}, which is calculated from the ratio between the resolved and sub-grid Turbulent Kinetic Energies,  $\mathrm{TKE}$ and $k_\mathrm{sgs}$ respectively:
+%
+%\begin{equation}
+%M \left( \textbf{x}, t \right) = \frac{k_\mathrm{sgs} \left( \textbf{x}, t \right)}{k_\mathrm{sgs}  \left( \textbf{x}, t \right) + TKE \left( \textbf{x}, t \right)}
+%\end{equation}
+%
+%$M$ represents therefore the ratio between the sub-grid (unresolved) and total TKEs in the domain, and depends on time and space. From its definition it follows that $M = 0$ corresponds to full resolution (i.e. DNS) and $M = 1$ to full modelling (i.e. RANS) of the turbulent flow field. The sub-grid TKE can be obtained from the following expression:
+%
+%
+%\begin{equation}
+%k_\mathrm{sgs} = \left( \frac{\nu_t}{0.18 \Delta x} \right)^2
+%\end{equation}
+%
+%where $\nu_t$ is the turbulent kinematic viscosity as given by the dynamic Smagorinsky model \citepColor[germano_dynamic_1991]. 
+%
+%Figure \ref{fig:ics_mesh_independency_study_POPE_M_fields} shows instantenous fields of Pope's criterion for the four simulations performed. As observed, by reducing the element size more regions with values of $M$ closer to $0$ are present. For $\Delta x = 1$ mm there several zones where $M$ has high values. These ones are overall reduced when reducing the cell size to $0.5$ mm and further to $0.3$ mm. Between these last two cell sizes there are also differences in the $M$ field specially far from the walls. For all cases, the $M$ values close to the walls are higher than in the far-field, indicating that a finer resolution would be needed in the walls to properly capture the turbulent features of the boundary layer. Nevertheless, these ones remain around $M \approx 0.5$ for the meshes with $\Delta x = 0.5$ and $0.3$ mm, indicating enough resolution for LES simulations. Regarding the case without turbulence injection for $\Delta x = 0.5$ mm, the $M$ field shows higher values with respect to the case where turbulence is added, specially closer to the inlet and in the regions outside the boundary layer. 
+
+In order to compare quantitatively the difference between meshes, the signals of $u'$ have been monitored with time at the probes shown by the white crosses in the top of Figure \ref{fig:ics_mesh_independency_study_up_fields}. Two probes have been located: one at 50 mm upstream the liquid inlet (x = 70 mm, probe A) and another one 1 mm upstream the liquid injection nozzle (x = 119 mm, probe B), both at a height of 8 mm from the bottom wall. The capability of the meshes to transport the resolved turbulent scales, which is of the order of the turbulent fluctuations displayed in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}, is then verified by comparing the fluctuations and spectra obtained with Fast Fourier Transform (FFT) at both probes in Figure \ref{fig:ics_mesh_independency_study_probes}. Time has been normalised with the flow-through time $\tau_\mathrm{fl}$, and the signals are shown for one passage of $\tau_\mathrm{fl}$ for easiness of visualization. For the coarsest mesh $\Delta x_\mathrm{ups} = 1$ mm (Figure \ref{fig:ics_mesh_independency_study_probes_dx1p0}), the $u'$ signal sampled closer to the nozzle (Probe B) shows similar magnitudes and frequencies to the signal sampled upstream (Probe A). Despite the characteristic peaks at frequencies of 8, 17 and 25 $\mathrm{kHz}$ with decreasing intensity for both probes, low frequencies below 10 $\mathrm{kHz}$ are excited. The spectrum at Probe B shows a higher relative intensity at these low frequencies with at 3 $\mathrm{kHz}$ not observed at probe A. This indicates that for this resolution, turbulent energy is not properly transported to the liquid injector. Furthermore, characteristic frequencies larger than 25 $\mathrm{kHz}$ cannot be capture, which is not the case for the rest of resolutions. When the mesh is refined to $\Delta x_\mathrm{ups} = 0.5$ mm (Figure \ref{fig:ics_mesh_independency_study_probes_dx0p5}), the small dominant frequencies are no longer relevant and the dominant frequencies are properly captured, as the match in the peaks of the spectra indicate. In this case, the frequencies 8 and 25 $\mathrm{kHz}$ have larger intensity than 17 $\mathrm{kHz}$. Refining the mesh to $\Delta x_\mathrm{ups} = 0.3$ mm (Figure \ref{fig:ics_mesh_independency_study_probes_dx0p3}) has no longer effect neither in the magnitude of the fluctuations nor in the spectrum. 
+
+The fluctuations and FFT of the simulation performed without turbulence injection for the resolution $\Delta x_\mathrm{ups} = 0.5$ mm are shown Figure \ref{fig:ics_mesh_independency_study_probes_dx0p5_no_turb}. As expected, the magnitude of the fluctuations is lower than in the cases with synthetic turbulence. The spectrum shows that the energy content at low frequencies is high and that no clear dominant frequencies are found. \\
+
+A final check on the mesh capability to transport turbulent can be done by calculating the Turbulent Kinetic Energy (TKE) at the probes A and B for simulation where turbulence is transported. TKE can be defined by the following formula:
 
 \begin{equation}
-M \left( \textbf{x}, t \right) = \frac{k_\mathrm{sgs} \left( \textbf{x}, t \right)}{k_\mathrm{sgs}  \left( \textbf{x}, t \right) + TKE \left( \textbf{x}, t \right)}
+TKE = \frac{1}{2} \left( \overline{u'^2} + \overline{v'^2} + \overline{w'^2} \right)
 \end{equation}
 
-$M$ represents therefore the ratio between the sub-grid (unresolved) and total TKEs in the domain, and depends on time and space. From its definition it follows that $M = 0$ corresponds to full resolution (i.e. DNS) and $M = 1$ to full modelling (i.e. RANS) of the turbulent flow field. The sub-grid TKE can be obtained from the following expression:
+Note that, unlike in Eq. (\ref{eq:line_averaged_u_and_TKE}), the TKE is not averaged along a line but represents the resolved energy contained in the eddies at probes A and B. 
+Results are shown in Figure \ref{fig:TKE_vs_dx_in_probes}. As observed ... \\
 
+Finally, the profiles of mean axial velocity $\overline{u}$ and TKE are plotting along the vertical line shown in Figure \ref{fig:ics_mesh_independency_study_up_fields} right for the half-width of the channel. The results are shown in Figure \ref{fig:ics_mesh_independency_study_mean_profiles}. The mean velocity profile is properly captured for all meshes, despite slight variations within the boundary layer where the mean velocity evolves from 0 $m.s^{-1}$ to the velocity in the outer layer, which is constant and equal in all cases (despite some fluctuations due to numerical noise). The boundary layer thickness (observed in the evolution of both $\overline{u}$ and $TKE$) is around 5 mm, which is consistent with the experimental values reported in \citeColor[becker_breakup_2002]. The $TKE$ profiles for the turbulent cases shows that its value in the outer layer (z > 5 $mm$) is similar for the resolutions $\Delta x_\mathrm{ups} = 0.5$ and $0.3$ mm, but lower for the thicker resolution of 1 mm. For $\Delta x_\mathrm{ups} = 0.5$ mm, the profile with turbulence shows larger values of TKE than the case without turbulence injected, as expected. Within the boundary layer, however, convergence in terms of resolution is never achieved, since the profile always changes when the mesh is refined in the inner layer (up to z = 2 mm). The smalles scales of for this region are assumed to be of the order of \textbf{XX??} (see Appendix \textbf{XX??}), which cannot be captured not even with the finest cell size of $\Delta x_\mathrm{ups} = 0.3$ mm. A proper resolution at this region would require cell sizes corresponding to DNS, which is unfeasible for the case studied. Nevertheless, the values of TKE for z > 2 mm, including the energy decrease from this point up to the freestream, is converged for the resolution $\Delta x_\mathrm{ups} = 0.5$ mm. \\
 
-\begin{equation}
-k_\mathrm{sgs} = \left( \frac{\nu_t}{0.18 \Delta x} \right)^2
-\end{equation}
+From these results, the simulation with the mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm was chosen as initial solution for performing the two-phase simulations. As shown, this mesh size allows for a proper turbulent transport (frequencies and energy content) with a moderable cost: Table \ref{tab:jicf_mesh_independence_gaseous_study} shows that decreasing the resolution from 1 to 0.5 mm supposed an increase of 5 million of elements, while further refining from 0.5 to 0.3 mm adds up to 28 million. The turbulent content in the inner part of the turbulent layer is not properly resolved, which could have an effect on the jet atomization and has not been check in this work (\textbf{XX Maybe NOT ?? CHECK atomization characteristics and SLI in turbulence vs no-turbulence simulations XX}). It, however, does not have an effect on the trajectory, as it is shown in Figure \ref{subsec:ch5_jet_trajectories_results}. A local refinement on the boundary layer (inflation layer) could help to converge the TKE profiles without a large increase in the cost of the simulations.
 
-where $\nu_t$ is the turbulent kinematic viscosity as given by the dynamic Smagorinsky model \citepColor[germano_dynamic_1991]. 
-
-Figure \ref{fig:ics_mesh_independency_study_POPE_M_fields} shows instantenous fields of Pope's criterion for the four simulations performed. As observed, by reducing the element size more regions with values of $M$ closer to $0$ are present. For $\Delta x = 1$ mm there several zones where $M$ has high values. These ones are overall reduced when reducing the cell size to $0.5$ mm and further to $0.3$ mm. Between these last two cell sizes there are also differences in the $M$ field specially far from the walls. For all cases, the $M$ values close to the walls are higher than in the far-field, indicating that a finer resolution would be needed in the walls to properly capture the turbulent features of the boundary layer. Nevertheless, these ones remain around $M \approx 0.5$ for the meshes with $\Delta x = 0.5$ and $0.3$ mm, indicating enough resolution for LES simulations. Regarding the case without turbulence injection for $\Delta x = 0.5$ mm, the $M$ field shows higher values with respect to the case where turbulence is added, specially closer to the inlet and in the regions outside the boundary layer. 
-
-In order to compare quantitatively the difference between meshes, the signals of $u'$ have been monitored with time at the probes shown by the white crosses in the top of Figure \ref{fig:ics_mesh_independency_study_up_fields}. Two probes have been located: one at 1 mm downstream the gaseous inlet (x = 1 mm) and another one 1 mm upstream the liquid injection nozzle (x = 119 mm), both at a height of 8 mm from the bottom walls. The capability of the meshes to transport the resolved turbulent scales, which is of the order of the turbulent fluctuations displayed in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}, is then verified by comparing the fluctuations and spectra obtained with Fast Fourier Transform (FFT) at both probes in Figure \ref{fig:ics_mesh_independency_study_probes}. Time has been normalised with the flow-through time $\tau_\mathrm{fl}$, and the signals are shown for one passage of $\tau_\mathrm{fl}$ for easiness of visualization. For the coarsest mesh $\Delta x_\mathrm{ups} = 1$ mm (Figure \ref{fig:ics_mesh_independency_study_probes_dx1p0}), the $u'$ sampled closer to the nozzle show similar magnitudes but different frequencies to the one from upstream. The spectra confirms this observation: the FFT of probe A displays clearly dominant frequencies at 8, 17 and 25 $\mathrm{kHz}$ with decreasing intensity, while probe A shows also peaks at these locations but also a high predominance of small frequencies. This shows that the mesh with $\Delta x_\mathrm{ups} = 1$ mm is not fully capable of properly transporting the frequencies of the fluctuations. When the mesh is refined to $\Delta x_\mathrm{ups} = 0.5$ mm (Figure \ref{fig:ics_mesh_independency_study_probes_dx0p5}), the small dominant frequencies are no longer relevant and the dominant frequencies are properly captured, as the match in the peaks of the spectra indicate. In this case, the frequencies 8 and 25 $\mathrm{kHz}$ have larger intensity than 17 $\mathrm{kHz}$ . Refining the mesh to $\Delta x_\mathrm{ups} = 0.3$ mm (Figure \ref{fig:ics_mesh_independency_study_probes_dx0p3}) has no longer effect neither in the magnitude of the fluctuations nor in the spectrum. Finally, the fluctuations and FFT of the simulation performed without turbulence injection for the resolution $\Delta x_\mathrm{ups} = 0.5$ mm is shown Figure \ref{fig:ics_mesh_independency_study_probes_dx0p5_no_turb}. As expected, the frequency of the fluctuations  for probe A is minimal (not observed in the $u'$ graph) and predominant frequencies are low. Further downstream some turbulence develops along the channel and created small fluctuations where no clear dominant frequencies are excited. 
 
 
 \begin{figure}[ht]
@@ -706,21 +724,21 @@ In order to compare quantitatively the difference between meshes, the signals of
 \label{fig:ics_mesh_independency_study_up_fields}
 \end{figure}
 
-\begin{figure}[ht]
-\centering
-\includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_POPE/pope_instantaneous_all}
-\caption[]{Views of Pope criterion}
-\label{fig:ics_mesh_independency_study_POPE_M_fields}
-\end{figure}
+%\begin{figure}[ht]
+%\centering
+%\includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_POPE/pope_instantaneous_all}
+%\caption[]{Views of Pope criterion}
+%\label{fig:ics_mesh_independency_study_POPE_M_fields}
+%\end{figure}
 
-
+\clearpage
 
 \begin{figure}[ht]
 \centering
 \begin{subfigure}[b]{1.0\textwidth}
 	\centering   
-	\includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx1p0.eps}
-	\includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx1p0.eps}
+	\includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx1p0.pdf}
+	\includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx1p0.pdf}
 %	\subfloat[\centering]{{\includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx1p0.eps} }}%
 %    \qquad
 %    \subfloat[\centering]{{ \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx1p0.eps} }}%
@@ -733,8 +751,8 @@ In order to compare quantitatively the difference between meshes, the signals of
 
 \begin{subfigure}[b]{1.0\textwidth}
 	\centering
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p5.eps}
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p5.eps}
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p5.pdf}
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p5.pdf}
    \caption{Mesh $\Delta x_\mathrm{ups} = 0.5$ mm}
    \label{fig:ics_mesh_independency_study_probes_dx0p5}
 \end{subfigure}
@@ -743,8 +761,8 @@ In order to compare quantitatively the difference between meshes, the signals of
 
 \begin{subfigure}[b]{1.0\textwidth}
 	\centering
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p3.eps}
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p3.eps}
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p3.pdf}
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p3.pdf}
    \caption{{Mesh $\Delta x_\mathrm{ups} = 0.3$ mm}}
    \label{fig:ics_mesh_independency_study_probes_dx0p3}
 \end{subfigure}
@@ -754,28 +772,16 @@ In order to compare quantitatively the difference between meshes, the signals of
 
 \begin{subfigure}[b]{1.0\textwidth}
 	\centering
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p5_no_turb.eps}
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p5_no_turb.eps}
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p5_no_turb.pdf}
+   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p5_no_turb.pdf}
    \caption{Mesh $\Delta x_\mathrm{ups} = 0.5$ mm without turbulence injection}
    \label{fig:ics_mesh_independency_study_probes_dx0p5_no_turb}
 \end{subfigure}
 
-\caption[Frequential analysis of the fluctuations at the sampling probes for the simulations at high Weber number.]{Frequential analysis of the fluctuations at the sampling probes for the simulations at high Weber number. \textsl{Left}: $u'$ fluctuations. \textsl{Right}: spectra of the fluctuations obtained through FFT.}
+\caption[Axial velocity fluctuations and associated frequencies at the sampling probes for the simulations at high Weber number.]{
+Axial velocity fluctuations and associated frequencies at the sampling probes for the simulations at high Weber number. \textsl{Left}: $u'$ fluctuations. \textsl{Right}: spectra of the fluctuations obtained through FFT.}
 \label{fig:ics_mesh_independency_study_probes}
 \end{figure}
-
-
-
-
-Finally, the profiles of mean axial velocity $\overline{u}$ and TKE are plotting along the vertical line shown in Figure \ref{fig:ics_mesh_independency_study_up_fields} right for the half-width of the channel. The results are shown in Figure \ref{fig:ics_mesh_independency_study_mean_profiles}. 
-
-
-
-
-
-
-
-
 
 
 
@@ -833,14 +839,17 @@ Finally, the profiles of mean axial velocity $\overline{u}$ and TKE are plotting
 %\label{fig:ics_mesh_independency_study_probes}
 %\end{figure}
 
-\clearpage
 
 
 
 
-%\subsection{Effect of injecting turbulence}
 
-%Once the fine mesh has been chosen as the baseline mesh for the , the effect of injecting turbulence is stated. For this, one simulation without turbulence injection is performed for the high Weber case and compared to the simulation with turbulence injection.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/TKE_vs_dx_in_probes.pdf}
+   \caption{Variation in Turbulent Kinetic Energy in probes A and B with upstream mesh resolution.}
+   \label{fig:TKE_vs_dx_in_probes}
+\end{figure}
 
 
 \begin{figure}[ht]
@@ -865,18 +874,38 @@ Finally, the profiles of mean axial velocity $\overline{u}$ and TKE are plotting
 
 \subsection{Initial conditions for low Weber operating point}
 
-From the previous analysis, the ...
-
-
+Initial conditions have also obtained for the operating point at lower Weber number ($We_g = 830$) with the mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm. For establishment of the gaseous phase, the simulation has been run for 40 times the flow-through time shown in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}. This time, which has been checked to profiled converged solutions, has been chosen from the results obtained with the operating point at high We, as shown in Figure \ref{fig:mesh_convergence_line_averages}. Converged profiles for mean axial velocity and $TKE$ are shown in Figure \ref{fig:ics_mean_profiles_op2}, the profiles for the high We operating point are also shown for comparison. As expected, both $\overline{u}$ and $TKE$ values are lower along the $z$ coordinates for the lower We point, consistent with the lower bulk values of $u_\infty$ and $u'$ imposed at the gaseous inletfor this case.
 
 \begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
 	\centering
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_OP2.eps}
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_OP2.eps}
-   \caption{Mesh $\Delta x_\mathrm{ups} = 0.5$ mm, low-We operating point}
-   \label{fig:ics_probes_OP2}
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mean_profiles/U_MEAN_profiles_op2.pdf}
+   \caption{Mean axial velocity}
+   %\label{} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mean_profiles/TKE_profiles_op2.pdf}
+   \caption{Turbulent Kinetic Energy}
+   %\label{}
+\end{subfigure}
+\caption{Profiles of $\overline{u}$ and $TKE$ along the line right upstream the injector for both operating points for mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm.}
+\label{fig:ics_mean_profiles_op2}
 \end{figure}
 
+
+
+
+%\begin{figure}[ht]
+%	\centering
+%   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_OP2.eps}
+%   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_OP2.eps}
+%   \caption{Mesh $\Delta x_\mathrm{ups} = 0.5$ mm, low-We operating point}
+%   \label{fig:ics_probes_OP2}
+%\end{figure}
+%
 
 
 

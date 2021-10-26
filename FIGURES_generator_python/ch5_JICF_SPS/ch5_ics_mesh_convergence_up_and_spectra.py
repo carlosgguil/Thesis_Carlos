@@ -31,8 +31,8 @@ T = 1E-6
 
 
 # Main folders
-folder_manuscript='C:/Users/d601630/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/'
-folder = 'C:/Users/d601630/Desktop/Ongoing/ICS_study/frequential_analyses/cases_probes/'
+folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/'
+folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/ICS_study/frequential_analyses/cases_probes/'
 
 # Cases
 case_DX1p0 = folder + 'mesh_refined_DX1p0_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7/'
@@ -43,6 +43,10 @@ case_OP2   = folder + '2nd_op_mesh_DX0p5/'
          
 cases = [case_DX1p0, case_DX0p5, case_DX0p5_no_turb, case_DX0p3, case_OP2]
 
+
+# Lines from probes
+probe_A = 'line_2'
+probe_B = 'line_inj'
 
 # Labels
 labels_ = [r'$\mathrm{Probe}~\mathrm{A}$', r'$\mathrm{Probe}~\mathrm{B}$']
@@ -72,38 +76,38 @@ y_ticks_up = [-4.0,-2.0,0.0,2.0,4.0]
 y_lim_up   = [-5.0,5.0]
 
 #%% Read probes
-time_all_cases_line_0 = []
-u_all_cases_line_0 = []
-xf_all_cases_line_0 = []
-y_FFT_all_cases_line_0 = []
+time_all_cases_probe_A = []
+u_all_cases_probe_A = []
+xf_all_cases_probe_A = []
+y_FFT_all_cases_probe_A = []
 
 
-time_all_cases_line_inj = []
-u_all_cases_line_inj = []
-xf_all_cases_line_inj = []
-y_FFT_all_cases_line_inj = []
+time_all_cases_probe_B = []
+u_all_cases_probe_B = []
+xf_all_cases_probe_B = []
+y_FFT_all_cases_probe_B = []
 
 for i in range(len(cases)):
     case = cases[i]
     
-    df_line_0_up        = pd.read_csv(case+'data_line_0_up.csv')
-    df_line_0_spectra   = pd.read_csv(case+'data_line_0_spectra.csv')
-    df_line_inj_up      = pd.read_csv(case+'data_line_inj_up.csv')
-    df_line_inj_spectra = pd.read_csv(case+'data_line_inj_spectra.csv')
+    df_probe_A_up        = pd.read_csv(case+'data_'+probe_A+'_up1.csv')
+    df_probe_A_spectra   = pd.read_csv(case+'data_'+probe_A+'_up1_spectra.csv')
+    df_probe_B_up      = pd.read_csv(case+'data_'+probe_B+'_up1.csv')
+    df_probe_B_spectra = pd.read_csv(case+'data_'+probe_B+'_up1_spectra.csv')
 
-    # Probe at channel inlet (line_0)
-    time_line_0 = (df_line_0_up['t'].values - df_line_0_up['t'][0])*1e3/tau_ft + t_threshold
-    time_all_cases_line_0.append(time_line_0)
-    u_all_cases_line_0.append(df_line_0_up['up'].values)
-    xf_all_cases_line_0.append(df_line_0_spectra['xf'].values)
-    y_FFT_all_cases_line_0.append(df_line_0_spectra['y_FFT'].values)
+    # Probe at channel inlet (probe_A)
+    time_probe_A = (df_probe_A_up['t'].values - df_probe_A_up['t'][0])*1e3/tau_ft + t_threshold
+    time_all_cases_probe_A.append(time_probe_A)
+    u_all_cases_probe_A.append(df_probe_A_up['up'].values)
+    xf_all_cases_probe_A.append(df_probe_A_spectra['xf'].values)
+    y_FFT_all_cases_probe_A.append(df_probe_A_spectra['y_FFT'].values)
 
-    # Probe at injector lip (line_inj)
-    time_line_inj = (df_line_inj_up['t'].values - df_line_inj_up['t'].values[0])*1e3/tau_ft + t_threshold
-    time_all_cases_line_inj.append(time_line_inj)
-    u_all_cases_line_inj.append(df_line_inj_up['up'].values)
-    xf_all_cases_line_inj.append(df_line_inj_spectra['xf'].values)
-    y_FFT_all_cases_line_inj.append(df_line_inj_spectra['y_FFT'].values)
+    # Probe at injector lip (probe_B)
+    time_probe_B = (df_probe_B_up['t'].values - df_probe_B_up['t'].values[0])*1e3/tau_ft + t_threshold
+    time_all_cases_probe_B.append(time_probe_B)
+    u_all_cases_probe_B.append(df_probe_B_up['up'].values)
+    xf_all_cases_probe_B.append(df_probe_B_spectra['xf'].values)
+    y_FFT_all_cases_probe_B.append(df_probe_B_spectra['y_FFT'].values)
 
     
 
@@ -115,8 +119,8 @@ for i in range(len(cases)):
 # dx = 1.0 mm
 j = 0
 plt.figure(figsize=figsize_)
-plt.plot(time_all_cases_line_0[j]  ,u_all_cases_line_0[j],   c1, label=labels_[0])
-plt.plot(time_all_cases_line_inj[j],u_all_cases_line_inj[j], c2, label=labels_[1])
+plt.plot(time_all_cases_probe_A[j]  ,u_all_cases_probe_A[j],   c1, label=labels_[0])
+plt.plot(time_all_cases_probe_B[j],u_all_cases_probe_B[j], c2, label=labels_[1])
 plt.xlabel(x_label_up)
 plt.ylabel(y_label_up)
 plt.xlim(t_lim_min,t_lim_max)
@@ -126,24 +130,25 @@ plt.yticks(y_ticks_up)
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'up_dx1p0.pdf')
-plt.savefig(folder_manuscript+'up_dx1p0.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'up_dx1p0.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
 #%% 
-t = time_all_cases_line_0[j]*tau_ft/1e3
-u = u_all_cases_line_0[j]
+t = time_all_cases_probe_A[j]*tau_ft/1e3
+u = u_all_cases_probe_A[j]
 
 up = u - np.mean(u)
 N = len(t)
 xf = fftfreq(N, T)[:N//2]
-yf = fft(up)
+yf = fft.fft(up)
 yplot = np.abs(yf[0:N //2])
 
 
 
 
 # Plot FFT transform (linear scale)
+'''
 plt.figure(figsize=figsize_)
 plt.xticks(fontsize=25)
 plt.yticks(fontsize=25)
@@ -151,10 +156,11 @@ plt.plot(xf/1000, yplot)
 plt.xlim(0,100000/1000)
 plt.xlabel('f [kHz]')
 plt.ylabel(r"FFT ($u'$)")
-plt.legend(loc='best')
+#plt.legend(loc='best')
 plt.grid()
 plt.show()
 plt.close()
+'''
 
 # Obtain energy by integrating u'
 E_u = 0
@@ -179,8 +185,8 @@ for i in range(len(yplot)-1):
 # dx = 0.5 mm
 j = 1
 plt.figure(figsize=figsize_)
-plt.plot(time_all_cases_line_0[j]  ,u_all_cases_line_0[j],   c1, label=labels_[0])
-plt.plot(time_all_cases_line_inj[j],u_all_cases_line_inj[j], c2, label=labels_[1])
+plt.plot(time_all_cases_probe_A[j]  ,u_all_cases_probe_A[j],   c1, label=labels_[0])
+plt.plot(time_all_cases_probe_B[j],u_all_cases_probe_B[j], c2, label=labels_[1])
 #plt.ylim(0, 10)
 plt.xlim(t_lim_min,t_lim_max)
 plt.xlabel(x_label_up)
@@ -191,15 +197,15 @@ plt.yticks(y_ticks_up)
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'up_dx0p5.pdf')
-plt.savefig(folder_manuscript+'up_dx0p5.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'up_dx0p5.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
 # dx = 0.5 mm no turbulence
 j = 2
 plt.figure(figsize=figsize_)
-plt.plot(time_all_cases_line_0[j]  ,u_all_cases_line_0[j],   c1, label=labels_[0])
-plt.plot(time_all_cases_line_inj[j],u_all_cases_line_inj[j], c2, label=labels_[1])
+plt.plot(time_all_cases_probe_A[j]  ,u_all_cases_probe_A[j],   c1, label=labels_[0])
+plt.plot(time_all_cases_probe_B[j],u_all_cases_probe_B[j], c2, label=labels_[1])
 #plt.ylim(0, 10)
 plt.xlim(t_lim_min,t_lim_max)
 plt.xlabel(x_label_up)
@@ -210,7 +216,7 @@ plt.yticks(y_ticks_up)
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'up_dx0p5_no_turb.pdf')
-plt.savefig(folder_manuscript+'up_dx0p5_no_turb.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'up_dx0p5_no_turb.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
@@ -218,8 +224,8 @@ plt.close()
 # dx = 0.3 mm
 j = 3
 plt.figure(figsize=figsize_)
-plt.plot(time_all_cases_line_0[j]  ,u_all_cases_line_0[j],   c1, label=labels_[0])
-plt.plot(time_all_cases_line_inj[j],u_all_cases_line_inj[j], c2, label=labels_[1])
+plt.plot(time_all_cases_probe_A[j]  ,u_all_cases_probe_A[j],   c1, label=labels_[0])
+plt.plot(time_all_cases_probe_B[j],u_all_cases_probe_B[j], c2, label=labels_[1])
 #plt.ylim(0, 10)
 plt.xlim(t_lim_min,t_lim_max)
 plt.xlabel(x_label_up)
@@ -230,15 +236,15 @@ plt.yticks(y_ticks_up)
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'up_dx0p3.pdf')
-plt.savefig(folder_manuscript+'up_dx0p3.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'up_dx0p3.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
 # OP2
 j = 4
 plt.figure(figsize=figsize_)
-plt.plot(time_all_cases_line_0[j]  ,u_all_cases_line_0[j],   c1, label=labels_[0])
-plt.plot(time_all_cases_line_inj[j],u_all_cases_line_inj[j], c2, label=labels_[1])
+plt.plot(time_all_cases_probe_A[j]  ,u_all_cases_probe_A[j],   c1, label=labels_[0])
+plt.plot(time_all_cases_probe_B[j],u_all_cases_probe_B[j], c2, label=labels_[1])
 #plt.ylim(0, 10)
 plt.xlim(t_lim_min,t_lim_max)
 plt.xlabel(x_label_up)
@@ -249,7 +255,7 @@ plt.yticks(y_ticks_up)
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'up_OP2.pdf')
-plt.savefig(folder_manuscript+'up_OP2.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'up_OP2.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
@@ -263,8 +269,8 @@ j = 0
 
 # linear scale
 plt.figure(figsize=figsize_)
-plt.plot(xf_all_cases_line_0[j]/1000  , y_FFT_all_cases_line_0[j]  , c1, label=labels_[0])
-plt.plot(xf_all_cases_line_inj[j]/1000, y_FFT_all_cases_line_inj[j], c2, label=labels_[1])
+plt.plot(xf_all_cases_probe_A[j]/1000  , y_FFT_all_cases_probe_A[j]  , c1, label=labels_[0])
+plt.plot(xf_all_cases_probe_B[j]/1000, y_FFT_all_cases_probe_B[j], c2, label=labels_[1])
 plt.xlim(0,40000/1000)
 plt.xlabel(x_label_FFT)
 plt.ylabel(y_label_FFT)
@@ -272,14 +278,14 @@ plt.legend(loc='best')
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'spectra_linear_scale_dx1p0.pdf')
-plt.savefig(folder_manuscript+'spectra_linear_scale_dx1p0.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'spectra_linear_scale_dx1p0.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
 # log scale
 plt.figure(figsize=figsize_)
-plt.loglog(xf_all_cases_line_0[j]/1000  , y_FFT_all_cases_line_0[j]  , c1, label=labels_[0])
-plt.loglog(xf_all_cases_line_inj[j]/1000, y_FFT_all_cases_line_inj[j], c2, label=labels_[1])
+plt.loglog(xf_all_cases_probe_A[j]/1000  , y_FFT_all_cases_probe_A[j]  , c1, label=labels_[0])
+plt.loglog(xf_all_cases_probe_B[j]/1000, y_FFT_all_cases_probe_B[j], c2, label=labels_[1])
 plt.xlim(1e-1,1E3)
 plt.ylim(1e-5,1e1)
 plt.xlabel(x_label_FFT)
@@ -288,7 +294,7 @@ plt.legend(loc='best')
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'spectra_log_scale_dx1p0.pdf')
-plt.savefig(folder_manuscript+'spectra_log_scale_dx1p0.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'spectra_log_scale_dx1p0.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
@@ -301,8 +307,8 @@ j = 1
 
 # linear scale
 plt.figure(figsize=figsize_)
-plt.plot(xf_all_cases_line_0[j]/1000  , y_FFT_all_cases_line_0[j]  , c1, label=labels_[0])
-plt.plot(xf_all_cases_line_inj[j]/1000, y_FFT_all_cases_line_inj[j], c2, label=labels_[1])
+plt.plot(xf_all_cases_probe_A[j]/1000  , y_FFT_all_cases_probe_A[j]  , c1, label=labels_[0])
+plt.plot(xf_all_cases_probe_B[j]/1000, y_FFT_all_cases_probe_B[j], c2, label=labels_[1])
 plt.xlim(0,40000/1000)
 plt.xlabel(x_label_FFT)
 plt.ylabel(y_label_FFT)
@@ -310,14 +316,14 @@ plt.legend(loc='best')
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'spectra_linear_scale_dx0p5.pdf')
-plt.savefig(folder_manuscript+'spectra_linear_scale_dx0p5.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'spectra_linear_scale_dx0p5.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
 # log scale
 plt.figure(figsize=figsize_)
-plt.loglog(xf_all_cases_line_0[j]/1000  , y_FFT_all_cases_line_0[j]  , c1, label=labels_[0])
-plt.loglog(xf_all_cases_line_inj[j]/1000, y_FFT_all_cases_line_inj[j], c2, label=labels_[1])
+plt.loglog(xf_all_cases_probe_A[j]/1000  , y_FFT_all_cases_probe_A[j]  , c1, label=labels_[0])
+plt.loglog(xf_all_cases_probe_B[j]/1000, y_FFT_all_cases_probe_B[j], c2, label=labels_[1])
 plt.xlim(1e-1,1E3)
 plt.ylim(1e-5,1e1)
 plt.xlabel('f [kHz]')
@@ -326,7 +332,7 @@ plt.legend(loc='best')
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'spectra_log_scale_dx0p5.pdf')
-plt.savefig(folder_manuscript+'spectra_log_scale_dx0p5.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'spectra_log_scale_dx0p5.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
@@ -337,8 +343,8 @@ j = 2
 
 # linear scale
 plt.figure(figsize=figsize_)
-plt.plot(xf_all_cases_line_0[j]/1000  , y_FFT_all_cases_line_0[j]  , c1, label=labels_[0])
-plt.plot(xf_all_cases_line_inj[j]/1000, y_FFT_all_cases_line_inj[j], c2, label=labels_[1])
+plt.plot(xf_all_cases_probe_A[j]/1000  , y_FFT_all_cases_probe_A[j]  , c1, label=labels_[0])
+plt.plot(xf_all_cases_probe_B[j]/1000, y_FFT_all_cases_probe_B[j], c2, label=labels_[1])
 plt.xlim(0,40000/1000)
 plt.xlabel(x_label_FFT)
 plt.ylabel(y_label_FFT)
@@ -346,14 +352,14 @@ plt.legend(loc='best')
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'spectra_linear_scale_dx0p5_no_turb.pdf')
-plt.savefig(folder_manuscript+'spectra_linear_scale_dx0p5_no_turb.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'spectra_linear_scale_dx0p5_no_turb.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
 # log scale
 plt.figure(figsize=figsize_)
-plt.loglog(xf_all_cases_line_0[j]/1000  , y_FFT_all_cases_line_0[j]  , c1, label=labels_[0])
-plt.loglog(xf_all_cases_line_inj[j]/1000, y_FFT_all_cases_line_inj[j], c2, label=labels_[1])
+plt.loglog(xf_all_cases_probe_A[j]/1000  , y_FFT_all_cases_probe_A[j]  , c1, label=labels_[0])
+plt.loglog(xf_all_cases_probe_B[j]/1000, y_FFT_all_cases_probe_B[j], c2, label=labels_[1])
 plt.xlim(1e-1,1E3)
 plt.ylim(1e-5,1e1)
 plt.xlabel(x_label_FFT)
@@ -362,7 +368,7 @@ plt.legend(loc='best')
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'spectra_log_scale_dx0p5_no_turb.pdf')
-plt.savefig(folder_manuscript+'spectra_log_scale_dx0p5_no_turb.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'spectra_log_scale_dx0p5_no_turb.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
@@ -374,8 +380,8 @@ j = 3
 
 # linear scale
 plt.figure(figsize=figsize_)
-plt.plot(xf_all_cases_line_0[j]/1000  , y_FFT_all_cases_line_0[j]  , c1, label=labels_[0])
-plt.plot(xf_all_cases_line_inj[j]/1000, y_FFT_all_cases_line_inj[j], c2, label=labels_[1])
+plt.plot(xf_all_cases_probe_A[j]/1000  , y_FFT_all_cases_probe_A[j]  , c1, label=labels_[0])
+plt.plot(xf_all_cases_probe_B[j]/1000, y_FFT_all_cases_probe_B[j], c2, label=labels_[1])
 plt.xlim(0,40000/1000)
 plt.xlabel(x_label_FFT)
 plt.ylabel(y_label_FFT)
@@ -383,14 +389,14 @@ plt.legend(loc='best')
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'spectra_linear_scale_dx0p3.pdf')
-plt.savefig(folder_manuscript+'spectra_linear_scale_dx0p3.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'spectra_linear_scale_dx0p3.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
 # log scale
 plt.figure(figsize=figsize_)
-plt.loglog(xf_all_cases_line_0[j]/1000  , y_FFT_all_cases_line_0[j]  , c1, label=labels_[0])
-plt.loglog(xf_all_cases_line_inj[j]/1000, y_FFT_all_cases_line_inj[j], c2, label=labels_[1])
+plt.loglog(xf_all_cases_probe_A[j]/1000  , y_FFT_all_cases_probe_A[j]  , c1, label=labels_[0])
+plt.loglog(xf_all_cases_probe_B[j]/1000, y_FFT_all_cases_probe_B[j], c2, label=labels_[1])
 plt.xlim(1e-1,1E3)
 plt.ylim(1e-5,1e1)
 plt.xlabel(x_label_FFT)
@@ -399,7 +405,7 @@ plt.ylabel(y_label_FFT)
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'spectra_log_scale_dx0p3.pdf')
-plt.savefig(folder_manuscript+'spectra_log_scale_dx0p3.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'spectra_log_scale_dx0p3.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
@@ -409,8 +415,8 @@ j = 4
 
 # linear scale
 plt.figure(figsize=figsize_)
-plt.plot(xf_all_cases_line_0[j]/1000  , y_FFT_all_cases_line_0[j]  , c1, label=labels_[0])
-plt.plot(xf_all_cases_line_inj[j]/1000, y_FFT_all_cases_line_inj[j], c2, label=labels_[1])
+plt.plot(xf_all_cases_probe_A[j]/1000  , y_FFT_all_cases_probe_A[j]  , c1, label=labels_[0])
+plt.plot(xf_all_cases_probe_B[j]/1000, y_FFT_all_cases_probe_B[j], c2, label=labels_[1])
 plt.xlim(0,40000/1000)
 plt.xlabel(x_label_FFT)
 plt.ylabel(y_label_FFT)
@@ -418,14 +424,14 @@ plt.legend(loc='best')
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'spectra_linear_scale_OP2.pdf')
-plt.savefig(folder_manuscript+'spectra_linear_scale_OP2.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'spectra_linear_scale_OP2.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
 
 # log scale
 plt.figure(figsize=figsize_)
-plt.loglog(xf_all_cases_line_0[j]/1000  , y_FFT_all_cases_line_0[j]  , c1, label=labels_[0])
-plt.loglog(xf_all_cases_line_inj[j]/1000, y_FFT_all_cases_line_inj[j], c2, label=labels_[1])
+plt.loglog(xf_all_cases_probe_A[j]/1000  , y_FFT_all_cases_probe_A[j]  , c1, label=labels_[0])
+plt.loglog(xf_all_cases_probe_B[j]/1000, y_FFT_all_cases_probe_B[j], c2, label=labels_[1])
 plt.xlim(1e-1,1E3)
 plt.ylim(1e-5,1e1)
 plt.xlabel(x_label_FFT)
@@ -434,6 +440,6 @@ plt.ylabel(y_label_FFT)
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'spectra_log_scale_OP2.pdf')
-plt.savefig(folder_manuscript+'spectra_log_scale_OP2.eps',format='eps',dpi=1000)
+#plt.savefig(folder_manuscript+'spectra_log_scale_OP2.eps',format='eps',dpi=1000)
 plt.show()
 plt.close()
