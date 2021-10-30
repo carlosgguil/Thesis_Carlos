@@ -1,0 +1,461 @@
+\chapter{Setup of JICF gaseous inlet profile (parabollic)}
+\label{app:JICF_BL_setup}
+%\addcontentsline{toc}{section}{\protect\numberline{} Problem 1.E - Deformation and vorticity}
+
+
+	
+In this chapter, the velocity profile for the inlet boundary conditions based on the boundary layer in 3D is shown. The inlet boundary is shown in the following Figure:
+
+
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=true,width=13cm]{./appendices_figures/domain_partition}
+%	\includesvg[width=13cm,pretex=\normalsize,svgpath=./files/Images/3D_BL/]{domain_partition}
+	\caption{Inlet domain and partition for calculation of the velocity profile.}
+	\label{fig:domain_partition_3D_profile}
+\end{figure}
+
+
+Due to symmetry in both $y$ and $z$ directions, only one fourth of the domain is considered to derive the equations. In this part of the domain, the volumetric flow rate given by the bulk velocity $u_\infty$ is the following one:
+
+\begin{equation}
+\label{eq:volumetric_flow_rate_2D}
+Q = u_\infty b_y b_z
+\end{equation}	
+
+So the total volumetric flow rate is $4Q$. 
+
+For deriving the equations, the domain is divided in 4 zones as shown in Figure \ref{domain_partition_3D_profile}. These ones are:
+
+\begin{enumerate}
+
+	\item \textbf{z1}: Boundary layer profile in both $y$ and $z$ directions.
+	
+	\item \textbf{z2}: Boundary layer profile in $y$ ; outer profile in $z$.
+	
+	\item \textbf{z3}: Outer profile in $y$; boundary layer profile in $z$.
+	
+	\item \textbf{z4}: Outer profile in both $y$ and $z$.
+
+\end{enumerate}
+	
+The balance then will read:
+
+\begin{equation}
+\label{eq:3D_BL_Qconservation}
+Q = \sum_{i=1}^4 Q_i = Q_1 + Q_2 + Q_3 + Q_4
+\end{equation}
+
+where $Q$ is given by Eq. (\ref{eq:volumetric_flow_rate_2D}). In the following sections, the expressions for the different volumetric flow rates $Q_i$ and for the velocity profile in each section will be developed.
+
+\section{Velocity profiles along domain}
+
+\subsection{Zone 1}
+
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=true,width=17cm]{./appendices_figures/z1}
+%	\includesvg[width=10cm,pretex=\normalsize,svgpath=./files/Images/3D_BL/]{z1}
+	\caption{Parametrization of zone 1 (shaded).}
+	\label{fig:param_z1}
+\end{figure}
+
+To make calculations easier, the following change of variable is introduce in the $y$ direction (see Figure \ref{fig:param_z1}):
+
+\begin{equation}
+\label{eq:zone1_change_of_variable}
+y' = b_y - y
+\end{equation}
+
+In this region, there are boundary layers being developed in both $y$ and $z$ directions. The BL is given by the 1/7th velocity profile of Eq. (\ref{eq:one-7th_power_law}). Hence, the velocity profile in zone 4 is given by the following expression:
+
+\begin{equation}
+\label{eq:3DBL_profile_u1}
+\boxed{
+u_1 \left( y', z \right) = U_c \left( \frac{z}{\delta} \right)^{1/7} \left( \frac{y'}{\delta} \right)^{1/7}
+}
+\end{equation}
+
+where $U_c$ is the velocity at the common point between the four zones, see Figure \ref{fig:param_z1}. This velocity needs to be determined.\\
+
+The volumetric flow rate is given by the following expression:
+
+\begin{equation}
+\begin{split}
+Q_1 &= \int_{y'=0}^{y'=\delta} \int_{z=0}^{z=\delta} u_1 \left( y', z  \right) = \int \int U_c \left( \frac{z}{\delta} \right)^{1/7} \left( \frac{y'}{\delta} \right)^{1/7} dy dz = \\
+&= \frac{U_c}{\delta^{2/7}} \int z^{1/7} dz \int y'^{1/7} dy = \frac{U_c}{\delta^{2/7}} \frac{7}{8} \delta^{7/8} \frac{7}{8} \delta^{7/8} = U_C \left( \frac{7}{8} \delta \right)^2
+\end{split}
+\end{equation}
+
+So the volumetric flow rate for region 1 is:
+
+\begin{equation}
+\label{eq:3DBL_Q1}
+\boxed{
+Q_1 = U_C \left( \frac{7}{8} \delta \right)^2
+}
+\end{equation}
+
+
+\newpage
+
+\subsection{Zone 2}
+
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=true,width=7cm]{./appendices_figures/z2}
+%	\includesvg[width=7cm,pretex=\normalsize,svgpath=./files/Images/3D_BL/]{z2}
+	\caption{Parametrization of zone 2 (shaded).}
+	\label{fig:param_z2}
+\end{figure}
+
+In zone 2 there is a boundary layer developed in direction $y'$ and a parabollic profile along coordinate $z$. A general shape of a parabolic profile is given by Eq. (\ref{eq:parabolic_profile_general}). Applied to zone 2, the change of variable $r = b_z - z$ is introduced (see Figure \ref{fig:param_z2}):
+
+\begin{equation}
+u \left( z \right) = U_{Max} \left( 1 - \left( \frac{b_z - z}{R_z} \right)^2 \right)
+\end{equation}
+
+Then, the velocity profile for zone 2 is given by the following equation:
+
+\begin{equation}
+\label{eq:3DBL_profile_u2}
+\boxed{
+u_2 \left( y', z \right) = U_2 \left( 1 - \left( \frac{b_z - z}{R_z} \right)^2 \right) \left( \frac{y'}{\delta} \right)^{1/7}
+}
+\end{equation}
+
+where $U_2$ needs to be determined.\\
+
+The volumetric flow rate is given by the following expression:
+ 
+\begin{equation}
+\begin{split}
+Q_2 &= \int_{y'=0}^{y'=\delta} \int_{z=0}^{z=\delta} u_2 \left( y', z  \right) = \int \int U_2 \left( 1 - \left( \frac{b_z - z}{R_z} \right)^2 \right) \left( \frac{y'}{\delta} \right)^{1/7} dy dz = \\
+&= U_2  \int \left( \frac{y'}{\delta} \right)^{1/7} dy \int \left( 1 - \left( \frac{b_z - z}{R_z} \right)^2 \right) dz = U_2 \frac{7}{8} \delta \left( b_z - \delta \right) \frac{3 R_z^2 - \left( b_z - \delta \right)^2}{3 R_z^2}
+\end{split}
+\end{equation}
+
+As done in Eq. (\ref{eq:fR2}), the following multiplier is defined:
+
+\begin{equation}
+f_z \left( R_z^2 \right) = 1 - \frac{\left( b_z - \delta \right)^2}{3 R_z^2}
+\end{equation}
+
+With this definition, the expression for $Q_2$ is:
+
+\begin{equation}
+\label{eq:3DBL_Q2}
+\boxed{
+Q_2 = U_2 \frac{7}{8} \delta \left( b_z - \delta \right) f_z \left( R_z^2 \right)
+}
+\end{equation}
+
+\newpage
+
+\subsection{Zone 3}
+
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=true,width=10cm]{./appendices_figures/z3}
+%	\includesvg[width=10cm,pretex=\normalsize,svgpath=./files/Images/3D_BL/]{z3}
+	\caption{Parametrization of zone 3 (shaded).}
+	\label{fig:param_z3}
+\end{figure}
+
+In zone 3 there is a boundary layer developed in direction $z$ and an outer parabolic profile in direction $y$. The former one is given by the following expression:
+
+\begin{equation}
+u \left( y \right) = U_{Max} \left( 1 - \left( \frac{y}{R_y} \right)^2 \right)
+\end{equation}
+
+Here, the coordinate $y$ has been used instead of $y'$. The velocity profile for zone $3$ is expressed as follows:
+
+\begin{equation}
+\label{eq:3DBL_profile_u3}
+\boxed{
+u_3 \left( y, z \right) = U_3 \left( 1 - \left( \frac{y}{R_y} \right)^2 \right) \left( \frac{z}{\delta} \right)^{1/7}
+}
+\end{equation}
+
+where $U_3$ needs to be determined. \\
+
+The volumetric flow rate is given by the following expression:
+ 
+\begin{equation}
+\begin{split}
+Q_3 &= \int_{y=0}^{y= b_y - \delta} \int_{z=0}^{z=\delta} u_3 \left( y, z  \right) = \int \int U_3 \left( 1 - \left( \frac{y}{R_y} \right)^2 \right) \left( \frac{z}{\delta} \right)^{1/7} dy dz = \\
+&= U_3  \int \left( 1 - \left( \frac{y}{R_y} \right)^2 \right) dy \int \left( \frac{z}{\delta} \right)^{1/7} dz = U_3 \frac{7}{8} \delta \left( b_y - \delta \right) \frac{3 R_y^2 - \left( b_y - \delta \right)^2}{3 R_y^2}
+\end{split}
+\end{equation}
+
+As done in Eq. (\ref{eq:fR2}), the following multiplier is defined:
+
+\begin{equation}
+f_y \left( R_y^2 \right) = 1 - \frac{\left( b_y - \delta \right)^2}{3 R_y^2}
+\end{equation}
+
+And therefore, the expression for $Q_3$ is:
+
+\begin{equation}
+\label{eq:3DBL_Q3}
+\boxed{
+Q_3 = U_3 \frac{7}{8} \delta \left( b_y - \delta \right) f_y \left( R_y^2 \right)
+}
+\end{equation}
+
+
+\newpage
+
+\subsection{Zone 4}
+
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=true,width=17cm]{./appendices_figures/z4}
+%	\includesvg[width=7cm,pretex=\normalsize,svgpath=./appendices_figures]{z4}
+	\caption{Parametrization of zone 4 (shaded).}
+	\label{fig:param_z4}
+\end{figure}
+
+In zone 4 both profiles are external, as shown in Figure \ref{fig:param_z4}. Therefore, both parabolic profiles are used for both $y$ and $z$ directions. The expression for the velocity profile in this zone is:
+
+\begin{equation}
+\label{eq:3DBL_profile_u4}
+\boxed{
+u_4 \left( y, z \right) = U_4 \left( 1 - \left( \frac{y}{R_y} \right)^2 \right) \left( 1 - \left( \frac{b_z - z}{R_z} \right)^2 \right) 
+}
+\end{equation}
+
+And calculating the volumetric flow rate as done in Eqs. (\ref{eq:3DBL_Q2}) and (\ref{eq:3DBL_Q3}) yields:
+
+\begin{equation}
+\label{eq:3DBL_Q4}
+\boxed{
+Q_4 = U_4 \left( b_y - \delta \right) f_y \left( R_y^2 \right) \left( b_Z - \delta \right) f_z \left( R_z^2 \right)
+}
+\end{equation}
+
+\section{Boundary conditions}
+
+According to the former developments, there are four expressions for representing the 3D velocity profile and there are 6 unknowns: 
+
+\begin{itemize}
+
+	\item Four velocity magnitudes: $U_c$, $U_2$, $U_3$ and $U_4$.
+
+	\item Two radii: $R_y$ and $R_z$.
+
+\end{itemize}
+
+For having a determined system, six equations are needed. These ones are:
+
+\begin{itemize}
+
+	\item Three equations stating continuity in velocity.
+
+	\item Two equations stating continuity in velocity derivative.
+	
+	\item One equation stating $Q$ conservation (\ref{eq:3D_BL_Qconservation}).
+
+\end{itemize}
+
+\subsection{Continuity in velocity between zones 1 and 2}
+
+This means that velocity needs to be continuous at the coordinate $z = \delta$:
+
+\begin{equation}
+u_1 \left( y', z = \delta \right) = u_2 \left( y', z = \delta \right)
+\end{equation}
+
+Evaluating:
+
+\begin{equation}
+u_1 \left( y', z = \delta \right) = U_C \left( \frac{y'}{\delta} \right)^{1/7}
+\end{equation}
+
+\begin{equation}
+u_2 \left( y', z = \delta \right) = U_2 \left( \frac{y'}{\delta} \right)^{1/7} \left( 1 - \left( \frac{b_z - \delta}{R_z} \right)^2 \right)
+\end{equation}
+
+Equating them yields the following relation between $U_2$ and $U_C$:
+
+\begin{equation}
+\label{eq:3D_BL_relation_Uc_U2}
+\boxed{
+U_2 = \frac{U_C}{1 - \left( \frac{b_z - \delta}{R_z} \right)^2 }
+}
+\end{equation}
+
+
+\subsection{Continuity in velocity between zones 1 and 3}
+
+This means that velocity needs to be continuous at the coordinate $y' = \delta$, or equivalently $y = b_y - \delta$:
+
+\begin{equation}
+u_1 \left( y' = \delta, z \right) = u_2 \left( y = b_y - \delta, z \right)
+\end{equation}
+
+Evaluating:
+
+\begin{equation}
+u_1 \left( y' = \delta, z \right) = U_C \left( \frac{z}{\delta} \right)^{1/7}
+\end{equation}
+
+\begin{equation}
+u_3 \left( y = b_y - \delta, z = \right) = U_3 \left( 1 - \left( \frac{b_y - \delta}{R_y} \right)^2 \right) \left( \frac{z}{\delta} \right)^{1/7} 
+\end{equation}
+
+Equating them yields the following relation between $U_3$ and $U_C$:
+
+\begin{equation}
+\label{eq:3D_BL_relation_Uc_U3}
+\boxed{
+U_3 = \frac{U_C}{1 - \left( \frac{b_y - \delta}{R_y} \right)^2 }
+}
+\end{equation}
+
+\subsection{Continuity in velocity between zones 1 and 4 (point C)}
+
+This means that velocity needs to be continuous at the coordinates $y' = \delta$, $z = \delta$:
+
+\begin{equation}
+u_1 \left( y' = \delta, z = \delta \right) = u_4 \left( y = b_y - \delta, z = \delta \right)
+\end{equation}
+
+Evaluating:
+
+\begin{equation}
+u_1 \left( y' = \delta, z = \delta \right) = U_C 
+\end{equation}
+
+\begin{equation}
+u_4 \left( y = b_y - \delta, z = \delta \right) = U_4 \left( 1 - \left( \frac{b_y - \delta}{R_y} \right)^2 \right) \left( 1 - \left( \frac{b_z - \delta}{R_z} \right)^2 \right) 
+\end{equation}
+
+Equating them yields the following relation between $U_4$ and $U_C$:
+
+\begin{equation}
+\label{eq:3D_BL_relation_Uc_U4}
+\boxed{
+U_4 = \frac{U_C}{ \left( 1 - \left( \frac{b_y - \delta}{R_y} \right)^2 \right) \left( 1 - \left( \frac{b_z - \delta}{R_z} \right)^2 \right) }
+}
+\end{equation}
+
+\subsection{Continuity in velocity derivative between zones 3 and 4}
+
+For derivative continuity between zones $3$ and $4$, the derivatives of the velocity profile must be equal at $z = \delta$: 
+
+\begin{equation}
+\left. \frac{\partial u_3}{\partial z}  \right|_{z = \delta} = \left. \frac{\partial u_4}{\partial z}  \right|_{z = \delta}
+\end{equation}
+
+The derivatives with respect to $z$ are calculated:
+
+\begin{equation}
+\frac{\partial u_3}{\partial z} = \frac{1}{7} \frac{U_3}{\delta^{1/7}} z^{-6/7} \left( 1 - \left( \frac{y}{R_y} \right)^2 \right) 
+\end{equation}
+
+\begin{equation}
+\frac{\partial u_4}{\partial z} = \frac{2 U_4}{R_z^2} \left( b_z - z \right)  \left( 1 - \left( \frac{y}{R_y} \right)^2 \right) 
+\end{equation}
+
+Evaluated at $z = \delta$:
+
+\begin{equation}
+\left. \frac{\partial u_3}{\partial z}  \right|_{z = \delta} = \frac{U_3}{7 \delta} \left( 1 - \left( \frac{y}{R_y} \right)^2 \right)
+\end{equation}
+
+\begin{equation}
+\left. \frac{\partial u_4}{\partial z}  \right|_{z = \delta} = \frac{2 U_4}{R_z^2} \left( b_z - \delta \right) \left( 1 - \left( \frac{y}{R_y} \right)^2 \right)
+\end{equation}
+
+Equating both expressions, $R_z$ can be solved:
+
+\begin{equation}
+\label{eq:3D_BL_RzExpression}
+\boxed{
+R_z = \sqrt{14 \delta \left( b_z - \delta \right) + \left( b_z - \delta \right)^2 }
+}
+\end{equation}
+
+\subsection{Continuity in velocity derivative between zones 2 and 4}
+
+In the case, the derivative of velocity profile must be equal along $y' = \delta$:
+
+\begin{equation}
+\left. \frac{\partial u_2}{\partial y'}  \right|_{y' = \delta} = \left. - \frac{\partial u_4}{\partial y}  \right|_{y = b_y - \delta}
+\end{equation}
+
+where the negative sign arises from the chain rule, considering $y' = b_y - \delta$.
+
+The derivatives with respect to $y$ and $y'$ are:
+
+\begin{equation}
+\frac{\partial u_2}{\partial y'} = \frac{1}{7} \frac{U_2}{\delta^{1/7}} y'^{-6/7} \left( 1 - \left( \frac{b_z - \delta}{R_z} \right)^2 \right) 
+\end{equation}
+
+\begin{equation}
+\frac{\partial u_4}{\partial y} = - \frac{2 U_4}{R_y^2} y  \left( 1 - \left( \frac{b_z - z}{R_z} \right)^2 \right) 
+\end{equation}
+
+Evaluated at $y' = \delta$ and $y = b_y - \delta$:
+
+\begin{equation}
+\left. \frac{\partial u_2}{\partial y'} \right|_{y' = \delta} = \frac{U_2}{7 \delta}  \left( 1 - \left( \frac{b_z - \delta}{R_z} \right)^2 \right) 
+\end{equation}
+
+\begin{equation}
+\left. \frac{\partial u_4}{\partial y} \right|_{y = b_y - \delta} = - \frac{2 U_4}{R_y^2} \left( b_y - \delta \right) \left( 1 - \left( \frac{b_z - z}{R_z} \right)^2 \right) 
+\end{equation}
+
+Equating and operating yields an expression similar to Eq. (\ref{eq:3D_BL_RzExpression}):
+
+\begin{equation}
+\label{eq:3D_BL_RyExpression}
+\boxed{
+R_y = \sqrt{14 \delta \left( b_y - \delta \right) + \left( b_y - \delta \right)^2 }
+}
+\end{equation}
+
+\subsection{Q conservation}
+
+The last equation necessary to characterize the boundary layer can be obtained by plugging expressions (\ref{eq:3DBL_Q1}), (\ref{eq:3DBL_Q2}), (\ref{eq:3DBL_Q3}) and (\ref{eq:3DBL_Q4}) into (\ref{eq:3D_BL_Qconservation}). Then, substituting the relations between $U_c$ and the different velocities (\ref{eq:3D_BL_relation_Uc_U2}, \ref{eq:3D_BL_relation_Uc_U3} and  \ref{eq:3D_BL_relation_Uc_U4}) and operating, the following relation is obtained:
+
+\begin{equation}
+\begin{split}
+u_\infty b_y b_z &= U_c \left[ \left( \frac{7 \delta}{8} \right)^2 + \frac{7 \delta/8}{1 - \left( \frac{b_z - \delta}{R_z}  \right)^2} \left( b_z - \delta \right) f_z  +  \frac{7 \delta/8}{1 - \left( \frac{b_y - \delta}{R_y}  \right)^2} \left( b_y - \delta \right) f_y  + \right. \\ 
+ & + \left. \frac{ \left( b_y - \delta \right) \left( b_z - \delta \right) }{ \left( 1 - \left( \frac{b_y - \delta}{R_y}  \right)^2 \right) \left( 1 - \left( \frac{b_z - \delta}{R_z}  \right)^2 \right) } f_y f_z \right]
+\end{split}
+\end{equation}
+
+By calling the term multiplying $U_C$ as $TOCHACO$, the following formula is obtained for $U_c$:
+
+\begin{equation}
+\label{eq:3D_BL_uC_vs_tochaco}
+\boxed{
+U_c = u_\infty \frac{b_y b_z}{TOCHACO}
+}
+\end{equation}
+
+
+\section{Procedure to to }
+
+The procedure to follow is:
+
+\begin{itemize}
+
+	\item Get $R_z$ and $R_y$ with Expressions (\ref{eq:3D_BL_RzExpression}) and (\ref{eq:3D_BL_RyExpression}).
+	
+	\item Get $U_c$ with Eq. (\ref{eq:3D_BL_uC_vs_tochaco}).
+	
+	\item Get velocity magnitudes $U_2$, $U_3$ and $U_4$ with Equations (\ref{eq:3D_BL_relation_Uc_U2}), (\ref{eq:3D_BL_relation_Uc_U3}) and  (\ref{eq:3D_BL_relation_Uc_U4}) respectively.
+
+\end{itemize}
+
+An example of profile obtained with this methodology is shown in Figure \ref{fig:3D_BL_oneSeventh}. \textbf{And with this, we close the chapter on 3D BL}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.3]{./appendices_figures/profile_oneSeventh}
+	\caption{3D velocity profile with one-seventh law boundary layer}
+	\label{fig:3D_BL_oneSeventh}
+\end{figure}

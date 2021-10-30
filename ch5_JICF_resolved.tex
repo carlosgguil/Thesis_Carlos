@@ -711,9 +711,9 @@ TKE = \frac{1}{2} \left( \overline{u'^2} + \overline{v'^2} + \overline{w'^2} \ri
 Note that, unlike in Eq. (\ref{eq:line_averaged_u_and_TKE}), the TKE is not averaged along a line but represents the resolved energy contained in the eddies at probes A and B. 
 Results are shown in Figure \ref{fig:TKE_vs_dx_in_probes}. As observed ... \\
 
-Finally, the profiles of mean axial velocity $\overline{u}$ and TKE are plotting along the vertical line shown in Figure \ref{fig:ics_mesh_independency_study_up_fields} right for the half-width of the channel. The results are shown in Figure \ref{fig:ics_mesh_independency_study_mean_profiles}. The mean velocity profile is properly captured for all meshes, despite slight variations within the boundary layer where the mean velocity evolves from 0 $m.s^{-1}$ to the velocity in the outer layer, which is constant and equal in all cases (despite some fluctuations due to numerical noise). The boundary layer thickness (observed in the evolution of both $\overline{u}$ and $TKE$) is around 5 mm, which is consistent with the experimental values reported in \citeColor[becker_breakup_2002]. The $TKE$ profiles for the turbulent cases shows that its value in the outer layer (z > 5 $mm$) is similar for the resolutions $\Delta x_\mathrm{ups} = 0.5$ and $0.3$ mm, but lower for the thicker resolution of 1 mm. For $\Delta x_\mathrm{ups} = 0.5$ mm, the profile with turbulence shows larger values of TKE than the case without turbulence injected, as expected. Within the boundary layer, however, convergence in terms of resolution is never achieved, since the profile always changes when the mesh is refined in the inner layer (up to z = 2 mm). The smalles scales of for this region are assumed to be of the order of \textbf{XX??} (see Appendix \textbf{XX??}), which cannot be captured not even with the finest cell size of $\Delta x_\mathrm{ups} = 0.3$ mm. A proper resolution at this region would require cell sizes corresponding to DNS, which is unfeasible for the case studied. Nevertheless, the values of TKE for z > 2 mm, including the energy decrease from this point up to the freestream, is converged for the resolution $\Delta x_\mathrm{ups} = 0.5$ mm. \\
+Finally, the profiles of mean axial velocity $\overline{u}$ and TKE are plotting along the vertical line shown in Figure \ref{fig:ics_mesh_independency_study_up_fields} right for the half-width of the channel. The results are shown in Figure \ref{fig:ics_mesh_independency_study_mean_profiles}. The mean velocity profile is properly captured for all meshes, despite slight variations within the boundary layer where the mean velocity evolves from 0 to the velocity in the outer layer, which is constant and equal in all cases (despite some fluctuations due to numerical noise). The boundary layer thickness (observed in the evolution of both $\overline{u}$ and $TKE$) is around 5 mm, which is consistent with the experimental values reported in \citeColor[becker_breakup_2002]. Part of the liquid jet is comprised within the boundary layer, as it is illustrated in Figure \ref{fig:Umean_profile_with_jet} where the velocity profile is displayed with a snapshot of one of the liquid simulations discussed later in this report. The $TKE$ profiles for the turbulent cases show that the turbulent energy in the outer layer (z > 5 $mm$) is similar for the resolutions $\Delta x_\mathrm{ups} = 0.5$ and $0.3$ mm, but lower for the thicker resolution of 1 mm. For $\Delta x_\mathrm{ups} = 0.5$ mm, the profile with turbulence shows larger values of TKE than the case without turbulence injected, as expected. Within the boundary layer, however, convergence in terms of resolution is never achieved, since the profile always changes when the mesh is refined in the inner layer (up to z = 2 mm). The smallest scales of for this region are assumed to be of the order of \textbf{XX??} (see Appendix \textbf{XX??}), which cannot be captured not even with the finest cell size of $\Delta x_\mathrm{ups} = 0.3$ mm. A proper resolution at this region would require cell sizes corresponding to DNS, which is unfeasible for the case studied. Nevertheless, the values of TKE for z > 2 mm, including the energy decrease from this point up to the freestream, is converged for the resolution $\Delta x_\mathrm{ups} = 0.5$ mm. \\
 
-From these results, the simulation with the mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm was chosen as initial solution for performing the two-phase simulations. As shown, this mesh size allows for a proper turbulent transport (frequencies and energy content) with a moderable cost: Table \ref{tab:jicf_mesh_independence_gaseous_study} shows that decreasing the resolution from 1 to 0.5 mm supposed an increase of 5 million of elements, while further refining from 0.5 to 0.3 mm adds up to 28 million. The turbulent content in the inner part of the turbulent layer is not properly resolved, which could have an effect on the jet atomization and has not been check in this work (\textbf{XX Maybe NOT ?? CHECK atomization characteristics and SLI in turbulence vs no-turbulence simulations XX}). It, however, does not have an effect on the trajectory, as it is shown in Figure \ref{subsec:ch5_jet_trajectories_results}. A local refinement on the boundary layer (inflation layer) could help to converge the TKE profiles without a large increase in the cost of the simulations.
+From these results, the simulation with the mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm was chosen as initial solution for performing the two-phase simulations. As shown, this mesh size allows for a proper turbulent transport (frequencies and energy content) with a moderable cost: Table \ref{tab:jicf_mesh_independence_gaseous_study} shows that decreasing the resolution from 1 to 0.5 mm supposed an increase of 5 million of elements, while further refining from 0.5 to 0.3 mm adds up to 28 million. The turbulent content in the inner part of the turbulent layer is not properly resolved, which could have an effect on the jet atomization and has not been check in this work (\textbf{XX Maybe NOT ?? CHECK atomization characteristics and SLI in turbulence vs no-turbulence simulations XX}). It, however, does not have an effect on the trajectory, as it is shown in $\S$\ref{subsec:ch5_jet_trajectories_results}. A local refinement on the boundary layer (inflation layer) could help to converge the TKE profiles without a large increase in the cost of the simulations.
 
 
 
@@ -872,6 +872,20 @@ Axial velocity fluctuations and associated frequencies at the sampling probes fo
 \end{figure}
 
 
+
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/Umean_profile_with_jet}
+\caption{reza}
+% OJO: ficheros generados para el perfil de velocidades estan en Ongoing\ICS_study\u_mean_profiles\cases_probes\mesh_refined_DX0p5_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7
+\label{fig:Umean_profile_with_jet}
+\end{figure}
+
+
+
+
 \subsection{Initial conditions for low Weber operating point}
 
 Initial conditions have also obtained for the operating point at lower Weber number ($We_g = 830$) with the mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm. For establishment of the gaseous phase, the simulation has been run for 40 times the flow-through time shown in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}. This time, which has been checked to profiled converged solutions, has been chosen from the results obtained with the operating point at high We, as shown in Figure \ref{fig:mesh_convergence_line_averages}. Converged profiles for mean axial velocity and $TKE$ are shown in Figure \ref{fig:ics_mean_profiles_op2}, the profiles for the high We operating point are also shown for comparison. As expected, both $\overline{u}$ and $TKE$ values are lower along the $z$ coordinates for the lower We point, consistent with the lower bulk values of $u_\infty$ and $u'$ imposed at the gaseous inletfor this case.
@@ -909,62 +923,71 @@ Initial conditions have also obtained for the operating point at lower Weber num
 
 
 
-\section{Definition of characteristic times}
+\section{Definition of liquid characteristic times}
 
-In order to analyse the convergence and results of the four simulations performed, it is useful to relate the simulation times to characteristic times relating the liquid. Three characteristic times are considered in this work:
+In the previous section, convergence of statistics in gaseous simulations were monitored in time with respect to a characteristic time name flow-through ($\tau_\mathrm{ft}$). Characteristic times are useful since they represent appropriate temporal scales of the physical processes involved in a given problem. The fastest physical mechanisms, given by the smallest characteristic times, will be ones governing each particular case. Also, evolution of statistical quantities can then be monitored by comparing the running times of the simulations with the characteristic times relevant to the magnitudes of interest. 
+
+In the same fashion as in the gaseous simulations, characteristic times can be defined for the liquid phase. Firstly, several characteristic physical times can be mathematically defined for the liquid phase from the physical characteristics of the flow:
 
 \begin{itemize}
-	
-	\item $\tau_\mathrm{liq}$: the characteristic liquid phase time from \citeColor[ranger_aerodynamics_1968], defined as:
-	
-	\begin{equation}
-	\tau_\mathrm{liq} = \sqrt{\frac{\rho_l}{\rho_g}} \frac{d_\mathrm{inj}}{u_g}
-	\end{equation}
-	
-	\item $\tau_\mathrm{ph}$: a characteristic physical time of the JICF, defined as )\textbf{ref:herrmann-2011}):
-	
-	\begin{equation}
-	\label{eq:jicf_tau_injector}
-	\tau_\mathrm{ph} = \frac{d_\mathrm{inj}}{u_l}
-	\end{equation}
 
-	\item $\tau_\mathrm{str}$: the characteristic time from ligaments stripping from the dense core. This value is obtained by counting the number of liquid structures that emanate from the liquid column in a given time period.
+	\item Characteristic time related to the \textbf{ inertia of the liquid phase}, $\tau_\mathrm{in}$. This timescale is used in literature to express the establishment of liquid jets in crossflow \citepColor[herrmann_impact_2011].
+
+	\item Characteristic time of \textbf{breakup procresses}. Reference times relating to liquid breakup were firstly introduced by \citeColor[ranger_aerodynamics_1968] to provide an order of magnitude of droplet disintegration in high-velocity gaseous flows. It was later applied to liquid jets in crossflow by \citeColor[fuller_effects_2000], who distinguished two breakup times: an \textbf{aerodynamic breakup timescale} $\tau_\mathrm{ab}$ as defined in \citeColor[ranger_aerodynamics_1968] for droplets since the breakup mechanisms for droplets and jets are similar when aerodynamic forces are significant; and a \textbf{non-aerodynamic timescale} $\tau_\mathrm{nb}$ which is representative of the breakup process when aerodynamic forces are weak.
+	
+	\item \textbf{Capillary timescale} $\tau_\mathrm{cap}$ \citepColor[eggers_physics_2008].
+	
+%	\item \textbf{Viscous timescale} $\tau_\mathrm{visc}$ \citepColor[mckinley_dimensionless_2005].
+	
+
 
 \end{itemize}
 
-
-
-For each simulation, the different characteristic times are defined in Table \ref{tab:jicf_characteristic times}. The values $\tau_\mathrm{liq}$ and $\tau_\mathrm{ph}$, depend obviously on the operating condition and not on the mesh resolution, since they are have been obtained from mathematical formulas. On the other hand, the characteristic time $\tau_\mathrm{str}$ has been obtained from each simulation and a dependency on the mesh resolution employed can be expected. 
-
 \begin{table}[!h]
 \centering
-\caption{Characteristic times in JICF simulations}
-\begin{tabular}{lccc}
+\caption{Characteristic physical timescales [$\mu$s] in JICF simulations}
+\begin{tabular}{cccc}
 \thickhline
-\textbf{Case} & $\tau_\mathrm{liq}$ [ms] & $\tau_\mathrm{ph}$ [ms] & $\tau_\mathrm{str}$ [ms] \\
-\thickhline 
-UG75\_DX10  & 0.047 & 0.019 & \\
-UG75\_DX20  & 0.047 & 0.019 & \\
-UG100\_DX10 & 0.063 & 0.026 & \\
-UG100\_DX20 & 0.063 & 0.026 & \\
+\textbf{Time scale} & \textbf{Expression} & \textbf{Low Weber} & \textbf{High Weber} \\
+\thickhline
+Inertia & $\tau_\mathrm{in} = \frac{d_\mathrm{inj}}{u_l}$ & 25.72 & 19.29 \\
+Aerodynamic breakup  &  $\tau_\mathrm{ab} =  \frac{d_\mathrm{inj}}{u_g - u_l} \sqrt{\frac{\rho_l}{\rho_g}} $ & 82.17 & 61.63 \\
+Non-aerodynamic breakup  &  $\tau_\mathrm{nb} = \frac{d_\mathrm{inj}}{u_l} We_l^{1/3} $ &  439.16 & 339.00 \\
+Capillary & $\tau_\mathrm{cap} = \sqrt{\frac{\rho_l d_\mathrm{inj}^3}{8 \sigma}}$ & 1814.64 & 1814.64 \\
+%Viscous & $\tau_\mathrm{visc} = \frac{\mu_l d_\mathrm{inj}}{\sigma}$ & & \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_characteristic times}
 \end{table}
 
-We can also define characteristic times as droplets reach the sampling planes. For it, we can make a specific table for each case and each plane:
+
+These characteristic times are defined and calculated for each simulation in Table \ref{tab:jicf_characteristic times}. As observed, all timescales are lower for the high Weber operating point due to the higher velocities involved in this case (except for the capillary one, which does not depend on the flow conditions). The capillary timescale is larger than the other ones due to the strong aerodynamic conditions found in both operating points: capillary events are slow and do not contribute to the jet development and breakup, which are governed by inertia. Regarding breakup timescales, aerodynamic breakup is faster relative to non-aerodynamic in both cases, indicating that aerodynamic effect prevails: effectively, the main primary atomization mechanism governing both operating points is surface breakup, as indicated in Figure \ref{fig:location_JICF_ops_in_breakup_map}. In this work, the only reference time that will be further used is the inertia timescale $\tau_\mathrm{in}$ to express the jet establishment in a dimensionless timescale and allow a qualitative comparison of both operating points. 
+
+Secondly, characteristic times can also be obtained directly from the simulations performed. These ones cannot be directly estimated through expressions, but are obtained by postprocessing results of interest in the simulations. They are useful for expressing the evolution and convergence of statistical quantities studied. Contrarily to the first set of timescales defined previously, which are obtained through expressions and therefore do not depend on the mesh resolution, \hl{the characteristic times obtained from the simulations are dependent on both the operating point and the mesh resolution}. In this work, two timescales are used: 
+
+\begin{itemize}
+
+	\item  Characteristic times of the \textbf{ligaments stripping from the dense core} in resolved simulations, $\tau_\mathrm{str}$. This value is obtained by counting the number of liquid structures that emanate from the liquid column in a given time period.
+
+	
+	\item \textbf{Characteristic droplet arrival times} to the sampling planes in the simulations. They are obtained as the elapsed time from the initialisation of the two-phase simulation to the arrival of the first droplet to each sampling plane. As several sampling planes are defined in each simulation (see for example Figure \ref{fig:jicf_interior_boundaries_surface_measurements}), several sampling timescales are obtained. Results are shown in Table \ref{tab:jicf_characteristic_droplet_sampling_times}. The justification for the choice of sampling planes is done in $\S$\ref{ref:ch5_sec_spray_characterization}.
+
+
+\end{itemize}
+
+
 
 \begin{table}[!h]
 \centering
-\caption{Characteristic droplet times in JICF simulations}
-\begin{tabular}{lcccc}
+\caption{Characteristic droplet arrival times to sampling planes $\tau_\mathrm{dr_x}$ [$\mu$s] in JICF simulations}
+\begin{tabular}{ccccc}
 \thickhline
-\textbf{Case} & $x = 5 mm$ & $x = 10 mm$ & $x = 15 mm$  \\
+\textbf{Case} & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
 \thickhline 
-UG75\_DX10  & 0.1927 & 0.2952 & -  \\
-UG75\_DX20  & 0.2347 & 0.3558 & 0.4567 \\
-UG100\_DX10 & 0.1437 & 0.2187 & - \\
-UG100\_DX20 & 0.1768 & 0.2584 & 0.3628 \\
+UG75\_DX10  & 192.7 & 295.2 & -  \\
+UG75\_DX20  & 234.7 & 355.8 & 456.7 \\
+UG100\_DX10 & 143.7 & 218.7 & - \\
+UG100\_DX20 & 176.8 & 258.4 & 362.8 \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_characteristic_droplet_sampling_times}
@@ -974,34 +997,23 @@ UG100\_DX20 & 0.1768 & 0.2584 & 0.3628 \\
 %\section{Results}
 %\label{sec:results_JICF_resolved}
 
-\section{Jet topology}
+\section{Jet evolution}
 
 
 \subsection{Flow establishment}
 
-A non-dimensional time can be defined as
+Figures \ref{fig:JICF_establishment_UG100_lateral} to \ref{fig:JICF_establishment_UG75_top} shows the evolution of the jet for all the simulations in three different view: lateral, front and top. The left column shows the thicker resolution, while the right column shows the finer one. The interface is represented by the iso-value $\Psi = 0.5$. The snapshots are represented for the same time instants in all cases, which are expressed in dimensionless units with respect to the characteristic liquid inertia timescale introduced in Table \ref{tab:jicf_characteristic times}:
 
 \begin{equation}
-t^* = \frac{t}{\tau_\mathrm{ph}}
+t^* = \frac{t}{\tau_\mathrm{in}}
 \end{equation}
 
-Or:
+Note that $\tau_\mathrm{in}$ is, due to its definition, higher for the low-We operating point than for the high-We one. Therefore, the absolute times from injection are not the same for both operating points: for the same time instant $t^*$, the low-We point represents a more advanced physical time than the high-We case. This allows to compare the jets at equivalent times: since the low-We operating point involves lower gas and liquid velocities, the jet has advanced in a lesser extent than the high-We case for the same absolute time instant. Therefore, expressing a dimensionless time with respect to a reference time that takes into account the difference in velocity between both cases (in this case, the one of the liquid phase) allows for a more representative comparison of both jets.
 
-\begin{equation}
-t^* = \frac{t}{\tau_\mathrm{dr}}
-\end{equation}
+The lateral view of the jets (Figures \ref{fig:JICF_establishment_UG100_lateral} and \ref{fig:JICF_establishment_UG75_lateral}) show 
 
+No difference in penetration can be observed \ref{subsec:ch5_jet_trajectories_results}.
 
-The increase in mesh elements is seen in Figure \ref{fig:JICF_nelem_increase}.
-
-\begin{figure}[ht]
-\centering
-	\centering
-   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/JICF_nelem_increase}
-   %\label{} 
-\caption{Evolution of number of mesh elements with time in JICF simulations}
-\label{fig:JICF_nelem_increase}
-\end{figure}
 
 \clearpage
 
@@ -1063,8 +1075,82 @@ The increase in mesh elements is seen in Figure \ref{fig:JICF_nelem_increase}.
 
 \clearpage
 
-\subsection{Jet breakup}
+\subsection{Breakup topology}
 
+Things break yes .
+
+\subsection{Evolution of mesh size}
+
+At the early instants of the injection process, the quantity of liquid in the domain increases with time until the jet is established. Since dynamic mesh adaptation is used to locate the smallest mesh elements in the liquid-gas interface (as explained in $\S$\ref{subsec:ch2_ACLS}), the mesh size increases with time as the interface surface within the domain is larger. 
+
+\begin{figure}[ht]
+\centering
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/JICF_nelem_evolution/JICF_w_mesh}
+   %\label{} 
+\caption{Lateral view of meshes and interface contours near the injector at time instant t = 0.3 ms, high Weber point}
+\label{fig:JICF_w_mesh}
+\end{figure}
+
+The evolution of the number of mesh elements ($N_\mathrm{elements}$) with time in all simulations is shown in Figure \ref{fig:JICF_nelem_increase}. In this case, the physical time has been expressed with respect to the arrival time of the first droplet to the last sampling plane before liquid is removed, $\tau_\mathrm{dr_{xLast}}$, which are shown in Table \ref{tab:jicf_characteristic_droplet_sampling_times}:
+
+\begin{equation}
+t^{\prime} = \frac{t}{\tau_\mathrm{dr_{xLast}}}
+\end{equation}
+
+Note that the last sampling plane differs on the mesh resolution: for $\Delta x_\mathrm{min} = 20~\mu m$ is at $x = 15$ mm, while for $\Delta x_\mathrm{min} = 10~\mu m$ is at $x = 10$ mm. For the fine resolution liquid is artificially removed before than in the coarse one because the cost of the simulations was shown to be too expensive if droplets are present up to $15$ mm downstream the injection nozzle. Therefore, the final values of the number of elements (i.e. once the jet is established) are not directly comparable between resolutions, but only between operating point. However, a quick glance to Figure \ref{fig:JICF_nelem_increase_all_t} shows that, despite liquid being suppressed upstream than in the fine resolution, the final number of elements is larger in the former than in the later: \textsl{(add numbers when simulations are stable)}. By looking at Figure \ref{fig:JICF_nelem_increase_all_t}, one can see that the number of elements increases slowly at the beginning and then rises exponentially (linearly in the semi-logarithmic plot) \hl{until there's enough liquid in the domain} and steady-state is reached. The number of elements is much larger for the fine resolution tan for the coarse one: \hl{the steady-state values are ...}.
+
+The dashed line in Figures \ref{fig:JICF_nelem_increase_all_t} and  \ref{fig:JICF_nelem_increase_t_0_to_2} corresponds  to $t^{\prime} = 1$, which is the instant at which the last sampling plane in each simulation detects the first droplet. Figure \ref{fig:JICF_nelem_increase_t_0_to_2} shows that this instant is located in the linear region. Previously, there is no liquid being artificially removed in the simulations, so the curves increase monotonically (except for some minor decreases due to small droplets that reach the size of mesh resolution and disappear due to the unability of being further propagated in the simulations, which is discussed in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}). After this point, the number of elements continues to increase exponentially up to a time $t^{\prime} \sim 1.5$ when the derivative starts to decrease and, finally, the number of elements  stabilizes. Right after $t^{\prime} \sim 1.5$ liquid droplets reaching the articifial sponge layer are removed; nevertheless, at this stage there are more droplets being generated in the near-nozzle region due to the disturbance effect of the liquid dense core in the air, which creates turbulence in the gaseous phase that will break ligaments ejected from the dense core into more droplets. This explains the monotonic increase in the number of elements for $t^{\prime} > 1$ until an instant from which the number of elements remains constant, which depends on each simulation. The only noticeable difference at $t^{\prime} = 1$ is for the simulation UG75$\_$DX10, which shows a considerable decrease. \hl{Two reasons might explain this decrease. First, there are not one, but several reaching the last sampling plane, hence these droplets are all removed at the same time from the simulation. Since the mean diameter of the droplets generated in a liquid JICF is larger when the air dynamic pressure is lower} \citepColor[becker_breakup_2002] \hl{, which is the case for the low Weber operating point, the droplets generated in this case are in general lower than for the high Weber case (this is later shown in }$\S$\ref{sec:ch5_sec_spray_characterization}, \hl{, so all these droplets contain more elements than one single droplet from the case } UG75*\_*DX10 \hl{and the removed amount liquid is larger, hence the abrupt decrease in the number of mesh elements. The second explanation could be that at this time instant there are several droplets in the whole domain of the simulation (i.e. from the injection nozzle to the sponge layer location) which disappear at the same time, causing an overall decrease in the number of elements. The combination of both could also occur, which combined would suppose a larger decrease in the number of elements than if every single one acts separately.}
+
+Figure \ref{fig:JICF_nelem_increase_t_0_to_0p5} shows the evolution of number of elements in the black rectangle of Figure \ref{fig:JICF_nelem_increase_t_0_to_2}, which correspond to the early instants of injection. It is seen that for $t^{\prime} \in [0, 0.3]$ the increase in mesh size is slow, but yet the simulations with fine resolutions start to generate more elements than the coarse ones. In this regions, there is no significant difference between operating points. For $t^{\prime} > [0, 0.3]$ the curves start to further differ due to the beginning of atomization: generation of ligaments due to column breakup and of droplets due to surface breakup increase greatly the amount of liquid-gas interface, hence pronouncing the differences in number of mesh elements between resolutions. At this point the effect of the operating points can be noticed: the high Weber case presents a slighly larger number of elements than the low Weber case for both resolutions, as expected since for the former case the aerodynamic forces are stronger and the number of generated droplets is larger (verified in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band})).
+
+The exponential region is observed by looking at the blue rectangle from Figure \ref{fig:JICF_nelem_increase_t_0_to_2}, shown in Figure \ref{fig:JICF_nelem_increase_t_0p5_to_0p7}. This is only a portion of the exponential region, but a representative one since no abrupt decreases in the number of elements due to liquid disappearance are observed. In this graph, it can first be observed that the evolution of element number is not literally monotically increasing, but presents a stepped signal. This is due to the dynamic mesh adaptation routine explained in $\S$\ref{subsec:ch2_ACLS}, which modifies the mesh after a given simulation iterations have passed and not at each iteration: therefore, for some iterations of the simulation $N_\mathrm{elements}$ stay constant. The exponential increase in $N_\mathrm{elements}$ in this region, which is depicted as a linear curve in Figure \ref{fig:JICF_nelem_increase_t_0p5_to_0p7} since the $y$ axis is in logarithmic units, can be fit to an expression relating both magnitudes as follows:
+
+\begin{equation}
+N_\mathrm{elements} = n \exp \left( m t^{\prime} \right)
+\end{equation}
+
+where $n$ is the $y$-axis intercept and $m$ is the slope. The intercept will be different in all cases; however, the slopes have been found to be different between resolutions but equal between operating points. Therefore two slopes are calculated: $m_{\Delta x10}$ for the fine resolution and $m_{\Delta x20}$ for the coarse one, displayed by the dash-dotted lines in Figure \ref{fig:JICF_nelem_increase_t_0p5_to_0p7}. These slopes have been found to be $m_{\Delta x10} = 3.15$ and $m_{\Delta x20} = 1.6$. \hl{What else ?}
+
+ 
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/JICF_nelem_evolution/JICF_nelem_increase}
+   \caption{Evolution in simulations}
+   \label{fig:JICF_nelem_increase_all_t} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/JICF_nelem_evolution/JICF_nelem_increase_t_in_0_2}
+   \caption{Zoomed-in view of Figure \ref{fig:JICF_nelem_increase_all_t} in range $t^{\prime} \in [0, 2]$}
+   \label{fig:JICF_nelem_increase_t_0_to_2}
+\end{subfigure}
+\vskip\baselineskip
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/JICF_nelem_evolution/JICF_nelem_increase_t_in_0_0p5}
+   \caption{Zoomed-in view in black rectangle of Figure \ref{fig:JICF_nelem_increase_t_0_to_2}}
+   \label{fig:JICF_nelem_increase_t_0_to_0p5} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/JICF_nelem_evolution/JICF_nelem_increase_t_in_0p5_1}
+   \caption{Zoomed-in view in blue rectangle of Figure \ref{fig:JICF_nelem_increase_t_0_to_2}}
+   \label{fig:JICF_nelem_increase_t_0p5_to_0p7}
+\end{subfigure}
+   \caption{Evolution of number of mesh elements with time in JICF simulations. The dashed, black vertical line indicates the time $t^\prime = 1$ when the first droplet reaches the plane where liquid is removed.}
+\label{fig:JICF_nelem_increase}
+\end{figure}
+
+
+
+
+\clearpage
 
 \section{Jet trajectories}
 \label{subsec:ch5_jet_trajectories_results}
@@ -1292,12 +1378,14 @@ The time evolution of flow rates for case UG100\_DX20 is shown in Figure \ref{fi
 \newpage
 
 \subsection{Mass conservation in ACLS}
+\label{subsec:ch5_mass_conservation_ACLS_set_levelset_band}
 
 %\subsubsection{Sampling procedure for droplets}
 
 \newpage
 
 \section{Spray characterization}
+\label{sec:ch5_sec_spray_characterization}
 
 The number of droplets accumulated in each sampling plane for all the simulations performed in shown in Figure \ref{tab:jicf_Ndr_accumulated}.
 
