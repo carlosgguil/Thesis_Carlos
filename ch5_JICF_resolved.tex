@@ -1165,28 +1165,40 @@ where $n$ is the $y$-axis intercept and $m$ is the slope. The intercept will be 
 \section{Jet trajectories}
 \label{subsec:ch5_jet_trajectories_results}
 
-Different methods to obtain trajectories from resolved simulations were proposed in $\S$\ref{sec:ch5_tools_jicf_trajectories}. These methods are summarized in Table \ref{tab:jicf_tools_trajectories_obtention}. In this section, firstly  the four methods described are applied to the simulation UG100\_DX20, the trajectories obtained are then compared and discussed. Secondly, the method MEAN\_GRAD is chosen to perform experimental validation with all simulations from Table \ref{tab:jicf_resolved_simulations_performed}, since this is the numerical methodology more similar to the way in which the experimental correlations in \citeColor[becker_breakup_2002] are obtained.
+Characteristics of liquid JICF were introduced in $\S$\ref{sec:ch1_fuel_injection_technology}. Among its features, the trajectory of the jet is found to be one of the most studied ones. JICF trajectoy is of paramount importance since it provides the vertical penetration of the jet and, therefore, the areas downstream injection that could possibly have presence of fuel. Design of systems involving JICF configurations often take into account the penetration, estimated either from experiments or simulations, as a relevant parameter for combustor sizing.
 
-The accuracy of the mean numerical trajectories can be quantitatively assessed by defining a $L_2$ error as in Eq.~(\ref{eq:L2_JICF}): 
+Jet trajectories are usually obtained for the windward side of the jet, since this is the side indicating the furthest vertical location ($z$) containing liquid for each axial location in crossflow direction ($x$). Experimental studies on JICF configurations often provide correlations for the mean trajectory relating $z$ with $x$. Some examples of correlations were given in Table \ref{tab:correlations_experimental_JICF}. Optical accesibility to the windward side of the jet by using, for example, quartz walls and visualization equipment such as high-speed cameras, makes the jet trajectory an easily accessible characteristic from the experimental point of view. Correlations are often specified for a given range of operating conditions and valid up to a certain axial location downstream the injection point, since further away the presence of droplets resulting from atomization make optical visualization more difficult.
+
+In this work, the jet trajectories are determined for all the simulations performed. The configuration of \citeColor[becker_breakup_2002] provides the following experimental correlation, which will be used for simulations validation:
+
+\begin{equation}
+1.57 \mathrm{q}^{0.36} \ln \left( 1 + 3.81 \frac{x}{d_\mathrm{inj}} \right)
+\end{equation}
+
+which is valid for $1 < q < 12$, $90 < We_\mathrm{ae} < 2120$ and $x/d_\mathrm{inj} < 22$. The values for $d_\mathrm{inj}$ and $q$ are given
+in Table \ref{tab:jicf_operating_conditions}. The authors also present a standard deviation for the correlation of $\sigma = 0.81$. By plotting this expression together with the trajectories obtained from the simulations, one has a qualitative view of the difference between simulations and experiments. To go further in the analyses, it is aimed to provide a quantitative measure of the differences between the correlation and the experimental results presented hereafter. For this purpose, a $L_2$ error is defined as follows:
 
 \begin{equation}
 \label{eq:L2_JICF}
     L_2 = \sqrt{\frac{1}{N}   \sum_{i=1}^N \left( \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{num},i} -   \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{exp},i} \right)^2}
 \end{equation}
 
+where $N$ is the number of points along the abscissa $x$ in which the difference between curves is evaluated and i refers to the $i$-th point. The subscript num$,i$ indicates the mean value obtained from simulations for the vertical location at point $i$, while exp$,i$ indicates the equivalent measure from experiments. From this definition it follows that the $L_2$ error is a measure of the accuracy of the simulations: the lower the $L_2$, the closer the simulation results are to experimental ones. The $L_2$ error can also be monitored with time to determine the convergence evolution of the trajectories.
+
+Apart from the $L_2$ error, another measure for experimental accuracy can be defined as an error along the trajectory:
 
 
-We can also define an error along the trajectory as follows:
-
-
-
-\begin{equation}
-\varepsilon_i  =  \frac{ \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{num},i} - \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{exp},i} }{ \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{exp},i} }
-\end{equation}
 
 \begin{equation}
 \varepsilon_i  =  \frac{ z/d_\mathrm{inj} \Bigr|_{\mathrm{num},i} - z/d_\mathrm{inj} \Bigr|_{\mathrm{exp},i} }{ z/d_\mathrm{inj} \Bigr|_{\mathrm{exp},i} }
 \end{equation}
+
+The error $\varepsilon_i$ is then obtained and plotted for all the abscissa values $x_i$, providing an indicator of the trajectory’s accuracy along the crossflow’s axial direction. \\
+
+Different methods to obtain trajectories from resolved simulations were proposed in $\S$\ref{sec:ch5_tools_jicf_trajectories}. These methods are summarized in Table \ref{tab:jicf_tools_trajectories_obtention}. In this section, firstly  the four methods described are applied to the simulation UG100\_DX20, the trajectories obtained are then compared and discussed. Secondly, the method MEAN\_GRAD is chosen to perform experimental validation with all simulations from Table \ref{tab:jicf_resolved_simulations_performed}. \hl{Finally, a comparison
+of the $L_2$ errors based on the maximum distance downstream in the trajectory ...}
+
+\clearpage
 
 
 \subsection{Comparison of methods}
