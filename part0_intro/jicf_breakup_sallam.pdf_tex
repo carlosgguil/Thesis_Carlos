@@ -1,4 +1,4 @@
-%% Creator: Inkscape inkscape 0.92.0, www.inkscape.org
+%% Creator: Inkscape 1.1.1 (3bf5ae0d25, 2021-09-20), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'jicf_breakup_sallam.pdf' (pdf, eps, ps)
 %%
@@ -35,8 +35,10 @@
     \renewcommand\transparent[1]{}%
   }%
   \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{671.84644883bp}%
+    \setlength{\unitlength}{643.49999135bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,15 +50,17 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.37374085)%
+  \begin{picture}(1,0.34615386)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{jicf_breakup_sallam.pdf}}%
-    \put(0.06263802,0.30804367){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{(a)}}}}%
-    \put(0.16425116,0.30554578){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{(b)}}}}%
-    \put(0.31982684,0.31166912){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{(c)}}}}%
-    \put(0.52253586,0.31243527){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{(d)}}}}%
-    \put(0.72660586,0.30874831){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{(e)}}}}%
+    \put(0.04047043,0.30483268){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l} \mbox{\large (a)}\end{tabular}}}}%
+    \put(0.14232259,0.3048471){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l} \mbox{\large (b)}\end{tabular}}}}%
+    \put(0.30853931,0.305267){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l} \mbox{\large (c)}\end{tabular}}}}%
+    \put(0.52352857,0.30417296){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l} \mbox{\large (d)}\end{tabular}}}}%
+    \put(0.73891895,0.30440284){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l} \mbox{\large (e)}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{jicf_breakup_sallam.pdf}}%
-    \put(0.43564029,0.06259974){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\color{red} \lambda$}}}%
+    \put(0.43280522,0.04333207){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l} \mbox{\large $\color{black} \lambda$}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{jicf_breakup_sallam.pdf}}%
   \end{picture}%
 \endgroup%

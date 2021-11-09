@@ -2,21 +2,21 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="210mm"
    height="297mm"
    viewBox="0 0 210 297"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.0 r15299"
-   sodipodi:docname="jicf_breakup_sallam.svg">
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="jicf_breakup_sallam.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs2">
     <marker
@@ -158,18 +158,19 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="112.55469"
-     inkscape:cy="656.4553"
+     inkscape:zoom="2.8284272"
+     inkscape:cx="-298.57583"
+     inkscape:cy="212.30881"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      showguides="false"
      inkscape:window-width="1920"
-     inkscape:window-height="986"
-     inkscape:window-x="-11"
-     inkscape:window-y="-11"
-     inkscape:window-maximized="1" />
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:pagecheckerboard="0" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -178,7 +179,6 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -196,40 +196,40 @@
        width="227.0125" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:6.61458349px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-84.081093"
-       y="74.94751"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:6.61458px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-84.739792"
+       y="73.756882"
        id="text4510-9-2-6"><tspan
          sodipodi:role="line"
          id="tspan4508-4-3-7"
-         x="-84.081093"
-         y="74.94751"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.26458332">\textbf{(a)}</tspan></text>
+         x="-84.739792"
+         y="73.756882"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.264583"> \mbox{\large (a)}</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:6.61458349px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-59.997509"
-       y="75.539543"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:6.61458px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-61.61808"
+       y="73.753609"
        id="text4510-9-2-6-9"><tspan
          sodipodi:role="line"
          id="tspan4508-4-3-7-0"
-         x="-59.997509"
-         y="75.539543"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.26458332">\textbf{(b)}</tspan></text>
+         x="-61.61808"
+         y="73.753609"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.264583"> \mbox{\large (b)}</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:6.61458349px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-23.124128"
-       y="74.088234"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:6.61458px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-23.884806"
+       y="73.658287"
        id="text4510-9-2-6-4"><tspan
          sodipodi:role="line"
          id="tspan4508-4-3-7-2"
-         x="-23.124128"
-         y="74.088234"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.26458332">\textbf{(c)}</tspan></text>
+         x="-23.884806"
+         y="73.658287"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.264583"> \mbox{\large (c)}</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:6.61458349px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:6.61458px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        x="24.920443"
        y="73.906647"
        id="text4510-9-2-6-40"><tspan
@@ -237,27 +237,27 @@
          id="tspan4508-4-3-7-01"
          x="24.920443"
          y="73.906647"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.26458332">\textbf{(d)}</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.264583"> \mbox{\large (d)}</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:6.61458349px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="73.287582"
-       y="74.780502"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:6.61458px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="73.81675"
+       y="73.854462"
        id="text4510-9-2-6-7"><tspan
          sodipodi:role="line"
          id="tspan4508-4-3-7-3"
-         x="73.287582"
-         y="74.780502"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.26458332">\textbf{(e)}</tspan></text>
+         x="73.81675"
+         y="73.854462"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.264583"> \mbox{\large (e)}</tspan></text>
     <path
-       style="fill:none;stroke:#ff0000;stroke-width:0.15;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#marker5354);marker-end:url(#Arrow1Lend-5)"
+       style="fill:none;stroke:#000000;stroke-width:0.15;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend-4-0);fill-opacity:1"
        d="m 3.9977287,125.96446 -3.56860274,6.5728"
        id="path4548-7"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:6.61458349px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:6.61458px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        x="4.3251076"
        y="133.12079"
        id="text4510-9-2-6-9-2"><tspan
@@ -265,15 +265,15 @@
          id="tspan4508-4-3-7-0-2"
          x="4.3251076"
          y="133.12079"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.26458332">$\color{red} \lambda$</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;font-family:Garamond;-inkscape-font-specification:Garamond;stroke-width:0.264583"> \mbox{\large $\color{black} \lambda$}</tspan></text>
     <path
-       style="fill:none;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 5.9016186,126.67075 2.6604212,125.10519"
        id="path4548-7-7"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#ff0000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#000000;stroke-width:0.2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 2.0181622,133.51894 -3.2411975,-1.56556"
        id="path4548-7-7-5"
        inkscape:connector-curvature="0"

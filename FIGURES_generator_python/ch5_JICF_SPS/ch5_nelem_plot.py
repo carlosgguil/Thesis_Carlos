@@ -11,19 +11,20 @@ import numpy as np
 import pandas as pd
 
 FFIG = 0.5
-plt.rcParams['xtick.labelsize'] = 80*FFIG
-plt.rcParams['ytick.labelsize'] = 80*FFIG
-plt.rcParams['axes.labelsize']  = 80*FFIG
+plt.rcParams['xtick.labelsize'] = 90*FFIG # 80*FFIG 
+plt.rcParams['ytick.labelsize'] = 90*FFIG # 80*FFIG
+plt.rcParams['axes.labelsize']  = 90*FFIG #80*FFIG
 plt.rcParams['axes.labelpad']   = 30*FFIG
-plt.rcParams['axes.titlesize']  = 80*FFIG
-plt.rcParams['legend.fontsize'] = 50*FFIG
+plt.rcParams['axes.titlesize']  = 90*FFIG #80*FFIG
+plt.rcParams['legend.fontsize'] = 60*FFIG #50*FFIG
 plt.rcParams['font.size'] = 50*FFIG
-plt.rcParams['lines.linewidth'] =  6*FFIG
+plt.rcParams['lines.linewidth'] =  8*FFIG #6*FFIG
 plt.rcParams['legend.framealpha'] = 1.0
 plt.rcParams['legend.loc']      = 'lower right'
 plt.rcParams['text.usetex'] = True
 
 figsize_ = (FFIG*26,FFIG*16)
+#figsize_ = (FFIG*20,FFIG*13)
 
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/JICF_nelem_evolution/'
 folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/nelem evolution/'
@@ -39,9 +40,9 @@ y_label_ = '$N_\mathrm{elements} ~(10^6$)'
 #tau_ph_UG75  = 0.026
 
 tau_dr_UG75_DX10  = 0.2952
-tau_dr_UG75_DX20  = 0.4567
+tau_dr_UG75_DX20  = 0.3558 #0.4567
 tau_dr_UG100_DX10 = 0.2187
-tau_dr_UG100_DX20 = 0.3628
+tau_dr_UG100_DX20 = 0.2584 #0.3628
 
 
 '''
@@ -223,7 +224,8 @@ plt.close()
 #% Obtain slope lines
 # Intercept for slope lines
 m_dx10 = 3.15 ; n_dx10 = 22
-m_dx20 = 1.6  ; n_dx20 = 39 
+#m_dx20 = 1.6  ; n_dx20 = 39
+m_dx20 = 0.9  ; n_dx20 = 48
 
 # Time values for slope lines
 tp_dx10 = np.array([0.555,0.595])
@@ -233,7 +235,6 @@ tp_dx20 = np.array([0.605,0.645])
 nel_dx10 = n_dx10*np.exp(m_dx10*tp_dx10)
 nel_dx20 = n_dx20*np.exp(m_dx20*tp_dx20)
 
-
 plt.figure(figsize=figsize_)
 ax = plt.gca()
 t = ax.get_xaxis().get_major_ticks()
@@ -241,16 +242,19 @@ for tick in ax.get_xaxis().get_major_ticks():
     tick.set_pad(20.)
 plt.plot(tp_dx10, nel_dx10, '-.k')
 plt.plot(tp_dx20, nel_dx20, '-.k')
+#plt.plot(tp_dx20, nel_dx20, '-.k')
 plt.plot(time_UG100_DX20,nelem_UG100_DX20, label='$\mathrm{UG}100\_\mathrm{DX}20$')
 plt.plot(time_UG100_DX10,nelem_UG100_DX10, label='$\mathrm{UG}100\_\mathrm{DX}10$')
 plt.plot(time_UG75_DX20,nelem_UG75_DX20, label='$\mathrm{UG}75\_\mathrm{DX}20$')
 plt.plot(time_UG75_DX10,nelem_UG75_DX10, label='$\mathrm{UG}75\_\mathrm{DX}10$')
-plt.text(0.56,1.4e2,r'$m_{\Delta x10}$')
-plt.text(0.61,1.1e2,r'$m_{\Delta x20}$')
+plt.text(0.56,1.45e2,r'$m_{\Delta x10}$',fontsize=70*FFIG)
+#plt.text(0.61,1.12e2,r'$m_{\Delta x20}$',fontsize=70*FFIG)
+plt.text(0.61,0.9e2,r'$m_{\Delta x20}$',fontsize=70*FFIG)
 plt.xlabel(x_label_)
 plt.ylabel(y_label_)
 plt.xlim(0.5,0.7)
-plt.ylim(80,2e2)
+#plt.ylim(80,2e2)
+plt.ylim(70,2e2)
 #plt.xlim(0.5,1)
 #plt.ylim(80,4e2)
 plt.yscale('log')
