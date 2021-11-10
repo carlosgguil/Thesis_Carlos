@@ -306,6 +306,7 @@ Non-monotonic instantaneous trajectories can be obtained by applying the methodo
         \label{fig:trajectory_obtention_instantaneous_method_a}
 \end{figure}
 
+
 \clearpage
 
 %\subsubsection*{Monotonic trajectory}
@@ -1001,6 +1002,7 @@ UG100\_DX20 & 176.8 & 258.4 & 362.8 \\
 
 
 \subsection{Flow establishment}
+\label{subsec:ch5_JICF_flow_establishment}
 
 Figures \ref{fig:JICF_establishment_UG100_lateral} to \ref{fig:JICF_establishment_UG75_top} shows the evolution of the jet for all the simulations in three different view: lateral, front and top. The left column shows the thicker resolution, while the right column shows the finer one. The interface is represented by the iso-value $\Psi = 0.5$. The snapshots are represented for the same time instants in all cases, which are expressed in dimensionless units with respect to the characteristic liquid inertia timescale introduced in Table \ref{tab:jicf_characteristic times}:
 
@@ -1077,7 +1079,21 @@ No difference in penetration can be observed \ref{subsec:ch5_jet_trajectories_re
 
 \subsection{Breakup topology}
 
-Things break yes .
+Things break yes.
+
+\subsection{Presence of instabilities / instabilities resolution}
+\label{subsec:ch5_instabilities_presence}
+
+Instabilities present for the fine resolution but not for the coarse one.
+
+We can look at the \textbf{vorticity}. We can also look within the \textbf{liquid injector}.
+
+As observed in Figure \textbf{XX}, ligaments generated due to instabilities in the fine resolution simulations \hl{contain a higher inertia and are stripped-off the dense core with larger velocities than those produced in the coarse resolution, where instabilities are not generated}. Such ligaments and the subsequent droplets produced from their breakup will penetrate further away in the vertical direction.
+
+We can see in Figure \textbf{XX} that the wavelengths $\lambda$ of the generated instabilities are ...
+
+When instabilities are present, primary atomization is affected and the generated ligaments \hl{contain more inertia}. As
+
 
 \subsection{Evolution of mesh size}
 
@@ -1125,7 +1141,7 @@ where $n$ is the $y$-axis intercept and $m$ is the slope. The intercept will be 
  
 
 \begin{figure}[ht]
-\centering
+\flushleft
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/JICF_nelem_evolution/JICF_nelem_increase}
@@ -1139,7 +1155,9 @@ where $n$ is the $y$-axis intercept and $m$ is the slope. The intercept will be 
    \caption{Zoomed-in view of Figure \ref{fig:JICF_nelem_increase_all_t} in range $t^{\prime} \in [0, 2]$}
    \label{fig:JICF_nelem_increase_t_0_to_2}
 \end{subfigure}
+
 \vskip\baselineskip
+
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/JICF_nelem_evolution/JICF_nelem_increase_t_in_0_0p5}
@@ -1176,7 +1194,7 @@ In this work, the jet trajectories are determined for all the simulations perfor
 \end{equation}
 
 which is valid for $1 < q < 12$, $90 < We_\mathrm{ae} < 2120$ and $x/d_\mathrm{inj} < 22$. The values for $d_\mathrm{inj}$ and $q$ are given
-in Table \ref{tab:jicf_operating_conditions}. The authors also present a standard deviation for the correlation of $\sigma = 0.81$. By plotting this expression together with the trajectories obtained from the simulations, one has a qualitative view of the difference between simulations and experiments. To go further in the analyses, it is aimed to provide a quantitative measure of the differences between the correlation and the experimental results presented hereafter. For this purpose, a $L_2$ error is defined as follows:
+in Table \ref{tab:jicf_operating_conditions}. The authors also present a standard deviation for the correlation of $\sigma = 0.81$. By plotting this expression together with the trajectories obtained from the simulations, one has a qualitative view of the difference between simulations and experiments. To go further in the analyses, it is aimed to provide a quantitative measure of the differences between the correlation and the experimental results presented hereafter. For this purpose, an error defined as a $L_2$ norm is defined as follows:
 
 \begin{equation}
 \label{eq:L2_JICF}
@@ -1195,17 +1213,22 @@ Apart from the $L_2$ error, another measure for experimental accuracy can be def
 
 The error $\varepsilon_i$ is then obtained and plotted for all the abscissa values $x_i$, providing an indicator of the trajectory’s accuracy along the crossflow’s axial direction. \\
 
-Different methods to obtain trajectories from resolved simulations were proposed in $\S$\ref{sec:ch5_tools_jicf_trajectories}. These methods are summarized in Table \ref{tab:jicf_tools_trajectories_obtention}. In this section, firstly  the four methods described are applied to the simulation UG100\_DX20, the trajectories obtained are then compared and discussed. Secondly, the method MEAN\_GRAD is chosen to perform experimental validation with all simulations from Table \ref{tab:jicf_resolved_simulations_performed}. \hl{Finally, a comparison
-of the $L_2$ errors based on the maximum distance downstream in the trajectory ...}
+%Different methods to obtain trajectories from resolved simulations were proposed in $\S$\ref{sec:ch5_tools_jicf_trajectories}. These methods are summarized in Table \ref{tab:jicf_tools_trajectories_obtention}. In this section, firstly  the four methods described are applied to the simulation UG100\_DX20, the trajectories obtained are then compared and discussed. Secondly, the method MEAN\_GRAD is chosen to perform experimental validation with all simulations from Table \ref{tab:jicf_resolved_simulations_performed}. \hl{Finally, a comparison of the $L_2$ errors based on the maximum distance downstream in the trajectory ...}
+
+The jet establishment discussed in $\S$\ref{subsec:ch5_JICF_flow_establishment} shows that the jet is not developed at the early instants of injection. At these stages, the quantity of liquid inside the domain is low and the gaseous field at the vicinity of the injector is not perturbed by the jet along the region where instabilities are developed and the jet starts to atomize. Hence, the jet penetration at the early instants might not be representative of the trajectory followed afterwards, and so trajectories are obtained after a certain establishment time which here is taken as 1 time of the characteristic liquid time $\tau_{\mathrm{dr}_{x=10}}$. All gaseous and liquid fields statistics (velocity, pressure, $\psi$, etc. mean and RMS values) are reinitialised after this establishment time, hence the trajectories based on the mean $\psi$ field do not consider this prompt transient. Instantaneous trajectories averaged for obtaining mean trajectories based on them are also taken after this time.
 
 \clearpage
 
 
 \subsection{Comparison of methods}
 
+Four methods to obtain trajectories from resolved simulations were proposed in $\S$\ref{sec:ch5_tools_jicf_trajectories}. These methods are summarized in Table \ref{tab:jicf_tools_trajectories_obtention}. The trajectories obtained with each method for the case UG100\_DX20 are shown in Figure \ref{fig:JICF_trajectories_and_L2_comparison}a. The evolution of the $L_2$ errors are displayed in Figure \ref{fig:JICF_trajectories_and_L2_comparison}b.
+
+Trajectories show two different tendencies when using the two families of methods based on instantaneous trajectories and on the mean $\psi$ field. In the vicinity of the injector all trajectories follow the same tendency up to $x/d_\mathrm{inj} \sim 1$. At this point, mean $\psi$ trajectories keep on following the experimental correlation and mean instantaneous ones are located below. \hl{The former ones show noise due to numerical dissipation in the $\psi$ field, while the later show a smoother shape since they are obtained by interpolating instantaneous trajectories and averaging them with time}. Further downstream, instantaneous-averaged trajectories overpass the ones obtained from the mean $\psi$ ones. \hl{The different trends shown by the trajectorices from both methodologies are due to their underlying definitions: instantaneous-averaged trajectories intend only to retrieve the outer contour of the jet by sweeping the $z$ axis and identifying the points with the contour $\psi = 0.5$ at the middle plane $y = 0$, while the mean-based methods take the $\overline{\psi}$ field defined in all the domain and then obtain the trajectories at the middle plane. The $\overline{\psi}$ field is diffused as opposed to the $\psi = 0.5$ contour retrieved by the instantaneous methods, so the trajectories obtained as $\max \left( \nabla_z | \overline{\psi} | \right)$ and $\overline{\psi} = 0.01$ are located in the regions where $\overline{\psi}$ is close to $0$ (i.e. where the mean presence of liquid is low). Consequently, the trajectories generated penetrate further away than the instantaneous averaged ones in the near-injector region where the liquidis coherent, while they show a different tendency downstream when atomization has taken place and dispersed droplets are present.}
+
 
 \begin{figure}[ht]
-\centering
+\flushleft
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_trajectories/methods_comparison_trajectories_q6uG100_dx20.pdf}
@@ -1224,14 +1247,25 @@ of the $L_2$ errors based on the maximum distance downstream in the trajectory .
 \label{fig:JICF_trajectories_and_L2_comparison}
 \end{figure}
 
+\hl{Trajectories obtained from the mean $\psi$ field follow the experimental correlation up to $x/d_\mathrm{inj} \sim 4$, at which point the curve obtained with the gradient method is underestimated with respect to the iso-contour of $\overline{\psi} = 0.01$. This might indicate that at this point primary atomization starts to take place and ligaments are being stripped-off the jet \textbf{CHECK THIS WITH SOME PICTURE}. The $\overline{\psi}$ generated downstream due to the presence of firstly ligaments and then droplets makes the chosen contour $\psi = 0.01$ to be further away than the $\max \left( \nabla_z | \overline{\psi} | \right)$ one, since this low value means that the liquid presence with is scarce. Nevertheless, it must be considered that the chosen value for the iso-contour of $\overline{\psi}$ is arbitraty as explained in $\S$}\ref{sec:ch5_tools_jicf_trajectories} \hl{and the trajectory obtained further downstream is very sensitive to this value. Further research is required to find a relation between the trajectories obtained with both methods}.
+
+Both monotonic and non-monotonic trajectories follow the same tendency up to $x/d_\mathrm{inj} \sim 10$, then they diverge. This is coherent with the definition of both methods, as the monotonic one neglects liquid structures detected which not follow an increasing trend with $x$ and non-monotonic ones do consider those, as explained in Figures \ref{fig:trajectory_obtention_instantaneous_method_a} and \ref{fig:trajectory_obtention_instantaneous_method_b}. In effect, for $x/d_\mathrm{inj} > 10$ primary atomization has already taken place and a polydisperse spray composed of many droplets is found (dispersed phase). Some droplets found in this region when sweeping along the $z$ axis to detect liquid structures do not belong to the outer trajectory of the jet. Since these droplets are neglected in the monotonic method but considered in the non-monotonic one, the averaging procedure of all interpolated, instantaneous trajectories produces a further penetrating curve for the monotonic procedure than for the non-monotonic one.
+
+The evolution of the $L_2$ norm for all four methods is shown in Figure \ref{fig:JICF_trajectories_and_L2_comparison}b. Establishment of the curves is observed in all cases for $t^{\prime} > 5$ (\textbf{OJO: comprobar norma L2 de metodo MEAN\_GRAD !!!}). This indicates that the trajectories are overall converged at this stage. More fluctuations are observed in the $\overline{\psi}$ methods than in the instantaneous-averaged ones. The monotonic and non-monotonic curves show a smooth development with time, and both follow the same tendency except for a threshold in the $L_2$ norm caused by the downstream difference in the trajectories at Figure \ref{fig:JICF_trajectories_and_L2_comparison}a. The lowest error is obtained for the $\overline{\psi} = 0.01$.
+
+
 \subsection{Experimental validation}
 
+For validating the trajectories in all simulations from Table \ref{tab:jicf_resolved_simulations_performed}, the method MEAN\_GRAD is retrieved due to its similary with the methodology followed by \citeColor[becker_breakup_2002] to obtain the experimental correlation. Results are shown in Figure \ref{fig:JICF_trajectories_validation} for both operating points, including the case for the high $We$ number without synthetic turbulence injection.
+
+The trajectories from Figures \ref{fig:JICF_trajectories_validation}a and b show a high dependence on the interface mesh resolution $\Delta x_\mathrm{min}$ for both operating points. Both resolutions coincide with the experimental correlation up to $x/d_\mathrm{inj} \sim 5$ for low $We$ and to $x/d_\mathrm{inj} \sim 4$ for high $We$. Further upstream, the coarseresolution $\Delta x_\mathrm{min} = 20~\mu m$ is underestimated with respect to experiments, while the fine one $\Delta x_\mathrm{min} = 10~\mu m$ continues following the correlation until it surpasses it. The difference with interface resolution is due to the presence of instabilities in the windward side of the jet, which are obtained for the fine cell size but not for the coarse one as observed in Figures \ref{fig:JICF_establishment_UG100_lateral} to \ref{fig:JICF_establishment_UG75_top}. The presence of instabilities creates ligaments and droplets with higher inertia that penetrate further away than those generated when instabilities are not present in the coarse simulations, as explained in $\S$\ref{subsec:ch5_instabilities_presence}. As a consequence, the resulting trajectories in the fine simulations 
+
 \begin{figure}[ht]
-\centering
+\flushleft
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_trajectories/methods_expe_validation_trajectories_q6uG75.pdf}
-   \caption{Low $We$}
+   \caption{Low $We$ trajectories}
    %\label{} 
 \end{subfigure}
 %\hfill
@@ -1239,10 +1273,28 @@ of the $L_2$ errors based on the maximum distance downstream in the trajectory .
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_trajectories/methods_expe_validation_trajectories_q6uG100.pdf}
-   \caption{Low $We$}
+   \caption{High $We$ trajectories}
    %\label{}
 \end{subfigure}
-\caption{Trajectories obtained with methods MEAN\_GRAD}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_trajectories/methods_expe_validation_L2_evolution.pdf}
+   \caption{Evolution of $L_2$ norms with time.}
+   %\label{} 
+\end{subfigure}
+%\hfill
+\hspace{0.25in}
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_trajectories/methods_expe_validation_error_with_xD.pdf}
+   \caption{Error $\varepsilon$ along trajectory}
+   %\label{}
+\end{subfigure}
+
+\caption{Trajectories and errors obtained with method MEAN\_GRAD}
 \label{fig:JICF_trajectories_validation}
 \end{figure}
 
