@@ -1208,6 +1208,7 @@ Apart from the $L_2$ error, another measure for experimental accuracy can be def
 
 
 \begin{equation}
+\label{eq:error_along_trajectory}
 \varepsilon_i  =  \frac{ z/d_\mathrm{inj} \Bigr|_{\mathrm{num},i} - z/d_\mathrm{inj} \Bigr|_{\mathrm{exp},i} }{ z/d_\mathrm{inj} \Bigr|_{\mathrm{exp},i} }
 \end{equation}
 
@@ -1251,14 +1252,14 @@ Trajectories show two different tendencies when using the two families of method
 
 Both monotonic and non-monotonic trajectories follow the same tendency up to $x/d_\mathrm{inj} \sim 10$, then they diverge. This is coherent with the definition of both methods, as the monotonic one neglects liquid structures detected which not follow an increasing trend with $x$ and non-monotonic ones do consider those, as explained in Figures \ref{fig:trajectory_obtention_instantaneous_method_a} and \ref{fig:trajectory_obtention_instantaneous_method_b}. In effect, for $x/d_\mathrm{inj} > 10$ primary atomization has already taken place and a polydisperse spray composed of many droplets is found (dispersed phase). Some droplets found in this region when sweeping along the $z$ axis to detect liquid structures do not belong to the outer trajectory of the jet. Since these droplets are neglected in the monotonic method but considered in the non-monotonic one, the averaging procedure of all interpolated, instantaneous trajectories produces a further penetrating curve for the monotonic procedure than for the non-monotonic one.
 
-The evolution of the $L_2$ norm for all four methods is shown in Figure \ref{fig:JICF_trajectories_and_L2_comparison}b. Establishment of the curves is observed in all cases for $t^{\prime} > 5$ (\textbf{OJO: comprobar norma L2 de metodo MEAN\_GRAD !!!}). This indicates that the trajectories are overall converged at this stage. More fluctuations are observed in the $\overline{\psi}$ methods than in the instantaneous-averaged ones. The monotonic and non-monotonic curves show a smooth development with time, and both follow the same tendency except for a threshold in the $L_2$ norm caused by the downstream difference in the trajectories at Figure \ref{fig:JICF_trajectories_and_L2_comparison}a. The lowest error is obtained for the $\overline{\psi} = 0.01$.
+The evolution of the $L_2$ norm for all four methods is shown in Figure \ref{fig:JICF_trajectories_and_L2_comparison}b. Establishment of the curves is observed in all cases for $t^{\prime} > 5$ (\textbf{OJO: comprobar norma L2 de metodo MEAN\_GRAD !!!}). This indicates that the trajectories are overall converged at this stage. More fluctuations are observed in the $\overline{\psi}$ methods than in the instantaneous-averaged ones. The monotonic and non-monotonic curves show a smooth development with time, and both follow the same tendency except for a threshold in the $L_2$ norm caused by the downstream difference in the trajectories at Figure \ref{fig:JICF_trajectories_and_L2_comparison}a. The lowest error is obtained with the $\overline{\psi} = 0.01$ contour.
 
 
 \subsection{Experimental validation}
 
 For validating the trajectories in all simulations from Table \ref{tab:jicf_resolved_simulations_performed}, the method MEAN\_GRAD is retrieved due to its similary with the methodology followed by \citeColor[becker_breakup_2002] to obtain the experimental correlation. Results are shown in Figure \ref{fig:JICF_trajectories_validation} for both operating points, including the case for the high $We$ number without synthetic turbulence injection.
 
-The trajectories from Figures \ref{fig:JICF_trajectories_validation}a and b show a high dependence on the interface mesh resolution $\Delta x_\mathrm{min}$ for both operating points. Both resolutions coincide with the experimental correlation up to $x/d_\mathrm{inj} \sim 5$ for low $We$ and to $x/d_\mathrm{inj} \sim 4$ for high $We$. Further upstream, the coarseresolution $\Delta x_\mathrm{min} = 20~\mu m$ is underestimated with respect to experiments, while the fine one $\Delta x_\mathrm{min} = 10~\mu m$ continues following the correlation until it surpasses it. The difference with interface resolution is due to the presence of instabilities in the windward side of the jet, which are obtained for the fine cell size but not for the coarse one as observed in Figures \ref{fig:JICF_establishment_UG100_lateral} to \ref{fig:JICF_establishment_UG75_top}. The presence of instabilities creates ligaments and droplets with higher inertia that penetrate further away than those generated when instabilities are not present in the coarse simulations, as explained in $\S$\ref{subsec:ch5_instabilities_presence}. As a consequence, the resulting trajectories in the fine simulations 
+The trajectories from Figures \ref{fig:JICF_trajectories_validation}a and b show a high dependence on the interface mesh resolution $\Delta x_\mathrm{min}$ for both operating points. Both resolutions coincide with the experimental correlation up to $x/d_\mathrm{inj} \sim 5$ for low $We$ and to $x/d_\mathrm{inj} \sim 4$ for high $We$. Further upstream, the coarse resolution $\Delta x_\mathrm{min} = 20~\mu m$ is underestimated with respect to experiments, while the fine one $\Delta x_\mathrm{min} = 10~\mu m$ continues following the correlation until it surpasses it. The difference with interface resolution is due to the presence of instabilities in the windward side of the jet, which are obtained for the fine cell size but not for the coarse one as observed in Figures \ref{fig:JICF_establishment_UG100_lateral} to \ref{fig:JICF_establishment_UG75_top}. \hl{The presence of instabilities in the fine simulations creates ligaments and droplets with higher inertia that penetrate further away than those generated in the coarse simulations, as explained in }$\S$\ref{subsec:ch5_instabilities_presence}. As a consequence, the resulting trajectories in the fine simulations penetrate further than both the coarse ones and the experimental correlation after atomization takes place. 
 
 \begin{figure}[ht]
 \flushleft
@@ -1298,7 +1299,37 @@ The trajectories from Figures \ref{fig:JICF_trajectories_validation}a and b show
 \label{fig:JICF_trajectories_validation}
 \end{figure}
 
-Slip velocity:
+\clearpage
+
+
+
+
+Regarding the effect of injecting turbulence at the gaseous inlet, the red lines of Figure \ref{fig:JICF_trajectories_validation}b show that the mean trajectory is not affected when turbulence is added. \hl{This indicates that ...}
+
+Figure \ref{fig:JICF_trajectories_validation}c shows the $L_2$ norm evolution. \hl{All cases show high fluctuations at the beginning and then stabilization towards a value of 2. The coarse simulations have been run further than the fine ...}
+
+\begin{table}[!h]
+\centering
+\caption{$L_2$ errors for JICF simulations performed.}
+\begin{tabular}{cc}
+\thickhline
+Case &  $L_2$ \\
+\thickhline 
+UG75\_DX10 & ? \\
+UG75\_DX20 & ?  \\
+UG100\_DX10 & ? \\
+UG100\_DX20 & ?  \\
+UG100\_DX20\_NO\_TURB & ? \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_L2_errors}
+\end{table}
+
+
+
+Finally, the relative error along the trajectory $\varepsilon$ is displayed in Figure \ref{fig:JICF_trajectories_validation}c. Negative values indicate underestimation with respect to the experimental correlation, while positive valies indicate overestimation. Close to the injection point the errors for the coarse resolutions are large since the denominator of Eq. (\ref{eq:error_along_trajectory}) is small, so short differences produce high relative errors. \hl{Then, errors }
+
+We can also define a slip velocity:
 
 \begin{equation}
 \overline{\textbf{u}}_{\mathrm{sl}} = \overline{\textbf{u}}_l - \overline{\textbf{u}}_g
