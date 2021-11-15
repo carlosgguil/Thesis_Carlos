@@ -240,8 +240,7 @@ ylims_xb_zb = []; ylims_w = []
 for i in range(len(ylims_xb_zb_temp)):
     ylims_xb_zb.append( tuple([z/d_inj for z in ylims_xb_zb_temp[i]]) )
     ylims_w.append( tuple([z/d_inj for z in ylims_w_temp[i]]) )
-    
-#%% Plots
+
 for i in range(len(labels_)):
     
 
@@ -465,19 +464,21 @@ plt.close()
 
 
 
-#%% plot graph w vs xb
+#%% plot graph zb vs xb
 plt.rcParams['legend.fontsize'] = 40*FFIG
 
 width_error_lines = 4*FFIG
+caps_error_lines  = 15*FFIG
 
 # xb, zb: scatterplot with mean values and std
-fig = plt.figure(figsize=(FFIG*18,FFIG*13))
+fig = plt.figure(figsize=figsize_)
 #plt.title(r'$\overline{x_b}~\mathrm{vs}~\overline{z_b}$')
 # Lines
 plt.plot([0,10*3],[0,10*3],'k',zorder=1,linewidth=4*FFIG)
 #plt.text(20.0,21.1,r'$\overline{z_b} = \overline{x_b}$',rotation=38, fontsize=60*FFIG)
-plt.text(9.0,9.5,r'$\overline{z_b} = \overline{x_b}$',rotation=38, fontsize=60*FFIG)
+plt.text(9.0,9.5,r'$\overline{z_b} = \overline{x_b}$',rotation=30, fontsize=60*FFIG)
 #plt.plot([0,10*3],[0,7.75*3],'--k',zorder=0) 
+plt.text(2.0,11.4,r'$(\mathrm{a})$',fontsize=80*FFIG)
 '''
 # Experimental correlations from Wu 1997
 plt.scatter(xb_wu_1997,zb_wu_1997,s=500,marker='*',label=r'$\mathrm{Wu}~1997$')
@@ -496,16 +497,20 @@ plt.errorbar(xb_patil_2021,zb_patil_2021_op1,xerr=0.84,yerr=0.84, color='blue')
 # Numerical results
 i = 0; plt.scatter(xb_mean[i], zb_mean[i], s=260, color='black',label=labels_[i]) 
 plt.errorbar(xb_mean[i], zb_mean[i], 
-             xerr=xb_std[i], yerr=zb_std[i], color='black',linewidth=width_error_lines)
+             xerr=xb_std[i], yerr=zb_std[i], color='black',
+             linewidth=width_error_lines,capsize=caps_error_lines)
 i = 1; plt.scatter(xb_mean[i], zb_mean[i], s=260, marker='^',color='black',label=labels_[i])
 plt.errorbar(xb_mean[i], zb_mean[i], 
-             xerr=xb_std[i], yerr=zb_std[i], color='black',linewidth=width_error_lines)
+             xerr=xb_std[i], yerr=zb_std[i], color='black',
+             linewidth=width_error_lines,capsize=caps_error_lines)
 i = 2; plt.scatter(xb_mean[i], zb_mean[i], s=260, color='blue',label=labels_[i])
 plt.errorbar(xb_mean[i], zb_mean[i], 
-             xerr=xb_std[i], yerr=zb_std[i], color='blue',linewidth=width_error_lines)
+             xerr=xb_std[i], yerr=zb_std[i], color='blue',
+             linewidth=width_error_lines,capsize=caps_error_lines)
 i = 3; plt.scatter(xb_mean[i], zb_mean[i], s=260, marker='^',color='blue',label=labels_[i]) 
 plt.errorbar(xb_mean[i], zb_mean[i], 
-             xerr=xb_std[i], yerr=zb_std[i], color='blue',linewidth=width_error_lines)
+             xerr=xb_std[i], yerr=zb_std[i], color='blue',
+             linewidth=width_error_lines,capsize=caps_error_lines)
 plt.xticks([4,6,8,10,12])
 plt.yticks([4,6,8,10,12])
 plt.xlim(3.5,12)
@@ -526,7 +531,8 @@ plt.close()
 #%% plot graph width vs xb
 
 # xb, zb: scatterplot with mean values and std
-fig = plt.figure(figsize=(FFIG*18,FFIG*13))
+fig = plt.figure(figsize=figsize_)
+plt.text(2.0,5.08,r'$(\mathrm{b})$',fontsize=80*FFIG)
 '''
 # Experimental correlations from Wu 1997
 plt.scatter(xb_wu_1997,zb_wu_1997,s=500,marker='*',label=r'$\mathrm{Wu}~1997$')
@@ -545,16 +551,20 @@ plt.errorbar(xb_patil_2021,zb_patil_2021_op1,xerr=0.84,yerr=0.84, color='blue')
 # Numerical results
 i = 0; plt.scatter(xb_mean[i], width_mean[i], s=260, color='black',label=labels_[i]) 
 plt.errorbar(xb_mean[i], width_mean[i], 
-             xerr=xb_std[i], yerr=width_std[i], color='black',linewidth=width_error_lines)
+             xerr=xb_std[i], yerr=width_std[i], color='black',
+             linewidth=width_error_lines,capsize=caps_error_lines)
 i = 1; plt.scatter(xb_mean[i], width_mean[i], s=260, marker='^',color='black',label=labels_[i])
 plt.errorbar(xb_mean[i], width_mean[i], 
-             xerr=xb_std[i], yerr=width_std[i], color='black',linewidth=width_error_lines)
+             xerr=xb_std[i], yerr=width_std[i], color='black',
+             linewidth=width_error_lines,capsize=caps_error_lines)
 i = 2; plt.scatter(xb_mean[i], width_mean[i], s=260, color='blue',label=labels_[i])
 plt.errorbar(xb_mean[i], width_mean[i], 
-             xerr=xb_std[i], yerr=width_std[i], color='blue',linewidth=width_error_lines)
+             xerr=xb_std[i], yerr=width_std[i], color='blue',
+             linewidth=width_error_lines,capsize=caps_error_lines)
 i = 3; plt.scatter(xb_mean[i], width_mean[i], s=260, marker='^',color='blue',label=labels_[i]) 
 plt.errorbar(xb_mean[i], width_mean[i], 
-             xerr=xb_std[i], yerr=width_std[i], color='blue',linewidth=width_error_lines)
+             xerr=xb_std[i], yerr=width_std[i], color='blue',
+             linewidth=width_error_lines,capsize=caps_error_lines)
 plt.xticks([4,6,8,10,12])
 plt.yticks([4,5])
 plt.xlim(3.5,12)

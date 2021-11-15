@@ -94,6 +94,7 @@ y_label_freq = r'$\mathrm{FFT}(x_b),~\mathrm{FFT}(z_b)$'
 # legends
 label_xb = r'$x_b$'
 label_zb = r'$z_b$'
+label_width = r'$w$'
 
 #x limits
 x_lim_frequency = (0,30)
@@ -117,7 +118,7 @@ for i in range(len(cases)):
     xb.append(df['xb'].values)
     zb.append(df['zb'].values)
     x_width_DC.append(df['x_width_DC'])
-    width_DC.append(df['width_DC'])
+    width_DC.append(df['width_DC'].values)
     y_max_DC.append(df['y_max_DC'])
     y_min_DC.append(df['y_min_DC'])
 
@@ -126,6 +127,7 @@ theta_DC = []
 # For FFTs
 xf_xb = []; yf_xb = []
 xf_zb = []; yf_zb = []
+xf_width = [] ; yf_width = []
 # For mean and standard deviation
 xb_mean = []; xb_std = []
 zb_mean = []; zb_std = []
@@ -222,7 +224,18 @@ for i in range(len(cases)):
     y_zb = np.abs(y_zb[0:N//2])
     y_zb = y_zb/max(y_zb)
     xf_zb.append(x_zb)
-    yf_zb.append(y_zb)
+    yf_zb.append(y_zb)   
+    
+    # Get FFT from w
+    p_width = width_i - np.mean(width_i)
+    N = len(p_width)
+    y_width = fft.fft(p_width)
+    x_width = fftfreq(N, T)[:N//2]
+    y_width = np.abs(y_width[0:N//2])
+    y_width = y_width/max(y_width)
+    xf_width.append(x_width)
+    yf_width.append(y_width)
+    
     
 width_mean = np.array(width_mean)
 width_std  = np.array(width_std)
@@ -300,6 +313,7 @@ for i in range(len(labels_)):
     plt.figure(figsize=figsize_)
     plt.plot(xf_xb[i]/1000, yf_xb[i],color='b', label=label_xb)
     plt.plot(xf_zb[i]/1000, yf_zb[i],color='k', label=label_zb)
+    plt.plot(xf_width[i]/1000, yf_width[i],color='r', label=label_width)
     plt.xlim(x_lim_frequency)
     plt.xlabel(x_label_freq)
     plt.ylabel(y_label_freq)

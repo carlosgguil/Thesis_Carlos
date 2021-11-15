@@ -1122,6 +1122,7 @@ Note that the last sampling plane differs on the mesh resolution: for $\Delta x_
 
 
 \begin{equation}
+\label{eq:t_prime_with_tau_drx10}
 t^{\prime} = \frac{t}{\tau_\mathrm{dr_{x=10}}}
 \end{equation}
 
@@ -1359,9 +1360,8 @@ In this section, the estimation of the break point and the pressure difference f
 
 The methodology proposed to obtain the breakup point in resolved simulations was explained in $\S$\ref{subsec:ch5_jet_dense_core_extraction}. Its width $w$ and coordinates $x_\mathrm{b}, z_\mathrm{b}$ obtained in the middle plane $y = 0$ are monitored with time. 
 
-References: \textbf{2010:Wang}, \textbf{2018:prakash}, \citeColor[patil_liquid_2021]
+In first place, the instantaneous evolution with time of the breakup point coordinates and width are shown in Figure \ref{fig:JICF_xb_zb_w_evolution}. \hl{The time has been non-dimensionalized according to Eq.} (\ref{eq:t_prime_with_tau_drx10}). All signals display a sawtooth shape that reflects the dynamic behaviour of the dense core: increasing parameters are due to an ligaments that start to be formed from the dense core (i.e. the breakup point $x_\mathrm{b}, z_\mathrm{b}$ moves further downstream and upper, while the width $w$ increases due to the deformation of the dense core cross-section, as shown in Figure \textbf{XX}), then they suffer an abrupt decrease when the ligaments are dettached from the jet, and the process repeats once and again. Therefore, \hl{the associated frequencies to the displayed signals are of the order of the frequencies of ligament stripping. Spectra are shown in ...}.  This periodic behaviour has been observed in several experimental studies for the breakup point coordinates $x_\mathrm{b}, z_\mathrm{b}$ \citepColor[wang_characterization_2011, prakash_liquid_2018], while no signals on the width $w$ evolution have been reported in literature to the knowledge of the authors.
 
-\clearpage
 
 \begin{figure}[ht]
 \flushleft
@@ -1381,39 +1381,25 @@ References: \textbf{2010:Wang}, \textbf{2018:prakash}, \citeColor[patil_liquid_2
 
 \vskip\baselineskip
 
-%\begin{subfigure}[b]{0.45\textwidth}
-%	\centering
-%   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/instant_xb_zb_w_UG100_DX10}
-%   \caption{Case UG100\_DX10}
-%   \label{fig:instant_xb_zb_w_UG100_DX10} 
-%\end{subfigure}
-%\hfill
-%\begin{subfigure}[b]{0.45\textwidth}
-%	\centering
-%   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/instant_xb_zb_w_UG100_DX20}
-%   \caption{Case UG100\_DX20}
-%   \label{fig:instant_xb_zb_w_UG100_DX20}
-%\end{subfigure}
-%   \caption{Variaions with time of the dense core breakup point coordinates $x_\mathrm{b}, z_\mathrm{b}$ and width $w$.}
-
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
-   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/map_xb_zb}
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/instant_xb_zb_w_UG100_DX10}
    \caption{Case UG100\_DX10}
    \label{fig:instant_xb_zb_w_UG100_DX10} 
 \end{subfigure}
 \hfill
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
-   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/map_xb_width}
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/instant_xb_zb_w_UG100_DX20}
    \caption{Case UG100\_DX20}
    \label{fig:instant_xb_zb_w_UG100_DX20}
 \end{subfigure}
-   \caption{Variaions with time of the dense core breakup point coordinates $x_\mathrm{b}, z_\mathrm{b}$ and width $w$.}
+   \caption{Variation with time of the dense core breakup point coordinates $x_\mathrm{b}, z_\mathrm{b}$ and width $w$.}
 
 \label{fig:JICF_xb_zb_w_evolution}
 \end{figure}
 
+In order to define an actuator in the dispersed phase simulations represening the resolved dense core as accurate as possible, the mean values of the core coordinates and width will be used as input parameters for the model. For this purpose, the mean value of the signals from Figure \ref{fig:JICF_xb_zb_w_evolution} are calculated. The evolution of the mean values with time is shown in Figure \ref{fig:dense_core_mean_parameters_convergence}. As observed, the simulations performed with the coarse interface cell size $\Delta x_\mathrm{min} = 20~\mu m$ are converged for the three parameters $x_\mathrm{b}, z_\mathrm{b}$ and $w$. The fine resolutions $\Delta x_\mathrm{min} = 10~\mu m$ have not yet achieved full convergence due to its higher cost. The final mean values obtained are shown in the graphs of Figure \ref{fig:dense_core_mean_parameters_scatterplots}, which relate $z_\mathrm{b}$ and $w$ to $x_\mathrm{b}$. The bars in the figures denote the standard deviation of the instantaneous signals. Figure \ref{fig:dense_core_mean_parameters_scatterplots}a shows that the mean values for the coarse resolution are below the $\overline{z_\mathrm{b}} = \overline{x_\mathrm{b}}$, indicating that the dense core penetrates further along the streamwise direction $x$ than in the vertical $z$. On the contrary, the points for the fine resolution are located above this line, which shows that the dense core is elongated along the vertical direction. Yet, all parameters from the fine resolution simulations are lower than their respective ones of the coarse ones: primary breakup occurs previously for the former than for the latter. This is due to the presence of windwards instabilities in the fine simulations (which are not present in the coarse ones), which foster an earlier breakup.
 
 \begin{figure}[ht]
 \flushleft
@@ -1431,34 +1417,36 @@ References: \textbf{2010:Wang}, \textbf{2018:prakash}, \citeColor[patil_liquid_2
 	\flushleft
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/convergence_mean_width}
 \end{subfigure}
-   \caption{Evolution of mean parameters of dense core}
+   \caption{Evolution of mean geometric parameters of the dense core}
 \label{fig:dense_core_mean_parameters_convergence}
 \end{figure}
 
+Figure \ref{fig:dense_core_mean_parameters_scatterplots} reveals also a dependendency of the mean parameters with respect to the operating conditions. The breakup coordinates $\overline{x_\mathrm{b}}$ and $\overline{z_\mathrm{b}}$ are lower for the low $We$ operating point: increasing aerodynamic gas forces pushes the breakup point further downstream and upper. This is coherent with the experimental results from \citeColor[patil_liquid_2021], who obtained a correlation for the axial breakup point which varies with the gas Weber number as $x_\mathrm{b} \propto We_g^{0.1}$. The dependency is on $We_g$ is however weak, as also found in Figure \ref{fig:dense_core_mean_parameters_scatterplots}a. This experimental study also includes a correlation for the width $w$ which is found to depend solely on the $q$ factor, which is also coherent with the results from Figure \ref{fig:dense_core_mean_parameters_scatterplots}b for the coarse resolution. The fine resolution shows a dependency of $w$ with the operating point: however, it is to bear in mind that the parameters from the fine resolutions are not fully converged, and therefore definitive conclusions cannot be extracted from these results. Further analysis would require running longer the fine simulations to reach convergence of the parameters. 
 
-Patil correlations:
-
-\begin{equation}
-\frac{\overline{z_b}}{d_\mathrm{inj}} = 1.48 q^{0.3} We_g^{0.1} ~~~~; \frac{\overline{x_b}}{d_\mathrm{inj}} = 8.6 q^{-0.4}
-\end{equation}
 
 \begin{figure}[ht]
 \flushleft
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/map_xb_zb}
+   \label{fig:dense_core_mean_parameters_scatterplots_zb_xb}
 \end{subfigure}
 %\hfill
 \hspace{0.25in}
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/map_xb_width}
-   %\label{}
+   \label{fig:dense_core_mean_parameters_scatterplots_w_xb}
 \end{subfigure}
-\caption{jkljkl}
-\label{fig:jkljkl}
+\caption{Mean values for the dense core geometric parameters}
+\label{fig:dense_core_mean_parameters_scatterplots}
 \end{figure}
 
+%Patil correlations:
+%
+%\begin{equation}
+%\frac{\overline{z_b}}{d_\mathrm{inj}} = 1.48 q^{0.3} We_g^{0.1} ~~~~; \frac{\overline{x_b}}{d_\mathrm{inj}} = 8.6 q^{-0.4}
+%\end{equation}
 
 \subsection{Turbulent structures in the gaseous field}
 
