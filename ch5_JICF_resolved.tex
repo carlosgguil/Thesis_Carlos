@@ -458,7 +458,8 @@ In the same way as sampled spray can be in-plane discretized to obtain spatial d
 %\end{figure}
 %
 
-\subsection{Extraction of jet dense core in JICF}
+\subsection{Extraction of dense core breakup point in JICF}
+\label{subsec:ch5_jet_dense_core_extraction}
 
 A relevant characteristic of liquid jets is the dense core (DC) region, which is the liquid volume close to the injection nozzle where atomization starts to take place. The DC is an important feature of primary atomization, and it is dependent on the injector and the operating conditions. In the case of a JICF such as the ones studied in this thesis, the DC can be obtained as the liquid structure containing the largest liquid volume of all the present structures. The DC undergoes instabilities that are presented as Kelvin-Helmholtz or Rayleight-Taylor processes that will cause breakup of the liquid column in the form of large ligaments, mechanism known as \textbf{column breakup}. Simultaneously, droplets are being shed along the sides of the DC due to the shear force effected by the air, mechanism known as \textbf{surface breakup}. As stated in $\S$\ref{sec:ch1_fuel_injection_technology}, these phenomena are particular of the jet in crossflow and are not present as such in other configurations such as hollow cone and airblast. Nevertheless, these configurations will present their own DC structures and breakup morphologies (\textbf{ref:2021-rezayat}).
 
@@ -1340,7 +1341,9 @@ We can also define a slip velocity:
 \section{Dense core characterization}
 \label{subsec:ch5_dense_core_in_ACLS_simus}
 
-Resolved simulations are characterized by the presence of the dense core, whose presence perturbs the incoming air and creates turbulence downstream the injector. To illustrate this disturbance, the instantaneous axial fluctuations $u'$ and the jet interface are plotted in the middle plane y = 0 in Figure \ref{fig:results_dense_core_modeling_up_field} left. As shown, the jet presence
+
+
+Resolved simulations are characterized by the presence of the liquid dense core, which perturbs the incoming air and creates turbulence downstream the injector. To illustrate this disturbance, the instantaneous axial fluctuations $u'$ and the jet interface are plotted in the middle plane y = 0 in Figure \ref{fig:results_dense_core_modeling_up_field} left. The dense core creates turbulence downstream the injection point, as shown by the high fluctuations in velocity. Such perturbations can have a great impact on spray dispersion once atomization has taken place, therefore modelling this perturbance effect as accurate as possible is paramount for performing dispersed-phase simulations presented in Chapter \ref{ch6:jicf_lgs_simulations}, where the dense core is neglected and a developed spray is injected.
 
 \begin{figure}[ht]
 \centering
@@ -1349,15 +1352,128 @@ Resolved simulations are characterized by the presence of the dense core, whose 
 \label{fig:results_dense_core_modeling_up_field}
 \end{figure}
 
+In this section, the estimation of the break point and the pressure difference from the resolved simulations are presented. These are useful to define an actuator for the dispersed phase simulations according to the model introduced in $\S$\ref{sec:ch4_dense_core_modelling}. Then, the turbulent gaseous structures created by the dense core are analyzed, which are compared in Chapter \ref{ch6:jicf_lgs_simulations} with the turbulent structures created by the imposed actuator in the dispersed-phase simulations \hl{to give an idea on the accuracy of the actuator model developed in this work}. \hl{Finally, a spectral study is performed to give an idea of the characteristic frecuencies of fluctuations created ...}
 
 
-$\S$\ref{sec:ch4_dense_core_modelling}.
+\subsection{Obtention of breakup point}
+
+The methodology proposed to obtain the breakup point in resolved simulations was explained in $\S$\ref{subsec:ch5_jet_dense_core_extraction}. Its width $w$ and coordinates $x_\mathrm{b}, z_\mathrm{b}$ obtained in the middle plane $y = 0$ are monitored with time. 
+
+References: \textbf{2010:Wang}, \textbf{2018:prakash}, \citeColor[patil_liquid_2021]
+
+\clearpage
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/instant_xb_zb_w_UG75_DX10}
+   \caption{Case UG75\_DX10}
+   \label{fig:instant_xb_zb_w_UG75_DX10} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/instant_xb_zb_w_UG75_DX20}
+   \caption{Case UG75\_DX20}
+   \label{fig:instant_xb_zb_w_UG75_DX20}
+\end{subfigure}
+
+\vskip\baselineskip
+
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/instant_xb_zb_w_UG100_DX10}
+%   \caption{Case UG100\_DX10}
+%   \label{fig:instant_xb_zb_w_UG100_DX10} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/instant_xb_zb_w_UG100_DX20}
+%   \caption{Case UG100\_DX20}
+%   \label{fig:instant_xb_zb_w_UG100_DX20}
+%\end{subfigure}
+%   \caption{Variaions with time of the dense core breakup point coordinates $x_\mathrm{b}, z_\mathrm{b}$ and width $w$.}
+
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/map_xb_zb}
+   \caption{Case UG100\_DX10}
+   \label{fig:instant_xb_zb_w_UG100_DX10} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/map_xb_width}
+   \caption{Case UG100\_DX20}
+   \label{fig:instant_xb_zb_w_UG100_DX20}
+\end{subfigure}
+   \caption{Variaions with time of the dense core breakup point coordinates $x_\mathrm{b}, z_\mathrm{b}$ and width $w$.}
+
+\label{fig:JICF_xb_zb_w_evolution}
+\end{figure}
+
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.3\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/convergence_mean_xb}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.3\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/convergence_mean_zb}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.3\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/convergence_mean_width}
+\end{subfigure}
+   \caption{Evolution of mean parameters of dense core}
+\label{fig:dense_core_mean_parameters_convergence}
+\end{figure}
+
 
 Patil correlations:
 
 \begin{equation}
 \frac{\overline{z_b}}{d_\mathrm{inj}} = 1.48 q^{0.3} We_g^{0.1} ~~~~; \frac{\overline{x_b}}{d_\mathrm{inj}} = 8.6 q^{-0.4}
 \end{equation}
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/map_xb_zb}
+\end{subfigure}
+%\hfill
+\hspace{0.25in}
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/map_xb_width}
+   %\label{}
+\end{subfigure}
+\caption{jkljkl}
+\label{fig:jkljkl}
+\end{figure}
+
+
+\subsection{Turbulent structures in the gaseous field}
+
+Show here pictures of the iso-y, x and z planes with mean and RMS velocities (recirculation bubbles).
+
+If possible, show Q-criterion.
+
+Turbulent structures can be visualized with the Q-criterion \citeColor[jeong_identification_1995]:
+
+\begin{equation}
+Q = \frac{1}{2} \left( ||\pmb{\Omega}|| - ||\textbf{S}||^2 \right)
+\end{equation}
+
+
+\subsection{Defining pressure differences}
 
 \section{Direct measurement of liquid flow rates}
 
