@@ -383,18 +383,18 @@ Group & Method & Name \\
 
 Droplet sampling procedure, described in $\S$\ref{subsec:SLI_spray_sampling}, is performed by tracking the center of mass of resolved structures and sampling the droplets when they cross the defined sampling planes by lagrangian projection. With this procedure, some droplets are tracked twice and some others might never be tracked. As a consequence, the sampled spray is not actually the \textsl{true} spray that crosses the sampling surfaces in the simulations, but an approximation to it. Therefore, the obtained spray size distributions and sampled mass flow rates are also affected.
 
-In order to compare both the accuracy of the lagrangian projection procedure for tracking droplets, the mass flow rates are compared to flow rates measured directly in the resolved simulations. The direct measurement of liquid fluxes is performed by defining \textbf{interior boundaries} (IBs) in the sampling surfaces. IBs are formed by all the mesh elements contained in the surface, and liquid flow rates can be calculated by applying directly Eq. (\ref{eq:mass_flow_rate_definition_general}) divided by the density, with $\phi = \psi$ being the levelset function:
+In order to check the accuracy of the lagrangian projection procedure for tracking droplets, the mass flow rates are compared to flow rates measured directly in the resolved simulations. The direct measurement of liquid fluxes is performed by defining \textbf{interior boundaries} (IBs) in the sampling surfaces. IBs are formed by all the mesh elements contained in the surface, and liquid flow rates can be calculated by applying directly Eq. (\ref{eq:mass_flow_rate_definition_general}) divided by the density, with $\phi = \psi$ being the levelset function:
 
 \begin{equation}
 \label{eq:Q_lIB_general_definition}
 Q_{l,\mathrm{IB}} = \int_{\mathrm{IB}} \psi \left( \textbf{u} \cdot \textbf{n} \right) dS
 \end{equation}
 
-Figure \ref{fig:jicf_interior_boundaries_surface_measurements} shows an example of IBs located in a JICF simulation. Four IBs are defined in sampling planes perpendicular to the crossflow equally spaced at a distance of 5 mm: $x = 5, 10, 15, 20$ mm. These IBs match the sampling planes where spray is sampled, so that fluxes can be directly compared. Furthermore, four more sampling planes parallel to the wall to quantify the liquid flow rate that impinges the wall, known as filming: $x <5, 10, 15, 20$ mm. Therefore, each combination of sampling and filming IB will conform the outlet surfaces of a control volume enclosing the whole liquid jet (no outlet surfaces are located upstream the injection point as there is no liquid flowing in this direction). The inlet surface corresponds to the liquid nozzle.
+Figure \ref{fig:jicf_interior_boundaries_surface_measurements} shows an example of IBs located in a JICF simulation. Four IBs are defined in sampling planes perpendicular to the crossflow equally spaced at a distance of 5 mm: $x = 5, 10, 15$ mm. These IBs match the sampling planes where spray is sampled, so that fluxes can be directly compared. Furthermore, four more sampling planes parallel to the wall to quantify the liquid flow rate that impinges the wall, known as filming: $x <5, 10, 15$ mm. Therefore, each combination of sampling and filming IB will conform the outlet surfaces of a control volume enclosing the whole liquid jet (no outlet surfaces are located upstream the injection point as there is no liquid flowing in this direction). The inlet surface corresponds to the liquid nozzle.
 
 
 
-To apply Eq. (\ref{eq:Q_lIB_general_definition}), the fluxes need to be calculated at each IB element and then be added. Figure \ref{fig:jicf_IBs_sketch_calculation} shows an example of IB composed by the mesh elements, and shows a zoom-in view of a single plane element. $e$ Each element is defined by a normal $n_e$ and by three nodes $N_\mathrm{no} = 3$, since the mesh used is tetrahedral. Simulation data is stored at the nodes, so the instantaneous liquid flux passing through each single element can be calculated as:
+In order to apply Eq. (\ref{eq:Q_lIB_general_definition}), the fluxes need to be calculated at each IB element and then be added. Figure \ref{fig:jicf_IBs_sketch_calculation} shows an example of IB composed by the mesh elements, and shows a zoom-in view of a single plane element. $e$ Each element is defined by a normal $n_e$ and by three nodes $N_\mathrm{no} = 3$, since the mesh used is tetrahedral. Simulation data is stored at the nodes, so the instantaneous liquid flux passing through each single element can be calculated as:
 
 \begin{equation}
 Q_{l,e} = \frac{1}{N_\mathrm{no}} \sum_{i=1}^{N_\mathrm{no}} \psi_i \textbf{u}_i \textbf{n}_e
@@ -403,8 +403,8 @@ Q_{l,e} = \frac{1}{N_\mathrm{no}} \sum_{i=1}^{N_\mathrm{no}} \psi_i \textbf{u}_i
 Then, the total flux in the IB is obtained by applying Eq. (\ref{eq:Q_lIB_general_definition}) in its discrete form as the addition of liquid fluxes passing through all the elements conforming the IB, $N_e$:
 
 \begin{equation}
-\label{eq:Q_lIB_general_definition}
-Q_{l,\mathrm{IB}} = \sum_{e}^{N_e} Q_{l,e}
+\label{eq:Q_lIB_definition_with_Ne_and_No}
+Q_{l,\mathrm{IB}} = \sum_{e}^{N_e} Q_{l,e} = \sum_{e}^{N_e} \frac{1}{N_\mathrm{no}} \sum_{i=1}^{N_\mathrm{no}} \psi_i \textbf{u}_i \textbf{n}_e
 \end{equation}
 
 \begin{figure}[ht]
@@ -461,7 +461,7 @@ In the same way as sampled spray can be in-plane discretized to obtain spatial d
 \subsection{Extraction of dense core breakup point in JICF}
 \label{subsec:ch5_jet_dense_core_extraction}
 
-A relevant characteristic of liquid jets is the dense core (DC) region, which is the liquid volume close to the injection nozzle where atomization starts to take place. The DC is an important feature of primary atomization, and it is dependent on the injector and the operating conditions. In the case of a JICF such as the ones studied in this thesis, the DC can be obtained as the liquid structure containing the largest liquid volume of all the present structures. The DC undergoes instabilities that are presented as Kelvin-Helmholtz or Rayleight-Taylor processes that will cause breakup of the liquid column in the form of large ligaments, mechanism known as \textbf{column breakup}. Simultaneously, droplets are being shed along the sides of the DC due to the shear force effected by the air, mechanism known as \textbf{surface breakup}. As stated in $\S$\ref{sec:ch1_fuel_injection_technology}, these phenomena are particular of the jet in crossflow and are not present as such in other configurations such as hollow cone and airblast. Nevertheless, these configurations will present their own DC structures and breakup morphologies (\textbf{ref:2021-rezayat}).
+A relevant characteristic of liquid jets is the dense core (DC) region, which is the liquid volume close to the injection nozzle where atomization starts to take place. The DC is an important feature of primary atomization, and it is dependent on the injector and the operating conditions. In the case of a JICF such as the ones studied in this thesis, the DC can be obtained as the liquid structure containing the largest liquid volume of all the present structures. The DC undergoes instabilities that are presented as Kelvin-Helmholtz or Rayleight-Taylor processes that will cause breakup of the liquid column in the form of large ligaments, mechanism known as \textbf{column breakup}. Simultaneously, droplets are being shed along the sides of the DC due to the shear force effected by the air, mechanism known as \textbf{surface breakup}. As stated in $\S$\ref{sec:ch1_fuel_injection_technology}, these phenomena are particular of the jet in crossflow and are not present as such in other configurations such as hollow cone and airblast. Nevertheless, these configurations will present their own DC structures and breakup morphologies \citepColor[rezayat_high-speed_2021].
 
 The DC of a JICF is an important subject of the study since it creates an important blockage effect in the incoming air that propagates turbulent structures further downstream, affecting atomization and spray dispersion (see $\S$\ref{ch3:subsec_lagrangian_liquid_JICF}). Pioneer JICF experimental studies \citepColor[wu_breakup_1997] have focused on obtaining the \textbf{breakup location} of the DC by studying side shadowgraphs from the JICF, obtaining correlations for the \textbf{breakup point}. More recent studies \citepColor[patil_liquid_2021] have tried a better representation of the DC topology by trying to determine also its width and its lateral opening angle. Experimental and numerical studies of the DC topology in liquid JICF are, nevertheless, scarce nowadays, specially at operating conditions where surface breakup predominates (since the visualization of the jet is hindered by a large number of small droplets generated).
 
@@ -1463,38 +1463,39 @@ Q = \frac{1}{2} \left( ||\pmb{\Omega}|| - ||\textbf{S}||^2 \right)
 
 \subsection{Defining pressure differences}
 
-\section{Direct measurement of liquid flow rates}
+\clearpage
 
-Liquid fluxes have been measured in the resolved simulations at the planes shown in Figure \ref{fig:jicf_interior_boundaries_surface_measurements}. In the coarse simulations done with a mesh resolution of $\Delta x_\mathrm{min} = 20 \mu m$, fluxes have been obtained in all planes shown in the sketch. For the fine simulations, results were collected up to x = 10 mm since the liquid was removed shortly afterwards.
+\section{Direct measurement of liquid fluxes}
+
+The procedure proposed for obtainining liquid fluxes from the resolved simulations was described in $\S$\ref{subsec:ch5_interior_boundaries}. Liquid fluxes have been measured in the resolved simulations at the planes shown in Figure \ref{fig:jicf_interior_boundaries_surface_measurements}. In the simulations with a mesh resolution of $\Delta x_\mathrm{min} = 20 \mu m$, fluxes have been obtained in all interior boundaries (IBs) shown in the sketch, i.e. axial planes x = 5, 10 and 15 mm, and filming planes x < 5, 10 and 15 mm. For the fine simulations, results were collected up to x = 10 mm since the liquid was removed shortly afterwards to reduce the computational cost of the simulations. It is worth to mention that in the chosen JICF configuration, liquid is injected into the plenum through the nozzle in the $x$ direction. Then, the jet deviates towards the air streamwise direction $x$, and some liquid droplets will also hit the bottom wall which is perpendicular to the $z$ axis. Therefore, by mass conservation, the injected liquid flow rate (defined in Table \ref{tab:jicf_operating_conditions}) must be equal to the addition of the flow rates crossing an IB at a given $x$ location and a filming plane perpendicular to the $z$ axis which extends from downstream the injection nozzle up to the $x$ location of the vertical IB. This is equivalent to defining a rectangular control volume that encloses the full jet in the plenum up to a certain $x$ location: according to Eq. (\ref{eq:mass_conservation_general_bothPhases_transient}b), the flows entering the control volume (injected liquid) must be equal to the ones leaving it (ligaments or droplets flowing downstream and droplets reaching the walls). No other control surfaces need to be considered, since there is no liquid either flowing upstream of hitting the top or side walls.
+
+Firstly, the overall flow rates in the interior boundaries are calculated with. These flow rates are compared to the ones obtained from the lagrangian tracking procedure. It is shown that there is a reduction on the flow rate with axial distance, which is caused due to droplets resulting from atomization that reach the size of the mesh resolution and they disappear. This issue is adressed secondly in this section. Finally, fluxes are discretized to obtain a spatial distribution of the liquid flow rates, which are also compared to the discretized fluxes obtained from the lagrangian tracking process.
 
 \subsection{Obtention of total flow rate}
 
-The time evolution of flow rates for case UG100\_DX20 is shown in Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX20} for both crossflow and filming planes. For the crossflow planes, the 
-
-%\begin{figure}[h!]
-%\centering
-%\includegraphics[scale=0.6]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_isox_time_evol.eps}
-%\caption{Liquid flow rate evolution with time in the}
-%\label{fig:graphite_cp}
-%\end{figure}
+The overall, or total, liquid flow rates are obtained in the IBs by applying Eq. (\ref{eq:Q_lIB_definition_with_Ne_and_No}). The IBs are firstly monitored at every time instant of the simulation. Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX20} shows an example of instantaneous liquid flow rates $Q_l$ obtained from case UG100\_DX10. Two IBs perpendicular to the $x$ axis in the left image, and two filming IBs are shown in the right one. The injected flow rate into the domain, which is constant, is also plotted in the left figure as a dashed solid line. As observed, the fluxes in Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX20} left show a high variation around the injected flow rate in both planes. This is due to an intermittent presence of liquid crossing the sampling planes once atomization has started taken place: the liquid phase is no longer a coherent jet but is composed by an ensemble of ligaments and droplets. At some time instants there will be big liquid structures or a high number of them (i.e. high volume of liquid) crossing a certain plane, hence the instantaneous flux can be larger than the injected flow rate. At other time instants this quantity will be lower, hence the instantaneous flux is smaller than the injected flow rate. This can be quantitatively check by looking at, for example, Figure \ref{fig:JICF_establishment_UG100_lateral}. Regarding the filming fluxes from Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX20} right, these present lower magnitudes than the ones from the planes normal to the crossflow but still display a varying behaviour which, in some cases, can descend up to $0$. This is coherent, since the isntantaneous filming fluxes measure the quantity of liquid impinging the bottom wall at every time instant: in some cases there is no liquid reaching the wall, while in others there is a big quantity of droplets filming and creating the peaks of high $Q_l$ \hl{as the ones shown around $t^{\prime} \sim 1$ in the corresponding figure}.
 
 \begin{figure}[ht]
-\centering
+\flushleft
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
-   \includegraphics[scale=0.15]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_isox_time_evol.eps}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/inst_Q_iso_x_UG100_dx10}
    %\caption{}
    %\label{} 
 \end{subfigure}
+\hspace{0.5in}
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
-   \includegraphics[scale=0.15]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_filming_time_evol.eps}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/inst_Q_iso_x_UG100_dx10_filming}
    %\caption{}
    %\label{}
 \end{subfigure}
-\caption{Time evolution of instantaneous liquid flow rates for case UG100\_DX20. \textbf{Left}: planes normal to crossflow. \textbf{Right}: filming planes.}
+\caption[Time evolution of instantaneous liquid flow rates $Q_l$ for case UG100\_DX10.]{Time evolution of instantaneous liquid flow rates $Q_l$ for case UG100\_DX10. \textsl{Left}: planes normal to crossflow. \textsl{Right}: filming planes.}
 \label{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX20}
 \end{figure}
+
+Due to the intermittent behaviour of the flow rates as explained before, the instantaneous fluxes are not useful to characterize the 
+
 
 \newpage
 
@@ -1596,10 +1597,14 @@ The time evolution of flow rates for case UG100\_DX20 is shown in Figure \ref{fi
 \label{fig:JICF_ibs_flow_rates_bars_plots}
 \end{figure}
 
+\clearpage
 
 
 
 
+
+\subsection{Mass conservation in ACLS}
+\label{subsec:ch5_mass_conservation_ACLS_set_levelset_band}
 
 
 
@@ -1608,11 +1613,6 @@ The time evolution of flow rates for case UG100\_DX20 is shown in Figure \ref{fi
 
 
 
-
-\newpage
-
-\subsection{Mass conservation in ACLS}
-\label{subsec:ch5_mass_conservation_ACLS_set_levelset_band}
 
 %\subsubsection{Sampling procedure for droplets}
 

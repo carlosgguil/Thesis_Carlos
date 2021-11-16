@@ -233,8 +233,8 @@ theta_std  = np.array(theta_std)
 #%% Plot signals
 
 # Limits to separate graphs
-ylims_xb_zb_temp = [(1,8), (1.8,11), (1,9.0), (1.5,12)]
-ylims_w_temp     = [(0,3.1), (0,2.6), (0,3), (0,3)]
+ylims_xb_zb_temp = [(1,8), (1.8,13), (1,9.0), (1.5,15)]
+ylims_w_temp     = [(0,3.2), (0,2.8), (0,3), (0,3.2)]
 
 ylims_xb_zb = []; ylims_w = [] 
 for i in range(len(ylims_xb_zb_temp)):
