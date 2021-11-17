@@ -90,7 +90,9 @@ Figure \ref{fig:numerical_setup_maquette_JICF_DLR} shows the computational domai
       \label{fig:numerical_setup_maquette_JICF_DLR}
 \end{figure}
 
-Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane at $y = 0$ is displayed. It is composed of 66 million tetrahedral cells. The baseline cell size in the channel upstream liquid injection is 0.5 mm, while the cells located in the downstream region have an average size of 3 mm. The element size at the near-field region is 0.7 mm, and within the discharge section of the liquid nozzle it is refined to to $20~\mu m$. The justification of this mesh is done at $\S$\ref{sec:ch5_initial_conditions}, where a mesh independence study of the gaseous field is carried out. This mesh is used at the beginning of all the simulations performed, but then it change dynamically in each simulation as more liquid is introduced in the domain due to the AMR routine that refines the mesh at the liquid-gas interface ($\S$\ref{sec:YALES2}). Simulations are performed with the ACLS methodology describe in $\S$\ref{subsec:ch2_ACLS}.
+%Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane at $y = 0$ is displayed. It is composed of 66 million tetrahedral cells. The baseline cell size in the channel upstream liquid injection is 0.5 mm, while the cells located in the downstream region have an average size of 3 mm. The element size at the near-field region is 0.7 mm, and within the discharge section of the liquid nozzle it is refined to to $20~\mu m$. The justification of this mesh is done at $\S$\ref{sec:ch5_initial_conditions}, where a mesh independence study of the gaseous field is carried out. This mesh is used at the beginning of all the simulations performed, but then it change dynamically in each simulation as more liquid is introduced in the domain due to the AMR routine that refines the mesh at the liquid-gas interface ($\S$\ref{sec:YALES2}). Simulations are performed with the ACLS methodology describe in $\S$\ref{subsec:ch2_ACLS}.
+
+Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane at $y = 0$ is displayed. It is composed of 66 million tetrahedral cells. The baseline cell size in the channel upstream liquid injection is 0.5 mm, while the cells located in the downstream region have an average size of 3 mm. The element size within the discharge section of the liquid nozzle it is refined to to $20~\mu m$. The justification for this mesh choice is done at $\S$\ref{sec:ch5_initial_conditions}, where a mesh independence study of the gaseous field is carried out. This mesh is used at the beginning of all the simulations performed, but then it change dynamically in each simulation as more liquid is introduced in the domain due to the AMR routine that refines the mesh at the liquid-gas interface ($\S$\ref{sec:YALES2}). Simulations are performed with the ACLS methodology describe in $\S$\ref{subsec:ch2_ACLS}.
 
 \begin{figure}[h!]
 	\centering
@@ -155,7 +157,7 @@ Ambient pressure & $p_\mathrm{amb}$ & bar &  6 & 6 \\
 %\hline
 Gas temperature & $T_g$ & K & 290 & 290 \\
 %\hline
-Liquid temperature & $T_l$ & K & 288 & 288 \\
+Liquid temperature & $T_l$ & K & 290 & 290 \\
 %\hline
 Gas density & $\rho_g$ & kg m$^{-3}$ &  7.21 & 7.21 \\
 %\hline
@@ -487,7 +489,7 @@ The DC is then characterized by its breakup point coordinates ($x_b, z_b$) and i
 
 \begin{figure}[ht]
      \centering
-     \includeinkscape[inkscapelatex=false,scale=0.22]{./part2_developments/figures_ch5_resolved_JICF/dense_core_extraction}
+     \includeinkscape[inkscapelatex=false,scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/dense_core_extraction}
      \caption{Extraction of dense core from resolved atomization simulations.}
      % La solucion es UG75_DX10, r21 sol33
       \label{fig:dense_core_extraction}
@@ -1469,11 +1471,19 @@ Q = \frac{1}{2} \left( ||\pmb{\Omega}|| - ||\textbf{S}||^2 \right)
 
 The procedure proposed for obtainining liquid fluxes from the resolved simulations was described in $\S$\ref{subsec:ch5_interior_boundaries}. Liquid fluxes have been measured in the resolved simulations at the planes shown in Figure \ref{fig:jicf_interior_boundaries_surface_measurements}. In the simulations with a mesh resolution of $\Delta x_\mathrm{min} = 20 \mu m$, fluxes have been obtained in all interior boundaries (IBs) shown in the sketch, i.e. axial planes x = 5, 10 and 15 mm, and filming planes x < 5, 10 and 15 mm. For the fine simulations, results were collected up to x = 10 mm since the liquid was removed shortly afterwards to reduce the computational cost of the simulations. It is worth to mention that in the chosen JICF configuration, liquid is injected into the plenum through the nozzle in the $x$ direction. Then, the jet deviates towards the air streamwise direction $x$, and some liquid droplets will also hit the bottom wall which is perpendicular to the $z$ axis. Therefore, by mass conservation, the injected liquid flow rate (defined in Table \ref{tab:jicf_operating_conditions}) must be equal to the addition of the flow rates crossing an IB at a given $x$ location and a filming plane perpendicular to the $z$ axis which extends from downstream the injection nozzle up to the $x$ location of the vertical IB. This is equivalent to defining a rectangular control volume that encloses the full jet in the plenum up to a certain $x$ location: according to Eq. (\ref{eq:mass_conservation_general_bothPhases_transient}b), the flows entering the control volume (injected liquid) must be equal to the ones leaving it (ligaments or droplets flowing downstream and droplets reaching the walls). No other control surfaces need to be considered, since there is no liquid either flowing upstream of hitting the top or side walls.
 
-Firstly, the overall flow rates in the interior boundaries are calculated with. These flow rates are compared to the ones obtained from the lagrangian tracking procedure. It is shown that there is a reduction on the flow rate with axial distance, which is caused due to droplets resulting from atomization that reach the size of the mesh resolution and they disappear. This issue is adressed secondly in this section. Finally, fluxes are discretized to obtain a spatial distribution of the liquid flow rates, which are also compared to the discretized fluxes obtained from the lagrangian tracking process.
+Firstly, the overall flow rates in the interior boundaries are calculated. \st{These flow rates are compared to the ones obtained from the lagrangian tracking procedure}. It is shown that there is a reduction on the flow rate with axial distance, which is caused due to droplets resulting from atomization that reach the size of the mesh resolution and they disappear. This issue is adressed secondly in this section. Finally, fluxes are discretized to obtain a spatial distribution of the liquid flow rates, \st{which are also compared to the discretized fluxes obtained from the lagrangian tracking process}.
 
 \subsection{Obtention of total flow rate}
 
-The overall, or total, liquid flow rates are obtained in the IBs by applying Eq. (\ref{eq:Q_lIB_definition_with_Ne_and_No}). The IBs are firstly monitored at every time instant of the simulation. Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX20} shows an example of instantaneous liquid flow rates $Q_l$ obtained from case UG100\_DX10. Two IBs perpendicular to the $x$ axis in the left image, and two filming IBs are shown in the right one. The injected flow rate into the domain, which is constant, is also plotted in the left figure as a dashed solid line. As observed, the fluxes in Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX20} left show a high variation around the injected flow rate in both planes. This is due to an intermittent presence of liquid crossing the sampling planes once atomization has started taken place: the liquid phase is no longer a coherent jet but is composed by an ensemble of ligaments and droplets. At some time instants there will be big liquid structures or a high number of them (i.e. high volume of liquid) crossing a certain plane, hence the instantaneous flux can be larger than the injected flow rate. At other time instants this quantity will be lower, hence the instantaneous flux is smaller than the injected flow rate. This can be quantitatively check by looking at, for example, Figure \ref{fig:JICF_establishment_UG100_lateral}. Regarding the filming fluxes from Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX20} right, these present lower magnitudes than the ones from the planes normal to the crossflow but still display a varying behaviour which, in some cases, can descend up to $0$. This is coherent, since the isntantaneous filming fluxes measure the quantity of liquid impinging the bottom wall at every time instant: in some cases there is no liquid reaching the wall, while in others there is a big quantity of droplets filming and creating the peaks of high $Q_l$ \hl{as the ones shown around $t^{\prime} \sim 1$ in the corresponding figure}.
+The overall, or total, liquid flow rates are obtained in the IBs by applying Eq. (\ref{eq:Q_lIB_definition_with_Ne_and_No}). The IBs are firstly monitored at every time instant of the simulation. Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX10} shows an example of instantaneous liquid flow rates $Q_l$ obtained from case UG100\_DX10. Two IBs perpendicular to the $x$ axis in the left image, and two filming IBs are shown in the right one. The injected flow rate into the domain, which is constant, is also plotted in the left figure as a dashed solid line. As observed, the fluxes in Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX10} left show a high variation around the injected flow rate in both planes. This is due to an intermittent presence of liquid crossing the sampling planes once atomization has started taken place: the liquid phase is no longer a coherent jet but is composed by an ensemble of ligaments and droplets. At some time instants there will be big liquid structures or a high number of them (i.e. high volume of liquid) crossing a certain plane, hence the instantaneous flux can be larger than the injected flow rate. At other time instants this quantity will be lower, hence the instantaneous flux is smaller than the injected flow rate. This can be quantitatively check by looking at, for example, Figure \ref{fig:JICF_establishment_UG100_lateral}. Regarding the filming fluxes from Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX10} right, these present lower magnitudes than the ones from the planes normal to the crossflow but still display a varying behaviour which, in some cases, can descend up to $0$. This is coherent, since the isntantaneous filming fluxes measure the quantity of liquid impinging the bottom wall at every time instant: in some cases there is no liquid reaching the wall, while in others there is a big quantity of droplets filming and creating the peaks of high $Q_l$ \hl{as the ones shown around $t^{\prime} \sim 1$ in the corresponding figure}.
+
+Due to the intermittent behaviour of the flow rates, the instantaneous fluxes are not useful to characterize the flow rates in the IBs. Instead, the mean flow rates must be obtained. 
+
+The evolution of the mean and RMS values of IBs flow rates with time is shown in Figure \ref{fig:IB_mean_RMS_Ql_evolution}.
+
+Mean values are shown in Figure \ref{fig:IB_bargraph}.
+
+\clearpage
 
 \begin{figure}[ht]
 \flushleft
@@ -1483,119 +1493,180 @@ The overall, or total, liquid flow rates are obtained in the IBs by applying Eq.
    %\caption{}
    %\label{} 
 \end{subfigure}
-\hspace{0.5in}
+\hspace{0.4in}
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/inst_Q_iso_x_UG100_dx10_filming}
    %\caption{}
    %\label{}
 \end{subfigure}
-\caption[Time evolution of instantaneous liquid flow rates $Q_l$ for case UG100\_DX10.]{Time evolution of instantaneous liquid flow rates $Q_l$ for case UG100\_DX10. \textsl{Left}: planes normal to crossflow. \textsl{Right}: filming planes.}
-\label{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX20}
+\caption[Instantaneous liquid flow rates $Q_l$ for case UG100\_DX10.]{Time evolution of instantaneous liquid flow rates $Q_l$ for case UG100\_DX10. \textsl{Left}: planes normal to crossflow. \textsl{Right}: filming planes.}
+\label{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX10}
 \end{figure}
 
-Due to the intermittent behaviour of the flow rates as explained before, the instantaneous fluxes are not useful to characterize the 
-
-
-\newpage
 
 \begin{figure}[ht]
-\centering
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_isox_mean_time_convergence.eps}
-   \caption{Mean $Q_l$ in crossflow planes}
+\flushleft
+\begin{subfigure}[b]{0.9\textwidth}
+	\flushleft
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/evolution_mean_Q_iso_x}
+   \caption{Mean $Q_l$ evolution in IBs perpendicular to crossflow.}
    %\label{} 
 \end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_isox_RMS_time_convergence.eps}
-   \caption{RMS $Q_l$ in crossflow planes}
-   %\label{}
-\end{subfigure}
+
 \vskip\baselineskip
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_filming_mean_time_convergence.eps}
-   \caption{Mean $Q_l$ in filming planes}
-   %\label{} 
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_filming_RMS_time_convergence.eps}
-   \caption{RMS $Q_l$ in filming planes}
+
+\begin{subfigure}[b]{0.9\textwidth}
+	\flushleft
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/evolution_rms_Q_iso_x}
+   \caption{RMS $Q_l$ evolution in IBs perpendicular to crossflow.}
    %\label{}
 \end{subfigure}
-\caption{Time evolution of mean and RMS liquid flow rates for case UG100\_DX20.}
-\label{fig:IB_liquid_flow_rate_mean_RMS_evolution_UG100_DX20}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.9\textwidth}
+	\flushleft
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/evolution_mean_Q_filming}
+   \caption{Mean $Q_l$ evolution in filming IBs.}
+   %\label{} 
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.9\textwidth}
+	\flushleft
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/evolution_rms_Q_iso_x}
+   \caption{RMS $Q_l$ evolution in filming IBs.}
+   %\label{}
+\end{subfigure}
+\caption{Time evolution of mean and RMS values of $Q_l$ in IBs}
+\label{fig:IB_mean_RMS_Ql_evolution}
 \end{figure}
 
-\newpage
+\clearpage
+
 
 \begin{figure}[ht]
-\centering
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_isox_bar_plot.eps}
-   \caption{Case UG100\_DX20: crossflow planes}
+\flushleft
+\begin{subfigure}[b]{0.9\textwidth}
+	\flushleft
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/bar_graph_isox_IBs}
+   \caption{IBs perpendicular to crossflow.}
    %\label{} 
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_filming_bar_plot.eps}
-   \caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-\vskip\baselineskip
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx10_QL_isox_bar_plot.eps}
-   \caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx10_QL_filming_bar_plot.eps}
-   \caption{Case UG100\_DX10: filming planes}
-   %\label{}
 \end{subfigure}
 
 \vskip\baselineskip
 
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG75_dx20_QL_isox_bar_plot.eps}
-   \caption{Case UG75\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG75_dx20_QL_filming_bar_plot.eps}
-   \caption{Case UG75\_DX20: filming planes}
+\begin{subfigure}[b]{0.9\textwidth}
+	\flushleft
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/bar_graph_filming_IBs}
+   \caption{Filming IBs}
    %\label{}
 \end{subfigure}
-\vskip\baselineskip
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG75_dx10_QL_isox_bar_plot.eps}
-   \caption{Case UG75\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG75_dx10_QL_filming_bar_plot.eps}
-   \caption{Case UG75\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-\caption[Mean flow rates (bars) and RMS (lines) obtained with interior boundaries for each simulation performed]{Mean flow rates (bars) and RMS (lines) obtained with interior boundaries for each simulation performed. }
-\label{fig:JICF_ibs_flow_rates_bars_plots}
+\caption{Mean flow rates (bars) and RMS (lines) obtained with IBs for each simulation.}
+\label{fig:IB_bargraph}
 \end{figure}
+
+
+%
+%\begin{figure}[ht]
+%\centering
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_isox_mean_time_convergence.eps}
+%   \caption{Mean $Q_l$ in crossflow planes}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_isox_RMS_time_convergence.eps}
+%   \caption{RMS $Q_l$ in crossflow planes}
+%   %\label{}
+%\end{subfigure}
+%\vskip\baselineskip
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_filming_mean_time_convergence.eps}
+%   \caption{Mean $Q_l$ in filming planes}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_filming_RMS_time_convergence.eps}
+%   \caption{RMS $Q_l$ in filming planes}
+%   %\label{}
+%\end{subfigure}
+%\caption{Time evolution of mean and RMS liquid flow rates for case UG100\_DX20.}
+%\label{fig:IB_liquid_flow_rate_mean_RMS_evolution_UG100_DX20}
+%\end{figure}
+%
+%\newpage
+%
+%\begin{figure}[ht]
+%\centering
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_isox_bar_plot.eps}
+%   \caption{Case UG100\_DX20: crossflow planes}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx20_QL_filming_bar_plot.eps}
+%   \caption{Case UG100\_DX20: filming planes}
+%   %\label{}
+%\end{subfigure}
+%\vskip\baselineskip
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx10_QL_isox_bar_plot.eps}
+%   \caption{Case UG100\_DX10: crossflow planes}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG100_dx10_QL_filming_bar_plot.eps}
+%   \caption{Case UG100\_DX10: filming planes}
+%   %\label{}
+%\end{subfigure}
+%
+%\vskip\baselineskip
+%
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG75_dx20_QL_isox_bar_plot.eps}
+%   \caption{Case UG75\_DX20: crossflow planes}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG75_dx20_QL_filming_bar_plot.eps}
+%   \caption{Case UG75\_DX20: filming planes}
+%   %\label{}
+%\end{subfigure}
+%\vskip\baselineskip
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG75_dx10_QL_isox_bar_plot.eps}
+%   \caption{Case UG75\_DX10: crossflow planes}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.10]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/uG75_dx10_QL_filming_bar_plot.eps}
+%   \caption{Case UG75\_DX10: filming planes}
+%   %\label{}
+%\end{subfigure}
+%\caption[Mean flow rates (bars) and RMS (lines) obtained with interior boundaries for each simulation performed]{Mean flow rates (bars) and RMS (lines) obtained with interior boundaries for each simulation performed. }
+%\label{fig:JICF_ibs_flow_rates_bars_plots}
+%\end{figure}
 
 \clearpage
 
@@ -1668,10 +1739,7 @@ In \citeColor[lefebvre_atomization_2017] ...
 \end{equation}
 %
 \begin{equation}
-\overline{D}_{ng} = \exp \left(  \frac{\sum_i \ln D_i }{N_\mathrm{droplets}} \right) 
-\end{equation}
-
-\begin{equation}
+\overline{D}_{ng} = \exp \left(  \frac{\sum_i \ln D_i }{N_\mathrm{droplets}} \right)  ~~~~ ; ~~~~ 
 s_g = \exp \sqrt{  \frac{\sum_i \ln \left( D_i / \overline{D}_{ng} \right) ^2 }{N_\mathrm{droplets}} }
 \end{equation}
 

@@ -2,73 +2,142 @@
 	\label{ch6:jicf_lgs_simulations}
 
 
-Describe here all our results from the lagrangian simulations:
-
-\begin{itemize}
-
-	\item Effects of applying full workflow: w/wo ALM, w/wo secondary atomization ...
-	
-	\item Mesh convergence study: specify it
-	
-	\item Validation with experiments
-	
-	\item Mass conservation issues: lagrangian tracking, etc. 
-	
-
-\end{itemize}
-
+%Describe here all our results from the lagrangian simulations:
+%
+%\begin{itemize}
+%
+%	\item Effects of applying full workflow: w/wo ALM, w/wo secondary atomization ...
+%	
+%	\item Mesh convergence study: specify it
+%	
+%	\item Validation with experiments
+%	
+%	\item Mass conservation issues: lagrangian tracking, etc. 
+%	
+%
+%\end{itemize}
 
 
 \section{Introduction}
 
-The mesh shown in Figure \ref{fig:jicf_dlr_mesh} is used. However, this grid shows a baseline cell size downstream liquid injection coarser to the upstream region, which will affect the resolution of the gaseous field. Another mesh should be used for this study, this is discussed in the mesh convergence section.
+This chapter presents results from lagrangian simulations performed with the SLI models described in Chapter \ref{ch4:sli_development}. The test case used is the academic JICF of \citeColor[becker_breakup_2002], for which resolved simulations of the atomization process were detailed in Chapter \ref{ch5:jicf_resolved_simulations}. Data for these computations are used to build the injectors in order to run dispersed phase simulations in the same configuration, which are shown to be less computationally expensive than the resolved ones. \hl{...}
 
-The operating points simulated are those from Figure \ref{tab:jicf_operating_conditions}.
 
-\subsection{Evaporation phenomena}
+\section{Computational setup}
 
-\textbf{Note: this analysis could perfectly be in the previous chapter}.
+The geometry replicating the experimental test bench is the same than the one used for the resolved simulations, depicted in Figure \ref{fig:numerical_setup_maquette_JICF_DLR}. The operating points simulated are the ones from Table \ref{tab:jicf_operating_conditions}. Regarding the mesh employed, it was shown in $\S$\ref{sec:ch5_initial_conditions} that an element size of $\Delta x = 0.5$ mm allows to transport the estimated turbulence in these cases. Nevertheless, the simulations from Chapter \ref{ch5:jicf_resolved_simulations} use a mesh with this cell size only inside the plenum upstream and around the injector, while downstream the injector the mesh size is enlarged since there is no liquid at this region. This mesh was shown in Figure \ref{fig:jicf_dlr_mesh}. In the lagrangian simulations performed in this chapter, injection is performed at the sampling planes downstream the injector \hl{shown in Chapter }\ref{ch5:jicf_resolved_simulations}, and the region of interest extends up to a location at $x = 80$ mm downstream the injector since this is where validation with the experimental results of \citeColor[becker_breakup_2002] can be performed. Therefore, lagrangian simulations use a baseline cell size of $\Delta x = 0.5$ mm in the plenum from the gaseous inlet up to $x = 85$ mm downstream the injector. In this way, turbulence can be transported from the gaseous inlet  up to the experimental validation plane. \hl{The mesh used, shown in Figure} \ref{fig:jicf_dlr_mesh_LGS}, is composed of \textbf{XX} elements, being therefore larger than the baseline mesh employed for the resolved simulations. However, in the dispersed phase simulations there is no Adaptive Mesh Refinement being performed, and therefore the number of mesh elements stays constant in all simulations.
 
-As indicated in Table \ref{tab:jicf_operating_conditions}, the temperatures of both liquid kerosene and gaseous air are low (290 and 288 K respectively) and there is not direct evaporation of fuel. Nevertheless, some evaporation can occur at ambient temperature if the vapour pressure of the liquid is lower than the ambient pressure. In the experiments, the ambient pressure is $p_g = 6$ bar, while the vapour pressure of kerosene at $288$ K is $p_{vap} = 0.003$ bar \citepColor[shepherd_flash_2000]. Therefore, evaporation might be possible.
 
-It is tested that ... Two characteristic times are used in the low We case (since the lowest velocity is found there, and the droplets take more time to reach the validation plane at 80 mm)/
+\begin{figure}[h!]
+	\centering
+	\includeinkscape[inkscapelatex=true,scale=0.8]{./part2_developments/figures_ch6_lagrangian_JICF/jicf_mesh_LGS}
+	\caption{Mesh employed for LGS simulations. \hl{CHANGE WHEN READY}}
+	\label{fig:jicf_dlr_mesh_LGS}
+\end{figure}
 
-\begin{itemize}
-
-	\item The time that a droplet takes to reach the plane x = 80 mm. From the SPS results in $\S$\textbf{??} (or Table \textbf{??}), the first droplets at x = 10 mm are obtained at $t_{resolv} = 0.3$ ms after injection. Then, the first droplets injected at this location in the lagrangian simulations reach the validation plane after $t_\mathrm{lagr} = $ ms. Hence, a characteristic time defined as the :
-	
-	\begin{equation}
-	\tau_{validation} = t_{resolv}  + t_\mathrm{lagr}
-	\end{equation}
-	
-	\item Evaporation time rate is used by means of the $d^2$ law. This law that the square of the droplet's diameter diminishes linearly with time:
-	
-	\begin{equation}
-	\label{eq:d2_law}
-	d^2 \left( \right) = d_0^2 - K t
-	\end{equation}
-	
-	
-	where $K$ is the evaporation rate and $d_0$ the initial diameter of the droplet. The value K ... (see 2006 Ghassemi).
-	
-	
-	\text{NAH}. The evolution in diameter after a given time $t$ can then be obtained as:
-	
-	\begin{equation}
-	\Delta d^2 = d_0^2 - d^2 \left( \right) = K t
-	\end{equation}
-	
-
-\end{itemize}
+%\section{Evaporation phenomena}
+%
+%\textbf{Note: this analysis could perfectly be in the previous chapter}.
+%
+%As indicated in Table \ref{tab:jicf_operating_conditions}, the temperatures of both liquid kerosene and gaseous air are low (290 and 288 K respectively) and there is not direct evaporation of fuel. Nevertheless, some evaporation can occur at ambient temperature if the vapour pressure of the liquid is lower than the ambient pressure. In the experiments, the ambient pressure is $p_g = 6$ bar, while the vapour pressure of kerosene at $288$ K is $p_{vap} = 0.003$ bar \citepColor[shepherd_flash_2000]. Therefore, evaporation might be possible.
+%
+%It is tested that ... Two characteristic times are used in the low We case (since the lowest velocity is found there, and the droplets take more time to reach the validation plane at 80 mm)/
+%
+%\begin{itemize}
+%
+%	\item The time that a droplet takes to reach the plane x = 80 mm. From the SPS results in $\S$\textbf{??} (or Table \textbf{??}), the first droplets at x = 10 mm are obtained at $t_{resolv} = 0.3$ ms after injection. Then, the first droplets injected at this location in the lagrangian simulations reach the validation plane after $t_\mathrm{lagr} = $ ms. Hence, a characteristic time defined as the :
+%	
+%	\begin{equation}
+%	\tau_{validation} = t_{resolv}  + t_\mathrm{lagr}
+%	\end{equation}
+%	
+%	\item Evaporation time rate is used by means of the $d^2$ law. This law that the square of the droplet's diameter diminishes linearly with time:
+%	
+%	\begin{equation}
+%	\label{eq:d2_law}
+%	d^2 \left( \right) = d_0^2 - K t
+%	\end{equation}
+%	
+%	
+%	where $K$ is the evaporation rate and $d_0$ the initial diameter of the droplet. The value K ... (see 2006 Ghassemi).
+%	
+%	
+%	\text{NAH}. The evolution in diameter after a given time $t$ can then be obtained as:
+%	
+%	\begin{equation}
+%	\Delta d^2 = d_0^2 - d^2 \left( \right) = K t
+%	\end{equation}
+%	
+%
+%\end{itemize}
 
 \section{Blockage effect modeling}
+
+Prior to liquid injection, th
+
+\begin{table}[!h]
+\centering
+\caption{Input parameters to ALM model}
+\begin{tabular}{lcccc}
+\thickhline
+\textbf{Parameter} & \textbf{Symbol} & \textbf{Units} &  \textbf{Low Weber} &  \textbf{High Weber} \\ %\textbf{WE\_880} &  \textbf{WE\_1470} \\
+\thickhline
+Nozzle diameter & $d_\mathrm{inj}$ & mm & 0.45 & 0.45 \\
+%\hline
+Gas bulk velocity & $u_g$ & m s$^{-1}$ & 75 & 100 \\
+%\hline
+Gas flow rate & $Q_g$ & m$^3$ s$^{-1}$ & 0.075  & 0.1 \\
+%\hline
+Liquid bulk velocity & $u_l$ & m s$^{-1}$ & 17.5  & 23.33 \\
+%\hline
+Liquid flow rate & $Q_l$ & mm$^3$ s$^{-1}$ & 2783  & 3710 \\
+%\hline
+Ambient pressure & $p_\mathrm{amb}$ & bar &  6 & 6 \\
+%\hline
+Gas temperature & $T_g$ & K & 290 & 290 \\
+%\hline
+Liquid temperature & $T_l$ & K & 290 & 290 \\
+%\hline
+Gas density & $\rho_g$ & kg m$^{-3}$ &  7.21 & 7.21 \\
+%\hline
+Liquid density & $\rho_l$ & kg m$^{-3}$ &  795 & 795  \\
+%\hline
+Gas viscosity & $\mu_g$ & kg m$^{-1}$ s$^{-1}$ & $1.8162 \cdot 10^{-5}$ &  $1.8162 \cdot 10^{-5}$  \\
+%\hline
+Liquid viscosity & $\mu_l$ & kg m$^{-1}$ s$^{-1}$ & $1.5 \cdot 10^{-3}$ & $1.5 \cdot 10^{-3}$  \\
+%\hline
+Surface tension & $\sigma$ & kg s$^{-2}$ &  0.022 & 0.022  \\
+\thickhline
+Momentum ratio & $q$ & - & 6 & 6 \\
+%\hline
+Gas Reynolds number & $Re_g$ & - & $0.92 \cdot 10^6$ & $1.22 \cdot 10^6$ \\
+%\hline
+Liquid Reynolds number & $Re_l$ & - & 4170 & 5560 \\
+%\hline
+Gas Weber number & $We_g$ & - & 830 & 1470 \\
+%\hline
+Liquid Weber number & $We_l$ & - & 5000 & 8850 \\
+%\hline
+Relative Weber number & $We_\mathrm{rel}$ & - & 490 & 870 \\
+%\hline
+Aerodynamic Weber number & $We_\mathrm{aero}$ & - & 45 & 80 \\
+%\hline
+Ohnesorge number & $Oh $ & - & 0.017 & 0.017 \\
+%\hline
+Density ratio & $r$ & - & 110 & 110 \\
+%\hline
+%Viscosity ratio & $\mu_l/\mu_g$ & [-] &  \multicolumn{2}{|c|}{1} \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_operating_conditions}
+\end{table}
 
 \section{Relation between volume and mixture fractions}
 
 So we can relate $\overline{\alpha}$ field with the mixture fraction somehow, this will be interesting for people doing combustion. I have developed the following relation between mixture fraction $Z$ and volume fraction $\alpha$ (need to check it properly):
 
 \begin{equation}
-Z = \frac{m_F}{m_F + m_A} = \frac{V_F \rho_F}{V_F \rho_F + V_A \rho_A} = \frac{1}{1 + \frac{V_A}{V_F} \frac{\rho_A}{\rho_F}} = \frac{1}{1 = \frac{\rho_A}{\rho_F} \frac{1 - \alpha}{\alpha}}
+Z = \frac{m_F}{m_F + m_A} = \frac{V_F \rho_F}{V_F \rho_F + V_A \rho_A} = \frac{1}{1 + \frac{V_A}{V_F} \frac{\rho_A}{\rho_F}} = \frac{1}{1 + \frac{\rho_A}{\rho_F} \frac{1 - \alpha}{\alpha}}
 \end{equation}
 
 
