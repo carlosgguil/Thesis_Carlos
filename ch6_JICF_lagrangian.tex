@@ -71,73 +71,47 @@ The geometry replicating the experimental test bench is the same than the one us
 %
 %\end{itemize}
 
-\section{Blockage effect modeling}
+\section{Obtention of initial conditions with ALM}
 
-Prior to liquid injection, th
+Prior to liquid injection, it is necessary to establish an initial solution for the gaseous phase as done for the resolved simulations. The difference with respect to the resolved simulations is that in this case, the initial solutions needs to consider the ALM since the dense core blockage effect needs to be modelled in the dispersed phase simulations. All the details of the model were addressed in $\S$\ref{sec:ch4_dense_core_modelling}. In this section, firstly results from the resolved simulations are employed as input parameters to feed the ALM model. Secondly, gaseous simulations are performed with the ALM to obtain initial solutions. The resulting gaseous fields are compared to the ones of the resolved simulations to check the accuracy of the proposed ALM.
+
+\subsection{Setup of actuator model}
+
+The model parameters for ALM were described in Table \ref{tab:alm_parameters}. For the two operating points simulated, the corresponding input parameters are summarized in Table \ref{tab:jicf_lgs_ALM_parameters}. The points $x_b$, $z_b$ and $c_L$ are obtained from the mean values of Figure \ref{fig:dense_core_mean_parameters_scatterplots} for the fine simulations (note that $c_L$ is equivalent to the resolved dense core width $w$); $c_0$ is equal to the injector diameter; $N_p$ has been set to 20 as default, but it has been checked not to have an effect on the results; and the force $\textbf{F}_\mathrm{DC}$ is obtained as explained in $\S$\ref{ch5:subsec_defining_pressure_differences}.
 
 \begin{table}[!h]
 \centering
-\caption{Input parameters to ALM model}
-\begin{tabular}{lcccc}
+\caption{Parameters of an actuator representing the dense core}
+\begin{tabular}{cccc}
 \thickhline
-\textbf{Parameter} & \textbf{Symbol} & \textbf{Units} &  \textbf{Low Weber} &  \textbf{High Weber} \\ %\textbf{WE\_880} &  \textbf{WE\_1470} \\
+\textbf{Parameter} & \textbf{Units} & \textbf{Low Weber} &  \textbf{High Weber} \\
 \thickhline
-Nozzle diameter & $d_\mathrm{inj}$ & mm & 0.45 & 0.45 \\
-%\hline
-Gas bulk velocity & $u_g$ & m s$^{-1}$ & 75 & 100 \\
-%\hline
-Gas flow rate & $Q_g$ & m$^3$ s$^{-1}$ & 0.075  & 0.1 \\
-%\hline
-Liquid bulk velocity & $u_l$ & m s$^{-1}$ & 17.5  & 23.33 \\
-%\hline
-Liquid flow rate & $Q_l$ & mm$^3$ s$^{-1}$ & 2783  & 3710 \\
-%\hline
-Ambient pressure & $p_\mathrm{amb}$ & bar &  6 & 6 \\
-%\hline
-Gas temperature & $T_g$ & K & 290 & 290 \\
-%\hline
-Liquid temperature & $T_l$ & K & 290 & 290 \\
-%\hline
-Gas density & $\rho_g$ & kg m$^{-3}$ &  7.21 & 7.21 \\
-%\hline
-Liquid density & $\rho_l$ & kg m$^{-3}$ &  795 & 795  \\
-%\hline
-Gas viscosity & $\mu_g$ & kg m$^{-1}$ s$^{-1}$ & $1.8162 \cdot 10^{-5}$ &  $1.8162 \cdot 10^{-5}$  \\
-%\hline
-Liquid viscosity & $\mu_l$ & kg m$^{-1}$ s$^{-1}$ & $1.5 \cdot 10^{-3}$ & $1.5 \cdot 10^{-3}$  \\
-%\hline
-Surface tension & $\sigma$ & kg s$^{-2}$ &  0.022 & 0.022  \\
-\thickhline
-Momentum ratio & $q$ & - & 6 & 6 \\
-%\hline
-Gas Reynolds number & $Re_g$ & - & $0.92 \cdot 10^6$ & $1.22 \cdot 10^6$ \\
-%\hline
-Liquid Reynolds number & $Re_l$ & - & 4170 & 5560 \\
-%\hline
-Gas Weber number & $We_g$ & - & 830 & 1470 \\
-%\hline
-Liquid Weber number & $We_l$ & - & 5000 & 8850 \\
-%\hline
-Relative Weber number & $We_\mathrm{rel}$ & - & 490 & 870 \\
-%\hline
-Aerodynamic Weber number & $We_\mathrm{aero}$ & - & 45 & 80 \\
-%\hline
-Ohnesorge number & $Oh $ & - & 0.017 & 0.017 \\
-%\hline
-Density ratio & $r$ & - & 110 & 110 \\
-%\hline
-%Viscosity ratio & $\mu_l/\mu_g$ & [-] &  \multicolumn{2}{|c|}{1} \\
+$x_b$ & mm & & \\
+$z_b$ & mm & & \\
+$c_0$ & mm & 0.45 & 0.45 \\
+$c_L$ & mm & & \\
+$N_p$ & - & 20 & 20 \\
+$| \textbf{F}_\mathrm{DC} |$ & N &  & \\
+%$\Delta p$ & Pa &  & \\
 \thickhline
 \end{tabular}
-\label{tab:jicf_operating_conditions}
+\label{tab:jicf_lgs_ALM_parameters}
 \end{table}
+
+An example of an actuator representing the dense core in gaseous simulations \hl{can be seen in Figure }. As observed, it is graphically represented as a cylinder with the initial point located in the injection nozzle exit and final point in the breakup location of the resolved dense core estimated from the resolved simulations. The actuator points (not shown in the figure) are located uniformly along the central line of the cylinder. The discrete forces applied to each point are then mollified in the neighbouring cells in order to avoid flow singularities.
+
+\subsection{Comparison between resolved and ALM gaseous fields}
+
+The perturbed gaseous fields created by the presence of the dense core in the \hl{resolved simulations were discussed in $\S$}\ref{ch5:subsec_turbulent_structures_in_gaseous_field}. In the same fashion, equivalent postprocessings can be performed for the gaseous flow field 
+
+A quantitative assessment of the actuator blockage effect can be performed by looking at the mean velocity distribution along the lines \textbf{XX} shown in Figure \ref{XX}. Equivalent data was obtained for the resolved simulations in \hl{\textbf{$\S$XX}}, which is also shown in the same Figure for comparison ...
 
 \section{Relation between volume and mixture fractions}
 
 So we can relate $\overline{\alpha}$ field with the mixture fraction somehow, this will be interesting for people doing combustion. I have developed the following relation between mixture fraction $Z$ and volume fraction $\alpha$ (need to check it properly):
 
 \begin{equation}
-Z = \frac{m_F}{m_F + m_A} = \frac{V_F \rho_F}{V_F \rho_F + V_A \rho_A} = \frac{1}{1 + \frac{V_A}{V_F} \frac{\rho_A}{\rho_F}} = \frac{1}{1 + \frac{\rho_A}{\rho_F} \frac{1 - \alpha}{\alpha}}
+Z = \frac{m_l}{m_l + m_g} = \frac{V_l \rho_l}{V_l \rho_l + V_g \rho_g} = \frac{1}{1 + \frac{V_g}{V_l} \frac{\rho_g}{\rho_l}} = \frac{1}{1 + \frac{\rho_g}{\rho_l} \frac{1 - \alpha}{\alpha}}
 \end{equation}
 
 

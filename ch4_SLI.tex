@@ -562,7 +562,7 @@ D \left( z_p \right) &= |\textbf{F} \left( x_p, z_p \right) | \cos \theta = | \t
 \end{align}
 \end{subequations}
 
-Therefore, the forces imposed to the actuator points are parametrized by the dense core net force $| \textbf{F}_\mathrm{DC} |$, the actuator inclination $\theta$ and the actuator points. Table \ref{tab:alm_parameters} shows a recap of the parameters used in the proposed model. %The actuator chords shown in Figure \ref{fig:ALM_DC_learning} are not shown in this model since the increase in cross-section is directly contained in the linear evolution of the forces, Eqs. (\ref{eq:ALM_lift_drag_definitions}).
+Therefore, the forces imposed to the actuator points are parametrized by the dense core net force $| \textbf{F}_\mathrm{DC} |$, the actuator inclination $\theta$ and the actuator points. Table \ref{tab:alm_parameters} shows a recap of the parameters used in the proposed model. In this table, the angle $\theta$ is not shown since it can be obtained with trigonometry from the initial and end points of the actuator. %The actuator chords shown in Figure \ref{fig:ALM_DC_learning} are not shown in this model since the increase in cross-section is directly contained in the linear evolution of the forces, Eqs. (\ref{eq:ALM_lift_drag_definitions}).
 
 \begin{table}[!h]
 \centering
@@ -574,9 +574,10 @@ Therefore, the forces imposed to the actuator points are parametrized by the den
 $x_b, z_b$ & mm & Actuator end point  \\
 $c_0$ & mm & Chord at base of actuator \\
 $c_L$ & mm & Chord at tip of actuator \\
-$\theta$ & $\degree$ & Dense core inclination  \\
+%$\theta$ & $\degree$ & Dense core inclination  \\
 $N_p$ & - & Number of actuator points \\
 $| \textbf{F}_\mathrm{DC} |$ & N & Dense core net force\\
+%$\Delta p$ & Pa & \\
 \thickhline 
 \end{tabular}
 \label{tab:alm_parameters}
@@ -599,7 +600,7 @@ where $\partial \Omega_{DC}$ denotes the dense core surface. $\boldsymbol{F} $ h
 \boldsymbol{F}_\mathrm{DC} = \boldsymbol{F}_p = - \int_{\partial \Omega_{DC}} p \boldsymbol{n} dS 
 \end{equation}
 
-To simplify this expression, the forces in the windward and leeward sides of the dense core are assumed to be constant as indicated in Figure \ref{fig:ALM_DC_learning}a by the red and blue arrows, respectively. The surface of the dense core can be approximated according to the actuator model as $\partial \Omega_\mathrm{DC} \approx S_\mathrm{DC} = \frac{1}{2} \left( c_0 + c_L \right) L$. Therefore, Eq. (\ref{eq:ALM_Fp_complete_integral}) can be reduced to
+To simplify this expression, the forces in the windward and leeward sides of the dense core are assumed to be constant as indicated in Figure \ref{fig:ALM_DC_learning}a by the red and blue arrows, respectively. The surface of the dense core can be approximated according to the actuator model as $\partial \Omega_\mathrm{DC} \approx S_\mathrm{DC} = \frac{1}{2} \left( c_0 + c_L \right) L$, being $L = \sqrt{x_\mathrm{b}^2+z_\mathrm{b}^2}$ if the actuator initial point is located at the origin of the coordinate system. Therefore, Eq. (\ref{eq:ALM_Fp_complete_integral}) can be reduced to
 
 
 \begin{equation}
