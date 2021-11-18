@@ -172,6 +172,50 @@ $\Delta x_\mathrm{min}$ [$\mu$m]  &  Denomination \\
 
 \clearpage
 
+\section{Definition of liquid characteristic times}
+
+Characteristic times can be defined for the liquid phase in BIMER in the same way it was done for the DLR JICF test case from Chapter \ref{ch5:jicf_resolved_simulations}. Details on the timescales chosen and on their calculation are given in $\S$\ref{sec:ch5_liquid_characteristic_times}. Here, the definitions summarized in Table \ref{tab:jicf_characteristic times} are directly applied to the BIMER test case. The results are shown in Table \ref{tab:BIMER_SPS_characteristic times}. Furthermore, the droplets arrival time to the sampling planes in the resolved simulations are shown in Table \ref{BIMER_SPS_characteristic_droplet_sampling_times}.
+
+\begin{table}[!h]
+\centering
+\caption{Characteristic physical timescales [$\mu$s] in BIMER simulations}
+\begin{tabular}{ccc}
+\thickhline
+\textbf{Time scale} & \textbf{Expression} & \textbf{BIMER}\\
+\thickhline
+Inertia & $\tau_\mathrm{in} = \frac{d_\mathrm{inj}}{u_l}$ & 115.38 \\
+Aerodynamic breakup  &  $\tau_\mathrm{ab} =  \frac{d_\mathrm{inj}}{u_g - u_l} \sqrt{\frac{\rho_l}{\rho_g}} $ & 256.30 \\
+Non-aerodynamic breakup  &  $\tau_\mathrm{nb} = \frac{d_\mathrm{inj}}{u_l} We_l^{1/3} $ &  fdsq \\
+Capillary & $\tau_\mathrm{cap} = \sqrt{\frac{\rho_l d_\mathrm{inj}^3}{8 \sigma}}$ & fdsq \\
+\thickhline
+\end{tabular}
+\label{tab:BIMER_SPS_characteristic times}
+\end{table} 
+
+
+
+
+\begin{table}[!h]
+\centering
+\caption{Characteristic droplet arrival times to sampling planes $\tau_\mathrm{dr_{x_c}}$ [$\mu$s] in JICF simulations}
+\begin{tabular}{ccccc}
+\thickhline
+\textbf{Case} & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
+\thickhline 
+UG75\_DX10  & 192.7 & 295.2 & -  \\
+UG75\_DX20  & 234.7 & 355.8 & 456.7 \\
+UG100\_DX10 & 143.7 & 218.7 & - \\
+UG100\_DX20 & 176.8 & 258.4 & 362.8 \\
+\thickhline
+\end{tabular}
+\label{tab:BIMER_SPS_characteristic_droplet_sampling_times}
+\end{table}
+
+
+
+
+\clearpage
+
 \section{Models workflow applied to BIMER}
 
 
