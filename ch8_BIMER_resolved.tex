@@ -29,7 +29,7 @@ Steps to follow (for this chapter):
 
 The multipoint burner BIMER was introduced in Chapter \ref{ch7:bimer_test_bench_and_aero}, where a study of the aerodynamic flow field for the operating conditions of interest was performed. Two operating points were simulated: the one tested by \citeColor[providakis_etude_2013] for which experimental data on the aerodynamic field was available, which was used for validating the simulations performed with YALES2; and the one tested by \citeColor[renaud_high-speed_2015] which provides experimental data on the non-reactive spray state. 
 
-In this chapter, resolved simulations of the atomization process through one injector of the BIMER take-off stage, as done in Chapter \ref{ch5:jicf_resolved_simulations} for the academic JICF test case, are performed. The numerical setup and liquid injection operating point are described in $\S$\ref{sec:ch8_BIMER_computational_setup} and $\S$\ref{sec:ch8_BIMER_operating_condition} respectively. The flowchart of the models from Figure \ref{fig:SLI_graphic_description} applied to BIMER is shown in $\S$\textbf{XX}. Then, the inlet velocity profiles from the aerodynamic computations which is seen by the atomizer is discussed in $\S$\textbf{XX}. Results from resolved atomization simulations performed for \textbf{XX} interface mesh resolutions are shown in $\S$\textbf{XX}. Finally, injectors learnt and built from such simulations are discussed in $\S$\textbf{XX}. These injectors are later used to initialise spray simulations at BIMER in Chapter \ref{ch9:BIMER_lagrangian}.
+In this chapter, resolved simulations of the atomization process through one injector of the BIMER take-off stage, as done in Chapter \ref{ch5:jicf_resolved_simulations} for the academic JICF test case, are performed. The numerical setup and liquid injection operating point are described in $\S$\ref{sec:ch8_BIMER_computational_setup} and $\S$\ref{sec:ch8_BIMER_operating_condition} respectively. Then, the inlet velocity profiles from the aerodynamic computations which is seen by the atomizer is discussed in $\S$\textbf{XX}. Results from resolved atomization simulations performed for \textbf{XX} interface mesh resolutions are shown in $\S$\textbf{XX}. Finally, injectors learnt and built from such simulations are discussed in $\S$\textbf{XX}. These injectors are later used to initialise spray simulations at BIMER in Chapter \ref{ch9:BIMER_lagrangian}.
 
 
 
@@ -48,12 +48,17 @@ The location of the liquid injection point in the take-off stage is shown in Fig
 	\label{fig:BIMER_liquid_injector_views}
 \end{figure}
 
-\subsection{Sampling planes in BIMER}
+\subsection*{Sampling planes in BIMER}
 
-The purpose of the BIMER resolved simulations is to characterize the produced spray in order to create lagrangian injectors with the SLI methodology to initialize dispersed phase computations. Therefore, the spray must be sampled in the fashion as it was done for the DLR JICF, whose sampling planes were shown in Figure \ref{fig:jicf_interior_boundaries_surface_measurements}. In that test case, the defined sampling planes were perpendicular to the crossflow axis $x$, since the jet deviates and atomizes producing a spray that moves in this direction. BIMER presents a more complex geometry representative of real injection systems where the absolute reference system is not aligned with the liquid fuel injection point chosen. Therefore, it is convenient to change the reference system to a local one which is aligned with the jet deviation direction (i.e. the local crossflow direction). This direction is denoted as $x_c$ and is shown in Figure \ref{fig:BIMER_liquid_injector_views} right. It has been obtained by performing resolved simulations and checking visually the JICF direction. The local reference system is defined by the orthogonal coordinates $\left{ x_c, y_c, z_c \right}$ obtained through a transformation from the global coordinate system. This local system, shown in Figure \textbf{XX}, is centered at the liquid injection point.
+The purpose of the BIMER resolved simulations is to characterize the produced spray in order to create lagrangian injectors with the SLI methodology to initialize dispersed phase computations. Therefore, the spray must be sampled in the fashion as it was done for the DLR JICF, whose sampling planes were shown in Figure \ref{fig:jicf_interior_boundaries_surface_measurements}. In that test case, the defined sampling planes were perpendicular to the crossflow axis $x$, since the jet deviates and atomizes producing a spray that moves in this direction. BIMER presents a more complex geometry representative of real injection systems where the absolute reference system is not aligned with the liquid fuel injection point chosen. Therefore, it is convenient to change the reference system to a local one which is aligned with the jet deviation direction (i.e. the local crossflow direction). This direction is denoted as $x_c$ and is shown in Figure \ref{fig:BIMER_liquid_injector_views} right. It has been obtained by performing resolved simulations and checking visually the JICF direction. The local reference system is defined by the orthogonal coordinates $\left( x_c, y_c, z_c \right)$ obtained through a transformation from the global coordinate system. This local system, shown in Figure \ref{fig:BIMER_local_FoR_and_sampling_planes}, is centered at the liquid injection point. The figure also shows the location of the sampling planes, which are perpendicular to the $x_c$ axis and are expressed in relation to the injection diameter $d_\mathrm{inj}$.
 
-
-
+\begin{figure}[h!]
+	\centering
+	\includeinkscape[inkscapelatex=true,scale=0.8]{./part3_applications/figures_ch8_resolved/BIMER_local_FoR_and_sampling_planes}
+	\vspace*{-0.5in}
+	\caption{Instaneous snapshot of liquid injection in BIMER shown the local coordinate system and the location of spray sampling planes. \textbf{XX OJO: actualizar con sampling planes finales.}}
+	\label{fig:BIMER_local_FoR_and_sampling_planes}
+\end{figure}
 
 
 \section{Operating condition}
@@ -105,23 +110,6 @@ q =  \frac{\rho_l u_l^2}{\rho_g u_g^2} \approx 4 ~~~~ ; ~~~~  We_g =  \frac{\rho
 Figure \ref{fig:location_BIMER_op_in_breakup_map} shows the BIMER JICF operating point classified in the breakup diagram of \citeColor[wu_breakup_1997]. As observed, in this case the breakup regime corresponds to bag breakup.
 
 The governing parameters characterizing the BIMER operating point are summarized in Table \ref{tab:bimer_sps_operating_point}. The dimensionless numbers from Eqs. (\ref{eq:dimensionless_numbers_jicf}) are also calculated. Two simulations have been performed with two values for the interface mesh size $\Delta x_\mathrm{min}$, the nomenclature for each case is given in Table \ref{tab:BIMER_resolved_simulations_performed}.
-
-\begin{table}[!h]
-\centering
-\caption{Nomenclature for resolved atomization simulations}
-\begin{tabular}{cc}
-\thickhline
-%$\pmb{\Delta} x_\mathrm{min}$ [$\pmb{\mu}$$\textbf{m}])  &  \multicolumn{2}{c}{\textbf{Operating condition}} \\ 
-$\Delta x_\mathrm{min}$ [$\mu$m]  &  Denomination \\ 
-\thickhline
-\textbf{15} & BIMER\_DX15 \\
-\textbf{10} & BIMER\_DX10 \\
-\thickhline
-\end{tabular}
-\label{tab:BIMER_resolved_simulations_performed}
-\end{table}
-
-\clearpage
 
 
 \begin{table}[!h]
@@ -180,16 +168,37 @@ Density ratio & $r$ & - & 915 \\
 \label{tab:bimer_sps_operating_point}
 \end{table}
 
+\begin{table}[!h]
+\centering
+\caption{Nomenclature for resolved atomization simulations}
+\begin{tabular}{cc}
+\thickhline
+%$\pmb{\Delta} x_\mathrm{min}$ [$\pmb{\mu}$$\textbf{m}])  &  \multicolumn{2}{c}{\textbf{Operating condition}} \\ 
+$\Delta x_\mathrm{min}$ [$\mu$m]  &  Denomination \\ 
+\thickhline
+\textbf{15} & BIMER\_DX15 \\
+\textbf{10} & BIMER\_DX10 \\
+\thickhline
+\end{tabular}
+\label{tab:BIMER_resolved_simulations_performed}
+\end{table}
+
+
+\clearpage
+
 \begin{figure}[ht]
      \centering
      \includeinkscape[inkscapelatex=false,scale=0.45]{./part3_applications/figures_ch8_resolved/BIMER_breakup_regime_our_operating_point}
+     \vspace*{-0.2in}
      \caption{Location of simulated operating condition in the breakup map by \citeColor[wu_breakup_1997]}
 	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
       \label{fig:location_BIMER_op_in_breakup_map}
 \end{figure}
 
 
-\clearpage
+
+
+
 
 \section{Definition of liquid characteristic times}
 
@@ -211,20 +220,18 @@ Capillary & $\tau_\mathrm{cap} = \sqrt{\frac{\rho_l d_\mathrm{inj}^3}{8 \sigma}}
 \label{tab:BIMER_SPS_characteristic times}
 \end{table} 
 
+As shown in the previous table, the lower timescale is found for the inertia processes and hence those are governing breakup. Yet, all timescales are of the same order of magnitude, as opposed to the timescales of the DLR JICF summarized in Figure \ref{tab:jicf_characteristic times} where the fastest timescale (inertia) was around $100$ times smaller than the slowest (capillary). For the BIMER operating point studied, the inertia timescale is only $3$ times smaller than the capillary one, which is not even the slowest (in this case, it corresponds to the non-aerodynamic breakup timescale). The fact that the timescales in this case are closer to each other agree with the location of the BIMER operating point in the breakup diagram of Figure \ref{fig:location_BIMER_op_in_breakup_map} \citepColor[pilch_use_1987]. Besides the physical timescales, the droplets arrival times to the sampling planes depicted in Figure \ref{fig:BIMER_local_FoR_and_sampling_planes}. These ones are summarized in Table \ref{BIMER_SPS_characteristic_droplet_sampling_times}. 
 
-The droplets arrival time to the sampling planes in the resolved simulations are shown in Table \ref{BIMER_SPS_characteristic_droplet_sampling_times}.
 
 \begin{table}[!h]
 \centering
-\caption{Characteristic droplet arrival times to sampling planes $\tau_\mathrm{dr_{x_c}}$ [$\mu$s] in JICF simulations}
+\caption{Characteristic droplet arrival times to sampling planes $\tau_\mathrm{dr_{x_c}}$ [$\mu$s] in BIMER simulations}
 \begin{tabular}{ccccc}
 \thickhline
-\textbf{Case} & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
+\textbf{Case} & $x_c/d_\mathrm{inj} = 5$ & $x_c/d_\mathrm{inj} = 10$ & $x_c/d_\mathrm{inj} = 15$ \\
 \thickhline 
-UG75\_DX10  & 192.7 & 295.2 & -  \\
-UG75\_DX20  & 234.7 & 355.8 & 456.7 \\
-UG100\_DX10 & 143.7 & 218.7 & - \\
-UG100\_DX20 & 176.8 & 258.4 & 362.8 \\
+BIMER\_DX10 & - & - & -  \\
+BIMER\_DX15  & - & - & - \\
 \thickhline
 \end{tabular}
 \label{tab:BIMER_SPS_characteristic_droplet_sampling_times}
@@ -234,10 +241,6 @@ UG100\_DX20 & 176.8 & 258.4 & 362.8 \\
 
 
 \clearpage
-
-\section{Models workflow applied to BIMER}
-
-
 
 \section{Initial conditions}
 
@@ -292,19 +295,6 @@ The aerodynamic field inside BIMER for the operating points of interest was disc
 %	\label{fig:gas_injection_area_multipoint}
 %\end{figure}
 
-\subsection{Characteristic times}
-
-The characteristic time scale by \citeColor[ranger_aerodynamics_1968] can be used:
-
-\begin{equation}
-\tau_c = \sqrt{\frac{\rho_l}{\rho_g}} \frac{d_\mathrm{inj}}{u_g} = \sqrt{\frac{750}{0.816382 }} \frac{0.3 ~\mathrm{mm}}{38} = 0.24 ~\mathrm{ms}
-\end{equation}
-
-We can also define as in Eq. (\ref{eq:jicf_tau_injector}):
-
-\begin{equation}
-\tau_\mathrm{ph} = \frac{d_\mathrm{inj}}{u_l} = \frac{0.3 ~\mathrm{mm}}{2.6} = 0.12 ~\mathrm{ms}
-\end{equation}
 
 %According to \textbf{2016 Eckel}, the velocity is not the gaseous one but the relative:
 %
