@@ -41,6 +41,7 @@ plt.rcParams['lines.linewidth'] =  6*FFIG #6*FFIG
 plt.rcParams['legend.framealpha'] = 1.0
 plt.rcParams['legend.loc']      = 'upper right'
 plt.rcParams['text.usetex'] = True
+#plt.rcParams['text.latex.preamble']=[r"\usepackage{xcolor}"]
 #rc('text.latex', preamble='\usepackage{color}')
 
 d_inj = 0.45
@@ -73,7 +74,8 @@ tau_char = [tau_ph_UG75_DX10 , tau_ph_UG75_DX20,
 
 # axis labels
 x_label_time  = r'$t^{\prime}$' #r'$t~[\mathrm{ms}]$'
-y_label_xb_zb = r'$x_b/d_\mathrm{inj},~z_b/d_\mathrm{inj}$'
+#y_label_xb_zb = r'$x_b/d_\mathrm{inj},~\textcolor{blue}{ z_b/d_\mathrm{inj}}$'
+y_label_xb_zb = r'$x_b/d_\mathrm{inj}, z_b/d_\mathrm{inj}$'
 y_label_w = r'$w/d_\mathrm{inj}$'
 y_label_theta = r'$\theta~[^\circ]$'
 
