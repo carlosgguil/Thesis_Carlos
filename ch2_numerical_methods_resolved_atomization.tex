@@ -560,7 +560,7 @@ where $\tau$ is a pseudo-time and $\textbf{n}$ is the normal vector to the inter
 \end{equation}
 
 
-As indicated in Eq. (\ref{eq:acls_reinit_2008}), the reinitialization process has two terms: diffusion and resharpening. Both of them are necessary to ensure the smoothness of $\psi$. With the introduction of $\psi$ and the reinitialization equation, mass conservation errors are reduced: hence, this method is referred as conservative level set. Nevertheless, numerical errors might appear during reinitialisation since small oscillations in $\psi$ might induce big variations in $\textbf{n}$. To improve the accuracy, \citeColor[desjardins_accurate_2008] proposed an extension to this conservative methodology in which the interface transport is solved with high order schemes and a fast-marching method is used to reconstruct the signed-distance function $\phi$. This function is then used to compute the interface normals and, with it, the curvature $\kappa$: 
+As indicated in Eq. (\ref{eq:acls_reinit_2008}), the reinitialization process has two terms: diffusion and resharpening. Both of them are necessary to ensure the smoothness of $\psi$. The reinitialization equation is then performed for a given number of iterations $N_\mathrm{reinit}$, which is a user-defined parameter. With the introduction of $\psi$ and the reinitialization equation, mass conservation errors are reduced: hence, this method is referred as conservative level set. Nevertheless, numerical errors might appear during reinitialisation since small oscillations in $\psi$ might induce big variations in $\textbf{n}$. To improve the accuracy, \citeColor[desjardins_accurate_2008] proposed an extension to this conservative methodology in which the interface transport is solved with high order schemes and a fast-marching method is used to reconstruct the signed-distance function $\phi$. This function is then used to compute the interface normals and, with it, the curvature $\kappa$: 
 
 \begin{equation}
 \textbf{n} = \frac{\nabla \phi}{| \nabla \phi |} 
@@ -582,7 +582,7 @@ where $\kappa_{\scriptsize{\Gamma}}$ is the interface mean curvature and $\mu$ i
     \centering
     \includegraphics[width=0.6\textwidth]{./part1_numerical_approaches/figures_ch2/ACLS_psi_phi_janodet_JCP}
        \centering
-    \caption[Representation of distance functions $\phi$ and $\psi$ in the ACLS methodology]{Representation of distance functions $\phi$ and $\psi$ in the ACLS methodology. The signed-distance function $\phi$ has been normalized by $\delta_\psi = 4\varepsilon$ for visualization. Source: \textbf{ref:Janodet-2021-JCP, update when ready}.}
+    \caption[Representation of distance functions $\phi$ and $\psi$ in the ACLS methodology]{Representation of distance functions $\phi$ and $\psi$ in the ACLS methodology. The signed-distance function $\phi$ has been normalized by $\delta_\psi = 4\varepsilon$ for visualization. Source: \textbf{ref:Janodet-2021-JCP}.}
     \label{fig:psi_phi_profiles_janodet_2021_JCP}
 \end{figure}
 
@@ -613,9 +613,20 @@ where $\mathcal{H} \left( \phi \right)$ is the Hessian matrix of the distance fu
 
 where $H$ is the Heaviside function.
 
+
 \subsubsection*{Coupling with dynamic mesh adaptation}
 
 To better resolve the atomization dynamics and save computational resources, the ACLS/GFM method is coupled to an Adaptive Mesh Refinement (AMR) strategy for increasing the mesh resolution at the liquid-gas interface at an affordable cost \citepColor[leparoux_primary_2018]. In AMR, the target element size at the interface $\Delta x_\mathrm{min}$ and  the number of cells with this size $N_p$ are specified by the user. The spatial region containing elements with size $\Delta x_\mathrm{min}$ has a width $2 N_p\Delta x_\mathrm{min}$, see Figure \ref{fig:AMR_strategy}. The mesh is dynamically refined throughout the computation with an automatic distance-based triggering ensuring that the interface always remains within this region. In its vicinity, the cell size increases linearly with controlled slope until the baseline cell size $\Delta x_\mathrm{init}$. AMR will be used in all the resolved atomization simulations presented in this thesis. Hence, the full methodology used to performed this simulations will be hereafter referred as ACLS/AMR.
+
+As stated by \citeColor[leparoux_primary_2018], ACLS improves mass conservation of liquid by propagating and reinitalizing the interface given by the contour $\psi = 0.5$. If a uniform mesh is used with sufficient resolution to capture the liquid structures, mass conservation is ensured. However, this does not often occur when atomization creates small droplets as the baseline meshes are not fine enough to capture these small scales. The purpose of AMR is therefore to refine locally and dynamically the mesh in order to define smaller elements as the interface propagates. However, AMR is not triggered at each solver iteration, as this would yield computations very expensive. Instead, mesh adaptation is performed after each $N_\mathrm{iter}^{adapt}$ which is calculated according to the following formula:
+
+\begin{equation}
+N_\mathrm{iter}^{adapt} = \frac{N_p}{CFL} \frac{\Delta t^{CFL}}{\Delta t}
+\end{equation}
+
+where $CFL$ is the Courant-Friedrichs-Levy number, $\Delta t^{CFL}$ is the time-step given by the CFL condition and $\Delta t$ is the time-step governing the computations.  With this definition for $N_\mathrm{iter}^{adapt}$, AMR triggers with enough frequency to ensure that interface is not propagated outside the layer with mesh size $\Delta x_\mathrm{min}$. In this way, the contour $\psi = 0.5$ does not encounter gradients in cell size which would cause its diffusion.
+
+Once every $N_\mathrm{iter}^{adapt}$ iterations, the levelset function is firstly reinitiliazed with Eq. (\ref{eq:acls_reinit_2017}) and secondly a new mesh is generated by AMR. Then, the fluid fields (velocity, pressure, levelset, etc.) are interpolated into the new grid, and the reinitialization of the levelset function is performed again. In this way, a new grid containing the transported flow fields prior to mesh adaptation is generated. More details on this methodology can be found in (\textbf{ref:Janodet-2021-JCP}).
 
 \begin{figure}[ht]
     \centering

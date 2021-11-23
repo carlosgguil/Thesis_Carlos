@@ -33,6 +33,7 @@ plt.rcParams['font.size'] = 50*FFIG
 plt.rcParams['lines.linewidth'] =  6*FFIG #6*FFIG
 plt.rcParams['legend.framealpha'] = 1.0
 plt.rcParams['legend.loc']      = 'lower right'
+plt.rcParams['lines.markersize'] = 45*FFIG
 plt.rcParams['text.usetex'] = True
 
 
@@ -51,8 +52,10 @@ tau_ph_UG100_DX20 = 0.2584
 # Define labels and tags
 x_label_time   = r'$t^{\prime}$' #r'$t~[\mathrm{ms}]$'
 y_label_Ql_inst = r"$Q_l ~[\mathrm{mm}^3~\mathrm{s}^{-1}]$"
-y_label_Ql_mean = r"$\overline{Q_l} ~[\mathrm{mm}^3~\mathrm{s}^{-1}]$"
-y_label_Ql_RMS = r"$Q_{l,\mathrm{RMS}} ~[\mathrm{mm}^3~\mathrm{s}^{-1}]$"
+y_label_Ql_mean_perp = r"$\overline{Q_l}_{,\mathrm{perp}} ~[\mathrm{mm}^3~\mathrm{s}^{-1}]$"
+y_label_Ql_mean_film = r"$\overline{Q_l}_{,\mathrm{film}} ~[\mathrm{mm}^3~\mathrm{s}^{-1}]$"
+y_label_Ql_RMS_perp = r"$Q_{l,\mathrm{RMS},\mathrm{perp}} ~[\mathrm{mm}^3~\mathrm{s}^{-1}]$"
+y_label_Ql_RMS_film = r"$Q_{l,\mathrm{RMS},\mathrm{film}} ~[\mathrm{mm}^3~\mathrm{s}^{-1}]$"
 
 
 label_UG75_DX10  = r'$\mathrm{UG}75\_\mathrm{DX}10$'
@@ -281,7 +284,7 @@ plt.plot(t_UG100_DX20_x10, Q_mean_UG100_DX20_x10, 'k', label=label_x_equal_10)
 plt.plot(t_UG100_DX20_x10, Q_mean_UG100_DX20_x15, 'r', label=label_x_equal_15)
 plt.plot([t_min, max(t_UG100_DX20_x10)], [Q_inj_UG100]*2, '--k', label=label_Ql_injected)
 plt.xlabel(x_label_time)
-plt.ylabel(y_label_Ql_mean)
+plt.ylabel(y_label_Ql_mean_perp)
 #plt.ylim(0,1e4)
 plt.legend(loc='upper right')
 plt.grid()
@@ -330,7 +333,7 @@ ax4.plot(t_UG100_DX20_x10, Q_mean_UG100_DX20_x15, 'r', label=label_x_equal_15)
 ax4.set_title(label_UG100_DX20)
 ax4.xaxis.set_ticks([0,4,8,12,16,20])
 
-axs.flat[0].set(ylabel = y_label_Ql_mean)
+axs.flat[0].set(ylabel = y_label_Ql_mean_perp)
 for ax in axs.flat:
     ax.label_outer()
     ax.set(xlabel=x_label_time)
@@ -377,7 +380,7 @@ ax4.set_title(label_UG100_DX20)
 #ax4.yaxis.set_ticks([0,1000,2000,3000])
 ax4.xaxis.set_ticks([0,4,8,12,16,20])
 
-axs.flat[0].set(ylabel = y_label_Ql_RMS)
+axs.flat[0].set(ylabel = y_label_Ql_RMS_perp)
 for ax in axs.flat:
     ax.label_outer()
     ax.set(xlabel=x_label_time)
@@ -427,7 +430,7 @@ ax4.set_title(label_UG100_DX20)
 ax4.xaxis.set_ticks([0,4,8,12,16,20])
 
 
-axs.flat[0].set(ylabel = y_label_Ql_mean)
+axs.flat[0].set(ylabel = y_label_Ql_mean_film)
 for ax in axs.flat:
     ax.label_outer()
     ax.set(xlabel=x_label_time)
@@ -484,7 +487,7 @@ ax4.set_title(label_UG100_DX20)
 ax4.xaxis.set_ticks([0,4,8,12,16,20])
 
 
-axs.flat[0].set(ylabel = y_label_Ql_RMS)
+axs.flat[0].set(ylabel = y_label_Ql_RMS_film)
 for ax in axs.flat:
     ax.label_outer()
     ax.set(xlabel=x_label_time)
@@ -524,7 +527,7 @@ plt.bar(r1-0.25, Q_x_mean_x05, yerr=Q_x_RMS_x05, width=barWidth, color='blue', e
 plt.bar(r1, Q_x_mean_x10, yerr=Q_x_RMS_x10, width=barWidth, color='grey', edgecolor='white', label=label_x_equal_10, capsize=barWidth*20)
 plt.bar(r2+0.25, Q_x_mean_x15, yerr=Q_x_RMS_x15, width=barWidth, color='red', edgecolor='white', label=label_x_equal_15, capsize=barWidth*20)
 #plt.xlabel('Case')#, fontweight='bold')
-plt.ylabel(y_label_Ql_inst)
+plt.ylabel(y_label_Ql_mean_perp)
 plt.xticks([r for r in range(len(cases))], cases)
 plt.legend(loc='upper left')
 plt.tight_layout()
@@ -558,11 +561,81 @@ plt.bar(r1-0.25, Q_x_film_mean_x05, yerr=Q_x_film_RMS_x05, width=barWidth, color
 plt.bar(r1, Q_x_film_mean_x10, yerr=Q_x_film_RMS_x10, width=barWidth, color='grey', edgecolor='white', label=label_x_less_10, capsize=barWidth*20)
 plt.bar(r2+0.25, Q_x_film_mean_x15, yerr=Q_x_film_RMS_x15, width=barWidth, color='red', edgecolor='white', label=label_x_less_15, capsize=barWidth*20)
 #plt.xlabel('Case')#, fontweight='bold')
-plt.ylabel(y_label_Ql_inst)
+plt.ylabel(y_label_Ql_mean_film)
 plt.xticks([r for r in range(len(cases))], cases)
 plt.legend(loc='upper left')
 plt.tight_layout()
 plt.savefig(folder_manuscript+'bar_graph_filming_IBs.pdf')
 plt.show()
 plt.close()
+
+
+
+
+
+#%% Total fluid losses calculations
+
+#UG75_DX10
+Q_tot_UG75_DX10_x05 = Q_mean_UG75_DX10_x05[-1] + Q_mean_UG75_DX10_x05_filming[-1]
+Q_tot_UG75_DX10_x10 = Q_mean_UG75_DX10_x10[-1] + Q_mean_UG75_DX10_x10_filming[-1]
+
+Q_tot_UG75_DX10 = np.array([Q_tot_UG75_DX10_x05, Q_tot_UG75_DX10_x10])
+
+#UG75_DX20
+Q_tot_UG75_DX20_x05 = Q_mean_UG75_DX20_x05[-1] + Q_mean_UG75_DX20_x05_filming[-1]
+Q_tot_UG75_DX20_x10 = Q_mean_UG75_DX20_x10[-1] + Q_mean_UG75_DX20_x10_filming[-1]
+Q_tot_UG75_DX20_x15 = Q_mean_UG75_DX20_x15[-1] + Q_mean_UG75_DX20_x15_filming[-1]
+
+Q_tot_UG75_DX20 = np.array([Q_tot_UG75_DX20_x05, Q_tot_UG75_DX20_x10, Q_tot_UG75_DX20_x15])
+
+#UG100_DX10
+Q_tot_UG100_DX10_x05 = Q_mean_UG100_DX10_x05[-1] + Q_mean_UG100_DX10_x05_filming[-1]
+Q_tot_UG100_DX10_x10 = Q_mean_UG100_DX10_x10[-1] + Q_mean_UG100_DX10_x10_filming[-1]
+
+Q_tot_UG100_DX10 = np.array([Q_tot_UG100_DX10_x05, Q_tot_UG100_DX10_x10])
+
+#UG100_DX20
+Q_tot_UG100_DX20_x05 = Q_mean_UG100_DX20_x05[-1] + Q_mean_UG100_DX20_x05_filming[-1]
+Q_tot_UG100_DX20_x10 = Q_mean_UG100_DX20_x10[-1] + Q_mean_UG100_DX20_x10_filming[-1]
+Q_tot_UG100_DX20_x15 = Q_mean_UG100_DX20_x15[-1] + Q_mean_UG100_DX20_x15_filming[-1]
+
+Q_tot_UG100_DX20 = np.array([Q_tot_UG100_DX20_x05, Q_tot_UG100_DX20_x10, Q_tot_UG100_DX20_x15])
+
+
+# Losses
+'''
+Q_loss_UG75_DX10  = Q_inj_UG75 - Q_tot_UG75_DX10
+Q_loss_UG75_DX20  = Q_inj_UG75 - Q_tot_UG75_DX20
+Q_loss_UG100_DX10 = Q_inj_UG100 - Q_tot_UG100_DX10
+Q_loss_UG100_DX20 = Q_inj_UG100 - Q_tot_UG100_DX20
+'''
+
+Q_loss_UG75_DX10  = (Q_inj_UG75 - Q_tot_UG75_DX10)/Q_inj_UG75*100
+Q_loss_UG75_DX20  = (Q_inj_UG75 - Q_tot_UG75_DX20)/Q_inj_UG75*100
+Q_loss_UG100_DX10 = (Q_inj_UG100 - Q_tot_UG100_DX10)/Q_inj_UG100*100
+Q_loss_UG100_DX20 = (Q_inj_UG100 - Q_tot_UG100_DX20)/Q_inj_UG100*100
+
+#%% Total fluid losses plots
+
+x_dx20 = [5,10,15]
+x_dx10 = [5,10]
+
+#Plot
+plt.figure(figsize=(FFIG*26,FFIG*16))
+plt.plot(x_dx10, Q_loss_UG75_DX10, 'o-k',label=label_UG75_DX10)
+plt.plot(x_dx20, Q_loss_UG75_DX20, '^-k',label=label_UG75_DX20)
+plt.plot(x_dx10, Q_loss_UG100_DX10, 'o-b',label=label_UG100_DX10)
+plt.plot(x_dx20, Q_loss_UG100_DX20, '^-b',label=label_UG100_DX20)
+plt.xlabel(r'$x~[\mathrm{mm]}$')
+plt.ylabel(r'$\Delta Q_l~[\%]$')
+plt.legend(loc='best')
+plt.xticks([5,10,15])
+plt.yticks([0,10,20,30])
+plt.grid()
+plt.tight_layout()
+
+plt.savefig(folder_manuscript+'Ql_loss_with_x.pdf')
+plt.show()
+plt.close()
+
 

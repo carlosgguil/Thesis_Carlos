@@ -155,10 +155,12 @@ plt.close()
 # Zoom in t' \in [0, 2]
 plt.figure(figsize=figsize_)
 ax = plt.gca()
+'''
 ax.add_patch(Rectangle((0.005, 65), 0.490, 50, fill=None, alpha=1, 
                        linewidth=5*FFIG,color='black',zorder=1e6))
 ax.add_patch(Rectangle((0.501, 80), 0.2, 1.5e2, fill=None, alpha=1, 
                        linewidth=5*FFIG,color='blue',zorder=1e6))
+'''
 plt.plot([1]*2,[0,1e4],'--k')
 plt.plot(time_UG100_DX20,nelem_UG100_DX20, label='$\mathrm{UG}100\_\mathrm{DX}20$')
 plt.plot(time_UG100_DX10,nelem_UG100_DX10, label='$\mathrm{UG}100\_\mathrm{DX}10$')
