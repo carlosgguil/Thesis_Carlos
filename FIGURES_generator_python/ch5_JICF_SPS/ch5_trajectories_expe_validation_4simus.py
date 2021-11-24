@@ -74,7 +74,8 @@ method = 'method_c'
 # OP1, dx = 20 µm
 directory_op1_dx20 = folder+'/'+op1+'/dx20'
 data_op1_dx20 = pd.read_csv(directory_op1_dx20+'/'+method+'_data_trajectory.csv')
-L2_op1_dx20   = pd.read_csv(directory_op1_dx20+'/'+method+'_data_L2.csv')
+#L2_op1_dx20   = pd.read_csv(directory_op1_dx20+'/'+method+'_data_L2.csv')
+L2_op1_dx20   = pd.read_csv(directory_op1_dx20+'/method_d_data_L2.csv')
 
 
 # OP1, dx = 20 µm no turb.
@@ -99,12 +100,12 @@ data_op2_dx10 = pd.read_csv(directory_op2_dx10+'/'+method+'_data_trajectory.csv'
 L2_op2_dx10   = pd.read_csv(directory_op2_dx10+'/'+method+'_data_L2.csv')
 
 #%% Transform  L2 iterations to time
-t_L2_op1_dx20 = (L2_op1_dx20['t'].values - 1)*dt/tau_ph_UG100_DX20
-t_L2_op1_dx20_no_turb = (L2_op1_dx20_no_turb['t'].values - 1)*dt/tau_ph_UG100_DX20
-t_L2_op1_dx10 = (L2_op1_dx10['t'].values - 1)*dt/tau_ph_UG100_DX10
+t_L2_op1_dx20 = (L2_op1_dx20['t'].values - 1)*dt/tau_ph_UG100_DX20 + 2
+t_L2_op1_dx20_no_turb = (L2_op1_dx20_no_turb['t'].values - 1)*dt/tau_ph_UG100_DX20 + 2
+t_L2_op1_dx10 = (L2_op1_dx10['t'].values - 1)*dt/tau_ph_UG100_DX10 + 2
 
-t_L2_op2_dx20 = (L2_op2_dx20['t'].values - 1)*dt/tau_ph_UG75_DX20
-t_L2_op2_dx10 = (L2_op2_dx10['t'].values - 1)*dt/tau_ph_UG75_DX10
+t_L2_op2_dx20 = (L2_op2_dx20['t'].values - 1)*dt/tau_ph_UG75_DX20 + 2
+t_L2_op2_dx10 = (L2_op2_dx10['t'].values - 1)*dt/tau_ph_UG75_DX10 + 2
 
 
 #%% Get errors with axial location

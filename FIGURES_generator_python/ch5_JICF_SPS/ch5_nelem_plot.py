@@ -43,6 +43,8 @@ tau_dr_UG75_DX10  = 0.2952
 tau_dr_UG75_DX20  = 0.3558 #0.4567
 tau_dr_UG100_DX10 = 0.2187
 tau_dr_UG100_DX20 = 0.2584 #0.3628
+tau_dr_UG100_DX10_NO_TURB = 0.2187
+tau_dr_UG100_DX20_NO_TURB = 0.2584
 
 
 '''
@@ -62,12 +64,22 @@ df = pd.read_csv(folder + 'nelem_UG100_dx20.csv')
 time_UG100_DX20  = (df['total_time'].values - df.iloc[0]['total_time'])*1e3/tau_dr_UG100_DX20
 nelem_UG100_DX20 = df['nelem'].values/1e6
 
+# UG100_DX20_no_turb (CHECK IT)
+df = pd.read_csv(folder + 'nelem_UG100_dx20_no_turb.csv')
+time_UG100_DX20_no_turb  = (df['total_time'].values - df.iloc[0]['total_time'])*1e3/tau_dr_UG100_DX20_NO_TURB
+nelem_UG100_DX20_no_turb = df['nelem'].values/1e6
+
 # UG100_DX10
 df = pd.read_csv(folder + 'nelem_UG100_dx10.csv')
 time_UG100_DX10  = (df['total_time'].values - df.iloc[0]['total_time'])*1e3/tau_dr_UG100_DX10
 nelem_UG100_DX10 = df['nelem'].values/1e6
 
 
+
+# UG100_DX10_no_turb (CHECK IT)
+df = pd.read_csv(folder + 'nelem_UG100_dx10_no_turb.csv')
+time_UG100_DX10_no_turb  = (df['total_time'].values - df.iloc[0]['total_time'])*1e3/tau_dr_UG100_DX10_NO_TURB
+nelem_UG100_DX10_no_turb = df['nelem'].values/1e6
 
 # UG75_DX20
 df = pd.read_csv(folder + 'nelem_UG75_dx20.csv')
@@ -132,12 +144,18 @@ plt.rcParams['ytick.minor.visible'] = True
 # Full figure
 plt.figure(figsize=figsize_)
 plt.plot([1]*2,[0,1e4],'--k')
-plt.plot(time_UG100_DX20,nelem_UG100_DX20, label='$\mathrm{UG}100\_\mathrm{DX}20$')
-plt.plot(time_UG100_DX10,nelem_UG100_DX10, label='$\mathrm{UG}100\_\mathrm{DX}10$')
-plt.plot(time_UG75_DX20,nelem_UG75_DX20, label='$\mathrm{UG}75\_\mathrm{DX}20$')
-plt.plot(time_UG75_DX10,nelem_UG75_DX10, label='$\mathrm{UG}75\_\mathrm{DX}10$')
+
+plt.plot(time_UG100_DX20,nelem_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
+plt.plot(time_UG100_DX10,nelem_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
+plt.plot(time_UG75_DX20,nelem_UG75_DX20, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
+plt.plot(time_UG75_DX10,nelem_UG75_DX10, 'y', label='$\mathrm{UG}75\_\mathrm{DX}10$')
+'''
+plt.plot(time_UG100_DX20_no_turb,nelem_UG100_DX20_no_turb, '--r',label='$\mathrm{UG}100\_\mathrm{DX}20\_NO\_TURB$')
+plt.plot(time_UG100_DX10_no_turb,nelem_UG100_DX10_no_turb, '--b',label='$\mathrm{UG}100\_\mathrm{DX}10\_NO\_TURB$')
+'''
 plt.xlabel(x_label_)
 #plt.xlabel("$t$")
+plt.xticks([0,5,10,15,20])
 plt.ylabel(y_label_)
 #plt.xlim(1e-1,11)
 plt.ylim(nelem_UG75_DX10[0],3e3)
@@ -162,10 +180,10 @@ ax.add_patch(Rectangle((0.501, 80), 0.2, 1.5e2, fill=None, alpha=1,
                        linewidth=5*FFIG,color='blue',zorder=1e6))
 '''
 plt.plot([1]*2,[0,1e4],'--k')
-plt.plot(time_UG100_DX20,nelem_UG100_DX20, label='$\mathrm{UG}100\_\mathrm{DX}20$')
-plt.plot(time_UG100_DX10,nelem_UG100_DX10, label='$\mathrm{UG}100\_\mathrm{DX}10$')
-plt.plot(time_UG75_DX20,nelem_UG75_DX20, label='$\mathrm{UG}75\_\mathrm{DX}20$')
-plt.plot(time_UG75_DX10,nelem_UG75_DX10, label='$\mathrm{UG}75\_\mathrm{DX}10$')
+plt.plot(time_UG100_DX20,nelem_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
+plt.plot(time_UG100_DX10,nelem_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
+plt.plot(time_UG75_DX20,nelem_UG75_DX20, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
+plt.plot(time_UG75_DX10,nelem_UG75_DX10, 'y', label='$\mathrm{UG}75\_\mathrm{DX}10$')
 #Rectangle((0.0,100),0.25,1e3,fill='k',alpha=1)
 plt.xlabel(x_label_)
 #plt.xlabel("$t$")
@@ -183,10 +201,10 @@ plt.close()
 
 # Zoom in t' \in [0, 0.5]
 plt.figure(figsize=figsize_)
-plt.plot(time_UG100_DX20,nelem_UG100_DX20, label='$\mathrm{UG}100\_\mathrm{DX}20$')
-plt.plot(time_UG100_DX10,nelem_UG100_DX10, label='$\mathrm{UG}100\_\mathrm{DX}10$')
-plt.plot(time_UG75_DX20,nelem_UG75_DX20, label='$\mathrm{UG}75\_\mathrm{DX}20$')
-plt.plot(time_UG75_DX10,nelem_UG75_DX10, label='$\mathrm{UG}75\_\mathrm{DX}10$')
+plt.plot(time_UG100_DX20,nelem_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
+plt.plot(time_UG100_DX10,nelem_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
+plt.plot(time_UG75_DX20,nelem_UG75_DX20, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
+plt.plot(time_UG75_DX10,nelem_UG75_DX10, 'y', label='$\mathrm{UG}75\_\mathrm{DX}10$')
 plt.xlabel(x_label_)
 #plt.xlabel("$t$")
 plt.ylabel(y_label_)

@@ -37,7 +37,7 @@ $\alpha$ [$\%$] & $\dot{m}_{l,pilot}$ & $\dot{m}_{l,takeoff}$ & \\
 
 
 
-\section{Numerical setup}
+\section{Computational setup}
 
 For performing dispersed phase simulations, the operating point defined in Table \ref{tab:liquid_operating_point_Renaud} is simulated. The staging factor is $\alpha = 15$, meaning that $15 \%$ of the total liquid flow rate is injected through the pilot stage and the remaining liquid through the multipoint. For total flow rate of $\dot{m}_l = 1.64 g s^{-1}$, the multipoint stage injects a total $\dot{m}_{l,takeoff} = 1.39 g s^{-1}$ (hence $0.139 g s^{-1}$ per injector), and a value of $\dot{m}_{l,pilot} = 0.25 g s^{-1}$ is introduced through the pilot stage.
 
@@ -100,6 +100,36 @@ Mean angle $\overline{\theta} [\degree]$ & 40 \\
 \end{tabular}
 \label{tab:LISA_model_parameters}
 \end{table}
+
+\section{Experimental results from literature}
+
+The BIMER operating point tested in this chapter to test the SLI methodology has been chosen since it presents non-reactive experimental results that can be used for validation. These ones, shown in the PhD thesis of \citeColor[renaud_high-speed_2015], consist of the qualitative maps of SMD, axial and vertical velocities shown in Figure \ref{fig:maps_BIMER_renaud_expe_results}. Qualitative experimental results on non-reactive conditions are not available from literature, and hence a qualitative validation is not possible to this date.
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+   \includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/expe_maps/SMD_map.png}
+   %\caption{Low Weber number operating point.}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.1in}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+   \includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/expe_maps/u_axial_map.png}
+   %\caption{Low Weber number operating point.}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.1in}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+   \includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/expe_maps/u_vertical_map.png}
+   %\caption{Low Weber number operating point.}
+   %\label{} 
+\end{subfigure}
+\caption{Experimental maps for for $SMD$, axial velocity $u$ and vertical velocity $v$ from \citeColor[renaud_high-speed_2015].}
+\label{fig:maps_BIMER_renaud_expe_results}
+\end{figure}
 
 \section{Model flowchart applied to BIMER}
 \label{sec:ch9_BIMER_SLI_flowchart}

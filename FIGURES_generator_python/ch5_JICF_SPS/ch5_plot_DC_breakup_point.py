@@ -116,7 +116,7 @@ time = []
 for i in range(len(cases)):
     df = pd.read_csv(cases[i])
     it.append(df['iteration'].values)
-    time.append((df['iteration'].values-1)*T*1e3/tau_char[i])
+    time.append((df['iteration'].values-1)*T*1e3/tau_char[i] + 2)
     xb.append(df['xb'].values/d_inj)
     zb.append(df['zb'].values/d_inj)
     x_width_DC.append(df['x_width_DC'].values/d_inj)

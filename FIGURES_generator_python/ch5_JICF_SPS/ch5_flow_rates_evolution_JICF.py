@@ -116,61 +116,61 @@ df_UG75_DX10_x10_filming = pd.read_csv(folder+'/overall_integrated_fluxes/uG75_d
 
 # UG100_DX20
 t_UG100_DX20_x05 = df_UG100_DX20_x05['t_x05'].values
-t_UG100_DX20_x05 = (t_UG100_DX20_x05-t_UG100_DX20_x05[0])/tau_ph_UG100_DX20
+t_UG100_DX20_x05 = (t_UG100_DX20_x05-t_UG100_DX20_x05[0])/tau_ph_UG100_DX20 + 2
 Q_mean_UG100_DX20_x05 = df_UG100_DX20_x05['Q_t_x05_mean_evol'].values
 Q_RMS_UG100_DX20_x05 = df_UG100_DX20_x05['Q_t_x05_rms_evol'].values
 
 
 t_UG100_DX20_x10 = df_UG100_DX20_x10['t_x10'].values
-t_UG100_DX20_x10 = (t_UG100_DX20_x10-t_UG100_DX20_x10[0])/tau_ph_UG100_DX20
+t_UG100_DX20_x10 = (t_UG100_DX20_x10-t_UG100_DX20_x10[0])/tau_ph_UG100_DX20 + 2
 Q_mean_UG100_DX20_x10 = df_UG100_DX20_x10['Q_t_x10_mean_evol'].values
 Q_RMS_UG100_DX20_x10 = df_UG100_DX20_x10['Q_t_x10_rms_evol'].values
 
 
 t_UG100_DX20_x15 = df_UG100_DX20_x15['t_x15'].values
-t_UG100_DX20_x15 = (t_UG100_DX20_x15-t_UG100_DX20_x15[0])/tau_ph_UG100_DX20
+t_UG100_DX20_x15 = (t_UG100_DX20_x15-t_UG100_DX20_x15[0])/tau_ph_UG100_DX20 + 2
 Q_mean_UG100_DX20_x15 = df_UG100_DX20_x15['Q_t_x15_mean_evol'].values
 Q_RMS_UG100_DX20_x15 = df_UG100_DX20_x15['Q_t_x15_rms_evol'].values
 
 
 # UG100_DX10
 t_UG100_DX10_x05 = df_UG100_DX10_x05['t_x05'].values
-t_UG100_DX10_x05 = (t_UG100_DX10_x05-t_UG100_DX10_x05[0])/tau_ph_UG100_DX10
+t_UG100_DX10_x05 = (t_UG100_DX10_x05-t_UG100_DX10_x05[0])/tau_ph_UG100_DX10 + 2
 Q_inst_UG100_DX10_x05 = df_UG100_DX10_x05['Q_t_x05'].values
 Q_mean_UG100_DX10_x05 = df_UG100_DX10_x05['Q_t_x05_mean_evol'].values
 Q_RMS_UG100_DX10_x05 = df_UG100_DX10_x05['Q_t_x05_rms_evol'].values
 
 
 t_UG100_DX10_x10 = df_UG100_DX10_x10['t_x10'].values
-t_UG100_DX10_x10 = (t_UG100_DX10_x10-t_UG100_DX10_x10[0])/tau_ph_UG100_DX10
+t_UG100_DX10_x10 = (t_UG100_DX10_x10-t_UG100_DX10_x10[0])/tau_ph_UG100_DX10 + 2
 Q_inst_UG100_DX10_x10 = df_UG100_DX10_x10['Q_t_x10'].values
 Q_mean_UG100_DX10_x10 = df_UG100_DX10_x10['Q_t_x10_mean_evol'].values
 Q_RMS_UG100_DX10_x10 = df_UG100_DX10_x10['Q_t_x10_rms_evol'].values
 
 # UG75_DX20
 t_UG75_DX20_x05 = df_UG75_DX20_x05['t_x05'].values
-t_UG75_DX20_x05 = (t_UG75_DX20_x05-t_UG75_DX20_x05[0])/tau_ph_UG75_DX20
+t_UG75_DX20_x05 = (t_UG75_DX20_x05-t_UG75_DX20_x05[0])/tau_ph_UG75_DX20 + 2
 Q_mean_UG75_DX20_x05 = df_UG75_DX20_x05['Q_t_x05_mean_evol'].values
 Q_RMS_UG75_DX20_x05  = df_UG75_DX20_x05['Q_t_x05_rms_evol'].values
 
 t_UG75_DX20_x10 = df_UG75_DX20_x10['t_x10'].values
-t_UG75_DX20_x10 = (t_UG75_DX20_x10-t_UG75_DX20_x10[0])/tau_ph_UG75_DX20
+t_UG75_DX20_x10 = (t_UG75_DX20_x10-t_UG75_DX20_x10[0])/tau_ph_UG75_DX20 + 2
 Q_mean_UG75_DX20_x10 = df_UG75_DX20_x10['Q_t_x10_mean_evol'].values
 Q_RMS_UG75_DX20_x10  = df_UG75_DX20_x10['Q_t_x10_rms_evol'].values
 
 t_UG75_DX20_x15 = df_UG75_DX20_x15['t_x15'].values
-t_UG75_DX20_x15 = (t_UG75_DX20_x15-t_UG75_DX20_x15[0])/tau_ph_UG75_DX20
+t_UG75_DX20_x15 = (t_UG75_DX20_x15-t_UG75_DX20_x15[0])/tau_ph_UG75_DX20 + 2
 Q_mean_UG75_DX20_x15 = df_UG75_DX20_x15['Q_t_x15_mean_evol'].values
 Q_RMS_UG75_DX20_x15  = df_UG75_DX20_x15['Q_t_x15_rms_evol'].values
 
 # UG75_DX10
 t_UG75_DX10_x05 = df_UG75_DX10_x05['t_x05'].values
-t_UG75_DX10_x05 = (t_UG75_DX10_x05-t_UG75_DX10_x05[0])/tau_ph_UG75_DX10
+t_UG75_DX10_x05 = (t_UG75_DX10_x05-t_UG75_DX10_x05[0])/tau_ph_UG75_DX10 + 2
 Q_mean_UG75_DX10_x05 = df_UG75_DX10_x05['Q_t_x05_mean_evol'].values
 Q_RMS_UG75_DX10_x05  = df_UG75_DX10_x05['Q_t_x05_rms_evol'].values
 
 t_UG75_DX10_x10 = df_UG75_DX10_x10['t_x10'].values
-t_UG75_DX10_x10 = (t_UG75_DX10_x10-t_UG75_DX10_x10[0])/tau_ph_UG75_DX10
+t_UG75_DX10_x10 = (t_UG75_DX10_x10-t_UG75_DX10_x10[0])/tau_ph_UG75_DX10 + 2
 Q_mean_UG75_DX10_x10 = df_UG75_DX10_x10['Q_t_x10_mean_evol'].values
 Q_RMS_UG75_DX10_x10  = df_UG75_DX10_x10['Q_t_x10_rms_evol'].values
 
@@ -180,66 +180,66 @@ Q_RMS_UG75_DX10_x10  = df_UG75_DX10_x10['Q_t_x10_rms_evol'].values
 
 # UG100_DX20
 t_UG100_DX20_x05_filming = df_UG100_DX20_x05_filming['t_film_x05'].values
-t_UG100_DX20_x05_filming = (t_UG100_DX20_x05_filming-t_UG100_DX20_x05_filming[0])/tau_ph_UG100_DX20
+t_UG100_DX20_x05_filming = (t_UG100_DX20_x05_filming-t_UG100_DX20_x05_filming[0])/tau_ph_UG100_DX20 + 2
 Q_mean_UG100_DX20_x05_filming = df_UG100_DX20_x05_filming['Q_t_film_x05_mean_evol'].values
 Q_RMS_UG100_DX20_x05_filming  = df_UG100_DX20_x05_filming['Q_t_film_x05_rms_evol'].values
 
 t_UG100_DX20_x10_filming = df_UG100_DX20_x10_filming['t_film_x10'].values
-t_UG100_DX20_x10_filming = (t_UG100_DX20_x10_filming-t_UG100_DX20_x10_filming[0])/tau_ph_UG100_DX20
+t_UG100_DX20_x10_filming = (t_UG100_DX20_x10_filming-t_UG100_DX20_x10_filming[0])/tau_ph_UG100_DX20 + 2
 Q_mean_UG100_DX20_x10_filming = df_UG100_DX20_x10_filming['Q_t_film_x10_mean_evol'].values
 Q_RMS_UG100_DX20_x10_filming  = df_UG100_DX20_x10_filming['Q_t_film_x10_rms_evol'].values
 
 t_UG100_DX20_x15_filming = df_UG100_DX20_x15_filming['t_film_x15'].values
-t_UG100_DX20_x15_filming = (t_UG100_DX20_x15_filming-t_UG100_DX20_x15_filming[0])/tau_ph_UG100_DX20
+t_UG100_DX20_x15_filming = (t_UG100_DX20_x15_filming-t_UG100_DX20_x15_filming[0])/tau_ph_UG100_DX20 + 2
 Q_mean_UG100_DX20_x15_filming = df_UG100_DX20_x15_filming['Q_t_film_x15_mean_evol'].values
 Q_RMS_UG100_DX20_x15_filming  = df_UG100_DX20_x15_filming['Q_t_film_x15_rms_evol'].values
 
 # UG100_DX10
 t_UG100_DX10_x05_filming = df_UG100_DX10_x05_filming['t_film_x05'].values
-t_UG100_DX10_x05_filming = (t_UG100_DX10_x05_filming-t_UG100_DX10_x05_filming[0])/tau_ph_UG100_DX10
+t_UG100_DX10_x05_filming = (t_UG100_DX10_x05_filming-t_UG100_DX10_x05_filming[0])/tau_ph_UG100_DX10 + 2
 Q_inst_UG100_DX10_x05_filming = df_UG100_DX10_x05_filming['Q_t_film_x05'].values*SCALE_FACTOR
 Q_mean_UG100_DX10_x05_filming = df_UG100_DX10_x05_filming['Q_t_film_x05_mean_evol'].values
 Q_RMS_UG100_DX10_x05_filming  = df_UG100_DX10_x05_filming['Q_t_film_x05_rms_evol'].values
 
 t_UG100_DX10_x10_filming = df_UG100_DX10_x10_filming['t_film_x10'].values
-t_UG100_DX10_x10_filming = (t_UG100_DX10_x10_filming-t_UG100_DX10_x10_filming[0])/tau_ph_UG100_DX10
+t_UG100_DX10_x10_filming = (t_UG100_DX10_x10_filming-t_UG100_DX10_x10_filming[0])/tau_ph_UG100_DX10 + 2
 Q_inst_UG100_DX10_x10_filming = df_UG100_DX10_x10_filming['Q_t_film_x10'].values*SCALE_FACTOR
 Q_mean_UG100_DX10_x10_filming = df_UG100_DX10_x10_filming['Q_t_film_x10_mean_evol'].values
 Q_RMS_UG100_DX10_x10_filming  = df_UG100_DX10_x10_filming['Q_t_film_x10_rms_evol'].values
 
 # UG75_DX20
 t_UG75_DX20_x05_filming = df_UG75_DX20_x05_filming['t_film_x05'].values
-t_UG75_DX20_x05_filming = (t_UG75_DX20_x05_filming-t_UG75_DX20_x05_filming[0])/tau_ph_UG75_DX20
+t_UG75_DX20_x05_filming = (t_UG75_DX20_x05_filming-t_UG75_DX20_x05_filming[0])/tau_ph_UG75_DX20 + 2
 Q_mean_UG75_DX20_x05_filming = df_UG75_DX20_x05_filming['Q_t_film_x05_mean_evol'].values
 Q_RMS_UG75_DX20_x05_filming  = df_UG75_DX20_x05_filming['Q_t_film_x05_rms_evol'].values
 
 t_UG75_DX20_x10_filming = df_UG75_DX20_x10_filming['t_film_x10'].values
-t_UG75_DX20_x10_filming = (t_UG75_DX20_x10_filming-t_UG75_DX20_x10_filming[0])/tau_ph_UG75_DX20
+t_UG75_DX20_x10_filming = (t_UG75_DX20_x10_filming-t_UG75_DX20_x10_filming[0])/tau_ph_UG75_DX20 + 2
 Q_inst_UG75_DX20_x10_filming = df_UG75_DX20_x10_filming['Q_t_film_x10'].values*SCALE_FACTOR
 Q_mean_UG75_DX20_x10_filming = df_UG75_DX20_x10_filming['Q_t_film_x10_mean_evol'].values
 Q_RMS_UG75_DX20_x10_filming  = df_UG75_DX20_x10_filming['Q_t_film_x10_rms_evol'].values
 
 
 t_UG75_DX20_x15_filming = df_UG75_DX20_x15_filming['t_film_x15'].values
-t_UG75_DX20_x15_filming = (t_UG75_DX20_x15_filming-t_UG75_DX20_x15_filming[0])/tau_ph_UG75_DX20
+t_UG75_DX20_x15_filming = (t_UG75_DX20_x15_filming-t_UG75_DX20_x15_filming[0])/tau_ph_UG75_DX20 + 2
 Q_mean_UG75_DX20_x15_filming = df_UG75_DX20_x15_filming['Q_t_film_x15_mean_evol'].values
 Q_RMS_UG75_DX20_x15_filming  = df_UG75_DX20_x15_filming['Q_t_film_x15_rms_evol'].values
 
 
 # UG75_DX10
 t_UG75_DX10_x05_filming = df_UG75_DX10_x05_filming['t_film_x05'].values
-t_UG75_DX10_x05_filming = (t_UG75_DX10_x05_filming-t_UG75_DX10_x05_filming[0])/tau_ph_UG75_DX10
+t_UG75_DX10_x05_filming = (t_UG75_DX10_x05_filming-t_UG75_DX10_x05_filming[0])/tau_ph_UG75_DX10 + 2
 Q_mean_UG75_DX10_x05_filming = df_UG75_DX10_x05_filming['Q_t_film_x05_mean_evol'].values
 Q_RMS_UG75_DX10_x05_filming  = df_UG75_DX10_x05_filming['Q_t_film_x05_rms_evol'].values
 
 t_UG75_DX10_x10_filming = df_UG75_DX10_x10_filming['t_film_x10'].values
-t_UG75_DX10_x10_filming = (t_UG75_DX10_x10_filming-t_UG75_DX10_x10_filming[0])/tau_ph_UG75_DX10
+t_UG75_DX10_x10_filming = (t_UG75_DX10_x10_filming-t_UG75_DX10_x10_filming[0])/tau_ph_UG75_DX10 + 2
 Q_mean_UG75_DX10_x10_filming = df_UG75_DX10_x10_filming['Q_t_film_x10_mean_evol'].values
 Q_RMS_UG75_DX10_x10_filming  = df_UG75_DX10_x10_filming['Q_t_film_x10_rms_evol'].values
 
 #%% Plot time evolution of instantaneous Qs for UG100_DX10
 
-t_min = 0
+t_min = 2
 t_max = max(t_UG100_DX10_x05)
 
 # Iso-x Qs
@@ -250,7 +250,7 @@ plt.plot(t_UG100_DX10_x10, Q_inst_UG100_DX10_x10, 'k', label=label_x_equal_10)
 plt.plot([t_min, t_max], [Q_inj_UG100]*2, '--k', label=label_Ql_injected)
 plt.xlabel(x_label_time)
 plt.ylabel(y_label_Ql_inst)
-plt.xlim(0-0.05,t_max+0.05)
+plt.xlim(t_min-0.05,t_max+0.05)
 plt.ylim(0,1e4)
 plt.legend(loc='upper center')
 plt.grid()
@@ -266,7 +266,7 @@ plt.plot(t_UG100_DX10_x05_filming, Q_inst_UG100_DX10_x05_filming, 'b', label=lab
 plt.plot(t_UG100_DX10_x10_filming, Q_inst_UG100_DX10_x10_filming, 'k', label=label_x_less_10)
 plt.xlabel(x_label_time)
 plt.ylabel(y_label_Ql_inst)
-plt.xlim(0-0.05,t_max+0.05)
+plt.xlim(t_min-0.05,t_max+0.05)
 plt.legend(loc='upper left')
 plt.grid()
 plt.tight_layout()
@@ -307,7 +307,7 @@ ax1.plot(t_UG75_DX10_x10, Q_mean_UG75_DX10_x10, 'k', label=label_x_equal_10)
 #ax1.text(0.5,6000,r'$\mathrm{UG}100\_\mathrm{DX}20$',fontsize=80*FFIG)
 #ax1.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax1.set_title(label_UG75_DX10)
-ax1.xaxis.set_ticks([0,1,2,3])
+ax1.xaxis.set_ticks(np.array([0,1,2])+t_min)
 ax1.yaxis.set_ticks([0,1000,2000,3000,4000,5000])
 
 ax2.plot([t_min, max(t_UG75_DX20_x05)], [Q_inj_UG75]*2, '--k', label=label_Ql_injected)
@@ -316,7 +316,7 @@ ax2.plot(t_UG75_DX20_x10, Q_mean_UG75_DX20_x10, 'k', label=label_x_equal_10)
 ax2.plot(t_UG75_DX20_x10, Q_mean_UG75_DX20_x15, 'r', label=label_x_equal_15)
 #ax2.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax2.set_title(label_UG75_DX20)
-ax2.xaxis.set_ticks([0,3,6,9,12])
+ax2.xaxis.set_ticks(np.array([0,3,6,9,12])+t_min)
 ax2.legend(loc='best',fontsize=40*FFIG)
 
 ax3.plot([t_min, max(t_UG100_DX10_x05)], [Q_inj_UG100]*2, '--k', label=label_Ql_injected)
@@ -324,14 +324,14 @@ ax3.plot(t_UG100_DX10_x05, Q_mean_UG100_DX10_x05, 'b', label=label_x_equal_5)
 ax3.plot(t_UG100_DX10_x10, Q_mean_UG100_DX10_x10, 'k', label=label_x_equal_10)
 #ax3.text(0.0,6000,r'$\mathrm{UG}100\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax3.set_title(label_UG100_DX10)
-ax3.xaxis.set_ticks([0,0.3,0.6,0.9,1.2])
+ax3.xaxis.set_ticks(np.array([0,0.3,0.6,0.9,1.2])+t_min)
 
 ax4.plot([t_min, max(t_UG100_DX20_x05)], [Q_inj_UG100]*2, '--k', label=label_Ql_injected)
 ax4.plot(t_UG100_DX20_x05, Q_mean_UG100_DX20_x05, 'b', label=label_x_equal_5)
 ax4.plot(t_UG100_DX20_x10, Q_mean_UG100_DX20_x10, 'k', label=label_x_equal_10)
 ax4.plot(t_UG100_DX20_x10, Q_mean_UG100_DX20_x15, 'r', label=label_x_equal_15)
 ax4.set_title(label_UG100_DX20)
-ax4.xaxis.set_ticks([0,4,8,12,16,20])
+ax4.xaxis.set_ticks(np.array([0,4,8,12,16,20])+t_min)
 
 axs.flat[0].set(ylabel = y_label_Ql_mean_perp)
 for ax in axs.flat:
@@ -356,7 +356,7 @@ ax1.plot(t_UG75_DX10_x05, Q_RMS_UG75_DX10_x05, 'b', label=label_x_equal_5)
 ax1.plot(t_UG75_DX10_x10, Q_RMS_UG75_DX10_x10, 'k', label=label_x_equal_10)
 #ax1.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax1.set_title(label_UG75_DX10)
-ax1.xaxis.set_ticks([0,1,2,3])
+ax1.xaxis.set_ticks(np.array([0,1,2,3])+2)
 ax1.yaxis.set_ticks([0,500,1000,1500,2000,2500,3000])
 
 ax2.plot(t_UG75_DX20_x05, Q_RMS_UG75_DX20_x05, 'b', label=label_x_equal_5)
@@ -364,13 +364,13 @@ ax2.plot(t_UG75_DX20_x10, Q_RMS_UG75_DX20_x10, 'k', label=label_x_equal_10)
 ax2.plot(t_UG75_DX20_x10, Q_RMS_UG75_DX20_x15, 'r', label=label_x_equal_15)
 #ax2.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax2.set_title(label_UG75_DX20)
-ax2.xaxis.set_ticks([0,3,6,9,12])
+ax2.xaxis.set_ticks(np.array([0,3,6,9,12])+2)
 
 ax3.plot(t_UG100_DX10_x05, Q_RMS_UG100_DX10_x05, 'b', label=label_x_equal_5)
 ax3.plot(t_UG100_DX10_x10, Q_RMS_UG100_DX10_x10, 'k', label=label_x_equal_10)
 #ax3.text(0.0,6000,r'$\mathrm{UG}100\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax3.set_title(label_UG100_DX10)
-ax3.xaxis.set_ticks([0,0.3,0.6,0.9,1.2])
+ax3.xaxis.set_ticks(np.array([0,0.3,0.6,0.9,1.2])+2)
 
 ax4.plot(t_UG100_DX20_x05, Q_RMS_UG100_DX20_x05, 'b', label=label_x_less_5)
 ax4.plot(t_UG100_DX20_x10, Q_RMS_UG100_DX20_x10, 'k', label=label_x_less_10)
@@ -378,7 +378,7 @@ ax4.plot(t_UG100_DX20_x10, Q_RMS_UG100_DX20_x15, 'r', label=label_x_less_15)
 #ax4.text(0.5,6000,r'$\mathrm{UG}100\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax4.set_title(label_UG100_DX20)
 #ax4.yaxis.set_ticks([0,1000,2000,3000])
-ax4.xaxis.set_ticks([0,4,8,12,16,20])
+ax4.xaxis.set_ticks(np.array([0,4,8,12,16,20])+2)
 
 axs.flat[0].set(ylabel = y_label_Ql_RMS_perp)
 for ax in axs.flat:
@@ -405,7 +405,7 @@ ax1.plot(t_UG75_DX10_x05_filming, Q_mean_UG75_DX10_x05_filming, 'b', label=label
 ax1.plot(t_UG75_DX10_x10_filming, Q_mean_UG75_DX10_x10_filming, 'k', label=label_x_equal_10)
 #ax1.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax1.set_title(label_UG75_DX10)
-ax1.xaxis.set_ticks([0,1,2,3])
+ax1.xaxis.set_ticks(np.array([0,1,2,3])+2)
 ax1.yaxis.set_ticks([0,50,100,150,200,250,300])
 
 ax2.plot(t_UG75_DX20_x05_filming, Q_mean_UG75_DX20_x05_filming, 'b', label=label_x_less_5)
@@ -413,21 +413,21 @@ ax2.plot(t_UG75_DX20_x10_filming, Q_mean_UG75_DX20_x10_filming, 'k', label=label
 ax2.plot(t_UG75_DX20_x15_filming, Q_mean_UG75_DX20_x15_filming, 'r', label=label_x_less_15)
 #ax2.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax2.set_title(label_UG75_DX20)
-ax2.xaxis.set_ticks([0,3,6,9,12])
+ax2.xaxis.set_ticks(np.array([0,3,6,9,12])+2)
 ax2.legend(loc='best',fontsize=40*FFIG)
 
 ax3.plot(t_UG100_DX10_x05_filming, Q_mean_UG100_DX10_x05_filming, 'b', label=label_x_equal_5)
 ax3.plot(t_UG100_DX10_x10_filming, Q_mean_UG100_DX10_x10_filming, 'k', label=label_x_equal_10)
 #ax3.text(0.0,6000,r'$\mathrm{UG}100\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax3.set_title(label_UG100_DX10)
-ax3.xaxis.set_ticks([0,0.3,0.6,0.9,1.2])
+ax3.xaxis.set_ticks(np.array([0,0.3,0.6,0.9,1.2])+2)
 
 ax4.plot(t_UG100_DX20_x05_filming, Q_mean_UG100_DX20_x05_filming, 'b', label=label_x_equal_5)
 ax4.plot(t_UG100_DX20_x10_filming, Q_mean_UG100_DX20_x10_filming, 'k', label=label_x_equal_10)
 ax4.plot(t_UG100_DX20_x10_filming, Q_mean_UG100_DX20_x15_filming, 'r', label=label_x_equal_15)
 #ax4.text(0.5,6000,r'$\mathrm{UG}100\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax4.set_title(label_UG100_DX20)
-ax4.xaxis.set_ticks([0,4,8,12,16,20])
+ax4.xaxis.set_ticks(np.array([0,4,8,12,16,20])+2)
 
 
 axs.flat[0].set(ylabel = y_label_Ql_mean_film)
@@ -462,7 +462,7 @@ ax1.plot(t_UG75_DX10_x05_filming, Q_RMS_UG75_DX10_x05_filming, 'b', label=label_
 ax1.plot(t_UG75_DX10_x10_filming, Q_RMS_UG75_DX10_x10_filming, 'k', label=label_x_less_10)
 #ax1.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax1.set_title(label_UG75_DX10)
-ax1.xaxis.set_ticks([0,1,2,3])
+ax1.xaxis.set_ticks(np.array([0,1,2,3])+2)
 ax1.yaxis.set_ticks([0,40,80,120,160])
 
 ax2.plot(t_UG75_DX20_x05_filming, Q_RMS_UG75_DX20_x05_filming, 'b', label=label_x_less_5)
@@ -470,13 +470,13 @@ ax2.plot(t_UG75_DX20_x10_filming, Q_RMS_UG75_DX20_x10_filming, 'k', label=label_
 ax2.plot(t_UG75_DX20_x15_filming, Q_RMS_UG75_DX20_x15_filming, 'r', label=label_x_less_15)
 #ax2.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax2.set_title(label_UG75_DX20)
-ax2.xaxis.set_ticks([0,3,6,9,12])
+ax2.xaxis.set_ticks(np.array([0,3,6,9,12])+2)
 
 ax3.plot(t_UG100_DX10_x05_filming, Q_RMS_UG100_DX10_x05_filming, 'b', label=label_x_less_5)
 ax3.plot(t_UG100_DX10_x10_filming, Q_RMS_UG100_DX10_x10_filming, 'k', label=label_x_less_10)
 #ax3.text(0.0,6000,r'$\mathrm{UG}100\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax3.set_title(label_UG100_DX10)
-ax3.xaxis.set_ticks([0,0.3,0.6,0.9,1.2])
+ax3.xaxis.set_ticks(np.array([0,0.3,0.6,0.9,1.2])+2)
 
 ax4.plot(t_UG100_DX20_x05_filming, Q_RMS_UG100_DX20_x05_filming, 'b', label=label_x_less_5)
 ax4.plot(t_UG100_DX20_x10_filming, Q_RMS_UG100_DX20_x10_filming, 'k', label=label_x_less_10)
@@ -484,7 +484,7 @@ ax4.plot(t_UG100_DX20_x10_filming, Q_RMS_UG100_DX20_x15_filming, 'r', label=labe
 #ax4.text(0.5,6000,r'$\mathrm{UG}100\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax4.set_title(label_UG100_DX20)
 #ax4.yaxis.set_ticks([0,50,100,150])
-ax4.xaxis.set_ticks([0,4,8,12,16,20])
+ax4.xaxis.set_ticks(np.array([0,4,8,12,16,20])+2)
 
 
 axs.flat[0].set(ylabel = y_label_Ql_RMS_film)

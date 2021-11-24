@@ -87,7 +87,7 @@ u_l = \frac{Q_l}{\pi d_\mathrm{inj}^2 / 4} = 2.6 ~ \mathrm{m} ~ \mathrm{s}^{-1}
 \end{equation}
 
 
-With the estimate values for liquid and gaseous velocities, the liquid properties given in Table \ref{tab:dodecane_properties} and the gaseous properties from Table \ref{tab:gaseous_operating_points_BIMER}, the momentum flux ratio $q$ and the Weber number based on the gaseous phase $We_g$ can now be calculated:
+The velocity profile imposed at the liquid inlet shown in Figure \ref{fig:BIMER_liquid_injector_views} \hl{is a Poiseuille profile with the mean velocity of value $u_l$}. With the estimate values for bulk liquid and gaseous velocities, the liquid properties given in Table \ref{tab:dodecane_properties} and the gaseous properties from Table \ref{tab:gaseous_operating_points_BIMER}, the momentum flux ratio $q$ and the Weber number based on the gaseous phase $We_g$ can now be calculated:
 
 %\begin{subequations}
 %\begin{align}
@@ -197,7 +197,9 @@ $\Delta x_\mathrm{min}$ [$\mu$m]  &  Denomination \\
 
 
 
+\section{Initial conditions}
 
+The aerodynamic field inside BIMER for the operating points of interest was discussed in Chapter \ref{ch7:bimer_test_bench_and_aero}. From this study, a fine mesh consisting of 38 million elements was chosen (see Table \ref{tab:BIMER_meshes_gaseous}). The gaseous field for the application point, which is the chosen one to perform spray simulations, was studied in $\S$\ref{ch7:BIMER_application_point}. This solution is taken as the initial condition from the resolved atomization simulations. The mean and RMS velocity fields can be seen in Figure \ref{fig:field_application}. 
 
 
 \section{Definition of liquid characteristic times}
@@ -222,6 +224,7 @@ Capillary & $\tau_\mathrm{cap} = \sqrt{\frac{\rho_l d_\mathrm{inj}^3}{8 \sigma}}
 
 As shown in the previous table, the lower timescale is found for the inertia processes and hence those are governing breakup. Yet, all timescales are of the same order of magnitude, as opposed to the timescales of the DLR JICF summarized in Figure \ref{tab:jicf_characteristic times} where the fastest timescale (inertia) was around $100$ times smaller than the slowest (capillary). For the BIMER operating point studied, the inertia timescale is only $3$ times smaller than the capillary one, which is not even the slowest (in this case, it corresponds to the non-aerodynamic breakup timescale). The fact that the timescales in this case are closer to each other agree with the location of the BIMER operating point in the breakup diagram of Figure \ref{fig:location_BIMER_op_in_breakup_map} \citepColor[pilch_use_1987]. Besides the physical timescales, the droplets arrival times to the sampling planes depicted in Figure \ref{fig:BIMER_local_FoR_and_sampling_planes}. These ones are summarized in Table \ref{BIMER_SPS_characteristic_droplet_sampling_times}. 
 
+\clearpage
 
 \begin{table}[!h]
 \centering
@@ -240,20 +243,10 @@ BIMER\_DX15  & - & - & - \\
 
 
 
-\clearpage
-
-\section{Initial conditions}
-
-The aerodynamic field inside BIMER for the operating points of interest was discussed in Chapter \ref{ch7:bimer_test_bench_and_aero}. From this study, a fine mesh consisting of 38 million elements was chosen (see Table \ref{tab:BIMER_meshes_gaseous}). The gaseous field for the application point, which is the chosen one to perform spray simulations, was studied in $\S$\ref{ch7:BIMER_application_point}. This solution is taken as the initial condition from the resolved atomization simulations. The mean and RMS velocity fields can be seen in Figure \ref{fig:field_application}. 
 
 
-
-
-
-\section{Resolved atomization simulations}
-\label{ch8:resolved_atomization_simulations}
-
-
+\section{Jet evolution}
+%\label{ch8:resolved_atomization_simulations}
 
 %\begin{table}[!h]
 %\centering
@@ -304,6 +297,28 @@ The aerodynamic field inside BIMER for the operating points of interest was disc
 %
 %which is actually very similar.
 
-\section{Injectors learning}
+
+\section{Dense core characterization}
+%\label{ch8:resolved_atomization_simulations}
+
+
+
+
+
+\section{Direct measurement of liquid fluxes}
+
+
+
+\section{Spray characterization}
+
+
+
+\section{Computational performances}
+
+
+\section{Learning injectors}
+
+
+
 
 \section{Conclusion}
