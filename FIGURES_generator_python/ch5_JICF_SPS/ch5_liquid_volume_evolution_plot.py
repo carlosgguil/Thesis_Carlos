@@ -26,7 +26,7 @@ plt.rcParams['text.usetex'] = True
 figsize_ = (FFIG*26,FFIG*16)
 #figsize_ = (FFIG*20,FFIG*13)
 
-folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/JICF_liquid_volume_evolution/'
+folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/'
 folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/volume_evolution/'
 
 
@@ -99,14 +99,13 @@ plt.rcParams['ytick.minor.visible'] = True
 plt.figure(figsize=figsize_)
 #plt.plot([1]*2,[0,1e4],'--k')
 
-plt.plot(time_UG100_DX20,liquid_volume_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
-plt.plot(time_UG100_DX10,liquid_volume_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
-plt.plot(time_UG75_DX20,liquid_volume_UG75_DX20, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
 plt.plot(time_UG75_DX10,liquid_volume_UG75_DX10, 'y', label='$\mathrm{UG}75\_\mathrm{DX}10$')
-'''
-plt.plot(time_UG100_DX20_no_turb,liquid_volume_UG100_DX20_no_turb, '--r', label='$\mathrm{UG}100\_\mathrm{DX}20\_NO\_TURB$')
-plt.plot(time_UG100_DX10_no_turb,liquid_volume_UG100_DX10_no_turb, '--b', label='$\mathrm{UG}100\_\mathrm{DX}10\_NO\_TURB$')
-'''
+plt.plot(time_UG75_DX20,liquid_volume_UG75_DX20, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
+plt.plot(time_UG100_DX10,liquid_volume_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
+plt.plot(time_UG100_DX20,liquid_volume_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
+plt.plot(time_UG100_DX20_no_turb,liquid_volume_UG100_DX20_no_turb, '--r', label='$\mathrm{UG}100\_\mathrm{DX}20\_NT$')
+#plt.plot(time_UG100_DX10_no_turb,liquid_volume_UG100_DX10_no_turb, '--b', label='$\mathrm{UG}100\_\mathrm{DX}10\_NO\_TURB$')
+
 plt.xticks([0,5,10,15,20])
 plt.xlabel(x_label_)
 #plt.xlabel("$t$")
@@ -119,7 +118,7 @@ plt.legend(loc='best')
 plt.grid(which='major',linestyle='-',linewidth=4*FFIG)
 plt.grid(which='minor',linestyle='--')
 plt.tight_layout()
-#plt.savefig(folder_manuscript + 'JICF_liquid_volume_increase.pdf',format='pdf')
+plt.savefig(folder_manuscript + 'JICF_liquid_volume_increase.pdf',format='pdf')
 plt.show()
 plt.close()
 

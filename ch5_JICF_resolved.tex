@@ -1,4 +1,4 @@
-\chapter{Learning data from a resolved liquid jet in crossflow}
+\chapter{Resolved atomization simulations of liquid jet in crossflow}
 	\label{ch5:jicf_resolved_simulations}
 
 
@@ -107,7 +107,7 @@ Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane
 
 Two operating conditions tested experimentally in \citeColor[becker_breakup_2002] have been simulated. Both of them have the same momentum ration $q = 6$ but differ in the Weber number: $We_g = 830$ (low Weber) and $We_g = 1470$ (low Weber), calculated with Eq. (\ref{eq:ch1_intro_Re_and_We_general_definitions}). According to the values of $q$ and $We_g$, the former condition corresponds to surface breakup dominating regime while the latter is located at the dividing line between column and surface breakup. Figure \ref{fig:location_JICF_ops_in_breakup_map} shows the location of both operating points in the breakup map of \citeColor[wu_breakup_1997]. The physical magnitudes and dimensionless numbers of both operating points are shown in Table \ref{tab:jicf_operating_conditions}. Apart from the values $q$ and $We_g$, the dimensionless numbers in  Eq. (\ref{eq:dimensionless_numbers_jicf}) are also calculated: the liquid and gaseous Reynolds numbers $Re_g$ and $Re_g$ respectively, Ohnesorge number $Oh$, aerodynamic Weber $We_\mathrm{aero}$, relative Weber $We_\mathrm{rel}$ and density ratio $r$. These numbers have been added since they are defined in several experimental studies \citeColor[wu_breakup_1997,becker_breakup_2002,ragucci_trajectory_2007] to characterize the operating points tested. 
 
-For performing the computations of resolved atomization, the ACLS methodology combined with the AMR routine described in $\S$\ref{subsec:ch2_ACLS} is used. For each simulation, two interface mesh sizes have been simulated: $\Delta x_\mathrm{min} = 20 ~\mu$m (coarse case) and $\Delta x_\mathrm{min} = 10 ~\mu$m (fine case). Therefore, a total of four simulations have been done. The nomenclature for each simulation, which is used hereafter in this document, is introduced in Table \ref{tab:jicf_resolved_simulations_performed}.  The coarse cases locate the sponge layer to remove liquid at a downstream distance of $x = 16$ mm, while the fine ones place it at $x = 11$ mm. In such ways, droplets can be sampled up to planes $x = 15$ and $10$ mm respectively.
+For performing the computations of resolved atomization, the ACLS methodology combined with the AMR routine described in $\S$\ref{subsec:ch2_ACLS} is used. For each simulation, two interface mesh sizes have been simulated: $\Delta x_\mathrm{min} = 20 ~\mu$m (coarse case) and $\Delta x_\mathrm{min} = 10 ~\mu$m (fine case). Therefore, a total of four simulations have been done. The nomenclature for each simulation, which is used hereafter in this document, is introduced in Table \ref{tab:jicf_resolved_simulations_performed}.  The coarse cases locate the sponge layer to remove liquid at a downstream distance of $x = 16$ mm, while the fine ones place it at $x = 11$ mm. In such ways, droplets can be sampled up to planes $x = 15$ and $10$ mm respectively. The number of steps for the reinitialization equation (\ref{eq:acls_reinit_2017}) is set to $N_\mathrm{reinit} = 6$. This parameter has shown to affect mass conservation in the JICF simulations; its effect and the choice of this value are discussed in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}.
 
 %\begin{subequations}
 %\label{eq:dimensionless_numbers_jicf}
@@ -196,18 +196,35 @@ Density ratio & $r$ & - & 110 & 110 \\
 \clearpage
 
 
+%\begin{table}[!h]
+%\centering
+%\caption{Nomenclature for resolved atomization simulations}
+%\begin{tabular}{ccc}
+%\thickhline
+%%$\pmb{\Delta} x_\mathrm{min}$ [$\pmb{\mu}$$\textbf{m}])  &  \multicolumn{2}{c}{\textbf{Operating condition}} \\ 
+%$\Delta x_\mathrm{min}$ [$\mu$m]  &  \multicolumn{2}{c}{\textbf{Operating condition}} \\ 
+%\cline{2-3}
+% &  Low $We_g$ &  High $We_g$ \\ 
+%\thickhline
+%\textbf{10} & UG75\_DX10 & UG100\_DX10 \\
+%\textbf{20} & UG75\_DX20 & UG100\_DX20 \\
+%\thickhline
+%\end{tabular}
+%\label{tab:jicf_resolved_simulations_performed}
+%\end{table}
+
 \begin{table}[!h]
 \centering
 \caption{Nomenclature for resolved atomization simulations}
-\begin{tabular}{ccc}
+\begin{tabular}{cccc}
 \thickhline
-%$\pmb{\Delta} x_\mathrm{min}$ [$\pmb{\mu}$$\textbf{m}])  &  \multicolumn{2}{c}{\textbf{Operating condition}} \\ 
-$\Delta x_\mathrm{min}$ [$\mu$m]  &  \multicolumn{2}{c}{\textbf{Operating condition}} \\ 
-\cline{2-3}
- &  Low $We_g$ &  High $We_g$ \\ 
+$\Delta x_\mathrm{min}$ [$\mu$m]  & Turbulence & \multicolumn{2}{c}{\textbf{Operating condition}} \\ 
+\cline{3-4}
+ & injection ? & Low $We_g$ &  High $We_g$ \\ 
 \thickhline
-\textbf{10} & UG75\_DX10 & UG100\_DX10 \\
-\textbf{20} & UG75\_DX20 & UG100\_DX20 \\
+\textbf{10} & Yes & UG75\_DX10 & UG100\_DX10 \\
+\textbf{20} & Yes & UG75\_DX20 & UG100\_DX20 \\
+\textbf{20} & No & - & UG100\_DX20\_NT \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_resolved_simulations_performed}
@@ -993,7 +1010,7 @@ UG75\_DX10  & 192.7 & 295.2 & -  \\
 UG75\_DX20  & 234.7 & 355.8 & 456.7 \\
 UG100\_DX10 & 143.7 & 218.7 & - \\
 UG100\_DX20 & 176.8 & 258.4 & 362.8 \\
-UG100\_DX20\_NO\_TURB &  & & \\
+UG100\_DX20\_NT &  & & \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_characteristic_droplet_sampling_times}
@@ -1012,6 +1029,7 @@ UG100\_DX20\_NO\_TURB &  & & \\
 Figures \ref{fig:JICF_establishment_UG100_lateral} to \ref{fig:JICF_establishment_UG75_top} shows the evolution of the jet for all the simulations in three different view: lateral, front and top. The left column shows the thicker resolution, while the right column shows the finer one. The interface is represented by the iso-value $\Psi = 0.5$. The snapshots are represented for the same time instants in all cases, which are expressed in dimensionless units with respect to the characteristic liquid inertia timescale introduced in Table \ref{tab:jicf_characteristic times}:
 
 \begin{equation}
+\label{eq:t_dimensionless_with_tau_in}
 t^* = \frac{t}{\tau_\mathrm{in}}
 \end{equation}
 
@@ -1084,11 +1102,11 @@ No difference in penetration can be observed \ref{subsec:ch5_jet_trajectories_re
 
 \subsection{Breakup topology}
 
-Things break yes.
+%Things break yes.
 
-\subsection{Evolution of mesh size}
+\subsection{Jet establishment}
 
-At the early instants of the injection process, the quantity of liquid in the domain increases with time until the jet is established. Since dynamic mesh adaptation is used to locate the smallest mesh elements in the liquid-gas interface (as explained in $\S$\ref{subsec:ch2_ACLS}), the mesh size increases with time as the interface surface within the domain is larger. 
+At the early instants of the injection process, the quantity of liquid in the domain increases with time until the jet is established. Since dynamic mesh adaptation is used to locate the smallest mesh elements in the liquid-gas interface (as explained in $\S$\ref{subsec:ch2_ACLS}), the mesh size increases with time as the interface surface within the domain is larger. Figure \ref{fig:JICF_w_mesh} shows an early instant of injection for both resolutions of the high Weber operating point with turbulence injection, cases UG100\_DX20 and UG100\_DX10. The physical time instant is the same for both simulations. A cut of the mesh in the plane $y = 0$ is also observed, which shows how the regions where there is liquid contain much more elements than those which do not. The fine jet also shows liquid droplets further downstream that are not generated in the coarse one, hence there are refined spatial regions in the former that are not observed in the later.
 
 \begin{figure}[ht]
 \centering
@@ -1096,21 +1114,39 @@ At the early instants of the injection process, the quantity of liquid in the do
    %\includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/JICF_nelem_evolution/JICF_w_mesh}
 \includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch5_resolved_JICF/JICF_nelem_evolution/JICF_w_mesh}
    %\label{} 
-\caption{Lateral view of meshes and interface contours near the injector at instant $t^{*}$ = 15 for the high Weber operating condition.}
+\caption[Lateral view of meshes and interface contours near the injector at instant $t^{*}$ = 15 for the high Weber operating condition.]{Lateral view of meshes and interface contours near the injector at instant $t^{*}$ = 16 for the high Weber operating condition. Zoomed-in views of the rectangles are shown in Figure \ref{fig:JICF_instabilities_lambda}.}
 \label{fig:JICF_w_mesh}
 \end{figure}
 
-The evolution of the number of mesh elements ($N_\mathrm{elements}$) with time in all simulations is shown in Figure \ref{fig:JICF_nelem_increase}. In this case, the physical time has been expressed with respect to the arrival time of the first droplet to the sampling plane at $x = 10$ mm, $\tau_\mathrm{dr_{x=10}}$, which are shown in Table \ref{tab:jicf_characteristic_droplet_sampling_times}:
-
+To illustrate a qualitative evolution with time of different magnitudes, the dimensionless time $t^{\prime} $ is introduced:
 
 \begin{equation}
 \label{eq:t_prime_with_tau_drx10}
 t^{\prime} = \frac{t}{\tau_\mathrm{dr_{x=10}}}
 \end{equation}
 
-The plane $x = 10$ mm has been chosen because it is the last plane where liquid is sampled before being artificially removed in the fine simulations with $\Delta x_\mathrm{min} = 10 ~\mu$m. For the coarse resolution $20 ~\mu m$, liquid is removed after $x = 15$ mm. Yet, dimensionless time is expressed with respect to the time corresponding to plane $x = 10$ mm in order to compare between cases. Figure \ref{fig:JICF_nelem_increase}a shows the increase in number of elements with respect to dimensionless simulation time. It is shown that, despite liquid being suppressed upstream in the fine resolution, the final number of elements is larger in the former than in the later: \hl{(add numbers when simulations are stable)}. By looking at Figure \ref{fig:JICF_nelem_increase}a, one can see that the number of elements increases slowly at the beginning and then rises exponentially (linearly in the semi-logarithmic plot) until there’s enough liquid in the domain and steady-state is reached. The number of elements is much larger for the fine resolution than for the coarse one: \hl{the steady-state values are ... }
+where $\tau_\mathrm{dr_{x=10}}$ is the arrival time of the first droplet to the sampling plane at $x = 10$, shown in Table \ref{tab:jicf_characteristic_droplet_sampling_times}. The plane $x = 10$ mm has been chosen because it is the last plane where liquid is sampled before being artificially removed in the fine simulations with $\Delta x_\mathrm{min} = 10 ~\mu$m. For the coarse resolution $20 ~\mu$m, liquid is removed after $x = 15$ mm except for the case without turbulence (UG100\_DX20\_NT), for which liquid is also removed at $x = 10$ mm. Yet, dimensionless time is expressed with respect to the time corresponding to plane $x = 10$ mm since it is the plane further downstream which is common to all simulations. 
 
-The dashed line in Figures \ref{fig:JICF_nelem_increase_all_t} and  \ref{fig:JICF_nelem_increase_t_0_to_2} corresponds  to $t^{\prime} = 1$, which is the instant at which the sampling plane $x = 10$ mm detects the first droplet in each simulation . Figure \ref{fig:JICF_nelem_increase_t_0_to_2} shows that this instant is located in the linear region. Previously, there is no liquid being artificially removed in the simulations, so the curves increase monotonically (except for some minor decreases due to small droplets that reach the size of mesh resolution and disappear due to the unability of being further propagated in the simulations, which is discussed in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}). After this point, the number of elements continues to increase exponentially up to $t^{\prime} \sim 1.5$ when the slope starts to decrease and, finally, the number of elements  stabilizes. Right after $t^{\prime} \sim 1.5$ there are many liquid droplets reaching the articifial sponge layer and being removed. Nevertheless, at this stage there are more droplets being generated in the near-nozzle region due to the disturbance effect of the liquid dense core to the air, which creates gaseous turbulence that helps to atomize ligaments ejected from the dense core. This explains the monotonic increase in the number of elements for $t^{\prime} > 1$ until an instant from which the number of elements remains constant, which depends on each simulation. The only noticeable difference at $t^{\prime} = 1$ is for the simulation UG75$\_$DX10, which shows a considerable decrease. Two reasons might explain this decrease. First, there is not only one droplet, but several ones reaching the last sampling plane, hence these droplets are all removed at the same time from the simulation. Since the mean diameter of the droplets generated in a liquid JICF is larger when the air dynamic pressure is lower \citepColor[becker_breakup_2002], which is the case for the low Weber operating point, the droplets generated in this case are in general lower than for the high Weber case (this is later shown in $\S$\ref{sec:ch5_sec_spray_characterization}, so all these droplets contain more elements than one single droplet from the case UG75*\_*DX10 and the removed amount liquid is larger, hence the abrupt decrease in the number of mesh elements. The second explanation could be that at this time instant there are several droplets in the whole domain of the simulation (i.e. from the injection nozzle to the sponge layer location) which disappear at the same time, causing an overall decrease in the number of elements. The combination of both could also occur, which combined would suppose a larger decrease in the number of elements than if every single one acts separately.
+In order to check the jet establishment in the domain, firstly the evolution of liquid volume with time is monitorded. This quantity can be obtained by integrating the level-set function $\psi$ in all the domain at each time instant:
+
+\begin{equation}
+\label{eq:liquid_volume_from_levelset_definition}
+V_l \left ( t \right) = \int_{\Omega} \psi \left( \textbf{x}, t \right) d\textbf{x}
+\end{equation}
+
+The evolution of $V_l$ for each simulation is shown in Figure \ref{fig:JICF_liquid_volume_increase}. \hl{As observed ...}
+
+\begin{figure}[ht]
+\centering
+	\centering
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch5_resolved_JICF/JICF_liquid_volume_increase}
+   \caption{Evolution of liquid volume with time in JICF simulations. \textbf{OJO: hay que comentar esta figura!!}}
+\label{fig:JICF_liquid_volume_increase}
+\end{figure}
+
+\hl{Write an introducing sentence.} The evolution of the number of mesh elements ($N_\mathrm{elements}$) with time in all simulations is shown in Figure \ref{fig:JICF_nelem_increase}. It is shown that, despite liquid being suppressed upstream in the fine resolution, the final number of elements is larger in the former than in the later: \hl{(add numbers when simulations are stable)}. By looking at Figure \ref{fig:JICF_nelem_increase}a, one can see that the number of elements increases slowly at the beginning and then rises exponentially (linearly in the semi-logarithmic plot) until there’s enough liquid in the domain and steady-state is reached. The number of elements is much larger for the fine resolution than for the coarse one: \hl{the steady-state values are ... }
+
+The dashed line in Figures \ref{fig:JICF_nelem_increase_all_t} and  \ref{fig:JICF_nelem_increase_t_0_to_2} corresponds  to $t^{\prime} = 1$, which is the instant at which the sampling plane $x = 10$ mm detects the first droplet in each simulation. Figure \ref{fig:JICF_nelem_increase_t_0_to_2} shows that this instant is located in the linear region. Previously, there is no liquid being artificially removed in the simulations, so the curves increase monotonically (except for some minor decreases due to small droplets that reach the size of mesh resolution and disappear due to the unability of being further propagated in the simulations, which is discussed in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}). After this point, the number of elements continues to increase exponentially up to $t^{\prime} \sim 1.5$ when the slope starts to decrease and, finally, the number of elements  stabilizes. Right after $t^{\prime} \sim 1.5$ there are many liquid droplets reaching the articifial sponge layer and being removed. Nevertheless, at this stage there are more droplets being generated in the near-nozzle region due to the disturbance effect of the liquid dense core to the air, which creates gaseous turbulence that helps to atomize ligaments ejected from the dense core. This explains the monotonic increase in the number of elements for $t^{\prime} > 1$ until an instant from which the number of elements remains constant, which depends on each simulation. The only noticeable difference at $t^{\prime} = 1$ is for the simulation UG75$\_$DX10, which shows a considerable decrease. Two reasons might explain this decrease. First, there is not only one droplet, but several ones reaching the last sampling plane, hence these droplets are all removed at the same time from the simulation. Since the mean diameter of the droplets generated in a liquid JICF is larger when the air dynamic pressure is lower \citepColor[becker_breakup_2002], which is the case for the low Weber operating point, the droplets generated in this case are in general lower than for the high Weber case (this is later shown in $\S$\ref{sec:ch5_sec_spray_characterization}, so all these droplets contain more elements than one single droplet from the case UG75*\_*DX10 and the removed amount liquid is larger, hence the abrupt decrease in the number of mesh elements. The second explanation could be that at this time instant there are several droplets in the whole domain of the simulation (i.e. from the injection nozzle to the sponge layer location) which disappear at the same time, causing an overall decrease in the number of elements. The combination of both could also occur, which combined would suppose a larger decrease in the number of elements than if every single one acts separately.
 
 %Figure \ref{fig:JICF_nelem_increase_t_0_to_0p5} shows the evolution of number of elements in the black rectangle of Figure \ref{fig:JICF_nelem_increase_t_0_to_2}, which correspond to the early instants of injection. It is seen that for $t^{\prime} \in [0, 0.3]$ the increase in mesh size is slow, but yet the simulations with fine resolutions start to generate more elements than the coarse ones. In this regions, there is no significant difference between operating points. For $t^{\prime} > [0, 0.3]$ the curves start to further differ due to the beginning of atomization: generation of ligaments due to column breakup and of droplets due to surface breakup increase greatly the amount of liquid-gas interface, hence pronouncing the differences in number of mesh elements between resolutions. At this point the effect of the operating points can be noticed: the high Weber case presents a slighly larger number of elements than the low Weber case for both resolutions, as expected since for the former case the aerodynamic forces are stronger and the number of generated droplets is larger (verified in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band})).
 %
@@ -1177,7 +1213,7 @@ As Figures \ref{fig:JICF_establishment_UG100_lateral} to \ref{fig:JICF_establish
 \label{fig:JICF_instabilities_lambda}
 \end{figure}
 
-Another hypothesis is that the gaseous phases are different near the injector zone, since there is a growth in element size from the interface cell size $\Delta x_\mathrm{min}$ to the baseline mesh, and therefore the cells in the fine resolution located at the vicinity of the interface are also finer. This hypothesis is tested by looking at the vorticity $\omega = \frac{1}{2} \left( \nabla \times \textbf{u} \right)$ in Figure \ref{fig:JICF_instabilities_vorticity}. \\
+Another hypothesis is that the gaseous phases are different near the injector zone, since there is a growth in element size from the interface cell size $\Delta x_\mathrm{min}$ to the baseline mesh, and therefore the cells in the fine resolution located at the vicinity of the interface are also finer. This hypothesis is tested by looking at the vorticity $\omega = \frac{1}{2} \left( \nabla \times \textbf{u} \right)$ in Figure \ref{fig:JICF_instabilities_vorticity} ... \\
 
 \begin{figure}[ht]
 \flushleft
@@ -1187,11 +1223,11 @@ Another hypothesis is that the gaseous phases are different near the injector zo
 \end{figure}
 
 
-As observed in Figure \textbf{XX}, ligaments generated due to instabilities in the fine resolution simulations \hl{contain a higher inertia and are stripped-off the dense core with larger velocities than those produced in the coarse resolution, where instabilities are not generated}. Such ligaments and the subsequent droplets produced from their breakup will penetrate further away in the vertical direction.
+%As observed in Figure \textbf{XX}, ligaments generated due to instabilities in the fine resolution simulations \hl{contain a higher inertia and are stripped-off the dense core with larger velocities than those produced in the coarse resolution, where instabilities are not generated}. Such ligaments and the subsequent droplets produced from their breakup will penetrate further away in the vertical direction.
 
-We can see in Figure \textbf{XX} that the wavelengths $\lambda$ of the generated instabilities are ...
+%We can see in Figure \textbf{XX} that the wavelengths $\lambda$ of the generated instabilities are ...
 
-When instabilities are present, primary atomization is affected and the generated ligaments \hl{contain more inertia}. As
+%When instabilities are present, primary atomization is affected and the generated ligaments \hl{contain more inertia}. As
 
 
 
@@ -1335,7 +1371,7 @@ UG75\_DX10 & ? \\
 UG75\_DX20 & ?  \\
 UG100\_DX10 & ? \\
 UG100\_DX20 & ?  \\
-UG100\_DX20\_NO\_TURB & ? \\
+UG100\_DX20\_NT & ? \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_L2_errors}
@@ -1524,37 +1560,37 @@ The effect of the dense to the gaseous phase was shown in the plane $y = 0$ mm b
 
 
 
-In order to further illustrate the turbulent state of the gaseous phase, vortical structures can be illustrated with the Q-criterion defined by \citeColor[jeong_identification_1995]:
-
+%In order to further illustrate the turbulent state of the gaseous phase, vortical structures can be illustrated with the Q-criterion defined by \citeColor[jeong_identification_1995]:
+%
+%%\begin{equation}
+%%Q = \frac{1}{2} \left( ||\pmb{\Omega}||^2 - ||\textbf{S}||^2 \right)
+%%\end{equation}
+%
+%
 %\begin{equation}
-%Q = \frac{1}{2} \left( ||\pmb{\Omega}||^2 - ||\textbf{S}||^2 \right)
+%Q = \frac{1}{2} \left( \Omega_{ij} \Omega_{ij} - S_{ij} S_{ij} \right)
 %\end{equation}
-
-
-\begin{equation}
-Q = \frac{1}{2} \left( \Omega_{ij} \Omega_{ij} - S_{ij} S_{ij} \right)
-\end{equation}
-
-where $\Omega_{ij}$ and $S_{ij}$ are respectively the symmetric and antisymmetric components of $\nabla \textbf{u}$: 
-
-\begin{equation}
-S_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i} \right) ~~~~ ; ~~~~ \Omega_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} - \frac{\partial u_j}{\partial x_i} \right)
-\end{equation}
-
-
-%$S_{i,j} = \frac{1}{2} \left( u_{i,j} + u_{j,i} \right)$, $\Omega_{i,j} = \frac{1}{2} \left( u_{i,j} - u_{j,i} \right)$. 
-
-$Q$ represents then the local balance between shear strain rate and vorticity magnitude, and vortices can be visualized by iso-values of $Q$. Figure \ref{fig:jicf_sps_q_crit} shows vortical structures visualized for the high Weber cases through the value $Q = 10^{10}$. \hl{As observed ...}
-
-
-
-\begin{figure}[h!]
-	\centering
-	\includeinkscape[inkscapelatex=false,scale=0.6]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/Q_crit}
-	\caption{Turbulent structures visualized by iso-value Q = $10^{10}$ of the Q-criterion in cases UG100\_DX10 (\textsl{left}) and UG100\_DX20 (\textsl{right}). \textbf{OJO: cambiar color a vortices y anyadir Q para DX10}}
-	% NOTA: figura de pilotage 2021_05_21
-	\label{fig:jicf_sps_q_crit}
-\end{figure}
+%
+%where $\Omega_{ij}$ and $S_{ij}$ are respectively the symmetric and antisymmetric components of $\nabla \textbf{u}$: 
+%
+%\begin{equation}
+%S_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i} \right) ~~~~ ; ~~~~ \Omega_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} - \frac{\partial u_j}{\partial x_i} \right)
+%\end{equation}
+%
+%
+%%$S_{i,j} = \frac{1}{2} \left( u_{i,j} + u_{j,i} \right)$, $\Omega_{i,j} = \frac{1}{2} \left( u_{i,j} - u_{j,i} \right)$. 
+%
+%$Q$ represents then the local balance between shear strain rate and vorticity magnitude, and vortices can be visualized by iso-values of $Q$. Figure \ref{fig:jicf_sps_q_crit} shows vortical structures visualized for the high Weber cases through the value $Q = 10^{10}$. \hl{As observed ...}
+%
+%
+%
+%\begin{figure}[h!]
+%	\centering
+%	\includeinkscape[inkscapelatex=false,scale=0.6]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/Q_crit}
+%	\caption{Turbulent structures visualized by iso-value Q = $10^{10}$ of the Q-criterion in cases UG100\_DX10 (\textsl{left}) and UG100\_DX20 (\textsl{right}). \textbf{OJO: cambiar color a vortices y anyadir Q para DX10}}
+%	% NOTA: figura de pilotage 2021_05_21
+%	\label{fig:jicf_sps_q_crit}
+%\end{figure}
 
 
 
@@ -1602,17 +1638,28 @@ Mean values are shown in Figure \ref{fig:IB_bargraph}.
 \end{figure}
 
 
-The total the 
+The total flow rates leaving a control volume englobing the filming and perpendicular IBs can be easily obtained as the addition of both fluxes:
 
 \begin{equation}
 \overline{Q_l}_{\mathrm{total}} = \overline{Q_l}_{\mathrm{film}} + \overline{Q_l}_{\mathrm{perp}}
 \end{equation}
 
-So the liquid loss can be quantified by substracting the total flow rate to the injected mass flow rate:
+This value would ideally be equal to the injected flow rates. The total flow rates for each simulation are shown in Figure \ref{fig:IB_bargraph_total}. As observed, the total flow rates decrease with axial distance due to the mass lost downstream the injection point, which is discussed in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}. Liquid mass loss can be quantified by substracting the total flow rates from the IBs to the injected flow rate in each simulation, which is independent of interface mesh resolution but varyies with the operating condition. To eliminate this dependence with operation point, a relative mass loss is defined according to the following formula:
 
 \begin{equation}
 \Delta Q_l = \frac{Q_{l,\mathrm{injected}} - \overline{Q_l}_{\mathrm{total}}}{Q_{l,\mathrm{injected}}}
 \end{equation}
+
+Results are shown in Figure \ref{fig:delta_Ql_with_x}. \hl{As seen ...}
+
+\begin{figure}[ht]
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/Ql_loss_with_x}
+   \vspace*{-0.1in}
+   \caption{Relative loss of total liquid flow rates loss $\Delta Q_l$ with axial distance.}
+   \label{fig:delta_Ql_with_x}
+\end{figure}
+
 
 \clearpage
 
@@ -1661,32 +1708,34 @@ So the liquid loss can be quantified by substracting the total flow rate to the 
 \begin{figure}[ht]
 \flushleft
 \begin{subfigure}[b]{0.9\textwidth}
-	\flushleft
+	\centering
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/bar_graph_isox_IBs}
    \caption{IBs perpendicular to crossflow.}
-   %\label{} 
+   \label{fig:IB_bargraph_perp}
 \end{subfigure}
 
 \vskip\baselineskip
 
 \begin{subfigure}[b]{0.9\textwidth}
-	\flushleft
+	\centering
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/bar_graph_filming_IBs}
    \caption{Filming IBs}
-   %\label{}
+   \label{fig:IB_bargraph_filming}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.9\textwidth}
+	\centering
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/bar_graph_total_IBs}
+   \caption{Total (perpendicular + filming) frow rates from IBs}
+   \label{fig:IB_bargraph_total}
 \end{subfigure}
 \caption{Mean flow rates (bars) and RMS (black vertical lines) obtained with IBs for each simulation.}
 \label{fig:IB_bargraph}
 \end{figure}
 
 
-\begin{figure}[ht]
-	\centering
-   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/Ql_loss_with_x}
-   \vspace*{-0.1in}
-   \caption{Relative loss of total liquid flow rates loss $\Delta Q_l$ with axial distance.}
-   \label{fig:delta_Ql_with_x}
-\end{figure}
 
 
 %
@@ -1806,60 +1855,193 @@ The ACLS/AMR methodology was described in $\S$\ref{subsec:ch2_ACLS}. Two sources
 
 	\item \textbf{Flagging the levelset band}. The levelset band needs to be flagged at each iteration in order to define the region in which to compute interface features such as signed distance, normals, curvature and reinitialization fluxes (\textbf{ref:Janodet-2021-JCP}). When encountering cell-size gradients, it has been observed that some liquid structures diffuse in the mesh and dissapear. The amount of liquid lost by this source is quantitied and discussed in this section.
 	
-	\item \textbf{Mesh adaptation}. AMR is performed every $N_\mathrm{iter}^\mathrm{adapt}$ iterations according to Eq. (\ref{eq:ch2_N_iter_adapt_AMR}). This value is intended to provide a reasonable frequency for AMR which is neither too low (adaptation triggered very often, yielding high computational costs) nor too high (adaptation barely happens and the advected interface finds cell size gradients). Nevertheless, regions in the mesh containing small droplets with size close to mesh resolution or which are travelling fast might sometimes be difficult to adapt, and liquid might disappear there when triggering AMR. The quantity of liquid lost by this method is difficult to quantify, but it can be deduced by substracting the quantity lost by the band flagging to the total volume of levelset in the domain.
+	\item \textbf{Mesh adaptation}. AMR is performed every $N_\mathrm{iter}^\mathrm{adapt}$ iterations according to Eq. (\ref{eq:ch2_N_iter_adapt_AMR}). This value is intended to provide a reasonable frequency for AMR which is neither too low (adaptation triggered very often, yielding high computational costs) nor too high (adaptation barely happens and the advected interface finds cell size gradients). Nevertheless, regions in the mesh containing small droplets with size close to mesh resolution or which are travelling fast might sometimes be difficult to adapt, and liquid might disappear there when triggering AMR. The quantity of liquid lost by this method is difficult to quantify, but it can be estimated by substracting the quantity lost by the band flagging to the total volume of levelset in the domain.
 
 \end{itemize}
 
-In order to retrieve the quantity of lost liquid due to band fligging, the $\psi$ function has been clipped before the flagging step is performed. This function is then denoted as $\psi^-$. Then, the  $\psi$ function after flagging is done is also clipped and denoted as $\psi^+$. Therefore, a field determining the spatial and temporal distribution of levelset loss due to band flagging process can be defined as:
+In order to retrieve the quantity of lost liquid due to band flagging, the $\psi$ function has been clipped before the flagging step is performed. This function is then denoted as $\psi^-$. Then, the  $\psi$ function after flagging is done is also clipped and denoted as $\psi^+$. Therefore, a field determining the spatial and temporal distribution of levelset loss due to band flagging process can be defined as:
 
 \begin{equation}
 \label{eq:ch5_LS_loss_delta_psi_field}
 \Delta \psi \left( \textbf{x}, t \right) = \psi^- \left( \textbf{x}, t \right)  - \psi^+ \left( \textbf{x}, t \right) 
 \end{equation}
 
-From the levelset function $\psi$, the volume of liquid in the domain can be obtained by means of spatial integration at every time instant:
-
-\begin{equation}
-V_l \left ( t \right) = \int_{\Omega} \psi \left( \textbf{x}, t \right) d\textbf{x}
-\end{equation}
-
-Consequently, the quantity of liquid volumes before and after flagging, $V_l^-$ and $V_l^+$, can be obtained by integrating the $\psi^-$ and $\psi^+$ functions respectively. The amount of loss liquid due to the reinitialization can then be easily obtained:
+From the levelset function $\psi$, the volume of liquid in the domain can be obtained at each iteration can be obtained with Eq. (\ref{eq:liquid_volume_from_levelset_definition}). The $\psi$ field in this expression corresponds to the one after performing the band flagging process, i.e. $\psi^+$, hence the liquid volume at each iteration could be denoted as $V_l^+$. For simplicity reasons, it will be simply denoted as $V_l$ in the graphs that follow. In the same fashion, liquid volume before the band flagging operation can also be obtained with $\psi^-$, which yields then a volume $V_l^-$. From these two quantities, the amount of loss liquid at each iteration due to the band flagging process can then be easily obtained as their difference:
 
 \begin{equation}
 \label{eq:ch5_LS_loss_delta_Vl_field}
-\Delta V_l \left( t \right) = V_l^- \left( t \right)  - V_l^+ \left( t \right) 
+\Delta V_l \left( t \right) = V_l^- \left( t \right)  - V_l^+ \left( t \right) + \int_{t_0}^t \Delta V_l \left( \tau \right) d\tau
 \end{equation}
 
-With both Eqs. (\ref{eq:ch5_LS_loss_delta_psi_field}) and (\ref{eq:ch5_LS_loss_delta_Vl_field}) the amount of levelset lost due to the reinitiailzation can be fully characterized: the former provides an instantaneous field of the location in which liquid disappears, and the latter yields the instantaneous amount of levelset loss. \textbf{OJO: especificar que el volumen es acumulado !!!!}
+Where $t_0$ is the first time instant at each simulation run. The last integral term has been added so that $\Delta V_l$ represents the accumulated liquid volume lost throughout a run. This quantity can now be added to the total volume at the end of each iteration to provide the liquid volume that would be present at the domain if there was no mass loss due to band flagging, named $V_{l,\mathrm{NF}}$:
+
+\begin{equation}
+\label{eq:ch5_liquid_volume_no_flagging}
+V_{l,\mathrm{NF}}  \left( t \right) = V_l  \left( t \right) + \Delta V_l \left( t \right)
+\end{equation}
+
+Finally, the total amount of liquid volume injected in a simulation run can be quantified with the following expression:
+
+%\begin{equation}
+%\label{eq:ch5_liquid_volume_injected}
+%V_{l,\mathrm{inj}} \left( t \right) = V_{l,0} + \sum_{i=1}^{N_\mathrm{iter}} \Delta t_i Q_\mathrm{injected}
+%\end{equation}
+
+\begin{equation}
+\label{eq:ch5_liquid_volume_injected}
+V_{l,\mathrm{inj}} \left( t \right) = V_{l,0} + \int_{t_0}^t Q_\mathrm{injected}~d\tau = V_{l,0} + Q_\mathrm{injected}  \left( t - t_0 \right)
+\end{equation}
+
+where $V_{l,0}$ is the liquid volume present at the beginning of every simulation run. $V_{l,\mathrm{inj}}$ represents therefore the quantity of liquid volume at the domain injected which would be in the simulations if there was not mass loss of any type, i.e. neither through levelset band flagging nor to mesh adaptation.
+
+With both Eqs. (\ref{eq:ch5_LS_loss_delta_psi_field}) and (\ref{eq:ch5_LS_loss_delta_Vl_field}) the amount of levelset lost due to the reinitiailzation can be fully characterized: the former provides an instantaneous field of the location in which liquid disappears, and the latter yields the instantaneous amount of levelset loss. The total loss of liquid volume can then be quantified with the addition of Eqs. (\ref{eq:ch5_liquid_volume_no_flagging}) and (\ref{eq:ch5_liquid_volume_injected}). \\
+
+Evaluation of mass loss with the previous simulations is performed for the two resolutions of the high Weber case: UG100\_DX20, UG100\_DX10. Computations are run for a short time (\hl{specify it}) without liquid removal at the end of the domain (i.e. removing the sponge layer), otherwise the application of Eqs. (\ref{eq:liquid_volume_from_levelset_definition}) (\ref{eq:ch5_liquid_volume_no_flagging}) would also account for this artificial loss. The parameters from the ACLS methodology that can have an influence on the $\psi$ loss are the interface thickness $\varepsilon$ from Eq. (\ref{eq:ACLS_psi_definition}) and the number of reinitiation steps $N_\mathrm{reinit}$ of the reinitialization equation (\ref{eq:acls_reinit_2017}). These two parameters are tested hereafter with case UG100\_DX20; case UG100\_DX10 is only studied with one configuration to evaluate the influence of interface resolution. The four simulations performed are shown in Table \ref{tab:jicf_simulations_mass_loss_set_levelset_band}, where Case 1 is the baseline case. The optimal configuration has been found for $N_\mathrm{reinit} = 6$  and $\varepsilon = 0.5$: all the simulations performed in the rest of sections of this chapter, summarized in Table \ref{tab:jicf_resolved_simulations_performed}, have been performed for these two values. In this section, the baseline (case 1) and the fine-resolution simulation (case 4) use the parameter $N_\mathrm{reinit} = 3$ because they were performed previously to the optimal configuration being found.
+
+\begin{table}[!h]
+\centering
+\caption{Simulations performed to evaluate mass loss due to ACLS}
+\begin{tabular}{cccc}
+\thickhline
+\textbf{Case} & $\Delta x_\mathrm{min} ~ [\mu \mathrm{m}]$ & $N_\mathrm{reinit}$ &  $\varepsilon$ \\
+\thickhline
+1 & 20 & 3 & 0.5 \\
+2 & 20 & 6 & 0.5 \\
+3 & 20 & 3 & 0.7 \\
+4 & 10 & 3 & 0.5 \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_simulations_mass_loss_set_levelset_band}
+\end{table}
+
+%\begin{figure}[h!]
+%	\centering
+%	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/mass_loss_baseline}
+%	\caption{Case 1 (baseline)}
+%	\label{fig:jicf_mass_loss_baseline}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%	\centering
+%	\includeinkscape[inkscapelatex=false,scale=0.4]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/mass_loss_dx10}
+%	\caption{Case 4 (dx10)}
+%	\label{fig:jicf_mass_loss_dx10}
+%\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/mass_loss_baseline_and_dx10}
+	\caption{Cases 1 (baseline, left) and 4 (dx10, right)}
+	\label{fig:jicf_mass_loss_baseline_and_dx10}
+\end{figure}
+
+Results for the evolution of liquid for quantities $V_{l,\mathrm{inj}}$, $V_{l,\mathrm{NF}}$ and $V_l$ are shown in Figure \ref{fig:JICF_nelem_increase}.
 
 
 
 
-Effect of $N_\mathrm{reinit}$.
+\subsubsection*{Baseline case}
+
+
+\subsubsection*{Effect of $N_\mathrm{reinit}$}
+
+
+\subsubsection*{Effect of $\varepsilon$}
+
+\clearpage
 
 \begin{figure}[ht]
 \flushleft
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
-   \includegraphics[scale=0.24]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/vl_loss_case_dx20_EPSILON_02}
-   \caption{}
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/vl_loss_case_baseline}
+   \caption{Case 1: Baseline}
    %\label{fig:JICF_nelem_increase_all_t} 
 \end{subfigure}
 \hfill
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
-   \includegraphics[scale=0.24]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/vl_loss_case_dx20_EPSILON_02}
-   \caption{}
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/vl_loss_case_Nsteps}
+   \caption{Case 2: $N_\mathrm{Reinit} = 6$.}
    %\label{fig:JICF_nelem_increase_t_0_to_2}
 \end{subfigure}
 
-   \caption{Liquid volume in mesh, case \textbf{XX}}
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/vl_loss_case_epsilon}
+   \caption{Case 3: $\varepsilon = 0.7$.}
+   %\label{fig:JICF_nelem_increase_all_t} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/vl_loss_case_dx10}
+   \caption{Case 4: $\Delta x_\mathrm{min} = 10~\mu$m.}
+   %\label{fig:JICF_nelem_increase_t_0_to_2}
+\end{subfigure}
+
+
+   \caption[Evolution of liquid volumes]{Evolution of liquid volumes for cases 1 to 4 from Table \ref{tab:jicf_simulations_mass_loss_set_levelset_band}. The dashed grey lines indicate the iterations of adaptation for each case.}
 \label{fig:JICF_nelem_increase}
 \end{figure}
 
+
+
+\clearpage
+
+
 \subsection{Spatial distribution of flow rates in crossflow planes}
 
+Loco mirar Figure \ref{fig:ibs_spatial_distributions}.
 
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG75_DX20_x05mm_volume_flux}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG75_DX20_x10mm_volume_flux}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG75_DX20_x15mm_volume_flux}
+   \vspace*{-0.1in}
+	\caption{Case UG75\_DX20}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG75_DX10_x05mm_volume_flux}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG75_DX10_x10mm_volume_flux}
+   \vspace*{-0.1in}
+	\caption{Case UG75\_DX10}
+\end{subfigure}
+
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG100_DX20_x05mm_volume_flux}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG100_DX20_x10mm_volume_flux}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG100_DX20_x15mm_volume_flux}
+   \vspace*{-0.1in}
+	\caption{Case UG100\_DX20}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG100_DX10_x05mm_volume_flux}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG100_DX10_x10mm_volume_flux}
+   \vspace*{-0.1in}
+	\caption{Case UG100\_DX10}
+\end{subfigure}
+
+   \caption{Spatial distributions of volume fluxes obtained from interior boundaries.}
+\label{fig:ibs_spatial_distributions}
+\end{figure}
 
 
 \clearpage
@@ -1869,12 +2051,16 @@ Effect of $N_\mathrm{reinit}$.
 
 %\subsubsection{Sampling procedure for droplets}
 
+The previous sections have shown analysis of the JICF simulations for the gaseous phase and for the liquid phase obtained through postprocessing and inspection of magnitudes based on the level-set field $\psi$ $\Psi$. This section presents a characterization of the spray obtained from these simulations through lagrangian tracking of the liquid structures sampled as described in $\S$\ref{subsec:SLI_spray_sampling}. The sampling planes perpendicular to crossflow are those already discussed for each simulations, corresponding to the planes showning the droplets arrival times in Table \ref{tab:jicf_characteristic_droplet_sampling_times} or the flux maps from IBs from Figure \ref{fig:ibs_spatial_distributions}.
+
+Droplets are accumulated 
+
 The number of droplets accumulated in each sampling plane for all the simulations performed in shown in Figure \ref{tab:jicf_Ndr_accumulated}.
 
 \begin{table}[!h]
 \centering
 \caption{Number of droplets accumulated in JICF simulations}
-\begin{tabular}{rcccc}
+\begin{tabular}{lcccc}
 \thickhline
 \textbf{Case} & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  & $x = 20$ mm \\
 \thickhline 
@@ -1882,6 +2068,7 @@ UG75\_DX10  & 14233 & 20677 & - & - \\
 UG75\_DX20  &  6882 & 12224 & 12077 & 9440 \\
 UG100\_DX10 & 16442 & 11087 & - & -\\
 UG100\_DX20 & 21824 & 17793 & 9476 & 11041 \\
+UG100\_DX20\_NT &  & & & \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_Ndr_accumulated}
@@ -1891,6 +2078,8 @@ For the histograms, we can see 2013 Vie.
 
 
 \subsection{Deformation variation with axial distance}
+
+\subsection{Liquid velocities}
 
 \subsection{Granulometry}
 
@@ -2007,21 +2196,22 @@ s_g = \exp \sqrt{  \frac{\sum_i \ln \left( D_i / \overline{D}_{ng} \right) ^2 }{
 %
 %\end{itemize}
 
-\section{Computational performances}
-\label{subsec:ch5_computational_performances}
 
-%\subsection{Feeding the models (??)}
-%Find a more attractive name
 
 \section{Learning injectors}
 
+\subsection{Convergence of global sprays}
 
 
 \subsection{Spatial discretization of sprays}
 
+\subsection{Comparison of flow rates with interior boundaries methodology}
+
+The lagrangian tracking methodology which is used to obtain the injectors allows to 
+
 \clearpage
 
-\subsection{Case UG75\_DX10}
+\subsection*{Case UG75\_DX10}
 
 
 
@@ -2161,7 +2351,7 @@ s_g = \exp \sqrt{  \frac{\sum_i \ln \left( D_i / \overline{D}_{ng} \right) ^2 }{
 
 \clearpage
 
-\subsection{Case UG75\_DX20}
+\subsection*{Case UG75\_DX20}
 
 
 
@@ -2368,7 +2558,7 @@ s_g = \exp \sqrt{  \frac{\sum_i \ln \left( D_i / \overline{D}_{ng} \right) ^2 }{
 
 \clearpage
 
-\subsection{Case UG100\_DX10}
+\subsection*{Case UG100\_DX10}
 
 
 
@@ -2508,7 +2698,7 @@ s_g = \exp \sqrt{  \frac{\sum_i \ln \left( D_i / \overline{D}_{ng} \right) ^2 }{
 
 \clearpage
 
-\subsection{Case UG100\_DX20}
+\subsection*{Case UG100\_DX20}
 
 
 
@@ -2712,8 +2902,83 @@ s_g = \exp \sqrt{  \frac{\sum_i \ln \left( D_i / \overline{D}_{ng} \right) ^2 }{
 \label{fig:injectors_sli_uG100_dx20_x15}
 \end{figure}
 
+%\subsection{Feeding the models (??)}
+%Find a more attractive name
 
 \clearpage
+
+\section{Performances of the simulations}
+\label{subsec:ch5_computational_performances}
+
+This chapter ends with some words on the computational performances of the simulations, as well as the cost of convergence for the parameters presented such as the dense core mean values, flow rates and injectors.
+
+\subsection{Computational performances}
+
+In order to assess the computational performances of the performed simulations, a Reduced Computational Time (RCT) can be defined as (\textbf{ref:janodet-JCP}):
+
+\begin{equation}
+\mathrm{RCT} = \frac{\mathrm{WCT} ~ N_\mathrm{cores}}{N_\mathrm{iter}~N_\mathrm{cv}}
+\end{equation}
+
+where WCT is the Wall Clock Time, $N_\mathrm{cores}$ the number of cores used by the computations, $N_\mathrm{iter}$ the number of temporal iterations performed, and $N_\mathrm{cv}$ the total number of node-based control volumes in the computational domain. RCT, which is expressed in time units, can therefore be used to compare the cost of the different simulations performed independently of the number of cores, iterations and elements they use. The RCT is calculated for each computational routine of the computational methodology ACLS/AMR, then the different RCTs are added to yield the total RCT of the simulations. These contributions are:
+
+\begin{equation}
+\mathrm{RCT} = \mathrm{RCT}_\mathrm{ACLS} + \mathrm{RCT}_\mathrm{AMR} + \mathrm{RCT}_\mathrm{NS}
+\end{equation}
+
+Where the subindex ACLS indicates the contribution of the ACLS methodology without mesh refinement ($\S$\ref{subsec:ch2_ACLS}), AMR indicates the contribution of the mesh refinement ($\S$\ref{subsec:ch2_ACLS}), and $\mathrm{RCT}_\mathrm{NS}$ denotes the contribution of the routines devoted to resolution of the Navier-Stokes equation, which in YALES2 employ a linear solver to compute the Poisson equation.
+
+Additionally, another metric that can be used to evaluate the cost of simulations is the CPU time $t_\mathrm{CPU}$, computed as follows:
+
+\begin{equation}
+t_\mathrm{CPU} = \mathrm{WCT} ~ N_\mathrm{cores}
+\end{equation}
+
+Which expresses the computational cost in hours that a simulation has taken. Thus, it is useful to express this quantity relatively to the total physical time simulated $t_\mathrm{ph}$. The ratio of both magnitudes provides therefore the amount of CPU hours that have been used to perform a simulation up to a certain physical time.
+
+Results for the simulations performed in this chapter are shown in Tables \ref{tab:jicf_Ncores_Ncells_Ndrops} and \ref{tab:jicf_computational_performances}. The physical time for which these magnitudes are evaluated is $t_\mathrm{ph} = 0.3$~ms in all simulations, which can be expressed non-dimensionless with Eq. (\ref{eq:t_dimensionless_with_tau_in}) as $t^*_{\mathrm{UG}100} = 16$, $t^*_{\mathrm{UG}75} = 12$. This time instant correponds to early injection; for the high-Weber operating point simulations, snapshots of the jet at this time instant were shown in Figure \ref{fig:JICF_w_mesh}. Table \ref{tab:jicf_Ncores_Ncells_Ndrops} shows the numbers of cores, cells and droplets present at the simulation for this time instant. In the simulations, the number of cores evolves in each run as the number of cells increase due to AMR for keeping a ratio $N_\mathrm{cells} / N_\mathrm{cores}$ between 100,000 and 150,000, which is optimum for parallellization purposes \citepColor[trobec_introduction_2018]. \hl{As seen ...}. 
+
+
+
+\begin{table}[!h]
+\centering
+\caption{Computational cores, mesh cells and total number of droplets present at the domain for JICF simulations at $t_\mathrm{ph} = 0.3$~ms ($t^*_{\mathrm{UG}75} = 12$, $t^*_{\mathrm{UG}100} = 16$).}
+\begin{tabular}{cccc}
+\thickhline
+\textbf{Case} &  $N_\mathrm{cores}$ & $N_\mathrm{cells}$ ($\cdot 10^6$) & $N_\mathrm{drops}$\\
+\thickhline 
+UG75\_DX10 & 3840 & 430 & 2221 \\
+UG75\_DX20 & 768 & 100 & 394 \\
+UG100\_DX10 & 5760 & 830 & 4153 \\
+UG100\_DX20 & 1024 & 138 & 596\\
+UG100\_DX20\_NT & - & - & - \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_Ncores_Ncells_Ndrops}
+\end{table}
+
+
+Table \ref{tab:jicf_computational_performances} reports the different contributions to the RCT and the ration CPU time versus physical time simulated. In all simulations the physical time is the same, $t_\mathrm{ph} = 0.3$~ms, hence this ratio express the number of computing hours employed to reach this time. \hl{As seen ...}.
+
+\begin{table}[!h]
+\centering
+\caption{Computational performances from JICF simulations at $t_\mathrm{ph} = 0.3$~ms ($t^*_{\mathrm{UG}75} = 12$, $t^*_{\mathrm{UG}100} = 16$).}
+\begin{tabular}{cccccc}
+\thickhline
+\textbf{Case} &  $\mathrm{RCT}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{ACLS}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{AMR}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{NS}~[\mu \mathrm{s}]$ & $t_\mathrm{CPU} / t_\mathrm{ph}  ~ [\mathrm{h}~\mathrm{ms^{-1}}]$\\
+\thickhline 
+UG75\_DX10 & 1549.7 & 192.0 & 1182.6 & 175.1 & 204,200 \\
+UG75\_DX20 & 494.1 & 88.8 & 362.3 & 43.0 & 17,100  \\
+UG100\_DX10 & 1760.7 & 164.1 & 1476.7 & 119.9 & 413,000 \\
+UG100\_DX20 & 1061.5 & 145.3 & 838.0 & 78.2 & 28,700  \\
+UG100\_DX20\_NT & - & - & - & - & - \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_computational_performances}
+\end{table}
+
+\subsection{Convergence of magnitudes}
+
 
 \section{Conclusions}
 

@@ -56,6 +56,7 @@ y_label_Ql_mean_perp = r"$\overline{Q_l}_{,\mathrm{perp}} ~[\mathrm{mm}^3~\mathr
 y_label_Ql_mean_film = r"$\overline{Q_l}_{,\mathrm{film}} ~[\mathrm{mm}^3~\mathrm{s}^{-1}]$"
 y_label_Ql_RMS_perp = r"$Q_{l,\mathrm{RMS},\mathrm{perp}} ~[\mathrm{mm}^3~\mathrm{s}^{-1}]$"
 y_label_Ql_RMS_film = r"$Q_{l,\mathrm{RMS},\mathrm{film}} ~[\mathrm{mm}^3~\mathrm{s}^{-1}]$"
+y_label_Ql_mean_total = r"$\overline{Q_l}_{,\mathrm{total}} ~[\mathrm{mm}^3~\mathrm{s}^{-1}]$"
 
 
 label_UG75_DX10  = r'$\mathrm{UG}75\_\mathrm{DX}10$'
@@ -111,6 +112,21 @@ df_UG75_DX20_x15_filming = pd.read_csv(folder+'/overall_integrated_fluxes/uG75_d
 
 df_UG75_DX10_x05_filming = pd.read_csv(folder+'/overall_integrated_fluxes/uG75_dx10_Q_film_x05')
 df_UG75_DX10_x10_filming = pd.read_csv(folder+'/overall_integrated_fluxes/uG75_dx10_Q_film_x10')
+
+# Read total dataframes
+df_UG100_DX20_x05_total = pd.read_csv(folder+'/overall_integrated_fluxes/uG100_dx20_Q_total_x05')
+df_UG100_DX20_x10_total = pd.read_csv(folder+'/overall_integrated_fluxes/uG100_dx20_Q_total_x10')
+df_UG100_DX20_x15_total = pd.read_csv(folder+'/overall_integrated_fluxes/uG100_dx20_Q_total_x15')
+
+df_UG100_DX10_x05_total = pd.read_csv(folder+'/overall_integrated_fluxes/uG100_dx10_Q_total_x05')
+df_UG100_DX10_x10_total = pd.read_csv(folder+'/overall_integrated_fluxes/uG100_dx10_Q_total_x10')
+
+df_UG75_DX20_x05_total = pd.read_csv(folder+'/overall_integrated_fluxes/uG75_dx20_Q_total_x05')
+df_UG75_DX20_x10_total = pd.read_csv(folder+'/overall_integrated_fluxes/uG75_dx20_Q_total_x10')
+df_UG75_DX20_x15_total = pd.read_csv(folder+'/overall_integrated_fluxes/uG75_dx20_Q_total_x15')
+
+df_UG75_DX10_x05_total = pd.read_csv(folder+'/overall_integrated_fluxes/uG75_dx10_Q_total_x05')
+df_UG75_DX10_x10_total = pd.read_csv(folder+'/overall_integrated_fluxes/uG75_dx10_Q_total_x10')
 
 #%% Extract time and Qs from iso-x dataframes
 
@@ -236,6 +252,95 @@ t_UG75_DX10_x10_filming = df_UG75_DX10_x10_filming['t_film_x10'].values
 t_UG75_DX10_x10_filming = (t_UG75_DX10_x10_filming-t_UG75_DX10_x10_filming[0])/tau_ph_UG75_DX10 + 2
 Q_mean_UG75_DX10_x10_filming = df_UG75_DX10_x10_filming['Q_t_film_x10_mean_evol'].values
 Q_RMS_UG75_DX10_x10_filming  = df_UG75_DX10_x10_filming['Q_t_film_x10_rms_evol'].values
+
+#%% Extract total rates
+
+# UG100_DX20
+Q_mean_UG100_DX20_x05_total = df_UG100_DX20_x05_total['Q_t_total_x05_mean_evol'].values
+Q_RMS_UG100_DX20_x05_total = df_UG100_DX20_x05_total['Q_t_total_x05_rms_evol'].values
+
+Q_mean_UG100_DX20_x10_total = df_UG100_DX20_x10_total['Q_t_total_x10_mean_evol'].values
+Q_RMS_UG100_DX20_x10_total = df_UG100_DX20_x10_total['Q_t_total_x10_rms_evol'].values
+
+Q_mean_UG100_DX20_x15_total = df_UG100_DX20_x15_total['Q_t_total_x15_mean_evol'].values
+Q_RMS_UG100_DX20_x15_total = df_UG100_DX20_x15_total['Q_t_total_x15_rms_evol'].values
+
+# UG100_DX10
+Q_mean_UG100_DX10_x05_total = df_UG100_DX10_x05_total['Q_t_total_x05_mean_evol'].values
+Q_RMS_UG100_DX10_x05_total = df_UG100_DX10_x05_total['Q_t_total_x05_rms_evol'].values
+
+Q_mean_UG100_DX10_x10_total = df_UG100_DX10_x10_total['Q_t_total_x10_mean_evol'].values
+Q_RMS_UG100_DX10_x10_total = df_UG100_DX10_x10_total['Q_t_total_x10_rms_evol'].values
+
+# UG75_DX20
+Q_mean_UG75_DX20_x05_total = df_UG75_DX20_x05_total['Q_t_total_x05_mean_evol'].values
+Q_RMS_UG75_DX20_x05_total  = df_UG75_DX20_x05_total['Q_t_total_x05_rms_evol'].values
+
+Q_mean_UG75_DX20_x10_total = df_UG75_DX20_x10_total['Q_t_total_x10_mean_evol'].values
+Q_RMS_UG75_DX20_x10_total  = df_UG75_DX20_x10_total['Q_t_total_x10_rms_evol'].values
+
+Q_mean_UG75_DX20_x15_total = df_UG75_DX20_x15_total['Q_t_total_x15_mean_evol'].values
+Q_RMS_UG75_DX20_x15_total  = df_UG75_DX20_x15_total['Q_t_total_x15_rms_evol'].values
+
+# UG75_DX10
+Q_mean_UG75_DX10_x05_total = df_UG75_DX10_x05_total['Q_t_total_x05_mean_evol'].values
+Q_RMS_UG75_DX10_x05_total  = df_UG75_DX10_x05_total['Q_t_total_x05_rms_evol'].values
+
+Q_mean_UG75_DX10_x10_total = df_UG75_DX10_x10_total['Q_t_total_x10_mean_evol'].values
+Q_RMS_UG75_DX10_x10_total  = df_UG75_DX10_x10_total['Q_t_total_x10_rms_evol'].values
+
+
+#%% Total rates and losses calculations
+
+#UG75_DX10
+Q_tot_UG75_DX10_x05 = Q_mean_UG75_DX10_x05_total[-1]
+Q_tot_UG75_DX10_x10 = Q_mean_UG75_DX10_x10_total[-1]
+Q_tot_RMS_UG75_DX10_x05 = Q_RMS_UG75_DX10_x05_total[-1]
+Q_tot_RMS_UG75_DX10_x10 = Q_RMS_UG75_DX10_x10_total[-1]
+
+Q_tot_UG75_DX10 = np.array([Q_tot_UG75_DX10_x05, Q_tot_UG75_DX10_x10])
+
+#UG75_DX20
+Q_tot_UG75_DX20_x05 = Q_mean_UG75_DX20_x05_total[-1] 
+Q_tot_UG75_DX20_x10 = Q_mean_UG75_DX20_x10_total[-1]
+Q_tot_UG75_DX20_x15 = Q_mean_UG75_DX20_x15_total[-1]
+Q_tot_RMS_UG75_DX20_x05 = Q_RMS_UG75_DX20_x05_total[-1]
+Q_tot_RMS_UG75_DX20_x10 = Q_RMS_UG75_DX20_x10_total[-1]
+Q_tot_RMS_UG75_DX20_x15 = Q_RMS_UG75_DX20_x15_total[-1]
+
+Q_tot_UG75_DX20 = np.array([Q_tot_UG75_DX20_x05, Q_tot_UG75_DX20_x10, Q_tot_UG75_DX20_x15])
+
+#UG100_DX10
+Q_tot_UG100_DX10_x05 = Q_mean_UG100_DX10_x05_total[-1]
+Q_tot_UG100_DX10_x10 = Q_mean_UG100_DX10_x10_total[-1]
+Q_tot_RMS_UG100_DX10_x05 = Q_RMS_UG100_DX10_x05_total[-1]
+Q_tot_RMS_UG100_DX10_x10 = Q_RMS_UG100_DX10_x10_total[-1]
+
+Q_tot_UG100_DX10 = np.array([Q_tot_UG100_DX10_x05, Q_tot_UG100_DX10_x10])
+
+#UG100_DX20
+Q_tot_UG100_DX20_x05 = Q_mean_UG100_DX20_x05_total[-1]
+Q_tot_UG100_DX20_x10 = Q_mean_UG100_DX20_x10_total[-1]
+Q_tot_UG100_DX20_x15 = Q_mean_UG100_DX20_x15_total[-1]
+Q_tot_RMS_UG100_DX20_x05 = Q_RMS_UG100_DX20_x05_total[-1]
+Q_tot_RMS_UG100_DX20_x10 = Q_RMS_UG100_DX20_x10_total[-1]
+Q_tot_RMS_UG100_DX20_x15 = Q_RMS_UG100_DX20_x15_total[-1]
+
+Q_tot_UG100_DX20 = np.array([Q_tot_UG100_DX20_x05, Q_tot_UG100_DX20_x10, Q_tot_UG100_DX20_x15])
+
+
+# Losses
+'''
+Q_loss_UG75_DX10  = Q_inj_UG75 - Q_tot_UG75_DX10
+Q_loss_UG75_DX20  = Q_inj_UG75 - Q_tot_UG75_DX20
+Q_loss_UG100_DX10 = Q_inj_UG100 - Q_tot_UG100_DX10
+Q_loss_UG100_DX20 = Q_inj_UG100 - Q_tot_UG100_DX20
+'''
+
+Q_loss_UG75_DX10  = (Q_inj_UG75 - Q_tot_UG75_DX10)/Q_inj_UG75*100
+Q_loss_UG75_DX20  = (Q_inj_UG75 - Q_tot_UG75_DX20)/Q_inj_UG75*100
+Q_loss_UG100_DX10 = (Q_inj_UG100 - Q_tot_UG100_DX10)/Q_inj_UG100*100
+Q_loss_UG100_DX20 = (Q_inj_UG100 - Q_tot_UG100_DX20)/Q_inj_UG100*100
 
 #%% Plot time evolution of instantaneous Qs for UG100_DX10
 
@@ -556,7 +661,6 @@ Q_x_film_RMS_x15 = [Q_RMS_UG75_DX20_x15_filming[-1],
 
 # Bar graph with RMS
 plt.figure(figsize=figsize_bar)
-#plt.title('Filming mean $Q_l$')
 plt.bar(r1-0.25, Q_x_film_mean_x05, yerr=Q_x_film_RMS_x05, width=barWidth, color='blue', edgecolor='white', label=label_x_less_5, capsize=barWidth*20)
 plt.bar(r1, Q_x_film_mean_x10, yerr=Q_x_film_RMS_x10, width=barWidth, color='grey', edgecolor='white', label=label_x_less_10, capsize=barWidth*20)
 plt.bar(r2+0.25, Q_x_film_mean_x15, yerr=Q_x_film_RMS_x15, width=barWidth, color='red', edgecolor='white', label=label_x_less_15, capsize=barWidth*20)
@@ -569,53 +673,43 @@ plt.savefig(folder_manuscript+'bar_graph_filming_IBs.pdf')
 plt.show()
 plt.close()
 
+#%% Total fluid plot - Bar graph with RMS
+
+
+Q_x_total_mean_x05 = [Q_tot_UG75_DX10_x05,Q_tot_UG75_DX20_x05,
+                      Q_tot_UG100_DX10_x05,Q_tot_UG100_DX20_x05]
+Q_x_total_mean_x10 = [Q_tot_UG75_DX10_x10,Q_tot_UG75_DX20_x10,
+                      Q_tot_UG100_DX10_x10,Q_tot_UG100_DX10_x10]
+Q_x_total_mean_x15 = [Q_tot_UG75_DX20_x15,
+                      Q_tot_UG100_DX20_x15]
+
+Q_x_total_RMS_x05 = [Q_tot_RMS_UG75_DX10_x05,Q_tot_RMS_UG75_DX20_x05,
+                     Q_tot_RMS_UG100_DX10_x05,Q_tot_RMS_UG100_DX20_x05]
+Q_x_total_RMS_x10 = [Q_tot_RMS_UG75_DX10_x10,Q_tot_RMS_UG75_DX20_x10,
+                     Q_tot_RMS_UG100_DX10_x10,Q_tot_RMS_UG100_DX10_x10]
+Q_x_total_RMS_x15 = [Q_tot_RMS_UG75_DX20_x15,
+                     Q_tot_RMS_UG100_DX20_x15]
+
+# plot
+plt.figure(figsize=figsize_bar)
+plt.plot([r1[0]-barWidth*1.5,r2[0]+barWidth*1.5],[Q_inj_UG75]*2, '--k', label=label_Ql_injected,linewidth=4*FFIG)
+plt.plot([r1[2]-barWidth*1.5,r2[-1]+barWidth*1.5],[Q_inj_UG100]*2, '--k',linewidth=4*FFIG)
+plt.bar(r1-0.25, Q_x_total_mean_x05, yerr=Q_x_total_RMS_x05, width=barWidth, color='blue', edgecolor='white', label=label_x_equal_5, capsize=barWidth*20)
+plt.bar(r1, Q_x_total_mean_x10, yerr=Q_x_total_RMS_x10, width=barWidth, color='grey', edgecolor='white', label=label_x_equal_10, capsize=barWidth*20)
+plt.bar(r2+0.25, Q_x_total_mean_x15, yerr=Q_x_total_RMS_x15, width=barWidth, color='red', edgecolor='white', label=label_x_equal_15, capsize=barWidth*20)
+#plt.xlabel('Case')#, fontweight='bold')
+plt.ylabel(y_label_Ql_mean_total)
+plt.xticks([r for r in range(len(cases))], cases)
+plt.legend(loc='upper left')
+plt.tight_layout()
+plt.savefig(folder_manuscript+'bar_graph_total_IBs.pdf')
+plt.show()
+plt.close()
 
 
 
 
-#%% Total fluid losses calculations
-
-#UG75_DX10
-Q_tot_UG75_DX10_x05 = Q_mean_UG75_DX10_x05[-1] + Q_mean_UG75_DX10_x05_filming[-1]
-Q_tot_UG75_DX10_x10 = Q_mean_UG75_DX10_x10[-1] + Q_mean_UG75_DX10_x10_filming[-1]
-
-Q_tot_UG75_DX10 = np.array([Q_tot_UG75_DX10_x05, Q_tot_UG75_DX10_x10])
-
-#UG75_DX20
-Q_tot_UG75_DX20_x05 = Q_mean_UG75_DX20_x05[-1] + Q_mean_UG75_DX20_x05_filming[-1]
-Q_tot_UG75_DX20_x10 = Q_mean_UG75_DX20_x10[-1] + Q_mean_UG75_DX20_x10_filming[-1]
-Q_tot_UG75_DX20_x15 = Q_mean_UG75_DX20_x15[-1] + Q_mean_UG75_DX20_x15_filming[-1]
-
-Q_tot_UG75_DX20 = np.array([Q_tot_UG75_DX20_x05, Q_tot_UG75_DX20_x10, Q_tot_UG75_DX20_x15])
-
-#UG100_DX10
-Q_tot_UG100_DX10_x05 = Q_mean_UG100_DX10_x05[-1] + Q_mean_UG100_DX10_x05_filming[-1]
-Q_tot_UG100_DX10_x10 = Q_mean_UG100_DX10_x10[-1] + Q_mean_UG100_DX10_x10_filming[-1]
-
-Q_tot_UG100_DX10 = np.array([Q_tot_UG100_DX10_x05, Q_tot_UG100_DX10_x10])
-
-#UG100_DX20
-Q_tot_UG100_DX20_x05 = Q_mean_UG100_DX20_x05[-1] + Q_mean_UG100_DX20_x05_filming[-1]
-Q_tot_UG100_DX20_x10 = Q_mean_UG100_DX20_x10[-1] + Q_mean_UG100_DX20_x10_filming[-1]
-Q_tot_UG100_DX20_x15 = Q_mean_UG100_DX20_x15[-1] + Q_mean_UG100_DX20_x15_filming[-1]
-
-Q_tot_UG100_DX20 = np.array([Q_tot_UG100_DX20_x05, Q_tot_UG100_DX20_x10, Q_tot_UG100_DX20_x15])
-
-
-# Losses
-'''
-Q_loss_UG75_DX10  = Q_inj_UG75 - Q_tot_UG75_DX10
-Q_loss_UG75_DX20  = Q_inj_UG75 - Q_tot_UG75_DX20
-Q_loss_UG100_DX10 = Q_inj_UG100 - Q_tot_UG100_DX10
-Q_loss_UG100_DX20 = Q_inj_UG100 - Q_tot_UG100_DX20
-'''
-
-Q_loss_UG75_DX10  = (Q_inj_UG75 - Q_tot_UG75_DX10)/Q_inj_UG75*100
-Q_loss_UG75_DX20  = (Q_inj_UG75 - Q_tot_UG75_DX20)/Q_inj_UG75*100
-Q_loss_UG100_DX10 = (Q_inj_UG100 - Q_tot_UG100_DX10)/Q_inj_UG100*100
-Q_loss_UG100_DX20 = (Q_inj_UG100 - Q_tot_UG100_DX20)/Q_inj_UG100*100
-
-#%% Total fluid losses plots
+#%% Losses plots
 
 x_dx20 = [5,10,15]
 x_dx10 = [5,10]

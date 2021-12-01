@@ -16,7 +16,7 @@ plt.rcParams['ytick.labelsize'] = 90*FFIG # 80*FFIG
 plt.rcParams['axes.labelsize']  = 90*FFIG #80*FFIG
 plt.rcParams['axes.labelpad']   = 30*FFIG
 plt.rcParams['axes.titlesize']  = 90*FFIG #80*FFIG
-plt.rcParams['legend.fontsize'] = 60*FFIG #50*FFIG
+plt.rcParams['legend.fontsize'] = 50*FFIG #50*FFIG
 plt.rcParams['font.size'] = 50*FFIG
 plt.rcParams['lines.linewidth'] =  8*FFIG #6*FFIG
 plt.rcParams['legend.framealpha'] = 1.0
@@ -44,7 +44,7 @@ tau_dr_UG75_DX20  = 0.3558 #0.4567
 tau_dr_UG100_DX10 = 0.2187
 tau_dr_UG100_DX20 = 0.2584 #0.3628
 tau_dr_UG100_DX10_NO_TURB = 0.2187
-tau_dr_UG100_DX20_NO_TURB = 0.2584
+tau_dr_UG100_DX20_NO_TURB = 0.2584 #(X - 8.5041243834479782E-003)*1e3
 
 
 '''
@@ -145,14 +145,13 @@ plt.rcParams['ytick.minor.visible'] = True
 plt.figure(figsize=figsize_)
 plt.plot([1]*2,[0,1e4],'--k')
 
-plt.plot(time_UG100_DX20,nelem_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
-plt.plot(time_UG100_DX10,nelem_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
-plt.plot(time_UG75_DX20,nelem_UG75_DX20, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
 plt.plot(time_UG75_DX10,nelem_UG75_DX10, 'y', label='$\mathrm{UG}75\_\mathrm{DX}10$')
-'''
-plt.plot(time_UG100_DX20_no_turb,nelem_UG100_DX20_no_turb, '--r',label='$\mathrm{UG}100\_\mathrm{DX}20\_NO\_TURB$')
-plt.plot(time_UG100_DX10_no_turb,nelem_UG100_DX10_no_turb, '--b',label='$\mathrm{UG}100\_\mathrm{DX}10\_NO\_TURB$')
-'''
+plt.plot(time_UG75_DX20,nelem_UG75_DX20, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
+plt.plot(time_UG100_DX10,nelem_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
+plt.plot(time_UG100_DX20,nelem_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
+plt.plot(time_UG100_DX20_no_turb,nelem_UG100_DX20_no_turb, '--r',label='$\mathrm{UG}100\_\mathrm{DX}20\_NT$')
+#plt.plot(time_UG100_DX10_no_turb,nelem_UG100_DX10_no_turb, '--b',label='$\mathrm{UG}100\_\mathrm{DX}10\_NOT$')
+
 plt.xlabel(x_label_)
 #plt.xlabel("$t$")
 plt.xticks([0,5,10,15,20])
@@ -170,6 +169,10 @@ plt.savefig(folder_manuscript + 'JICF_nelem_increase.pdf',format='pdf')
 plt.show()
 plt.close()
 
+
+
+
+
 # Zoom in t' \in [0, 2]
 plt.figure(figsize=figsize_)
 ax = plt.gca()
@@ -180,10 +183,11 @@ ax.add_patch(Rectangle((0.501, 80), 0.2, 1.5e2, fill=None, alpha=1,
                        linewidth=5*FFIG,color='blue',zorder=1e6))
 '''
 plt.plot([1]*2,[0,1e4],'--k')
-plt.plot(time_UG100_DX20,nelem_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
-plt.plot(time_UG100_DX10,nelem_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
-plt.plot(time_UG75_DX20,nelem_UG75_DX20, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
 plt.plot(time_UG75_DX10,nelem_UG75_DX10, 'y', label='$\mathrm{UG}75\_\mathrm{DX}10$')
+plt.plot(time_UG75_DX20,nelem_UG75_DX20, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
+plt.plot(time_UG100_DX10,nelem_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
+plt.plot(time_UG100_DX20,nelem_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
+plt.plot(time_UG100_DX20_no_turb,nelem_UG100_DX20_no_turb, '--r',label='$\mathrm{UG}100\_\mathrm{DX}20\_NT$')
 #Rectangle((0.0,100),0.25,1e3,fill='k',alpha=1)
 plt.xlabel(x_label_)
 #plt.xlabel("$t$")

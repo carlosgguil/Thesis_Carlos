@@ -54,23 +54,26 @@ folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/DC characterization/data_b
 cases = [folder+'breakup_point_uG75_dx10m.csv',
          folder+'breakup_point_uG75_dx20m.csv',
          folder+'breakup_point_uG100_dx10m.csv',
-         folder+'breakup_point_uG100_dx20m.csv']
+         folder+'breakup_point_uG100_dx20m.csv',
+         folder+'breakup_point_uG100_dx20m_no_turb.csv']
 
 labels_ = [r'$\mathrm{UG75}\_\mathrm{DX10}$' ,r'$\mathrm{UG75}\_\mathrm{DX20}$',
-           r'$\mathrm{UG100}\_\mathrm{DX10}$' ,r'$\mathrm{UG100}\_\mathrm{DX20}$']
+           r'$\mathrm{UG100}\_\mathrm{DX10}$' , r'$\mathrm{UG100}\_\mathrm{DX20}$',
+           r'$\mathrm{UG100}\_\mathrm{DX20}\_\mathrm{NO}\_\mathrm{TURB}$']
 
    
 save_labels = ['UG75_DX10',  'UG75_DX20',
-               'UG100_DX10', 'UG100_DX20']
+               'UG100_DX10', 'UG100_DX20','UG100_DX20_NO_TURB']
 
 # Characteristic times to non-dimensionalize
 tau_ph_UG75_DX10 = 0.2952
 tau_ph_UG75_DX20 = 0.3558
 tau_ph_UG100_DX10 = 0.2187
 tau_ph_UG100_DX20 = 0.2584
+tau_ph_UG100_DX20_NO_TURB = 0.2584
 
 tau_char = [tau_ph_UG75_DX10 , tau_ph_UG75_DX20,
-            tau_ph_UG100_DX10, tau_ph_UG100_DX20]
+            tau_ph_UG100_DX10, tau_ph_UG100_DX20, tau_ph_UG100_DX20_NO_TURB]
 
 # axis labels
 x_label_time  = r'$t^{\prime}$' #r'$t~[\mathrm{ms}]$'
@@ -235,8 +238,8 @@ theta_std  = np.array(theta_std)
 #%% Plot signals
 
 # Limits to separate graphs
-ylims_xb_zb_temp = [(1,8), (1.8,13), (1,9.0), (1.5,15)]
-ylims_w_temp     = [(0,3.2), (0,2.8), (0,3), (0,3.2)]
+ylims_xb_zb_temp = [(1,8), (1.8,13), (1,9.0), (1.5,15), (1.5,15)]
+ylims_w_temp     = [(0,3.2), (0,2.8), (0,3), (0,3.2), (0,3.2)]
 
 ylims_xb_zb = []; ylims_w = [] 
 for i in range(len(ylims_xb_zb_temp)):
@@ -378,6 +381,7 @@ i = 0; plt.plot(time[i], xb_mean_t[i], color='black',label=labels_[i])
 i = 1; plt.plot(time[i], xb_mean_t[i], color='grey',label=labels_[i]) 
 i = 2; plt.plot(time[i], xb_mean_t[i], color='blue',label=labels_[i]) 
 i = 3; plt.plot(time[i], xb_mean_t[i], color='green',label=labels_[i]) 
+i = 4; plt.plot(time[i], xb_mean_t[i], '--', color='green',label=labels_[i]) 
 plt.xlabel(x_label_time)
 plt.ylabel(label_mean_xb)
 plt.xticks([0,5,10,15,20])
@@ -395,6 +399,7 @@ i = 0; plt.plot(time[i], xb_std_t[i], color='black',label=labels_[i])
 i = 1; plt.plot(time[i], xb_std_t[i], color='grey',label=labels_[i]) 
 i = 2; plt.plot(time[i], xb_std_t[i], color='blue',label=labels_[i]) 
 i = 3; plt.plot(time[i], xb_std_t[i], color='green',label=labels_[i]) 
+i = 4; plt.plot(time[i], xb_std_t[i], '--', color='green',label=labels_[i]) 
 plt.xlabel(x_label_time)
 plt.ylabel(label_std_xb)
 plt.legend(loc='best')
@@ -408,7 +413,8 @@ plt.figure(figsize=figsize_mean_convergence)
 i = 0; plt.plot(time[i], zb_mean_t[i], color='black',label=labels_[i]) 
 i = 1; plt.plot(time[i], zb_mean_t[i], color='grey',label=labels_[i]) 
 i = 2; plt.plot(time[i], zb_mean_t[i], color='blue',label=labels_[i]) 
-i = 3; plt.plot(time[i], zb_mean_t[i], color='green',label=labels_[i]) 
+i = 3; plt.plot(time[i], zb_mean_t[i], color='green',label=labels_[i])
+i = 4; plt.plot(time[i], zb_mean_t[i], '--', color='green',label=labels_[i])  
 plt.xlabel(x_label_time)
 plt.ylabel(label_mean_zb)
 plt.xticks([0,5,10,15,20])
@@ -426,6 +432,7 @@ i = 0; plt.plot(time[i], zb_std_t[i], color='black',label=labels_[i])
 i = 1; plt.plot(time[i], zb_std_t[i], color='grey',label=labels_[i]) 
 i = 2; plt.plot(time[i], zb_std_t[i], color='blue',label=labels_[i]) 
 i = 3; plt.plot(time[i], zb_std_t[i], color='green',label=labels_[i]) 
+i = 4; plt.plot(time[i], zb_std_t[i], '--', color='green',label=labels_[i]) 
 plt.xlabel(x_label_time)
 plt.ylabel(label_std_zb)
 plt.legend(loc='best')
@@ -440,6 +447,7 @@ i = 0; plt.plot(time[i], width_mean_t[i], color='black',label=labels_[i])
 i = 1; plt.plot(time[i], width_mean_t[i], color='grey',label=labels_[i]) 
 i = 2; plt.plot(time[i], width_mean_t[i], color='blue',label=labels_[i]) 
 i = 3; plt.plot(time[i], width_mean_t[i], color='green',label=labels_[i]) 
+i = 4; plt.plot(time[i], width_mean_t[i], '--', color='green',label=labels_[i]) 
 plt.xlabel(x_label_time)
 plt.ylabel(label_mean_w)
 plt.xticks([0,5,10,15,20])
@@ -457,6 +465,7 @@ i = 0; plt.plot(time[i], width_std_t[i], color='black',label=labels_[i])
 i = 1; plt.plot(time[i], width_std_t[i], color='grey',label=labels_[i]) 
 i = 2; plt.plot(time[i], width_std_t[i], color='blue',label=labels_[i]) 
 i = 3; plt.plot(time[i], width_std_t[i], color='green',label=labels_[i])
+i = 4; plt.plot(time[i], width_std_t[i], '--', color='green',label=labels_[i])
 plt.xlabel(x_label_time) 
 plt.ylabel(label_std_w)
 plt.legend(loc='best')
@@ -515,6 +524,10 @@ i = 3; plt.scatter(xb_mean[i], zb_mean[i], s=260, marker='^',color='blue',label=
 plt.errorbar(xb_mean[i], zb_mean[i], 
              xerr=xb_std[i], yerr=zb_std[i], color='blue',
              linewidth=width_error_lines,capsize=caps_error_lines)
+i = 4; plt.scatter(xb_mean[i], zb_mean[i], s=260, marker='^',color='red',label=labels_[i]) 
+plt.errorbar(xb_mean[i], zb_mean[i], 
+             xerr=xb_std[i], yerr=zb_std[i], color='blue',
+             linewidth=width_error_lines,capsize=caps_error_lines)
 plt.xticks([4,6,8,10,12])
 plt.yticks([4,6,8,10,12])
 plt.xlim(3.5,12)
@@ -566,6 +579,10 @@ plt.errorbar(xb_mean[i], width_mean[i],
              xerr=xb_std[i], yerr=width_std[i], color='blue',
              linewidth=width_error_lines,capsize=caps_error_lines)
 i = 3; plt.scatter(xb_mean[i], width_mean[i], s=260, marker='^',color='blue',label=labels_[i]) 
+plt.errorbar(xb_mean[i], width_mean[i], 
+             xerr=xb_std[i], yerr=width_std[i], color='blue',
+             linewidth=width_error_lines,capsize=caps_error_lines)
+i = 4; plt.scatter(xb_mean[i], width_mean[i], s=260, marker='^',color='red',label=labels_[i]) 
 plt.errorbar(xb_mean[i], width_mean[i], 
              xerr=xb_std[i], yerr=width_std[i], color='blue',
              linewidth=width_error_lines,capsize=caps_error_lines)

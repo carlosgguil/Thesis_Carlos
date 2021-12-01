@@ -471,7 +471,20 @@ In all cases, the RMS values are really high closer to the injector and decrease
 
 As specified in $\S$\ref{subsec:BIMER_ch7_sw_vortex_breakdown}, when $S_w > 0.6$ a change in the flow field topology due to the strong rotational motion appears, known as vortex breakdown \citepColor[lucca-negro_vortex_2001]. This topology change is seen by two main features: different recirculation regions, discussed previously and seen in Figures \ref{fig:BIMER_mean_axial_velocities} and \ref{fig:BIMER_application_streamlines}, and the appearance of the Precessing Vortex Core (PVC). The PVC is a helical structure of high rotational velocity arising from an instability in the shear layer at the exit of the injector. It rotates around the axis of symmetry. Figure \ref{fig:BIMER_application_turbulent_structures} left shows the PVC visualized by a isobaric contour of low static pressure. The PVC can strongly impact the spray dispersion and the mixing field in reactive cases, creating pockets of low mixture fraction where ignition could hardly take place \citepColor[jaegle_eulerian_2011].
 
-Finally, the high turbulent state found within BIMER can also be demonstrated by showing the unsteady, coherent vortical structures of the flow. These ones are visualized by an iso-contour of the Q criterion (\textbf{add: Q criterion in chapter 5}), Q = $2 \cdot 10^8$ s$^{-2}$, and are shown in Figure \ref{fig:BIMER_application_turbulent_structures} right. Small eddies are created at the exit of the injector, upstream the diffuser, due to the swirling motion of the flow. Further downstream, the eddies show larger characteristic sizes. These vortices show a transversal structure and more wrinkling with respect to the vortices upstream, probably due to the roll-up of shear layers in this region \citepColor[huang_systematic_2006].
+Finally, the high turbulent state found within BIMER can also be demonstrated by showing the unsteady, coherent vortical structures of the flow. Such structures can be illustrated with the Q-criterion defined by \citeColor[jeong_identification_1995]:
+
+\begin{equation}
+Q = \frac{1}{2} \left( \Omega_{ij} \Omega_{ij} - S_{ij} S_{ij} \right)
+\end{equation}
+
+where $\Omega_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} - \frac{\partial u_j}{\partial x_i} \right)$ and $S_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i} \right)$ are respectively the symmetric and antisymmetric components of $\nabla \textbf{u}$. Figure \ref{fig:BIMER_application_turbulent_structures} right shows the vortical structures visualized through an iso-contour Q = $2 \cdot 10^8$ s$^{-2}$. Small eddies are created at the exit of the injector, upstream the diffuser, due to the swirling motion of the flow. Further downstream, the eddies show larger characteristic sizes. These vortices show a transversal structure and more wrinkling with respect to the vortices upstream, probably due to the roll-up of shear layers in this region \citepColor[huang_systematic_2006].
+
+%\begin{equation}
+%S_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i} \right) ~~~~ ; ~~~~ \Omega_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} - \frac{\partial u_j}{\partial x_i} \right)
+%\end{equation}
+
+
+
 
 % ref vortices in swirl: https://arc.aiaa.org/doi/pdf/10.2514/1.15382
 
