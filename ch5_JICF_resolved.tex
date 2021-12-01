@@ -1706,7 +1706,7 @@ Results are shown in Figure \ref{fig:delta_Ql_with_x}. \hl{As seen ...}
 
 
 \begin{figure}[ht]
-\flushleft
+\centering
 \begin{subfigure}[b]{0.9\textwidth}
 	\centering
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/bar_graph_isox_IBs}
@@ -2199,6 +2199,7 @@ s_g = \exp \sqrt{  \frac{\sum_i \ln \left( D_i / \overline{D}_{ng} \right) ^2 }{
 
 
 \section{Learning injectors}
+\label{sec:ch5_learning_SLI}
 
 \subsection{Convergence of global sprays}
 
@@ -2977,7 +2978,25 @@ UG100\_DX20\_NT & - & - & - & - & - \\
 \label{tab:jicf_computational_performances}
 \end{table}
 
-\subsection{Convergence of magnitudes}
+
+\subsection{SLI computational cost}
+
+The injectors built from the JICF simulations were described in $\S$\ref{sec:ch5_learning_SLI}. \hl{It is now useful to provide }
+
+\begin{figure}[ht]
+	\centering
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SLI_cost_for_convergence/cost_all_simulations}
+   \caption{Cost for convergence of SLI at $x = $\hl{10} mm for simulations performed.}
+   \label{fig:SLI_cost_convergence_all}
+\end{figure}
+
+\begin{figure}[ht]
+   \centering
+   \includegraphics[scale=0.215]{./part2_developments/figures_ch5_resolved_JICF/SLI_cost_for_convergence/cost_savings_simulations}
+   \caption{Cost for convergence of SLI at $x = $\hl{10} mm for simulations performed.}
+   \label{fig:SLI_cost_convergence_savings}
+\end{figure}
+
 
 
 \section{Conclusions}
