@@ -245,7 +245,7 @@ ax2.plot(tp_cases[i][j], SMD_cases[i][j], 'b', label=labels_[j])
 ax.plot([0,100],[0]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
 ax.set_xlim(tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05)
-ax.set_xticks([2,3,4])
+ax.set_xticks([2,2.5,3,3.5,4])
 
 ax.set_ylabel(y_label_Ql)
 ax.set_ylim(-8000,8000)

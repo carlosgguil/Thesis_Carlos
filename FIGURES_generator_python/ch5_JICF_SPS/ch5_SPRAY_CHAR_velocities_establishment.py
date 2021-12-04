@@ -178,30 +178,35 @@ plt.close()
 
 
 # UG75_DX20 mean
-i = 1
+i = 1; tp0 = 10
 plt.figure(figsize=figsize_)
 plt.title(labels_title[i])
 ax  = plt.gca()
 ax2 = ax.twinx()
 # x = 05 mm
 j = 0 
-ax.plot(tp_cases[i][j], ux_mean_cases[i][j], 'k', label=labels_[j]) 
-ax2.plot(tp_cases[i][j], uy_mean_cases[i][j], '--k', label=labels_[j])
-ax2.plot(tp_cases[i][j], uz_mean_cases[i][j], 'k', label=labels_[j])
+ax.plot(tp_cases[i][j][tp0:], ux_mean_cases[i][j][tp0:], 'k', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_mean_cases[i][j][tp0:], '--k', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_mean_cases[i][j][tp0:], 'k', label=labels_[j])
 # x = 10 mm
 j = 1
-ax.plot(tp_cases[i][j], ux_mean_cases[i][j], 'b', label=labels_[j]) 
-ax2.plot(tp_cases[i][j], uy_mean_cases[i][j], '--b', label=labels_[j])
-ax2.plot(tp_cases[i][j], uz_mean_cases[i][j], 'b', label=labels_[j])
+ax.plot(tp_cases[i][j][tp0:], ux_mean_cases[i][j][tp0:], 'b', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_mean_cases[i][j][tp0:], '--b', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_mean_cases[i][j][tp0:], 'b', label=labels_[j])
+# x = 15 mm
+j = 2; 
+ax.plot(tp_cases[i][j][tp0:], ux_mean_cases[i][j][tp0:], 'r', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_mean_cases[i][j][tp0:], '--r', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_mean_cases[i][j][tp0:], 'r', label=labels_[j])
 # Raya horizontal y parametros a tunear
-ax.plot([0,100],[30]*2,format_separating_line,linewidth=linewidth_separating_line)
+ax.plot([0,100],[34]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
 ax.set_xlim(tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05)
 #ax.set_xticks([2,3,4])
 
 ax.set_ylabel(y_label_ux_mean)
-ax.set_ylim(0,55)
-ax.set_yticks([30, 40, 50])
+ax.set_ylim(25,45)
+ax.set_yticks([35, 40, 45])
 ax.yaxis.set_label_coords(-0.15,0.8)
 
 ax2.set_ylabel(y_label_uz_mean)
@@ -220,6 +225,136 @@ plt.close()
 
 
 
+# UG100_DX10 mean
+i = 2; tp0 = 1
+plt.figure(figsize=figsize_)
+plt.title(labels_title[i])
+ax  = plt.gca()
+ax2 = ax.twinx()
+# x = 05 mm
+j = 0 
+ax.plot(tp_cases[i][j], ux_mean_cases[i][j], 'k', label=labels_[j]) 
+ax2.plot(tp_cases[i][j], uy_mean_cases[i][j], '--k', label=labels_[j])
+ax2.plot(tp_cases[i][j], uz_mean_cases[i][j], 'k', label=labels_[j])
+# x = 10 mm
+j = 1
+ax.plot(tp_cases[i][j], ux_mean_cases[i][j], 'b', label=labels_[j]) 
+ax2.plot(tp_cases[i][j], uy_mean_cases[i][j], '--b', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_mean_cases[i][j][tp0:], 'b', label=labels_[j])
+# Raya horizontal y parametros a tunear
+ax.plot([0,100],[50]*2,format_separating_line,linewidth=linewidth_separating_line)
+ax.set_xlabel(x_label_time)
+ax.set_xlim(tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05)
+ax.set_xticks([2,2.5,3,3.5,4])
+
+ax.set_ylabel(y_label_ux_mean)
+ax.set_ylim(30,72)
+ax.set_yticks([50, 55, 60, 65, 70])
+ax.yaxis.set_label_coords(-0.15,0.8)
+
+ax2.set_ylabel(y_label_uz_mean)
+ax2.set_ylim(-10,52)
+ax2.set_yticks([-5, 0,5,10])
+#ax2.set_ylim(30,270)
+#ax2.set_yticks([50,100,150])
+ax2.yaxis.set_label_coords(1.1,0.224)
+
+ax.grid()
+ax2.grid()
+plt.tight_layout(pad=0)
+#plt.savefig(folder_manuscript+'establishment_UG75_DX10.pdf')
+plt.show()
+plt.close()
+
+
+# UG100_DX20 mean
+i = 3; tp0 = 5
+plt.figure(figsize=figsize_)
+plt.title(labels_title[i])
+ax  = plt.gca()
+ax2 = ax.twinx()
+# x = 05 mm
+j = 0 
+ax.plot(tp_cases[i][j][tp0:], ux_mean_cases[i][j][tp0:], 'k', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_mean_cases[i][j][tp0:], '--k', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_mean_cases[i][j][tp0:], 'k', label=labels_[j])
+# x = 10 mm
+j = 1
+ax.plot(tp_cases[i][j][tp0:], ux_mean_cases[i][j][tp0:], 'b', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_mean_cases[i][j][tp0:], '--b', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_mean_cases[i][j][tp0:], 'b', label=labels_[j])
+# x = 15 mm
+j = 2; 
+ax.plot(tp_cases[i][j][tp0:], ux_mean_cases[i][j][tp0:], 'r', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_mean_cases[i][j][tp0:], '--r', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_mean_cases[i][j][tp0:], 'r', label=labels_[j])
+# Raya horizontal y parametros a tunear
+ax.plot([0,100],[45]*2,format_separating_line,linewidth=linewidth_separating_line)
+ax.set_xlabel(x_label_time)
+ax.set_xlim(tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05)
+#ax.set_xticks([2,3,4])
+
+ax.set_ylabel(y_label_ux_mean)
+ax.set_ylim(25,65)
+ax.set_yticks([45, 50, 55, 60, 65])
+ax.yaxis.set_label_coords(-0.15,0.8)
+
+ax2.set_ylabel(y_label_uz_mean)
+ax2.set_ylim(-2.5,30)
+ax2.set_yticks([0,2.5,5,7.5,10])
+#ax2.set_ylim(30,270)
+#ax2.set_yticks([50,100,150])
+ax2.yaxis.set_label_coords(1.1,0.224)
+
+ax.grid()
+ax2.grid()
+plt.tight_layout(pad=0)
+#plt.savefig(folder_manuscript+'establishment_UG75_DX10.pdf')
+plt.show()
+plt.close()
+
+
+
+# UG100_DX20 mean
+i = 4; tp0 = 0
+plt.figure(figsize=figsize_)
+plt.title(labels_title[i])
+ax  = plt.gca()
+ax2 = ax.twinx()
+# x = 05 mm
+j = 0 
+ax.plot(tp_cases[i][j][tp0:], ux_mean_cases[i][j][tp0:], 'k', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_mean_cases[i][j][tp0:], '--k', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_mean_cases[i][j][tp0:], 'k', label=labels_[j])
+# x = 10 mm
+j = 1
+ax.plot(tp_cases[i][j][tp0:], ux_mean_cases[i][j][tp0:], 'b', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_mean_cases[i][j][tp0:], '--b', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_mean_cases[i][j][tp0:], 'b', label=labels_[j])
+# Raya horizontal y parametros a tunear
+ax.plot([0,100],[45]*2,format_separating_line,linewidth=linewidth_separating_line)
+ax.set_xlabel(x_label_time)
+ax.set_xlim(tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05)
+#ax.set_xticks([2,3,4])
+
+ax.set_ylabel(y_label_ux_mean)
+ax.set_ylim(25,65)
+ax.set_yticks([45, 50, 55, 60, 65])
+ax.yaxis.set_label_coords(-0.15,0.8)
+
+ax2.set_ylabel(y_label_uz_mean)
+ax2.set_ylim(-2.5,15)
+ax2.set_yticks([-2.5,0,2.5,5])
+#ax2.set_ylim(30,270)
+#ax2.set_yticks([50,100,150])
+ax2.yaxis.set_label_coords(1.1,0.224)
+
+ax.grid()
+ax2.grid()
+plt.tight_layout(pad=0)
+#plt.savefig(folder_manuscript+'establishment_UG75_DX10.pdf')
+plt.show()
+plt.close()
 
 
 
