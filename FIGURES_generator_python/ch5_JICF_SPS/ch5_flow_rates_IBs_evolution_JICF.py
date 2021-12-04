@@ -28,7 +28,7 @@ plt.rcParams['ytick.labelsize'] = 90*FFIG # 80*FFIG
 plt.rcParams['axes.labelsize']  = 90*FFIG #80*FFIG
 plt.rcParams['axes.labelpad']   = 30*FFIG
 plt.rcParams['axes.titlesize']  = 90*FFIG #80*FFIG
-plt.rcParams['legend.fontsize'] = 60*FFIG #50*FFIG
+plt.rcParams['legend.fontsize'] = 70*FFIG #50*FFIG
 plt.rcParams['font.size'] = 50*FFIG
 plt.rcParams['lines.linewidth'] =  6*FFIG #6*FFIG
 plt.rcParams['legend.framealpha'] = 1.0
@@ -634,7 +634,7 @@ plt.bar(r2+0.25, Q_x_mean_x15, yerr=Q_x_RMS_x15, width=barWidth, color='red', ed
 #plt.xlabel('Case')#, fontweight='bold')
 plt.ylabel(y_label_Ql_mean_perp)
 plt.xticks([r for r in range(len(cases))], cases)
-plt.legend(loc='upper left')
+plt.legend(loc='upper left', ncol=2)
 plt.tight_layout()
 plt.savefig(folder_manuscript+'bar_graph_isox_IBs.pdf')
 plt.show()
@@ -700,7 +700,7 @@ plt.bar(r2+0.25, Q_x_total_mean_x15, yerr=Q_x_total_RMS_x15, width=barWidth, col
 #plt.xlabel('Case')#, fontweight='bold')
 plt.ylabel(y_label_Ql_mean_total)
 plt.xticks([r for r in range(len(cases))], cases)
-plt.legend(loc='upper left')
+plt.legend(loc='upper left',ncol=2)
 plt.tight_layout()
 plt.savefig(folder_manuscript+'bar_graph_total_IBs.pdf')
 plt.show()
@@ -722,7 +722,7 @@ plt.plot(x_dx10, Q_loss_UG100_DX10, 'o-b',label=label_UG100_DX10)
 plt.plot(x_dx20, Q_loss_UG100_DX20, '^-b',label=label_UG100_DX20)
 plt.xlabel(r'$x~[\mathrm{mm]}$')
 plt.ylabel(r'$\Delta Q_l~[\%]$')
-plt.legend(loc='best')
+plt.legend(loc='best',fontsize=60*FFIG)
 plt.xticks([5,10,15])
 plt.yticks([0,10,20,30])
 plt.grid()

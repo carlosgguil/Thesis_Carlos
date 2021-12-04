@@ -236,7 +236,47 @@ Droplets are sampled according to their center of mass (CM) location. Note that,
 
 In this work, droplets crossing surface areas are sampled, hence obtaining flux density distributions. The defined surface areas employed will be hereafter referred as \textbf{sampling planes}. To determine when a droplet is sampled, a sampling rate $T_\mathrm{sample}$ is specified so that the current location and velocities of droplets CM at time $t$ is checked. Then, the location of each droplet at time $t + T_\mathrm{sample}$ is estimated by projecting the position of the center of mass with the current velocities. Droplets whose current location at $t$ and projected location at $t + T_\mathrm{sample}$ is at different sides of a sampling planes are sampled. This procedure is referred as \textbf{lagrangian projection} of droplets. It is computationally cheap, so can be performed in the resolved and dispersed phase computations without highly increasing the cost of the simulations. On the other hand, it has the main disadvantages that 1) some actual crossing droplets might not be sampled and 2) contrarily, some droplets might be sampled twice. These downcomes of the methodology could be circumvented by including a tag field where droplets are assigned an ID number that does not change with time. However, this is not available yet and is difficult to implement, since the atomization process hinders droplet tagging as liquid structures change constantly during primary and secondary breakup.
 
-The sampling rate is chosen so that that all droplets crossing the plane are collected. Droplets are accumulated with time, and then statistics are calculated. Choosing a right sampling rate will ensure that at the end of the accumulation process, the mass flow rate in average is the actual rate passing through the sampling plane in the resolved simulations. If the sampling rate is too low, some droplets might be missed and the flow rate captured will not be the right one (\textit{aliasing} phenomenon on the spray sampling procedure). Another technique to measure flow rates directly in resolved atomization simulations, called interior boundaries, has been developed in this thesis. It is later explained, and compared to the rates obtained from the lagrangian tracking procedure, in $\S$\ref{subsubsec:ch5_interior_boundaries}.
+The sampling rate is chosen so that that all droplets crossing the plane are collected. Droplets are accumulated with time, and then statistics are calculated. Choosing a right sampling rate will ensure that at the end of the accumulation process, the mass flow rate in average is the actual rate passing through the sampling plane in the resolved simulations. If the sampling rate is too low, some droplets might be missed and the flow rate captured will not be the right one (\textit{aliasing} phenomenon on the spray sampling procedure). Another technique to measure flow rates directly in resolved atomization simulations, called interior boundaries, has been developed in this thesis. This one is later explained and compared to the rates obtained from the lagrangian tracking procedure in $\S$ \ref{subsec:ch5_sli_fluxes_vs_IBs}. \\
+
+\subsubsection*{Defining statistics for sprays}
+
+The resulting spray after a certain accumulation time is composed of a polydisperse ensemble of droplets, each one with the parameters indicated in Table \ref{tab:sampling_parameters}. In order to characterize the spray, it is useful to define averaged and Root-Mean Squared (RMS) values for the whole spray from the individual droplets parameters. For an arbitraty magnitude $f$, the mean and RMS values would be defined as follows:
+
+\begin{equation}
+\label{eq:ch4_f_arbitrary_mean_RMS_definition}
+\overline{f} = \frac{1}{N_\mathrm{dr}} \sum_{i=1}^{N_\mathrm{dr}} f_i  ~~~~~~ ; ~~~~~~ f_\mathrm{RMS} = \sqrt{\overline{f^2} - \overline{f}^2}
+\end{equation}
+
+%\begin{equation}
+%\overline{f} = \frac{1}{T} \sum f_i \Delta t_i ~~~~~~ ; ~~~~~~ f_\mathrm{RMS} = \sqrt{\overline{f^2} - \overline{f}^2}
+%\end{equation}
+
+where $N_\mathrm{dr}$ is the number of accumulated droplets. In the case of polydisperse sprays, where there are several liquid structures with different volumes, it is also useful to define volume-weighted averages in order to give more importance to the properties of larger droplets. For an arbitraty magnitude $f$, the volume-weighted mean and RMS can therefore be defined as:
+
+\begin{equation}
+\displaystyle \overline{f}_\mathrm{VW} = \frac{1}{\sum_{i=1}^{N_\mathrm{dr}} V_i} \sum_{i=1}^{N_\mathrm{dr}} f_i V_i ~~~~ ; ~~~~ \textbf{f}_\mathrm{RMS,VW} = \sqrt{\displaystyle \overline{f^2 }_\mathrm{VW} - \displaystyle \overline{f }_\mathrm{VW}^2}
+\end{equation}
+
+where $V_i$ is the volume of each liquid structure. \\
+
+In two-phase flow problems involving disperse-phase sprays it is useful to define average diameters of droplets with definitions different than the one given by applying Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_definition}), since they are better representative of the physical problems involving mass or heat transfor. In particular, the combustion community employes widely the averaged droplet size known as Sauter Mean Diameter (SMD), defined by the following expression:
+
+\begin{equation}
+\label{eq:ch4_SMD_definition}
+\mathrm{SMD} = \frac{\sum_{i=1}^{N_\mathrm{dr}} d_i^3 }{\sum_{i=1}^{N_\mathrm{dr}} d_i^2}
+\end{equation} 
+
+where $d_i$ is the individual diameter of each droplet. The numerator of this expression is proportional to the cube of the diameter, which is related to the droplet volume. The denominator is dependent to its square, which is related to the droplet liquid surface. Therefore, the SMD represents a mean diameter which expresses the relation between the liquid volume and surface in a spray. This is specially useful when evaporation is present (i.e. prior to combustion), since evaporation occurs when the specific liquid surface (the surface of liquid in contact with air) is large: that is, when the SMD is small.
+
+Finally, a last useful magnitude that can be defined for a moving spray is the liquid flow rate, which is a mean quantity by definition. Considering a sampling surface as in Figure \ref{fig:tropea_droplet_sampling}, the mean liquid flow rate can be obtained as follows:
+
+\begin{equation}
+\label{eq:ch4_Ql_definition}
+Q_l = \frac{d V_l}{dt} \approx \frac{\Delta V_l}{\Delta t} = \frac{\sum_{i=1}^{N_\mathrm{dr}} }{t_\mathrm{acc}} 
+\end{equation}
+
+where $t_\mathrm{acc}$ is the total accumulation time. 
+
 
 
 \subsection{Spray convergence}
@@ -334,6 +374,15 @@ Improvements in the statistical convergence of spray include the combination of 
 \subsection{Spatial discretization of sprays}
 \label{subsec:SLI_spatial_discretization}
 
+The in-plane, accumulated spray is discretized with a grid composed of uniform probes with surface $S_\mathrm{probe}$. For each probe, a surface-weight flux can be calculated. Denoted as $q_l$, it can be obtained as:
+
+\begin{equation}
+\label{eq:ch4_Ql_definition}
+q_l = \frac{Q_l}{S_\mathrm{probe}}
+\end{equation}
+
+The advantage of $q_l$ is that it converges with the probe size, as opposed to $q_l$. Effectively, if the size of the grid $\Delta y$ x $\Delta z$ is reduced, the liquid flux as defined by Eq. (\ref{eq:ch4_Ql_definition}) will also decrease since less droplets might be sampled in a smaller surface. Nevertheless, the volume flux $q_l$ will we maintaned because, despite the reduction in $Q_l$, the probe surface is also smaller.
+
 \begin{figure}[h!]	
 	\centering
 	\includeinkscape[inkscapelatex=false,width=10cm]{./part2_developments/figures_ch4_SLI/plane_injection_sketch}
@@ -381,15 +430,7 @@ The numerical implementation of the process works as follows:
 
 Statistics are obtained 
 
-Time-averaged  and RMS parameters are of a quantity $f$ are defined respectively as follows:
 
-\begin{equation}
-\overline{f} = \frac{1}{T} \sum f \left( t_i \right) \Delta t_i
-\end{equation}
-
-\begin{equation}
-f_\mathrm{RMS} = \sqrt{\overline{f^2} - \overline{f}^2}
-\end{equation}
 
 
 

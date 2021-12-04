@@ -1,5 +1,5 @@
 \chapter{Resolved atomization simulations of liquid jet in crossflow}
-	\label{ch5:jicf_resolved_simulations}
+\label{ch5:jicf_resolved_simulations}
 
 
 
@@ -1601,6 +1601,7 @@ The effect of the dense to the gaseous phase was shown in the plane $y = 0$ mm b
 \clearpage
 
 \section{Direct measurement of liquid fluxes}
+\label{sec:ch5_direct_measurement_fluxes_IB}
 
 The procedure proposed for obtainining liquid fluxes from the resolved simulations was described in $\S$\ref{subsec:ch5_interior_boundaries}. Liquid fluxes have been measured in the resolved simulations at the planes shown in Figure \ref{fig:jicf_interior_boundaries_surface_measurements}. In the simulations with a mesh resolution of $\Delta x_\mathrm{min} = 20 \mu m$, fluxes have been obtained in all interior boundaries (IBs) shown in the sketch, i.e. axial planes x = 5, 10 and 15 mm, and filming planes x < 5, 10 and 15 mm. For the fine simulations, results were collected up to x = 10 mm since the liquid was removed shortly afterwards to reduce the computational cost of the simulations. It is worth to mention that in the chosen JICF configuration, liquid is injected into the plenum through the nozzle in the $x$ direction. Then, the jet deviates towards the air streamwise direction $x$, and some liquid droplets will also hit the bottom wall which is perpendicular to the $z$ axis. Therefore, by mass conservation, the injected liquid flow rate (defined in Table \ref{tab:jicf_operating_conditions}) must be equal to the addition of the flow rates crossing an IB at a given $x$ location and a filming plane perpendicular to the $z$ axis which extends from downstream the injection nozzle up to the $x$ location of the vertical IB. This is equivalent to defining a rectangular control volume that encloses the full jet in the plenum up to a certain $x$ location: according to Eq. (\ref{eq:mass_conservation_general_bothPhases_transient}b), the flows entering the control volume (injected liquid) must be equal to the ones leaving it (ligaments or droplets flowing downstream and droplets reaching the walls). No other control surfaces need to be considered, since there is no liquid either flowing upstream of hitting the top or side walls.
 
@@ -1668,6 +1669,7 @@ Results are shown in Figure \ref{fig:delta_Ql_with_x}. \hl{As seen ...}
 \begin{subfigure}[b]{0.9\textwidth}
 	\flushleft
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/evolution_mean_Q_iso_x}
+   \vspace*{-0.1in}
    \caption{Mean $Q_l$ evolution in IBs perpendicular to crossflow.}
    %\label{} 
 \end{subfigure}
@@ -1677,6 +1679,7 @@ Results are shown in Figure \ref{fig:delta_Ql_with_x}. \hl{As seen ...}
 \begin{subfigure}[b]{0.9\textwidth}
 	\flushleft
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/evolution_rms_Q_iso_x}
+   \vspace*{-0.1in}
    \caption{RMS $Q_l$ evolution in IBs perpendicular to crossflow.}
    %\label{}
 \end{subfigure}
@@ -1686,6 +1689,7 @@ Results are shown in Figure \ref{fig:delta_Ql_with_x}. \hl{As seen ...}
 \begin{subfigure}[b]{0.9\textwidth}
 	\flushleft
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/evolution_mean_Q_filming}
+   \vspace*{-0.1in}
    \caption{Mean $Q_l$ evolution in filming IBs.}
    %\label{} 
 \end{subfigure}
@@ -1695,6 +1699,7 @@ Results are shown in Figure \ref{fig:delta_Ql_with_x}. \hl{As seen ...}
 \begin{subfigure}[b]{0.9\textwidth}
 	\flushleft
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/evolution_rms_Q_filming}
+   \vspace*{-0.1in}
    \caption{RMS $Q_l$ evolution in filming IBs.}
    %\label{}
 \end{subfigure}
@@ -1719,7 +1724,7 @@ Results are shown in Figure \ref{fig:delta_Ql_with_x}. \hl{As seen ...}
 \begin{subfigure}[b]{0.9\textwidth}
 	\centering
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/bar_graph_filming_IBs}
-   \caption{Filming IBs}
+   \caption{Filming IBs.}
    \label{fig:IB_bargraph_filming}
 \end{subfigure}
 
@@ -1869,15 +1874,15 @@ In order to retrieve the quantity of lost liquid due to band flagging, the $\psi
 From the levelset function $\psi$, the volume of liquid in the domain can be obtained at each iteration can be obtained with Eq. (\ref{eq:liquid_volume_from_levelset_definition}). The $\psi$ field in this expression corresponds to the one after performing the band flagging process, i.e. $\psi^+$, hence the liquid volume at each iteration could be denoted as $V_l^+$. For simplicity reasons, it will be simply denoted as $V_l$ in the graphs that follow. In the same fashion, liquid volume before the band flagging operation can also be obtained with $\psi^-$, which yields then a volume $V_l^-$. From these two quantities, the amount of loss liquid at each iteration due to the band flagging process can then be easily obtained as their difference:
 
 \begin{equation}
-\label{eq:ch5_LS_loss_delta_Vl_field}
-\Delta V_l \left( t \right) = V_l^- \left( t \right)  - V_l^+ \left( t \right) + \int_{t_0}^t \Delta V_l \left( \tau \right) d\tau
+\label{eq:ch5_LS_loss_delta_Vl_BF}
+\Delta V_{l,\mathrm{BF}}  \left( t \right) = V_l^- \left( t \right)  - V_l^+ \left( t \right) + \int_{t_0}^t \Delta V_{l,\mathrm{BF}} \left( \tau \right) d\tau
 \end{equation}
 
 Where $t_0$ is the first time instant at each simulation run. The last integral term has been added so that $\Delta V_l$ represents the accumulated liquid volume lost throughout a run. This quantity can now be added to the total volume at the end of each iteration to provide the liquid volume that would be present at the domain if there was no mass loss due to band flagging, named $V_{l,\mathrm{NF}}$:
 
 \begin{equation}
 \label{eq:ch5_liquid_volume_no_flagging}
-V_{l,\mathrm{NF}}  \left( t \right) = V_l  \left( t \right) + \Delta V_l \left( t \right)
+V_{l,\mathrm{BF}}  \left( t \right) = V_l  \left( t \right) + \Delta V_{l,\mathrm{BF}} \left( t \right)
 \end{equation}
 
 Finally, the total amount of liquid volume injected in a simulation run can be quantified with the following expression:
@@ -1892,9 +1897,18 @@ Finally, the total amount of liquid volume injected in a simulation run can be q
 V_{l,\mathrm{inj}} \left( t \right) = V_{l,0} + \int_{t_0}^t Q_\mathrm{injected}~d\tau = V_{l,0} + Q_\mathrm{injected}  \left( t - t_0 \right)
 \end{equation}
 
-where $V_{l,0}$ is the liquid volume present at the beginning of every simulation run. $V_{l,\mathrm{inj}}$ represents therefore the quantity of liquid volume at the domain injected which would be in the simulations if there was not mass loss of any type, i.e. neither through levelset band flagging nor to mesh adaptation.
+where $V_{l,0}$ is the liquid volume present at the beginning of every simulation run. $V_{l,\mathrm{inj}}$ represents therefore the quantity of liquid volume at the domain injected which would be in the simulations if there was not mass loss of any type, i.e. neither through levelset band flagging nor to mesh adaptation. Then, the total mass loss of volume can be computed as:
 
-With both Eqs. (\ref{eq:ch5_LS_loss_delta_psi_field}) and (\ref{eq:ch5_LS_loss_delta_Vl_field}) the amount of levelset lost due to the reinitiailzation can be fully characterized: the former provides an instantaneous field of the location in which liquid disappears, and the latter yields the instantaneous amount of levelset loss. The total loss of liquid volume can then be quantified with the addition of Eqs. (\ref{eq:ch5_liquid_volume_no_flagging}) and (\ref{eq:ch5_liquid_volume_injected}). \\
+\begin{equation}
+\label{eq:ch5_LS_loss_delta_Vl_total}
+\Delta V_{l,\mathrm{total}}  \left( t \right)  = V_{l,\mathrm{inj}} \left( t \right) - V_l \left( t \right)
+\end{equation}
+
+With both Eqs. (\ref{eq:ch5_LS_loss_delta_psi_field}) and (\ref{eq:ch5_LS_loss_delta_Vl_total}) the amount of levelset lost due to the reinitiailzation can be fully characterized: the former provides an instantaneous field of the location in which liquid disappears, and the latter yields the instantaneous amount of levelset loss. The loss of liquid volume can be quantified with the addition of Eqs. (\ref{eq:ch5_LS_loss_delta_Vl_BF}) and (\ref{eq:ch5_LS_loss_delta_Vl_total}). The difference of both provides the mass loss which is not due to the band flagging process, and which is thought to be caused by the AMR process as shown later. This magnitude is denoted as $\Delta V_{l\mathrm{NBF}}$: 
+
+\begin{equation}
+\Delta V_{l\mathrm{NBF}} = \Delta V_{l,\mathrm{total}} - \Delta V_{l\mathrm{BF}}
+\end{equation}
 
 Evaluation of mass loss with the previous simulations is performed for the two resolutions of the high Weber case: UG100\_DX20, UG100\_DX10. Computations are run for a short time (\hl{specify it}) without liquid removal at the end of the domain (i.e. removing the sponge layer), otherwise the application of Eqs. (\ref{eq:liquid_volume_from_levelset_definition}) (\ref{eq:ch5_liquid_volume_no_flagging}) would also account for this artificial loss. The parameters from the ACLS methodology that can have an influence on the $\psi$ loss are the interface thickness $\varepsilon$ from Eq. (\ref{eq:ACLS_psi_definition}) and the number of reinitiation steps $N_\mathrm{reinit}$ of the reinitialization equation (\ref{eq:acls_reinit_2017}). These two parameters are tested hereafter with case UG100\_DX20; case UG100\_DX10 is only studied with one configuration to evaluate the influence of interface resolution. The four simulations performed are shown in Table \ref{tab:jicf_simulations_mass_loss_set_levelset_band}, where Case 1 is the baseline case. The optimal configuration has been found for $N_\mathrm{reinit} = 6$  and $\varepsilon = 0.5$: all the simulations performed in the rest of sections of this chapter, summarized in Table \ref{tab:jicf_resolved_simulations_performed}, have been performed for these two values. In this section, the baseline (case 1) and the fine-resolution simulation (case 4) use the parameter $N_\mathrm{reinit} = 3$ because they were performed previously to the optimal configuration being found.
 
@@ -1907,8 +1921,8 @@ Evaluation of mass loss with the previous simulations is performed for the two r
 \thickhline
 1 & 20 & 3 & 0.5 \\
 2 & 20 & 6 & 0.5 \\
-3 & 20 & 3 & 0.7 \\
-4 & 10 & 3 & 0.5 \\
+3 & 10 & 3 & 0.5 \\
+4 & 20 & 3 & 0.7 \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_simulations_mass_loss_set_levelset_band}
@@ -1931,11 +1945,10 @@ Evaluation of mass loss with the previous simulations is performed for the two r
 \begin{figure}[h!]
 	\centering
 	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/mass_loss_baseline_and_dx10}
-	\caption{Cases 1 (baseline, left) and 4 (dx10, right)}
-	\label{fig:jicf_mass_loss_baseline_and_dx10}
+	\caption{Regions of mass loss at the end of simulation for (a) case 1 (baseline) and (b) case 3 ($\Delta x_\mathrm{min} = 10~\mu$m).}	\label{fig:jicf_mass_loss_baseline_and_dx10}
 \end{figure}
 
-Results for the evolution of liquid for quantities $V_{l,\mathrm{inj}}$, $V_{l,\mathrm{NF}}$ and $V_l$ are shown in Figure \ref{fig:JICF_nelem_increase}.
+Results for the evolution of liquid for quantities $V_{l,\mathrm{inj}}$, $V_{l,\mathrm{NF}}$ and $V_l$ are shown in Figure \ref{fig:JICF_liquid_evolution_loss_due_to_set_levelset_band}.
 
 
 
@@ -1947,6 +1960,8 @@ Results for the evolution of liquid for quantities $V_{l,\mathrm{inj}}$, $V_{l,\
 
 
 \subsubsection*{Effect of $\varepsilon$}
+
+One can see that by increasing $\varepsilon$ from 0.5 to 0.7, the total volume of liquid lost worsens
 
 \clearpage
 
@@ -1969,24 +1984,43 @@ Results for the evolution of liquid for quantities $V_{l,\mathrm{inj}}$, $V_{l,\
 \vskip\baselineskip
 
 \begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.24]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/vl_loss_case_epsilon}
-   \caption{Case 3: $\varepsilon = 0.7$.}
+	\flushleft
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/vl_loss_case_dx10}
+   \caption{Case 3: $\Delta x_\mathrm{min} = 10~\mu$m.}
    %\label{fig:JICF_nelem_increase_all_t} 
 \end{subfigure}
 \hfill
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
-   \includegraphics[scale=0.24]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/vl_loss_case_dx10}
-   \caption{Case 4: $\Delta x_\mathrm{min} = 10~\mu$m.}
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/vl_loss_case_epsilon}
+   \caption{Case 4: $\varepsilon = 0.7$.}
    %\label{fig:JICF_nelem_increase_t_0_to_2}
 \end{subfigure}
 
 
    \caption[Evolution of liquid volumes]{Evolution of liquid volumes for cases 1 to 4 from Table \ref{tab:jicf_simulations_mass_loss_set_levelset_band}. The dashed grey lines indicate the iterations of adaptation for each case.}
-\label{fig:JICF_nelem_increase}
+\label{fig:JICF_liquid_evolution_loss_due_to_set_levelset_band}
 \end{figure}
 
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/bar_graph_dv_l}
+   \caption{Absolute volume losses from simulations.}
+   %\label{fig:JICF_nelem_increase_all_t} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/bar_graph_losses_percentage}
+   \caption{Percentual contribution to to total volume loss.}
+   %\label{fig:JICF_nelem_increase_t_0_to_2}
+\end{subfigure}
+
+   \caption{\hl{Liquid losses values}}
+\label{fig:JICF_liquid_losses_bar_graph}
+\end{figure}
 
 
 \clearpage
@@ -2000,6 +2034,18 @@ Loco mirar Figure \ref{fig:ibs_spatial_distributions}.
 \flushleft
 \begin{subfigure}[b]{1.1\textwidth}
 	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG75_DX10_x05mm_volume_flux}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG75_DX10_x10mm_volume_flux}
+   \vspace*{-0.1in}
+	\caption{Case UG75\_DX10}
+\end{subfigure}
+
+
+\vskip\baselineskip
+
+
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG75_DX20_x05mm_volume_flux}
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG75_DX20_x10mm_volume_flux}
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG75_DX20_x15mm_volume_flux}
@@ -2009,16 +2055,17 @@ Loco mirar Figure \ref{fig:ibs_spatial_distributions}.
 
 \vskip\baselineskip
 
+
 \begin{subfigure}[b]{1.1\textwidth}
 	\flushleft
-   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG75_DX10_x05mm_volume_flux}
-   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG75_DX10_x10mm_volume_flux}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG100_DX10_x05mm_volume_flux}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG100_DX10_x10mm_volume_flux}
    \vspace*{-0.1in}
-	\caption{Case UG75\_DX10}
+	\caption{Case UG100\_DX10}
 \end{subfigure}
 
-
 \vskip\baselineskip
+
 
 \begin{subfigure}[b]{1.1\textwidth}
 	\flushleft
@@ -2029,15 +2076,6 @@ Loco mirar Figure \ref{fig:ibs_spatial_distributions}.
 	\caption{Case UG100\_DX20}
 \end{subfigure}
 
-\vskip\baselineskip
-
-\begin{subfigure}[b]{1.1\textwidth}
-	\flushleft
-   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG100_DX10_x05mm_volume_flux}
-   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/spatial_maps/UG100_DX10_x10mm_volume_flux}
-   \vspace*{-0.1in}
-	\caption{Case UG100\_DX10}
-\end{subfigure}
 
    \caption{Spatial distributions of volume fluxes obtained from interior boundaries.}
 \label{fig:ibs_spatial_distributions}
@@ -2051,37 +2089,114 @@ Loco mirar Figure \ref{fig:ibs_spatial_distributions}.
 
 %\subsubsection{Sampling procedure for droplets}
 
-The previous sections have shown analysis of the JICF simulations for the gaseous phase and for the liquid phase obtained through postprocessing and inspection of magnitudes based on the level-set field $\psi$ $\Psi$. This section presents a characterization of the spray obtained from these simulations through lagrangian tracking of the liquid structures sampled as described in $\S$\ref{subsec:SLI_spray_sampling}. The sampling planes perpendicular to crossflow are those already discussed for each simulations, corresponding to the planes showning the droplets arrival times in Table \ref{tab:jicf_characteristic_droplet_sampling_times} or the flux maps from IBs from Figure \ref{fig:ibs_spatial_distributions}.
+The previous sections have shown analysis of the JICF simulations for the gaseous phase and for the liquid phase obtained through postprocessing and inspection of magnitudes based on the level-set field $\psi$ $\Psi$. This section presents a characterization of the global spray (i.e. prior to the spatial classification shown in Figure \ref{fig:SLI_graphic_description}, which is the object of $\S$\ref{sec:ch5_learning_SLI}) obtained from these simulations through lagrangian tracking of the liquid structures sampled as described in $\S$\ref{subsec:SLI_spray_sampling}. The sampling planes perpendicular to crossflow are those already discussed for each simulations, corresponding to the planes showning the droplets arrival times in Table \ref{tab:jicf_characteristic_droplet_sampling_times} or the flux maps from IBs from Figure \ref{fig:ibs_spatial_distributions}.
 
-Droplets are accumulated 
+\subsection{Establishment of mean sprays}
 
-The number of droplets accumulated in each sampling plane for all the simulations performed in shown in Figure \ref{tab:jicf_Ndr_accumulated}.
+Droplets are tracked lagrangially as they cross the sampling planes, and are accumulated with time in order to get a mean-converged spray. Firstly, an establishment time of $t^{\prime} = 2$ is left before droplets start to be accumulated in order to retrieve a representative spray of a established jet, as it was done in the rest of this chapter's sections to obtain mean values. Droplets are then accumulated for the accumulation times shown in Table \ref{tab:jicf_SLI_t_prime_accumulation}. The total number of droplets accumulated is shown in Table \ref{tab:jicf_SLI_Ndr_accumulated}.
+
+\begin{table}[!h]
+\centering
+\caption{Total accumulation times $t_\mathrm{acc}^{\prime}$ (Eq. \ref{eq:t_prime_with_tau_drx10}) for each simulation.}
+\begin{tabular}{lccc}
+\thickhline
+\textbf{Case} & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
+\thickhline 
+UG75\_DX10  &  &  & - \\
+UG75\_DX20  &   &  &   \\
+UG100\_DX10 &  &  & - \\
+UG100\_DX20 &  &  &   \\
+UG100\_DX20\_NT &  & & - \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_SLI_t_prime_accumulation}
+\end{table}
+
 
 \begin{table}[!h]
 \centering
 \caption{Number of droplets accumulated in JICF simulations}
-\begin{tabular}{lcccc}
+\begin{tabular}{lccc}
 \thickhline
-\textbf{Case} & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  & $x = 20$ mm \\
+\textbf{Case} & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
 \thickhline 
-UG75\_DX10  & 14233 & 20677 & - & - \\
-UG75\_DX20  &  6882 & 12224 & 12077 & 9440 \\
-UG100\_DX10 & 16442 & 11087 & - & -\\
-UG100\_DX20 & 21824 & 17793 & 9476 & 11041 \\
-UG100\_DX20\_NT &  & & & \\
+UG75\_DX10  & 14233 & 20677 & - \\
+UG75\_DX20  &  6882 & 12224 & 12077 \\
+UG100\_DX10 & 16442 & 11087 & - \\
+UG100\_DX20 & 21824 & 17793 & 9476 \\
+UG100\_DX20\_NT &  & & - \\
 \thickhline
 \end{tabular}
-\label{tab:jicf_Ndr_accumulated}
+\label{tab:jicf_SLI_Ndr_accumulated}
 \end{table}
 
-For the histograms, we can see 2013 Vie.
+In first place, the establishment of the accumulated sprays is verified by checking the evolution of SMD and liquid flux $Q_l$, defined respectively by Eqs. (\ref{eq:ch4_SMD_definition}) and (\ref{eq:ch4_Ql_definition}), with time. Figure \ref{fig:ch5_spray_char_establishment} shows the results. \hl{As observed ...}.
+
+\hl{Tenemos que comprobar lo siguiente}:
+
+\begin{itemize}
+
+	\item \hl{Por que demonios algunos SMDs y flujos en el mismo caso tienden al mismo valor ???}
+	
+	\item \hl{Por que demonios en caso UG100\_DX10, la curvas de Ql se paran antes ??}
+	
+	\item \hl{Por que demonios en caso UG100\_DX10, el SMD de x = 5 mm es mayor que el de x = 10 mm ??}
+	
+	\item \hl{Hay que anyadir linea de flujo inyectado !!!}
+
+\end{itemize}
+
+\clearpage
+
+\begin{figure}[ht]
+	\centering
+   \includegraphics[width=0.33\textwidth]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/establishment_and_fluxes/establishment_UG75_DX10}
+   \includegraphics[width=0.33\textwidth]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/establishment_and_fluxes/establishment_UG75_DX20}
+   
+	\vskip\baselineskip
+	
+   \includegraphics[width=0.33\textwidth]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/establishment_and_fluxes/establishment_UG100_DX10}
+   \hspace*{-0.1in}
+   \includegraphics[width=0.33\textwidth]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/establishment_and_fluxes/establishment_UG100_DX20}
+   \hspace*{-0.1in}
+   \includegraphics[width=0.33\textwidth]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/establishment_and_fluxes/establishment_UG100_DX20_NT}
+   \caption{\hl{Establishment of SMD and $Q_l$ in injectors.}}
+\label{fig:ch5_spray_char_establishment}
+\end{figure}
 
 
-\subsection{Deformation variation with axial distance}
 
-\subsection{Liquid velocities}
+
+\subsection{Liquid fluxes: lagrangian versus resolved}
+\label{subsec:ch5_sli_fluxes_vs_IBs}
+
+The establishment of lagrangian liquid fluxes was depicted in Figure \ref{fig:ch5_spray_char_establishment}. In order to verify the effectivity of SLI in terms of liquid mass conservation, the liquid fluxes obtained from lagrangian tracking (i.e. the $Q_l$ values at the last accumulation time instant of Figure \ref{fig:ch5_spray_char_establishment}) are compared to their equivalent obtained through interior boundaries, which are the resolved liquid fluxes obtained in the planes perpendicular to the crossflow shown in Figure Figure \ref{fig:IB_bargraph_perp}. Results are shown in the bar graph of Figure \ref{fig:fluxes_bargraph_IBs_vs_LGS} for all cases except for the simulation without turbulence. \hl{As observed ...}
+
+\begin{figure}[ht]
+	\centering
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/establishment_and_fluxes/fluxes_SLI_vs_IBs}
+   \caption{Liquid fluxes provided by interior boundaries (solid color bars) and lagrangian tracking (black-dashed color bars).}
+   \label{fig:fluxes_bargraph_IBs_vs_LGS}
+\end{figure}
+
 
 \subsection{Granulometry}
+
+
+
+The final SMDs are shown in Figure \ref{fig:ch5_spray_char_SMD_final}. \hl{As observed ...}
+
+
+\begin{figure}[ht]
+\centering
+   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/SMD_values}
+   \vspace*{-0.2in}
+   \caption{Evolution of SMD with axial distance for each simulation.}
+   \label{fig:ch5_spray_char_SMD_final}
+\end{figure}
+
+
+\hl{For the histograms, we can see 2013 Vie.}
 
 Sprays generated by atomization processes can be characterized by means of distributions. A given spray where the sizes of the droplets are known can be studied by representing distributions which express the probability of finding a droplet diameter or volume in that spray. Size distributions are usually representing by the notation $f_0 \left( D \right)$, while volume distributions are denoted by $f_3 \left( D \right)$. Two types of distributions are possible: discrete (histograms) or continuous. In the former, the spectrum of droplets size is divided into several range of droplets named bins or classes, and the number of droplets comprised within each class each counted. Histograms are the usual way of representing the granulometry when the size of droplets is directly available, such as in most experimental campaings and computational studies resolving atomization. Continuous distributions, however, are often used to fit discrete distributions obtained experimentally and are used for making simplified models for spray injection in lagrangian simulations, since they can represent the spray by functions depending on few parameters. Examples of function widely used in sprays are the lognormal, Rosin-Rammler and Nukiyama-Tanasama distributions \citepColor[lefebvre_atomization_2017]. 
 
@@ -2109,78 +2224,127 @@ In \citeColor[lefebvre_atomization_2017] ...
 s_g = \exp \sqrt{  \frac{\sum_i \ln \left( D_i / \overline{D}_{ng} \right) ^2 }{N_\mathrm{droplets}} }
 \end{equation}
 
+Loco mirar Figure \ref{fig:jicf_size_volume_histograms_all}.
 
-
-
-\begin{figure}[ht]
-\centering
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x05_number_histogram.eps}
-   \caption{x = 5 mm, number histogram}
-   %\label{} 
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x05_volume_histogram.eps}
-   \caption{x = 5 mm, volume histogram}
-   %\label{}
-\end{subfigure}
-\vskip\baselineskip
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x10_number_histogram.eps}
-   \caption{x = 10 mm, number histogram}
-   %\label{} 
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x10_volume_histogram.eps}
-   \caption{x = 10 mm, volume histogram}
-   %\label{}
-\end{subfigure}
-\vskip\baselineskip
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x15_number_histogram.eps}
-   \caption{x = 15 mm, number histogram}
-   %\label{} 
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x15_volume_histogram.eps}
-   \caption{x = 15 mm, volume histogram}
-   %\label{}
-\end{subfigure}
-\vskip\baselineskip
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x20_number_histogram.eps}
-   \caption{x = 20 mm, number histogram}
-   %\label{} 
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x20_volume_histogram.eps}
-   \caption{x = 20 mm, volume histogram}
-   %\label{}
-\end{subfigure}
-\caption{Histograms and lognormal fits for sampling planes in case UG100\_DX20}
-\label{fig:JICF_histograms_ug100_dx20}
-\end{figure}
+\clearpage
 
 
 \begin{figure}[ht]
-\centering
-   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/SMD_values.eps}
-   \caption{Evolution of SMD with axial distance for each simulation}
-   \label{}
+\flushleft
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/histograms_size_volume/UG75_DX10_x05_histograms}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/histograms_size_volume/UG75_DX10_x10_histograms}
+	\caption{Case UG75\_DX10}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/histograms_size_volume/UG75_DX20_x05_histograms}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/histograms_size_volume/UG75_DX20_x10_histograms}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/histograms_size_volume/UG75_DX20_x15_histograms}
+	\caption{Case UG75\_DX20}
+\end{subfigure}
+
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/histograms_size_volume/UG100_DX10_x05_histograms}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/histograms_size_volume/UG100_DX10_x10_histograms}
+	\caption{Case UG100\_DX10}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/histograms_size_volume/UG100_DX20_x05_histograms}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/histograms_size_volume/UG100_DX20_x10_histograms}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/histograms_size_volume/UG100_DX20_x15_histograms}
+	\caption{Case UG100\_DX20}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/histograms_size_volume/UG100_DX20_NT_x05_histograms}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/histograms_size_volume/UG100_DX20_NT_x10_histograms}
+	\caption{Case UG100\_DX20\_NT}
+\end{subfigure}
+
+   \caption{Droplets size ($f_0$) and volume ($f_3$) histograms for all cases}
+\label{fig:jicf_size_volume_histograms_all}
 \end{figure}
 
+%\begin{figure}[ht]
+%\centering
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x05_number_histogram.eps}
+%   \caption{x = 5 mm, number histogram}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x05_volume_histogram.eps}
+%   \caption{x = 5 mm, volume histogram}
+%   %\label{}
+%\end{subfigure}
+%\vskip\baselineskip
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x10_number_histogram.eps}
+%   \caption{x = 10 mm, number histogram}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x10_volume_histogram.eps}
+%   \caption{x = 10 mm, volume histogram}
+%   %\label{}
+%\end{subfigure}
+%\vskip\baselineskip
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x15_number_histogram.eps}
+%   \caption{x = 15 mm, number histogram}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x15_volume_histogram.eps}
+%   \caption{x = 15 mm, volume histogram}
+%   %\label{}
+%\end{subfigure}
+%\vskip\baselineskip
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x20_number_histogram.eps}
+%   \caption{x = 20 mm, number histogram}
+%   %\label{} 
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/spray_distributions/uG100_dx20_x20_volume_histogram.eps}
+%   \caption{x = 20 mm, volume histogram}
+%   %\label{}
+%\end{subfigure}
+%\caption{Histograms and lognormal fits for sampling planes in case UG100\_DX20}
+%\label{fig:JICF_histograms_ug100_dx20}
+%\end{figure}
+
+
+
+\clearpage
 
 %\section{Frequential analysis}
 %
@@ -2196,9 +2360,13 @@ s_g = \exp \sqrt{  \frac{\sum_i \ln \left( D_i / \overline{D}_{ng} \right) ^2 }{
 %
 %\end{itemize}
 
+\subsection{Liquid velocities}
 
+\subsection{Deformation of liquid structures}
 
-\section{Learning injectors}
+\clearpage
+
+\section{Smart Lagrangian injectors}
 \label{sec:ch5_learning_SLI}
 
 \subsection{Convergence of global sprays}
@@ -2983,12 +3151,17 @@ UG100\_DX20\_NT & - & - & - & - & - \\
 
 The injectors built from the JICF simulations were described in $\S$\ref{sec:ch5_learning_SLI}. \hl{It is now useful to provide }
 
+Figure \ref{fig:SLI_cost_convergence_all} shows the computational cost in CPU hours and the ratio between CPU hours and physical time simulated. \hl{This graph shows that, in absolute terms, the quantity of CPU hours needed to obtain converged injectors is much larger for the fine resolution than for the coarse one due to the higher cost of the simulations (demonstrated in Figure} \ref{tab:jicf_computational_performances}. \hl{The ratio $t_\mathrm{CPU}/t_\mathrm{ph}$ ... As observed ...}
+
 \begin{figure}[ht]
 	\centering
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SLI_cost_for_convergence/cost_all_simulations}
    \caption{Cost for convergence of SLI at $x = $\hl{10} mm for simulations performed.}
    \label{fig:SLI_cost_convergence_all}
 \end{figure}
+
+\hl{\textbf{NEED TO CHECK PROPERLY THIS PARAGRAPH.}} Despite the high increase in absolute CPU hours for the fine resolution, less total physical time needs to be simulated in those to obtained converged SLI. This is due to the fact that in the fine simulations, the spray is better resolved from the early atomization region (closer to the injector) since finer droplets are obtained. Moreover,  more droplets are generated through surface breakup and column breakup is also influence by the presence of instabilities in these cases. The presence of finer liquid structures and a larger number of droplets (as Table \ref{tab:jicf_Ncores_Ncells_Ndrops} shows) makes injectors converge with less physical time than the coarse simulations, \hl{as discussed in} $\S$ \ref{sec:ch5_learning_SLI}. In fact, the CPU cost that a fine simulation would take to compute the same physical time that a coarse one takes to converge injectors can be estimated. For this, the ratio $t_\mathrm{CPU}/t_\mathrm{ph}$ from the fine simulation UG$100$\_DX$10$ shown in Figure \ref{fig:SLI_cost_convergence_all}, which is $1.2 \cdot 10^6$ h ms$^{-1}$, is multiplied by the simulated physical time in case UG$100$\_DX$20$, \hl{which happens to be 2.5 ms (\textbf{MAYBE PUT THEM IN A TABLE?})}. This yields a value of $3 \cdot 10^6$ CPU hours, while the simulation UG$100$\_DX$10$ employed an actual cost of $0.6 \cdot 10^6$ CPU hours to provide converged injectors. This yields a cost savings in terms of computational expenses of $2.4 \cdot 10^6$ CPU hours. This difference are shown graphically in Figure \ref{fig:SLI_cost_convergence_savings}, where the CPU cost of simulation UG$100$\_DX$20$ is also shown for comparison.
+
 
 \begin{figure}[ht]
    \centering

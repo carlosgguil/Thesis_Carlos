@@ -27,8 +27,8 @@ plt.rcParams['text.usetex'] = True
 
 
 
-
 figsize_ = (FFIG*26,FFIG*16)
+figsize_bar = (FFIG*30,FFIG*20)
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/flow_rates_mass_loss_set_levelset_band/'
 folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/mass_loss_due_to_levelset/jicf_data_processing/data_all_cases/'
 
@@ -44,10 +44,10 @@ x_label_time = r'$t^{*}$'
 y_label_volume = r'$\mathrm{Liquid}~\mathrm{volume}~[\mathrm{mm}^3]$'
 
 label_ls_volume  = r'$V_l$'
-label_SLB_volume  = r'$V_{l,\mathrm{NF}}$'
+label_SLB_volume  = r'$V_{l,\mathrm{BF}}$'
 label_injected_volume  = r'$V_{l,\mathrm{inj}}$'
 
-labels_save = ['baseline', 'epsilon', 'Nsteps', 'dx10'] 
+labels_save = ['baseline', 'Nsteps', 'epsilon', 'dx10'] 
 
 
 
@@ -57,6 +57,17 @@ linewidth_arrow = 5*FFIG
 head_width_ = 0.015
 head_length_ = 0.002
 
+# Bar histogram
+barWidth = 0.25
+cases = [r'$\mathrm{Case}~1$', r'$\mathrm{Case}~2$', 
+         r'$\mathrm{Case}~3$', r'$\mathrm{Case}~4$']
+r1 = np.arange(len(cases))
+
+label_volume_loss = r'$\Delta V_l~[\mathrm{mm}^3]$'
+label_dv_BF  = r'$\Delta V_{l,\mathrm{BF}}$'
+label_dv_NBF = r'$\Delta V_{l,\mathrm{NBF}}$'
+label_volume_loss_percentage = r'$\mathrm{Contribution~to~losses}~[\%]$'
+
 #%% Read data
 
 df_baseline = pd.read_csv(folder+'/baseline.csv')
@@ -64,7 +75,7 @@ df_epsilon  = pd.read_csv(folder+'/epsilon_01.csv')
 df_Nsteps   = pd.read_csv(folder+'/Nsteps_iter.csv')
 df_dx10     = pd.read_csv(folder+'/dx10.csv')
 
-dataframes = [df_baseline, df_epsilon, df_Nsteps, df_dx10]
+dataframes = [df_baseline, df_Nsteps, df_dx10, df_epsilon]
 
 time = []
 vol_ls_phi_integrated = []
@@ -101,7 +112,7 @@ for i in range(len(dataframes)):
     
     # plot graph 
     if i == 0:
-        fig = plt.figure(figsize=(FFIG*29.3,FFIG*16))
+        fig = plt.figure(figsize=(FFIG*30,FFIG*16))
     else:
         fig = plt.figure(figsize=figsize_)
     axes = plt.gca()
@@ -142,15 +153,75 @@ for i in range(len(dataframes)):
                   linewidth=linewidth_arrow, color='r', shape = 'full', length_includes_head=True, clip_on = False)
         
         # Text
-        plt.text(t_arrow_NF_loss+0.01, vol_ls_phi_integrated_val[-1]+dv_NF/3, r'$\Delta V_\mathrm{NF}$',
-                 color='red', rotation='vertical',fontsize=50*FFIG)
-        plt.text(t_arrow_total_loss+0.01, vol_ls_phi_integrated_val[-1]+dv_NF/3, r'$\Delta V_\mathrm{Total}$',
-                 color='black', rotation='vertical',fontsize=50*FFIG)
+        plt.text(t_arrow_NF_loss+0.01, vol_ls_phi_integrated_val[-1]+dv_NF/3, r'$\Delta V_{l,\mathrm{BF}}$',
+                 color='red', rotation='vertical',fontsize=70*FFIG)
+        plt.text(t_arrow_total_loss+0.01, vol_ls_phi_integrated_val[-1]+dv_NF/3, r'$\Delta V_{l,\mathrm{Total}}$',
+                 color='black', rotation='vertical',fontsize=70*FFIG)
         
     plt.tight_layout()
     plt.savefig(folder_manuscript+'vl_loss_case_'+labels_save[i]+'.pdf')
     plt.show()
     plt.close
     
+
+#%% Compute volume losses and plot bar graph
+
+Vl = [i[-1] for i in vol_ls_phi_integrated]
+Vl = np.array(Vl)
+Vl_BF = [i[-1] for i in vol_ls_phi_NF]
+Vl_BF = np.array(Vl_BF)
+Vl_inj = [i[-1] for i in vol_ls_phi_injected]
+Vl_inj = np.array(Vl_inj)
+
+
+dv_total = Vl_inj - Vl
+dv_BF = Vl_BF - Vl
+dv_nBF = dv_total - dv_BF
+dv_BF_perc = dv_BF/dv_total*100
+dv_nBF_perc = dv_nBF/dv_total*100
+
+# dv_total (not show)
+plt.figure(figsize=figsize_bar)
+#plt.title('Total volume loss')
+plt.bar(r1, dv_total, width=barWidth, color='black', edgecolor='white', capsize=barWidth*20)
+plt.ylabel(label_volume_loss)
+plt.yscale('log')
+plt.xticks([r for r in range(len(cases))], cases)
+plt.tight_layout()
+#plt.savefig(folder_manuscript+'bar_graph.pdf')
+plt.show()
+plt.close()
+
+# dv_total with two parts
+plt.figure(figsize=figsize_bar)
+#ax = plt.gca()
+plt.bar(r1, dv_BF, width=barWidth, color='black', 
+        capsize=barWidth*20, label=label_dv_BF)
+plt.bar(r1, dv_nBF, width=barWidth, color='grey' , 
+        capsize=barWidth*20, bottom=dv_BF, label=label_dv_NBF)
+plt.ylabel(label_volume_loss)
+plt.xticks([r for r in range(len(cases))], cases)
+plt.legend(loc='upper left',fontsize=70*FFIG)
+plt.tight_layout()
+plt.savefig(folder_manuscript+'bar_graph_dv_l.pdf')
+plt.show()
+plt.close()
+
+
+# % losses
+plt.figure(figsize=figsize_bar)
+#ax = plt.gca()
+plt.bar(r1, dv_BF_perc, width=barWidth, color='black', 
+        capsize=barWidth*20, label=label_dv_BF)
+plt.bar(r1, dv_nBF_perc, width=barWidth, color='grey' , 
+        capsize=barWidth*20, bottom=dv_BF_perc, label=label_dv_NBF)
+plt.ylabel(label_volume_loss_percentage)
+plt.xticks([r for r in range(len(cases))], cases)
+plt.ylim((0,100))
+#plt.legend(loc='upper left',fontsize=70*FFIG)
+plt.tight_layout()
+plt.savefig(folder_manuscript+'bar_graph_losses_percentage.pdf')
+plt.show()
+plt.close()
 
 
