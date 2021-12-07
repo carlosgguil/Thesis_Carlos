@@ -43,7 +43,7 @@ As $f$ is defined in a surface, it can be spatially represented by only two coor
 f \left( t, \boldsymbol{s}, \textbf{u}, D \right)  
 \end{equation}
 
-Since both Eqs. (\ref{eq:f_general}) and (\ref{eq:f_surface_coordinates}) are identical, there is an equivalence between $\boldsymbol{x} = \left\lbrace x, y, z \right\rbrace$ and $\boldsymbol{s} = \left\lbrace \xi, \eta \right\rbrace^T$. This relation can be expressed mathematically as:
+Since both Eqs. (\ref{eq:f_general}) and (\ref{eq:f_surface_coordinates}) are identical, there is an equivalence between $\boldsymbol{x} = \left\lbrace x, y, z \right\rbrace$ and $\boldsymbol{s} = \left\lbrace \xi, \eta \right\rbrace$. This relation can be expressed mathematically as:
 
 \begin{equation}
 \label{eq:morphism_general_definition}
@@ -55,7 +55,7 @@ h : \boldsymbol{x} \rightarrow \boldsymbol{s}
 where $h$ is a mapping function, or morphism, that will transform from cartesian coordinates $\boldsymbol{x}$ to surface coordinates $\boldsymbol{s}$. \\
 
 
-In this work, the variation of the spray characteristics with time will not be considered. Instead, the obtention and study a stationary, converged spray will the the main objective of this first version of SLI. For such purpose, the spray will be sampled with time for a time period $T$ which should be large enough in order to obtain a converged spray (convergence will be discusses in $\S$\ref{subsec:SLI_spray_convergence}), hence eliminating the dependence with time. Mathematically speaking, this can be represented through integration:
+In this work, the variation of the spray characteristics with time will not be considered. Instead, the obtention and study a stationary, converged spray will be the main objective of this first version of SLI. For such purpose, the spray will be sampled with time for a time period $T$ which should be large enough in order to obtain a converged spray (convergence will be discusses in $\S$\ref{subsec:SLI_spray_convergence}), hence eliminating the dependence with time. Mathematically speaking, this can be represented through integration:
 
 \begin{equation}
 \label{eq:f_general_time_integrated}
@@ -71,7 +71,7 @@ f_\mathrm{j,k} \left( \boldsymbol{s}_\mathrm{j,k}, \boldsymbol{u}, D \right) = \
 
 \subsection{Spray formulation in jet in crossflow}
 
-A more precise, less abstract interpretation of the spray formulation of SLI can be obtained by applying the general formulation to a liquid JICF problem, which has been introduced in $\S$\ref{sec:ch1_fuel_injection_technology}. Figure \ref{fig:JICF_spray_formulation} shows a liquid JICF from a resolved atomization simulation performed with YALES2. As observed, the liquid leaves the injection nozzle as a coherent jet moving along the $z$ direction and then starts bending towards the $x$ direction. Atomization starts taking place and breaking the jet into firstly ligaments and, subsequently, droplets. The resulting droplets from the atomization process conform a spray that can be analyzed by the SLI strategy. Therefore, to study this spray, first droplets need to be sampled in sampling surfaces. In a geometrically simple JICF problem as the one from Figure \ref{fig:JICF_spray_formulation}, the sampling surfaces are planes perpendicular to the crossflow direction $x$ denoted in the figure by $S$. 
+A more precise, less abstract interpretation for the spray formulation of SLI can be obtained by applying the general formulation to a liquid JICF problem, which has been introduced in $\S$\ref{sec:ch1_fuel_injection_technology}. Figure \ref{fig:JICF_spray_formulation} shows a liquid JICF from a resolved atomization simulation performed with YALES2. As observed, the liquid leaves the injection nozzle as a coherent jet moving along the $z$ direction and then starts bending towards the $x$ direction. Atomization starts taking place and breaking the jet into firstly ligaments and, subsequently, droplets. The resulting droplets from the atomization process conform a spray that can be analyzed by the SLI strategy. Therefore, to study this spray, first droplets need to be sampled in sampling surfaces. In a geometrically simple JICF problem as the one from Figure \ref{fig:JICF_spray_formulation}, the sampling surfaces are planes perpendicular to the crossflow direction $x$ denoted in the figure by $S$. The surface coordinates $\boldsymbol{s}$ aforementioned correspond therefore to the in-plane coordinates in the sampling surface, which in the system of reference depicted in Figure \ref{fig:JICF_spray_formulation} yield $\boldsymbol{s} = \left\lbrace y, z \right\rbrace$. Therefore the discrete, spatially refined statistics are obtained in probes centered at $\left( y_\mathrm{j}, z_\mathrm{k} \right)$, and the function $f_\mathrm{j,k}$ given generally by Eq. (\ref{eg:f_discrete}) can be applied to the proposed JICF formulation as:
 
 \begin{equation}
 \label{eg:f_discrete_jicf}
@@ -80,7 +80,7 @@ f_\mathrm{j,k} \left( \boldsymbol{s}_\mathrm{j,k}, \boldsymbol{u}, D \right) = \
 
 \begin{figure}[h!]	
 	\centering
-	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch4_SLI/JICF_spray_formulation}
+	\includeinkscape[inkscapelatex=false,scale=0.6]{./part2_developments/figures_ch4_SLI/JICF_spray_formulation}
 	\caption{Illustration of SLI spray formulation in a liquid JICF.}
 	\label{fig:JICF_spray_formulation}
 \end{figure}
@@ -89,44 +89,37 @@ f_\mathrm{j,k} \left( \boldsymbol{s}_\mathrm{j,k}, \boldsymbol{u}, D \right) = \
 \section{Models for lagrangian injection}
 	\label{sec:ch4_models_flowchart}
 	
-The flowchart of the models is shown in Figure \ref{fig:SLI_flowchart}. The main workflow of information to build lagrangian injectors is shown in the central part of the figure, where each block is explained in a different chapter of this manuscript:
+The objective of the models 	for performing lagrangian injection is to provide the necessary input parameters to initialize disperse-phase simulations. These input parameters are intended to represent a realistic spray resulting from primary atomization. Most existing models perform lagrangian injection by neglecting the atomization process due to its complexity, while other rely on experimental data or correlations which are valid for a limiting range of operating conditions (see $\S$\ref{sec:ch3_state_art_lagrangian_injection} for a discussion on the state of the art in dispersed-phase simulations of MSFI systems). 
+
+With this objective in mind and knowing the limitations of the existing approaches, the intention of this work is to develop models that can be fed from primary atomization data to 1) inject a proper dispersed-phase and 2) model as accurate as possible the momentum exchange due to the liquid-gas interaction in the primary atomization region. The second point has often been neglected in many dispersed phase simulations, and has been the object of multiple studies dealing with primary atomization. To address both points, this thesis relies firstly on \textbf{numerical simulations of the resolved atomization process} using an ACLS approach ($\S$\ref{subsec:ch2_ACLS}). These simulations are used to construct a spray database by sampling the droplets passing through planes perpendicular to the crossflow direction and then applying the spray formulation previously presented. The functions $f \left( \boldsymbol{s}_\mathrm{j,k}, \boldsymbol{u}, D \right) $ of the spray formulation represent therefore the statistical distributions of the spray's size, velocity and fluxes that are processed in a \textbf{lagrangian injectors learning process} to eventually yield the discretized spray $f_\mathrm{j,k} \left( \boldsymbol{s}_\mathrm{j,k}, \boldsymbol{u}, D \right)$ that is used as lagrangian injector to initialize \textbf{dispersed-phase simulations}. At the same time, the liquid-gas interaction between the jet dense core and the crossflow is also analyzed and learnt to provide a model that contributes to the liquid-gas \textbf{momentum exchange} in the disperse-phase simulations, which a priori is neglected (and which many models do not take into account or circumvent by introducing experimental correlations). In this way, the full methodology currently relies only on the data from the resolved atomization simulations in order to fully initialize dispersed-phase computations. Therefore, any operating point could be simulated through resolved simulations and learnt with the proposed methodology withoug the need of relying on experimental data or semi-empirical correlations. The proposed approach will be called hereafter as Smart Lagrangian Injectors (SLI).
+
+The full approach of SLI is detailed schematically in the flowchart of Figure \ref{fig:SLI_graphic_description}. The process is summarized in the following lines:
 
 
 \begin{enumerate}
 
-	\item Resolved atomization simulations are performed to build a database (Chapter \ref{ch:jicf_resolved_simulations}).
+	\item \textbf{Resolved atomization simulations} are performed to build a spray (statistical spray distributions) and liquid-gas interaction (momentum exchange) database (Chapter \ref{ch5:jicf_resolved_simulations}).
 	
-	\item This database is used and processed by the models to learn the spray state and build lagrangian injectors (Chapter \ref{ch:sli_development}).
+	\item This database is used and processed by the models to \textbf{learn the spray state} and build lagrangian injectors (Chapter \ref{ch4:sli_development}). The learning part consists of the following parts: \textbf{spray sampling} ($\S$\ref{subsec:SLI_spray_sampling}), \textbf{spatial discretization} ($\S$\ref{subsec:SLI_spatial_discretization}) and \textbf{spray convergence} ($\S$\ref{subsec:SLI_spray_convergence}) of the injectors. The convergence can be checked only globally in the sampling plane, or locally by looking at the sprays contained in each discrete, individual probe in order to perform a \textbf{converge-driven classification} ($\S$\ref{subsec:SLI_quadtrees_discretization}).
 	
-	\item Lagrangian simulations are initialized with the injectors developed with this methodology (Ch. \ref{ch:jicf_lgs_simulations}) 
+	\item \textbf{Dispersed-phase simulations} are initialized with the injectors developed with this methodology (Chapter \ref{ch6:jicf_lgs_simulations}). Apart from the lagrangian injectors that inject the liquid phase, the two following submodels are also contained in these simulations: 
+	
+		\begin{itemize}
+	
+		\item \textbf{Dense core learning} in order to take into account the perturbation effect (momentum exchange) of the liquid dense structures (i.e. the liquid dense core in the JICF) in the gaseous phase during lagrangian simulations ($\S$\ref{sec:ch4_dense_core_modelling}). The information to characterize the dense core is taken from the resolved simulations and later imposed into lagrangian ones.
+		
+		\item \textbf{Secondary atomization models} to consider further possible breakup of spherical droplets during lagrangian simulations $\S$\ref{subsec:SLI_spatial_discretization}).
+		
+		\end{itemize}
 
 
 \end{enumerate}
 
-Additionally, there are more submodels to take into account:
 
-\begin{itemize}
-
-	\item The bottom row represents the processes comprising the learning part of the lagrangian injectors: spray sampling ($\S$\ref{subsec:SLI_spray_sampling}), spray convergence ($\S$\ref{subsec:SLI_spray_convergence}) and spatial discretization of the injectors ($\S$\ref{subsec:SLI_spatial_discretization}).
-	
-	\item The top boxes represent the submodels that add more detailed physics into the methodology. Currently there are two: 
-	
-	\begin{itemize}
-	
-		\item \textbf{Dense core learning} in order to take into account the perturbation effect of the liquid dense structures (i.e. the liquid dense core in the JICF) in the gaseous phase during lagrangian simulations ($\S$\ref{sec:ch4_dense_core_modelling}). The information to characterize the dense core is taken from the resolved simulations and later imposed into lagrangian ones.
-		
-		\item \textbf{Secondary atomization models} to consider further possible breakup of spherical droplets during lagrangian simulations $\S$\ref{subsec:SLI_spatial_discretization}).
-		
-	\end{itemize}
-
-
-\end{itemize}
-	
-	
 \begin{figure}[h!]	
 	\centering
 	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch4_SLI/SLI_graphic_description_with_learning_boxes}
-	\caption{Illustration of SLI working principle \textbf{CHANGE FIGURE TO NEW CONFIG WITHOUT SIDE WALLS}.}
+	\caption{Flowchart of the SLI formulation applied to liquid JICF.}
 	\label{fig:SLI_graphic_description}
 \end{figure}
 
@@ -152,7 +145,6 @@ Additionally, there are more submodels to take into account:
 %	\caption{Flowchart for proposed models of lagrangian injection.}
 %	\label{fig:SLI_flowchart}
 %\end{figure}
-
 
 
 
@@ -216,7 +208,7 @@ In this work, no distinction between droplets and ligaments has been done to con
 
 \subsubsection*{Sampling procedure}
 
-Droplets are sampled according to their center of mass (CM) location. Note that, despite the ACLS methodology being eulerian, liquid structures produced by resolved simulations are being tracked as lagrangian particles (lagrangian tracking). Two sampling methods based on experimental techniques can be used \citepColor[{fig:tropea_droplet_sampling}], their main difference being the topology of the employed probes (see Figure \ref{fig:TAB_droplet_deformation}):
+Droplets are sampled according to their center of mass (CM) location. Note that, despite the ACLS methodology being eulerian, liquid structures produced by resolved simulations are being tracked as lagrangian particles (lagrangian tracking). Two sampling methods based on experimental techniques can be used \citepColor[tropea_optical_2011], their main difference being the topology of the employed probes (see Figure \ref{fig:TAB_droplet_deformation}):
 
 \begin{itemize}
 
@@ -254,7 +246,7 @@ The resulting spray after a certain accumulation time is composed of a polydispe
 where $N_\mathrm{dr}$ is the number of accumulated droplets. In the case of polydisperse sprays, where there are several liquid structures with different volumes, it is also useful to define volume-weighted averages in order to give more importance to the properties of larger droplets. For an arbitraty magnitude $f$, the volume-weighted mean and RMS can therefore be defined as:
 
 \begin{equation}
-\displaystyle \overline{f}_\mathrm{VW} = \frac{1}{\sum_{i=1}^{N_\mathrm{dr}} V_i} \sum_{i=1}^{N_\mathrm{dr}} f_i V_i ~~~~ ; ~~~~ \textbf{f}_\mathrm{RMS,VW} = \sqrt{\displaystyle \overline{f^2 }_\mathrm{VW} - \displaystyle \overline{f }_\mathrm{VW}^2}
+\displaystyle \overline{f}_\mathrm{VW} = \frac{1}{\sum_{i=1}^{N_\mathrm{dr}} V_i} \sum_{i=1}^{N_\mathrm{dr}} f_i V_i ~~~~ ; ~~~~ f_\mathrm{RMS,VW} = \sqrt{\displaystyle \overline{f^2 }_\mathrm{VW} - \displaystyle \overline{f }_\mathrm{VW}^2}
 \end{equation}
 
 where $V_i$ is the volume of each liquid structure. \\
@@ -272,7 +264,7 @@ Finally, a last useful magnitude that can be defined for a moving spray is the l
 
 \begin{equation}
 \label{eq:ch4_Ql_definition}
-Q_l = \frac{d V_l}{dt} \approx \frac{\Delta V_l}{\Delta t} = \frac{\sum_{i=1}^{N_\mathrm{dr}} }{t_\mathrm{acc}} 
+Q_l = \frac{d V_l}{dt} \approx \frac{\Delta V_l}{\Delta t} = \frac{\sum_{i=1}^{N_\mathrm{dr}} V_i}{t_\mathrm{acc}} 
 \end{equation}
 
 where $t_\mathrm{acc}$ is the total accumulation time. 
@@ -282,9 +274,9 @@ where $t_\mathrm{acc}$ is the total accumulation time.
 \subsection{Spray convergence}
 \label{subsec:SLI_spray_convergence}
 
-Simulations using the ACLS/AMR methodology can resolve the atomization process and provide deep insight on the driving physical phenomena. Nevertheless, their main limitation is their cost (see $\S$\ref{subsubsec:ch5_computational_performances}), which increases when more liquid is present in the domain and more droplets are formed. Consequently, the accumulation time of droplets will be finite and, logically, restricted to the physical time being simulated. This can pose a problem when characterizing the spray, since statistics might be converged if the number of sampled droplets is not sufficient.
+Simulations using the ACLS/AMR methodology can resolve the atomization process and provide deep insight on the driving physical phenomena. Nevertheless, their main limitation is their cost (see $\S$\ref{subsec:ch5_computational_performances}), which increases when more liquid is present in the domain and more droplets are formed. Consequently, the accumulation time of droplets will be finite and, logically, restricted to the physical time being simulated. This can pose a problem when characterizing the spray, since statistics might not be converged if the number of sampled droplets is not sufficient.
 
-\colorbox{red}{With this issue in mind}, a methodology to evaluate spray convergence is proposed. The objective is to provide a quantitative measure to assess whether enough droplets have been sampled to obtain reliable statistics \citepColor[vie_particle-laden_2016]. If the spray is converged, then it can be spatially discretized to get local statistics that will conform the injectors ($\S$\ref{subsec:SLI_spatial_discretization}). This convergence criterion is also used to propose another discretization strategy in which refinement is performed following a quadtrees structure (convergence-driven discretization, see $\S$\ref{subsec:SLI_quadtrees_discretization}).
+Here, a methodology to evaluate spray convergence is proposed. The objective is to provide a quantitative measure to assess whether enough droplets have been sampled to obtain reliable statistics \citepColor[vie_particle-laden_2016]. If the spray is converged, then it can be spatially discretized to get local statistics that will conform the injectors ($\S$\ref{subsec:SLI_spatial_discretization}). This convergence criterion is also used to propose another discretization strategy in which refinement is performed following a quadtrees structure (convergence-driven discretization, see $\S$\ref{subsec:SLI_quadtrees_discretization}).
 
 At each time step $t_i$ of the accumulation process, the spray will be formed by a number of droplets $N_{\mathrm{dr},i}$. This number will increase as more particles are accumulated with time, since all droplets sampled previously are also accounted for (hence the name accumulation). One can see this methodology as obtaining a time-averaged spray, since dependence with time is neglected. Statistics can be calculated on the accumulated spray at each time $t_i$, such as the droplet histogram. Figure \ref{fig:spray_convergence_description_accumulation_and_MSE_comparison} left shows an illustrated view of the size histogram evolution at several accumulation instants. The histogram indicates thes probability $f \left( d_\mathrm{dr} \right)$ of finding a droplet of size $d_\mathrm{dr}$ within a class $n$: $d_\mathrm{dr} \in \left[ d_{\mathrm{dr},n}-\Delta d_\mathrm{dr}, d_{\mathrm{dr},n}+\Delta d_\mathrm{dr} \right]$. Its shape will change with the accumulation time until a time when it will not change once more droplets are sampled. At this point, the spray will be considered to be converged. 
 

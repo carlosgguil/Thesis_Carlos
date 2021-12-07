@@ -144,8 +144,12 @@ ax2.plot(tp_cases[i][j], SMD_cases[i][j], 'b', label=labels_[j])
 # Raya horizontal y parametros a tunear
 ax.plot([0,100],[0]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
-ax.set_xlim(tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05)
-ax.set_xticks([2,3,4])
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+x_ticks_ = [2,3,4]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+ax.set_xticks(x_ticks_)
+ax2.set_xticks(x_ticks_)
 
 ax.set_ylabel(y_label_Ql)
 ax.set_ylim(-5500,5500)
@@ -197,8 +201,12 @@ ax2.plot(tp_cases[i][j], SMD_cases[i][j], 'r', label=labels_[j])
 # Raya horizontal y parametros a tunear
 ax.plot([0,100],[0]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
-ax.set_xlim(tp_cases[i][0][0]-0.2,tp_cases[i][0][-1]+0.2)
-#ax.set_xticks([2,3,4])
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+#x_ticks_ = [2,2.5,3]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+#ax.set_xticks(x_ticks_)
+#ax2.set_xticks(x_ticks_)
 
 ax.set_ylabel(y_label_Ql)
 ax.set_ylim(-5500,5500)
@@ -244,8 +252,12 @@ ax2.plot(tp_cases[i][j], SMD_cases[i][j], 'b', label=labels_[j])
 # Raya horizontal y parametros a tunear
 ax.plot([0,100],[0]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
-ax.set_xlim(tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05)
-ax.set_xticks([2,2.5,3,3.5,4])
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+x_ticks_ = [2,2.5,3]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+ax.set_xticks(x_ticks_)
+ax2.set_xticks(x_ticks_)
 
 ax.set_ylabel(y_label_Ql)
 ax.set_ylim(-8000,8000)
@@ -296,8 +308,12 @@ ax2.plot(tp_cases[i][j], SMD_cases[i][j], 'r', label=labels_[j])
 # Raya horizontal y parametros a tunear
 ax.plot([0,100],[0]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
-ax.set_xlim(tp_cases[i][0][0]-0.2,tp_cases[i][0][-1]+0.2)
-#ax.set_xticks([2,3,4])
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+#x_ticks_ = [2,2.5,3]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+#ax.set_xticks(x_ticks_)
+#ax2.set_xticks(x_ticks_)
 
 ax.set_ylabel(y_label_Ql)
 ax.set_ylim(-5500,5500)
@@ -342,8 +358,12 @@ ax2.grid(zorder=2)
 # Raya horizontal y parametros a tunear
 ax.plot([0,100],[0]*2,format_separating_line,linewidth=linewidth_separating_line,zorder=3)
 ax.set_xlabel(x_label_time)
-ax.set_xlim(tp_cases[i][0][0]-0.2,tp_cases[i][0][-1]+0.2)
-#ax.set_xticks([2,3,4])
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+#x_ticks_ = [2,2.5,3]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+#ax.set_xticks(x_ticks_)
+#ax2.set_xticks(x_ticks_)
 
 ax.set_ylabel(y_label_Ql)
 ax.set_ylim(-8000,8000)

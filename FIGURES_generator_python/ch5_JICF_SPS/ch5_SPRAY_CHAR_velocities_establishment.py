@@ -33,10 +33,10 @@ plt.rcParams['lines.linewidth'] =  8*FFIG #6*FFIG
 plt.rcParams['legend.framealpha'] = 1.0
 plt.rcParams['legend.loc']      = 'upper right'
 plt.rcParams['text.usetex'] = True
-figsize_ = (FFIG*25,FFIG*22)
+figsize_ = (FFIG*25,FFIG*18)
 #figsize_ = (FFIG*26,FFIG*16)
 
-folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/establishment_and_fluxes/'
+folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities_establishment/'
 
 #%% Load sprays
 
@@ -68,7 +68,9 @@ linewidth_Ql = 6*FFIG
 # axis labels
 x_label_time  = r'$t^{\prime}$' #r'$t~[\mathrm{ms}]$'
 y_label_ux_mean = r'$\overline{u}_x~[\mathrm{m}~\mathrm{s}^{-1}]$'
+y_label_ux_rms  = r'$u_{x,\mathrm{RMS}}~[\mathrm{m}~\mathrm{s}^{-1}]$'
 y_label_uz_mean = r'$\overline{u}_y, \overline{u}_z~[\mathrm{m}~\mathrm{s}^{-1}]$'
+y_label_uz_rms = r'$u_{y,\mathrm{RMS}}, u_{z,\mathrm{RMS}}~[\mathrm{m}~\mathrm{s}^{-1}]$'
 
 # legend labels
 label_UG75_DX10  = r'$\mathrm{UG}75\_\mathrm{DX}10$'
@@ -124,16 +126,18 @@ for i in range(len(sprays_list_all)):
         uz_rms_val.append(case[j].uz_rms_evol)
     tp_cases.append(time_val)
     ux_mean_cases.append(ux_mean_val)
-    ux_rms_cases.append(uy_mean_val)
+    ux_rms_cases.append(ux_rms_val)
     uy_mean_cases.append(uy_mean_val)
-    uy_rms_cases.append(uy_mean_val)
+    uy_rms_cases.append(uy_rms_val)
     uz_mean_cases.append(uz_mean_val)
-    uz_rms_cases.append(uz_mean_val)
+    uz_rms_cases.append(uz_rms_val)
         
 
 
-#%% Plots 
+# Plots 
 
+#%% UG75_DX10 
+ 
 # UG75_DX10 mean
 i = 0
 plt.figure(figsize=figsize_)
@@ -153,8 +157,13 @@ ax2.plot(tp_cases[i][j], uz_mean_cases[i][j], 'b', label=labels_[j])
 # Raya horizontal y parametros a tunear
 ax.plot([0,100],[30]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
-ax.set_xlim(tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05)
-ax.set_xticks([2,3,4])
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+x_ticks_ = [2,3,4]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+ax.set_xticks(x_ticks_)
+ax2.set_xticks(x_ticks_)
+
 
 ax.set_ylabel(y_label_ux_mean)
 ax.set_ylim(0,55)
@@ -171,11 +180,59 @@ ax2.yaxis.set_label_coords(1.1,0.224)
 ax.grid()
 ax2.grid()
 plt.tight_layout(pad=0)
-#plt.savefig(folder_manuscript+'establishment_UG75_DX10.pdf')
+plt.savefig(folder_manuscript+'establishment_UG75_DX10_mean.pdf')
 plt.show()
 plt.close()
 
 
+# UG75_DX10 rms
+i = 0
+plt.figure(figsize=figsize_)
+plt.title(labels_title[i])
+ax  = plt.gca()
+ax2 = ax.twinx()
+# x = 05 mm
+j = 0 
+ax.plot(tp_cases[i][j], ux_rms_cases[i][j], 'k', label=labels_[j]) 
+ax2.plot(tp_cases[i][j], uy_rms_cases[i][j], '--k', label=labels_[j])
+ax2.plot(tp_cases[i][j], uz_rms_cases[i][j], 'k', label=labels_[j])
+# x = 10 mm
+j = 1
+ax.plot(tp_cases[i][j], ux_rms_cases[i][j], 'b', label=labels_[j]) 
+ax2.plot(tp_cases[i][j], uy_rms_cases[i][j], '--b', label=labels_[j])
+ax2.plot(tp_cases[i][j], uz_rms_cases[i][j], 'b', label=labels_[j])
+# Raya horizontal y parametros a tunear
+ax.plot([0,100],[5]*2,format_separating_line,linewidth=linewidth_separating_line)
+ax.set_xlabel(x_label_time)
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+x_ticks_ = [2,3,4]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+ax.set_xticks(x_ticks_)
+ax2.set_xticks(x_ticks_)
+
+ax.set_ylabel(y_label_ux_rms)
+ax.set_ylim(-5,15)
+ax.set_yticks([5,7.5,10,12.5,15])
+ax.yaxis.set_label_coords(-0.15,0.8)
+
+ax2.set_ylabel(y_label_uz_rms)
+ax2.set_ylim(5,25)
+ax2.set_yticks([5,7.5,10,12.5,15])
+#ax2.set_ylim(30,270)
+#ax2.set_yticks([50,100,150])
+ax2.yaxis.set_label_coords(1.1,0.224)
+
+ax.grid()
+ax2.grid()
+plt.tight_layout(pad=0)
+plt.savefig(folder_manuscript+'establishment_UG75_DX10_rms.pdf')
+plt.show()
+plt.close()
+
+
+
+#%% UG75_DX20 
 
 # UG75_DX20 mean
 i = 1; tp0 = 10
@@ -201,8 +258,12 @@ ax2.plot(tp_cases[i][j][tp0:], uz_mean_cases[i][j][tp0:], 'r', label=labels_[j])
 # Raya horizontal y parametros a tunear
 ax.plot([0,100],[34]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
-ax.set_xlim(tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05)
-#ax.set_xticks([2,3,4])
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+#x_ticks_ = [2,2.5,3]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+#ax.set_xticks(x_ticks_)
+#ax2.set_xticks(x_ticks_)
 
 ax.set_ylabel(y_label_ux_mean)
 ax.set_ylim(25,45)
@@ -218,12 +279,67 @@ ax2.yaxis.set_label_coords(1.1,0.224)
 
 ax.grid()
 ax2.grid()
+ax.legend(loc='center right')
 plt.tight_layout(pad=0)
-#plt.savefig(folder_manuscript+'establishment_UG75_DX10.pdf')
+plt.savefig(folder_manuscript+'establishment_UG75_DX20_mean.pdf')
 plt.show()
 plt.close()
 
 
+
+# UG75_DX20 rms
+i = 1; tp0 = 15
+plt.figure(figsize=figsize_)
+plt.title(labels_title[i])
+ax  = plt.gca()
+ax2 = ax.twinx()
+# x = 05 mm
+j = 0 
+ax.plot(tp_cases[i][j][tp0:], ux_rms_cases[i][j][tp0:], 'k', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_rms_cases[i][j][tp0:], '--k', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_rms_cases[i][j][tp0:], 'k', label=labels_[j])
+# x = 10 mm
+j = 1
+ax.plot(tp_cases[i][j][tp0:], ux_rms_cases[i][j][tp0:], 'b', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_rms_cases[i][j][tp0:], '--b', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_rms_cases[i][j][tp0:], 'b', label=labels_[j])
+# x = 15 mm
+j = 2; 
+ax.plot(tp_cases[i][j][tp0:], ux_rms_cases[i][j][tp0:], 'r', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_rms_cases[i][j][tp0:], '--r', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_rms_cases[i][j][tp0:], 'r', label=labels_[j])
+# Raya horizontal y parametros a tunear
+ax.plot([0,100],[5]*2,format_separating_line,linewidth=linewidth_separating_line)
+ax.set_xlabel(x_label_time)
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+#x_ticks_ = [2,2.5,3]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+#ax.set_xticks(x_ticks_)
+#ax2.set_xticks(x_ticks_)
+
+ax.set_ylabel(y_label_ux_rms)
+ax.set_ylim(-5,17)
+ax.set_yticks([5,7.5,10,12.5, 15])
+ax.yaxis.set_label_coords(-0.15,0.8)
+
+ax2.set_ylabel(y_label_uz_rms)
+ax2.set_ylim(5,30)
+ax2.set_yticks([5,7.5,10,12.5,15])
+#ax2.set_ylim(30,270)
+#ax2.set_yticks([50,100,150])
+ax2.yaxis.set_label_coords(1.1,0.224)
+
+ax.grid()
+ax2.grid()
+ax.legend(loc='center right')
+plt.tight_layout(pad=0)
+plt.savefig(folder_manuscript+'establishment_UG75_DX20_rms.pdf')
+plt.show()
+plt.close()
+
+
+#%% UG100_DX10 
 
 # UG100_DX10 mean
 i = 2; tp0 = 1
@@ -244,8 +360,12 @@ ax2.plot(tp_cases[i][j][tp0:], uz_mean_cases[i][j][tp0:], 'b', label=labels_[j])
 # Raya horizontal y parametros a tunear
 ax.plot([0,100],[50]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
-ax.set_xlim(tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05)
-ax.set_xticks([2,2.5,3,3.5,4])
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+x_ticks_ = [2,2.5,3]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+ax.set_xticks(x_ticks_)
+ax2.set_xticks(x_ticks_)
 
 ax.set_ylabel(y_label_ux_mean)
 ax.set_ylim(30,72)
@@ -262,9 +382,71 @@ ax2.yaxis.set_label_coords(1.1,0.224)
 ax.grid()
 ax2.grid()
 plt.tight_layout(pad=0)
-#plt.savefig(folder_manuscript+'establishment_UG75_DX10.pdf')
+plt.savefig(folder_manuscript+'establishment_UG100_DX10_mean.pdf')
 plt.show()
 plt.close()
+
+
+
+
+# UG100_DX10 rms
+i = 2; tp0 = 1
+plt.figure(figsize=figsize_)
+plt.title(labels_title[i])
+ax  = plt.gca()
+ax2 = ax.twinx()
+# x = 05 mm
+j = 0 
+ax.plot(tp_cases[i][j][tp0:], ux_rms_cases[i][j][tp0:], 'k', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_rms_cases[i][j][tp0:], '--k', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_rms_cases[i][j][tp0:], 'k', label=labels_[j])
+# x = 10 mm
+j = 1
+ax.plot(tp_cases[i][j][tp0:], ux_rms_cases[i][j][tp0:], 'b', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_rms_cases[i][j][tp0:], '--b', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_rms_cases[i][j][tp0:], 'b', label=labels_[j])
+# Raya horizontal y parametros a tunear
+ax.plot([0,100],[15]*2,format_separating_line,linewidth=linewidth_separating_line)
+ax.set_xlabel(x_label_time)
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+x_ticks_ = [2,2.5,3]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+ax.set_xticks(x_ticks_)
+ax2.set_xticks(x_ticks_)
+
+
+ax.set_ylabel(y_label_ux_rms)
+ax.set_ylim(9,21)
+ax.set_yticks([15, 16, 17, 18, 19, 20, 21])
+ax.yaxis.set_label_coords(-0.15,0.8)
+
+ax2.set_ylabel(y_label_uz_rms)
+ax2.set_ylim(10,40)
+ax2.set_yticks([10, 15, 20, 25])
+#ax2.set_ylim(30,270)
+#ax2.set_yticks([50,100,150])
+ax2.yaxis.set_label_coords(1.1,0.224)
+
+ax.grid()
+ax2.grid()
+plt.tight_layout(pad=0)
+plt.savefig(folder_manuscript+'establishment_UG100_DX10_rms.pdf')
+plt.show()
+plt.close()
+
+
+
+
+
+
+
+
+
+
+
+
+#%% UG100_DX20 
 
 
 # UG100_DX20 mean
@@ -291,8 +473,13 @@ ax2.plot(tp_cases[i][j][tp0:], uz_mean_cases[i][j][tp0:], 'r', label=labels_[j])
 # Raya horizontal y parametros a tunear
 ax.plot([0,100],[45]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
-ax.set_xlim(tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05)
-#ax.set_xticks([2,3,4])
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+#x_ticks_ = [2,2.5,3]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+#ax.set_xticks(x_ticks_)
+#ax2.set_xticks(x_ticks_)
+
 
 ax.set_ylabel(y_label_ux_mean)
 ax.set_ylim(25,65)
@@ -309,13 +496,68 @@ ax2.yaxis.set_label_coords(1.1,0.224)
 ax.grid()
 ax2.grid()
 plt.tight_layout(pad=0)
-#plt.savefig(folder_manuscript+'establishment_UG75_DX10.pdf')
+plt.savefig(folder_manuscript+'establishment_UG100_DX20_mean.pdf')
 plt.show()
 plt.close()
 
 
 
-# UG100_DX20 mean
+# UG100_DX20 rms
+i = 3; tp0 = 5
+plt.figure(figsize=figsize_)
+plt.title(labels_title[i])
+ax  = plt.gca()
+ax2 = ax.twinx()
+# x = 05 mm
+j = 0 
+ax.plot(tp_cases[i][j][tp0:], ux_rms_cases[i][j][tp0:], 'k', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_rms_cases[i][j][tp0:], '--k', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_rms_cases[i][j][tp0:], 'k', label=labels_[j])
+# x = 10 mm
+j = 1
+ax.plot(tp_cases[i][j][tp0:], ux_rms_cases[i][j][tp0:], 'b', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_rms_cases[i][j][tp0:], '--b', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_rms_cases[i][j][tp0:], 'b', label=labels_[j])
+# x = 15 mm
+j = 2; 
+ax.plot(tp_cases[i][j][tp0:], ux_rms_cases[i][j][tp0:], 'r', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_rms_cases[i][j][tp0:], '--r', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_rms_cases[i][j][tp0:], 'r', label=labels_[j])
+# Raya horizontal y parametros a tunear
+ax.plot([0,100],[10]*2,format_separating_line,linewidth=linewidth_separating_line)
+ax.set_xlabel(x_label_time)
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+#x_ticks_ = [2,2.5,3]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+#ax.set_xticks(x_ticks_)
+#ax2.set_xticks(x_ticks_)
+
+ax.set_ylabel(y_label_ux_rms)
+ax.set_ylim(0,22)
+ax.set_yticks([10,12.5, 15, 17.5, 20])
+ax.yaxis.set_label_coords(-0.15,0.8)
+
+ax2.set_ylabel(y_label_uz_rms)
+ax2.set_ylim(7.5,30)
+ax2.set_yticks([7.5,10,12.5,15])
+#ax2.set_ylim(30,270)
+#ax2.set_yticks([50,100,150])
+ax2.yaxis.set_label_coords(1.1,0.224)
+
+ax.grid()
+ax2.grid()
+plt.tight_layout(pad=0)
+plt.savefig(folder_manuscript+'establishment_UG100_DX20_rms.pdf')
+plt.show()
+plt.close()
+
+
+
+
+#%% UG100_DX20_NT 
+
+# UG100_DX20_NT mean
 i = 4; tp0 = 0
 plt.figure(figsize=figsize_)
 plt.title(labels_title[i])
@@ -334,8 +576,12 @@ ax2.plot(tp_cases[i][j][tp0:], uz_mean_cases[i][j][tp0:], 'b', label=labels_[j])
 # Raya horizontal y parametros a tunear
 ax.plot([0,100],[45]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
-ax.set_xlim(tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05)
-#ax.set_xticks([2,3,4])
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+#x_ticks_ = [2,2.5,3]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+#ax.set_xticks(x_ticks_)
+#ax2.set_xticks(x_ticks_)
 
 ax.set_ylabel(y_label_ux_mean)
 ax.set_ylim(25,65)
@@ -352,9 +598,57 @@ ax2.yaxis.set_label_coords(1.1,0.224)
 ax.grid()
 ax2.grid()
 plt.tight_layout(pad=0)
-#plt.savefig(folder_manuscript+'establishment_UG75_DX10.pdf')
+plt.savefig(folder_manuscript+'establishment_UG100_DX20_NT_mean.pdf')
 plt.show()
 plt.close()
+
+
+
+# UG100_DX20_NT rms
+i = 4; tp0 = 20
+plt.figure(figsize=figsize_)
+plt.title(labels_title[i])
+ax  = plt.gca()
+ax2 = ax.twinx()
+# x = 05 mm
+j = 0 
+ax.plot(tp_cases[i][j][tp0:], ux_rms_cases[i][j][tp0:], 'k', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_rms_cases[i][j][tp0:], '--k', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_rms_cases[i][j][tp0:], 'k', label=labels_[j])
+# x = 10 mm
+j = 1
+ax.plot(tp_cases[i][j][tp0:], ux_rms_cases[i][j][tp0:], 'b', label=labels_[j]) 
+ax2.plot(tp_cases[i][j][tp0:], uy_rms_cases[i][j][tp0:], '--b', label=labels_[j])
+ax2.plot(tp_cases[i][j][tp0:], uz_rms_cases[i][j][tp0:], 'b', label=labels_[j])
+# Raya horizontal y parametros a tunear
+ax.plot([0,100],[10]*2,format_separating_line,linewidth=linewidth_separating_line)
+ax.set_xlabel(x_label_time)
+x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
+#x_ticks_ = [2,2.5,3]
+ax.set_xlim(x_lim_)
+ax2.set_xlim(x_lim_)
+#ax.set_xticks(x_ticks_)
+#ax2.set_xticks(x_ticks_)
+
+ax.set_ylabel(y_label_ux_rms)
+ax.set_ylim(2,17)
+ax.set_yticks([10, 11, 12, 13, 14, 15, 16, 17])
+ax.yaxis.set_label_coords(-0.15,0.8)
+
+ax2.set_ylabel(y_label_uz_rms)
+ax2.set_ylim(9,25)
+ax2.set_yticks([10, 12.5, 15, 17.5])
+#ax2.set_ylim(30,270)
+#ax2.set_yticks([50,100,150])
+ax2.yaxis.set_label_coords(1.1,0.224)
+
+ax.grid()
+ax2.grid()
+plt.tight_layout(pad=0)
+plt.savefig(folder_manuscript+'establishment_UG100_DX20_NT_rms.pdf')
+plt.show()
+plt.close()
+
 
 
 

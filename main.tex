@@ -1,8 +1,6 @@
 \documentclass[twoside]{report}
 
 
-
-
 % Load the packagesl
 \include{packages_load}
 
@@ -67,7 +65,7 @@
 %\stepcounter{page}
 %\newpage
 %\include{cita_zafon}
-%
+
 
 
 
@@ -156,7 +154,6 @@
 %
 
 
-
 \fancyhead[LO]{}
 \fancyhead[RO]{Bibliography}
 \nocite{*}
@@ -166,13 +163,15 @@
 % If biblatex is used:
 %\printbibliographyphyFile}
 
-%%%%% Appendices
-%\newpage
-%
-%\begin{appendices}
-%\input{appendix_A_JICF_BL_SETUP}
-%\newpage
-%\input{appendix_B_turbulence_scales_estimation}
-%\end{appendices}
+%%%% Appendices
+\newpage
+
+\begin{appendices}
+\input{appendix_A_JICF_BL_SETUP}
+\newpage
+\input{appendix_B_SLI_convergence_parameters}
+\newpage
+%\input{appendix_XX_turbulence_scales_estimation}
+\end{appendices}
 
 \end{document}

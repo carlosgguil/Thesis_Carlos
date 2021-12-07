@@ -716,6 +716,7 @@ x_dx10 = [5,10]
 
 #Plot
 plt.figure(figsize=(FFIG*26,FFIG*16))
+#plt.figure(figsize=(FFIG*36,FFIG*16))
 plt.plot(x_dx10, Q_loss_UG75_DX10, 'o-k',label=label_UG75_DX10)
 plt.plot(x_dx20, Q_loss_UG75_DX20, '^-k',label=label_UG75_DX20)
 plt.plot(x_dx10, Q_loss_UG100_DX10, 'o-b',label=label_UG100_DX10)

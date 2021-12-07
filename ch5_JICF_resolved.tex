@@ -2138,11 +2138,7 @@ In first place, the establishment of the accumulated sprays is verified by check
 
 	\item \hl{Por que demonios algunos SMDs y flujos en el mismo caso tienden al mismo valor ???}
 	
-	\item \hl{Por que demonios en caso UG100\_DX10, la curvas de Ql se paran antes ??}
-	
 	\item \hl{Por que demonios en caso UG100\_DX10, el SMD de x = 5 mm es mayor que el de x = 10 mm ??}
-	
-	\item \hl{Hay que anyadir linea de flujo inyectado !!!}
 
 \end{itemize}
 
@@ -2164,7 +2160,7 @@ In first place, the establishment of the accumulated sprays is verified by check
 \label{fig:ch5_spray_char_establishment}
 \end{figure}
 
-
+The convergence of the rest of magnitudes (mean and RMS velocities and deformation parameters $\alpha$ and $\beta$) are shown in Appendix \ref{app:SLI_convergence}.
 
 
 \subsection{Liquid fluxes: lagrangian versus resolved}
@@ -2362,7 +2358,109 @@ Loco mirar Figure \ref{fig:jicf_size_volume_histograms_all}.
 
 \subsection{Liquid velocities}
 
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{1.0\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/ug75_ux_mean}
+   \hfill
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/ug100_ux_mean}
+	\caption{Mean velocities in $x$ direction.}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{1.0\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/ug75_uz_mean}
+   \hfill
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/ug100_uz_mean}
+	\caption{Mean velocities in $z$ direction.}
+\end{subfigure}
+
+   \caption[Sampled mean liquid velocities for all cases]{Mean liquid velocities for all cases. Solid lines indicate arithmetic average velocities, while dashed ones indicate volume-weighted average velocities.}
+\label{fig:jicf_liquid_mean_velocities_with_x}
+\end{figure}
+
+% Volume-weighted velocities: see pilotage 04/06/2021
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatterplots_colorbar_z.png}
+\end{subfigure}
+   \vskip\baselineskip
+   \vspace*{-0.2in}
+\begin{subfigure}[b]{0.3\textwidth}
+	\flushleft
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatter_ux_D.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.3\textwidth}
+	\flushleft
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatter_uy_D.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.3\textwidth}
+	\flushleft
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatter_uz_D.png}
+\end{subfigure}
+   \caption{Scatterplots velocities - diameters for case UG100\_DX10 at plane $x = 10$ mm.}
+\label{fig:jicf_global_scatterplots}
+\end{figure}
+
+Some words on RMS
+
+
+\clearpage
+
 \subsection{Deformation of liquid structures}
+
+Relate to droplets shape: oblonged, etc. (ellipsoid, look at Stefano PhD).
+
+We can see mean values in Figure \ref{fig:jicf_liquid_mean_deformation_with_x}.
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{1.0\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug75_alpha_mean}
+   \hfill
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug100_alpha_mean}
+	\caption{Mean $\alpha$ deformation.}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{1.0\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug75_beta_mean}
+   \hfill
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug100_beta_mean}
+	\caption{Mean $\beta$ deformation.}
+\end{subfigure}
+
+   \caption[Sampled mean deformation parameters for all cases]{Mean deformation parameters for all cases. Solid lines indicate arithmetic average deformation, while dashed ones indicate volume-weighted average deformation.}
+\label{fig:jicf_liquid_mean_deformation_with_x}
+\end{figure}
+
+
+We can see the same parameters more condensed in Figure \ref{fig:jicf_liquid_mean_deformation_with_x_condensed}.
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{1.0\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug75_both_alpha_beta_mean}
+   \hfill
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug100_both_alpha_beta_mean}
+\end{subfigure}
+
+   \caption[Sampled mean deformation parameters for all cases]{Mean deformation parameters for all cases. Solid lines indicate arithmetic average deformation, while dashed ones indicate volume-weighted average deformation.}
+\label{fig:jicf_liquid_mean_deformation_with_x_condensed}
+\end{figure}
 
 \clearpage
 
