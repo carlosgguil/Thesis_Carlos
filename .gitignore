@@ -271,3 +271,6 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
+
+# main pdf from thesis
+main.pdf
