@@ -198,6 +198,7 @@ r_\mathrm{dr} = \sqrt[3]{\frac{3 V_\mathrm{dr}}{4 \pi}}
 which is the radius of a sphere containing the same volume as the structure. The equivalent diameter is then $d_\mathrm{dr} = 2 r_\mathrm{dr}$. In cases where sampled structures are spherical droplets, $R_\mathrm{dr}$ is the true radius and, therefore, a representative measure of the droplets' size. On the other hand, if liquid structures are not fully spherical (which is specially true after primary atomization), the equivalent radius does not provide full information on their topology. To determine the deviation of the identified liquid structure from a sphere, the radii $r_\mathrm{max}$ and $r_\mathrm{min}$ can be used to calculate the deformation parameters $\alpha$ and $\beta$ \citepColor[zuzio_improved_2018]:
 
 \begin{equation}
+\label{eq:ch4_deformation_parameters_alpha_beta_calculation}
 \alpha = \frac{r_\mathrm{max}}{r_\mathrm{dr}} ~~ ; ~~ \beta = \frac{r_\mathrm{min}}{r_\mathrm{dr}}
 \end{equation}	
 
@@ -246,6 +247,7 @@ The resulting spray after a certain accumulation time is composed of a polydispe
 where $N_\mathrm{dr}$ is the number of accumulated droplets. In the case of polydisperse sprays, where there are several liquid structures with different volumes, it is also useful to define volume-weighted averages in order to give more importance to the properties of larger droplets. For an arbitraty magnitude $f$, the volume-weighted mean and RMS can therefore be defined as:
 
 \begin{equation}
+\label{eq:ch4_f_arbitrary_mean_RMS_VW_definition}
 \displaystyle \overline{f}_\mathrm{VW} = \frac{1}{\sum_{i=1}^{N_\mathrm{dr}} V_i} \sum_{i=1}^{N_\mathrm{dr}} f_i V_i ~~~~ ; ~~~~ f_\mathrm{RMS,VW} = \sqrt{\displaystyle \overline{f^2 }_\mathrm{VW} - \displaystyle \overline{f }_\mathrm{VW}^2}
 \end{equation}
 
@@ -275,6 +277,17 @@ q_l = \frac{Q_l}{S_\mathrm{probe}}
 \end{equation}
 
 Hence, the value of $q_l$ converges with the probe size, as opposed to $Q_l$. Effectively, if the size of the grid $\Delta y$ x $\Delta z$ is reduced, the liquid flux as defined by Eq. (\ref{eq:ch4_Ql_definition}) will also decrease since less droplets might be sampled in a smaller surface. Nevertheless, the volume flux $q_l$ will we maintaned because, despite the reduction in $Q_l$, the probe surface is also smaller.
+
+\clearpage
+
+%The in-plane, accumulated spray is discretized with a grid composed of uniform probes with surface $S_\mathrm{probe}$. For each probe, a surface-weight flux can be calculated. Denoted as $q_l$, it can be obtained as:
+%
+%\begin{equation}
+%\label{eq:ch4_Ql_definition}
+%q_l = \frac{Q_l}{S_\mathrm{probe}}
+%\end{equation}
+
+%The advantage of $q_l$ is that it converges with the probe size, as opposed to $q_l$. Effectively, if the size of the grid $\Delta y$ x $\Delta z$ is reduced, the liquid flux as defined by Eq. (\ref{eq:ch4_Ql_definition}) will also decrease since less droplets might be sampled in a smaller surface. Nevertheless, the volume flux $q_l$ will we maintaned because, despite the reduction in $Q_l$, the probe surface is also smaller.
 
 
 
@@ -368,31 +381,39 @@ Improvements in the statistical convergence of spray include the combination of 
 %MSE = \frac{1}{n} \sum_{i=1}^n \left( P_{N_{\mathrm{dr},2}} - P_{N_{\mathrm{dr},1}} \right)^2
 %\end{equation}
 
-
-
 \subsection{Spatial discretization of sprays}
 \label{subsec:SLI_spatial_discretization}
 
-The in-plane, accumulated spray is discretized with a grid composed of uniform probes with surface $S_\mathrm{probe}$. For each probe, a surface-weight flux can be calculated. Denoted as $q_l$, it can be obtained as:
+Once convergence of the accumulated spray in the sampling plane has been verified, the next step to perform a spatial discretization of the spray. The objective is to classify spatially the in-plane accumulated droplets in a grid composed of several rectangular probes so that spray statistics can be calculated within each probe individually. Later on each probe will conform an injector for the dispersed-phase simulations: the SLI is therefore the whole grid composed of all the discrete injectors.
 
-\begin{equation}
-\label{eq:ch4_Ql_definition}
-q_l = \frac{Q_l}{S_\mathrm{probe}}
-\end{equation}
+Figure \ref{fig:SLI_discretization} shows an example of a discrete spray grid resulting from the spatial discretization process. The grid has dimensions ($w_\mathrm{spray}$, $h_\mathrm{spray}$), which correspond to its width and height given in the $y$ and $z$ directions respectively. Grid's dimensions can be calculated in three ways: 1) they can be chosen ad-hoc by the user (as long as they englobe the full spray in order not to miss sampled mass); 2) they are calculated automatically as given by the furthest droplets in the $y$, $z$ directions; 3) they are calculated automatically if the individual probe dimensions ($w_\mathrm{inj}$, $h_\mathrm{inj}$) are given by the user, in which case the grid size will be calculated accordingly in order to englobe the whole in-plane spray. The sketch at the right in Figure \ref{fig:SLI_discretization} shows a magnified view of a single probe of the grid, which composes an individual injector. The probe consists of dimensions ($w_\mathrm{inj}$, $h_\mathrm{inj}$) and center $x_\mathrm{inj}$. Each droplet in the probe is characterized by the parameters from Table \ref{tab:sampling_parameters}, from which the equivalent droplet diameter $d_\mathrm{dr}$ is calculated with Eq. (\ref{eq:ch4_r_equivalent_calculation}) \hl{and the deformation parameters $\alpha$ and $\beta$ with Eq.} (\ref{eq:ch4_deformation_parameters_alpha_beta_calculation}). These parameters are then used to calculate statistics on each probe's spray, which are later used to perform injection. The parameters conforming each injector are later introduced in $\S$\ref{subsec:ch4_injectors_definition}. The spatially distributed statistics in the sampling grid can be represented in maps of mean and RMS values, which give an idea of the spray shape in terms of diameters, fluxes and velocity distributions. Examples of maps for the resolved simulations of liquid JICF cases are shown later in Chapters \ref{ch5:jicf_resolved_simulations} ($\S$\ref{sec:ch5_learning_SLI}) and \ref{ch8:bimer_resolved_atomization} ($\S$\ref{sec:ch8_learning_SLI_in_BIMER}).
 
-The advantage of $q_l$ is that it converges with the probe size, as opposed to $q_l$. Effectively, if the size of the grid $\Delta y$ x $\Delta z$ is reduced, the liquid flux as defined by Eq. (\ref{eq:ch4_Ql_definition}) will also decrease since less droplets might be sampled in a smaller surface. Nevertheless, the volume flux $q_l$ will we maintaned because, despite the reduction in $Q_l$, the probe surface is also smaller.
+\clearpage
 
 \begin{figure}[h!]	
 	\centering
 	\includeinkscape[inkscapelatex=false,width=10cm]{./part2_developments/figures_ch4_SLI/plane_injection_sketch}
-	\caption{Injection parametrization}
-	\label{fig:SLI_injection}
+	\caption{Schematic of a discrete grid composed of individual spray probes. The zoomed-in probes shows an example of droplets and parameters characterizing the probe and the spray within it that served as injectors.}
+	\label{fig:SLI_discretization}
 \end{figure}
+
 
 \subsection{Convergence-driven discretization}
 \label{subsec:SLI_quadtrees_discretization}
 
-\subsubsection{Theory and concepts}
+Among all parameters being calculated in each individual probe, the NMSE is also calculated in the same way as explained in $\S$\ref{subsec:SLI_spray_convergence}. Then, the local convergence level in each probe's spray is estimated, which gives an idea of the spatial convergence distribution in the SLI. This local convergence can be used to further refine the grid in those probes which present a converged spray, as shown in the flowchart of Figure \ref{fig:SLI_graphic_description}. Hereafter, the full spray will be referred as \textbf{global spray} and the discretized spray will be named \textbf{local spray}.
+
+If convergence-driven discretization is performed, those probes presenting convergence will be further refined by a factor $\times 2$: i.e. the probe will be split into 4 probes of size ($w_\mathrm{inj}/2$, $h_\mathrm{inj}/2$). This will conform a refined grid with the same global dimensions ($w_\mathrm{spray}$, $h_\mathrm{spray}$) but containing more elements, and spray statistics will be calculated into each new probe for the spray contained within it. If the refined elements are again converged according to the NMSE criterion and further refinement is wished to be done, the process can be repeated again and as many times as desired. This discretization process, known as \textbf{quadtrees}, is therefore base in a tree structure with several levels of refinement, and has been widely used for performing Adaptive Mesh Refinement (AMR) in grid for solving CFD problems \citemColor[popinet_gerris_2003, fuster_simulation_2009, zuzio_direct_2010]. Figure \ref{fig:quadtrees_tree_structure} shows an example of quadtrees refinement in a 2x2 SLI with two refinement levels (left) and the resulting SLI (right).
+
+
+
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch4_SLI/quadtrees_tree_structure}
+	\caption[Convergence-driven discretization of SLI according to a quadtrees structure.]{Convergence-driven discretization of SLI according to a quadtrees structure. \textsl{Left}: quadtree structure with two tree levels, where the converged elements refined are shadowed. \textsl{Right}: resulting discretized injector. }
+	\label{fig:quadtrees_tree_structure}
+\end{figure}
+
 
 \subsubsection{Numerical implementation}
 
@@ -416,96 +437,108 @@ The numerical implementation of the process works as follows:
 
 \end{enumerate}
 
-\begin{figure}[h!]	
-	\centering
-	\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch4_SLI/quadtrees_tree_structure}
-	\caption[Adaptive mesh refinement of injectors according to a quadtrees structure]{Adaptive mesh refinement of injectors according to a quadtrees structure. \textsl{Left}: quadtree structure, where the converged elements refined are shadowed. \textsl{Right}: resulting discretized injector. }
-	\label{fig:quadtrees_tree_structure}
-\end{figure}
-
 
 
 \subsection{Injectors definition}
+\label{subsec:ch4_injectors_definition}
 
-Statistics are obtained 
+Once a spatially-discretized is obtained (either if convergence-driven discretization has been applied or not), a SLI is built. An example of an injectors and the accumulated droplets within it was shown in Figure \ref{fig:SLI_discretization}. Each injector has then the following characteristics in terms of topology and spray characteristics calculated:
 
+\begin{itemize}
 
+	\item \textbf{Injector topology} defined by its width $w_\mathrm{inj}$, height $h_\mathrm{inj}$ and center $\textbf{x}_\mathrm{inj}$. From the injector dimensions, its injection surface (called probe surface) is calculated as $S_\mathrm{probe} = w_\mathrm{inj} \times h_\mathrm{inj}$. All these parameters are calculated after the spatial discretization process. A lagrangian particle will be injected at a point $x_i$ randomly located within the injection surface: the number of injection points $N_\mathrm{pts}$ needs to be specified by the user. Results from dispersed phase simulations have shown not to be very sensitive to this value, so if not specified this value is by default kept to 5.
+	
+	\item \textbf{Flow rate} $Q_l$ to be delivered through the injector. This value is calculated with Eq. (\ref{eq:ch4_Ql_definition}) known all the accumulated volume in the sampled time of the resolved simulations. $Q_l$ determines the number of droplets to be injected at each time step. If divided by the probe surface $S_\mathrm{probe}$, the volume flux $q_l$ is obtained as given by Eq. (\ref{eq:ch4_Ql_definition}). Nevertheless, this quantity is useful for graphical visualization of the spray with volume flux maps but cannot be specified to perform injection: the absolute flux $Q_l$ needs to be supplied instead.
+	
+	\item \textbf{Droplets diameters distribution} $f_0 \left( d \right)$. Since all the information on (equivalent) droplets size sampled and accumulated from resolved atomization simulations are available, the diameter of the injected droplets can be specified to the injector. Three options are possible for the distribution $f_0$: 1) to provide directly the sampled size histogram from the resolved simulations; 2) provide a size PDF that fits the histogram, such as a lognormal or Rosin-Rammler distribution \citepColor[lefebvre_atomization_2017]; 3) provide a constant diameter to all the droplets, which in this case is the SMD as defined by Eq. (\ref{eq:ch4_SMD_definition}). Each lagrangian droplet injected $d_i$ is therefore either sampled from $f_0$ when the desired injection size is done according to a histogram of PDF, or constantly set as $d_i = \mathrm{SMD}$.
+	
+	\item \textbf{Spray velocities}. As with particle diameters, the velocity components of each sampled and accumulated droplet from resolved atomization simulations is available. These velocities can be treated statistically in order to obtain reliable velocity injection values for the dispersed-phase simulations. However, on the contrary to the injectors, here no velocity distributions are used but instead the mean and RMS velocities are calculated by plugging $f = u$ into Eqs. (\ref{eq:ch4_f_arbitrary_mean_RMS_definition}) and (\ref{eq:ch4_f_arbitrary_mean_RMS_VW_definition}) to yield arithmetic and volume-weighted mean and RMS velocities, respectively. Then, injection of a lagrangian particle $i$ is performed according to the following law:
+	
+	\begin{equation}
+	\label{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}
+	\boldsymbol{u}_\mathrm{i} = \overline{\boldsymbol{u}} + \boldsymbol{r}^T \boldsymbol{u}_\mathrm{RMS}
+	\end{equation}
+	
+	where $\overline{\boldsymbol{u}}$ is the mean velocity and $\boldsymbol{u}_\mathrm{RMS}$ is the RMS one. If volume-weighted velocities are injected, the calculated parameters $\overline{\boldsymbol{u}}_\mathrm{VW}$ and $\boldsymbol{u}_\mathrm{RMS,VW}$ are used instead. The parameter $\boldsymbol{r}$ is a vector of three random numbers (one per velocity componnt) that multiplies the RMS to provide a varying velocity through all the injection process. Three different laws are available to sample random numbers for $r$, being these ones:
+	
+	\begin{itemize}
+	
+	\item \textbf{Uniform law}. Each $r$ component follows a uniform distribution: $\boldsymbol{r} \sim \mathcal{U} \left( a = -\sqrt{3}, b = \sqrt{3} \right)$, where $a$ and $b$ are the limits of the distribution. Such values are set so that the RMS of the signal from Eq. (\ref{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}) maintains its RMS provided values.
+	
+	\item \textbf{Gaussian law}. Each $r$ component follows a normal distribution $\boldsymbol{r} \sim \mathcal{N} \left( \mu = 0, \sigma^2 = 1 \right)$, where $\mu$ is the mean and $\sigma^2$ the variance. Such values are set so that the RMS of the signal from Eq. (\ref{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}) maintains its RMS provided values.
+	
+	\item \textbf{No RMS injection}. In this case only constant velocities equal to mean resolved velocities are injected, therefore $\boldsymbol{r} = \textbf{0}$.
+	
+	\end{itemize}
 
+\end{itemize}
 
-
-\subsubsection*{Injection location}
-
-\subsubsection*{Injection velocity}
-
-Velocity at injection can be specified as follows:
-
-\begin{equation}
-\boldsymbol{u}_\mathrm{p} = \overline{\boldsymbol{u}} 
-\end{equation}
-
-
-\begin{equation}
-\boldsymbol{u}_\mathrm{p} = \overline{\boldsymbol{u}} + \boldsymbol{r}^T \boldsymbol{u}_{RMS}
-\end{equation}
-
-\begin{equation}
- \overline{\boldsymbol{u}} = \left( ~ \overline{u} ~~ \overline{v} ~~ \overline{w} ~ \right)^T
-\end{equation}
-
-\begin{equation}
-\boldsymbol{u}_{Inj} = \left( ~ \overline{u} ~~ \alpha \overline{v} ~~ \alpha \overline{w} ~ \right)^T
-\end{equation}
-
-
-\begin{equation}
-\boldsymbol{u}_{RMS}= \left( ~ u_{RMS} ~~ v_{RMS} ~~ w_{RMS} ~ \right)^T
-\end{equation}
-
-\begin{equation}
-\boldsymbol{u}_\mathrm{p} = \left( ~ \overline{u} ~~ 0 ~~ 0 ~ \right)^T
-\end{equation}
-
-\begin{equation}
-\boldsymbol{u}_\mathrm{p}= \boldsymbol{u}_{Gas}
-\end{equation}
-
-where $\boldsymbol{r}$ is a vector of random numbers $\in [-\sqrt{3}, \sqrt{3}]$, and $\overline{\boldsymbol{u}}$ and $\boldsymbol{u}_{RMS}$ are respectively the mean and RMS velocities of the sampled droplets at the injection element.
-
-\begin{equation}
-\boldsymbol{r} \sim \mathcal{N} \left( \mu = 0, \sigma = 1 \right)
-\end{equation}
-
-\subsubsection*{Volume-weighting the velocity}
-
-As it is later shown in $\S$\textbf{?}, the droplets mean velocities can be weighted by their volumes:
-
-%\begin{equation}
-%\displaystyle \left\langle \textbf{u} \right\rangle_\mathrm{VW} = \frac{\sum_{i=1}^{N_\mathrm{dr}} \textbf{u}_i V_i}{\sum_{i=1}^{N_\mathrm{dr}} V_i}
-%\end{equation}
-
-\begin{equation}
-\displaystyle \overline{ \textbf{u} }_\mathrm{VW} = \frac{\sum_{i=1}^{N_\mathrm{dr}} \textbf{u}_i V_i}{\sum_{i=1}^{N_\mathrm{dr}} V_i}
-\end{equation}
-
-In the same fashion, the RMS can also be "volume-weighted" by applying the former expression:
-
-\begin{equation}
-\textbf{u}_\mathrm{RMS,VW} = \sqrt{\displaystyle \overline{\textbf{u}^2 }_\mathrm{VW} - \displaystyle \overline{\textbf{u} }_\mathrm{VW}^2}
-\end{equation}
-
-So:
-
-\begin{equation}
-\boldsymbol{u}_\mathrm{p,VW} = \overline{\boldsymbol{u}}_\mathrm{VW}  + \boldsymbol{r}^T \boldsymbol{u}_\mathrm{RMS,VW} 
-\end{equation}
+Apart from the spray parameters to perform injection, the following liquid physical properties also need to be specified: density $\rho_l$, viscosity $\mu_l$ and surface tension $\sigma$. The density is needed in the dispersed-phase simulations to calculate the dynamics of the droplets according to Eqs. (\ref{eq:TPF_lagrange_dynamic_eqs}), while the viscosity and surface tension are used by the secondary atomization models to estimate the breakup time and children radii of lagrangian droplets ($\S$\ref{sec:ch4_secondary_atomization_modeling}). A summary of all the parameters involved in SLI and the way in which they are calculated is provided in Table \ref{tab:ch4_sli_injection_parameters_master_slide}.
 
 
 
 
-\subsubsection*{Injector topology}
+\begin{table}[ht]
+\centering
+\caption{Summary of SLI injection parameters}
+\begin{tabular}{cccc}
+\thickhline
+\textbf{Group} & \textbf{Parameter} & \textbf{Description} &\textbf{Obtention method} \\
+\thickhline 
+\multirow{11}{*}{ \begin{tabular}{c} \textbf{Injector} \\ \textbf{topology} \end{tabular}} & \multirow{2}{*}{$\textbf{x}_\mathrm{inj}$} & \multirow{2}{*}{Injector center} & Calculated through \\
+& & & discretization process \tab_space
+%\cline{2-4}
+ & \multirow{2}{*}{$w_\mathrm{inj}$} & \multirow{2}{*}{Injector width} & Calculated through \\
+& & & discretization process \tab_space 
+%\cline{2-4}
+ & \multirow{2}{*}{$h_\mathrm{inj}$}  & \multirow{2}{*}{Injector height} & Calculated through \\
+ & & & discretization process \tab_space
+%\cline{2-4}
+& \multirow{2}{*}{$N_\mathrm{pts}$} & Number of injection  & \multirow{2}{*}{User-defined} \\
+& & points in the injector & \tab_space
+\thickhline
 
+\multirow{19}{*}{ \begin{tabular}{c} \textbf{Spray} \\ \textbf{characteristics} \end{tabular}} & \multirow{2}{*}{$Q_{l}$} & Absolute flux & \multirow{2}{*}{Eq. (\ref{eq:ch4_Ql_definition})}  \\
+& &  to be injected & \tab_space
+%\cline{2-4}
+& \multirow{2}{*}{$f_{0}$} & Droplet size & Histogram, PDF fit   \\
+& &  distribution & or constant (SMD) \tab_space
+& \multirow{2}{*}{ $\overline{\textbf{u}}$ } & Arithmetic mean & Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_definition})  \\
+& &  injection  velocities & with $f = u$ \tab_space
+& \multirow{2}{*}{ $\textbf{u}_\mathrm{RMS}$ } & Arithmetic RMS & Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_definition}) \\
+& & injection  velocities & with $f = u$ \tab_space
+& \multirow{2}{*}{ $\overline{\textbf{u}}_\mathrm{VW}$ } & Volume-weighted mean & Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_VW_definition})   \\
+& &  injection  velocities & with $f = u_\mathrm{VW}$ \tab_space
+& \multirow{2}{*}{ $\textbf{u}_\mathrm{VW,RMS}$ } & Volume-weighted RMS & Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_VW_definition})  \\
+& & injection  velocities & with $f = u_{\scriptsize  \mathrm{VW}}$\tab_space
+& \multirow{2}{*}{ $\textbf{r}$ } & Random numbers law & \multirow{2}{*}{ User-defined  }\\
+& &  to multiply $\textbf{u}_\mathrm{RMS}$ & \tab_space
+\thickhline
 
-%\section{Physics modeling}
+\multirow{7}{*}{ \begin{tabular}{c} \textbf{Particle} \\ \textbf{properties} \end{tabular}}& \multirow{2}{*}{$\textbf{x}_\mathrm{i}$} & \multirow{2}{*}{Injection location} &  Randomly chosen from the  \\
+& & & injection points \tab_space
+%\cline{2-4}
+& \multirow{2}{*}{$d_i$} & \multirow{2}{*}{Drop diameter} & Randomly sampled from $f_0$, \\ 
+& & & or constant if SMD \tab_space
+%\cline{2-4}
+& $\textbf{u}_i$ & Drop injection velocity & Eq. (\ref{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}) \tab_space
+%\cline{2-4}
+% & $\textbf{u}_\mathrm{RMS}$ & Drop RMS velocity & User-defined \tab_space
+% & $\textbf{r}$ & Factor for RMS & User-defined \tab_space
+
+\thickhline
+\multirow{4}{*}{ \begin{tabular}{c} \textbf{Liquid} \\ \textbf{properties} \end{tabular}} & $\rho_l$ & Particle's density & User-defined \tab_space
+%\cline{2-4}
+ & $\mu_l$ & Particle's viscosity & User-defined \tab_space
+%\cline{2-4} 
+& $\sigma$ & Surface tension & User-defined \\
+\thickhline
+\end{tabular}
+\label{tab:ch4_sli_injection_parameters_master_slide}
+\end{table}
+
+\clearpage
+
 
 \section{Dense core blockage effect modeling}
 	\label{sec:ch4_dense_core_modelling}
@@ -977,62 +1010,62 @@ where $K_1$ and $K_2$ are the constants of the model, which are of order unity. 
 
 
 
-
-\subsection{Analysis of sizes and number of children droplets}
-
-An analysis of sizes and estimated number of droplets produced by each model is done in the following lines.
-
-The estimated number of children for each model can be obtained as:
-
-\begin{equation}
-N_{ch} = \left( \frac{r}{r_{ch}} \right)^3
-\end{equation}
-
-\paragraph{Gorokhovski} Constants $K_1$, $K_2$ need to be tuned. \textbf{2009 Apte} uses the values $K_1 = 0.6$ and $K_2 = 1$ for simulating spray in a swirl injector. \textbf{Senoner PhD 2010} uses $K_1 = 0.1$, $K_2 = 0.8$ for simulating a diesel spray injected in a high-pressure chamber; and the values  $K_1 = 0.02$, $K_2 = 0.16$ for simulating a high-pressure jet in crossflow. The effect of these two constants will be investigated in our models.
-
-As done for the models from the TAB family, a mean size for children droplets can be estimated. The parameter $\xi$ from Eq. (\ref{eq:gorokhovski_T_CDF}) is defined as $\xi = \ln \left( \frac{r_{ch}}{r}  \right)$. Introducing this expression into Eq. (\ref{eq:gorokhovski_epsilon_parameters_definition}a) 
-
-\begin{equation}
-\langle \ln \left( \frac{r_{ch}}{r}  \right) \rangle = K_1  \ln \left(  \frac{We_c}{We}  \right) 
-\end{equation}
-
-By rearranging this equation we can express the mean size of children droplets:
-
-\begin{equation}
-\langle  \frac{r_{ch}}{r} \rangle = \left( \frac{We_c}{We} \right)^{K_1}
-\end{equation}
-
-This equation confirms the previous statement that the constant $K_1$ has a direct influence on the size of children droplet generated: the larger $K_1$ is, the smaller children droplets are (since the ratio $We_c/We < 1$). Generated children droplet can still undergo further breakup if they meet the breakup conditions (cascade effect), so decreasing $K_1$ would a priori limit the size of droplets (and hence their number) only in each iteration. Nevertheless, this can suppose a smooth transition of breakup towards equilibrium, which would ensure that the Weber number of children droplets is closer to its critical value (i.e. the limit of breakup). An aggressive breakup, which could be produced with a low value of $K_1$, could generate many children droplets from a parent particle with very small size that would not be found in reality (see Figures \ref{fig:r_ratio_gorok} and \ref{fig:N_ch_gorok}).
-
-
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.2]{./part2_developments/figures_ch4_SLI/ratio_droplet_size_TAB}
-	\caption{Ratio of mean droplet for TAB family of models}
-	\label{fig:r_ratio_TAB}
-\end{figure}
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.2]{./part2_developments/figures_ch4_SLI/ratio_droplet_size_gorok}
-	\caption{Ratio of mean droplet for Gorokhovski model}
-	\label{fig:r_ratio_gorok}
-\end{figure}
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.2]{./part2_developments/figures_ch4_SLI/N_ch_TAB}
-	\caption{Estimated number of children for TAB family of models}
-	\label{fig:N_ch_TAB}
-\end{figure}
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.2]{./part2_developments/figures_ch4_SLI/N_ch_gorok}
-	\caption{Estimated number of children for Gorokhovski model}
-	\label{fig:N_ch_gorok}
-\end{figure}
+%
+%\subsection{Analysis of sizes and number of children droplets}
+%
+%An analysis of sizes and estimated number of droplets produced by each model is done in the following lines.
+%
+%The estimated number of children for each model can be obtained as:
+%
+%\begin{equation}
+%N_{ch} = \left( \frac{r}{r_{ch}} \right)^3
+%\end{equation}
+%
+%\paragraph{Gorokhovski} Constants $K_1$, $K_2$ need to be tuned. \textbf{2009 Apte} uses the values $K_1 = 0.6$ and $K_2 = 1$ for simulating spray in a swirl injector. \textbf{Senoner PhD 2010} uses $K_1 = 0.1$, $K_2 = 0.8$ for simulating a diesel spray injected in a high-pressure chamber; and the values  $K_1 = 0.02$, $K_2 = 0.16$ for simulating a high-pressure jet in crossflow. The effect of these two constants will be investigated in our models.
+%
+%As done for the models from the TAB family, a mean size for children droplets can be estimated. The parameter $\xi$ from Eq. (\ref{eq:gorokhovski_T_CDF}) is defined as $\xi = \ln \left( \frac{r_{ch}}{r}  \right)$. Introducing this expression into Eq. (\ref{eq:gorokhovski_epsilon_parameters_definition}a) 
+%
+%\begin{equation}
+%\langle \ln \left( \frac{r_{ch}}{r}  \right) \rangle = K_1  \ln \left(  \frac{We_c}{We}  \right) 
+%\end{equation}
+%
+%By rearranging this equation we can express the mean size of children droplets:
+%
+%\begin{equation}
+%\langle  \frac{r_{ch}}{r} \rangle = \left( \frac{We_c}{We} \right)^{K_1}
+%\end{equation}
+%
+%This equation confirms the previous statement that the constant $K_1$ has a direct influence on the size of children droplet generated: the larger $K_1$ is, the smaller children droplets are (since the ratio $We_c/We < 1$). Generated children droplet can still undergo further breakup if they meet the breakup conditions (cascade effect), so decreasing $K_1$ would a priori limit the size of droplets (and hence their number) only in each iteration. Nevertheless, this can suppose a smooth transition of breakup towards equilibrium, which would ensure that the Weber number of children droplets is closer to its critical value (i.e. the limit of breakup). An aggressive breakup, which could be produced with a low value of $K_1$, could generate many children droplets from a parent particle with very small size that would not be found in reality (see Figures \ref{fig:r_ratio_gorok} and \ref{fig:N_ch_gorok}).
+%
+%
+%
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[scale=0.2]{./part2_developments/figures_ch4_SLI/ratio_droplet_size_TAB}
+%	\caption{Ratio of mean droplet for TAB family of models}
+%	\label{fig:r_ratio_TAB}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[scale=0.2]{./part2_developments/figures_ch4_SLI/ratio_droplet_size_gorok}
+%	\caption{Ratio of mean droplet for Gorokhovski model}
+%	\label{fig:r_ratio_gorok}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[scale=0.2]{./part2_developments/figures_ch4_SLI/N_ch_TAB}
+%	\caption{Estimated number of children for TAB family of models}
+%	\label{fig:N_ch_TAB}
+%\end{figure}
+%
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[scale=0.2]{./part2_developments/figures_ch4_SLI/N_ch_gorok}
+%	\caption{Estimated number of children for Gorokhovski model}
+%	\label{fig:N_ch_gorok}
+%\end{figure}
 
 
 
