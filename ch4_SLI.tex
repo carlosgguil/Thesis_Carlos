@@ -467,7 +467,7 @@ Once a spatially-discretized is obtained (either if convergence-driven discretiz
 	
 	\item \textbf{Gaussian law}. Each $r$ component follows a normal distribution $\boldsymbol{r} \sim \mathcal{N} \left( \mu = 0, \sigma^2 = 1 \right)$, where $\mu$ is the mean and $\sigma^2$ the variance. Such values are set so that the RMS of the signal from Eq. (\ref{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}) maintains its RMS provided values.
 	
-	\item \textbf{No RMS injection}. In this case only constant velocities equal to mean resolved velocities are injected, therefore $\boldsymbol{r} = \textbf{0}$.
+	\item \textbf{Zero law}. In this case the RMS are not considered for injection and only constant velocities equal to mean resolved velocities are injected, therefore $\boldsymbol{r} = \textbf{0}$.
 	
 	\end{itemize}
 
@@ -485,7 +485,7 @@ Apart from the spray parameters to perform injection, the following liquid physi
 \thickhline
 \textbf{Group} & \textbf{Parameter} & \textbf{Description} &\textbf{Obtention method} \\
 \thickhline 
-\multirow{11}{*}{ \begin{tabular}{c} \textbf{Injector} \\ \textbf{topology} \end{tabular}} & \multirow{2}{*}{$\textbf{x}_\mathrm{inj}$} & \multirow{2}{*}{Injector center} & Calculated through \\
+\multirow{9}{*}{ \begin{tabular}{c} \textbf{Injector} \\ \textbf{topology} \end{tabular}} & \multirow{2}{*}{$\textbf{x}_\mathrm{inj}$} & \multirow{2}{*}{Injector center} & Calculated through \\
 & & & discretization process \tab_space
 %\cline{2-4}
  & \multirow{2}{*}{$w_\mathrm{inj}$} & \multirow{2}{*}{Injector width} & Calculated through \\
@@ -498,19 +498,19 @@ Apart from the spray parameters to perform injection, the following liquid physi
 & & points in the injector & \tab_space
 \thickhline
 
-\multirow{19}{*}{ \begin{tabular}{c} \textbf{Spray} \\ \textbf{characteristics} \end{tabular}} & \multirow{2}{*}{$Q_{l}$} & Absolute flux & \multirow{2}{*}{Eq. (\ref{eq:ch4_Ql_definition})}  \\
+\multirow{17}{*}{ \begin{tabular}{c} \textbf{Spray} \\ \textbf{characteristics} \end{tabular}} & \multirow{2}{*}{$Q_{l}$} & Absolute flux & \multirow{2}{*}{Eq. (\ref{eq:ch4_Ql_definition})}  \\
 & &  to be injected & \tab_space
 %\cline{2-4}
 & \multirow{2}{*}{$f_{0}$} & Droplet size & Histogram, PDF fit   \\
 & &  distribution & or constant (SMD) \tab_space
 & \multirow{2}{*}{ $\overline{\textbf{u}}$ } & Arithmetic mean & Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_definition})  \\
-& &  injection  velocities & with $f = u$ \tab_space
+& &  injection  velocities & with $f = \textbf{u}$ \tab_space
 & \multirow{2}{*}{ $\textbf{u}_\mathrm{RMS}$ } & Arithmetic RMS & Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_definition}) \\
-& & injection  velocities & with $f = u$ \tab_space
+& & injection  velocities & with $f = \textbf{u}$ \tab_space
 & \multirow{2}{*}{ $\overline{\textbf{u}}_\mathrm{VW}$ } & Volume-weighted mean & Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_VW_definition})   \\
-& &  injection  velocities & with $f = u_\mathrm{VW}$ \tab_space
+& &  injection  velocities & with $f = \textbf{u}_\mathrm{VW}$ \tab_space
 & \multirow{2}{*}{ $\textbf{u}_\mathrm{VW,RMS}$ } & Volume-weighted RMS & Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_VW_definition})  \\
-& & injection  velocities & with $f = u_{\scriptsize  \mathrm{VW}}$\tab_space
+& & injection  velocities & with $f = \textbf{u}_{\scriptsize  \mathrm{VW}}$\tab_space
 & \multirow{2}{*}{ $\textbf{r}$ } & Random numbers law & \multirow{2}{*}{ User-defined  }\\
 & &  to multiply $\textbf{u}_\mathrm{RMS}$ & \tab_space
 \thickhline
@@ -743,7 +743,6 @@ According to the operating points studied (see Chapter \ref{ch5:jicf_resolved_si
 	\caption{Force ratio evolution with $Re_x$.}
 	\label{fig:ALM_rF_vs_Rex}
 \end{figure}
-
 
 
 \section{Secondary atomization modeling}

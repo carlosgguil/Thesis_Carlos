@@ -202,6 +202,113 @@ OJO: ver pilotage 2021-05-26 para graficas de interes.
 \subsection{Parametric study on actuator model}
 
 
+\clearpage
+
+\section{Effect of injection variables}
+
+\hl{ALSO: effect of one and two-way coupling !! Ver articulos 2010, 2011 Li }.
+
+\subsection{Design of experiments}
+
+In Chapter \ref{ch5:jicf_resolved_simulations}, the five resolved atomization simulations from Table \ref{fig:location_JICF_ops_in_breakup_map} were performed and analyzed. These ones tested two mesh interface mesh resolutions ($\Delta x_\mathrm{min} = 20, 10~\mu$m), two operating points ($We_g = 830, 1470$) and the influence of turbulence injection in one simulation for the coarse resolution, high $We_g$ case. Results shown a high dependency of the trajectories ($\S$\ref{subsec:ch5_jet_trajectories_results}) and jet topologies ($\S$\ref{sec:ch5_jet_evolution}) on the resolution, which led later to different spray characteristics ($\S$\ref{sec:ch5_sec_spray_characterization}) and resulting injectors ($\S$\ref{sec:ch5_learning_SLI}) for each case, which a high dependency on the operating point due to the different velocity magnitudes involved. Therefore, it is of interest to test such effects in the disperse-phase simulations by initializing these computations with the different injectors obtained.
+
+Apart from the resolved simulation parameters (i.e. $\Delta x_\mathrm{min}$, operating condition, turbulence injection), the SLI parameters to perform injection derived in Chapter \ref{ch4:sli_development} and summarized in Table \ref{subsec:ch4_injectors_definition} can also be tested, as well as the influence of the ALM model ($\S$\ref{sec:ch4_dense_core_modelling}) and the secondary atomization models ($\S$\ref{sec:ch4_dense_core_modelling}). The influence of all these parameters can be studied by performing a design of experiments with consists of the simulations from Table \ref{tab:lgs_jicf_DoF}, and which proceeds as follows: 
+
+
+\begin{itemize}
+
+	\item A \textbf{baseline} case is selected to perform injection. The resolved case UG100\_DX10 is chosen with injection being performed at $x_\mathrm{inj} = 5$ mm, ALM activated, Gaussian $\textbf{r}$  law and Gorokhovski's atomization model ($\S$\ref{subsec:ch4_goro_model}). \hl{This case was studied in ... and has been selected because ...}. It corresponds to case 1 from Table \ref{tab:lgs_jicf_DoF}, and all the rest of dispersed-phase simulations are compared to this case.
+
+		\item The effect of the \textbf{resolved mesh resolution} in the injectors is studied by keeping all parameters identical but choosing the SLI obtained from case UG100\_DX20 (see Figure \textbf{XX}). It corresponds to case 2 from Table \ref{tab:lgs_jicf_DoF}
+
+	\item The effect of \textbf{injection location} $x_\mathrm{inj}$ downstream the injector nozzle. The resolved JICF trajectories from Figure \ref{fig:JICF_trajectories_validation} show that the numerical trajectories are properly estimated in the near-nozzle region but that after a certain point, the coarse resolutions underestimate the trajectory while the fine ones overestimate it. To study the influence this can have in the dispesed-phase simulations, three different simulations are performed: two simulations for the resolved case UG100\_DX10 at 1) $x = 5$ mm ($x/d_\mathrm{inj} = 11$);, where the trajectory is properly estimated, and 2) $x = 10$ mm ($x/d_\mathrm{inj} = 22$) where the trajectory is overestimated; and 3) one simulation for the resolved case UG100\_DX20 at $x = 10$ mm ($x/d_\mathrm{inj} = 22$), where the trajectory is underestimated. These cases have been considered since they present low relative values for mass conservation of liquid mass, as shown in Figure \ref{fig:delta_Ql_with_x}. Both simulations performed correspond to cases 3 and 4 from Table \ref{tab:lgs_jicf_DoF}.
+	
+	\item The \textbf{operating condition} is tested by simulating the case UG75\_DX10 with the rest of parameters identical to the baseline (case 5 from Table \ref{tab:lgs_jicf_DoF}).
+	
+	\item \hl{The effect of the \textbf{injection diameters law} $f_0$ ...}
+	
+	\item \textbf{Spray velocities in the SLI} are tested by simulating the baseline case with the two other $\text{r}$ laws: uniform and zero, corresponding to cases 6 and 7 from Table \ref{tab:lgs_jicf_DoF}.
+	
+	\item A simulation without \textbf{ALM} is performed (case 8 from Table \ref{tab:lgs_jicf_DoF}).
+	
+	\item Finally, the effect of the different atomization models is tested by using the TAB and ETAB modes with the baseline conditions (cases 9 and 10 from Table \ref{tab:lgs_jicf_DoF}).	
+	
+\end{itemize}
+
+\clearpage
+	
+%\begin{table}[!h]
+%\centering
+%\caption{Design of experiments to test injection parameters. Modified parameters are highlighted in blue.}
+%\begin{tabular}{ccccccc}
+%\thickhline
+%\multirow{2}{*}{ \textbf{Case}} &  \multirow{2}{*}{ \begin{tabular}{c} \textbf{Resolved} \\ \textbf{simulation} \end{tabular}}    &  \multirow{2}{*}{  \begin{tabular}{c} $x_\mathrm{inj}$  \\ $\left[ \mathrm{mm} \right]$ \end{tabular}} &   \multirow{2}{*}{ \begin{tabular}{c} $\textbf{r}$ \\ \textbf{law} \end{tabular}} & \multirow{2}{*}{ \textbf{ALM ?}}  & \multirow{2}{*}{ \begin{tabular}{c} \textbf{Atomization} \\ \textbf{model} \end{tabular}} &    \multirow{2}{*}{ \textbf{Description}}\\
+% & & & & & & \\
+%\thickhline
+%\vspace*{0.1in}
+%1 & UG100\_DX10 & 5 & Gaussian & Yes & Goro  & Baseline \tab_space
+%\multirow{2}{*}{2} & \multirow{2}{*}{UG100\_\textcolor{blue}{DX20}} & \multirow{2}{*}{5} & \multirow{2}{*}{Gaussian} & \multirow{2}{*}{Yes} & \multirow{2}{*}{Goro}  &  
+% \multirow{2}{*}{ \begin{tabular}{c} Effect of \\ resolution \end{tabular}} \\
+% & & & & & & \tab_space
+%3 & UG100\_DX10 & \textcolor{blue}{10} & Gaussian & Yes & Goro  & Effect of $x_\mathrm{inj}$ \tab_space
+%4 & UG100\_\textcolor{blue}{DX20} & \textcolor{blue}{10} & Gaussian & Yes & Goro  & Effect of $x_\mathrm{inj}$ \tab_space
+%\multirow{2}{*}{5} & \multirow{2}{*}{\textcolor{blue}{UG75}\_DX10} & \multirow{2}{*}{10} & \multirow{2}{*}{Gaussian} & \multirow{2}{*}{Yes} & \multirow{2}{*}{Goro}  & \multirow{2}{*}{ \begin{tabular}{c} Effect of  \\ operating condition  \end{tabular}} \\
+% & & & & & & \tab_space
+%6 & UG100\_DX10 & 5 & \textcolor{blue}{Uniform} & Yes & Goro  & Effect of $r$ law \tab_space
+%7 & UG100\_DX10 & 5 & \textcolor{blue}{Zero} & Yes & Goro  & Effect of $r$ law \tab_space
+%8 & UG100\_DX10 & 5 & Gaussian & \textcolor{blue}{No} & Goro  & Effect of ALM \tab_space
+%\multirow{2}{*}{9} & \multirow{2}{*}{UG100\_DX10} & \multirow{2}{*}{5} & \multirow{2}{*}{Gaussian} & \multirow{2}{*}{Yes} & \multirow{2}{*}{\textcolor{blue}{TAB}} & \multirow{2}{*}{ \begin{tabular}{c} Effect of  \\ atomization model\end{tabular}}\\
+% & & & & & & \tab_space
+%\multirow{2}{*}{10} & \multirow{2}{*}{UG100\_DX10} & \multirow{2}{*}{5} & \multirow{2}{*}{Gaussian} & \multirow{2}{*}{Yes} & \multirow{2}{*}{\textcolor{blue}{ETAB}} & \multirow{2}{*}{ \begin{tabular}{c} Effect of  \\ atomization model\end{tabular}}\\
+% & & & & & & \tab_space
+%\thickhline
+%\end{tabular}
+%\label{tab:lgs_jicf_DoF}
+%\end{table}
+
+	
+\begin{table}[!h]
+\centering
+\caption{Design of experiments to test injection parameters. Blue color indicates modified parameters.}
+\begin{tabular}{ccccccc}
+\thickhline
+\multirow{2}{*}{ \textbf{Case}} &  \multirow{2}{*}{ \begin{tabular}{c} \textbf{Resolved} \\ \textbf{simulation} \end{tabular}}    &  \multirow{2}{*}{  \begin{tabular}{c} $x_\mathrm{inj}$  \\ $\left[ \mathrm{mm} \right]$ \end{tabular}} &   \multirow{2}{*}{ \begin{tabular}{c} $\textbf{r}$ \\ \textbf{law} \end{tabular}} & \multirow{2}{*}{ \textbf{ALM ?}}  & \multirow{2}{*}{ \begin{tabular}{c} \textbf{Atomization} \\ \textbf{model} \end{tabular}} &    \multirow{2}{*}{ \textbf{Modification}}\\
+ & & & & & & \\
+\thickhline
+1 & UG100\_DX10 & 5 & Gaussian & Yes & Goro  & Baseline \tab_space
+2 & UG100\_\textcolor{blue}{DX20} & 5 & Gaussian & Yes & Goro  & SPS resolution \tab_space
+3 & UG100\_DX10 & \textcolor{blue}{10} & Gaussian & Yes & Goro  & $x_\mathrm{inj}$ \tab_space
+4 & UG100\_\textcolor{blue}{DX20} & \textcolor{blue}{10} & Gaussian & Yes & Goro  & $x_\mathrm{inj}$ \tab_space
+5 & \textcolor{blue}{UG75}\_DX10 & 10 & Gaussian & Yes & Goro  & Operating condition \tab_space
+6 & UG100\_DX10 & 5 & \textcolor{blue}{Uniform} & Yes & Goro  & $r$ law \tab_space
+7 & UG100\_DX10 & 5 & \textcolor{blue}{Zero} & Yes & Goro  & $r$ law \tab_space
+8 & UG100\_DX10 & 5 & Gaussian & \textcolor{blue}{No} & Goro  & ALM \tab_space
+9 & UG100\_DX10 & 5 & Gaussian & Yes & \textcolor{blue}{TAB} & Atomization model \tab_space
+10 & UG100\_DX10 & 5 & Gaussian & Yes & \textcolor{blue}{ETAB} & Atomization model \tab_space
+\thickhline
+\end{tabular}
+\label{tab:lgs_jicf_DoF}
+\end{table}
+
+	
+\subsection{Results}
+
+\subsubsection*{Effect of mesh resolution}
+
+\subsubsection*{Effect of injection location}
+
+\subsubsection*{Effect of operating condition}
+
+\subsubsection*{Effect of $\textbf{r}$ law}
+
+\subsubsection*{Effect of ALM}
+
+\subsubsection*{Effect of atomization model}
+
+
+\clearpage
+
+
 \section{Relation between volume and mixture fractions}
 
 So we can relate $\overline{\alpha}$ field with the mixture fraction somehow, this will be interesting for people doing combustion. I have developed the following relation between mixture fraction $Z$ and volume fraction $\alpha$ (need to check it properly):
@@ -214,37 +321,7 @@ Z = \frac{m_l}{m_l + m_g} = \frac{V_l \rho_l}{V_l \rho_l + V_g \rho_g} = \frac{1
 We can also make a link to heat relase, for the interest of combustion studies.
 
 
-\clearpage
 
-\section{Parametric study on injection parameters}
-
-We aim at studying:
-
-\begin{itemize}
-
-		\item \textbf{Mesh resolution}. 
-	
-		\item \textbf{Operating condition}. For testing the effect of the operating condition, 
-
-	\item \textbf{Injection location} downstream the injector nozzle. The resolved JICF trajectories from Figure \ref{fig:JICF_trajectories_validation} show that the numerical trajectories are properly estimated in the near-nozzle region but that after a certain point, the coarse resolutions underestimate the trajectory while the fine ones overestimate it. To study the influence this can have in the dispesed-phase simulations, three different simulations are performed: two simulations for the resolved case UG100\_DX10 at 1) $x = 5$ mm ($x/d_\mathrm{inj} = 11$);, where the trajectory is properly estimated, and 2) $x = 10$ mm ($x/d_\mathrm{inj} = 22$) where the trajectory is overestimated; and 3) one simulation for the resolved case UG100\_DX20 at $x = 10$ mm ($x/d_\mathrm{inj} = 22$), where the trajectory is underestimated. These cases have been considered since they present low relative values for mass conservation of liquid mass, as shown in Figure \ref{fig:delta_Ql_with_x}.
-	
-
-
-\end{itemize}
-
-\clearpage
-
-
-
-\section{Models sensitivity}
-
-ALSO: effect of one and two-way coupling !! Ver articulos 2010, 2011 Li 
-
-\subsection{Effect of injection conditions}
-
-\subsection{Effect of secondary atomization model}
-
-\subsection{Effect of dense core blockage effect model}
 
 \section{Results}
 
@@ -282,6 +359,10 @@ Para velocidades: OJITO con la probe 18 !
 	\caption{Probes for $U$ study}
 	\label{fig:probes_U_planey0}
 \end{figure}
+
+\section{Performance of the simulations}
+
+These ones are cheaper than the resolved ones.
 
 
 
