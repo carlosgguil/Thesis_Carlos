@@ -986,25 +986,30 @@ This function will be later used to obtain the size of children droplets. The pr
 
 \end{itemize}
 
-If both $r > r_\mathrm{crit}$ and $t > t_{bu}$ (both criteria must be met) as given by the previous expressions, breakup occurs. In this case, size of children droplet is obtained from the cumulative density function $T \left( \ln r_{ch}, t \right)$, Eq. (\ref{eq:gorokhovski_T_CDF}), from which $\ln r_{ch}$ can be solved:
+If both $r > r_\mathrm{crit}$ \textbf{and} $t > t_{bu}$ (both criteria must be met) as given by the previous expressions, breakup occurs. In this case, size of children droplet is obtained from the cumulative density function $T \left( \ln r_{ch}, t \right)$, Eq. (\ref{eq:gorokhovski_T_CDF}), from which $\ln r_{ch}$ can be solved:
  
  
 \begin{equation}
 \ln r_{ch} = \ln r + \langle \xi \rangle  + \sqrt{2 \langle \xi^2 \rangle} \erf^{-1} \left(  2 T - 1 \right)
 \end{equation}
 
-The size of children droplets are then obtained by sampling a random value of $T$ from a uniform distribution between $0$ and $1$, and then applying the previous equation. The parameters $\langle \xi \rangle$ and $\langle \xi^2 \rangle$ are the parameters of the model, and can be calculated from the following equations:
+The size of children droplets are then obtained by sampling a random value of $T$ from a uniform distribution between $0$ and $1$, and then applying the previous equation. The parameters $\langle \xi \rangle$ and $\langle \xi^2 \rangle$ are calculated from the following equations:
 
 \begin{subequations}
 \label{eq:gorokhovski_epsilon_parameters_definition}
 \begin{align}
 \langle \xi \rangle &=  K_1 \ln \left(  \frac{We_c}{We}  \right) \\
-- \frac{\langle \xi \rangle}{\langle \xi^2 \rangle} &=  K_2 \ln \left( \frac{r}{r_{ch}} \right)
+- \frac{\langle \xi \rangle}{\langle \xi^2 \rangle} &=  K_2 \ln \left( \frac{r}{r_{crit}} \right)
 \end{align}
 \end{subequations}
 
-where $K_1$ and $K_2$ are the constants of the model, which are of order unity. The constant $K_1$ controls the mean size of children droplets, while $K_2$ influences its standard deviation.
+where $K_1$ and $K_2$ are model constants, which are of order unity. The constant $K_1$ controls the mean size of children droplets, while $K_2$ influences its standard deviation.
 
+Children droplets inherit then a velocity which has two components: the parent particle velocity in the same direction, plus a velocity normal to the parent's direction and magnitude equal to:
+
+\begin{equation}
+|\textbf{u}_\mathrm{ch,n} | = \frac{r}{t_{bu}}
+\end{equation}
 
 
 
