@@ -1,8 +1,6 @@
 \chapter{Resolved atomization simulations of liquid jet in crossflow}
 \label{ch5:jicf_resolved_simulations}
 
-
-
 %Describe here all our simulations done with JICF, what we have achieved with them, etc.
 %
 %\begin{itemize}
@@ -614,7 +612,7 @@ Very fine & 0.3 & 94,192,955 & 17,155,591 \\
 \begin{figure}[ht]
 \centering
 \includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mesh_and_up/meshes}
-\caption[Baseline meshes in the region spanning from the inlet to the nozzle injector]{Baseline meshes in the region spanning from the inlet to the nozzle injector. Zoom-in the red rectangle of Figure \ref{fig:numerical_setup_maquette_JICF_DLR}. From left to right: $\Delta x_\mathrm{ups} = 1, 0.5, 0.3$ mm.}
+\caption[Baseline meshes in the region spanning from the inlet to the nozzle injector]{Baseline meshes in the region spanning from the inlet to the nozzle injector. Zoom-in the red rectangle of Figure \ref{fig:jicf_dlr_mesh}. From left to right: $\Delta x_\mathrm{ups} = 1, 0.5, 0.3$ mm.}
 \label{fig:ics_mesh_independency_study_up_meshes}
 \end{figure}
 
@@ -734,7 +732,7 @@ Results are shown in Figure \ref{fig:TKE_vs_dx_in_probes}. As observed ... \\
 
 Finally, the profiles of mean axial velocity $\overline{u}$ and TKE are plotting along the vertical line shown in Figure \ref{fig:ics_mesh_independency_study_up_fields} right for the half-width of the channel. The results are shown in Figure \ref{fig:ics_mesh_independency_study_mean_profiles}. The mean velocity profile is properly captured for all meshes, despite slight variations within the boundary layer where the mean velocity evolves from 0 to the velocity in the outer layer, which is constant and equal in all cases (despite some fluctuations due to numerical noise). The boundary layer thickness (observed in the evolution of both $\overline{u}$ and $TKE$) is around 5 mm, which is consistent with the experimental values reported in \citeColor[becker_breakup_2002]. Part of the liquid jet is comprised within the boundary layer, as it is illustrated in Figure \ref{fig:Umean_profile_with_jet} where the velocity profile is displayed with a snapshot of one of the liquid simulations discussed later in this report. The $TKE$ profiles for the turbulent cases show that the turbulent energy in the outer layer (z > 5 $mm$) is similar for the resolutions $\Delta x_\mathrm{ups} = 0.5$ and $0.3$ mm, but lower for the thicker resolution of 1 mm. For $\Delta x_\mathrm{ups} = 0.5$ mm, the profile with turbulence shows larger values of TKE than the case without turbulence injected, as expected. Within the boundary layer, however, convergence in terms of resolution is never achieved, since the profile always changes when the mesh is refined in the inner layer (up to z = 2 mm). The smallest scales of for this region are assumed to be of the order of \textbf{XX??} (see Appendix \textbf{XX??}), which cannot be captured not even with the finest cell size of $\Delta x_\mathrm{ups} = 0.3$ mm. A proper resolution at this region would require cell sizes corresponding to DNS, which is unfeasible for the case studied. Nevertheless, the values of TKE for z > 2 mm, including the energy decrease from this point up to the freestream, is converged for the resolution $\Delta x_\mathrm{ups} = 0.5$ mm. \\
 
-From these results, the simulation with the mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm was chosen as initial solution for performing the two-phase simulations. As shown, this mesh size allows for a proper turbulent transport (frequencies and energy content) with a moderable cost: Table \ref{tab:jicf_mesh_independence_gaseous_study} shows that decreasing the resolution from 1 to 0.5 mm supposed an increase of 5 million of elements, while further refining from 0.5 to 0.3 mm adds up to 28 million. The turbulent content in the inner part of the turbulent layer is not properly resolved, which could have an effect on the jet atomization and has not been check in this work (\textbf{XX Maybe NOT ?? CHECK atomization characteristics and SLI in turbulence vs no-turbulence simulations XX}). It, however, does not have an effect on the trajectory, as it is shown in $\S$\ref{subsec:ch5_jet_trajectories_results}. A local refinement on the boundary layer (inflation layer) could help to converge the TKE profiles without a large increase in the cost of the simulations.
+From these results, the simulation with the mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm was chosen as initial solution for performing the two-phase simulations. As shown, this mesh size allows for a proper turbulent transport (frequencies and energy content) with a moderable cost: Table \ref{tab:jicf_mesh_independence_gaseous_study} shows that decreasing the resolution from 1 to 0.5 mm supposes an increase of 5 million of elements, while further refining from 0.5 to 0.3 mm adds up to 28 million more elements. The turbulent content in the inner part of the turbulent layer is not properly resolved, which could have an effect on the jet atomization and has not been check in this work (\textbf{XX Maybe NOT ?? CHECK atomization characteristics and SLI in turbulence vs no-turbulence simulations XX}). It, however, does not have an effect on the trajectory, as it is shown in $\S$\ref{subsec:ch5_jet_trajectories_results}. A local refinement on the boundary layer (inflation layer) could help to converge the TKE profiles without a large increase in the cost of the simulations.
 
 
 
@@ -1058,7 +1056,7 @@ No difference in penetration can be observed \ref{subsec:ch5_jet_trajectories_re
 \caption[Front view of high We jet at several time instants. ]{Front view of high We jet at several time instants. \textsl{Left}: UG100\_DX20. \textsl{Right}: UG100\_DX10.}
 \label{fig:JICF_establishment_UG100_front}
 \end{figure}
-\clearpage
+
 
 \clearpage
 
@@ -1390,7 +1388,7 @@ Finally, the relative error along the trajectory $\varepsilon$ is displayed in F
 
 \clearpage
 
-\section{Dense core characterization}
+\section{Perturbation effect of jet dense core}
 \label{subsec:ch5_dense_core_in_ACLS_simus}
 
 
@@ -1437,7 +1435,7 @@ Resolved simulations are characterized by the presence of the liquid dense core,
 In this section, the estimation of the break point and the pressure difference from the resolved simulations are presented. These are useful to define an actuator for the dispersed phase simulations according to the model introduced in $\S$\ref{sec:ch4_dense_core_modelling}. Then, the turbulent gaseous structures created by the dense core are analyzed, which are compared in Chapter \ref{ch6:jicf_lgs_simulations} with the turbulent structures created by the imposed actuator in the dispersed-phase simulations \hl{to give an idea on the accuracy of the actuator model developed in this work}. \hl{Finally, a spectral study is performed to give an idea of the characteristic frecuencies of fluctuations created ...}
 
 
-\subsection{Obtention of breakup point}
+\subsection{Dense core topology characterization}
 
 The methodology proposed to obtain the breakup point in resolved simulations was explained in $\S$\ref{subsec:ch5_jet_dense_core_extraction}. Its width $w$ and coordinates $x_\mathrm{b}, z_\mathrm{b}$ obtained in the middle plane $y = 0$ are monitored with time. 
 
@@ -1545,8 +1543,9 @@ The perturbation effect of the liquid dense core creates strong turbulent effect
 	\label{fig:streamlines_UG100_DX20_from_dump}
 \end{figure}
 
+\subsubsection*{Qualitative turbulent fields}
 
-The effect of the dense to the gaseous phase was shown in the plane $y = 0$ mm by the instantaneous snapshot of $u^{\prime}$ from Figure \ref{fig:jet_air_interaction_up_and_skeleton}a. To further investigate the disturbance effects, the mean and RMS velocity fields in the planes from Figure \ref{fig:jicf_sps_with_gaseous_planes} are shown. These planes show the 2D fields in planes perpendicular to every axis: the middle plane $y = 0$ mm, the planes perpenicular to the crossflow $x = 5, 10$ mm, and the planes perpendicular to the injection direction $z = $\textbf{XX} mm. These planes are shown for the resolutions \textbf{XX}.
+The effect of the dense to the gaseous phase was shown in the plane $y = 0$ mm by the instantaneous snapshot of $u^{\prime}$ from Figure \ref{fig:jet_air_interaction_up_and_skeleton}a. To further investigate the disturbance effects, the mean and RMS gaseous velocity fields in several planes perpendicular to the axes $x$, $y$ and $z$ are illustrated in this section. Figure \ref{fig:jicf_sps_with_gaseous_planes} shows a view of the jet with the mean velocity fields investigaed in all cases: the middle plane $y = 0 mm$ , planes perpendicular to the crossflow $x = 5, 10, 15$ mm (which correspond to the planes where spray has been sampled and postprocessed, see $\S$\ref{{sec:ch5_sec_spray_characterization}}), the planes perpendicular to the injection direction $z = $\textbf{XX} mm. 
 
 
 \begin{figure}[h!]
@@ -1593,11 +1592,91 @@ The effect of the dense to the gaseous phase was shown in the plane $y = 0$ mm b
 %	\label{fig:jicf_sps_q_crit}
 %\end{figure}
 
+\subsubsection*{Qualitative turbulent fields}
+
+\begin{figure}[ht]
+\centering
+   \includeinkscape[inkscapelatex=false,scale=0.22]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/planes_y_ux_mean}
+
+\caption[Mean axial velocity at plane $y = 0$ mm]{Mean axial velocity at plane $y = 0$ mm. Black lines with arrows are in-plane mean streamlines; the white solid line indicates the contour $\overline{u} = 0$ which delimites the recirculation bubble. The grey area  indicates the mean liquid region, identifed as $\overline{\psi} > 0.5$}
+\label{fig:JICF_turbulent_structures_plane_y0}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+   \includeinkscape[inkscapelatex=false,scale=0.22]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/planes_x_ux_mean}
+\caption[Mean axial velocity at planes $x = 5, 10$ mm]{Mean axial velocity at planes $x = 5, 10$ mm. Black lines with arrows are in-plane mean streamlines. Instantaneous jets for each case are shown in transparent blue.}
+\label{fig:JICF_turbulent_structures_planes_x}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[ht]
+\centering
+   \includeinkscape[inkscapelatex=false,scale=0.22]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/planes_z_ux_mean}
+\caption[Mean axial velocity at planes $z = 0.2, 0.8, 16$ mm]{Mean axial velocity at planes $z = 0.2, 0.8, 16$. Black lines with arrows are in-plane mean streamlines. ; the white solid line indicates the contour $\overline{u} = 0$ which delimites the recirculation bubble. The grey area  indicates the mean liquid region, identifed as $\overline{\psi} > 0.5$. The black-dotted circle indicates the location of the injection nozzle.}
+\label{fig:JICF_turbulent_structures_planes_z}
+\end{figure}
+
+\subsubsection*{Quantitative results}
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/line_y0_along_x_z02}
+   %\caption{}
+   %\label{} 
+\end{subfigure}
+\hspace{0.4in}
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/line_y0_along_x_z05}
+   %\caption{}
+   %\label{}
+\end{subfigure}
+\caption{Mean axial velocity evolution along axial coordinate at $z$ lines of Figure \ref{fig:JICF_turbulent_structures_plane_y0}}
+\label{fig:JICF_sps_lines_y0_along_x_ux_mean}
+\end{figure}
 
 
+\begin{figure}[ht]
+\flushleft
+   \includegraphics[scale=0.27]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/lines_y0_along_z_ux_mean}
+\caption{Mean axial velocity evolution along vertical coordinate at $x$ lines of Figure \ref{fig:JICF_turbulent_structures_plane_y0}}
+\label{fig:JICF_sps_lines_y0_along_z_ux_mean}
+\end{figure}
 
 %\subsection{Defining pressure differences}
 %\label{ch5:subsec_defining_pressure_differences}
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/lines_iso-x_along_y_ux_mean_UG75_x05}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/lines_iso-x_along_y_ux_mean_UG75_x10}
+   \vspace*{-0.1in}
+	\caption{Low Weber operating point}
+\end{subfigure}
+
+
+\vskip\baselineskip
+
+
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/lines_iso-x_along_y_ux_mean_UG100_x05}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/lines_iso-x_along_y_ux_mean_UG100_x10}
+   \vspace*{-0.1in}
+	\caption{High Weber operating point}
+\end{subfigure}
+
+
+
+   \caption{Mean axial velocity evolution along lateral coordinate at $z$ lines of Figure \ref{fig:JICF_turbulent_structures_planes_z}}
+\label{fig:JICF_sps_lines_iso-x_along_y_ux_mean}
+\end{figure}
 
 \clearpage
 

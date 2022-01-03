@@ -1,4 +1,4 @@
-\chapter{Spray learning from resolved atomization simulations of BIMER}
+\chapter{Resolved atomization simulations of BIMER}
 	\label{ch8:bimer_resolved_atomization}
 
 Steps to follow (for this chapter):
@@ -176,8 +176,9 @@ Density ratio & $r$ & - & 915 \\
 %$\pmb{\Delta} x_\mathrm{min}$ [$\pmb{\mu}$$\textbf{m}])  &  \multicolumn{2}{c}{\textbf{Operating condition}} \\ 
 $\Delta x_\mathrm{min}$ [$\mu$m]  &  Denomination \\ 
 \thickhline
-\textbf{15} & BIMER\_DX15 \\
-\textbf{10} & BIMER\_DX10 \\
+7.5 & BIMER\_DX07 \\
+10 & BIMER\_DX10 \\
+15 & BIMER\_DX15 \\
 \thickhline
 \end{tabular}
 \label{tab:BIMER_resolved_simulations_performed}
@@ -233,6 +234,7 @@ As shown in the previous table, the lower timescale is found for the inertia pro
 \thickhline
 \textbf{Case} & $x_c/d_\mathrm{inj} = 5$ & $x_c/d_\mathrm{inj} = 10$ & $x_c/d_\mathrm{inj} = 15$ \\
 \thickhline 
+BIMER\_DX07 & - & - & -  \\
 BIMER\_DX10 & - & - & -  \\
 BIMER\_DX15  & - & - & - \\
 \thickhline
@@ -246,6 +248,11 @@ BIMER\_DX15  & - & - & - \\
 
 
 \section{Jet evolution}
+
+In first place, the jet evolution at the early instants of the injection process is shown in Figure \ref {fig:BIMER_jet_establishment}. As in the simulations from Chapter \ref{ch5:jicf_resolved_simulations}, snapshots are shown for values of dimensionless time $t^*$ defined by Eq. (\ref{eq:t_dimensionless_with_tau_in}), in which the physical time is expressed in relation to the timescale $\tau_\mathrm{in}$ from Table \ref{tab:BIMER_SPS_characteristic times}. 
+
+
+
 %\label{ch8:resolved_atomization_simulations}
 
 %\begin{table}[!h]
@@ -296,6 +303,40 @@ BIMER\_DX15  & - & - & - \\
 %\end{equation}
 %
 %which is actually very similar.
+
+\begin{figure}[ht]
+\centering
+\includeinkscape[inkscapelatex=false,scale=0.7]{./part3_applications/figures_ch8_resolved/jet_evolution}
+\caption[Establishment of BIMER resolved atomization simulations at several time instants.]{Establishment of BIMER resolved atomization simulations at several time instants. \textsl{Left}: DX07. \textsl{Center}: DX10. \textsl{Right}: DX15. }
+\label{fig:BIMER_jet_establishment}
+\end{figure}
+
+\subsection{Breakup topology}
+
+The topology is super different with respecto to DLR JICF!! 
+
+\subsection{Jet establishment}
+
+Figure \ref{fig:BIMER_volume_nelem_evolution} shows the evolution of liquid volume and of mesh size for the three simulations performed. 
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.24]{./part3_applications/figures_ch8_resolved/BIMER_liquid_volume_increase}
+   %\caption{Liquid volume}
+   \label{fig:BIMER_liquid_volume_evolution} 
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.24]{./part3_applications/figures_ch8_resolved/BIMER_nelem_increase}
+   %\caption{Zoomed-in view of Figure \ref{fig:JICF_nelem_increase_all_t} in range $t^{\prime} \in [0, 2]$}
+   \label{fig:BIMER_nelem_increase}
+\end{subfigure}
+   \caption{Evolution of number of mesh elements (\textsl{left}) and number of mesh elements (\textsl{right}) with time in BIMER resolved simulations.}
+\label{fig:BIMER_volume_nelem_evolution}
+\end{figure}
 
 
 \section{Dense core characterization}

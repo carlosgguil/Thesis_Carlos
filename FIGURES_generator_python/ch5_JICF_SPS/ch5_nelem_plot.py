@@ -292,5 +292,8 @@ plt.close()
 
 
 
-
-
+#%% 
+try:
+    f = open('duw.txt')
+except:
+    print('CARLOS')
