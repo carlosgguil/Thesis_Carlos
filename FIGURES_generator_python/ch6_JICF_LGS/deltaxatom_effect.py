@@ -11,10 +11,6 @@ sys.path.append('C:/Users/d601630/Documents/GitHub/sprays_tools/jicf_penetration
 sys.path.append('C:/Users/d601630/Desktop/Ongoing/JICF_trajectories/trajectories_SPS')
 
 import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import trajectory_calculation_functions as trj
-from functions_methods import get_mean_trajectory_sweep
 
 
 

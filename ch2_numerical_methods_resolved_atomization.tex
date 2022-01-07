@@ -5,9 +5,16 @@
 
 %\textbf{MAKE LINK WITH FINAL PART OF INTRODUCTION WHEN IT IS DONE}
 
-Resolution of two-phase flows requires a suitable description of each phase and a careful treatment of the liquid-gas interface. From a numerical point of view, the multi-scale nature of atomization makes it impossible to use the same methods for resolving atomization accurately and for transporting a developed spray, since the characteristic length scales differ by several orders of magnitude. Consequently, different numerical methodologies must be chosen according to the targeted problem. Furthermore, if multi-physical phenomena, such as evaporation or combustion, are present, the range of possible models to be applied becomes even narrower.
+Resolution of two-phase flows requires a suitable description of each phase and a careful treatment of the liquid-gas interface. From a numerical point of view, the multi-scale nature of atomization makes it impossible to use the same methods for resolving atomization accurately and for transporting efficiently a developed spray composed of small droplets, since the characteristic length scales differ by several orders of magnitude. Consequently, different numerical methodologies must be chosen according to the targeted problem. Furthermore, if multi-physical phenomena, such as evaporation or combustion, are present, the range of possible models to be applied becomes even narrower.
 
-The first step to choose a proper methodology is to identify the type of regime to solve. One possible classification of two-phase regimes can be done depending on the distribution and topology of the interface. In this respect, one can distinguish between separate and disperse phase \citepColor[murrone_numerical_2011]: 
+\begin{figure}[h!]	
+	\centering
+\includeinkscape[inkscapelatex=false,scale=0.75]{./part1_numerical_approaches/figures_ch2/TPF_approaches_example}
+	\caption[Two-phase systems classification]{Two-phase systems classification. \textsl{Left}: separate flow, where both phases are easily distinguished and the interface $\Gamma$ can easily be tracked. \textsl{Right}: dispersed phase flow, where individual fluid particles (disperse phase) are surrounded by the gas (carrier phase). In such systems, the interface can hardly be tracked due to the higher surface-to-volume ratio.}
+	\label{fig:TPF_droplets_example}
+\end{figure}
+
+The first step for choosing a proper methodology is to identify the type of regime to solve. One possible classification of two-phase regimes can be done depending on the distribution and topology of the interface. In this respect, one can distinguish between separate and disperse phase \citepColor[murrone_numerical_2011]: 
 
 
 %Suitable modeling strategies are needed to resolve a two-phase flow problem. The strategy chosen will depend on many things, such as the coherence of the liquid phase or the ambient conditions. Hence, the same strategies applied when studying injection at take-off conditions might not be the same than the ones required for relight  altitude relight problems, for example.
@@ -18,27 +25,13 @@ The first step to choose a proper methodology is to identify the type of regime 
 
 \begin{itemize}
 
-\item \textbf{Separate phase} flows, also known as dense regime, present a clear definition of the interface and both liquid and gaseous phases can be easily identified (Figure \ref{fig:TPF_droplets_example} left). In such cases, the liquid volume fraction is large and the liquid structures are of the same order, or larger, than the cell size, so the atomization dynamics can be captured by the mesh. Within engines, separate phase is found during primary breakup, as shown by the blue regions of Fig. \ref{fig:atomization_regimes_herrmann}. Numerical methods devoted to resolve separate phase regimes are tackled in this chapter ($\S$\ref{sec:ch2_eulerian_approaches_dense_regime}). Generally, these methods are restricted to non-reactive problems and the multi-physics coupling with evaporation and combustion is not possible.
+\item \textbf{Separate phase} flows, also known as dense regime, present a clear definition of the interface and both liquid and gaseous phases can be easily identified (Figure \ref{fig:TPF_droplets_example} left). In such cases, the liquid volume fraction is large and the liquid structures are larger, or at least of the same order, than the cell size, so the atomization dynamics can be captured by the mesh. Within engines, separate phase is found during primary breakup, as shown by the blue regions of Fig. \ref{fig:atomization_regimes_herrmann}. Numerical methods devoted to resolve separate phase regimes are tackled in this chapter ($\S$\ref{sec:ch2_eulerian_approaches_dense_regime}). Generally, these methods are restricted to non-reactive problems and the multi-physics coupling with evaporation and combustion is not yet possible, being currently an emerging research topic \citepColor[luo_level_2019].
 
-\item \textbf{Dispersed phase} regime is found when the liquid volume fraction is small and the liquid structures cannot be capture by the main grid. The liquid phase is composed by individual liquid particles (usually called droplets) whose high number and small size hinders the tracking of the interface (Figure \ref{fig:TPF_droplets_example} right). Droplets are surrounded by the gaseous phase, also called \textbf{carrier phase}. A developed spray produced as a consequence of secondary atomization is an example of dispersed phase systems, illustrated by the intermediate and dilute regimes of Figure \ref{fig:atomization_regimes_herrmann}. The same numerical methods used for the separate phase regime cannot be applied, since the characteristic scales are much smaller and the grid resolution required yields the computations unaffordable due to their high cost. Numerical formalisms targeting dispersed phase flows are discussed in Chapter \ref{ch3:disperse_phase_methods}. These methods do not resolve atomization as accurately as the ones employed for separate phases, but present the possibility to integrate evaporation and combustion.
+\item \textbf{Dispersed phase} regime is found when the liquid volume fraction is small and the liquid structures cannot be capture by the main grid. The liquid phase is composed by individual liquid particles (usually called droplets) whose high number and small size hinders the tracking of the interface (Figure \ref{fig:TPF_droplets_example} right). Droplets are surrounded by the gaseous phase, also called \textbf{carrier phase}. A developed spray produced as a consequence of secondary atomization is an example of dispersed phase systems, illustrated by the intermediate and dilute regimes of Figure \ref{fig:atomization_regimes_herrmann}. The same numerical methods used for the separate phase regime cannot be applied, since the characteristic scales are much smaller and the grid resolution required yields the computations unaffordable due to their high cost. Numerical formalisms targeting dispersed phase flows are discussed in Chapter \ref{ch3:disperse_phase_methods}. These methods do not resolve the atomization dynamics, but present the possibility to integrate evaporation and combustion.
 
 \end{itemize}
 
-%Different numerical models have been developed to solve two-phase flows. Due to the differences aforementioned, each method will target problems involving mainly either separate or disperse phase. Volume of fluid ($\S$\ref{subsec:ch2_VOF}) or level-set ($\S$\ref{subsec:ch2_ACLS}) methods are suitable for solving primary atomization, but becomes inefficient when applying it to a cluster of small particles product of secondary atomization. Lagrangian methods, dealt in Chapter \ref{ch3:disperse_phase_methods}, are suitable to represent disperse phase systems containing droplets moving individually, but cannot properly represent a dense liquid region with high volume fraction and would need extra modeling to represent the physics more accurately \citepColor[reitz_modeling_1987].
-
-A thorough classification of existing numerical methods for two-phase flows is shown in Figure \ref{fig:classification_numerical_methods_mirjalili}. Methods aiming at solving disperse-phase flows use often a two-fluid formulation, since the description of each phase is done with separate equations. On the other hand, methods addressing separate phases are based on a one-fluid formulation, since basically the same governing equations are solved but distinguishing between phases via their different physical properties. This requires a specific treatment of the interface and the jump conditions in pressure due to surface tension, which each method handles differently. 
-
-\newpage
-
-\begin{figure}[h!]	
-	\centering
-	\includeinkscape[inkscapelatex=false,scale=0.75]{./part1_numerical_approaches/figures_ch2/TPF_approaches_example}
-	\caption[Two-phase systems classification]{Two-phase systems classification. \textsl{Left}: separate flow, where both phases are easily distinguished and the interface $\Gamma$ can easily be tracked. \textsl{Right}: dispersed phase flow, where individual fluid particles (disperse phase) are surrounded by the gas (carrier phase). In such systems, the interface can hardly be tracked due to the higher surface-to-volume ratio.}
-	\label{fig:TPF_droplets_example}
-\end{figure}
-
-This chapter gives an overview on the state-of-the-art in numerical methods applicable to resolve separate phase regimes. Section \ref{sec:ch2_governing_equations} introduces the governing equations of non-reactive two phase flows, beginning by introducing the Reynolds Transport Theorem and applying it to obtain mass and momentum conservation laws. Section \ref{sec:ch2_eulerian_approaches_dense_regime} presents the numerical methodologies reviewed: diffuse interface, front-tracking, Volume of Fluid (VOF), and Accurate Conservative Level-Set coupled with Ghost-Fluid Method (ACLS/GMF). The last one is the methodology used in this thesis for performing resolved simulation atomizations in Chapters 5 and 8.%\ref{ch5:jicf_resolved_simulations} and \ref{ch8:bimer_resolved_atomization}.
-
+A thorough classification of existing numerical methods for two-phase flows is shown in Figure \ref{fig:classification_numerical_methods_mirjalili}. Models aiming at solving disperse-phase flows use often a two-fluid formulation, since the description of each phase is done with separate equations. On the other hand, methods addressing separate phases are based on a one-fluid formulation, since basically the same governing equations are solved but distinguishing between phases via their different physical properties. This requires a specific treatment of the interface and the jump conditions in pressure due to surface tension, which each method handles differently. 
 
 \begin{figure}[h!]
 	\centering
@@ -46,9 +39,14 @@ This chapter gives an overview on the state-of-the-art in numerical methods appl
 	\caption[Numerical methods to simulate two-phase flows.]{Numerical methods to simulate two-phase flows. Ellipses denote interface-capturing methods. Sharp-interface methods are denoted by a white background, while the grey one indicates diffuse-interface methods. Source: \citeColor[mirjalili_interface-capturing_2017]}
 	\label{fig:classification_numerical_methods_mirjalili}
 \end{figure}
+	
+This chapter gives an overview on the state-of-the-art in numerical methods applicable to resolve separate phase regimes. Section \ref{sec:ch2_governing_equations} introduces the governing equations of non-reactive two phase flows, beginning by introducing the Reynolds Transport Theorem and applying it to obtain mass and momentum conservation laws. Section \ref{sec:ch2_eulerian_approaches_dense_regime} presents the numerical methodologies reviewed: diffuse interface, front-tracking, Volume of Fluid (VOF), and Accurate Conservative Level-Set coupled with Ghost-Fluid Method (ACLS/GMF). The last one is the methodology used in this thesis for performing resolved simulation atomizations in Chapters 5 and 8.%\ref{ch5:jicf_resolved_simulations} and \ref{ch8:bimer_resolved_atomization}.
+
 
 %Figure \ref{fig:classification_numerical_methods_mirjalili} depicts another classification of methods for two-phase flows according to how they see the interface: \textbf{sharp interface} (white background boxes) and \textbf{diffuse interface} (grey background). The former, as their name indicates, identify the interface as a diffused spatial region where both phases coexists. Diffuse-interface methods are succinctly presented in $\S{subsec:ch2_DI_methods}$. Sharp interface methods, some of which are presented in later sections, see the interface as an infinitely-thin front moving at a certain speed. Hence, the interface is located at a given value of a scalar function which is advected by the fluid. 
 
+
+%Different numerical models have been developed to solve two-phase flows. Due to the differences aforementioned, each method will target problems involving mainly either separate or disperse phase. Volume of fluid ($\S$\ref{subsec:ch2_VOF}) or level-set ($\S$\ref{subsec:ch2_ACLS}) methods are suitable for solving primary atomization, but becomes inefficient when applying it to a cluster of small particles product of secondary atomization. Lagrangian methods, dealt in Chapter \ref{ch3:disperse_phase_methods}, are suitable to represent disperse phase systems containing droplets moving individually, but cannot properly represent a dense liquid region with high volume fraction and would need extra modeling to represent the physics more accurately \citepColor[reitz_modeling_1987].
 
 \section{Governing equations }
 \label{sec:ch2_governing_equations}
@@ -237,7 +235,7 @@ Two-phase flows must ensure mass conservation for each phase. This can be done b
 \alpha_k = \frac{V_k}{V}
 \end{equation}
 
-This magnitude determines the quantity of a given fluid $k$ that is contained in a considered volume $V$. By definition, it follows that $\sum_{k=1}^\mathrm{N_{phases}} \alpha_k = 1$. It can be defined for both gas and liquid phases, $\alpha_\mathrm{g}$ and $\alpha_\mathrm{l}$, so then $\alpha_\mathrm{g} + \alpha_\mathrm{l} = 1$.
+This magnitude determines the quantity of a given fluid $k$ that is contained inside a volume $V$. By definition, it follows that $\sum_{k=1}^\mathrm{N_{phases}} \alpha_k = 1$. It can be defined for both gas and liquid phases, $\alpha_\mathrm{g}$ and $\alpha_\mathrm{l}$, so then $\alpha_\mathrm{g} + \alpha_\mathrm{l} = 1$.
 
 Once the volume fractions for liquid and gas are defined, the continuity equation (\ref{eq:mass_conservation_general_differential}) can be defined for each phase as follows:
 
@@ -422,7 +420,7 @@ Previously, the governing laws for fluid dynamics have been stated in their weak
 \subsection{Diffuse interface methods}
 \label{subsec:ch2_DI_methods}
 
-Diffuse interface comprises a family of numerical methods in which the interface is not found at a precise spatial location, but is distributed along a transition region where both phases coexist. The volume fraction of gas and liquid phases must add to 1: $\alpha_l + \alpha_g = 1$. Figure \ref{fig:DI_vs_VOF} displays a droplet solved with a diffuse interface method and a sharp interface (VOF, see $\S$\ref{subsec:ch2_VOF}) in the same grid, clearly showing how the interface can be easily tracked in the latter case but not in the former. %\colorbox{red}{demonstrating clearly how the interface definition is straightforward in the latter but not so easily to track in the former}.
+Diffuse interface comprises a family of numerical methods in which the interface is not found at a precise spatial location, but is distributed along a transition region where both phases coexist. The volume fraction of gas and liquid phases must add to 1: $\alpha_l + \alpha_g = 1$. Figure \ref{fig:DI_vs_VOF} displays a droplet solved with a diffuse interface method and a sharp interface (VOF, see $\S$\ref{subsec:ch2_VOF}) in the same grid, clearly showing how the interface can be easily defined for the latter but not for the former. %\colorbox{red}{demonstrating clearly how the interface definition is straightforward in the latter but not so easily to track in the former}.
 
 \begin{figure}[h!]
 	\centering
@@ -447,7 +445,7 @@ where $\epsilon$ is a parameter defining the thickness of the interface, $\gamma
 \end{align}
 \end{subequations}
 
-Other available diffuse-interface methods have made use of the aforementioned Cahn-Hilliard and applied it to miscible flows \citepColor[teigen_diffuse-interface_2011] and to compressible two-phase systems \citepColor[shukla_interface_2010]. Furthermore, diffuse-interface methods find good applicability in particular thermodynamic regimes, such as multicomponent systems at supercritical conditions where surface tension is non-existent and a proper interface is not present \citemColor[dahms_transition_2013,jofre_transcritical_2021]. 
+Other available diffuse-interface methods have made use of the aforementioned Cahn-Hilliard and applied it to miscible flows \citepColor[teigen_diffuse-interface_2011] and to compressible two-phase systems \citepColor[shukla_interface_2010]. Furthermore, diffuse-interface methods find good applicability in particular thermodynamic regimes, such as multicomponent systems at supercritical conditions relevant in rocket engines, where surface tension is non-existent and a proper interface is not present \citemColor[dahms_transition_2013,jofre_transcritical_2021]. 
 
 
 
@@ -476,7 +474,7 @@ where the velocity $\textbf{u}$ is obtained by solving the flow field. As lagran
 
 % VOF reference: 2C. Hirth and B. Nichols. “Volume of Fluid (VOF) method for the dynamics of free boundaries”. In: Journal of Computational Physics 39 (1979), pp. 201–225
 
-The Volume of Fluid method (VOF) is the first numerical methodologies developed to solve for liquid-gas interfaces in free surface flows, introduced originally by \citeColor[hirt_volume_1981]. It is included among the methods using a \textbf{sharp-interface} approach, as opposed to diffuse interface which were succinctly discussed previously. They have been extensively studied in literature, and have been applied for both structured \citemColor[scardovelli_direct_1999,fuster_simulation_2009] and unstructured \citemColor[jofre_3-d_2014,ivey_conservative_2017] grids. VOF methods identify the liquid regions according to their liquid volume fraction $\alpha_l$ defined in Eq. (\ref{eq:vol_frac_definition}). The volume fraction scalar is transported with an advection equation:
+The Volume of Fluid method (VOF) was the first numerical methodology developed to solve for liquid-gas interfaces in free surface flows, introduced originally by \citeColor[hirt_volume_1981]. It is included among the methods using a \textbf{sharp-interface} approach, as opposed to diffuse interface which were succinctly discussed previously. They have been extensively studied in literature, and have been applied for both structured \citemColor[scardovelli_direct_1999,fuster_simulation_2009] and unstructured \citemColor[jofre_3-d_2014,ivey_conservative_2017] grids. VOF methods identify the liquid regions according to their liquid volume fraction $\alpha_l$ defined in Eq. (\ref{eq:vol_frac_definition}). The volume fraction scalar is transported with an advection equation (\ref{eq:VOF_alpha_advection}):
 
 \begin{equation}
 	\label{eq:VOF_alpha_advection}
@@ -539,6 +537,15 @@ When applying the previous expression, the function $\phi$ will be distorted and
 
 where $\varepsilon$ defines the interface thickness. The function $\psi$, which is a mapping from the classical signed-distance $\phi$, is bounded between $0$ and $1$, while $\phi$ is unbounded. The interface $\Gamma$ is located at the iso-value $\psi = 0.5$; gas phase is given by $\psi < 0.5$, and liquid for $\psi > 0.5$. Figure \ref{fig:psi_phi_profiles_janodet_2021_JCP} shows a representative view of both distance functions.
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./part1_numerical_approaches/figures_ch2/ACLS_psi_phi_janodet_JCP}
+       \centering
+    \caption[Representation of distance functions $\phi$ and $\psi$ in the ACLS methodology]{Representation of distance functions $\phi$ and $\psi$ in the ACLS methodology. The signed-distance function $\phi$ has been normalized by $\delta_\psi = 4\varepsilon$ for visualization. Source: \textbf{ref:Janodet JCP article (include when published)}.}
+    \label{fig:psi_phi_profiles_janodet_2021_JCP}
+\end{figure}
+
+
 As in the classical level-set method, the hyperbolic tangent profile is also transported via an advection equation:
 
 \begin{equation}
@@ -578,17 +585,7 @@ As indicated in Eq. (\ref{eq:acls_reinit_2008}), the reinitialization process ha
 
 where $\kappa_{\scriptsize{\Gamma}}$ is the interface mean curvature and $\mu$ is the dynamic viscosity. Using this formulation, surface tension forces $\sigma\kappa_{\scriptsize{\Gamma}}$ are embedded in the pressure jump. \\
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.6\textwidth]{./part1_numerical_approaches/figures_ch2/ACLS_psi_phi_janodet_JCP}
-       \centering
-    \caption[Representation of distance functions $\phi$ and $\psi$ in the ACLS methodology]{Representation of distance functions $\phi$ and $\psi$ in the ACLS methodology. The signed-distance function $\phi$ has been normalized by $\delta_\psi = 4\varepsilon$ for visualization. Source: \textbf{ref:Janodet-2021-JCP}.}
-    \label{fig:psi_phi_profiles_janodet_2021_JCP}
-\end{figure}
-
-
-
-In this work, the more recent extension to the ACLS method by \textbf{ref:Janodet-2021-JCP} is used. This formulation makes use of the reinitialization equation introduced by \citeColor[chiodi_reformulation_2017]:
+In this work, the more recent extension to the ACLS method by \textbf{ref:Janodet JCP article (include when published)} is used. This formulation makes use of the reinitialization equation introduced by \citeColor[chiodi_reformulation_2017]:
 
 \begin{equation}
 \label{eq:acls_reinit_2017}
@@ -618,16 +615,16 @@ where $H$ is the Heaviside function.
 
 To better resolve the atomization dynamics and save computational resources, the ACLS/GFM method is coupled to an Adaptive Mesh Refinement (AMR) strategy for increasing the mesh resolution at the liquid-gas interface at an affordable cost \citepColor[leparoux_primary_2018]. In AMR, the target element size at the interface $\Delta x_\mathrm{min}$ and  the number of cells with this size $N_p$ are specified by the user. The spatial region containing elements with size $\Delta x_\mathrm{min}$ has a width $2 N_p\Delta x_\mathrm{min}$, see Figure \ref{fig:AMR_strategy}. The mesh is dynamically refined throughout the computation with an automatic distance-based triggering ensuring that the interface always remains within this region. In its vicinity, the cell size increases linearly with controlled slope until the baseline cell size $\Delta x_\mathrm{init}$. AMR will be used in all the resolved atomization simulations presented in this thesis. Hence, the full methodology used to performed this simulations will be hereafter referred as ACLS/AMR.
 
-As stated by \citeColor[leparoux_primary_2018], ACLS improves mass conservation of liquid by propagating and reinitalizing the interface given by the contour $\psi = 0.5$. If a uniform mesh is used with sufficient resolution to capture the liquid structures, mass conservation is ensured. However, this does not often occur when atomization creates small droplets as the baseline meshes are not fine enough to capture these small scales. The purpose of AMR is therefore to refine locally and dynamically the mesh in order to define smaller elements as the interface propagates. However, AMR is not triggered at each solver iteration, as this would yield computations very expensive. Instead, mesh adaptation is performed after each $N_\mathrm{iter}^{adapt}$ which is calculated according to the following formula:
+As stated by \citeColor[leparoux_primary_2018], ACLS improves mass conservation of liquid by propagating and reinitalizing the interface given by the contour $\psi = 0.5$. If a uniform mesh is used with sufficient resolution to capture the liquid structures, mass conservation is ensured. However, this does not often occur when atomization creates small droplets, as the baseline meshes are not fine enough to capture these small scales. The purpose of AMR is therefore to refine locally and dynamically the mesh in order to place smaller elements as the interface propagates. However, AMR is not triggered at each solver iteration, as this would yield computations very expensive. Instead, mesh adaptation is performed after each $N_\mathrm{iter}^\mathrm{adapt}$ which is calculated according to the following formula:
 
 \begin{equation}
 \label{eq:ch2_N_iter_adapt_AMR}
 N_\mathrm{iter}^\mathrm{adapt} = \frac{N_p}{CFL} \frac{\Delta t^{CFL}}{\Delta t}
 \end{equation}
 
-where $CFL$ is the Courant-Friedrichs-Levy number, $\Delta t^{CFL}$ is the time-step given by the CFL condition and $\Delta t$ is the time-step governing the computations.  With this definition for $N_\mathrm{iter}^{adapt}$, AMR triggers with enough frequency to ensure that interface is not propagated outside the layer with mesh size $\Delta x_\mathrm{min}$. In this way, the contour $\psi = 0.5$ does not encounter gradients in cell size which would cause its diffusion.
+where $CFL$ is the Courant-Friedrichs-Levy number, $\Delta t^{CFL}$ is the time-step given by the CFL condition and $\Delta t$ is the time-step governing the computations.  With this definition for $N_\mathrm{iter}^{adapt}$, AMR triggers with enough frequency to ensure that interface is not propagated outside a layer of elements with size $\Delta x_\mathrm{min}$. In this way, the contour $\psi = 0.5$ does not encounter gradients in cell size which would cause its diffusion.
 
-Once every $N_\mathrm{iter}^\mathrm{adapt}$ iterations, firstly the interface is advanced and secondly the levelset function is reinitiliazed with Eq. (\ref{eq:acls_reinit_2017}). The levelset band around the interface (the region where cells are refined) is then flagged so that interconnecting pairs of nodes are identified and levelset parameters can be efficiently calculated (\textbf{ref:Janodet-2021-JCP}), and a new mesh is generated by AMR and the flow fields (velocity, pressure, levelset, etc.) are interpolated into the new grid. Finally, reinitialization of the levelset function is performed again. In this way, a new grid containing the transported flow fields prior to mesh adaptation is generated. In the iterations where AMR does not act, the procedure is identical except for the mesh adaptation step which is not performed. %More details on this methodology can be found in (\textbf{ref:Janodet-2021-JCP}).
+Once every $N_\mathrm{iter}^\mathrm{adapt}$ iterations, firstly the interface is advanced and secondly the levelset function is reinitiliazed with Eq. (\ref{eq:acls_reinit_2017}). The levelset band around the interface (the region where cells are refined) is then flagged so that interconnecting pairs of nodes are identified and levelset parameters can be efficiently calculated (\textbf{ref:Janodet JCP article (include when published)}). A new mesh is then generated by AMR and the flow fields (velocity, pressure, levelset, etc.) are interpolated into the new grid. Finally, reinitialization of the levelset function is performed again. In this way, a new grid containing the transported flow fields prior to mesh adaptation is generated. In the iterations where AMR does not act, the procedure is identical except for the mesh adaptation step which is not performed. %More details on this methodology can be found in (\textbf{ref:Janodet-2021-JCP}).
 
 \begin{figure}[ht]
     \centering

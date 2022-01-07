@@ -1663,16 +1663,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.0000001"
-     inkscape:cx="-1899.625"
-     inkscape:cy="927.12498"
+     inkscape:zoom="0.1767767"
+     inkscape:cx="-2265.5701"
+     inkscape:cy="755.19002"
      inkscape:document-units="mm"
-     inkscape:current-layer="g4944"
+     inkscape:current-layer="layer2"
      showgrid="false"
-     inkscape:window-width="3200"
-     inkscape:window-height="1721"
+     inkscape:window-width="1680"
+     inkscape:window-height="971"
      inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-y="25"
      inkscape:window-maximized="1"
      units="mm"
      inkscape:snap-grids="true"
@@ -2059,31 +2059,31 @@
          x="-391.53537"
          y="74.96962"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
-         id="tspan383-6-7-0-6-3">Momentum </tspan><tspan
+         id="tspan383-6-7-0-6-3">Dense core</tspan><tspan
          sodipodi:role="line"
          x="-391.53537"
          y="89.359665"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
-         id="tspan7880">  exchange</tspan></text>
+         id="tspan7880">  learning</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:14.1111px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-141.2227"
+       x="-156.93816"
        y="11.376623"
        id="text4693-2-0-6-3-4-0-3-5-8"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
        inkscape:export-xdpi="853.526"
        inkscape:export-ydpi="853.526"><tspan
          sodipodi:role="line"
-         x="-141.2227"
+         x="-156.93816"
          y="11.376623"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
-         id="tspan383-6-5-6-3-7-4">   Secondary </tspan><tspan
+         id="tspan383-6-5-6-3-7-4">      Secondary </tspan><tspan
          sodipodi:role="line"
-         x="-141.2227"
+         x="-156.93816"
          y="25.766666"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
-         id="tspan14205">breakup model</tspan></text>
+         id="tspan14205">atomization model</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.651;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.906,3.906;stroke-dashoffset:0;stroke-opacity:1"
        d="M -197.9343,22.810736 V 104.89217"
@@ -2139,17 +2139,18 @@
        sodipodi:open="true"
        d="m -174.56851,71.437002 a 1.665133,1.6998935 0 0 1 -1.27957,2.007907 1.665133,1.6998935 0 0 1 -1.97592,-1.291917 1.665133,1.6998935 0 0 1 1.25137,-2.02634 1.665133,1.6998935 0 0 1 1.99378,1.263005" />
     <path
-       style="opacity:1;fill:#3989fc;fill-opacity:1;stroke:none;stroke-width:0.15172328;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:1.2137865, 1.2137865;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#3989fc;fill-opacity:1;stroke:none;stroke-width:0.151723;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:1.21379, 1.21379;stroke-dashoffset:0;stroke-opacity:1"
        id="path4750-62-8-4-4-1-9-0-1-3-8-7"
        sodipodi:type="arc"
-       sodipodi:cx="-151.27504"
-       sodipodi:cy="28.690262"
+       sodipodi:cx="-154.26846"
+       sodipodi:cy="36.547985"
        sodipodi:rx="1.665133"
        sodipodi:ry="1.6998935"
        sodipodi:start="6.0781266"
        sodipodi:end="6.0495904"
        sodipodi:open="true"
-       d="m -149.64479,28.344122 a 1.665133,1.6998935 0 0 1 -1.27957,2.007907 1.665133,1.6998935 0 0 1 -1.97592,-1.291917 1.665133,1.6998935 0 0 1 1.25137,-2.02634 1.665133,1.6998935 0 0 1 1.99378,1.263005" />
+       d="m -152.63822,36.201845 a 1.665133,1.6998935 0 0 1 -1.27956,2.007907 1.665133,1.6998935 0 0 1 -1.97593,-1.291917 1.665133,1.6998935 0 0 1 1.25137,-2.02634 1.665133,1.6998935 0 0 1 1.99379,1.263005"
+       sodipodi:arc-type="arc" />
     <rect
        id="rect10-2"
        width="265.01587"
@@ -2795,10 +2796,10 @@
        inkscape:export-ydpi="853.526" />
     <rect
        id="rect10-2-1-6-1"
-       width="71.291519"
-       height="29.35017"
-       x="-143.24738"
-       y="1.3190992"
+       width="87.349251"
+       height="29.318279"
+       x="-158.94688"
+       y="1.3350449"
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        ry="0"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
@@ -3948,12 +3949,12 @@
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:17.6389px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-         x="257.48553"
+         x="259.6022"
          y="250.11737"
          id="text9957-0-9"><tspan
            sodipodi:role="line"
            id="tspan9955-9-0"
-           x="257.48553"
+           x="259.6022"
            y="250.11737"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583">y</tspan></text>
       <text
@@ -3972,14 +3973,14 @@
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        x="-269.67743"
-       y="294.43329"
+       y="298.17505"
        id="text4693-2-0-6-3-4-0-3-9-2-3"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
        inkscape:export-xdpi="853.526"
        inkscape:export-ydpi="853.526"><tspan
          sodipodi:role="line"
          x="-269.67743"
-         y="294.43329"
+         y="298.17505"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
          id="tspan14203-5-1-9">Spatial classification</tspan></text>
     <rect
@@ -3987,7 +3988,7 @@
        width="98.698326"
        height="14.597113"
        x="-271.72446"
-       y="284.34702"
+       y="288.08878"
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.324612;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        ry="0"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
@@ -4011,14 +4012,14 @@
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:14.1111px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        x="-189.8358"
-       y="343.07257"
+       y="346.81433"
        id="text4693-2-0-6-3-0-1-2-7-26-7-9"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
        inkscape:export-xdpi="853.526"
        inkscape:export-ydpi="853.526"><tspan
          sodipodi:role="line"
          x="-189.8358"
-         y="343.07257"
+         y="346.81433"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
          id="tspan383-6-7-0-3-2-6-0-0">Yes</tspan></text>
     <text
@@ -4076,7 +4077,7 @@
        width="91.693794"
        height="14.086923"
        x="-268.69687"
-       y="310.33765"
+       y="314.07941"
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.3;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        ry="0"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
@@ -4086,16 +4087,30 @@
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:14.1111px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        x="-273.59296"
-       y="343.07254"
+       y="346.8143"
        id="text4693-2-0-6-3-0-1-2-7-2-1-3-4"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
        inkscape:export-xdpi="853.526"
        inkscape:export-ydpi="853.526"><tspan
          sodipodi:role="line"
          x="-273.59296"
-         y="343.07254"
+         y="346.8143"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
          id="tspan383-6-7-0-3-2-1-9-0-6">No</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:14.1111px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-216.05612"
+       y="281.9726"
+       id="text4693-2-0-6-3-0-1-2-7-26-7-9-1"
+       inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
+       inkscape:export-xdpi="853.526"
+       inkscape:export-ydpi="853.526"><tspan
+         sodipodi:role="line"
+         x="-216.05612"
+         y="281.9726"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
+         id="tspan383-6-7-0-3-2-6-0-0-5">Yes</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
@@ -4205,14 +4220,14 @@
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        x="-266.07611"
-       y="232.91638"
+       y="236.65816"
        id="text4693-2-0-6-3-4-0-3-9-0"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
        inkscape:export-xdpi="853.526"
        inkscape:export-ydpi="853.526"><tspan
          sodipodi:role="line"
          x="-266.07611"
-         y="232.91638"
+         y="236.65816"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
          id="tspan14203-5-0">Spray convergence</tspan></text>
     <path
@@ -4252,7 +4267,7 @@
        ry="21.207338" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.45;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker5458-3-2-8-0-5-1)"
-       d="m -223.59273,184.12378 0.0369,11.94012"
+       d="m -223.59065,183.94865 0.0343,15.43782"
        id="path5454-6-7-5-3-7-7"
        inkscape:connector-curvature="0"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
@@ -4272,21 +4287,21 @@
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.3;stroke-miterlimit:4;stroke-dasharray:none"
        x="-246.31636"
-       y="262.29245"
+       y="266.03421"
        id="text4693-2-0-6-3-4-0-3-9-0-8-0"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
        inkscape:export-xdpi="853.526"
        inkscape:export-ydpi="853.526"><tspan
          sodipodi:role="line"
          x="-246.31636"
-         y="262.29245"
+         y="266.03421"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;line-height:0;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.3;stroke-miterlimit:4;stroke-dasharray:none"
          id="tspan12606-6">Finished ?</tspan></text>
     <ellipse
        style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.502244;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path12638-5"
        cx="-223.867"
-       cy="259.10468"
+       cy="262.84644"
        rx="28.732981"
        ry="8.8871212" />
     <text
@@ -4309,8 +4324,8 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.3;stroke-miterlimit:4;stroke-dasharray:none"
          id="tspan32524">convergence</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.45;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker5458-3-2-8-0-2-6)"
-       d="m -194.33064,259.62534 46.21524,0.65734 0.20655,-226.985691"
+       style="fill:none;stroke:#000000;stroke-width:0.45369;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker5458-3-2-8-0-2-6)"
+       d="m -194.33064,263.35254 46.21524,0.66817 0.20655,-230.723721"
        id="path5454-6-7-5-3-4-5"
        inkscape:connector-curvature="0"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
@@ -4319,7 +4334,7 @@
        sodipodi:nodetypes="ccc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.45;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker5458-3-2-8-0-5-1-9)"
-       d="m -223.72471,211.53983 0.0366,11.04417"
+       d="m -223.72471,215.2816 0.0366,11.04417"
        id="path5454-6-7-5-3-7-7-2"
        inkscape:connector-curvature="0"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
@@ -4328,7 +4343,7 @@
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.452;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker5458-3-2-8-0-5-1-9-1)"
-       d="m -223.78216,237.18801 0.0356,12.266"
+       d="m -223.78216,240.92978 0.0356,12.266"
        id="path5454-6-7-5-3-7-7-2-0"
        inkscape:connector-curvature="0"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
@@ -4337,7 +4352,7 @@
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.45;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker5458-3-2-9-0)"
-       d="m -253.0018,258.90962 -36.43431,0.18569 -0.0577,-54.25362 16.70923,-0.0536"
+       d="m -253.0018,262.65139 -36.43431,0.18569 -0.0577,-54.25362 16.70923,-0.0536"
        id="path5454-6-7-6-0"
        inkscape:connector-curvature="0"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
