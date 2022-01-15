@@ -11,6 +11,7 @@ Created on Mon Jul  1 10:04:13 2019
 from matplotlib import cm
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
 import sys
 sys.path.append('C:/Users/Carlos Garcia/Documents/GitHub/spr_post')
 sys.path.append('..')

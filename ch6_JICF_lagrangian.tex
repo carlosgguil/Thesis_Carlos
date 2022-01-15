@@ -162,7 +162,9 @@ With respect to the profiles integrated over $z$ (Figure \ref{fig:integrated_res
 \label{fig:integrated_results_Becker_expe_results}
 \end{figure}
 
-\section{Obtention of initial conditions with ALM}
+\section{Obtention of boundary conditions for gaseous phase}
+
+\subsection{Actuator Line Model}
 
 Prior to liquid injection, it is necessary to establish an initial solution for the gaseous phase as done for the resolved simulations. The difference with respect to the resolved simulations is that in this case, the initial solutions needs to consider the ALM since the dense core blockage effect needs to be modelled in the dispersed phase simulations. All the details of the model were addressed in $\S$\ref{sec:ch4_dense_core_modelling}. In this section, firstly results from the resolved simulations are employed as input parameters to feed the ALM model. Secondly, gaseous simulations are performed with the ALM to obtain initial solutions. The resulting gaseous fields are compared to the ones of the resolved simulations to check the accuracy of the proposed actuator model. \\
 
@@ -191,7 +193,7 @@ $| \textbf{F}_\mathrm{DC} |$ & N &  & \\
 
 An example of an actuator representing the dense core in gaseous simulations \hl{can be seen in Figure }. As observed, it is graphically represented as a cylinder with the initial point located in the injection nozzle exit and final point in the breakup location of the resolved dense core estimated from the resolved simulations. The actuator points (not shown in the figure) are located uniformly along the central line of the cylinder. The discrete forces applied to each point are then mollified in the neighbouring cells in order to avoid flow singularities.
 
-\subsection{Comparison between resolved and ALM gaseous fields}
+\subsubsection{Comparison between resolved and ALM gaseous fields}
 
 The perturbed gaseous fields created by the presence of the dense core in the \hl{resolved simulations were discussed in $\S$}\ref{ch5:subsec_turbulent_structures_in_gaseous_field}. In the same fashion, equivalent postprocessings can be performed for the gaseous flow field 
 
@@ -211,15 +213,78 @@ OJO: ver pilotage 2021-05-26 para graficas de interes.
 \varepsilon =  \frac{|\overline{\textbf{u}}_\mathrm{rel,ALM}| - |\overline{\textbf{u}}_\mathrm{rel,SPS}|}{|\overline{\textbf{u}}_\mathrm{rel,SPS}|} 
 \end{equation}
 
-\subsection{Parametric study on actuator model}
+\begin{equation}
+\overline{\textbf{u}}_\mathrm{l,LGS} = \overline{\textbf{u}}_{g,\mathrm{LGS}} - \overline{\textbf{u}}_\mathrm{rel,SPS}
+\end{equation}
 
-\subsection{Experimental validation}
+Modification in secondary breakup:
+
+\begin{equation}
+\Delta \textbf{u}_\mathrm{rel} = \textbf{u}_\mathrm{rel,LGS} - \textbf{u}_\mathrm{rel,SPS}
+\end{equation}
+
+\begin{equation}
+\frac{\Delta \textbf{u}_\mathrm{rel}}{\textbf{u}_\mathrm{rel,SPS}} < \alpha 
+\end{equation}
+
+\subsubsection{Parametric study on actuator model}
+
+
+\subsection{Custom gaseous inlet from resolved simulations}
+
+\textbf{OJO: encontrar un nombre mas atractivo para esto}.
+
+
+
+\subsubsection{Methodology}
+
+
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=false,scale=0.25]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_inlet_methodology}
+	\caption{Methodology to prescribe mean and RMS velocity fields from resolved simulations in reduced domain for dispersed-phase computation.}
+	\label{fig:custom_inlet_methodology}
+\end{figure}
+
+
+\subsubsection{Setup and results}
+
+
+
+
+\subsection{Comparison with resolved simulations}
+
+Planes y in Figure \ref{fig:JICF_lgs_gaseous_conditions_comparison_plane_y}. Planes x in Figure \ref{fig:JICF_lgs_gaseous_conditions_comparison_planes_x}. 
+
+\begin{figure}[ht]
+\centering
+   \includeinkscape[inkscapelatex=false,scale=0.22]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/planes_y_ux_mean}
+\caption[Mean axial velocity at plane $y = 0$ mm.]{Mean axial velocity at plane $y = 0$ mm. Black lines with arrows are in-plane mean streamlines; the white solid line indicates the contour $\overline{u} = 0$ which delimites the recirculation bubble. The grey area  indicates the mean liquid region, identifed as $\overline{\psi} > 0.5$}
+\label{fig:JICF_lgs_gaseous_conditions_comparison_plane_y}
+\end{figure}
+
+
+\begin{figure}[ht]
+\centering
+   \includeinkscape[inkscapelatex=false,scale=0.22]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/planes_x_ux_mean}
+\caption[Mean axial velocity at planes $x = 5, 10$ mm]{Mean axial velocity at planes $x = 5, 10$ mm. Black lines with arrows are in-plane mean streamlines.}
+\label{fig:JICF_lgs_gaseous_conditions_comparison_planes_x}
+\end{figure}
 
 \clearpage
 
 \section{Numerical experiments}
 
 \hl{ALSO: effect of one and two-way coupling !! Ver articulos 2010, 2011 Li }.
+
+%
+\begin{figure}[h!]	
+	\centering
+	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/chart_input_parameters_LGS}
+	\caption{Parameters tested}
+	\label{fig:dispersed_phase_sli_parameters}
+\end{figure}
+
 
 \subsection{Design of experiments}
 
@@ -338,7 +403,7 @@ We can also make a link to heat relase, for the interest of combustion studies.
 
 \section{Results}
 
-\subsection{Mesh convergence study}
+%\subsection{Mesh convergence study}
 
 \subsection{Validation with experiments (quantitative/qualitative)}
 

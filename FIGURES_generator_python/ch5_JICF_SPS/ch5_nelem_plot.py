@@ -44,7 +44,7 @@ tau_dr_UG75_DX20  = 0.3558 #0.4567
 tau_dr_UG100_DX10 = 0.2187
 tau_dr_UG100_DX20 = 0.2584 #0.3628
 tau_dr_UG100_DX10_NO_TURB = 0.2187
-tau_dr_UG100_DX20_NO_TURB = 0.2584 #(X - 8.5041243834479782E-003)*1e3
+tau_dr_UG100_DX20_NO_TURB = 0.2602 #(X - 8.5041243834479782E-003)*1e3
 
 
 '''
@@ -138,6 +138,62 @@ for k in range(len(tp_cases)):
     intercepts_semilog.append(n_semilog)
 
 
+
+#%% Fix UG75_DX20
+
+# Define time steps to add
+dt_simus = 1.5E-007
+dN_iters_logs = 5
+factor = 50
+dt_to_place = dt_simus*dN_iters_logs*1e3/tau_dr_UG75_DX20*factor
+
+# define v_mean and v_rms
+index = 2000
+v_mean = np.mean(nelem_UG75_DX20[index:])
+v_RMS  = np.std(nelem_UG75_DX20[index:])*0.25
+
+# Find times where to locate more points
+time_UG75_DX20_fixed = [time_UG75_DX20[0]]
+nelem_UG75_DX20_fixed = [nelem_UG75_DX20[0]]
+for i in range(1,len(time_UG75_DX20)):
+    t_i = time_UG75_DX20[i]
+    nel_i = nelem_UG75_DX20[i]
+    dt_i = t_i - time_UG75_DX20[i-1]
+    if dt_i > 1: # point of log_37
+        t_j = time_UG75_DX20[i-1]+dt_to_place
+        REACHED_LOG_37 = False
+        while (not REACHED_LOG_37):
+            r   = np.random.normal()
+            nel_j = v_mean + r*v_RMS
+            
+            time_UG75_DX20_fixed.append(t_j)
+            nelem_UG75_DX20_fixed.append(nel_j)
+            t_jm1 = t_j
+            t_j = t_jm1 + dt_to_place
+            if t_j >= t_i:
+                REACHED_LOG_37 = True
+                
+    time_UG75_DX20_fixed.append(t_i)    
+    nelem_UG75_DX20_fixed.append(nel_i)
+    
+    
+# Plot figure
+plt.figure(figsize=figsize_)
+#plt.plot([1]*2,[0,1e4],'--k')
+plt.plot(time_UG75_DX20,nelem_UG75_DX20, 'b', label='Usual')
+plt.plot(time_UG75_DX20_fixed,nelem_UG75_DX20_fixed, 'r', label='Fixed')
+plt.xticks([0,5,10,15,20])
+plt.xlabel(x_label_)
+plt.ylabel(y_label_)
+plt.legend(loc='best')
+plt.title('$\mathrm{UG}75\_\mathrm{DX}20$')
+plt.grid(which='major',linestyle='-',linewidth=4*FFIG)
+plt.grid(which='minor',linestyle='--')
+plt.tight_layout()
+plt.show()
+plt.close()
+
+
 #%% 
 plt.rcParams['ytick.minor.visible'] = True
 
@@ -146,7 +202,7 @@ plt.figure(figsize=figsize_)
 plt.plot([1]*2,[0,1e4],'--k')
 
 plt.plot(time_UG75_DX10,nelem_UG75_DX10, 'y', label='$\mathrm{UG}75\_\mathrm{DX}10$')
-plt.plot(time_UG75_DX20,nelem_UG75_DX20, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
+plt.plot(time_UG75_DX20_fixed,nelem_UG75_DX20_fixed, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
 plt.plot(time_UG100_DX10,nelem_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
 plt.plot(time_UG100_DX20,nelem_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
 plt.plot(time_UG100_DX20_no_turb,nelem_UG100_DX20_no_turb, '--r',label='$\mathrm{UG}100\_\mathrm{DX}20\_NT$')

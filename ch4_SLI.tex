@@ -233,7 +233,7 @@ The sampling rate is chosen so that that all droplets crossing the plane are col
 
 \subsubsection*{Defining statistics for sprays}
 
-The resulting spray after a certain accumulation time is composed of a polydisperse ensemble of droplets, each one with the parameters indicated in Table \ref{tab:sampling_parameters}. In order to characterize the spray, it is useful to define averaged and Root-Mean Squared (RMS) values for the whole spray from the individual droplets parameters. For an arbitraty magnitude $f$, the arithmetic mean and RMS values would be defined as follows:
+The resulting accumulated spray is composed of a polydisperse ensemble of droplets, each droplet characterized by parameters from Table \ref{tab:sampling_parameters}. In order to characterize the spray, it is useful to define averaged and Root-Mean Squared (RMS) values for the whole spray from the individual droplets parameters. For an arbitraty magnitude $f$, the arithmetic mean and RMS values would be defined as follows:
 
 \begin{equation}
 \label{eq:ch4_f_arbitrary_mean_RMS_definition}
@@ -244,39 +244,39 @@ The resulting spray after a certain accumulation time is composed of a polydispe
 %\overline{f} = \frac{1}{T} \sum f_i \Delta t_i ~~~~~~ ; ~~~~~~ f_\mathrm{RMS} = \sqrt{\overline{f^2} - \overline{f}^2}
 %\end{equation}
 
-where $N_\mathrm{dr}$ is the number of accumulated droplets. In the case of polydisperse sprays, where there are several liquid structures with different volumes, it is also useful to define volume-weighted averages in order to give more importance to the properties of larger droplets. For an arbitraty magnitude $f$, the volume-weighted mean and RMS can therefore be defined as:
+where $N_\mathrm{dr}$ is the number of accumulated droplets. In the case of polydisperse sprays, where there are several liquid structures with different volumes, it is also useful to define volume-weighted averages in order to give more relevance to the properties of larger droplets. For an arbitrary magnitude $f$, the volume-weighted mean and RMS can be defined as:
 
 \begin{equation}
 \label{eq:ch4_f_arbitrary_mean_RMS_VW_definition}
 \displaystyle \overline{f}_\mathrm{VW} = \frac{1}{\sum_{i=1}^{N_\mathrm{dr}} V_i} \sum_{i=1}^{N_\mathrm{dr}} f_i V_i ~~~~ ; ~~~~ f_\mathrm{RMS,VW} = \sqrt{\displaystyle \overline{f^2 }_\mathrm{VW} - \displaystyle \overline{f }_\mathrm{VW}^2}
 \end{equation}
 
-where $V_i$ is the volume of each liquid structure. Related to the injectors the definition of mean and RMS values, either arithmetic or weighted-averaged, will be applied to the velocities in the three directions, \hl{as well as to the deformation parameters $\alpha$ and $\beta$.} \\
+where $V_i$ is the volume of each liquid structure. Related to the injectors the definition of mean and RMS values, either arithmetic or weighted-averaged, will be applied to the velocities in the three directions, $\alpha$ and $\beta$. \\
 
-In two-phase flow problems involving disperse-phase sprays it is useful to define average diameters of droplets with definitions different than the one given by applying Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_definition}), since they are better representative of the physical problems involving mass or heat transfor. In particular, the combustion community employes widely the averaged droplet size known as Sauter Mean Diameter (SMD), defined by the following expression:
+In two-phase flow problems involving disperse-phase sprays, it is useful to define average diameters of droplets with definitions different than the one given by applying Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_definition}). since they are better representative of the physical problems involving mass or heat transfor \citepColor[lefebvre_atomization_2017]. For combustion applications, the most used averaged diameter is the Sauter Mean Diameter (SMD):
 
 \begin{equation}
 \label{eq:ch4_SMD_definition}
 \mathrm{SMD} = \frac{\sum_{i=1}^{N_\mathrm{dr}} d_i^3 }{\sum_{i=1}^{N_\mathrm{dr}} d_i^2}
 \end{equation} 
 
-where $d_i$ is the individual diameter of each droplet. The numerator of this expression is proportional to the cube of the diameter, which is related to the droplet volume. The denominator is dependent to its square, which is related to the droplet liquid surface. Therefore, the SMD represents a mean diameter which expresses the relation between the liquid volume and surface in a spray. This is specially useful when evaporation is present (i.e. prior to combustion), since evaporation occurs when the specific liquid surface (the surface of liquid in contact with air) is large: that is, when the SMD is small.
+where $d_i$ is the individual diameter of each droplet. The numerator of this expression is proportional to the cube of the diameter, which is equivalent to the droplet volume. The denominator is dependent to its square, which is related to the droplet liquid surface. Therefore, the SMD represents the relation between the liquid volume and surface in a spray. This is specially useful when evaporation is present (i.e. prior to combustion), since evaporation occurs when the specific liquid surface (the surface of liquid in contact with air) is large: that is, when the SMD is small.
 
-Finally, a last useful magnitude that can be defined for a moving spray is the liquid flow rate, which is a mean quantity by definition. Considering a sampling surface as in Figure \ref{fig:tropea_droplet_sampling}, the mean liquid flow rate can be obtained as follows:
+Finally, a last useful magnitude that can be defined for a convecting spray is the liquid flow rate, which is a mean quantity by definition. Considering a sampling surface as in Figure \ref{fig:tropea_droplet_sampling}, the mean liquid flow rate passing through it can be obtained as:
 
 \begin{equation}
 \label{eq:ch4_Ql_definition}
 Q_l = \frac{d V_l}{dt} \approx \frac{\Delta V_l}{\Delta t} = \frac{\sum_{i=1}^{N_\mathrm{dr}} V_i}{t_\mathrm{acc}} 
 \end{equation}
 
-where $t_\mathrm{acc}$ is the total accumulation time. $Q_l$ yields an absolute flux that is useful to determine the mass flow rates passing through each sampling plane considered, for which the area of the surface through which droplets cross is not relevant. However, when dealing with the liquid that has passed through a given surface or probe, such as in the case of the spatially discretized spray statistics (see $\S$\ref{subsec:SLI_spatial_discretization}), the value of $Q_l$ will change depending on the size of the probe chosen: the smaller the surface, the smaller the absolute flux. Therefore, when dealing with spatially discretized sprays it is useful to express the absolute flux in relation to the surface area of the probe considered, $S_\mathrm{probe}$. This yields a surface-weight flux $q_l$, named also volume flux:
+where $t_\mathrm{acc}$ is the total accumulation time. $Q_l$ yields an absolute flux that represents the mass flux passing through each sampling plane considered. If the sampling plane is discretized in several probes (see $\S$\ref{subsec:SLI_spatial_discretization}) and the fluxes are determined within them, the addition of all probes' fluxes will yield the absolute flux from the whole sampling plane. In these cases, the fluxes from each probe will depend on the probes surface $S_\mathrm{probe}$: the smaller $S_\mathrm{probe}$, the smaller the absolute flux. Therefore, when dealing with spatially discretized sprays it is useful to express the absolute flux in relation $S_\mathrm{probe}$. This yields a surface-weight flux $q_l$, named also volume flux:
 
 \begin{equation}
-\label{eq:ch4_Ql_definition}
-q_l = \frac{Q_l}{S_\mathrm{probe}}
+\label{eq:ch4_volume_flux_definition}
+q_l = \frac{Q_{l,\mathrm{probe}}}{S_\mathrm{probe}}
 \end{equation}
 
-Hence, the value of $q_l$ converges with the probe size, as opposed to $Q_l$. Effectively, if the size of the grid $\Delta y$ x $\Delta z$ is reduced, the liquid flux as defined by Eq. (\ref{eq:ch4_Ql_definition}) will also decrease since less droplets might be sampled in a smaller surface. Nevertheless, the volume flux $q_l$ will we maintaned because, despite the reduction in $Q_l$, the probe surface is also smaller.
+The value of $q_l$ converges with the probe size, as opposed to $Q_l$. Effectively, if the size of the probe $\Delta y \times \Delta z$ is reduced, the liquid flux as defined by Eq. (\ref{eq:ch4_Ql_definition}) will also decrease since less droplets might be sampled in a smaller surface. Nevertheless, the volume flux $q_l$ defined by Eq. (\ref{eq:ch4_volume_flux_definition}) will we maintaned because, despite the reduction in $Q_l$, the probe surface is also smaller.
 
 \clearpage
 
@@ -298,7 +298,7 @@ Simulations using the ACLS/AMR methodology can resolve the atomization process a
 
 Here, a methodology to evaluate spray convergence is proposed. The objective is to provide a quantitative measure to assess whether enough droplets have been sampled to obtain reliable statistics \citepColor[vie_particle-laden_2016]. If the spray is converged, then it can be spatially discretized to get local statistics that will conform the injectors ($\S$\ref{subsec:SLI_spatial_discretization}). This convergence criterion is also used to propose another discretization strategy in which refinement is performed following a quadtrees structure (convergence-driven discretization, see $\S$\ref{subsec:SLI_quadtrees_discretization}).
 
-At each time step $t_i$ of the accumulation process, the spray will be formed by a number of droplets $N_{\mathrm{dr},i}$. This number will increase as more particles are accumulated with time, since all droplets sampled previously are also accounted for (hence the name accumulation). One can see this methodology as obtaining a time-averaged spray, since dependence with time is neglected. Statistics can be calculated on the accumulated spray at each time $t_i$, such as the droplet histogram. Figure \ref{fig:spray_convergence_description_accumulation_and_MSE_comparison} left shows an illustrated view of the size histogram evolution at several accumulation instants. The histogram indicates thes probability $f \left( d_\mathrm{dr} \right)$ of finding a droplet of size $d_\mathrm{dr}$ within a class $n$: $d_\mathrm{dr} \in \left[ d_{\mathrm{dr},n}-\Delta d_\mathrm{dr}, d_{\mathrm{dr},n}+\Delta d_\mathrm{dr} \right]$. Its shape will change with the accumulation time until a time when it will not change once more droplets are sampled. At this point, the spray will be considered to be converged. 
+At each time step $t_i$ of the accumulation process, the spray will be formed by a number of droplets $N_{\mathrm{dr},i}$. This number will increase as more particles are accumulated with time, since all droplets sampled previously are also accounted for (hence the name accumulation). One can see this methodology as obtaining a \textbf{time-averaged spray}, since dependence with time is neglected. Statistics representing the spray, such as droplet histogram, can be calculated on the accumulated spray at each time $t_i$. Figure \ref{fig:spray_convergence_description_accumulation_and_MSE_comparison} left shows an illustrated view of the size histogram evolution at several accumulation instants. The histogram indicates thes probability $f \left( d_\mathrm{dr} \right)$ of finding a droplet of size $d_\mathrm{dr}$ within a class $n$: $d_\mathrm{dr} \in \left[ d_{\mathrm{dr},n}-\Delta d_\mathrm{dr}/2, d_{\mathrm{dr},n}+\Delta d_\mathrm{dr}/2 \right]$. Its shape will change with accumulation time until an instant from which it will stay constant if more droplets are sampled. At this point, the spray will be considered to be converged. 
 
 The main issue now is to determine quantitatively when the spray is converged. For this purpose, the histograms are compared in pairs at subsequent time instants, $t_i$ and $t_{i-1}$, as shown in Figure \ref{fig:spray_convergence_description_accumulation_and_MSE_comparison} right. The same number and width of droplets classes are used in both histograms. The difference between both histograms is then measured by means of a Mean Squared Error (MSE) function defined as:
 
@@ -312,7 +312,7 @@ where $N$ is the total number of classes in the histogram. This criterion is sim
 NMSE^{t_i} = \frac{MSE^{t_i}}{\max_{t_i} \left( MSE \right)}
 \end{equation}
 
-The evolution of NMSE can be displayed with time as shown in Figure \ref{fig:NMSE_evolution}. The NMSE decreases with accumulation time until reaching a plateau, where the NMSE does not move significantly. Convergence is achieved at this plateau, which is defined for values of the NMSE below a threshold $\varepsilon_\mathrm{th}$.
+The evolution of NMSE can be displayed with time as shown in Figure \ref{fig:NMSE_evolution}. The NMSE decreases with accumulation time until reaching a plateau, where the NMSE does not move significantly. Convergence is achieved at the beginning of this plateau, which is defined for values of the NMSE below a threshold $\varepsilon_\mathrm{th}$.
 
 \begin{equation}
 NMSE < \varepsilon_\mathrm{th}
@@ -320,15 +320,15 @@ NMSE < \varepsilon_\mathrm{th}
 
 where $\varepsilon_\mathrm{th}$ is set to $0.03$ (i.e. $3 \%$).
 
-An additional criterion for convergence is added, which is the variation of the NMSE in the last 10 iterations. Hence, statistical convergence of the spray makes use of the following two criteria:
-
-\begin{itemize}
-
-	\item NMSE must be below $\varepsilon_\mathrm{th}$, as shown in the previous equation.
-	
-	\item In the last 10 iterations, the NMSE must be decreasing and lower to $\varepsilon_\mathrm{th}$.
-
-\end{itemize}
+%An additional criterion for convergence is added, which is the variation of the NMSE in the last 10 iterations. Hence, statistical convergence of the spray makes use of the following two criteria:
+%
+%\begin{itemize}
+%
+%	\item NMSE must be below $\varepsilon_\mathrm{th}$, as shown in the previous equation.
+%	
+%	\item In the last 10 iterations, the NMSE must be decreasing and lower to $\varepsilon_\mathrm{th}$.
+%
+%\end{itemize}
 
 
 \begin{figure}[ht]
@@ -349,13 +349,6 @@ An additional criterion for convergence is added, which is the variation of the 
 
 
 
-%\begin{figure}[h!]
-%	\centering
-%	\includegraphics[scale=0.35]{./part2_developments/figures_ch4_SLI/spray_convergence}
-%	\caption{Evolution or Normalized Mean Squared Error (NMSE) with respect to the spray accumulation time. \textbf{IMPROVE THIS}}
-%	\label{fig:NMSE_evolution}
-%\end{figure}
-
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.15]{./part2_developments/figures_ch4_SLI/spray_convergence_with_text.eps}
@@ -365,11 +358,7 @@ An additional criterion for convergence is added, which is the variation of the 
 
 
 
-It is worth noting that the convergence criterion based on NMSE introduced in this section depends solely on the equivalent droplets size $d_\mathrm{dr}$. Future work would include to extend this criterion to other magnitudes fundamental for a proper spray representation, such as velocities and flow rates. 
-
-Furthermore, a time-independent spray has been considered in all the previous process by accumulating droplets and calculating statistics which do not depend on the time in which they were sampled. A perspective in this respect would be to obtain a transient spray in order to create unsteady numerical injectors. This could be useful in systems where thermoacoustic instabilities appear and there are fluctuations in the injected flow rates, such as aeronautical gas turbines \citepColor[lieuwen_unsteady_2012].
-
-Improvements in the statistical convergence of spray include the combination of spray accumulation with information theory techniques \citemColor[panao_assessment_2012,panao_statistical_2020].
+It is worth noting that the convergence criterion based on NMSE introduced in this section depends solely on the equivalent droplets size $d_\mathrm{dr}$. Future work would include to extend this criterion to other magnitudes fundamental for a proper spray representation, such as velocities and flow rates. Furthermore, a time-independent spray has been considered in all the previous process by accumulating droplets and calculating statistics which do not depend on the time in which they were sampled. A perspective in this respect would be to obtain a transient spray in order to create unsteady numerical injectors. This could be useful in systems where thermoacoustic instabilities appear and there are fluctuations in the injected flow rates, such as aeronautical gas turbines \citepColor[lieuwen_unsteady_2012]. Further possible improvements could also include the use of information theory techniques for characterizing the convergence state, which have recently been applied and evaluated in sprays \citemColor[panao_assessment_2012,panao_statistical_2020].
 
 
 %\subsubsection*{Old formulation}
@@ -384,9 +373,9 @@ Improvements in the statistical convergence of spray include the combination of 
 \subsection{Spatial discretization of sprays}
 \label{subsec:SLI_spatial_discretization}
 
-Once convergence of the accumulated spray in the sampling plane has been verified, the next step to perform a spatial discretization of the spray. The objective is to classify spatially the in-plane accumulated droplets in a grid composed of several rectangular probes so that spray statistics can be calculated within each probe individually. Later on each probe will conform an injector for the dispersed-phase simulations: the SLI is therefore the whole grid composed of all the discrete injectors.
+Once convergence of the accumulated spray in the sampling plane has been verified, the next step is to perform a spatial discretization of the spray. The objective is to classify spatially the in-plane accumulated droplets into a grid composed of several rectangular probes so that spray statistics can be calculated within each probe individually. Later on each probe will conform an injector for the dispersed-phase simulations: the SLI is therefore the whole grid composed of all the discrete injectors.
 
-Figure \ref{fig:SLI_discretization} shows an example of a discrete spray grid resulting from the spatial discretization process. The grid has dimensions ($w_\mathrm{spray}$, $h_\mathrm{spray}$), which correspond to its width and height given in the $y$ and $z$ directions respectively. Grid's dimensions can be calculated in three ways: 1) they can be chosen ad-hoc by the user (as long as they englobe the full spray in order not to miss sampled mass); 2) they are calculated automatically as given by the furthest droplets in the $y$, $z$ directions; 3) they are calculated automatically if the individual probe dimensions ($w_\mathrm{inj}$, $h_\mathrm{inj}$) are given by the user, in which case the grid size will be calculated accordingly in order to englobe the whole in-plane spray. The sketch at the right in Figure \ref{fig:SLI_discretization} shows a magnified view of a single probe of the grid, which composes an individual injector. The probe consists of dimensions ($w_\mathrm{inj}$, $h_\mathrm{inj}$) and center $x_\mathrm{inj}$. Each droplet in the probe is characterized by the parameters from Table \ref{tab:sampling_parameters}, from which the equivalent droplet diameter $d_\mathrm{dr}$ is calculated with Eq. (\ref{eq:ch4_r_equivalent_calculation}) \hl{and the deformation parameters $\alpha$ and $\beta$ with Eq.} (\ref{eq:ch4_deformation_parameters_alpha_beta_calculation}). These parameters are then used to calculate statistics on each probe's spray, which are later used to perform injection. The parameters conforming each injector are later introduced in $\S$\ref{subsec:ch4_injectors_definition}. The spatially distributed statistics in the sampling grid can be represented in maps of mean and RMS values, which give an idea of the spray shape in terms of diameters, fluxes and velocity distributions. Examples of maps for the resolved simulations of liquid JICF cases are shown later in Chapters \ref{ch5:jicf_resolved_simulations} ($\S$\ref{sec:ch5_learning_SLI}) and \ref{ch8:bimer_resolved_atomization} ($\S$\ref{sec:ch8_learning_SLI_in_BIMER}).
+Figure \ref{fig:SLI_discretization} shows an example of a discrete spray grid resulting from the spatial discretization process. The grid has dimensions ($w_\mathrm{spray}$, $h_\mathrm{spray}$), which correspond to its width and height given in the $y$ and $z$ directions respectively. Grid's dimensions can be calculated in three ways: 1) they can be chosen ad-hoc by the user (as long as they englobe the full spray in order not to miss sampled mass); 2) they are calculated automatically as given by the furthest droplets in the $y$, $z$ directions; 3) they are calculated automatically if the individual probe dimensions ($w_\mathrm{inj}$, $h_\mathrm{inj}$) are given by the user, in which case the grid size will be calculated accordingly in order to englobe the whole in-plane spray. The sketch at the right in Figure \ref{fig:SLI_discretization} shows a magnified view of a single probe of the grid, which composes an individual injector. The probe consists of dimensions ($w_\mathrm{inj}$, $h_\mathrm{inj}$) and center $x_\mathrm{inj}$. Each droplet in the probe is characterized by the parameters from Table \ref{tab:sampling_parameters}, from which the equivalent droplet diameter $d_\mathrm{dr}$ is calculated with Eq. (\ref{eq:ch4_r_equivalent_calculation}) and the deformation parameters $\alpha$ and $\beta$ with Eq. (\ref{eq:ch4_deformation_parameters_alpha_beta_calculation}). These parameters are then used to calculate statistics on each probe's spray, which are later used to perform injection. The parameters conforming each injector are later introduced in $\S$\ref{subsec:ch4_injectors_definition}. The spatially distributed statistics in the sampling grid can be represented in maps of mean and RMS values, which give an idea of the spray shape in terms of diameters, fluxes and velocity distributions. Examples of maps for the resolved simulations of liquid JICF cases are shown later in Chapters \ref{ch5:jicf_resolved_simulations} ($\S$\ref{sec:ch5_learning_SLI}) and \ref{ch8:bimer_resolved_atomization} ($\S$\ref{sec:ch8_learning_SLI_in_BIMER}).
 
 \clearpage
 
@@ -401,9 +390,9 @@ Figure \ref{fig:SLI_discretization} shows an example of a discrete spray grid re
 \subsection{Convergence-driven discretization}
 \label{subsec:SLI_quadtrees_discretization}
 
-Among all parameters being calculated in each individual probe, the NMSE is also calculated in the same way as explained in $\S$\ref{subsec:SLI_spray_convergence}. Then, the local convergence level in each probe's spray is estimated, which gives an idea of the spatial convergence distribution in the SLI. This local convergence can be used to further refine the grid in those probes which present a converged spray, as shown in the flowchart of Figure \ref{fig:SLI_graphic_description}. Hereafter, the full spray will be referred as \textbf{global spray} and the discretized spray will be named \textbf{local spray}.
+Among all parameters being calculated in each individual probe, the NMSE is also calculated in the same way as explained in $\S$\ref{subsec:SLI_spray_convergence}. Then, the local convergence level of each probe's spray is estimated, which gives an idea of the spatial convergence distribution in the SLI. This local convergence can be used to further refine the grid in those probes which present a converged spray, as shown in the flowchart of Figure \ref{fig:SLI_graphic_description}. Hereafter, the full spray will be referred as \textbf{global spray} and the discretized spray will be named \textbf{local spray}.
 
-If convergence-driven discretization is performed, those probes presenting convergence will be further refined by a factor $\times 2$: i.e. the probe will be split into 4 probes of size ($w_\mathrm{inj}/2$, $h_\mathrm{inj}/2$). This will conform a refined grid with the same global dimensions ($w_\mathrm{spray}$, $h_\mathrm{spray}$) but containing more elements, and spray statistics will be calculated into each new probe for the spray contained within it. If the refined elements are again converged according to the NMSE criterion and further refinement is wished to be done, the process can be repeated again and as many times as desired. This discretization process, known as \textbf{quadtrees}, is therefore base in a tree structure with several levels of refinement, and has been widely used for performing Adaptive Mesh Refinement (AMR) in grid for solving CFD problems \citemColor[popinet_gerris_2003, fuster_simulation_2009, zuzio_direct_2010]. Figure \ref{fig:quadtrees_tree_structure} shows an example of quadtrees refinement in a 2x2 SLI with two refinement levels (left) and the resulting SLI (right).
+If convergence-driven discretization is performed, those probes presenting convergence will be further refined by a factor $\times 2$: i.e. the probe will be split into 4 probes of size ($w_\mathrm{inj}/2$, $h_\mathrm{inj}/2$). This will conform a refined grid with the same global dimensions ($w_\mathrm{spray}$, $h_\mathrm{spray}$) but containing more elements, and spray statistics will be calculated into each new probe for the spray contained within it. If the refined elements are again converged according to the NMSE criterion and further refinement is wished to be done, the process can be repeated again and as many times as desired. This discretization process, known as \textbf{quadtrees}, is therefore base in a tree structure with several levels of refinement, and has been widely used for performing Adaptive Mesh Refinement (AMR) in grids for solving two-phase resolved atomization problems \citemColor[popinet_gerris_2003, fuster_simulation_2009, zuzio_direct_2010]. Figure \ref{fig:quadtrees_tree_structure} shows an example of quadtrees refinement in a 2x2 SLI with two refinement levels (left) and the resulting SLI (right).
 
 
 
@@ -442,32 +431,35 @@ If convergence-driven discretization is performed, those probes presenting conve
 \subsection{Injectors definition}
 \label{subsec:ch4_injectors_definition}
 
-Once a spatially-discretized is obtained (either if convergence-driven discretization has been applied or not), a SLI is built. An example of an injectors and the accumulated droplets within it was shown in Figure \ref{fig:SLI_discretization}. Each injector has then the following characteristics in terms of topology and spray characteristics calculated:
+Once a spatially-discretized is obtained (either if convergence-driven discretization has been applied or not), an SLI is built. An example of an injectors and the accumulated droplets within it was shown in Figure \ref{fig:SLI_discretization}. Each injector has then the following characteristics in terms of topology and spray characteristics calculated:
 
 \begin{itemize}
 
-	\item \textbf{Injector topology} defined by its width $w_\mathrm{inj}$, height $h_\mathrm{inj}$ and center $\textbf{x}_\mathrm{inj}$. From the injector dimensions, its injection surface (called probe surface) is calculated as $S_\mathrm{probe} = w_\mathrm{inj} \times h_\mathrm{inj}$. All these parameters are calculated after the spatial discretization process. A lagrangian particle will be injected at a point $x_i$ randomly located within the injection surface: the number of injection points $N_\mathrm{pts}$ needs to be specified by the user. Results from dispersed phase simulations have shown not to be very sensitive to this value, so if not specified this value is by default kept to 5.
+	\item \textbf{Injector topology} defined by its width $w_\mathrm{inj}$, height $h_\mathrm{inj}$ and center $\textbf{x}_\mathrm{inj}$. From the injector dimensions, its injection surface (called probe surface) is calculated as $S_\mathrm{probe} = w_\mathrm{inj} \times h_\mathrm{inj}$. All these parameters are calculated after the spatial discretization process. A lagrangian particle will be injected at a point $x_i$ randomly located within the injection surface: the number of injection points $N_\mathrm{pts}$ in each probe needs to be specified by the user. Results from dispersed phase simulations have shown not to be sensitive to this value, so if not specified it is set by default to 5.
 	
-	\item \textbf{Flow rate} $Q_l$ to be delivered through the injector. This value is calculated with Eq. (\ref{eq:ch4_Ql_definition}) known all the accumulated volume in the sampled time of the resolved simulations. $Q_l$ determines the number of droplets to be injected at each time step. If divided by the probe surface $S_\mathrm{probe}$, the volume flux $q_l$ is obtained as given by Eq. (\ref{eq:ch4_Ql_definition}). Nevertheless, this quantity is useful for graphical visualization of the spray with volume flux maps but cannot be specified to perform injection: the absolute flux $Q_l$ needs to be supplied instead.
+	\item \textbf{Flow rate} $Q_l$ to be delivered through the injector. This value is calculated with applying Eq. (\ref{eq:ch4_Ql_definition}) to each individual probe. $Q_l$ determines the number of droplets to be injected at each time step. If divided by the probe surface $S_\mathrm{probe}$, the volume flux $q_l$ is obtained as given by Eq. (\ref{eq:ch4_Ql_definition}). Nevertheless, this quantity is useful for graphical visualization of the spray with volume flux maps but cannot be specified to perform injection: the absolute flux $Q_l$ needs to be supplied instead.
 	
-	\item \textbf{Droplets diameters distribution} $f_0 \left( d \right)$. Since all the information on (equivalent) droplets size sampled and accumulated from resolved atomization simulations are available, the diameter of the injected droplets can be specified to the injector. Three options are possible for the distribution $f_0$: 1) to provide directly the sampled size histogram from the resolved simulations; 2) provide a size PDF that fits the histogram, such as a lognormal or Rosin-Rammler distribution \citepColor[lefebvre_atomization_2017]; 3) provide a constant diameter to all the droplets, which in this case is the SMD as defined by Eq. (\ref{eq:ch4_SMD_definition}). Each lagrangian droplet injected $d_i$ is therefore either sampled from $f_0$ when the desired injection size is done according to a histogram of PDF, or constantly set as $d_i = \mathrm{SMD}$.
+	\item \textbf{Droplets diameters distribution} $f_0 \left( d \right)$. Since all the information on (equivalent) droplets size sampled and accumulated from resolved atomization simulations are available, the diameter of the injected droplets can be specified to the injector. Three options are possible for the distribution $f_0$: 1) to provide directly the sampled size histogram from the resolved simulations; 2) provide a size PDF that fits the histogram, such as a lognormal or Rosin-Rammler distribution \citepColor[lefebvre_atomization_2017]; 3) provide a constant diameter to all the droplets. Each lagrangian droplet injected $d_i$ is therefore either sampled from $f_0$ when the desired injection size is done according to a histogram of PDF, or constantly set as $d_i = \mathrm{SMD}$ where SMD is calculated with Eq. (\ref{eq:ch4_SMD_definition}).
 	
 	\item \textbf{Spray velocities}. As with particle diameters, the velocity components of each sampled and accumulated droplet from resolved atomization simulations is available. These velocities can be treated statistically in order to obtain reliable velocity injection values for the dispersed-phase simulations. However, on the contrary to the injectors, here no velocity distributions are used but instead the mean and RMS velocities are calculated by plugging $f = u$ into Eqs. (\ref{eq:ch4_f_arbitrary_mean_RMS_definition}) and (\ref{eq:ch4_f_arbitrary_mean_RMS_VW_definition}) to yield arithmetic and volume-weighted mean and RMS velocities, respectively. Then, injection of a lagrangian particle $i$ is performed according to the following law:
 	
-	\begin{equation}
-	\label{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}
-	\boldsymbol{u}_\mathrm{i} = \overline{\boldsymbol{u}} + \boldsymbol{r}^T \boldsymbol{u}_\mathrm{RMS}
+%	\begin{equation}	\label{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}
+%	\boldsymbol{u}_\mathrm{i} = \overline{\boldsymbol{u}} + \boldsymbol{r}^T \boldsymbol{u}_\mathrm{RMS}
+%	\end{equation}
+	
+	\begin{equation}	\label{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}
+	\boldsymbol{u}_\mathrm{i} = \overline{\boldsymbol{u}} + r \boldsymbol{u}_\mathrm{RMS}
 	\end{equation}
 	
-	where $\overline{\boldsymbol{u}}$ is the mean velocity and $\boldsymbol{u}_\mathrm{RMS}$ is the RMS one. If volume-weighted velocities are injected, the calculated parameters $\overline{\boldsymbol{u}}_\mathrm{VW}$ and $\boldsymbol{u}_\mathrm{RMS,VW}$ are used instead. The parameter $\boldsymbol{r}$ is a vector of three random numbers (one per velocity componnt) that multiplies the RMS to provide a varying velocity through all the injection process. Three different laws are available to sample random numbers for $r$, being these ones:
+	where $\overline{\boldsymbol{u}}$ is the mean velocity and $\boldsymbol{u}_\mathrm{RMS}$ is the RMS one. If volume-weighted velocities are injected, the calculated parameters $\overline{\boldsymbol{u}}_\mathrm{VW}$ and $\boldsymbol{u}_\mathrm{RMS,VW}$ are used instead. The parameter $f$ is a random number that multiplies the RMS to provide a varying velocity through all the injection process. Three different laws are available to sample random numbers for $r$, being these ones:
 	
 	\begin{itemize}
 	
-	\item \textbf{Uniform law}. Each $r$ component follows a uniform distribution: $\boldsymbol{r} \sim \mathcal{U} \left( a = -\sqrt{3}, b = \sqrt{3} \right)$, where $a$ and $b$ are the limits of the distribution. Such values are set so that the RMS of the signal from Eq. (\ref{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}) maintains its RMS provided values.
+	\item \textbf{Uniform law}. $r$ follows a uniform distribution: $r \sim \mathcal{U} \left(-\sqrt{3},  \sqrt{3} \right)$, where $-\sqrt{3}$ and $\sqrt{3}$ are the limits of the distribution. Such values are set so that the RMS of the signal from Eq. (\ref{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}) maintains its RMS provided values.
 	
-	\item \textbf{Gaussian law}. Each $r$ component follows a normal distribution $\boldsymbol{r} \sim \mathcal{N} \left( \mu = 0, \sigma^2 = 1 \right)$, where $\mu$ is the mean and $\sigma^2$ the variance. Such values are set so that the RMS of the signal from Eq. (\ref{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}) maintains its RMS provided values.
+	\item \textbf{Gaussian law}. $r$ follows a normal distribution $r \sim \mathcal{N} \left( \mu = 0, \sigma^2 = 1 \right)$, where $\mu$ is the mean and $\sigma^2$ the variance. Such values are set so that the RMS of the signal from Eq. (\ref{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}) maintains its RMS provided values.
 	
-	\item \textbf{Zero law}. In this case the RMS are not considered for injection and only constant velocities equal to mean resolved velocities are injected, therefore $\boldsymbol{r} = \textbf{0}$.
+	\item \textbf{Zero law}. In this case the RMS are not considered for injection and only constant velocities equal to mean resolved velocities are injected, therefore $r = \textbf{0}$.
 	
 	\end{itemize}
 
@@ -511,7 +503,7 @@ Apart from the spray parameters to perform injection, the following liquid physi
 & &  injection  velocities & with $f = \textbf{u}_\mathrm{VW}$ \tab_space
 & \multirow{2}{*}{ $\textbf{u}_\mathrm{VW,RMS}$ } & Volume-weighted RMS & Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_VW_definition})  \\
 & & injection  velocities & with $f = \textbf{u}_{\scriptsize  \mathrm{VW}}$\tab_space
-& \multirow{2}{*}{ $\textbf{r}$ } & Random numbers law & \multirow{2}{*}{ User-defined  }\\
+& \multirow{2}{*}{ $r$ } & Random numbers law & \multirow{2}{*}{ User-defined  }\\
 & &  to multiply $\textbf{u}_\mathrm{RMS}$ & \tab_space
 \thickhline
 
@@ -543,18 +535,18 @@ Apart from the spray parameters to perform injection, the following liquid physi
 \section{Dense core blockage effect modeling}
 	\label{sec:ch4_dense_core_modelling}
 	
-A very important feature of the resolved atomization simulations is the resolution of the liquid-gas interaction. This allows capturing the perturbation effect from the liquid jet to the gaseous phase, which created turbulent structures that affect droplets dispersion. In the jet in crossflow this influence is paramount, since the liquid coherent structures impose a blockage effect to the gaseous phase that creates vortices downstream the liquid injection nozzle (see Figure \ref{fig:arienti_2006_jicf} and $\S$\ref{subsec:ch5_dense_core_in_ACLS_simus}).
+One of the biggest advantages of resolved atomization simulations is the resolution of the liquid-gas interaction. This allows capturing the perturbation effect from the liquid jet to the gaseous phase, which created turbulent structures that affect droplets dispersion. In the jet in crossflow this influence is paramount, since the liquid coherent structures impose a blockage effect to the gaseous phase that creates vortices downstream the liquid injection nozzle (see Figure \ref{fig:arienti_2006_jicf} and Chapter \ref{ch5:jicf_resolved_simulations}) % $\S$\ref{subsec:ch5_dense_core_in_ACLS_simus}).
 
 Perturbation effects are not taken into account \textsl{a priori} in dispersed phase simulations, since the coherent structures are not present. As illustrated in $\S$\ref{sec:ch3_state_art_lagrangian_injection}, some approaches have succeeded in emulating this interaction between phases by injecting lagrangian big droplets according to the the blob method \citepColor[reitz_modeling_1987] and adding a two-way coupling between liquid and gaseous phases \citemColor[apte_les_2003,senoner_simulation_2010]. Other studies have solved and kept the liquid coherent structures with VOF to capture the interaction, and then performed lagrangian injection and spray transport \citemColor[arienti_aerodynamic_2006,fontes_improved_2019].
 
-In this work, the blockage effect is modeled in dispersed phase computations by means of the Actuator Line Method (ALM). This method has been, to the author's knowledge up to date, in wind turbine simulations for representing the effect of the tower and blades in the gaseous field, which creates strong turbulence. Firstly, a review on the theory and some previous works in ALM is done. Secondly, a simple model for modeling the dense core with ALM is proposed. This model will be later fed from the resolved atomization simulations of Chapter \ref{ch5:jicf_resolved_simulations} and applied to dispersed phase computations in Chapter \ref{ch6:jicf_lgs_simulations}.
+In this work, the blockage effect is modeled in dispersed phase computations by means of the Actuator Line Method (ALM). This method has been, to the author's knowledge, only used up to date in wind turbine simulations for modeling the turbulent wakes created by the tower and blades. Firstly, a review on the theory and some previous works in ALM is done. Secondly, a simple model for representing the dense core with ALM is proposed. This model will be later fed from the resolved atomization simulations of Chapter \ref{ch5:jicf_resolved_simulations} and applied to dispersed phase computations in Chapter \ref{ch6:jicf_lgs_simulations}.
 
 
 \subsection{Actuator Line Method}
 
-A proper modeling of wind turbines and windfarms requires an accurate representation of the wakes generated by the presence and movement of the blades. Since performing DNS is unaffordable due to the wide range of space and time scales found in these problems, LES are often used. For a proper representation of the wakes in these computations, aerodynamic models are added to consider the effect of the moving blades. The first of these models is the Actuator Disk Method (ADM), developed originally by \citeColor[sorensen_unsteady_1992]. The moving blades are modeled as a disk which has interacts with the incoming air. This perturbation is taken into account by means of body forces in the Navier-Stokes equations that influence the gaseous flow field. The purpose of ADM is the determination and imposition of these forces.
+A proper modeling of wind turbines and windfarms requires an accurate representation of the wakes generated by the presence and movement of the blades. Since performing DNS is unaffordable due to the wide range of space and time scales found in these problems, LES are often used. For a proper representation of the wakes in these computations, aerodynamic models are added to consider the effect of the moving blades. The first developed model in this research line was the Actuator Disk Method (ADM) \citepColor[sorensen_unsteady_1992]. The moving blades are modeled as a disk which has interacts with the incoming air. This perturbation is taken into account by means of body forces in the Navier-Stokes equations that influence the gaseous flow field. The purpose of ADM is the determination and imposition of these forces.
 
-An extension of the ADM was done later by \citeColor[sorensen_numerical_2002], known as \textbf{Actuator Line Method} (ALM). In this case, the moving bodies are not represented by a disk but by lines representing the rotor blades. Each individual blade is discretized by points which are equally spaced by a length $w$. A body force is imposed in each blade point. The cross section of a blade has an airfoil shape (see Figure \ref{fig:ALM_airfoil_and_mollification_benard} left), so the forces imposed by ALM to the flow field can be calculated from Blade Element Momentum (BEM) theory \citepColor[hansen_aerodynamics_2015]:
+An extension of the ADM was done later by \citeColor[sorensen_numerical_2002], known as \textbf{Actuator Line Method} (ALM). In this case, the moving bodies are not represented by a disk but by lines emulating the rotor blades. Each individual blade is discretized by points which are equally spaced by a length $w$. A body force is imposed in each blade point. The cross section of a blade has an airfoil shape (see Figure \ref{fig:ALM_airfoil_and_mollification_benard} left), so the forces imposed by ALM to the flow field can be calculated from Blade Element Momentum (BEM) theory \citepColor[hansen_aerodynamics_2015]:
 
 \begin{subequations}
 \label{eq:ALM_lift_drag_definitions}
@@ -564,7 +556,7 @@ D &= \frac{1}{2} \rho_g u_\mathrm{rel}^2 c \left( r \right) w C_D \left( r \righ
 \end{align}
 \end{subequations}
 
-where $L$ is lift, $D$ is drag, $u_\mathrm{rel}$ the relative velocity, $c \left( r \right)$ the chord size at the span direction $r$, and $C_L \left( r \right)$ and $C_D \left( r \right)$ lift and drag coefficients respectively. With this methodology, the variation of the forces along the span direction can be taken into account thorough changing chord and coefficients. The chord is given by the blade geometry, while the lift and drag coefficients are tabulated for a given airfoil.
+where $L$ is lift, $D$ is drag, $u_\mathrm{rel}$ the relative velocity, $c \left( r \right)$ the chord size at the span direction $r$, and $C_L \left( r \right)$ and $C_D \left( r \right)$ lift and drag coefficients respectively. With this methodology, the variation of the forces along the span direction can be taken into account through changing chord and coefficients. The chord is given by the blade geometry, while the lift and drag coefficients are tabulated for each airfoil.
 
 
 \begin{figure}[h!]
@@ -581,9 +573,10 @@ In the computational domain, the body forces cannot be directly applied in a sin
 \textbf{f} \left( \textbf{x}, t \right) = - \sum_{e=1}^{N} \left( L \textbf{e}_L + D \textbf{e}_D \right) \eta \left( |\textbf{r} - \textbf{r}_e| \right)
 \end{equation}
 
-where $\textbf{e}_L$ and $\textbf{e}_D$ are the unit vectors along the lift and drag directions (Figure \ref{fig:ALM_airfoil_and_mollification_benard} left), the subscript $e$ refers to each blade element and the mollifying function is defined as:
+where $\textbf{e}_L$ and $\textbf{e}_D$ are the unit vectors along the lift and drag directions (Figure \ref{fig:ALM_airfoil_and_mollification_benard} left), the subscript $e$ refers to each blade element and the mollifying function is defined by Eq. (\ref{eq:ch4_ALM_mollification_function}).
 
 \begin{equation}
+\label{eq:ch4_ALM_mollification_function}
 \eta \left( d \right) = \frac{1}{\epsilon^3 \pi^{3/2}} \exp \left[ - \left( \frac{d}{\epsilon} \right)^2 \right]
 \end{equation}
 
@@ -596,7 +589,7 @@ where $\epsilon = 2 w$. The mollification process is depicted in Figure \ref{fig
 
 %In this work, ALM is used to model the perturbation effect of the JICF dense core on the gaseous field in dispersed phase simulations. 
 
-As depicted in Figure \ref{fig:arienti_2006_jicf}, the presence of the dense core creates a wake and vortical structures further downstream. This interaction can be captured in resolved atomization simulations (see $\S$\textbf{????} of Chapter \ref{ch5:jicf_resolved_simulations}), but not in dispersed phase simulations where the coherent liquid structures are neglected. Since these liquid-gas interactions can have a strong influence on the dispersion of droplets in the developed spray region, it is of interest to model this effect in dispersed phase simulations. For this purpose, ALM is used.
+As depicted in Figure \ref{fig:arienti_2006_jicf}, the presence of the dense core creates a wake and vortical structures further downstream. This interaction can be captured in resolved atomization simulations (see $\S$\ref{subsec:ch5_dense_core_in_ACLS_simus} of Chapter \ref{ch5:jicf_resolved_simulations}), but not in dispersed phase simulations where the coherent liquid structures are neglected. Since these liquid-gas interactions can have a strong influence on the dispersion of droplets in the developed spray region, it is of interest to model this effect in dispersed phase simulations. For this purpose, ALM is used.
 
 \begin{figure}[h!]	
 	\centering
@@ -613,13 +606,13 @@ Apart from the geometry, the forces applied to the actuator points are also defi
 \textbf{F} \left( x_p, z_p \right) = D \left( x_p, z_p \right) \textbf{i} + L \left( x_p, z_p \right) \textbf{k} 
 \end{equation}
 
-where $\textbf{i}$ and $\textbf{k}$ are the unit vectors in the $x$ and $z$ directions, respectively. To estimate these forces, the net force applied to the dense core $\textbf{F}_\mathrm{DC}$ is obtained from the resolved simulations, see Figure \ref{fig:ALM_DC_learning}a. This force is assumed to act in the same direction as the forces $\textbf{F} \left( x_p, z_p \right)$ from the actuator model, and is repartitioned (\textbf{XX?Maybe other word?}) into the several forces that are applied to the actuator points. Therefore, the following condition must be fulfilled:
+where $\textbf{i}$ and $\textbf{k}$ are the unit vectors in the $x$ and $z$ directions, respectively. To estimate these forces, the net force applied to the dense core $\textbf{F}_\mathrm{DC}$ is obtained from the resolved simulations (see $\S$\ref{subsec:ch4_ALM_forces_determination}). This force is assumed to act in the same direction as the forces $\textbf{F} \left( x_p, z_p \right)$ from the actuator model, and is repartitioned into the several forces that are applied to the actuator points. Therefore, the following condition must be fulfilled:
 
 \begin{equation}
 \sum_{p=1}^{N_p} | \textbf{F} \left( x_p, z_p \right)| = | \textbf{F}_\mathrm{DC} |
 \end{equation}
 
-where $| \textbf{F}_\mathrm{DC} |$ is obtained from the resolved simulations (see $\S$\ref{subsec:ch4_ALM_forces_determination}). As the forces $| \textbf{F} \left( x_p, z_p \right)|$ increase linearly along the actuator, its evolution is represented by the following expression accordingly to the vertical coordinates $z_p$ of the actuator points:
+As the forces $| \textbf{F} \left( x_p, z_p \right)|$ increase linearly along the actuator, its evolution is represented by the following expression accordingly to the vertical coordinates $z_p$ of the actuator points:
 
 \begin{equation}
 |\textbf{F} \left( x_p, z_p \right) | = | \textbf{F}_\mathrm{DC} | \frac{z_p}{\sum_{p=1}^{N_p} z_p}
@@ -628,7 +621,7 @@ where $| \textbf{F}_\mathrm{DC} |$ is obtained from the resolved simulations (se
 And finally, the drag and lift forces to impose are calculated as follows:
 
 \begin{subequations}
-\label{eq:ALM_lift_drag_definitions}
+\label{eq:ALM_SLI_lift_drag_definitions}
 \begin{align}
 L \left( z_p \right) &= |\textbf{F} \left( x_p, z_p \right) | \sin \theta = | \textbf{F}_\mathrm{DC} | \sin \theta \frac{z_p}{\sum_{p=1}^{N_p} z_p} \\
 D \left( z_p \right) &= |\textbf{F} \left( x_p, z_p \right) | \cos \theta = | \textbf{F}_\mathrm{DC} | \cos \theta \frac{z_p}{\sum_{p=1}^{N_p} z_p}
@@ -685,7 +678,7 @@ To simplify this expression, the forces in the windward and leeward sides of the
 
 %The approximation of considering the pressures as both sides as equal is done in this model as it has been observed in the resolved simulations (see Figure \textbf{????}), but requires further research and might be a source of error. 
 
-It must be taken into account that the current model has been derived considering the dense core as a rigid body immersed in a fluid. Its geometry has been approximated by observations of the dense core shape in resolved atomization simulations, and have been taken as constant. In reality, the dense core is a deformable body whose topology (breakup point, inclination, length) changes with time. Future works on deriving more thorough models intending to represent the dense core should take into account these transient properties \citepColor[patil_liquid_2021].
+It must be taken into account that the dense core as a rigid body immersed in a fluid. Its geometry has been approximated by observations of the dense core shape in resolved atomization simulations, and have been taken as constant. In reality, the dense core is a deformable body whose topology (breakup point, inclination, length) changes with time. Future works on deriving more thorough models intending to represent the dense core should take into account these transient properties \citepColor[patil_liquid_2021].
 
 \subsubsection*{Neglecting the shear force term}
 
@@ -726,13 +719,13 @@ r_F = \frac{| \boldsymbol{F}_p| }{| \boldsymbol{F}_\tau |} = \frac{\Delta p}{0.1
 \end{equation}
 
 
-Where $\Delta p \sim O \left( 10^4 \right) $ in the operating points studied (see Table \ref{tab:jicf_operating_conditions} and Figure \textbf{????}). Considering this value, the expression for $r_F$ can be estimated to be:
+Where $\Delta p \sim O \left( 10^4 \right) $ in the operating points studied (see Table \ref{tab:jicf_operating_conditions} and Figure \ref{fig:JICF_turbulent_structures_planes_x} from Chapter \ref{ch5:jicf_resolved_simulations}). Considering this value, the expression for $r_F$ can be estimated to be:
 
 \begin{equation}
 r_F \sim \frac{10^5}{\rho_g u_g^2 \left( \log Re_x \right)^{-2.584}}
 \end{equation}
 
-According to the operating points studied (see Chapter \ref{ch5:jicf_resolved_simulations}), the values of $Re_x$ range from $10^3$ to $10^5$. In such points, $\rho_g = 7.21$ kg m$^{-3}$ and $u_g = 75, 100$ m s$^{-1}$. With these values, the expression of $r_F$ can be plotted as a function of $Re_x$ in Figure \ref{fig:ALM_rF_vs_Rex}. As observed, the ratio $r_F$ presents values between 10 to 90 for the $Re_x$ range of interest. These ratios mean that the pressure force $\boldsymbol{F}_p$ is between 10 and 90 times the shear force $\boldsymbol{F}_\tau$. Therefore, $|\boldsymbol{F}_\tau| << |\boldsymbol{F}_p|$ and only the contribution of the pressure force is considered to calculate the dense core net force.
+According to the operating points studied (see Chapter \ref{ch5:jicf_resolved_simulations}), the values of $Re_x$ range from $10^3$ to $10^5$. In such points, $\rho_g = 7.21$ kg m$^{-3}$ and $u_g = 75; 100$ m s$^{-1}$. With these values, the expression of $r_F$ can be plotted as a function of $Re_x$ in Figure \ref{fig:ALM_rF_vs_Rex}. As observed, the ratio $r_F$ presents values between 10 to 90 for the $Re_x$ range of interest. These ratios mean that the pressure force $\boldsymbol{F}_p$ is between 10 and 90 times the shear force $\boldsymbol{F}_\tau$. Therefore, $|\boldsymbol{F}_\tau| << |\boldsymbol{F}_p|$ and only the contribution of the pressure force is considered to calculate the dense core net force.
 
 
 
@@ -1100,13 +1093,18 @@ Children droplets inherit then a velocity which has two components: the parent p
 
 \section{Conclusions and perspectives}
 
-In this chapter, the models 
+This chapter has introduced and detailed the injection models developed in the works of this thesis. The full process is depicted by the flowchart of Figure \ref{fig:SLI_graphic_description}. The learning of the liquid injectors, baptised as SLI, is based on a spray characterization process of droplets resulting from resolved atomization simulations. Such process consists of sampling a flux-density distribution of droplets and evaluating its convergence to then make an in-plane discretization of the spray. Then, the individual sprays of the discrete grid are characterized by average values of fluxes, diameters, and velocities, and by RMS values of velocities. The spray grid can also be further refined through a convergence-driven discretization process. Then, resulting injectors can be used to inject a realistic spray in dispersed phase simulations. The models are then closed by including in the dispersed phase simulations: 1) a modelisation of the dense core perturbance effect with ALM, which is based on a learning process from the resolved atomization simulations; and 2) a secondary atomization model that continues breaking the particles in case they are not in equilibrium with the surrounding air. The next chapters are devoted to the two-phase simulations and the application of the models. \\
 
-
-For further development of the models, the following perspectives are proposed:
+For further development of the models, the following perspectives could be considered:
 
 \begin{itemize}
 
-	\item In the \textbf{lagrangian injectors learning} part, the deformation of the liquid structures sampled in resolved atomization simulations could be considered to impose a modified drag coefficient in the dispershed phase simulations. This would allow for a more accurate transport of the lagrangian spray, specially at the first time instants of injection before secondary breakup takes place. Also, the transient spray obtained through the accumulation process can be considered to develop an unsteady injection model, which could be useful in reactive cases where thermoacoustic oscillations take place, such as gas turbine and rocket engines. The convergence criterion, defined as a MSE norm on the droplet diameters, could be extended to include other parameters such as liquid velocities and mass flow rates.
+	\item Include a modified drag coefficient for lagrangian particles which depends on the deformation of the liquid structures sampled in resolved atomization simulations. This would allow for a more accurate transport of the lagrangian spray at the first time instants of injection, which would affect the particle's trajectories and the liquid-gas relative velocity before secondary breakup takes place. 
+	
+	\item Consider a transient spray obtained through the accumulation process to develop an unsteady injection model. This would be specially useful in reactive cases where thermoacoustic oscillations play an important role, such as gas turbine and rocket engines. 
+
+	\item Extend the spray convergence criterion, defined as a MSE norm on the droplet diameters, to include other parameters such as liquid velocities.
+	
+	\item Improve the actuator line model developed in this thesis to make a better representation of the resolved dense core, such as by considering a transient behaviour of its topology and its force.
 
 \end{itemize}
