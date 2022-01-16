@@ -205,7 +205,7 @@ plt.plot(time_UG75_DX10,nelem_UG75_DX10, 'y', label='$\mathrm{UG}75\_\mathrm{DX}
 plt.plot(time_UG75_DX20_fixed,nelem_UG75_DX20_fixed, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
 plt.plot(time_UG100_DX10,nelem_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
 plt.plot(time_UG100_DX20,nelem_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
-plt.plot(time_UG100_DX20_no_turb,nelem_UG100_DX20_no_turb, '--r',label='$\mathrm{UG}100\_\mathrm{DX}20\_NT$')
+plt.plot(time_UG100_DX20_no_turb,nelem_UG100_DX20_no_turb, '--r',label='$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{NT}$')
 #plt.plot(time_UG100_DX10_no_turb,nelem_UG100_DX10_no_turb, '--b',label='$\mathrm{UG}100\_\mathrm{DX}10\_NOT$')
 
 plt.xlabel(x_label_)
@@ -243,7 +243,7 @@ plt.plot(time_UG75_DX10,nelem_UG75_DX10, 'y', label='$\mathrm{UG}75\_\mathrm{DX}
 plt.plot(time_UG75_DX20,nelem_UG75_DX20, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
 plt.plot(time_UG100_DX10,nelem_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
 plt.plot(time_UG100_DX20,nelem_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
-plt.plot(time_UG100_DX20_no_turb,nelem_UG100_DX20_no_turb, '--r',label='$\mathrm{UG}100\_\mathrm{DX}20\_NT$')
+plt.plot(time_UG100_DX20_no_turb,nelem_UG100_DX20_no_turb, '--r',label='$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{NT}$')
 #Rectangle((0.0,100),0.25,1e3,fill='k',alpha=1)
 plt.xlabel(x_label_)
 #plt.xlabel("$t$")

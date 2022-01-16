@@ -156,7 +156,7 @@ plt.fill_between(becker_corr.xD, becker_corr.zD_lower,
 
 plt.plot(data_op1_dx10['xD'], data_op1_dx10['zD'], 'b', label = r'UG100\_DX10',linewidth=4*FFIG)
 plt.plot(data_op1_dx20['xD'], data_op1_dx20['zD'], 'r', label = r'UG100\_DX20',linewidth=4*FFIG)
-plt.plot(data_op1_dx20_no_turb['xD'], data_op1_dx20_no_turb['zD'], '--r', label = r'UG100\_DX20\_NO\_TURB',linewidth=4*FFIG)
+plt.plot(data_op1_dx20_no_turb['xD'], data_op1_dx20_no_turb['zD'], '--r', label = r'UG100\_DX20\_\mathrm{NT}',linewidth=4*FFIG)
 '''
 plt.plot(data_op1_dx10['xD'], data_op1_dx10['zD'], 'b', label = r'$\Delta x_\Gamma = 10 \mu m$',linewidth=4*FFIG)
 plt.plot(data_op1_dx20['xD'], data_op1_dx20['zD'], 'r', label = r'$\Delta x_\Gamma = 20 \mu m$',linewidth=4*FFIG)
@@ -217,7 +217,7 @@ plt.plot(t_L2_op2_dx20, L2_op2_dx20['L2_to_xD10'], 'g', label = r'UG75\_DX20',li
 '''
 plt.plot(t_L2_op1_dx10, L2_op1_dx10['L2'], 'b', label = r'UG100\_DX10',linewidth=4*FFIG)
 plt.plot(t_L2_op1_dx20, L2_op1_dx20['L2'], 'r', label = r'UG100\_DX20',linewidth=4*FFIG)
-plt.plot(t_L2_op1_dx20_no_turb, L2_op1_dx20_no_turb['L2'], '--r', label = r'UG100\_DX20\_NO\_TURB',linewidth=4*FFIG)
+plt.plot(t_L2_op1_dx20_no_turb, L2_op1_dx20_no_turb['L2'], '--r', label = r'UG100\_DX20\_\mathrm{NT}',linewidth=4*FFIG)
 plt.plot(t_L2_op2_dx10, L2_op2_dx10['L2'], 'y', label = r'UG75\_DX10',linewidth=4*FFIG)
 plt.plot(t_L2_op2_dx20, L2_op2_dx20['L2'], 'g', label = r'UG75\_DX20',linewidth=4*FFIG)
 
@@ -243,7 +243,7 @@ plt.figure(figsize=figsize_)
 plt.plot([-1,23],[0]*2,'k',linewidth=3*FFIG)
 plt.plot(data_op1_dx10['xD'].values[1:], error_op1_dx10, 'b', label = r'UG100\_DX10',linewidth=4*FFIG)
 plt.plot(data_op1_dx20['xD'].values[1:], error_op1_dx20, 'r', label = r'UG100\_DX20',linewidth=4*FFIG)
-plt.plot(data_op1_dx20_no_turb['xD'].values[1:], error_op1_dx20_no_turb, '--r', label = r'UG100\_DX20\_NO\_TURB',linewidth=4*FFIG)
+plt.plot(data_op1_dx20_no_turb['xD'].values[1:], error_op1_dx20_no_turb, '--r', label = r'UG100\_DX20\_\mathrm{NT}',linewidth=4*FFIG)
 plt.plot(data_op2_dx10['xD'].values[1:], error_op2_dx10, 'y', label = r'UG75\_DX10',linewidth=4*FFIG)
 plt.plot(data_op2_dx20['xD'].values[1:], error_op2_dx20, 'g', label = r'UG75\_DX20',linewidth=4*FFIG)
 plt.xlabel(r'$x/d_\mathrm{inj}$')

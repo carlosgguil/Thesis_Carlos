@@ -190,7 +190,7 @@ ax1.plot(time_UG75_DX10,liquid_volume_UG75_DX10, 'y', label='$\mathrm{UG}75\_\ma
 ax1.plot(time_UG75_DX20_fixed,liquid_volume_UG75_DX20_fixed, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
 ax1.plot(time_UG100_DX10,liquid_volume_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
 ax1.plot(time_UG100_DX20,liquid_volume_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
-ax1.plot(time_UG100_DX20_no_turb,liquid_volume_UG100_DX20_no_turb, '--r', label='$\mathrm{UG}100\_\mathrm{DX}20\_NT$')
+ax1.plot(time_UG100_DX20_no_turb,liquid_volume_UG100_DX20_no_turb, '--r', label='$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{NT}$')
 ax1.plot([1]*2,[0,1e4],'--k')
 
 # characteristics main plot

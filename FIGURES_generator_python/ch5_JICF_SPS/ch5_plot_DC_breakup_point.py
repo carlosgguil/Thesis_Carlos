@@ -59,7 +59,7 @@ cases = [folder+'breakup_point_uG75_dx10m.csv',
 
 labels_ = [r'$\mathrm{UG75}\_\mathrm{DX10}$' ,r'$\mathrm{UG75}\_\mathrm{DX20}$',
            r'$\mathrm{UG100}\_\mathrm{DX10}$' , r'$\mathrm{UG100}\_\mathrm{DX20}$',
-           r'$\mathrm{UG100}\_\mathrm{DX20}\_\mathrm{NO}\_\mathrm{TURB}$']
+           r'$\mathrm{UG100}\_\mathrm{DX20}\_\mathrm{NT}$']
 
    
 save_labels = ['UG75_DX10',  'UG75_DX20',
@@ -238,8 +238,8 @@ theta_std  = np.array(theta_std)
 #%% Plot signals
 
 # Limits to separate graphs
-ylims_xb_zb_temp = [(1,8), (1.8,13), (1,9.0), (1.5,15), (1.5,15)]
-ylims_w_temp     = [(0,3.2), (0,2.8), (0,3), (0,3.2), (0,3.2)]
+ylims_xb_zb_temp = [(1,11), (1.8,13), (1,9.0), (1.5,15), (1.5,15)]
+ylims_w_temp     = [(0,3.5), (0,2.8), (0,3), (0,3.2), (0,3.2)]
 
 ylims_xb_zb = []; ylims_w = [] 
 for i in range(len(ylims_xb_zb_temp)):
@@ -530,7 +530,7 @@ plt.errorbar(xb_mean[i], zb_mean[i],
              linewidth=width_error_lines,capsize=caps_error_lines)
 plt.xticks([4,6,8,10,12])
 plt.yticks([4,6,8,10,12])
-plt.xlim(3.5,12)
+plt.xlim(3.5,12.5)
 plt.ylim(3.5,12)
 plt.xlabel(r'$\overline{x_b}/d_\mathrm{inj}$')
 plt.ylabel(r'$\overline{z_b}/d_\mathrm{inj}$')
@@ -588,7 +588,7 @@ plt.errorbar(xb_mean[i], width_mean[i],
              linewidth=width_error_lines,capsize=caps_error_lines)
 plt.xticks([4,6,8,10,12])
 plt.yticks([4,5])
-plt.xlim(3.5,12)
+plt.xlim(3.5,12.5)
 plt.xlabel(r'$\overline{x_b}/d_\mathrm{inj}$')
 plt.ylabel(r'$\overline{w}/d_\mathrm{inj}$')
 #plt.legend(bbox_to_anchor=(1.0, 1.0))
@@ -598,3 +598,92 @@ plt.tight_layout()
 plt.savefig(folder_manuscript+'map_xb_width.pdf')
 plt.show()
 plt.close()
+
+#%% Frequencies
+'''
+for i in range(len(labels_)):
+    plt.figure(figsize=figsize_mean_convergence)
+    plt.title(labels_[i])
+    plt.plot(xf_xb[i]/1000, yf_xb[i], color='black',label='xb')
+    #plt.plot(xf_zb[i]/1000, yf_zb[i], color='blue',label='zb')
+    plt.xlabel(r'$f~[kHz]$') 
+    plt.ylabel(r'$\mathrm{FFT}$')
+    plt.xlim((0,20))
+    plt.legend(loc='best')
+    plt.grid()
+    plt.legend()
+    plt.show()
+    plt.close()
+'''
+
+
+figsize_FFTs = figsize_ #(FFIG*20,FFIG*12) 
+# UG75
+plt.figure(figsize=figsize_FFTs)
+i = 0; plt.plot(xf_xb[i]/1000, yf_xb[i], color='blue',label=labels_[i])
+i = 1; plt.plot(xf_xb[i]/1000, yf_xb[i], color='black',label=labels_[i])
+#plt.plot(xf_zb[i]/1000, yf_zb[i], color='blue',label='zb')
+plt.xlabel(r'$f~[kHz]$') 
+plt.ylabel(r'$\mathrm{FFT} (x_b)$')
+plt.xlim((0,20))
+plt.xticks([0,5,10,15,20])
+plt.grid()
+plt.legend(fontsize=50*FFIG)
+plt.tight_layout()
+plt.savefig(folder_manuscript+'FFTs_UG75.pdf')
+plt.grid()
+plt.show()
+plt.close()
+
+
+# UG100
+plt.figure(figsize=figsize_FFTs)
+i = 2; plt.plot(xf_xb[i]/1000, yf_xb[i], color='blue',label=labels_[i])
+i = 3; plt.plot(xf_xb[i]/1000, yf_xb[i], color='black',label=labels_[i])
+i = 4; plt.plot(xf_xb[i]/1000, yf_xb[i], color='red',label=labels_[i])
+#plt.plot(xf_zb[i]/1000, yf_zb[i], color='blue',label='zb')
+plt.xlabel(r'$f~[kHz]$') 
+plt.ylabel(r'$\mathrm{FFT} (x_b)$')
+plt.xlim((0,20))
+plt.xticks([0,5,10,15,20])
+plt.grid()
+plt.legend(fontsize=50*FFIG)
+plt.tight_layout()
+plt.savefig(folder_manuscript+'FFTs_UG100.pdf')
+plt.show()
+plt.close()
+
+
+# find frequencies for tau_str
+print('FREQUENCIES')
+for i in range(len(labels_)):
+    index = np.where(yf_xb[i] == max(yf_xb[i]))
+    index = index [0][0]
+    
+    freq = xf_xb[i][index]
+    tau_str = 1/freq*1e6
+    print('  '+save_labels[i]+f': f = {freq} Hz, tau_str = {tau_str} micros')
+    
+
+#%% Calculation of dense core surfaces and forces
+
+#labels_
+
+p_windward = np.array([10400]*5)
+p_leeward = np.array([-8800]*5)
+
+dp = p_windward - p_leeward
+
+# dense core surface
+xb_mean = np.array(xb_mean)
+zb_mean = np.array(zb_mean)
+L_DC = d_inj*np.sqrt(xb_mean**2+zb_mean**2) # length [mm]
+S_DC = (d_inj+width_mean*d_inj)*L_DC/2 # surface [mm^2]
+
+# Dense core net force calculation
+F_DC = dp*S_DC/1e6
+print(F_DC[2])
+
+
+
+
