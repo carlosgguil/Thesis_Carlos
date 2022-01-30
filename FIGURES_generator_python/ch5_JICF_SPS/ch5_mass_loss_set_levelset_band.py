@@ -14,10 +14,10 @@ PLOT_ADAPTATION_ITERS = True
 # rcParams for plots
 plt.rcParams['xtick.labelsize'] = 90*FFIG # 80*FFIG 
 plt.rcParams['ytick.labelsize'] = 90*FFIG # 80*FFIG
-plt.rcParams['axes.labelsize']  = 90*FFIG #80*FFIG
+plt.rcParams['axes.labelsize']  = 110*FFIG #80*FFIG
 plt.rcParams['axes.labelpad']   = 30*FFIG
-plt.rcParams['axes.titlesize']  = 90*FFIG #80*FFIG
-plt.rcParams['legend.fontsize'] = 60*FFIG #50*FFIG
+plt.rcParams['axes.titlesize']  = 100*FFIG #80*FFIG
+plt.rcParams['legend.fontsize'] = 80*FFIG #50*FFIG
 plt.rcParams['font.size'] = 50*FFIG
 plt.rcParams['lines.linewidth'] =  8*FFIG #6*FFIG
 plt.rcParams['legend.framealpha'] = 1.0
@@ -44,10 +44,10 @@ x_label_time = r'$t^{*}$'
 y_label_volume = r'$\mathrm{Liquid}~\mathrm{volume}~[\mathrm{mm}^3]$'
 
 label_ls_volume  = r'$V_l$'
-label_SLB_volume  = r'$V_{l,\mathrm{BF}}$'
+label_SLB_volume  = r'$V_{l,\mathrm{NF}}$'
 label_injected_volume  = r'$V_{l,\mathrm{inj}}$'
 
-labels_save = ['baseline', 'Nsteps', 'epsilon', 'dx10'] 
+labels_save = ['baseline', 'Nsteps', 'dx10', 'epsilon'] 
 
 
 
@@ -58,12 +58,12 @@ head_width_ = 0.015
 head_length_ = 0.002
 
 # Bar histogram
-barWidth = 0.25
+barWidth = 0.5
 cases = [r'$\mathrm{Case}~1$', r'$\mathrm{Case}~2$', 
          r'$\mathrm{Case}~3$', r'$\mathrm{Case}~4$']
 r1 = np.arange(len(cases))
 
-label_volume_loss = r'$\Delta V_l~[\mathrm{mm}^3]$'
+label_volume_loss = r'$\Delta V_{l,\mathrm{total}}~[\mathrm{mm}^3]$'
 label_dv_BF  = r'$\Delta V_{l,\mathrm{BF}}$'
 label_dv_NBF = r'$\Delta V_{l,\mathrm{NBF}}$'
 label_volume_loss_percentage = r'$\mathrm{Contribution~to~losses}~[\%]$'
@@ -94,6 +94,11 @@ for i in range(len(dataframes)):
     vol_ls_phi_integrated_val = df['vol_ls_phi_integrated'].values
     vol_ls_phi_NF_val = df['vol_ls_phi_int_plus_SLB'].values
     vol_ls_phi_injected_val = df['V_injected'].values
+    
+    vol_ls_phi_integrated_val -= vol_ls_phi_integrated_val[0]
+    vol_ls_phi_NF_val -= vol_ls_phi_NF_val[0]
+    vol_ls_phi_injected_val -= vol_ls_phi_injected_val[0]
+    
     adapt_time_val = df[~df['adapt_time'].isna()]['adapt_time'].values
     t_val_plot = t_val/tau_in_UG100
     adapt_time_val_plot = adapt_time_val/tau_in_UG100
@@ -202,6 +207,8 @@ plt.bar(r1, dv_nBF, width=barWidth, color='grey' ,
 plt.ylabel(label_volume_loss)
 plt.xticks([r for r in range(len(cases))], cases)
 plt.legend(loc='upper left',fontsize=70*FFIG)
+#plt.yscale('log')
+plt.ylim(0,0.25)
 plt.tight_layout()
 plt.savefig(folder_manuscript+'bar_graph_dv_l.pdf')
 plt.show()

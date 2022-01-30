@@ -47,6 +47,13 @@ cases = ['UG75_DX10_x05mm','UG75_DX10_x10mm',
          'UG75_DX20_x05mm','UG75_DX20_x10mm','UG75_DX20_x15mm',
          'UG100_DX10_x05mm','UG100_DX10_x10mm', 
          'UG100_DX20_x05mm','UG100_DX20_x10mm','UG100_DX20_x15mm']
+
+ql_lim_ = [(0,50), (0,25), 
+           (0,50), (0,25), (0,12),
+           (0,80), (0,35),
+           (0,80), (0,35), (0,12)]
+
+
          
 
 # Define labels and tags
@@ -92,11 +99,34 @@ with open(fluxes_spatial_data_all, 'rb') as f:
     map_vol_flux_IB_dict = pickle.load(f)
 f.close()
 
+# to compare with SLI
+# x = 05 mm
+x_ticks_ = [-4,-2,0,2,4] #[-10,-5,0,5,10]
+y_ticks_ = [0,2,4,6,8]#[0,3,6,9,12,15]
+x_lim_y_coord = (-5,5)
+y_lim_z_coord = (0,8)
+ql_lim_[7] = (0,75)
+Ql_lim_ = (0,650)
 
+# x = 10 mm
+'''
+x_ticks_ = [-5,-2.5,0,2.5,5]
+y_ticks_ = [0,3,6,9,12]
+x_lim_y_coord = (-6,6)
+y_lim_z_coord = (0,12)
 
+ql_lim_[6] = (0,25)
+Ql_lim_ = (0,600)
+'''
 #%% Plot stuff
 
+print('--------- BOUNDS ------------')
+
+
 for i in range(len(cases)):
+    if i < 7 or i > 7:
+        continue
+    
     case = cases[i]
     
     # split string case to define title
@@ -117,17 +147,25 @@ for i in range(len(cases)):
     map_vol_flux_IB = map_vol_flux_IB_dict[case]
     
     # Total flux map
+    
+    
+    N_LEVELS = 10
+    min_level = Ql_lim_[0]
+    max_level = Ql_lim_[1]
+    levels_map = [max_level*j/(N_LEVELS-1) + min_level*(1-j/(N_LEVELS-1)) for j in range(N_LEVELS)]
+    
     plt.figure(figsize=figsize_)
     plt.title(title_)
-    #contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
-    #           levels = levels_map, colors= 'k', linewidths = 2*FFIG)
     plt.xlabel(x_label_y_coord)
     plt.ylabel(y_label_z_coord)
     plt.xlim(x_lim_y_coord)
     plt.ylim(y_lim_z_coord)
     plt.xticks(x_ticks_)
     plt.yticks(y_ticks_)
-    plt.contourf(y_val, z_val, map_Q_IB, cmap = 'binary')
+    contour = plt.contour(y_val, z_val, map_Q_IB, 
+               levels = levels_map, colors= 'k', linewidths = 2*FFIG)
+    plt.contourf(y_val, z_val, map_Q_IB, 
+                 levels = levels_map, cmap = 'binary')
     cbar = plt.colorbar(format=r'$%.d$')
     cbar.set_label(bar_label_total_flux)
     plt.tight_layout()
@@ -136,6 +174,11 @@ for i in range(len(cases)):
     plt.close()
     
     # Volume flux map
+    N_LEVELS = 10
+    min_level = ql_lim_[i][0]
+    max_level = ql_lim_[i][1]
+    levels_map = [max_level*j/(N_LEVELS-1) + min_level*(1-j/(N_LEVELS-1)) for j in range(N_LEVELS)]
+    
     plt.figure(figsize=figsize_)
     plt.title(title_)
     #contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
@@ -146,12 +189,31 @@ for i in range(len(cases)):
     plt.ylim(y_lim_z_coord)
     plt.xticks(x_ticks_)
     plt.yticks(y_ticks_)
-    plt.contourf(y_val, z_val, map_vol_flux_IB, cmap = 'binary')
+    contour = plt.contour(y_val, z_val, map_vol_flux_IB, levels = levels_map,
+               colors= 'k', linewidths = 2*FFIG)
+    plt.contourf(y_val, z_val, map_vol_flux_IB,  
+                 levels = levels_map, cmap = 'binary')
     #cbar = plt.colorbar(format=r'$%.2f$')
     cbar = plt.colorbar(format=r'$%.d$')
     cbar.set_label(bar_label_volume_flux)
+    #plt.clim(ql_lim_[i])
     plt.tight_layout()
     plt.savefig(folder_manuscript + case+'_volume_flux.pdf')
     plt.show()
     plt.close()
     
+    # Get bounds for SLI
+    dy = np.diff(y_val)[0]; dz = np.diff(z_val)[0]
+    y_bounds_SLI = (y_val[0]-dy/2,y_val[-1]+dy/2)
+    z_bounds_SLI = (0,z_val[-1]+dz/2)
+    
+    # Print maximum and minimum bounds
+    y_bounds = (min(y_val),max(y_val))
+    z_bounds = (min(z_val),max(z_val))
+    print('CASE: '+case)
+    print(f'   y_bounds IBS: {y_bounds}')
+    print(f'   y_bounds SLI: {y_bounds_SLI}')
+    print(f'   z_bounds IBS: {z_bounds}')
+    print(f'   z_bounds SLI: {z_bounds_SLI}')
+    
+print('\n')

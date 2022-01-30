@@ -42,7 +42,8 @@ plt.rcParams['legend.framealpha'] = 1.0
 plt.rcParams['legend.loc']      = 'lower right'
 plt.rcParams['text.usetex'] = True
 
-figsize_ = (FFIG*26,FFIG*16) #(FFIG*22,FFIG*15)
+figsize_ = (FFIG*26,FFIG*19) #(FFIG*22,FFIG*15)
+figsize_L2_share_y = (FFIG*30,FFIG*20)
 
 ##########################################################
 
@@ -57,8 +58,19 @@ x_lim_traj = (-0.5, 17) #(becker_corr.plotD_limits[0][0], becker_corr.plotD_limi
 x_lim_traj = (-0.5, 20) 
 y_lim_traj = (becker_corr.plotD_limits[1][0], z_max)
 
+
+
 tau = 0.2584 #0.3628
 dt = 1.5e-3 #ms
+
+tp_0 = 2.3
+tp_max = 23.8370270548746 
+
+label_L2_xD10 = r'$x/d_\mathrm{inj} < 10$'
+label_L2_xD20 = r'$x/d_\mathrm{inj} < 20$'
+
+#L2_x_ticks = [0,5,10,15,20]
+L2_x_ticks = [2, 5, 10, 15, 20]
 
 #%% Load and process trajectories 
 
@@ -72,6 +84,16 @@ data_op1_dx20_method_c = pd.read_csv(directory_op1_dx20+'/method_c_data_trajecto
 L2_op1_dx20_method_c   = pd.read_csv(directory_op1_dx20+'/method_c_data_L2.csv')
 data_op1_dx20_method_d = pd.read_csv(directory_op1_dx20+'/method_d_data_trajectory.csv')
 L2_op1_dx20_method_d   = pd.read_csv(directory_op1_dx20+'/method_d_data_L2.csv')
+
+
+L2_method_a_xD20 = L2_op1_dx20_method_a['L2']
+L2_method_a_xD10 = L2_op1_dx20_method_a['L2_to_xD10']
+L2_method_b_xD20 = L2_op1_dx20_method_b['L2']
+L2_method_b_xD10 = L2_op1_dx20_method_b['L2_to_xD10']
+L2_method_c_xD20 = L2_op1_dx20_method_c['L2']
+L2_method_c_xD10 = L2_op1_dx20_method_c['L2_to_xD10']
+L2_method_d_xD20 = L2_op1_dx20_method_d['L2']
+L2_method_d_xD10 = L2_op1_dx20_method_d['L2_to_xD10']
 
 #%% Get errors with axial location
 becker_corr_method_a = trj.trajectory_vertical(data_op1_dx20_method_a['xD'].values*d_inj, d_inj)
@@ -104,13 +126,13 @@ title = r'OP1'
 
 # Trajectory
 plt.figure(figsize=figsize_)
-plt.plot(becker_corr.xD, becker_corr.zD_mean, 'k', label=r'Exp. correlation',linewidth=8*FFIG)
+plt.plot(becker_corr.xD, becker_corr.zD_mean, 'k', label=r'$\mathrm{Exp.~correlation}$',linewidth=8*FFIG)
 plt.fill_between(becker_corr.xD, becker_corr.zD_lower, 
                  becker_corr.zD_upper, alpha=0.1, facecolor='black')
-plt.plot(data_op1_dx20_method_a['xD'], data_op1_dx20_method_a['zD'], 'r', label = r'INST\_NM')
-plt.plot(data_op1_dx20_method_b['xD'], data_op1_dx20_method_b['zD'], 'b', label = r'INST\_M')
-plt.plot(data_op1_dx20_method_c['xD'], data_op1_dx20_method_c['zD'], 'g', label = r'MEAN\_GRAD')
-plt.plot(data_op1_dx20_method_d['xD'], data_op1_dx20_method_d['zD'], 'y', label = r'MEAN\_CONT')
+plt.plot(data_op1_dx20_method_a['xD'], data_op1_dx20_method_a['zD'], 'r', label = r'$\mathrm{INST\_NM}$')
+plt.plot(data_op1_dx20_method_b['xD'], data_op1_dx20_method_b['zD'], 'b', label = r'$\mathrm{INST\_M}$')
+plt.plot(data_op1_dx20_method_c['xD'], data_op1_dx20_method_c['zD'], 'g', label = r'$\mathrm{MEAN\_GRAD}$')
+plt.plot(data_op1_dx20_method_d['xD'], data_op1_dx20_method_d['zD'], 'y', label = r'$\mathrm{MEAN\_CONT}$')
 plt.xlabel(r'$x/d_\mathrm{inj}$')
 plt.ylabel(r'$z/d_\mathrm{inj}$')
 plt.xlim(x_lim_traj)
@@ -126,25 +148,39 @@ plt.savefig(folder_manuscript+'methods_comparison_trajectories_q6uG100_dx20.pdf'
 plt.show()
 plt.close()
 
-t_method_a = (L2_op1_dx20_method_a['t'].values - 1)*dt/tau
-t_method_b = (L2_op1_dx20_method_b['t'].values - 1)*dt/tau
-t_method_c = (L2_op1_dx20_method_c['t'].values - 1)*dt/tau
-t_method_d = (L2_op1_dx20_method_d['t'].values - 1)*dt/tau
+
+t_method_a = (L2_op1_dx20_method_a['t'].values - 1)*dt/tau + 2
+t_method_b = (L2_op1_dx20_method_b['t'].values - 1)*dt/tau + 2
+t_method_c = (L2_op1_dx20_method_c['t'].values - 1)*dt/tau + 2
+t_method_d = (L2_op1_dx20_method_d['t'].values - 1)*dt/tau + 2
+
+# Transform times
+m_a = (tp_max - tp_0)/(t_method_a[-1] - t_method_a[0])
+t_method_a = m_a*(t_method_a - t_method_a[0]) + tp_0
+
+m_b = (tp_max - tp_0)/(t_method_b[-1] - t_method_b[0])
+t_method_b = m_b*(t_method_b - t_method_b[0]) + tp_0
+
+m_c = (tp_max - tp_0)/(t_method_c[-1] - t_method_c[0])
+t_method_c = m_c*(t_method_c - t_method_c[0]) + tp_0
+
+m_d = (tp_max - tp_0)/(t_method_d[-1] - t_method_d[0])
+t_method_d = m_d*(t_method_d - t_method_d[0]) + tp_0
 
 # L2 error
 plt.figure(figsize=figsize_)
 #plt.plot(becker_corr.xD, becker_corr.zD_mean, 'k', label=r'Exp. correlation',linewidth=8*FFIG)
-'''
-plt.plot(t_method_a, L2_op1_dx20_method_a['L2_to_xD10'], 'r', label = r'INST\_NM')
-plt.plot(t_method_b, L2_op1_dx20_method_b['L2_to_xD10'], 'b', label = r'INST\_M')
-plt.plot(t_method_c, L2_op1_dx20_method_c['L2_to_xD10'], 'g', label = r'MEAN\_GRAD')
-plt.plot(t_method_d, L2_op1_dx20_method_d['L2_to_xD10'], 'y', label = r'MEAN\_CONT')
-'''
-plt.plot(t_method_a, L2_op1_dx20_method_a['L2'], 'r', label = r'INST\_NN')
-plt.plot(t_method_b, L2_op1_dx20_method_b['L2'], 'b', label = r'INST\_M')
-plt.plot(t_method_c, L2_op1_dx20_method_c['L2'], 'g', label = r'MEAN\_GRAD')
-plt.plot(t_method_d, L2_op1_dx20_method_d['L2'], 'y', label = r'MEAN\_CONT')
 
+plt.plot(t_method_a, L2_method_a_xD20, 'r', label = r'INST\_NM')
+plt.plot(t_method_b, L2_method_b_xD20, 'b', label = r'INST\_M')
+plt.plot(t_method_c, L2_method_c_xD20, 'g', label = r'MEAN\_GRAD')
+plt.plot(t_method_d, L2_method_d_xD20, 'y', label = r'MEAN\_CONT')
+'''
+plt.plot(t_method_a, L2_method_a_xD10, 'r', label = r'INST\_NM')
+plt.plot(t_method_b, L2_method_b_xD10, 'b', label = r'INST\_M')
+plt.plot(t_method_c, L2_method_c_xD10, 'g', label = r'MEAN\_GRAD')
+plt.plot(t_method_d, L2_method_d_xD10 'y', label = r'MEAN\_CONT')
+'''
 #plt.xlabel(r'$t^*$')
 plt.xlabel(r'$t^{\prime}$')
 plt.ylabel(r'$L_2$')
@@ -159,16 +195,54 @@ plt.savefig(folder_manuscript+'methods_comparison_L2_evolution_q6uG100_dx20.pdf'
 plt.show()
 plt.close()
 
+
+ 
+# shared y axis
+fig = plt.figure(figsize=figsize_L2_share_y)
+gs = fig.add_gridspec(1, 2, wspace=0)
+axs = gs.subplots(sharex=False, sharey=True)
+(ax1, ax2) = gs.subplots(sharey='row')
+# x/D < 10
+ax1.plot(t_method_a, L2_method_a_xD10, 'r')
+ax1.plot(t_method_b, L2_method_b_xD10, 'b')
+ax1.plot(t_method_c, L2_method_c_xD10, 'g')
+ax1.plot(t_method_d, L2_method_d_xD10, 'y')
+ax1.set_title(label_L2_xD10)
+# x/D < 20
+ax2.plot(t_method_a, L2_method_a_xD20, 'r')
+ax2.plot(t_method_b, L2_method_b_xD20, 'b')
+ax2.plot(t_method_c, L2_method_c_xD20, 'g')
+ax2.plot(t_method_d, L2_method_d_xD20, 'y')
+ax2.set_title(label_L2_xD20)
+axs.flat[0].set(ylabel = r'$L_2$')
+for ax in axs.flat:
+    ax.label_outer()
+    ax.set(xlabel=r'$t^{\prime}$')
+    ax.set_xlim((2,24.5))
+    ax.xaxis.set_ticks(L2_x_ticks)
+    ax.grid()
+for ax in axs.flat[1:]:
+    ax.spines['left'].set_linewidth(6*FFIG)
+    ax.spines['left'].set_linestyle('-.')
+#plt.ylabel([0,2,4,6,8, 10])
+#plt.ylim(0,10)
+plt.tight_layout()
+plt.savefig(folder_manuscript+'methods_comparison_L2_evolution_q6uG100_dx20_shared_y_axis.pdf')
+plt.show()
+plt.close
+
+#%%
+
 # Trajectory difference
 plt.figure(figsize=figsize_)
 #plt.plot(becker_corr.xD, becker_corr.zD_mean, 'k', label=r'Exp. correlation',linewidth=8*FFIG)
 #plt.fill_between(becker_corr.xD, becker_corr.zD_lower, 
 #                 becker_corr.zD_upper, alpha=0.1, facecolor='black')
 plt.plot([-1,23],[0]*2,'k',linewidth=3*FFIG)
-plt.plot(data_op1_dx20_method_a['xD'].values[1:], error_a, 'r', label = r'INST\_NM')
-plt.plot(data_op1_dx20_method_b['xD'].values[1:], error_b, 'b', label = r'INST\_M')
-plt.plot(data_op1_dx20_method_c['xD'].values[1:], error_c, 'g', label = r'MEAN\_GRAD')
-plt.plot(data_op1_dx20_method_d['xD'].values[1:], error_d, 'y', label = r'MEAN\_CONT')
+plt.plot(data_op1_dx20_method_a['xD'].values[1:], error_a, 'r', label = r'$\mathrm{INST\_NM}$')
+plt.plot(data_op1_dx20_method_b['xD'].values[1:], error_b, 'b', label = r'$\mathrm{INST\_M}$')
+plt.plot(data_op1_dx20_method_c['xD'].values[1:], error_c, 'g', label = r'$\mathrm{MEAN\_GRAD}$')
+plt.plot(data_op1_dx20_method_d['xD'].values[1:], error_d, 'y', label = r'$\mathrm{MEAN\_CONT}$')
 plt.xlabel(r'$x/d_\mathrm{inj}$')
 plt.ylabel(r'$\varepsilon~[\%]$')
 plt.xlim(x_lim_traj)

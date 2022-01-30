@@ -48,6 +48,9 @@ tau_ph_UG75_DX10 = 0.2952
 tau_ph_UG75_DX20 = 0.3558
 tau_ph_UG100_DX10 = 0.2187
 tau_ph_UG100_DX20 = 0.2584
+tau_ph_UG100_DX20_NT = 0.2602
+
+
 
 # Define labels and tags
 x_label_time   = r'$t^{\prime}$' #r'$t~[\mathrm{ms}]$'
@@ -80,6 +83,36 @@ label_x_less_15 = r'$x < 15~\mathrm{mm}$'
 barWidth = 0.25
 r1 = np.arange(len(cases))
 r2 = np.array([1,3])
+
+tp_0_true_values = False
+
+if tp_0_true_values:
+    tp_0_UG100_DX20 = 0.6840/tau_ph_UG100_DX20
+    tp_0_UG100_DX20_NT = 0.7844/tau_ph_UG100_DX20_NT
+    tp_0_UG100_DX10 = 0.4173/tau_ph_UG100_DX10
+    tp_0_UG75_DX20 = 0.9640/tau_ph_UG75_DX20
+    tp_0_UG75_DX10 = 0.5032/tau_ph_UG75_DX10
+else:
+    tp_0_UG100_DX20 = 2.3
+    tp_0_UG100_DX20_NT = 2.2
+    tp_0_UG100_DX10 = 1.9080932784636488
+    tp_0_UG75_DX20 = 2.3
+    tp_0_UG75_DX10 = 1.85
+    
+        
+# define maximum values for t' (obtained from ch5_nelem_plot.py)
+tp_max_UG100_DX20 = 23.8370270548746 # diff of 1*tp
+tp_max_UG100_DX20_NT = 23.436246263752494 # diff of 2*tp
+tp_max_UG100_DX10 = 3.5785496471047074 # diff of 0.5*tp
+tp_max_UG75_DX20 = 17.695510529612424 # no diff !
+tp_max_UG75_DX10 = 3.6428757530101596 # no diff !
+
+# define t_min and ticks of mean, RMS evolution graphs
+t_min = 2 #min(t_UG100_DX10_x05)
+tp_ticks_UG75_DX10 = np.array([0,0.6,1.2])+t_min
+tp_ticks_UG75_DX20 = np.array([0,3,6,9,12,15])+t_min
+tp_ticks_UG100_DX10 = np.array([0,0.6,1.2])+t_min
+tp_ticks_UG100_DX20 = np.array([0,4,8,12,16,20])+t_min
 
 
 #%% Read iso-x dataframes
@@ -253,6 +286,51 @@ t_UG75_DX10_x10_filming = (t_UG75_DX10_x10_filming-t_UG75_DX10_x10_filming[0])/t
 Q_mean_UG75_DX10_x10_filming = df_UG75_DX10_x10_filming['Q_t_film_x10_mean_evol'].values
 Q_RMS_UG75_DX10_x10_filming  = df_UG75_DX10_x10_filming['Q_t_film_x10_rms_evol'].values
 
+#%% Transform times
+# OP1_DX20
+m_op1_dx20 = (tp_max_UG100_DX20 - tp_0_UG100_DX20)/(t_UG100_DX20_x05[-1] - t_UG100_DX20_x05[0])
+t_UG100_DX20 = m_op1_dx20*(t_UG100_DX20_x05 - t_UG100_DX20_x05[0]) + tp_0_UG100_DX20
+#t_UG100_DX20_x10 = m_op1_dx20*(t_UG100_DX20_x10 - t_UG100_DX20_x10[0]) + tp_0_UG100_DX20
+#t_UG100_DX20_x10 = m_op1_dx20*(t_UG100_DX20_x15 - t_UG100_DX20_x15[0]) + tp_0_UG100_DX20
+t_UG100_DX20_x05 = t_UG100_DX20
+t_UG100_DX20_x10 = t_UG100_DX20
+t_UG100_DX20_x15 = t_UG100_DX20
+t_UG100_DX20_x05_filming = t_UG100_DX20
+t_UG100_DX20_x10_filming = t_UG100_DX20
+t_UG100_DX20_x15_filming = t_UG100_DX20
+
+
+#OP1_DX10
+m_op1_dx10 = (tp_max_UG100_DX10 - tp_0_UG100_DX10)/(t_UG100_DX10_x05[-1] - t_UG100_DX10_x05[0])
+t_UG100_DX10 = m_op1_dx10*(t_UG100_DX10_x05 - t_UG100_DX10_x05[0]) + tp_0_UG100_DX10
+t_UG100_DX10_x10 = m_op1_dx10*(t_UG100_DX10_x10 - t_UG100_DX10_x10[0]) + tp_0_UG100_DX10
+t_UG100_DX10_x05 = t_UG100_DX10
+#t_UG100_DX10_x10 = t_UG100_DX10
+t_UG100_DX10_x05_filming = m_op1_dx10*(t_UG100_DX10_x05_filming - t_UG100_DX10_x05_filming[0]) + tp_0_UG100_DX10
+t_UG100_DX10_x10_filming = m_op1_dx10*(t_UG100_DX10_x10_filming - t_UG100_DX10_x10_filming[0]) + tp_0_UG100_DX10
+
+# OP2_DX20
+m_op2_dx20 = (tp_max_UG75_DX20 - tp_0_UG75_DX20)/(t_UG75_DX20_x05[-1] - t_UG75_DX20_x05[0])
+t_UG75_DX20 = m_op2_dx20*(t_UG75_DX20_x05 - t_UG75_DX20_x05[0]) + tp_0_UG75_DX20
+#t_UG75_DX20_x10 = m_op2_dx20*(t_UG75_DX20_x10 - t_UG75_DX20_x10[0]) + tp_0_UG75_DX20
+#t_UG75_DX20_x15 = m_op2_dx20*(t_UG75_DX20_x15 - t_UG75_DX20_x15[0]) + tp_0_UG75_DX20
+t_UG75_DX20_x05 = t_UG75_DX20
+t_UG75_DX20_x10 = t_UG75_DX20
+t_UG75_DX20_x15 = t_UG75_DX20
+t_UG75_DX20_x05_filming = t_UG75_DX20
+t_UG75_DX20_x10_filming = t_UG75_DX20
+t_UG75_DX20_x15_filming = t_UG75_DX20
+
+# OP2_DX10
+m_op2_dx10 = (tp_max_UG75_DX10 - tp_0_UG75_DX10)/(t_UG75_DX10_x05[-1] - t_UG75_DX10_x05[0])
+t_UG75_DX10 = m_op2_dx10*(t_UG75_DX10_x05 - t_UG75_DX10_x05[0]) + tp_0_UG75_DX10
+t_UG75_DX10_x05 = t_UG75_DX10
+t_UG75_DX10_x10 = t_UG75_DX10
+t_UG75_DX10_x05_filming = t_UG75_DX10
+t_UG75_DX10_x10_filming = t_UG75_DX10
+#t_UG75_DX10_x10 = m_op2_dx10*(t_UG75_DX10_x10 - t_UG75_DX10_x10[0]) + tp_0_UG75_DX10
+
+
 #%% Extract total rates
 
 # UG100_DX20
@@ -342,9 +420,10 @@ Q_loss_UG75_DX20  = (Q_inj_UG75 - Q_tot_UG75_DX20)/Q_inj_UG75*100
 Q_loss_UG100_DX10 = (Q_inj_UG100 - Q_tot_UG100_DX10)/Q_inj_UG100*100
 Q_loss_UG100_DX20 = (Q_inj_UG100 - Q_tot_UG100_DX20)/Q_inj_UG100*100
 
+
+
 #%% Plot time evolution of instantaneous Qs for UG100_DX10
 
-t_min = 2
 t_max = max(t_UG100_DX10_x05)
 
 # Iso-x Qs
@@ -402,6 +481,8 @@ plt.close
 
 #%% Mean values evolution in iso-x planes
 
+
+
 fig = plt.figure(figsize=figsize_4_in_a_row)
 gs = fig.add_gridspec(1, 4, wspace=0)
 axs = gs.subplots(sharex=False, sharey=True)
@@ -412,7 +493,7 @@ ax1.plot(t_UG75_DX10_x10, Q_mean_UG75_DX10_x10, 'k', label=label_x_equal_10)
 #ax1.text(0.5,6000,r'$\mathrm{UG}100\_\mathrm{DX}20$',fontsize=80*FFIG)
 #ax1.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax1.set_title(label_UG75_DX10)
-ax1.xaxis.set_ticks(np.array([0,1,2])+t_min)
+ax1.xaxis.set_ticks(tp_ticks_UG75_DX10)
 ax1.yaxis.set_ticks([0,1000,2000,3000,4000,5000])
 
 ax2.plot([t_min, max(t_UG75_DX20_x05)], [Q_inj_UG75]*2, '--k', label=label_Ql_injected)
@@ -421,7 +502,7 @@ ax2.plot(t_UG75_DX20_x10, Q_mean_UG75_DX20_x10, 'k', label=label_x_equal_10)
 ax2.plot(t_UG75_DX20_x10, Q_mean_UG75_DX20_x15, 'r', label=label_x_equal_15)
 #ax2.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax2.set_title(label_UG75_DX20)
-ax2.xaxis.set_ticks(np.array([0,3,6,9,12])+t_min)
+ax2.xaxis.set_ticks(tp_ticks_UG75_DX20)
 ax2.legend(loc='best',fontsize=40*FFIG)
 
 ax3.plot([t_min, max(t_UG100_DX10_x05)], [Q_inj_UG100]*2, '--k', label=label_Ql_injected)
@@ -429,14 +510,14 @@ ax3.plot(t_UG100_DX10_x05, Q_mean_UG100_DX10_x05, 'b', label=label_x_equal_5)
 ax3.plot(t_UG100_DX10_x10, Q_mean_UG100_DX10_x10, 'k', label=label_x_equal_10)
 #ax3.text(0.0,6000,r'$\mathrm{UG}100\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax3.set_title(label_UG100_DX10)
-ax3.xaxis.set_ticks(np.array([0,0.3,0.6,0.9,1.2])+t_min)
+ax3.xaxis.set_ticks(tp_ticks_UG100_DX10)
 
 ax4.plot([t_min, max(t_UG100_DX20_x05)], [Q_inj_UG100]*2, '--k', label=label_Ql_injected)
 ax4.plot(t_UG100_DX20_x05, Q_mean_UG100_DX20_x05, 'b', label=label_x_equal_5)
 ax4.plot(t_UG100_DX20_x10, Q_mean_UG100_DX20_x10, 'k', label=label_x_equal_10)
 ax4.plot(t_UG100_DX20_x10, Q_mean_UG100_DX20_x15, 'r', label=label_x_equal_15)
 ax4.set_title(label_UG100_DX20)
-ax4.xaxis.set_ticks(np.array([0,4,8,12,16,20])+t_min)
+ax4.xaxis.set_ticks(tp_ticks_UG100_DX20)
 
 axs.flat[0].set(ylabel = y_label_Ql_mean_perp)
 for ax in axs.flat:
@@ -450,7 +531,9 @@ plt.savefig(folder_manuscript+'evolution_mean_Q_iso_x.pdf')
 plt.show()
 plt.close
 
+
 #%% RMS values evolution in iso-x planes
+
 
 fig = plt.figure(figsize=figsize_4_in_a_row)
 gs = fig.add_gridspec(1, 4, wspace=0)
@@ -461,7 +544,7 @@ ax1.plot(t_UG75_DX10_x05, Q_RMS_UG75_DX10_x05, 'b', label=label_x_equal_5)
 ax1.plot(t_UG75_DX10_x10, Q_RMS_UG75_DX10_x10, 'k', label=label_x_equal_10)
 #ax1.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax1.set_title(label_UG75_DX10)
-ax1.xaxis.set_ticks(np.array([0,1,2,3])+2)
+ax1.xaxis.set_ticks(tp_ticks_UG75_DX10)
 ax1.yaxis.set_ticks([0,500,1000,1500,2000,2500,3000])
 
 ax2.plot(t_UG75_DX20_x05, Q_RMS_UG75_DX20_x05, 'b', label=label_x_equal_5)
@@ -469,13 +552,13 @@ ax2.plot(t_UG75_DX20_x10, Q_RMS_UG75_DX20_x10, 'k', label=label_x_equal_10)
 ax2.plot(t_UG75_DX20_x10, Q_RMS_UG75_DX20_x15, 'r', label=label_x_equal_15)
 #ax2.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax2.set_title(label_UG75_DX20)
-ax2.xaxis.set_ticks(np.array([0,3,6,9,12])+2)
+ax2.xaxis.set_ticks(tp_ticks_UG75_DX20)
 
 ax3.plot(t_UG100_DX10_x05, Q_RMS_UG100_DX10_x05, 'b', label=label_x_equal_5)
 ax3.plot(t_UG100_DX10_x10, Q_RMS_UG100_DX10_x10, 'k', label=label_x_equal_10)
 #ax3.text(0.0,6000,r'$\mathrm{UG}100\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax3.set_title(label_UG100_DX10)
-ax3.xaxis.set_ticks(np.array([0,0.3,0.6,0.9,1.2])+2)
+ax3.xaxis.set_ticks(tp_ticks_UG100_DX10)
 
 ax4.plot(t_UG100_DX20_x05, Q_RMS_UG100_DX20_x05, 'b', label=label_x_less_5)
 ax4.plot(t_UG100_DX20_x10, Q_RMS_UG100_DX20_x10, 'k', label=label_x_less_10)
@@ -483,7 +566,7 @@ ax4.plot(t_UG100_DX20_x10, Q_RMS_UG100_DX20_x15, 'r', label=label_x_less_15)
 #ax4.text(0.5,6000,r'$\mathrm{UG}100\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax4.set_title(label_UG100_DX20)
 #ax4.yaxis.set_ticks([0,1000,2000,3000])
-ax4.xaxis.set_ticks(np.array([0,4,8,12,16,20])+2)
+ax4.xaxis.set_ticks(tp_ticks_UG100_DX20)
 
 axs.flat[0].set(ylabel = y_label_Ql_RMS_perp)
 for ax in axs.flat:
@@ -501,6 +584,7 @@ plt.close
 
 #%% Mean values evolution in filming planes
 
+
 fig = plt.figure(figsize=figsize_4_in_a_row)
 gs = fig.add_gridspec(1, 4, wspace=0)
 axs = gs.subplots(sharex=False, sharey=True)
@@ -510,7 +594,7 @@ ax1.plot(t_UG75_DX10_x05_filming, Q_mean_UG75_DX10_x05_filming, 'b', label=label
 ax1.plot(t_UG75_DX10_x10_filming, Q_mean_UG75_DX10_x10_filming, 'k', label=label_x_equal_10)
 #ax1.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax1.set_title(label_UG75_DX10)
-ax1.xaxis.set_ticks(np.array([0,1,2,3])+2)
+ax1.xaxis.set_ticks(tp_ticks_UG75_DX10)
 ax1.yaxis.set_ticks([0,50,100,150,200,250,300])
 
 ax2.plot(t_UG75_DX20_x05_filming, Q_mean_UG75_DX20_x05_filming, 'b', label=label_x_less_5)
@@ -518,21 +602,21 @@ ax2.plot(t_UG75_DX20_x10_filming, Q_mean_UG75_DX20_x10_filming, 'k', label=label
 ax2.plot(t_UG75_DX20_x15_filming, Q_mean_UG75_DX20_x15_filming, 'r', label=label_x_less_15)
 #ax2.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax2.set_title(label_UG75_DX20)
-ax2.xaxis.set_ticks(np.array([0,3,6,9,12])+2)
+ax2.xaxis.set_ticks(tp_ticks_UG75_DX20)
 ax2.legend(loc='best',fontsize=40*FFIG)
 
 ax3.plot(t_UG100_DX10_x05_filming, Q_mean_UG100_DX10_x05_filming, 'b', label=label_x_equal_5)
 ax3.plot(t_UG100_DX10_x10_filming, Q_mean_UG100_DX10_x10_filming, 'k', label=label_x_equal_10)
 #ax3.text(0.0,6000,r'$\mathrm{UG}100\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax3.set_title(label_UG100_DX10)
-ax3.xaxis.set_ticks(np.array([0,0.3,0.6,0.9,1.2])+2)
+ax3.xaxis.set_ticks(tp_ticks_UG100_DX10)
 
 ax4.plot(t_UG100_DX20_x05_filming, Q_mean_UG100_DX20_x05_filming, 'b', label=label_x_equal_5)
 ax4.plot(t_UG100_DX20_x10_filming, Q_mean_UG100_DX20_x10_filming, 'k', label=label_x_equal_10)
 ax4.plot(t_UG100_DX20_x10_filming, Q_mean_UG100_DX20_x15_filming, 'r', label=label_x_equal_15)
 #ax4.text(0.5,6000,r'$\mathrm{UG}100\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax4.set_title(label_UG100_DX20)
-ax4.xaxis.set_ticks(np.array([0,4,8,12,16,20])+2)
+ax4.xaxis.set_ticks(tp_ticks_UG100_DX20)
 
 
 axs.flat[0].set(ylabel = y_label_Ql_mean_film)
@@ -567,7 +651,7 @@ ax1.plot(t_UG75_DX10_x05_filming, Q_RMS_UG75_DX10_x05_filming, 'b', label=label_
 ax1.plot(t_UG75_DX10_x10_filming, Q_RMS_UG75_DX10_x10_filming, 'k', label=label_x_less_10)
 #ax1.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax1.set_title(label_UG75_DX10)
-ax1.xaxis.set_ticks(np.array([0,1,2,3])+2)
+ax1.xaxis.set_ticks(tp_ticks_UG75_DX10)
 ax1.yaxis.set_ticks([0,40,80,120,160])
 
 ax2.plot(t_UG75_DX20_x05_filming, Q_RMS_UG75_DX20_x05_filming, 'b', label=label_x_less_5)
@@ -575,13 +659,13 @@ ax2.plot(t_UG75_DX20_x10_filming, Q_RMS_UG75_DX20_x10_filming, 'k', label=label_
 ax2.plot(t_UG75_DX20_x15_filming, Q_RMS_UG75_DX20_x15_filming, 'r', label=label_x_less_15)
 #ax2.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax2.set_title(label_UG75_DX20)
-ax2.xaxis.set_ticks(np.array([0,3,6,9,12])+2)
+ax2.xaxis.set_ticks(tp_ticks_UG75_DX20)
 
 ax3.plot(t_UG100_DX10_x05_filming, Q_RMS_UG100_DX10_x05_filming, 'b', label=label_x_less_5)
 ax3.plot(t_UG100_DX10_x10_filming, Q_RMS_UG100_DX10_x10_filming, 'k', label=label_x_less_10)
 #ax3.text(0.0,6000,r'$\mathrm{UG}100\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax3.set_title(label_UG100_DX10)
-ax3.xaxis.set_ticks(np.array([0,0.3,0.6,0.9,1.2])+2)
+ax3.xaxis.set_ticks(tp_ticks_UG100_DX10)
 
 ax4.plot(t_UG100_DX20_x05_filming, Q_RMS_UG100_DX20_x05_filming, 'b', label=label_x_less_5)
 ax4.plot(t_UG100_DX20_x10_filming, Q_RMS_UG100_DX20_x10_filming, 'k', label=label_x_less_10)
@@ -589,7 +673,7 @@ ax4.plot(t_UG100_DX20_x10_filming, Q_RMS_UG100_DX20_x15_filming, 'r', label=labe
 #ax4.text(0.5,6000,r'$\mathrm{UG}100\_\mathrm{DX}20$',fontsize=80*FFIG)
 ax4.set_title(label_UG100_DX20)
 #ax4.yaxis.set_ticks([0,50,100,150])
-ax4.xaxis.set_ticks(np.array([0,4,8,12,16,20])+2)
+ax4.xaxis.set_ticks(tp_ticks_UG100_DX20)
 
 
 axs.flat[0].set(ylabel = y_label_Ql_RMS_film)

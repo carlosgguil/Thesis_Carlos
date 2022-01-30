@@ -70,7 +70,8 @@ tau_ph_UG75_DX10 = 0.2952
 tau_ph_UG75_DX20 = 0.3558
 tau_ph_UG100_DX10 = 0.2187
 tau_ph_UG100_DX20 = 0.2584
-tau_ph_UG100_DX20_NO_TURB = 0.2584
+tau_ph_UG100_DX20_NO_TURB = 0.2602
+
 
 tau_char = [tau_ph_UG75_DX10 , tau_ph_UG75_DX20,
             tau_ph_UG100_DX10, tau_ph_UG100_DX20, tau_ph_UG100_DX20_NO_TURB]
@@ -104,6 +105,42 @@ label_w  = r'$w/d_\mathrm{inj}$'
 #x limits
 x_lim_frequency = (0,30)
 
+
+
+
+# shifting times
+tp_0_true_values = False
+
+if tp_0_true_values:
+    tp_0_UG100_DX20 = 0.6840/tau_ph_UG100_DX20
+    tp_0_UG100_DX20_NT = 0.7844/tau_ph_UG100_DX20_NO_TURB
+    tp_0_UG100_DX10 = 0.4173/tau_ph_UG100_DX10
+    tp_0_UG75_DX20 = 0.9640/tau_ph_UG75_DX20
+    tp_0_UG75_DX10 = 0.5032/tau_ph_UG75_DX10
+else:
+    tp_0_UG100_DX20 = 2.3
+    tp_0_UG100_DX20_NT = 2.2
+    tp_0_UG100_DX10 = 1.9080932784636488
+    tp_0_UG75_DX20 = 2.3
+    tp_0_UG75_DX10 = 1.85
+    
+# define maximum values for t' (obtained from ch5_nelem_plot.py)
+tp_max_UG100_DX20 = 23.8370270548746 # diff of 1*tp
+tp_max_UG100_DX20_NT = 23.436246263752494 # diff of 2*tp
+tp_max_UG100_DX10 = 3.5785496471047074 # diff of 0.5*tp
+tp_max_UG75_DX20 = 17.695510529612424 # no diff !
+tp_max_UG75_DX10 = 3.6428757530101596 # no diff !
+
+tp_0_cases = [tp_0_UG75_DX10, tp_0_UG75_DX20,
+              tp_0_UG100_DX10, tp_0_UG100_DX20, tp_0_UG100_DX20_NT]
+
+tp_max_cases =  [tp_max_UG75_DX10, tp_max_UG75_DX20,
+                 tp_max_UG100_DX10, tp_max_UG100_DX20, tp_max_UG100_DX20_NT]
+    
+        
+
+
+
 #%% Get data
 
 
@@ -115,17 +152,27 @@ xb = []; zb = []
 x_width_DC = []; width_DC = []; 
 y_max_DC = []; y_min_DC = []
 it = []
-time = []
+time = []; time_plot = []
 for i in range(len(cases)):
     df = pd.read_csv(cases[i])
     it.append(df['iteration'].values)
-    time.append((df['iteration'].values-1)*T*1e3/tau_char[i] + 2)
+    t_i = (df['iteration'].values-1)*T*1e3/tau_char[i] + 2
+    time.append(t_i)
     xb.append(df['xb'].values/d_inj)
     zb.append(df['zb'].values/d_inj)
     x_width_DC.append(df['x_width_DC'].values/d_inj)
     width_DC.append(df['width_DC'].values/d_inj)
     y_max_DC.append(df['y_max_DC'].values/d_inj)
     y_min_DC.append(df['y_min_DC'].values/d_inj)
+    
+    # shift time
+    tp_0_i = tp_0_cases[i]
+    tp_max_i = tp_max_cases[i]
+    m_i = (tp_max_i - tp_0_i)/(t_i[-1] - t_i[0])
+    t_plot_i = m_i*(t_i - t_i[0]) + tp_0_i
+    time_plot.append(t_plot_i)
+
+
 
     
 theta_DC = []
@@ -230,6 +277,8 @@ for i in range(len(cases)):
     xf_zb.append(x_zb)
     yf_zb.append(y_zb)
     
+xb_mean = np.array(xb_mean)
+zb_mean = np.array(zb_mean)
 width_mean = np.array(width_mean)
 width_std  = np.array(width_std)
 theta_mean = np.array(theta_mean)
@@ -251,10 +300,10 @@ for i in range(len(labels_)):
 
     fig = plt.figure(figsize=figsize_)
     ax = fig.add_subplot(111)
-    lns1 = ax.plot(time[i],xb[i],color='b',label=label_xb)
-    lns2 = ax.plot(time[i],zb[i],color='k',label=label_zb)
+    lns1 = ax.plot(time_plot[i],xb[i],color='b',label=label_xb)
+    lns2 = ax.plot(time_plot[i],zb[i],color='k',label=label_zb)
     ax2 = ax.twinx()
-    lns3 = ax2.plot(time[i],width_DC[i],'r',label=label_w)
+    lns3 = ax2.plot(time_plot[i],width_DC[i],'r',label=label_w)
     lns = lns1+lns2+lns3
     labs = [l.get_label() for l in lns]
     if i==0:
@@ -377,11 +426,11 @@ figsize_mean_convergence = (FFIG*20,FFIG*16)
 
 # mean(xb)
 plt.figure(figsize=figsize_mean_convergence)
-i = 0; plt.plot(time[i], xb_mean_t[i], color='black',label=labels_[i]) 
-i = 1; plt.plot(time[i], xb_mean_t[i], color='grey',label=labels_[i]) 
-i = 2; plt.plot(time[i], xb_mean_t[i], color='blue',label=labels_[i]) 
-i = 3; plt.plot(time[i], xb_mean_t[i], color='green',label=labels_[i]) 
-i = 4; plt.plot(time[i], xb_mean_t[i], '--', color='green',label=labels_[i]) 
+i = 0; plt.plot(time_plot[i], xb_mean_t[i], color='black',label=labels_[i]) 
+i = 1; plt.plot(time_plot[i], xb_mean_t[i], color='grey',label=labels_[i]) 
+i = 2; plt.plot(time_plot[i], xb_mean_t[i], color='blue',label=labels_[i]) 
+i = 3; plt.plot(time_plot[i], xb_mean_t[i], color='green',label=labels_[i]) 
+i = 4; plt.plot(time_plot[i], xb_mean_t[i], '--', color='green',label=labels_[i]) 
 plt.xlabel(x_label_time)
 plt.ylabel(label_mean_xb)
 plt.xticks([0,5,10,15,20])
@@ -395,11 +444,11 @@ plt.close()
 
 # std(xb)
 plt.figure(figsize=figsize_mean_convergence)
-i = 0; plt.plot(time[i], xb_std_t[i], color='black',label=labels_[i]) 
-i = 1; plt.plot(time[i], xb_std_t[i], color='grey',label=labels_[i]) 
-i = 2; plt.plot(time[i], xb_std_t[i], color='blue',label=labels_[i]) 
-i = 3; plt.plot(time[i], xb_std_t[i], color='green',label=labels_[i]) 
-i = 4; plt.plot(time[i], xb_std_t[i], '--', color='green',label=labels_[i]) 
+i = 0; plt.plot(time_plot[i], xb_std_t[i], color='black',label=labels_[i]) 
+i = 1; plt.plot(time_plot[i], xb_std_t[i], color='grey',label=labels_[i]) 
+i = 2; plt.plot(time_plot[i], xb_std_t[i], color='blue',label=labels_[i]) 
+i = 3; plt.plot(time_plot[i], xb_std_t[i], color='green',label=labels_[i]) 
+i = 4; plt.plot(time_plot[i], xb_std_t[i], '--', color='green',label=labels_[i]) 
 plt.xlabel(x_label_time)
 plt.ylabel(label_std_xb)
 plt.legend(loc='best')
@@ -410,11 +459,11 @@ plt.close()
 
 # mean(zb)
 plt.figure(figsize=figsize_mean_convergence)
-i = 0; plt.plot(time[i], zb_mean_t[i], color='black',label=labels_[i]) 
-i = 1; plt.plot(time[i], zb_mean_t[i], color='grey',label=labels_[i]) 
-i = 2; plt.plot(time[i], zb_mean_t[i], color='blue',label=labels_[i]) 
-i = 3; plt.plot(time[i], zb_mean_t[i], color='green',label=labels_[i])
-i = 4; plt.plot(time[i], zb_mean_t[i], '--', color='green',label=labels_[i])  
+i = 0; plt.plot(time_plot[i], zb_mean_t[i], color='black',label=labels_[i]) 
+i = 1; plt.plot(time_plot[i], zb_mean_t[i], color='grey',label=labels_[i]) 
+i = 2; plt.plot(time_plot[i], zb_mean_t[i], color='blue',label=labels_[i]) 
+i = 3; plt.plot(time_plot[i], zb_mean_t[i], color='green',label=labels_[i])
+i = 4; plt.plot(time_plot[i], zb_mean_t[i], '--', color='green',label=labels_[i])  
 plt.xlabel(x_label_time)
 plt.ylabel(label_mean_zb)
 plt.xticks([0,5,10,15,20])
@@ -428,11 +477,11 @@ plt.close()
 
 # std(zb)
 plt.figure(figsize=figsize_mean_convergence)
-i = 0; plt.plot(time[i], zb_std_t[i], color='black',label=labels_[i]) 
-i = 1; plt.plot(time[i], zb_std_t[i], color='grey',label=labels_[i]) 
-i = 2; plt.plot(time[i], zb_std_t[i], color='blue',label=labels_[i]) 
-i = 3; plt.plot(time[i], zb_std_t[i], color='green',label=labels_[i]) 
-i = 4; plt.plot(time[i], zb_std_t[i], '--', color='green',label=labels_[i]) 
+i = 0; plt.plot(time_plot[i], zb_std_t[i], color='black',label=labels_[i]) 
+i = 1; plt.plot(time_plot[i], zb_std_t[i], color='grey',label=labels_[i]) 
+i = 2; plt.plot(time_plot[i], zb_std_t[i], color='blue',label=labels_[i]) 
+i = 3; plt.plot(time_plot[i], zb_std_t[i], color='green',label=labels_[i]) 
+i = 4; plt.plot(time_plot[i], zb_std_t[i], '--', color='green',label=labels_[i]) 
 plt.xlabel(x_label_time)
 plt.ylabel(label_std_zb)
 plt.legend(loc='best')
@@ -443,11 +492,11 @@ plt.close()
 
 # mean(width)
 plt.figure(figsize=figsize_mean_convergence)
-i = 0; plt.plot(time[i], width_mean_t[i], color='black',label=labels_[i]) 
-i = 1; plt.plot(time[i], width_mean_t[i], color='grey',label=labels_[i]) 
-i = 2; plt.plot(time[i], width_mean_t[i], color='blue',label=labels_[i]) 
-i = 3; plt.plot(time[i], width_mean_t[i], color='green',label=labels_[i]) 
-i = 4; plt.plot(time[i], width_mean_t[i], '--', color='green',label=labels_[i]) 
+i = 0; plt.plot(time_plot[i], width_mean_t[i], color='black',label=labels_[i]) 
+i = 1; plt.plot(time_plot[i], width_mean_t[i], color='grey',label=labels_[i]) 
+i = 2; plt.plot(time_plot[i], width_mean_t[i], color='blue',label=labels_[i]) 
+i = 3; plt.plot(time_plot[i], width_mean_t[i], color='green',label=labels_[i]) 
+i = 4; plt.plot(time_plot[i], width_mean_t[i], '--', color='green',label=labels_[i]) 
 plt.xlabel(x_label_time)
 plt.ylabel(label_mean_w)
 plt.xticks([0,5,10,15,20])
@@ -461,11 +510,11 @@ plt.close()
 
 # std(width)
 plt.figure(figsize=figsize_mean_convergence)
-i = 0; plt.plot(time[i], width_std_t[i], color='black',label=labels_[i]) 
-i = 1; plt.plot(time[i], width_std_t[i], color='grey',label=labels_[i]) 
-i = 2; plt.plot(time[i], width_std_t[i], color='blue',label=labels_[i]) 
-i = 3; plt.plot(time[i], width_std_t[i], color='green',label=labels_[i])
-i = 4; plt.plot(time[i], width_std_t[i], '--', color='green',label=labels_[i])
+i = 0; plt.plot(time_plot[i], width_std_t[i], color='black',label=labels_[i]) 
+i = 1; plt.plot(time_plot[i], width_std_t[i], color='grey',label=labels_[i]) 
+i = 2; plt.plot(time_plot[i], width_std_t[i], color='blue',label=labels_[i]) 
+i = 3; plt.plot(time_plot[i], width_std_t[i], color='green',label=labels_[i])
+i = 4; plt.plot(time_plot[i], width_std_t[i], '--', color='green',label=labels_[i])
 plt.xlabel(x_label_time) 
 plt.ylabel(label_std_w)
 plt.legend(loc='best')
@@ -478,6 +527,23 @@ plt.close()
 
 
 #%% plot graph zb vs xb
+
+L = np.sqrt(xb_mean**2 + zb_mean**2)
+
+L_dx10 = (L[0] + L[2])/2
+L_dx20 = (L[1] + L[3]+L[4])/3
+
+xb_L = np.linspace(0,15,1000)
+
+zb_L_dx10 = []; zb_L_dx20 = []; 
+for i in range(len(xb_L)):
+    
+    zb_i_dx10 = np.sqrt(L_dx10**2 - xb_L[i]**2)
+    zb_L_dx10.append(zb_i_dx10)
+    
+    zb_i_dx20 = np.sqrt(L_dx20**2 - xb_L[i]**2)
+    zb_L_dx20.append(zb_i_dx20)
+
 plt.rcParams['legend.fontsize'] = 40*FFIG
 
 width_error_lines = 4*FFIG
@@ -485,6 +551,15 @@ caps_error_lines  = 15*FFIG
 
 # xb, zb: scatterplot with mean values and std
 fig = plt.figure(figsize=figsize_)
+
+
+plt.plot(xb_L,zb_L_dx10,'--',color='grey',zorder=0)
+#plt.text(6.8,4.1,r'$L_\mathrm{DC}=4~\mathrm{mm}$', rotation = -40,color='grey',fontsize=60*FFIG)
+plt.text(6.8,3.8,r'$L_\mathrm{DC}/d_\mathrm{inj}= 8.9$', rotation = -40,color='grey',fontsize=60*FFIG)
+plt.plot(xb_L,zb_L_dx20,'--',color='grey',zorder=0)
+#plt.text(10.5,4.5,r'$L_\mathrm{DC}=5.5~\mathrm{mm}$', rotation = -45, color='grey',fontsize=60*FFIG)
+plt.text(10.5,4.3,r'$L_\mathrm{DC}/d_\mathrm{inj}= 12.5$', rotation = -45, color='grey',fontsize=60*FFIG)
+
 #plt.title(r'$\overline{x_b}~\mathrm{vs}~\overline{z_b}$')
 # Lines
 plt.plot([0,10*3],[0,10*3],'k',zorder=1,linewidth=4*FFIG)
@@ -507,6 +582,7 @@ plt.errorbar(xb_patil_2021,zb_patil_2021_op2,xerr=0.84, yerr=0.84,color='black')
 plt.scatter(xb_patil_2021,zb_patil_2021_op1,s=500,marker='*',color='blue',label=r'$\mathrm{Patil}~2021~\mathrm{UG}100$')
 plt.errorbar(xb_patil_2021,zb_patil_2021_op1,xerr=0.84,yerr=0.84, color='blue')
 '''
+# iso-L lines
 # Numerical results
 i = 0; plt.scatter(xb_mean[i], zb_mean[i], s=260, color='black',label=labels_[i]) 
 plt.errorbar(xb_mean[i], zb_mean[i], 
@@ -536,7 +612,7 @@ plt.xlabel(r'$\overline{x_b}/d_\mathrm{inj}$')
 plt.ylabel(r'$\overline{z_b}/d_\mathrm{inj}$')
 #plt.legend(bbox_to_anchor=(1.0, 1.0))
 plt.grid()
-plt.legend(loc='best')
+plt.legend(loc='upper left')
 plt.tight_layout()
 plt.savefig(folder_manuscript+'map_xb_zb.pdf')
 plt.show()
@@ -621,7 +697,7 @@ figsize_FFTs = figsize_ #(FFIG*20,FFIG*12)
 # UG75
 plt.figure(figsize=figsize_FFTs)
 i = 0; plt.plot(xf_xb[i]/1000, yf_xb[i], color='blue',label=labels_[i])
-i = 1; plt.plot(xf_xb[i]/1000, yf_xb[i], color='black',label=labels_[i])
+i = 1; plt.plot(xf_zb[i]/1000, yf_zb[i], color='black',label=labels_[i])
 #plt.plot(xf_zb[i]/1000, yf_zb[i], color='blue',label='zb')
 plt.xlabel(r'$f~[kHz]$') 
 plt.ylabel(r'$\mathrm{FFT} (x_b)$')
@@ -631,7 +707,6 @@ plt.grid()
 plt.legend(fontsize=50*FFIG)
 plt.tight_layout()
 plt.savefig(folder_manuscript+'FFTs_UG75.pdf')
-plt.grid()
 plt.show()
 plt.close()
 
@@ -657,10 +732,15 @@ plt.close()
 # find frequencies for tau_str
 print('FREQUENCIES')
 for i in range(len(labels_)):
-    index = np.where(yf_xb[i] == max(yf_xb[i]))
-    index = index [0][0]
+    if i == 1:
+        index = np.where(yf_zb[i] == max(yf_zb[i]))
+        index = index[0][0]
+        freq = xf_zb[i][index]
+    else:
+        index = np.where(yf_xb[i] == max(yf_xb[i]))
+        index = index[0][0]
+        freq = xf_xb[i][index]
     
-    freq = xf_xb[i][index]
     tau_str = 1/freq*1e6
     print('  '+save_labels[i]+f': f = {freq} Hz, tau_str = {tau_str} micros')
     

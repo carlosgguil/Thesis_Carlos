@@ -56,7 +56,7 @@ folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/turbulence_state_u_mean_rm
 
 #%%  cases and labels
 
-cases = [folder + 'SPS_UG75_DX20/',
+cases = [folder + 'SPS_UG75_DX10/',
          folder + 'SPS_UG75_DX20/',
          folder + 'SPS_UG100_DX10/',
          folder + 'SPS_UG100_DX20/']
@@ -90,7 +90,7 @@ y_coord_lim = (-8,8)
 y_coord_ticks = [-8, -4, 0, 4, 8]
 u_lim_UG75  = (30,85)
 u_ticks_UG75 = [30, 40, 50, 60, 70, 80]
-u_lim_UG100  = (30,120)
+u_lim_UG100  = (0,120)#(30,120)
 u_ticks_UG100 = [30, 60, 90, 120]
 u_lim_UG75  = u_lim_UG100
 u_ticks_UG75 = u_ticks_UG100
@@ -101,7 +101,7 @@ label_u_ax  = r'$\overline{u} ~[\mathrm{m}~\mathrm{s}^{-1}$]'
 label_y_ax   = '$y ~[\mathrm{mm}]$'
 
 # For z locations
-k_low = 4; k_high = -1 
+k_low = 3; k_high = -2
 #k_low = 2; k_high = -3
 
 #%% get data

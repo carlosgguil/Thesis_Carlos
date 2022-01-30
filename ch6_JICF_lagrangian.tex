@@ -25,7 +25,7 @@ This chapter presents results from lagrangian simulations performed with the SLI
 
 \section{Computational setup}
 
-The geometry replicating the experimental test bench is the same than the one used for the resolved simulations, depicted in Figure \ref{fig:numerical_setup_maquette_JICF_DLR}. The operating points simulated are the ones from Table \ref{tab:jicf_operating_conditions}. Regarding the mesh employed, it was shown in $\S$\ref{sec:ch5_initial_conditions} that an element size of $\Delta x = 0.5$ mm allows to transport the estimated turbulence in these cases. Nevertheless, the simulations from Chapter \ref{ch5:jicf_resolved_simulations} use a mesh with this cell size only inside the plenum upstream and around the injector, while downstream the injector the mesh size is enlarged since there is no liquid at this region. This mesh was shown in Figure \ref{fig:jicf_dlr_mesh}. In the lagrangian simulations performed in this chapter, injection is performed at the sampling planes downstream the injector \hl{shown in Chapter }\ref{ch5:jicf_resolved_simulations}, and the region of interest extends up to a location at $x = 80$ mm downstream the injector since this is where validation with the experimental results of \citeColor[becker_breakup_2002] can be performed. Therefore, lagrangian simulations use a baseline cell size of $\Delta x = 0.5$ mm in the plenum from the gaseous inlet up to $x = 85$ mm downstream the injector. In this way, turbulence can be transported from the gaseous inlet  up to the experimental validation plane. \hl{The mesh used, shown in Figure} \ref{fig:jicf_dlr_mesh_LGS}, is composed of \textbf{XX} elements, being therefore larger than the baseline mesh employed for the resolved simulations. However, in the dispersed phase simulations there is no Adaptive Mesh Refinement being performed, and therefore the number of mesh elements stays constant in all simulations. The lagrangian point-particle equations employed to model the dispersed phase are described in $\S$\textbf{XX}.
+The geometry replicating the experimental test bench is the same than the one used for the resolved simulations, depicted in Figure \ref{fig:numerical_setup_maquette_JICF_DLR}. The operating points simulated are the ones from Table \ref{tab:jicf_operating_conditions}. Regarding the mesh employed, it was shown in $\S$\ref{sec:ch5_initial_conditions} that an element size of $\Delta x = 0.5$ mm allows to transport the estimated turbulence in these cases. Nevertheless, the simulations from Chapter \ref{ch5:jicf_resolved_simulations} use a mesh with this cell size only inside the plenum upstream and around the injector, while downstream the injector the mesh size is enlarged as there is no liquid at this region. This mesh was shown in Figure \ref{fig:jicf_dlr_mesh}. In the lagrangian simulations performed in this chapter, injection is performed at the sampling planes downstream the injector seen in Figure \ref{fig:jicf_IBs_sketch_discretization}, and the region of interest extends up to a location at $x = 80$ mm downstream the injector, which corresponds to the location where the experiments from \citeColor[becker_breakup_2002] report results on fluxes and SMD. Therefore, lagrangian simulations use a baseline cell size of $\Delta x = 0.5$ mm in the plenum from the gaseous inlet up to $x = 85$ mm downstream the injector. Furthermore, the mesh is refined \hl{in the region immediately downstream the injection nozzle to} $\Delta x = 0.3$ mm to allow for a better resolution of the gaseous field perturbed by the ALM, as the turbulent structures from the resolved simulations reported in $\S$\ref{ch5:subsec_turbulent_structures_in_gaseous_field} have smaller characteristic sizes than the turbulence further upstream. It is, however, worth to keep in mind that the gaseous field close to the interface was refined in the resolved simulations to the interface mesh size, allowing for a better resolution of turbulence. This refinement is not available in the dispersed phase simulations, therefore the refinement to $\Delta x = 0.3$ mm. The mesh used, shown in Figure \ref{fig:jicf_dlr_mesh_LGS}, is composed of \textbf{XX} elements, being therefore larger than the baseline mesh employed for the resolved simulations but eventually cheaper due to the lack of AMR, as simulations. Liquid particles are injected in this mesh as lagrangian point-particles whose dynamics follow the equations from  $\S$\ref{sec:ch3_EL_formalisms}. The energy equation is not considered since the test bench is at ambient temperature and evaporation does not take place.
 
 \begin{figure}[h!]
 	\centering
@@ -163,6 +163,7 @@ With respect to the profiles integrated over $z$ (Figure \ref{fig:integrated_res
 \end{figure}
 
 \section{Obtention of boundary conditions for gaseous phase}
+\label{sec:ch6_BC_gaseous_phase}
 
 \subsection{Actuator Line Model}
 
@@ -273,7 +274,7 @@ Planes y in Figure \ref{fig:JICF_lgs_gaseous_conditions_comparison_plane_y}. Pla
 
 \clearpage
 
-\section{Numerical experiments}
+\section{(OLD) Numerical experiments (OLD)}
 
 \hl{ALSO: effect of one and two-way coupling !! Ver articulos 2010, 2011 Li }.
 
@@ -347,7 +348,7 @@ Apart from the resolved simulation parameters (i.e. $\Delta x_\mathrm{min}$, ope
 	
 \begin{table}[!h]
 \centering
-\caption{Design of experiments to test injection parameters. Blue color indicates modified parameters.}
+\caption{Design of experiments to test injection parameters. Blue highlight indicates modified parameters.}
 \begin{tabular}{ccccccc}
 \thickhline
 \multirow{2}{*}{ \textbf{Case}} &  \multirow{2}{*}{ \begin{tabular}{c} \textbf{Resolved} \\ \textbf{simulation} \end{tabular}}    &  \multirow{2}{*}{  \begin{tabular}{c} $x_\mathrm{inj}$  \\ $\left[ \mathrm{mm} \right]$ \end{tabular}} &   \multirow{2}{*}{ \begin{tabular}{c} $\textbf{r}$ \\ \textbf{law} \end{tabular}} & \multirow{2}{*}{ \textbf{ALM ?}}  & \multirow{2}{*}{ \begin{tabular}{c} \textbf{Atomization} \\ \textbf{model} \end{tabular}} &    \multirow{2}{*}{ \textbf{Modification}}\\
@@ -365,11 +366,12 @@ Apart from the resolved simulation parameters (i.e. $\Delta x_\mathrm{min}$, ope
 10 & UG100\_DX10 & 5 & Gaussian & Yes & \textcolor{blue}{ETAB} & Atomization model \tab_space
 \thickhline
 \end{tabular}
-\label{tab:lgs_jicf_DoF}
+\label{tab:lgs_jicf_DoF_OLD}
 \end{table}
 
 	
 \subsection{Results}
+
 
 \subsubsection*{Effect of mesh resolution}
 
@@ -383,9 +385,174 @@ Apart from the resolved simulation parameters (i.e. $\Delta x_\mathrm{min}$, ope
 
 \subsubsection*{Effect of atomization model}
 
+\clearpage
+
+\section{Dispersed phase simulations}
+
+
+\subsection{Design of experiments}
+
+
+In Chapter \ref{ch5:jicf_resolved_simulations}, the five resolved atomization simulations from Table \ref{fig:location_JICF_ops_in_breakup_map} were performed and analyzed. These ones tested two mesh interface mesh resolutions ($\Delta x_\mathrm{min} = 20, 10~\mu$m), two operating points ($We_g = 830, 1470$) and the influence of turbulence injection in one simulation for the coarse resolution, high $We_g$ case. Results shown a high dependency of the trajectories ($\S$\ref{subsec:ch5_jet_trajectories_results}) and jet topologies ($\S$\ref{sec:ch5_jet_evolution}) on the resolution, which led later to different spray characteristics ($\S$\ref{sec:ch5_sec_spray_characterization}) and resulting injectors ($\S$\ref{sec:ch5_learning_SLI}) for each case, which a high dependency on the operating point due to the different velocity magnitudes involved. Therefore, it is of interest to test such effects in the disperse-phase simulations by initializing these computations with the different injectors obtained.
+
+Apart from the different injectors obtained from the resolved simulations (i.e. $\Delta x_\mathrm{min}$, operating condition, turbulence injection), the SLI parameters to perform injection derived in Chapter \ref{ch4:sli_development} and summarized in Table \ref{subsec:ch4_injectors_definition} are tested, as well as the influence of the ALM model ($\S$\ref{sec:ch4_dense_core_modelling}) and the secondary atomization models ($\S$\ref{sec:ch4_dense_core_modelling}). Figure \ref{fig:dispersed_phase_sli_parameters} shows the different models involved in the dispersed phase simulations with their control parameters: they are split into the possible influences on the gas and liquid phases, as well as the secondary breakup which is considered as an interaction between both (even though it acts on the liquid phase, it needs the gas velocity for calculating the relative velocity in order to estimate liquid brekaup). The influence of all these parameters can be studied by performing a Design of Experiments (DoE) where each relevant parameter is assessed individually. Due to the large number of parameters, \hl{four} different sets of simulations (summarized in Table \ref{tab:lgs_jicf_DoF}) are performed and validated with the experimental results:
+
+\begin{itemize}
+
+	\item \textbf{Set I}: the effect of the gaseous phase boundary conditions is checked in first place. According to the parameters shown in Figure \ref{fig:dispersed_phase_sli_parameters} and the results from $\S$\ref{sec:ch6_BC_gaseous_phase}, \hl{four} simulations are performed to test the: 1) unperturbed case, 2) perturbed case with baseline ALM, 3) perturbed case with optimum ALM, and 4) perturbed case with prescribed inlet. The same SLI is used for all simulations, which is described in first place. From these simulations, the case \hl{??} has been found to yield the best experimental comparison, and so has been chosen to proceed with the numerical experiments of the set 2.
+	
+	\item \textbf{Set II}: assessing the effect of the SLI parameters (liquid phase in in Figure \ref{fig:dispersed_phase_sli_parameters}). Parameters tested include the liquid injection velocity law $r$ and the use of convergence-driven discretization to build SLI. \hl{From these simulations, it has been found ...}
+	
+	\item \textbf{Set III}: effect of the secondary atomization model. The three implemented models (TAB, ETAB and Gorokhovski) are tested. \hl{Two extra parameters}, $\Delta x_\mathrm{atom}$ and $\Delta u_\mathrm{rel}$, ...
+	
+	\item \textbf{Set IV}: influence of resolved atomization parameters. From the previous analyses, the best configuration is chosen and applied to study the effect of injection location ($x = $10 mm), resolution ($\Delta x_\mathrm{min} = 20~\mu$m), \hl{synthethic turbulence injection in the gaseous inlet} and operating condition (SLI from low Weber operating point.)
+
+\end{itemize}
 
 \clearpage
 
+\begin{table}[!h]
+\centering
+\caption{Design of experiments to test injection parameters}
+\begin{tabular}{ccc}
+\thickhline
+\textbf{Series} & \textbf{Case} & \textbf{Modification} \\
+\thickhline
+\multirow{4}{*}{ 1} & 1.1 & No perturbed gaseous inlet \\
+& 1.2 & Baseline ALM \\
+& 1.3 & Optimum ALM \\
+& 1.4 & Prescribed inlet \\
+\hline
+\multirow{3}{*}{ 2} & 2.1 & $r$ law: uniform \\
+& 2.2 & $r$ law: zero \\
+& 2.3 & SLI built with convergence-driven discretization \\
+\hline
+\multirow{2}{*}{ 2} & 3.1 & Atomization model: TAB \\
+& 3.2 & Atomization model: TAB \\
+\hline
+\multirow{4}{*}{ 4} & 4.1 & Injection location: $x_\mathrm{inj} = 10$ mm \\
+& 4.2 & Resolution: $\Delta x_\mathrm{min} = 20~\mu$m \\
+& 4.3 & Synthetic turbulence injection \\
+& 4.4 & Operating condition: UG75\_DX10 \\
+\thickhline
+\end{tabular}
+\label{tab:lgs_jicf_DoF_simple}
+\end{table}
+
+\clearpage
+
+\begin{table}[!h]
+\centering
+\caption{Design of experiments to test injection parameters. Blue highlight indicates modified parameters.}
+\begin{tabular}{ccccccc}
+\thickhline
+\multirow{2}{*}{ \textbf{Set}} & \multirow{2}{*}{ \textbf{Case}} &  \multirow{2}{*}{ \begin{tabular}{c} \textbf{Resolved} \\ \textbf{simulation} \end{tabular}}    &  \multirow{2}{*}{  \begin{tabular}{c} $x_\mathrm{inj}$  \\ $\left[ \mathrm{mm} \right]$ \end{tabular}} &   \multirow{2}{*}{ \begin{tabular}{c} $\textbf{r}$ \\ \textbf{law} \end{tabular}} & \multirow{2}{*}{ \begin{tabular}{c} \textbf{Gas} \\ \textbf{phase} \end{tabular}} & \multirow{2}{*}{ \begin{tabular}{c} \textbf{Breakup} \\ \textbf{model} \end{tabular}} \\
+ & & & & & & \\
+\thickhline
+\multirow{5}{*}{I} & I.1 & UG100\_DX10 & 5 & Gaussian & \textcolor{blue}{Unperturbed} & Goro   \tab_space
+ & I.2 & UG100\_DX10 & 5 & Gaussian & \textcolor{blue}{ALM baseline} & Goro   \tab_space
+ & I.3 & UG100\_DX10 & 5 & Gaussian & \textcolor{blue}{ALM optimum} & Goro   \tab_space
+ & I.4 & UG100\_DX10 & 5 & Gaussian & \textcolor{blue}{Prescribed inlet} & Goro   \tab_space
+ \hline
+\multirow{3}{*}{II} & II.1 & UG100\_DX10 & 5 & \textcolor{blue}{Uniform} & \hl{?} & Goro   \tab_space
+ & II.2 & UG100\_DX10 & 5 & \textcolor{blue}{Zero} & \hl{?} & Goro   \tab_space
+\hline
+\multirow{3}{*}{III} & III.1 & UG100\_DX10 & 5 & \hl{?} & \hl{?} & \textcolor{blue}{TAB} \tab_space
+ & III.2 & UG100\_DX10 & 5 & \hl{?} & \hl{?} & \textcolor{blue}{ETAB} \tab_space
+\hline
+\multirow{5}{*}{IV} & IV.1 & UG100\_DX10 & \textcolor{blue}{10} & \hl{?} & \hl{?} & \hl{Goro} \tab_space
+ & IV.2 & UG100\_\textcolor{blue}{DX20} & 5 & \hl{?} & \hl{?} & \hl{Goro} \tab_space
+ & IV.3 & UG100\_DX20 & 5 & \hl{?} & \hl{?} + \textcolor{blue}{no turb.} & \hl{Goro} \tab_space
+ & IV.4 & UG\textcolor{blue}{75}\_DX10 & 5 & \hl{?} & \hl{?} & \hl{Goro} \tab_space
+\thickhline
+
+
+
+\end{tabular}
+\label{tab:lgs_jicf_DoF}
+\end{table}
+
+\clearpage
+
+
+\subsection{Set I: influence of gas phase parameters}
+
+\subsubsection{Baseline liquid conditions}
+
+\subsubsection{Results}
+
+\begin{table}[!h]
+\centering
+\caption{SMD values at $x = 80$ mm for simulations from Set I}
+\begin{tabular}{ccc}
+\thickhline
+Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
+\thickhline
+Experiments & 31 & - \\
+I.1 - Unperturbed & \hl{?} & \hl{?} \\
+I.2 - ALM baseline & \hl{?} & \hl{?} \\
+I.3 - ALM optimum & \hl{?} & \hl{?} \\
+I.4 - Prescribed inlet & \hl{?} & \hl{?} \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_tools_trajectories_obtention}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\includeinkscape[inkscapelatex=false,scale=0.6]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_1/jet_views_set_I}
+\caption{Instantaneous views of the lagrangian simulations for simulations from Set I}
+%\label{fig:extraction_methodology_mean_DC}
+\end{figure}
+
+
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.9\textwidth}
+	\flushleft
+   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_1/integrated_fluxes_along_z}
+   \hfill
+   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_1/integrated_SMD_along_z}
+	\caption{Magnitudes integrated along the $y$ direction}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.9\textwidth}
+	\flushleft
+   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_1/integrated_fluxes_along_y}
+   \hfill
+   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_1/integrated_SMD_along_y}
+	\caption{Magnitudes integrated along the $z$ direction}
+\end{subfigure}
+
+   \caption{Integrated $SMD$ and $q_l$ values at $x = 80$ mm and comparison with experimental results}
+%\label{fig:jicf_liquid_mean_velocities_with_x}
+\end{figure}
+
+
+\subsection{Set II: influence of SLI parameters}
+
+\subsection{Set III: influence of secondary atomization model}
+
+\subsection{Set IV: influence of resolved parameters}
+
+\subsubsection{IV.4 - Operating point}
+
+
+
+
+
+\clearpage
+
+\section{Additional considerations}
+
+\subsection{Lagrangian trajectories}
+
+\subsection{Frequential analysis}
+
+\section{Conclusions}
 
 \section{Relation between volume and mixture fractions}
 

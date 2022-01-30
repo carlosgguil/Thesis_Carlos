@@ -60,18 +60,22 @@ folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/turbulence_state_u_mean_rm
 #%%  cases and labels
 
 cases = [folder + 'SPS_UG100_DX10/',
+         folder + 'noALM/',
          folder + 'ALM_flatBL_inclined_force_z_negative_original/',
-         folder + 'ALM_flatBL_inclined_force_z_negative_more_force_times_03/',
-         folder + 'ALM_flatBL_inclined_force_z_negative_more_force_times_10/']
+         folder + 'ALM_flatBL_inclined_force_z_negative_more_force_times_01p5/',
+         folder + 'ALM_flatBL_inclined_force_z_negative_more_force_times_02/',
+         folder + 'ALM_flatBL_inclined_force_z_negative_more_force_times_03/']
 
 label_u_ax  = r'$\overline{u} ~[\mathrm{m}~\mathrm{s}^{-1}$]'
 label_x_ax   = '$x ~[\mathrm{mm}]$'
 label_z_ax   = '$z ~[\mathrm{mm}]$'
 
 labels_cases = [r'$\mathrm{SPS}$' ,
+                r'$\mathrm{No~pert.}$' ,
                 r'$\mathrm{ALM~baseline}$' , 
-                r'$3 F_\mathrm{DC}$', 
-                r'$10 F_\mathrm{DC}$']
+                r'$1.5 F_\mathrm{DC}$', 
+                r'$2 F_\mathrm{DC}$', 
+                r'$3 F_\mathrm{DC}$']
                 #r'$\mathrm{ALM~increasedF}$']
 
 
@@ -88,10 +92,8 @@ labels_z_planes = [r'$z = 0.5~\mathrm{mm}$',
                    r'$z = 4~\mathrm{mm}$', 
                    r'$z = 5~\mathrm{mm}$'] 
 
-format_c1 = 'k'
-format_c2 = 'b'
-format_c3 = 'r'
-format_c4 = 'g'
+format_c = ['k','--k','b','r','g','y']
+
 
 x_lim_u_vs_x = (0,20)
 y_lim_u_vs_x = (-50,120)
@@ -235,11 +237,8 @@ y_ticks_u_vs_x = [-60, -40, -20, 0, 20, 40, 60, 80, 100, 120]
 j = 2
 plt.figure(figsize=figsize_u_vs_x)
 plt.title(labels_z_planes[j])
-#plt.plot([3]*2,[-200,200],'--',color='grey')
-i = 0; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],format_c1, label=labels_cases[i])
-i = 1; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],format_c2, label=labels_cases[i])
-i = 2; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],format_c3, label=labels_cases[i])
-i = 3; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],format_c4, label=labels_cases[i])
+for i in range(len(cases)):
+    plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],format_c[i], label=labels_cases[i])
 plt.xticks(x_ticks_u_vs_x)
 plt.yticks(y_ticks_u_vs_x)
 plt.xlim(x_lim_u_vs_x)
@@ -260,14 +259,12 @@ plt.close()
 j = 5
 plt.figure(figsize=figsize_u_vs_x)
 plt.title(labels_z_planes[j])
-i = 0; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],format_c1, label=labels_cases[i])
-i = 1; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],format_c2, label=labels_cases[i])
-i = 2; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],format_c3, label=labels_cases[i])
-i = 3; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],format_c4, label=labels_cases[i])
+for i in range(len(cases)):
+    plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],format_c[i], label=labels_cases[i])
 plt.xticks(x_ticks_u_vs_x)
 plt.yticks(y_ticks_u_vs_x)
 plt.xlim(x_lim_u_vs_x)
-plt.ylim((20,120))
+plt.ylim((60,120))
 plt.xlabel(label_x_ax)
 plt.ylabel(label_u_ax)
 #plt.legend(bbox_to_anchor=(1.0, 1.0))
@@ -278,7 +275,7 @@ plt.tight_layout()
 plt.show()
 plt.close()
 
-# UG75_DX20
+# single case
 i = 2
 plt.figure(figsize=figsize_u_vs_x)
 plt.title(labels_cases[i])
@@ -302,7 +299,7 @@ plt.close()
 
 #%% Plot all to check
 
-# UG75_DX20
+# case
 i = 1
 plt.figure(figsize=figsize_u_vs_x)
 plt.title(labels_cases[i])
@@ -337,20 +334,15 @@ axs = gs.subplots(sharex=False, sharey=True)
 
 # x = 1 mm
 j = 0
-i = 0; ax1.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c1, label=labels_cases[i])
-i = 1; ax1.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c2, label=labels_cases[i])
-i = 2; ax1.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c3, label=labels_cases[i])
-i = 3; ax1.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c4, label=labels_cases[i])
-#ax1.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
+for i in range(len(cases)):
+    ax1.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c[i], label=labels_cases[i])#ax1.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax1.set_title(labels_x_planes[j])
 ax1.yaxis.set_ticks([0,2,4,6,8, 10])
 
 # x = 2.5 mm
 j = 1
-i = 0; ax2.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c1, label=labels_cases[i])
-i = 1; ax2.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c2, label=labels_cases[i])
-i = 2; ax2.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c3, label=labels_cases[i])
-i = 3; ax2.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c4, label=labels_cases[i])
+for i in range(len(cases)):
+    ax2.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c[i], label=labels_cases[i])
 #ax2.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax2.set_title(labels_x_planes[j])
 #ax2.xaxis.set_ticks(np.array([0,1,2,3])+2)
@@ -360,20 +352,16 @@ ax2.set_title(labels_x_planes[j])
 
 # x = 5 mm
 j = 2
-i = 0; ax3.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c1, label=labels_cases[i])
-i = 1; ax3.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c2, label=labels_cases[i])
-i = 2; ax3.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c3, label=labels_cases[i])
-i = 3; ax3.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c4, label=labels_cases[i])
+for i in range(len(cases)):
+    ax3.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c[i], label=labels_cases[i])
 #ax3.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax3.set_title(labels_x_planes[j])
 #ax3.xaxis.set_ticks(np.array([0,1,2,3])+2)
 
 # x = 10 mm
 j = 3
-i = 0; ax4.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c1, label=labels_cases[i])
-i = 1; ax4.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c2, label=labels_cases[i])
-i = 2; ax4.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c3, label=labels_cases[i])
-i = 3; ax4.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c4, label=labels_cases[i])
+for i in range(len(cases)):
+    ax4.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c[i], label=labels_cases[i])
 #ax4.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax4.set_title(labels_x_planes[j])
 #ax4.xaxis.set_ticks(np.array([0,1,2,3])+2)
@@ -382,10 +370,8 @@ ax4.legend(loc='best',fontsize=45*FFIG)
 
 # x = 15 mm
 j = 4
-i = 0; ax5.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c1, label=labels_cases[i])
-i = 1; ax5.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c2, label=labels_cases[i])
-i = 2; ax5.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c3, label=labels_cases[i])
-i = 3; ax5.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c4, label=labels_cases[i])
+for i in range(len(cases)):
+    ax5.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_c[i], label=labels_cases[i])
 #ax5.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax5.set_title(labels_x_planes[j])
 #ax5.xaxis.set_ticks(np.array([0,1,2,3])+2)

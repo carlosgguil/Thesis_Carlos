@@ -78,6 +78,8 @@ According to \citeColor[barbosa_etude_2008], $80 \%$ of the air flow rate goes t
 u_g = Q_g/A = 38 ~ \mathrm{m} ~ \mathrm{s}^{-1}
 \end{equation}
 
+Actually, the gaseous bulk velocity is estimated a the mean of the velocity profile from Figure \ref{fig:BIMER_gas_inlet_profiles}, which yields $u_g = 75~m.s^{-1}$
+
 \subsection{Liquid phase}
 
 In the operating point studied, the total liquid mass flow rate injected is $\dot{m}_{l,\mathrm{total}} = 1.64$ g s$^{-1}$. The staging parameter, defined in Eq. (\ref{eq:BIMER_staging_parameter}), is $\alpha = 15 ~\%$, meaning that amount of liquid goes through the pilot stage and $85 ~\%$ of fuel goes through the take-off. Therefore, $\dot{m}_{l,\mathrm{pilot}} = 0.25$ g s$^{-1}$ and $\dot{m}_{l,\mathrm{takeoff}} = 1.39$ g s$^{-1}$. This quantity of fuel is injected through 10 injection holes that conform the take-off stage; assuming that fuel repartition is done equally through all the channels, each injector introduces $0.139$ g s$^{-1}$ of dodecane fuel, which is equivalent to a flow rate of $Q_l = 185.3$  mm$^3$ s$^{-1}$ given the dodecane density from Table \ref{tab:dodecane_properties}. From this flow rate, the bulk liquid velocity $u_l$ can be estimated knowing an injection diameter of $d_\mathrm{inj} = 0.3$ mm:
@@ -87,7 +89,7 @@ u_l = \frac{Q_l}{\pi d_\mathrm{inj}^2 / 4} = 2.6 ~ \mathrm{m} ~ \mathrm{s}^{-1}
 \end{equation}
 
 
-The velocity profile imposed at the liquid inlet shown in Figure \ref{fig:BIMER_liquid_injector_views} \hl{is a Poiseuille profile with the mean velocity of value $u_l$}. With the estimate values for bulk liquid and gaseous velocities, the liquid properties given in Table \ref{tab:dodecane_properties} and the gaseous properties from Table \ref{tab:gaseous_operating_points_BIMER}, the momentum flux ratio $q$ and the Weber number based on the gaseous phase $We_g$ can now be calculated:
+The velocity profile imposed at the liquid inlet shown in Figure \ref{fig:BIMER_liquid_injector_views} is a Poiseuille profile with the mean velocity of value $u_l$. With the estimate values for bulk liquid and gaseous velocities, the liquid properties given in Table \ref{tab:dodecane_properties} and the gaseous properties from Table \ref{tab:gaseous_operating_points_BIMER}, the momentum flux ratio $q$ and the Weber number based on the gaseous phase $We_g$ can now be calculated:
 
 %\begin{subequations}
 %\begin{align}
@@ -202,6 +204,29 @@ $\Delta x_\mathrm{min}$ [$\mu$m]  &  Denomination \\
 
 The aerodynamic field inside BIMER for the operating points of interest was discussed in Chapter \ref{ch7:bimer_test_bench_and_aero}. From this study, a fine mesh consisting of 38 million elements was chosen (see Table \ref{tab:BIMER_meshes_gaseous}). The gaseous field for the application point, which is the chosen one to perform spray simulations, was studied in $\S$\ref{ch7:BIMER_application_point}. This solution is taken as the initial condition from the resolved atomization simulations. The mean and RMS velocity fields can be seen in Figure \ref{fig:field_application}. 
 
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.2]{./part3_applications/figures_ch8_resolved/gaseous_profile_streamlines_and_vector}
+\caption[Instaneous BIMER view with mean axial velocity field in plane $y_c = 0$]{Instaneous BIMER view with mean axial velocity field in plane $y_c = 0$. The mean field corresponds to the gaseous solution without liquid used as an inlet condition, the jet has been added for comparison. The vectors represent the velocity profile just upstream the injector. The velocity profile has been displaced upstream in the picture for a better visualization.}
+% OJO: ficheros generados para el perfil de velocidades estan en Ongoing\ICS_study\u_mean_profiles\cases_probes\mesh_refined_DX0p5_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7
+\label{fig:BIMER_Umean_profile_with_jet}
+\end{figure}
+
+\begin{equation}
+| \textbf{u} | ~\left[m.s^{-1} \right]
+\end{equation}
+
+
+
+\begin{figure}[ht]
+\centering
+	\centering
+   \includegraphics[scale=0.5]{./part3_applications/figures_ch8_resolved/gas_inlet_profiles}
+   \vspace*{-0.15in}
+   \caption{Profiles of $\overline{u}_c$ and $TKE$ along the line right upstream the liquid injector}
+\label{fig:BIMER_gas_inlet_profiles}
+\end{figure}
+
 
 \section{Definition of liquid characteristic times}
 
@@ -306,7 +331,7 @@ In first place, the jet evolution at the early instants of the injection process
 
 \begin{figure}[ht]
 \centering
-\includeinkscape[inkscapelatex=false,scale=0.7]{./part3_applications/figures_ch8_resolved/jet_evolution}
+\includeinkscape[inkscapelatex=false,scale=0.7]{./part3_applications/figures_ch8_resolved/jet_establishment}
 \caption[Establishment of BIMER resolved atomization simulations at several time instants.]{Establishment of BIMER resolved atomization simulations at several time instants. \textsl{Left}: DX07. \textsl{Center}: DX10. \textsl{Right}: DX15. }
 \label{fig:BIMER_jet_establishment}
 \end{figure}

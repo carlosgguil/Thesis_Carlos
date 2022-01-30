@@ -89,10 +89,26 @@ df = pd.read_csv(folder + 'liquid_volume_UG75_dx20.csv')
 time_UG75_DX20  = (df['total_time'].values - df.iloc[0]['total_time'])*1e3/tau_dr_UG75_DX20
 liquid_volume_UG75_DX20 = df['volume'].values*1e9
 
-# UG100_DX10
+# UG75_DX10
 df = pd.read_csv(folder + 'liquid_volume_UG75_dx10.csv')
 time_UG75_DX10  = (df['total_time'].values - df.iloc[0]['total_time'])*1e3/tau_dr_UG75_DX10
 liquid_volume_UG75_DX10 = df['volume'].values*1e9
+# OJO: filtro para coger hasta solucion 26 (t' < 3.6431)
+tp_limit = 3.6431
+t_tmp = []; vol_tmp = []
+i = 0; FOUND_TP_LIMIT = False
+while not FOUND_TP_LIMIT:
+    t_i = time_UG75_DX10[i]
+    if t_i <= tp_limit:
+        t_tmp.append(t_i)
+        vol_tmp.append(liquid_volume_UG75_DX10[i])
+    else:
+        FOUND_TP_LIMIT = True
+    i += 1
+time_UG75_DX10 = t_tmp
+liquid_volume_UG75_DX10 = vol_tmp
+
+
 
 
 y_lim_ = (liquid_volume_UG100_DX20[0],11.2)
@@ -162,7 +178,7 @@ plt.plot(time_UG75_DX10,liquid_volume_UG75_DX10, 'y', label='$\mathrm{UG}75\_\ma
 plt.plot(time_UG75_DX20_fixed,liquid_volume_UG75_DX20_fixed, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
 plt.plot(time_UG100_DX10,liquid_volume_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
 plt.plot(time_UG100_DX20,liquid_volume_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
-plt.plot(time_UG100_DX20_no_turb,liquid_volume_UG100_DX20_no_turb, '--r', label='$\mathrm{UG}100\_\mathrm{DX}20\_NT$')
+plt.plot(time_UG100_DX20_no_turb,liquid_volume_UG100_DX20_no_turb, '--k', label='$\mathrm{UG}100\_\mathrm{DX}20\_NT$')
 #plt.plot(time_UG100_DX10_no_turb,liquid_volume_UG100_DX10_no_turb, '--b', label='$\mathrm{UG}100\_\mathrm{DX}10\_NO\_TURB$')
 
 plt.xticks([0,5,10,15,20])
@@ -190,7 +206,7 @@ ax1.plot(time_UG75_DX10,liquid_volume_UG75_DX10, 'y', label='$\mathrm{UG}75\_\ma
 ax1.plot(time_UG75_DX20_fixed,liquid_volume_UG75_DX20_fixed, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
 ax1.plot(time_UG100_DX10,liquid_volume_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
 ax1.plot(time_UG100_DX20,liquid_volume_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
-ax1.plot(time_UG100_DX20_no_turb,liquid_volume_UG100_DX20_no_turb, '--r', label='$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{NT}$')
+ax1.plot(time_UG100_DX20_no_turb,liquid_volume_UG100_DX20_no_turb, '--k', label='$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{NT}$')
 ax1.plot([1]*2,[0,1e4],'--k')
 
 # characteristics main plot
@@ -218,7 +234,7 @@ ax2.plot(time_UG75_DX10,liquid_volume_UG75_DX10, 'y')
 ax2.plot(time_UG75_DX20_fixed,liquid_volume_UG75_DX20_fixed, 'g')
 ax2.plot(time_UG100_DX10,liquid_volume_UG100_DX10, 'b')
 ax2.plot(time_UG100_DX20,liquid_volume_UG100_DX20, 'r')
-ax2.plot(time_UG100_DX20_no_turb,liquid_volume_UG100_DX20_no_turb, '--r')
+ax2.plot(time_UG100_DX20_no_turb,liquid_volume_UG100_DX20_no_turb, '--k')
 
 
 

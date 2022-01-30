@@ -90,6 +90,20 @@ nelem_UG75_DX20 = df['nelem'].values/1e6
 df = pd.read_csv(folder + 'nelem_UG75_dx10.csv')
 time_UG75_DX10  = (df['total_time'].values - df.iloc[0]['total_time'])*1e3/tau_dr_UG75_DX10
 nelem_UG75_DX10 = df['nelem'].values/1e6
+# OJO: filtro para coger hasta solucion 26 (t' < 3.6431)
+tp_limit = 3.6431
+t_tmp = []; nel_tmp = []
+i = 0; FOUND_TP_LIMIT = False
+while not FOUND_TP_LIMIT:
+    t_i = time_UG75_DX10[i]
+    if t_i <= tp_limit:
+        t_tmp.append(t_i)
+        nel_tmp.append(nelem_UG75_DX10[i])
+    else:
+        FOUND_TP_LIMIT = True
+    i += 1
+time_UG75_DX10 = t_tmp
+nelem_UG75_DX10 = nel_tmp
 
 #%% Obtain values to get slopes of linear region
 
@@ -205,7 +219,7 @@ plt.plot(time_UG75_DX10,nelem_UG75_DX10, 'y', label='$\mathrm{UG}75\_\mathrm{DX}
 plt.plot(time_UG75_DX20_fixed,nelem_UG75_DX20_fixed, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
 plt.plot(time_UG100_DX10,nelem_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
 plt.plot(time_UG100_DX20,nelem_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
-plt.plot(time_UG100_DX20_no_turb,nelem_UG100_DX20_no_turb, '--r',label='$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{NT}$')
+plt.plot(time_UG100_DX20_no_turb,nelem_UG100_DX20_no_turb, '--k',label='$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{NT}$')
 #plt.plot(time_UG100_DX10_no_turb,nelem_UG100_DX10_no_turb, '--b',label='$\mathrm{UG}100\_\mathrm{DX}10\_NOT$')
 
 plt.xlabel(x_label_)
@@ -243,7 +257,7 @@ plt.plot(time_UG75_DX10,nelem_UG75_DX10, 'y', label='$\mathrm{UG}75\_\mathrm{DX}
 plt.plot(time_UG75_DX20,nelem_UG75_DX20, 'g', label='$\mathrm{UG}75\_\mathrm{DX}20$')
 plt.plot(time_UG100_DX10,nelem_UG100_DX10, 'b', label='$\mathrm{UG}100\_\mathrm{DX}10$')
 plt.plot(time_UG100_DX20,nelem_UG100_DX20, 'r', label='$\mathrm{UG}100\_\mathrm{DX}20$')
-plt.plot(time_UG100_DX20_no_turb,nelem_UG100_DX20_no_turb, '--r',label='$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{NT}$')
+plt.plot(time_UG100_DX20_no_turb,nelem_UG100_DX20_no_turb, '--k',label='$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{NT}$')
 #Rectangle((0.0,100),0.25,1e3,fill='k',alpha=1)
 plt.xlabel(x_label_)
 #plt.xlabel("$t$")
@@ -346,10 +360,3 @@ plt.savefig(folder_manuscript + 'JICF_nelem_increase_t_in_0p5_1.pdf',format='pdf
 plt.show()
 plt.close()
 
-
-
-#%% 
-try:
-    f = open('duw.txt')
-except:
-    print('CARLOS')

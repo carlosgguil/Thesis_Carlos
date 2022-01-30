@@ -46,7 +46,7 @@ plt.rcParams['text.usetex'] = True
 
 
 figsize_u_vs_z = (FFIG*16,FFIG*30)
-figsize_u_vs_x = (FFIG*30,FFIG*16)
+figsize_u_vs_x = (FFIG*29,FFIG*16)
 figsize_several_in_a_row = (FFIG*55,FFIG*25)
 
 d_inj = 0.45
@@ -59,7 +59,7 @@ folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/turbulence_state_u_mean_rm
 
 #%%  cases and labels
 
-cases = [folder + 'SPS_UG75_DX20/',
+cases = [folder + 'SPS_UG75_DX10/',
          folder + 'SPS_UG75_DX20/',
          folder + 'SPS_UG100_DX10/',
          folder + 'SPS_UG100_DX20/']
@@ -78,8 +78,11 @@ labels_x_planes = [r'$x = 1~\mathrm{mm}$',
                    r'$x = 10~\mathrm{mm}$', 
                    r'$x = 15~\mathrm{mm}$']
 
-labels_z_planes = [r'$z = 0.5~\mathrm{mm}$', 
+labels_z_planes = [r'$z = 0.2~\mathrm{mm}$', 
+                   r'$z = 0.5~\mathrm{mm}$', 
+                   r'$z = 0.8~\mathrm{mm}$', 
                    r'$z = 1~\mathrm{mm}$', 
+                   r'$z = 1.6~\mathrm{mm}$', 
                    r'$z = 2~\mathrm{mm}$', 
                    r'$z = 3~\mathrm{mm}$', 
                    r'$z = 4~\mathrm{mm}$', 
@@ -151,15 +154,19 @@ for i in range(len(cases)):
     
     
     #---- z lines
+    line_z00p2 = case_i_folder+'/line_planeY_z00p2mm_U_MEAN.dat'
     line_z00p5 = case_i_folder+'/line_planeY_z00p5mm_U_MEAN.dat'
+    line_z00p8 = case_i_folder+'/line_planeY_z00p8mm_U_MEAN.dat'
     line_z01 = case_i_folder+'/line_planeY_z01mm_U_MEAN.dat'
+    line_z01p6 = case_i_folder+'/line_planeY_z01p6mm_U_MEAN.dat'
     line_z02 = case_i_folder+'/line_planeY_z02mm_U_MEAN.dat'
     line_z03 = case_i_folder+'/line_planeY_z03mm_U_MEAN.dat'
     line_z04 = case_i_folder+'/line_planeY_z04mm_U_MEAN.dat'
     line_z05 = case_i_folder+'/line_planeY_z05mm_U_MEAN.dat'
     
     
-    lines_z = [line_z00p5, line_z01, line_z02, line_z03, line_z04, line_z05]    
+    lines_z = [line_z00p2, line_z00p5, line_z00p8, line_z01, line_z01p6,
+               line_z02, line_z03, line_z04, line_z05]    
     
     # add arrays per each plane
     x_values_z_lines[i]      = [ [] for m in range(len(lines_z)) ]
@@ -192,10 +199,11 @@ u_to_plot = u_mean_values_z_lines
 
 
 
-# z = 2 mm
-j = 2
+# z = 1.6 mm
+j = 4
 plt.figure(figsize=figsize_u_vs_x)
 plt.title(labels_z_planes[j])
+plt.plot(x_lim_u_vs_x,(0,0),'k',zorder=-1,linewidth=6*FFIG)
 i = 0; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'k', label=labels_cases[i])
 i = 1; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'--k', label=labels_cases[i])
 i = 2; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'b', label=labels_cases[i])
@@ -207,18 +215,19 @@ plt.xlabel(label_x_ax)
 plt.ylabel(label_u_ax)
 #plt.legend(bbox_to_anchor=(1.0, 1.0))
 plt.grid()
-plt.legend(loc='best')
+plt.legend(loc='upper left',ncol=2)
 plt.tight_layout()
-plt.savefig(folder_manuscript+'line_y0_along_x_z02.pdf')
+plt.savefig(folder_manuscript+'line_y0_along_x_z01p6.pdf')
 plt.show()
 plt.close()
 
 
 
-# z = 5 mm
-j = 5
+# z = 4 mm
+j = -2
 plt.figure(figsize=figsize_u_vs_x)
 plt.title(labels_z_planes[j])
+plt.plot(x_lim_u_vs_x,(0,0),'k',zorder=-1,linewidth=6*FFIG)
 i = 0; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'k', label=labels_cases[i])
 i = 1; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'--k', label=labels_cases[i])
 i = 2; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'b', label=labels_cases[i])
@@ -232,7 +241,7 @@ plt.ylabel(label_u_ax)
 plt.grid()
 #plt.legend(loc='best')
 plt.tight_layout()
-plt.savefig(folder_manuscript+'line_y0_along_x_z05.pdf')
+plt.savefig(folder_manuscript+'line_y0_along_x_z04.pdf')
 plt.show()
 plt.close()
 

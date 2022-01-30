@@ -134,21 +134,27 @@ parent_dir = folder+"LGS_sprays_custom_inlet_v02"
 #              "xInj10mm/ALM_yes_second_no", "xInj10mm/ALM_yes_second_yes"]
 
 dirs       = ["dx10_x02mm_wRMS" , 
-              "dx10_x02mm_wRMS_rNone",
-              "dx10_x02mm_wRMS_rUniform",
-              "dx10_x02mm_wRMS_u_rel_perc_050",
-              "dx10_x02mm_wRMS_u_rel_perc_100"]
+              "dx10_x02mm_wRMS_u_rel_perc_200_TRUE",
+              "dx10_x02mm_wRMS_u_rel_perc_100_TRUE",
+              "dx10_x02mm_wRMS_u_rel_perc_075_TRUE",
+              "dx10_x02mm_wRMS_u_rel_perc_050_TRUE",
+              "dx10_x02mm_wRMS_u_rel_perc_025_TRUE"]
+
+
 sols_dirs_name  = None
 filename        = "vol_dist_coarse"  # Only applies if 'loadDropletsDistr = False'
 sampling_planes = ['x = 80 mm']
 
 
-label_1 = r'$\mathrm{No}~\Delta u_\mathrm{rel}$'
-label_2 = r'$\alpha = 5~\%$'
-label_3 = r'$\alpha = 10~\%$'
-label_4 = r'$\alpha = 20~\%$'
-label_5 = r'$\alpha = 20~\%$'
+labels_ = [r'$\alpha = \infty$',  
+           r'$\alpha = 300~\%$',
+           r'$\alpha = 200~\%$',
+           r'$\alpha = 100~\%$',
+           r'$\alpha = 75~\%$',
+           r'$\alpha = 50~\%$',
+           r'$\alpha = 25~\%$']
 
+format_ = ['--k', 'k', 'b', 'r', 'g', 'y']
 
 #%% LOAD THE SPRAYS AND GRIDS
 
@@ -158,6 +164,9 @@ sprays_list = get_sprays_list(True, sampling_planes, dirs, filename,
                               sols_dirs_name = '.',
                               D_outlier = 300000)
 
+
+    
+
 dirs_grid = [ [d] for d in dirs]
 grids_list = get_discrete_spray(True, sprays_list, [8]*2, 
                                 None, params_simulation ,
@@ -166,57 +175,25 @@ grids_list = get_discrete_spray(True, sprays_list, [8]*2,
 common_bounds = get_grids_common_boundaries(grids_list)
 
 
-#%% Plot maps
-sprPlot.plot_map(grids_list[0][0], sprays_list[0][0].name, 'Q',
-                                 PLOT_GRID = False, PLOT_PIXELS = False)
-
-
-#%% Plot the PDFs
-
-# Get fit to experimental distribution by Jaegle's
-D_values_exp = np.linspace(12.35, 71.63, 100)
-D_mean   = 27.31
-D_std    = 8.35
-D_mean_lg = np.log(D_mean**2/(np.sqrt(D_mean**2 + D_std**2)))
-D_std_lg  = np.sqrt(np.log(1 + D_std**2/D_mean**2))
-f0_exp = lognormal(D_values_exp, D_mean_lg, D_std_lg)
-
-
-# Plot PDFs
-plt.figure(figsize=(FFIG*18,FFIG*13))
-plt.title(f"Size distribution")
-plt.plot(D_values_exp, f0_exp, 'r', label='Experimental distribution')
-plt.plot(sprays_list[0][0].spaceDiam, sprays_list[0][0].kde.PDF_f0, 
-         color='C0', label=label_1)
-plt.plot(sprays_list[1][0].spaceDiam, sprays_list[1][0].kde.PDF_f0, 
-         'k--', label=label_2)
-plt.legend(loc='upper right')
-plt.xlabel(r'Diameter [$\mu$m]')
-plt.ylabel(r'Probability [$\mu$m$^{-1}$]')
-plt.xlim(0,150)
-plt.show()
-plt.close()
-
 
 
 #%% Average along y, to show with respecto to vertical distance z
 
+z_loc = []; vol_flux_along_z = []; SMD_along_z = []
+for i in range(len(grids_list)):    
+    z_loc_i, vol_flux_along_z_i, SMD_along_z_i = average_along_y(grids_list[i][0])
+    z_loc.append(z_loc_i)
+    vol_flux_along_z.append(vol_flux_along_z_i)
+    SMD_along_z.append(SMD_along_z_i)
 
-z_loc_01, vol_flux_along_z_01, SMD_along_z_01 = average_along_y(grids_list[0][0])
-z_loc_02, vol_flux_along_z_02, SMD_along_z_02 = average_along_y(grids_list[1][0])
-z_loc_03, vol_flux_along_z_03, SMD_along_z_03 = average_along_y(grids_list[2][0])
-z_loc_04, vol_flux_along_z_04, SMD_along_z_04 = average_along_y(grids_list[3][0])
-z_loc_05, vol_flux_along_z_05, SMD_along_z_05 = average_along_y(grids_list[4][0])
     
 plt.figure(figsize=(FFIG*18,FFIG*13))
 plt.title(f"Profile of volume flux along z")
 plt.plot(flux_z_exp, z_int_exp, 'ks', label=label_expe)
-plt.plot(vol_flux_along_z_01, z_loc_01, 'k', label=label_1)
-plt.plot(vol_flux_along_z_02, z_loc_02, 'b', label=label_2)
-plt.plot(vol_flux_along_z_03, z_loc_03, 'r', label=label_3)
-plt.plot(vol_flux_along_z_04, z_loc_04, 'g', label=label_4)
-plt.plot(vol_flux_along_z_05, z_loc_05, 'g', label=label_5)
+for i in range(len(grids_list)):    
+    plt.plot(vol_flux_along_z[i], z_loc[i], format_[i], label=labels_[i])
 plt.legend(loc='best')
+plt.grid()
 plt.xlabel(x_label_ql)
 plt.ylabel(y_label_z)
 plt.show()
@@ -227,12 +204,10 @@ plt.close()
 plt.figure(figsize=(FFIG*18,FFIG*13))
 plt.title(f"Profile of SMD along z")
 plt.plot(SMD_z_exp, z_int_exp, 'ks', label=r'Experimental data')
-plt.plot(SMD_along_z_01, z_loc_01, 'k', label=label_1)
-plt.plot(SMD_along_z_02, z_loc_02, 'b', label=label_2)
-plt.plot(SMD_along_z_03, z_loc_03, 'r', label=label_3)
-plt.plot(SMD_along_z_04, z_loc_04, 'g', label=label_4)
-plt.plot(SMD_along_z_05, z_loc_05, 'g', label=label_5)
+for i in range(len(grids_list)):    
+    plt.plot(SMD_along_z[i], z_loc[i], format_[i], label=labels_[i])
 #plt.legend(loc='best')
+plt.grid()
 plt.xlabel(x_label_SMD)
 plt.ylabel(y_label_z)
 plt.show()

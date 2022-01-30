@@ -58,6 +58,9 @@ label_SMD  = r'$SMD~[\mu \mathrm{m}]$'
 #label_flux = r'$\mathrm{Volume~Flux}~[\mathrm{cm}^3 ~ \mathrm{s}^{-1} ~ \mathrm{cm}^{-2}]$'
 label_flux = r'$q_l~[\mathrm{cm}^3 ~ \mathrm{s}^{-1} ~ \mathrm{cm}^{-2}]$'
 
+label_SMD_aver  = r'$\langle SMD \rangle ~[\mu \mathrm{m}]$'
+label_flux_aver = r'$\langle q_l \rangle ~[\mathrm{cm}^3 ~ \mathrm{s}^{-1} ~ \mathrm{cm}^{-2}]$'
+
 # Map pads for colorbar and title
 pad_cmap_maps  = 0.9
 pad_title_maps = -120
@@ -247,8 +250,8 @@ ax.grid()
 ax.set_xlabel(z_label_)
 ax.set_xlim((0,20))
 ax.set_xticks([0,5,10,15,20])
-ax.set_ylabel(label_flux)
-ax2.set_ylabel(label_SMD)
+ax.set_ylabel(label_flux_aver)
+ax2.set_ylabel(label_SMD_aver)
 ax.set_ylim((0,5))
 ax.set_yticks(np.linspace(0,ax.get_ylim()[1], int(ax.get_ylim()[1]/1)+1 ))
 ax2.set_ylim((15,45))
@@ -274,8 +277,8 @@ ax.grid()
 ax.set_xlabel(y_label_)
 ax.set_xticks([-10,-5,0,5,10])
 ax.set_xlim((-11,11))
-ax.set_ylabel(label_flux)
-ax2.set_ylabel(label_SMD)
+ax.set_ylabel(label_flux_aver)
+ax2.set_ylabel(label_SMD_aver)
 ax.set_ylim((0,5))
 ax.set_yticks(np.linspace(0,ax.get_ylim()[1], int(ax.get_ylim()[1]/1)+1 ))
 ax2.set_ylim((20,37.5))

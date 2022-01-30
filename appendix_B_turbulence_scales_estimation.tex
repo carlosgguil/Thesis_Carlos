@@ -36,13 +36,13 @@
 
 In fluid mechanics, the largest and the smalles lengthscales are named respectively the integral and Kolmogorov scales. These ones represent the size of the largest and smalles eddies found within the flow: the largest eddies are the ones containing more energy which is then transferred to the eddies of smaller size up to the Kolmogorov eddies, where viscosity is important and turbulent dissipation takes place (energy cascade).
 
-The size of integral eddies and their associated time scales can be obtained from the geometry and the mean flow characteristics. For the JICF simulations of Chapter \ref{ch5:jicf_resolved_simulations}, the integral scale of the gas phase $L_I$ is estimated as half of the hydraulic diameter, and its timescale $\tau_I$ and characteristic frequency is obtained by considering the mean gas velocity $u_g$:
+The size of integral eddies and their associated time scales can be obtained from the geometry and the mean flow characteristics. For the JICF simulations of Chapter \ref{ch5:jicf_resolved_simulations}, the integral scale of the gas phase $L_I$ is estimated as half of the hydraulic diameter (configuration of Figure \ref{fig:numerical_setup_maquette_JICF_DLR}), and its timescale $\tau_I$ and characteristic frequency is obtained by considering the mean gas velocity $u_g$:
 
 	\begin{equation}
 	L_I = \frac{D_h}{2} \sim 15 ~ \mathrm{mm}  ~~~~~~ \tau_I = \frac{L_I}{u_g} ~~~~~~ f_I = \frac{1}{\tau_I}
 	\end{equation}
-
-At the smalles scales, dissipation takes place and both viscosity $\nu$ and dissipation rate $\epsilon$ govern these eddies. The characteristic length and time scales, $\eta$ and $\tau_\eta$ respectively, can then be calculated as:
+	
+At the smallest scales, dissipation takes place and both viscosity $\nu$ and dissipation rate $\epsilon$ govern these eddies. The characteristic length and time scales, $\eta$ and $\tau_\eta$ respectively, can then be calculated as:
 
 \begin{equation}
 \eta = \left( \frac{\nu^3}{\epsilon} \right)^{1/4} ~~~~~~ \tau_\eta = \left( \frac{\nu}{\epsilon} \right)^{1/2} ~~~~~~ f_\eta = \frac{1}{tau_\eta}
