@@ -231,9 +231,13 @@ Modification in secondary breakup:
 \subsubsection{Parametric study on actuator model}
 
 
-\subsection{Custom gaseous inlet from resolved simulations}
+\subsection{Prescription of gaseous inlet from resolved simulations }
 
-\textbf{OJO: encontrar un nombre mas atractivo para esto}.
+The ALM model 
+
+Another methodology to 
+
+This method is based on the weak recycling method of synthetic turbulence by \textbf{ref:1995-wu}, without th
 
 
 
@@ -527,7 +531,7 @@ I.4 - Prescribed inlet & \hl{?} & \hl{?} \\
 	\caption{Magnitudes integrated along the $z$ direction}
 \end{subfigure}
 
-   \caption{Integrated $SMD$ and $q_l$ values at $x = 80$ mm and comparison with experimental results}
+   \caption{Set I: Integrated $SMD$ and $q_l$ values at $x = 80$ mm and comparison with experimental results}
 %\label{fig:jicf_liquid_mean_velocities_with_x}
 \end{figure}
 
@@ -538,9 +542,50 @@ I.4 - Prescribed inlet & \hl{?} & \hl{?} \\
 
 \subsection{Set IV: influence of resolved parameters}
 
+\begin{table}[!h]
+\centering
+\caption{SMD values at $x = 80$ mm for simulations from Set I}
+\begin{tabular}{ccc}
+\thickhline
+Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
+\thickhline
+Experiments high We & 31 & - \\
+IV.1 - $x_\mathrm{inj} = 10$ mm & \hl{?} & \hl{?} \\
+I.2 - $\Delta x_\mathrm{min} = 20~\mu$m & \hl{?} & \hl{?} \\
+I.3 - No turbulence & \hl{?} & \hl{?} \\
+\hline 
+Experiments low We & 36 & - \\
+I.4 - Low Weber point & 27 & - 25 \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_tools_trajectories_obtention}
+\end{table}
+
 \subsubsection{IV.4 - Operating point}
 
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.9\textwidth}
+	\flushleft
+   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_4/integrated_fluxes_along_z}
+   \hfill
+   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_4/integrated_SMD_along_z}
+	\caption{Magnitudes integrated along the $y$ direction}
+\end{subfigure}
 
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.9\textwidth}
+	\flushleft
+   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_4/integrated_fluxes_along_y}
+   \hfill
+   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_4/integrated_SMD_along_y}
+	\caption{Magnitudes integrated along the $z$ direction}
+\end{subfigure}
+
+   \caption{Set IV, effect of operating condition: Integrated $SMD$ and $q_l$ values at $x = 80$ mm and comparison with experimental results}
+%\label{fig:jicf_liquid_mean_velocities_with_x}
+\end{figure}
 
 
 

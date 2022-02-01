@@ -623,8 +623,8 @@ And finally, the drag and lift forces to impose are calculated as follows:
 \begin{subequations}
 \label{eq:ALM_SLI_lift_drag_definitions}
 \begin{align}
-L \left( z_p \right) &= |\textbf{F} \left( x_p, z_p \right) | \sin \theta = | \textbf{F}_\mathrm{DC} | \sin \theta \frac{z_p}{\sum_{p=1}^{N_p} z_p} \\
-D \left( z_p \right) &= |\textbf{F} \left( x_p, z_p \right) | \cos \theta = | \textbf{F}_\mathrm{DC} | \cos \theta \frac{z_p}{\sum_{p=1}^{N_p} z_p}
+L \left( x_p, z_p \right) &= |\textbf{F} \left( x_p, z_p \right) | \sin \theta = | \textbf{F}_\mathrm{DC} | \sin \theta \frac{z_p}{\sum_{p=1}^{N_p} z_p} \\
+D \left( x_p, z_p \right) &= |\textbf{F} \left( x_p, z_p \right) | \cos \theta = | \textbf{F}_\mathrm{DC} | \cos \theta \frac{z_p}{\sum_{p=1}^{N_p} z_p}
 \end{align}
 \end{subequations}
 
@@ -638,7 +638,7 @@ Therefore, the forces imposed to the actuator points are parametrized by the den
 \textbf{Parameter} & \textbf{Units} & \textbf{Description} \\ 
 \thickhline
 $x_b, z_b$ & mm & Actuator end point  \\
-$c_0$ & mm & Chord at base of actuator \\
+%$c_0$ & mm & Chord at base of actuator \\
 $c_L$ & mm & Chord at tip of actuator \\
 %$\theta$ & $\degree$ & Dense core inclination  \\
 $N_p$ & - & Number of actuator points \\

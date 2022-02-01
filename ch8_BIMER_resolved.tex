@@ -1,35 +1,12 @@
 \chapter{Resolved atomization simulations of BIMER}
 	\label{ch8:bimer_resolved_atomization}
 
-Steps to follow (for this chapter):
-
-\begin{enumerate}
-
-	\item Intro: make it atractive. Specify that we are gonna simulate just one multipoint injector.
-	
-	\item Numerical setup: specify that :
-
-		\begin{itemize}
-		
-			\item Fine mesh from the previous chapter is used
-			
-			\item One multipoint injector is going to be simulated (make zoom, nice pictures and graphs showing it)
-			
-			\item The simulation detailed in $\S$\ref{ch7:BIMER_application_point} is used as initial solution
-			
-			\item Describe the operating point ($q$, $We$). Mention how the bulk gas velocity has been obtained.
-		
-		\end{itemize}
-	
-\end{enumerate}
-
-\newpage
 
 \section{Introduction}
 
 The multipoint burner BIMER was introduced in Chapter \ref{ch7:bimer_test_bench_and_aero}, where a study of the aerodynamic flow field for the operating conditions of interest was performed. Two operating points were simulated: the one tested by \citeColor[providakis_etude_2013] for which experimental data on the aerodynamic field was available, which was used for validating the simulations performed with YALES2; and the one tested by \citeColor[renaud_high-speed_2015] which provides experimental data on the non-reactive spray state. 
 
-In this chapter, resolved simulations of the atomization process through one injector of the BIMER take-off stage, as done in Chapter \ref{ch5:jicf_resolved_simulations} for the academic JICF test case, are performed. The numerical setup and liquid injection operating point are described in $\S$\ref{sec:ch8_BIMER_computational_setup} and $\S$\ref{sec:ch8_BIMER_operating_condition} respectively. Then, the inlet velocity profiles from the aerodynamic computations which is seen by the atomizer is discussed in $\S$\textbf{XX}. Results from resolved atomization simulations performed for \textbf{XX} interface mesh resolutions are shown in $\S$\textbf{XX}. Finally, injectors learnt and built from such simulations are discussed in $\S$\textbf{XX}. These injectors are later used to initialise spray simulations at BIMER in Chapter \ref{ch9:BIMER_lagrangian}.
+In this chapter, resolved simulations of the atomization process through one injector of the BIMER take-off stage, as done in Chapter \ref{ch5:jicf_resolved_simulations} for the academic JICF test case, are performed. The numerical setup and liquid injection operating point are described in $\S$\ref{sec:ch8_BIMER_computational_setup} and $\S$\ref{sec:ch8_BIMER_operating_condition} respectively. Then, the inlet velocity profiles from the aerodynamic computations which are relevant for jet breakup and droplet transport are shown in $\S$\ref{sec:ch8_BIMER_initial_conditions}. Results from resolved atomization simulations performed for \textbf{XX} interface mesh resolutions are shown in $\S$\textbf{XX}. Finally, injectors learnt and built from such simulations are discussed in $\S$\ref{sec:ch8_learning_SLI_in_BIMER}. These injectors are later used to initialise spray simulations at BIMER in Chapter \ref{ch9:BIMER_lagrangian}.
 
 
 
@@ -38,7 +15,7 @@ In this chapter, resolved simulations of the atomization process through one inj
 
 The computational geometry for performing the resolved atomization simulations is the same one as the one used for the aerodynamic ones, displayed in Figure \ref{fig:BIMER_geometry_full_domain}. The fine mesh from Figure \ref{fig:BIMER_mesh_fine} is used, its details provided in Table \ref{tab:BIMER_meshes_gaseous}. The aerodynamic field described in $\S$\ref{ch7:BIMER_application_point} is used as initial condition for the resolved atomization simulations. The boundary conditions are also the same ones in all the boundary except for the liquid injection point, which for the aerodynamic simulations it was specified as solid wall and for the resolved ones is changed to inlet. 
 
-The location of the liquid injection point in the take-off stage is shown in Figure \ref{fig:BIMER_geometry_flower_details}. The injector consists of a nozzle with 8 mm length and a circular cross-section of diameter 0.3 mm. The injection nozzle can be appreciated in Figure \ref{fig:BIMER_liquid_injector_views}, where zoomed-in views of the liquid injection point rear and front sides are shown. The direction of the incoming air $u_g$ and the liquid injection $u_l$ are detailed, as well as the crossflow direction $x_c$ obtained from the resolved atomization simulations (see $\S$\ref{ch8:resolved_atomization_simulations}). A cut of the mesh in the injector is appreciated in the left figure: the cell size within the injector has been set to \textbf{XX} mm, and the walls are refined to \textbf{XX} mm. The right figure shows the dimensions of the gaseous inlet channel, which yield a hydraulic diameter of $D_h = 7.5$ mm. 
+The location of the liquid injection point in the take-off stage is shown in Figure \ref{fig:BIMER_geometry_flower_details}. The injector consists of a nozzle with 8 mm length and a circular cross-section of diameter 0.3 mm. The injection nozzle can be appreciated in Figure \ref{fig:BIMER_liquid_injector_views}, where zoomed-in views of the liquid injection point rear and front sides are shown. The direction of the incoming air $u_g$ and the liquid injection $u_l$ are detailed, as well as the crossflow direction $x_c$ obtained from the resolved atomization simulations (see $\S$\ref{sec:ch8_BIMER_initial_conditions}). A cut of the mesh in the injector is appreciated in the left figure: the cell size within the injector has been set to $35 \sim \mu$m, and the walls are refined to $15 \sim \mu$m. The right figure shows the dimensions of the gaseous inlet channel, which yield a hydraulic diameter of $D_h = 7.5$ mm. 
 
 
 \begin{figure}[h!]
@@ -48,9 +25,9 @@ The location of the liquid injection point in the take-off stage is shown in Fig
 	\label{fig:BIMER_liquid_injector_views}
 \end{figure}
 
-\subsection*{Sampling planes in BIMER}
+\subsubsection*{Sampling planes in BIMER}
 
-The purpose of the BIMER resolved simulations is to characterize the produced spray in order to create lagrangian injectors with the SLI methodology to initialize dispersed phase computations. Therefore, the spray must be sampled in the fashion as it was done for the DLR JICF, whose sampling planes were shown in Figure \ref{fig:jicf_interior_boundaries_surface_measurements}. In that test case, the defined sampling planes were perpendicular to the crossflow axis $x$, since the jet deviates and atomizes producing a spray that moves in this direction. BIMER presents a more complex geometry representative of real injection systems where the absolute reference system is not aligned with the liquid fuel injection point chosen. Therefore, it is convenient to change the reference system to a local one which is aligned with the jet deviation direction (i.e. the local crossflow direction). This direction is denoted as $x_c$ and is shown in Figure \ref{fig:BIMER_liquid_injector_views} right. It has been obtained by performing resolved simulations and checking visually the JICF direction. The local reference system is defined by the orthogonal coordinates $\left( x_c, y_c, z_c \right)$ obtained through a transformation from the global coordinate system. This local system, shown in Figure \ref{fig:BIMER_local_FoR_and_sampling_planes}, is centered at the liquid injection point. The figure also shows the location of the sampling planes, which are perpendicular to the $x_c$ axis and are expressed in relation to the injection diameter $d_\mathrm{inj}$.
+The purpose of the BIMER resolved simulations is to characterize the produced spray in order to create lagrangian injectors with the SLI methodology to initialize dispersed phase computations. Therefore, the spray must be sampled in the fashion as it was done for the DLR JICF, whose sampling planes were shown in Figure \ref{fig:jicf_interior_boundaries_surface_measurements}. In that test case, the defined sampling planes were perpendicular to the crossflow axis $x$, since the jet deviates and atomizes producing a spray that moves in this direction. BIMER presents a more complex geometry representative of real injection systems where the absolute reference system is not aligned with the liquid fuel injection point chosen. Therefore, it is convenient to change the reference system to a local one which is aligned with the jet deviation direction (i.e. the local crossflow direction). This direction is denoted as $x_c$ and is shown in Figure \ref{fig:BIMER_liquid_injector_views} right. It has been obtained by performing resolved simulations and checking visually the JICF direction. The local reference system is defined by the orthogonal coordinates $\textbf{x}_c^T =\left\lbrace x_c, y_c, z_c \right\rbrace$ obtained through a transformation from the global coordinate system. This local system, shown in Figure \ref{fig:BIMER_local_FoR_and_sampling_planes}, is centered at the liquid injection point. The figure also shows the location of the sampling planes, which are perpendicular to the $x_c$ axis and are expressed in relation to the injection diameter $d_\mathrm{inj}$.
 
 \begin{figure}[h!]
 	\centering
@@ -70,22 +47,49 @@ The ambient conditions and inlet gaseous flow rate for the operating point to st
 %x/d_\mathrm{inj} ~~ ; ~~ \textcolor{blue}{z/d_\mathrm{inj} }
 %\end{equation}
 
-\subsection{Gaseous phase}
+\subsubsection*{Gaseous phase}
 
-According to \citeColor[barbosa_etude_2008], $80 \%$ of the air flow rate goes through the take-off stage and $20 \%$ goes through the take-off one. The study of \citeColor[renaud_high-speed_2015] shows that the percentage through the pilot is actually $13.5 \%$, hence $86.5 \%$ goes through the take-off. Considering the application point in Table \ref{tab:gaseous_operating_points_BIMER}, this makes a total of $\dot{m}_{g,\mathrm{takeoff}} = 37.2815 ~ $ g s$^{-1}$, which corresponds to a flow rate $Q = 0.04567 $ m$^{3}$ s$^{-1}$. Since that this flow rate is split through 20 vanes, the flow rate per canal is $Q_g = 2.2833 \cdot 10^{-3}$ m$^{3}$ s$^{-1}$. With an area of 6x10 mm$^2$ (see Figure \ref{fig:BIMER_liquid_injector_views}), the estimated gas bulk velocity is:
+%According to \citeColor[barbosa_etude_2008], $80 \%$ of the air flow rate goes through the take-off stage and $20 \%$ goes through the take-off one. The study of \citeColor[renaud_high-speed_2015] shows that the percentage through the pilot is actually $13.5 \%$, hence $86.5 \%$ goes through the take-off. Considering the application point in Table \ref{tab:gaseous_operating_points_BIMER}, this makes a total of $\dot{m}_{g,\mathrm{takeoff}} = 37.2815 ~ $ g s$^{-1}$, which corresponds to a flow rate $Q = 0.04567 $ m$^{3}$ s$^{-1}$. Since that this flow rate is split through 20 vanes, the flow rate per canal is $Q_g = 2.2833 \cdot 10^{-3}$ m$^{3}$ s$^{-1}$. With an area of 6x10 mm$^2$ (see Figure \ref{fig:BIMER_liquid_injector_views}), the estimated gas bulk velocity is:
 
-\begin{equation}
-u_g = Q_g/A = 38 ~ \mathrm{m} ~ \mathrm{s}^{-1}
-\end{equation}
+%\begin{equation}
+%u_g = Q_g/A = 38 ~ \mathrm{m} ~ \mathrm{s}^{-1}
+%\end{equation}
 
-Actually, the gaseous bulk velocity is estimated a the mean of the velocity profile from Figure \ref{fig:BIMER_gas_inlet_profiles}, which yields $u_g = 75~m.s^{-1}$
+The aerodynamic field inside BIMER for the operating points of interest was discussed in Chapter \ref{ch7:bimer_test_bench_and_aero}. From this study, a fine mesh consisting of 38 million elements was chosen (see Table \ref{tab:BIMER_meshes_gaseous}). The gaseous field for the application point, which is the chosen one to perform spray simulations, was studied in $\S$\ref{ch7:BIMER_application_point}. This solution is taken as the initial condition from the resolved atomization simulations.
 
-\subsection{Liquid phase}
+For the resolved atomization simulations, the relevant gas conditions are those found close to the liquid injection point. In the case of a simple JICF geometry like the one studied in Chapter \ref{ch5:jicf_resolved_simulations}, the gas and liquid flows directions are known, and the gaseous conditions impinging the jet and relevant for liquid breakup are easily determined. For a complex geometry, swirled injector such as BIMER, the crossflow direction is not known a prior and needs to be determined. For such purpose, resolved simulations are a useful tool since they provide all the information regarding the jet. For determining the crossflow reference system $\textbf{x}_c$, displayed in Figure \ref{fig:BIMER_local_FoR_and_sampling_planes},  a first simulation was run and the direction in which droplets were convected was taken as the crossflow direction $x_c$. 
+
+Figure \ref{fig:BIMER_Umean_profile_with_jet} left shows the gas mean streamlines through the inlet vane of the multipoint stage that impinge the crossflow. An instantaneous view of the jet is shown for visualization, although the streamlines correspond to the gaseous solution without the jet. As observed, the jet is fully immersed within the gas coming through the closest vane, and is not affected by the gas coming from the neighbouring vanes. The streamlines also show a high variation in the velocity magnitude along the vane width, with the highest velocity streamlines being the ones affecting the jet. The jet crossflow direction $x_c$ is also indicated in the view. Figure \ref{fig:BIMER_Umean_profile_with_jet} right shows the mean axial velocity field in the middle crossflow plane $y_c = 0$. The velocity coordinates have been transformed from the absolute coordinate system to the crossflow one, hence the axial velocity displayed $\overline{u}_c$ is the one in the crossflow direction. The arrows show the velocity profile along the crossflow vertical direction $z_c$ at a location $x_c/d_\mathrm{inj} = -0.5$, i.e. right upstream the injector (it has been shifted in the figure to allow for visual comparison with the jet). This profile, together with the $TKE$ profile along the same line, are plotted in Figure \ref{fig:BIMER_gas_inlet_profiles}. A bulk gaseous velocity $u_g = 75 ~\mathrm{m}.\mathrm{s}^{-1}$, which was used in $\S$\ref{sec:ch8_BIMER_operating_condition} to determine the operating condition of the liquid jet, is obtained as the mean of the gaseous velocity profile. The TKE profile shows high values in general along all the vertical coordinate, which reflects a high turbulent state of the flow created by the swirled injector. %From the walls upwards, the $TKE$ firstly increases and then undergoes a decrease at $x_c \sim 1$ to then start augmenting again at the center of the channel. 
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.225]{./part3_applications/figures_ch8_resolved/gaseous_profile_streamlines_and_vector}
+\caption[Gaseous state at the vicinity of the liquid injection location]{Gaseous state at the vicinity of the liquid injection location. \textsl{Left}: gas streamlines through the inlet multipoint vane.  \textsl{Right}: Instaneous BIMER view with mean axial velocity field in plane $y_c = 0$. The mean field corresponds to the gaseous solution without liquid used as an inlet condition, the jet has been added for comparison. The vectors represent the velocity profile just upstream the injector. The velocity profile has been displaced upstream in the picture for a better visualization.}
+% OJO: ficheros generados para el perfil de velocidades estan en Ongoing\ICS_study\u_mean_profiles\cases_probes\mesh_refined_DX0p5_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7
+\label{fig:BIMER_Umean_profile_with_jet}
+\end{figure}
+
+
+
+\begin{figure}[ht]
+\centering
+	\centering
+   \includegraphics[scale=0.4]{./part3_applications/figures_ch8_resolved/gas_inlet_profiles}
+   \vspace*{-0.15in}
+   \caption{Profiles of $\overline{u}_c$ and $TKE$ along the vertical line right upstream the liquid injector}
+\label{fig:BIMER_gas_inlet_profiles}
+\end{figure}
+
+
+
+
+\subsubsection*{Liquid phase}
 
 In the operating point studied, the total liquid mass flow rate injected is $\dot{m}_{l,\mathrm{total}} = 1.64$ g s$^{-1}$. The staging parameter, defined in Eq. (\ref{eq:BIMER_staging_parameter}), is $\alpha = 15 ~\%$, meaning that amount of liquid goes through the pilot stage and $85 ~\%$ of fuel goes through the take-off. Therefore, $\dot{m}_{l,\mathrm{pilot}} = 0.25$ g s$^{-1}$ and $\dot{m}_{l,\mathrm{takeoff}} = 1.39$ g s$^{-1}$. This quantity of fuel is injected through 10 injection holes that conform the take-off stage; assuming that fuel repartition is done equally through all the channels, each injector introduces $0.139$ g s$^{-1}$ of dodecane fuel, which is equivalent to a flow rate of $Q_l = 185.3$  mm$^3$ s$^{-1}$ given the dodecane density from Table \ref{tab:dodecane_properties}. From this flow rate, the bulk liquid velocity $u_l$ can be estimated knowing an injection diameter of $d_\mathrm{inj} = 0.3$ mm:
 
 \begin{equation}
-u_l = \frac{Q_l}{\pi d_\mathrm{inj}^2 / 4} = 2.6 ~ \mathrm{m} ~ \mathrm{s}^{-1}
+u_l = \frac{Q_l}{\pi d_\mathrm{inj}^2 / 4} = 2.6 ~ \mathrm{m}.\mathrm{s}^{-1}
 \end{equation}
 
 
@@ -99,7 +103,7 @@ The velocity profile imposed at the liquid inlet shown in Figure \ref{fig:BIMER_
 %\end{subequations}
 
 \begin{equation}
-q =  \frac{\rho_l u_l^2}{\rho_g u_g^2} \approx 4 ~~~~ ; ~~~~  We_g =  \frac{\rho_g d_\mathrm{inj} u_g^2}{\sigma} \approx 14
+q =  \frac{\rho_l u_l^2}{\rho_g u_g^2} \approx 1 ~~~~ ; ~~~~  We_g =  \frac{\rho_g d_\mathrm{inj} u_g^2}{\sigma} \approx 55
 \end{equation}
 
 %\begin{subequations}
@@ -109,10 +113,16 @@ q =  \frac{\rho_l u_l^2}{\rho_g u_g^2} \approx 4 ~~~~ ; ~~~~  We_g =  \frac{\rho
 %\end{align}
 %\end{subequations}
 
-Figure \ref{fig:location_BIMER_op_in_breakup_map} shows the BIMER JICF operating point classified in the breakup diagram of \citeColor[wu_breakup_1997]. As observed, in this case the breakup regime corresponds to bag breakup.
+Figure \ref{fig:location_BIMER_op_in_breakup_map} shows the BIMER JICF operating point classified in the breakup diagram of \citeColor[wu_breakup_1997], which is located within the multimode breakup regime. The governing parameters characterizing the BIMER operating point are summarized in Table \ref{tab:bimer_sps_operating_point}. The dimensionless numbers from Eqs. (\ref{eq:dimensionless_numbers_jicf}) are also calculated. \hl{Three} simulations have been performed with three different element resolutions at the liquid-gas interface $\Delta x_\mathrm{min}$, the nomenclature for each case is given in Table \ref{tab:BIMER_resolved_simulations_performed}.
 
-The governing parameters characterizing the BIMER operating point are summarized in Table \ref{tab:bimer_sps_operating_point}. The dimensionless numbers from Eqs. (\ref{eq:dimensionless_numbers_jicf}) are also calculated. Two simulations have been performed with two values for the interface mesh size $\Delta x_\mathrm{min}$, the nomenclature for each case is given in Table \ref{tab:BIMER_resolved_simulations_performed}.
-
+\begin{figure}[ht]
+     \centering
+     \includeinkscape[inkscapelatex=false,scale=0.6]{./part3_applications/figures_ch8_resolved/BIMER_breakup_regime_our_operating_point}
+     \vspace*{-0.1in}
+     \caption{Location of simulated operating condition in the breakup map by \citeColor[wu_breakup_1997]}
+	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
+      \label{fig:location_BIMER_op_in_breakup_map}
+\end{figure}
 
 \begin{table}[!h]
 \centering
@@ -147,17 +157,17 @@ Liquid viscosity & $\mu_l$ & kg m$^{-1}$ s$^{-1}$ &  $1.36 \cdot 10^{-3}$ \\
 %\hline
 Surface tension & $\sigma$ & kg s$^{-2}$ &  0.025  \\
 \thickhline
-Gas Reynolds number & $Re_g$ & - & $9.80 \cdot 10^3$ \\
+Gas Reynolds number & $Re_g$ & - & $20 \cdot 10^3$ \\ %& $9.80 \cdot 10^3$ \\
 %\hline
 Liquid Reynolds number & $Re_l$ & - & 430 \\
 %\hline
-Momentum ratio & $q$ & - & 4  \\
+Momentum ratio & $q$ & - & 1 \\ %4  \\
 %\hline
-Gas Weber number & $We_g$ & - & 14 \\
+Gas Weber number & $We_g$ & - & 55 \\ %14 \\
 %\hline
 Liquid Weber number & $We_l$ & - & 60 \\
 %\hline
-Relative Weber number & $We_\mathrm{rel}$ & - & 12 \\
+Relative Weber number & $We_\mathrm{rel}$ & - & 52 \\ %12 \\
 %\hline
 Aerodynamic Weber number & $We_\mathrm{aero}$ & - & 0.067 \\
 %\hline
@@ -187,45 +197,6 @@ $\Delta x_\mathrm{min}$ [$\mu$m]  &  Denomination \\
 \end{table}
 
 
-\clearpage
-
-\begin{figure}[ht]
-     \centering
-     \includeinkscape[inkscapelatex=false,scale=0.45]{./part3_applications/figures_ch8_resolved/BIMER_breakup_regime_our_operating_point}
-     \vspace*{-0.2in}
-     \caption{Location of simulated operating condition in the breakup map by \citeColor[wu_breakup_1997]}
-	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
-      \label{fig:location_BIMER_op_in_breakup_map}
-\end{figure}
-
-
-
-\section{Initial conditions}
-
-The aerodynamic field inside BIMER for the operating points of interest was discussed in Chapter \ref{ch7:bimer_test_bench_and_aero}. From this study, a fine mesh consisting of 38 million elements was chosen (see Table \ref{tab:BIMER_meshes_gaseous}). The gaseous field for the application point, which is the chosen one to perform spray simulations, was studied in $\S$\ref{ch7:BIMER_application_point}. This solution is taken as the initial condition from the resolved atomization simulations. The mean and RMS velocity fields can be seen in Figure \ref{fig:field_application}. 
-
-\begin{figure}[ht]
-\centering
-\includegraphics[scale=0.2]{./part3_applications/figures_ch8_resolved/gaseous_profile_streamlines_and_vector}
-\caption[Instaneous BIMER view with mean axial velocity field in plane $y_c = 0$]{Instaneous BIMER view with mean axial velocity field in plane $y_c = 0$. The mean field corresponds to the gaseous solution without liquid used as an inlet condition, the jet has been added for comparison. The vectors represent the velocity profile just upstream the injector. The velocity profile has been displaced upstream in the picture for a better visualization.}
-% OJO: ficheros generados para el perfil de velocidades estan en Ongoing\ICS_study\u_mean_profiles\cases_probes\mesh_refined_DX0p5_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7
-\label{fig:BIMER_Umean_profile_with_jet}
-\end{figure}
-
-\begin{equation}
-| \textbf{u} | ~\left[m.s^{-1} \right]
-\end{equation}
-
-
-
-\begin{figure}[ht]
-\centering
-	\centering
-   \includegraphics[scale=0.5]{./part3_applications/figures_ch8_resolved/gas_inlet_profiles}
-   \vspace*{-0.15in}
-   \caption{Profiles of $\overline{u}_c$ and $TKE$ along the line right upstream the liquid injector}
-\label{fig:BIMER_gas_inlet_profiles}
-\end{figure}
 
 
 \section{Definition of liquid characteristic times}
@@ -250,19 +221,19 @@ Capillary & $\tau_\mathrm{cap} = \sqrt{\frac{\rho_l d_\mathrm{inj}^3}{8 \sigma}}
 
 As shown in the previous table, the lower timescale is found for the inertia processes and hence those are governing breakup. Yet, all timescales are of the same order of magnitude, as opposed to the timescales of the DLR JICF summarized in Figure \ref{tab:jicf_characteristic times} where the fastest timescale (inertia) was around $100$ times smaller than the slowest (capillary). For the BIMER operating point studied, the inertia timescale is only $3$ times smaller than the capillary one, which is not even the slowest (in this case, it corresponds to the non-aerodynamic breakup timescale). The fact that the timescales in this case are closer to each other agree with the location of the BIMER operating point in the breakup diagram of Figure \ref{fig:location_BIMER_op_in_breakup_map} \citepColor[pilch_use_1987]. Besides the physical timescales, the droplets arrival times to the sampling planes depicted in Figure \ref{fig:BIMER_local_FoR_and_sampling_planes}. These ones are summarized in Table \ref{BIMER_SPS_characteristic_droplet_sampling_times}. 
 
-\clearpage
 
 \begin{table}[!h]
 \centering
 \caption{Characteristic droplet arrival times to sampling planes $\tau_\mathrm{dr_{x_c}}$ [$\mu$s] in BIMER simulations}
-\begin{tabular}{ccccc}
+\begin{tabular}{ccccccc}
 \thickhline
-\textbf{Case} & $x_c/d_\mathrm{inj} = 5$ & $x_c/d_\mathrm{inj} = 10$ & $x_c/d_\mathrm{inj} = 15$ \\
+\textbf{Case} & $x_c/d_\mathrm{inj} = 3.33$ & $x_c/d_\mathrm{inj} = 5$ & $x_c/d_\mathrm{inj} = 6.67$ & $x_c/d_\mathrm{inj} = 8.33$ & $x_c/d_\mathrm{inj} = 10$ & $x_c/d_\mathrm{inj} = 11.66$  \\
 \thickhline 
-BIMER\_DX07 & - & - & -  \\
-BIMER\_DX10 & - & - & -  \\
-BIMER\_DX15  & - & - & - \\
+BIMER\_DX07 & 321 & 340 & 359 & - & - & - \\
+BIMER\_DX10 & 310 & 331 & 354 & 387 & 428 & 585 \\
+BIMER\_DX15 & 450 & 511 & 562 & 569 & 633 & 729 \\
 \thickhline
+% NOTA: valores DX07 corresponden en realidad a dx_min = 5 µm
 \end{tabular}
 \label{tab:BIMER_SPS_characteristic_droplet_sampling_times}
 \end{table}
@@ -329,6 +300,16 @@ In first place, the jet evolution at the early instants of the injection process
 %
 %which is actually very similar.
 
+
+
+%\subsection{Breakup topology}
+
+%The topology is super different with respecto to DLR JICF!! 
+
+
+
+\clearpage
+
 \begin{figure}[ht]
 \centering
 \includeinkscape[inkscapelatex=false,scale=0.7]{./part3_applications/figures_ch8_resolved/jet_establishment}
@@ -336,9 +317,7 @@ In first place, the jet evolution at the early instants of the injection process
 \label{fig:BIMER_jet_establishment}
 \end{figure}
 
-\subsection{Breakup topology}
-
-The topology is super different with respecto to DLR JICF!! 
+\clearpage
 
 \subsection{Jet establishment}
 

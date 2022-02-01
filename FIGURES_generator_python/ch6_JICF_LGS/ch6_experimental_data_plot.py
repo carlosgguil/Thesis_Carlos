@@ -70,6 +70,7 @@ pad_title_maps = -120
 
 yy_values_all  = []; zz_values_all = []
 SMD_values_all = []; flux_values_all = []
+SMD_global_cases = []
 for i in range(len(cases)):
     df = pd.read_csv(cases[i]+'.dat',sep='(?<!\\#)\s+',skiprows=3,engine='python')      
                                         
@@ -84,6 +85,7 @@ for i in range(len(cases)):
     NP_z = len(z_values)
     SMD_values  = np.ones([NP_z, NP_y])*np.nan
     flux_values = np.ones([NP_z, NP_y])*np.nan
+    SMD_global = 0; counter_SMD_probes = 0
     for i in range(len(df)):
         y_i    = df['# Y'][i]
         z_i    = df['Z'][i]
@@ -95,8 +97,12 @@ for i in range(len(cases)):
         
         if SMD_i > 0:
             SMD_values[n][m] = SMD_i
+            SMD_global += SMD_i
+            counter_SMD_probes += 1
         if flux_i >= 0:
             flux_values[n][m] = flux_i
+        
+    SMD_global_cases.append(SMD_global/counter_SMD_probes)
     
     
     # Create grid
@@ -289,5 +295,4 @@ plt.tight_layout()
 plt.savefig(folder_manuscript+'integrated_fluxes_along_z.pdf')
 plt.show()
 plt.close()
-
 

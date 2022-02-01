@@ -67,3 +67,11 @@ plt.savefig(folder_manuscript+'gas_inlet_profiles.pdf')
 plt.show()
 plt.close()
 
+# obtain BL thickness as 99 % of the mean velocity
+uc_mean_mean = np.nanmean(u_mean_xc)
+for i in range(len(u_mean_xc)):
+    u_mean_i = u_mean_xc[i]
+    if u_mean_i > 0.99*uc_mean_mean:
+        delta_bl = zc[i]
+        break
+
