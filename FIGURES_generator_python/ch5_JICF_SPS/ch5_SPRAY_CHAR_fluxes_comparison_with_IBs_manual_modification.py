@@ -222,10 +222,10 @@ Q_x_mean_x15 = [Q_mean_UG75_DX20_x15[-1],
 #%% Bar graph
 
 # modify sli values
-'''
+
 # x = 05 mm
 Ql_SLI_x05[0] = 2700.23
-Ql_SLI_x05[1] = 2580.0
+Ql_SLI_x05[1] = 2614
 Ql_SLI_x05[2] = 3591.3
 Ql_SLI_x05[3] = 3600
 
@@ -238,7 +238,7 @@ Ql_SLI_x10[3] = 3200
 # x = 15 mm
 Ql_SLI_x15[0] = 1650
 Ql_SLI_x15[1] = 2450
-'''
+
 
 # plot
 plt.figure(figsize=figsize_bar)

@@ -53,8 +53,13 @@ ql_lim_ = [(0,50), (0,25),
            (0,80), (0,35),
            (0,80), (0,35), (0,12)]
 
-
-         
+Ql_lim_ = (0,650)
+'''
+Ql_lim_ = [(0,50), (0,25), 
+           (0,50), (0,25), (0,12),
+           (0,80), (0,35),
+           (0,80), (0,35), (0,12)]
+'''         
 
 # Define labels and tags
 x_label_y_coord   = r'$y~[\mathrm{mm}]$'
@@ -101,12 +106,14 @@ f.close()
 
 # to compare with SLI
 # x = 05 mm
+'''
 x_ticks_ = [-4,-2,0,2,4] #[-10,-5,0,5,10]
 y_ticks_ = [0,2,4,6,8]#[0,3,6,9,12,15]
 x_lim_y_coord = (-5,5)
 y_lim_z_coord = (0,8)
 ql_lim_[7] = (0,75)
 Ql_lim_ = (0,650)
+'''
 
 # x = 10 mm
 '''
@@ -124,8 +131,8 @@ print('--------- BOUNDS ------------')
 
 
 for i in range(len(cases)):
-    if i < 7 or i > 7:
-        continue
+    #if i < 2 or i > 2:
+    #    continue
     
     case = cases[i]
     

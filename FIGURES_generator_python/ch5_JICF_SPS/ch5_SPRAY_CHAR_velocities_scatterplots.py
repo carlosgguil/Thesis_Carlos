@@ -29,7 +29,7 @@ plt.rcParams['ytick.labelsize'] = 90*FFIG # 80*FFIG
 plt.rcParams['axes.labelsize']  = 90*FFIG #80*FFIG
 plt.rcParams['axes.labelpad']   = 30*FFIG
 plt.rcParams['axes.titlesize']  = 90*FFIG #80*FFIG
-plt.rcParams['legend.fontsize'] = 50*FFIG #50*FFIG
+plt.rcParams['legend.fontsize'] = 60*FFIG #50*FFIG
 plt.rcParams['font.size'] = 50*FFIG
 plt.rcParams['lines.linewidth'] =  8*FFIG #6*FFIG
 plt.rcParams['lines.markersize'] =  40*FFIG #6*FFIG
@@ -86,25 +86,29 @@ labels_OP = [label_UG75_DX10 , label_UG75_DX20,
                 label_UG100_DX20_NT]
 
 
-x_label = r'$\mathrm{SMD}~[\mu \mathrm{m}]$' 
-y_label_ux = r'$u_x~[\mathrm{m}~\mathrm{s}^{-1}]$'
-y_label_uy = r'$u_y~[\mathrm{m}~\mathrm{s}^{-1}]$'
-y_label_uz = r'$u_z~[\mathrm{m}~\mathrm{s}^{-1}]$'
+#x_label = r'$\mathrm{SMD}~[\mu \mathrm{m}]$' 
+#y_label_ux = r'$u_x~[\mathrm{m}~\mathrm{s}^{-1}]$'
+#y_label_uy = r'$u_y~[\mathrm{m}~\mathrm{s}^{-1}]$'
+#y_label_uz = r'$u_z~[\mathrm{m}~\mathrm{s}^{-1}]$'
+x_label = r'$D~[\mu \mathrm{m}]$' 
+y_label_ux = r'$u~[\mathrm{m}~\mathrm{s}^{-1}]$'
+y_label_uy = r'$v~[\mathrm{m}~\mathrm{s}^{-1}]$'
+y_label_uz = r'$w~[\mathrm{m}~\mathrm{s}^{-1}]$'
 
 label_legend_scatter   = r'$\mathrm{Droplets}$'
-label_legend_u_mean    = r'$\mathrm{Arithmetic~mean~velocity}$'
-label_legend_u_mean_vw = r'$\mathrm{VW~mean~velocity}$'
+label_legend_u_mean    = r'$\mathrm{Arithmetic~mean}$'
+label_legend_u_mean_vw = r'$\mathrm{VW~mean}$'
 
 marker_size_   = 200*FFIG
 color_markers_ = 'black'
-line_umean_format = 'b'
-line_umean_vw_format = '--b' 
-x_lim_ = [0,600]
+line_umean_format = 'k'
+line_umean_vw_format = '--k' 
+x_lim_ = [0,250]
 
 
 #%% Plots 
 # Choose a spray
-s = 3 # UG100_DX10
+s = 2 # UG100_DX10
 
 
 '''
@@ -129,14 +133,14 @@ spray = sprays_list_all[s][1]
 # scatterplot u x
 plt.figure(figsize=figsize_)
 #plt.scatter(spray.diam.values, spray.ux, facecolors='none', s=marker_size_, color=color_markers_) 
-plt.scatter(spray.diam.values, spray.ux, c = spray.z, facecolors='none', s=marker_size_, label = label_legend_scatter, cmap=cm.inferno) 
+plt.scatter(spray.diam.values, spray.ux, c = spray.z, facecolors='none', s=marker_size_, label = label_legend_scatter, cmap=cm.seismic) 
 plt.plot([min(spray.diam.values),max(spray.diam.values)],[spray.u_mean[0]]*2,line_umean_format, label=label_legend_u_mean)
 plt.plot([min(spray.diam.values),max(spray.diam.values)],[spray.u_mean_volume_weighted[0]]*2,line_umean_vw_format, label=label_legend_u_mean_vw)
 plt.legend(loc='best',ncol=1)
 plt.xlabel(x_label)
 plt.ylabel(y_label_ux, labelpad=0*FFIG)
 plt.xlim(x_lim_)
-plt.ylim(0,110)
+plt.ylim(0,120)
 plt.grid()
 plt.tight_layout()
 #plt.savefig(folder_manuscript+'scatter_ux_D.pdf')
@@ -144,32 +148,35 @@ plt.savefig(folder_manuscript+'scatter_ux_D.png')
 plt.show()
 plt.close()
 
+#%%
 # scatterplot u y
 plt.figure(figsize=figsize_)
 #plt.scatter(spray.diam.values, spray.uy, facecolors='none', s=marker_size_, color=color_markers_) 
-plt.scatter(spray.diam.values, spray.uy, c = spray.z, facecolors='none', s=marker_size_, cmap=cm.inferno) 
+plt.scatter(spray.diam.values, spray.uy, c = spray.y, facecolors='none', s=marker_size_, cmap=cm.seismic) 
 plt.plot([min(spray.diam.values),max(spray.diam.values)],[spray.u_mean[1]]*2,line_umean_format)
 plt.plot([min(spray.diam.values),max(spray.diam.values)],[spray.u_mean_volume_weighted[1]]*2,line_umean_vw_format)
 plt.xlabel(x_label)
 plt.ylabel(y_label_uy, labelpad=-40*FFIG)
 plt.xlim(x_lim_)
+plt.ylim((-80,80))
 plt.grid()
 plt.tight_layout()
 #plt.savefig(folder_manuscript+'scatter_uy_D.pdf')
 plt.savefig(folder_manuscript+'scatter_uy_D.png')
 plt.show()
 plt.close()
-
+#%%
 
 # scatterplot u z
 plt.figure(figsize=figsize_)
 #plt.scatter(spray.diam.values, spray.uz, facecolors='none', s=marker_size_, color=color_markers_) 
-plt.scatter(spray.diam.values, spray.uz, c = spray.z, facecolors='none', s=marker_size_, cmap=cm.inferno) 
+plt.scatter(spray.diam.values, spray.uz, c = spray.z, facecolors='none', s=marker_size_, cmap=cm.seismic) 
 plt.plot([min(spray.diam.values),max(spray.diam.values)],[spray.u_mean[2]]*2,line_umean_format)
 plt.plot([min(spray.diam.values),max(spray.diam.values)],[spray.u_mean_volume_weighted[2]]*2,line_umean_vw_format)
 plt.xlabel(x_label)
 plt.ylabel(y_label_uz, labelpad=-40*FFIG)
 plt.xlim(x_lim_)
+plt.ylim((-90,90))
 plt.grid()
 plt.tight_layout()
 #plt.savefig(folder_manuscript+'scatter_uz_D.pdf')
@@ -177,14 +184,14 @@ plt.savefig(folder_manuscript+'scatter_uz_D.png')
 plt.show()
 plt.close()
 
-#%% Standalone colormap
+#%% Standalone colormap z
 #import pylab as pl
 plt.rcParams['text.usetex'] = True
 
 a = np.array([[0,float(round(max(spray.z)))]])
 plt.figure(figsize=(FFIG*18, FFIG*1.5))
 #plt.figure(figsize=(fPic*1.5, fPic*18))
-img = plt.imshow(a, cmap="inferno")
+img = plt.imshow(a, cmap="seismic")
 plt.gca().set_visible(False)
 cax = plt.axes([0.1, 0.2, 0.8, 0.6])
 cbar = plt.colorbar(orientation="horizontal", cax=cax)
@@ -192,3 +199,20 @@ cbar.set_label(r'$z~[\mathrm{mm}]$',labelpad=-130)
 cbar.set_ticks(np.linspace(a[0][0],a[0][1],5))
 #plt.tight_layout()
 plt.savefig(folder_manuscript+'scatterplots_colorbar_z.png',bbox_inches="tight")
+
+
+#%% Standalone colormap y
+
+plt.rcParams['text.usetex'] = True
+
+a = np.array([[-8,8]])
+plt.figure(figsize=(FFIG*18, FFIG*1.5))
+#plt.figure(figsize=(fPic*1.5, fPic*18))
+img = plt.imshow(a, cmap="seismic")
+plt.gca().set_visible(False)
+cax = plt.axes([0.1, 0.2, 0.8, 0.6])
+cbar = plt.colorbar(orientation="horizontal", cax=cax)
+cbar.set_label(r'$y~[\mathrm{mm}]$',labelpad=-130)
+cbar.set_ticks(np.linspace(a[0][0],a[0][1],5))
+#plt.tight_layout()
+plt.savefig(folder_manuscript+'scatterplots_colorbar_y.png',bbox_inches="tight")

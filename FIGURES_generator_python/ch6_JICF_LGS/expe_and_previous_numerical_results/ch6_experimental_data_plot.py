@@ -6,6 +6,7 @@ Created on Mon Jul  1 10:04:13 2019
 @author: Carlos G. GUILLAMON
 """
 
+from functions_expe_comparison import get_SMD_from_integrated_profile
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import numpy as np
@@ -50,6 +51,8 @@ figsize_maps_subplots = (FFIG*35,FFIG*22)
 case_UG100 = '1210_01' 
 case_UG75 =  '2310_01_u75' 
 
+labels_cases = [r'UG100', r'UG75']
+
 cases = [folder+case_UG100, folder+case_UG75]
 
 y_label_   = r'$y~[\mathrm{mm}]$'
@@ -70,7 +73,7 @@ pad_title_maps = -120
 
 yy_values_all  = []; zz_values_all = []
 SMD_values_all = []; flux_values_all = []
-SMD_global_cases = []
+SMD_global_cases = []; SMD_global_flux_weighted_cases = []
 for i in range(len(cases)):
     df = pd.read_csv(cases[i]+'.dat',sep='(?<!\\#)\s+',skiprows=3,engine='python')      
                                         
@@ -86,6 +89,7 @@ for i in range(len(cases)):
     SMD_values  = np.ones([NP_z, NP_y])*np.nan
     flux_values = np.ones([NP_z, NP_y])*np.nan
     SMD_global = 0; counter_SMD_probes = 0
+    SMD_global_weighted_flux = 0; flux_acc = 0
     for i in range(len(df)):
         y_i    = df['# Y'][i]
         z_i    = df['Z'][i]
@@ -98,11 +102,14 @@ for i in range(len(cases)):
         if SMD_i > 0:
             SMD_values[n][m] = SMD_i
             SMD_global += SMD_i
+            SMD_global_weighted_flux += SMD_i*flux_i
+            flux_acc += flux_i
             counter_SMD_probes += 1
         if flux_i >= 0:
             flux_values[n][m] = flux_i
         
     SMD_global_cases.append(SMD_global/counter_SMD_probes)
+    SMD_global_flux_weighted_cases.append(SMD_global_weighted_flux/flux_acc)
     
     
     # Create grid
@@ -295,4 +302,31 @@ plt.tight_layout()
 plt.savefig(folder_manuscript+'integrated_fluxes_along_z.pdf')
 plt.show()
 plt.close()
+
+#%% Get SMDs integrated with profiles
+
+SMD_int_y_cases = []; SMD_int_z_cases = []
+for i in range(len(cases)):
+    y_values = y_int_values_all[i]
+    flux_along_y = flux_y_int_values_all[i]
+    SMD_along_y  = SMD_y_int_values_all[i]
+    SMD_int_y = get_SMD_from_integrated_profile(y_values, SMD_along_y, flux_along_y)
+    
+    z_values = z_int_values_all[i]
+    flux_along_z   = flux_z_int_values_all[i]
+    SMD_along_z  = SMD_z_int_values_all[i]
+    SMD_int_z = get_SMD_from_integrated_profile(z_values, SMD_along_z, flux_along_z)
+    
+    SMD_int_y_cases.append(SMD_int_y)
+    SMD_int_z_cases.append(SMD_int_z)
+
+#%% Print SMDs
+    
+print('------ SMDs ------')
+for i in range(len(cases)):
+    print(f'  Case {labels_cases[i]}')
+    print(f'      Arithmetic: {SMD_global_cases[i]}')
+    print(f'   Flux-weighted: {SMD_global_flux_weighted_cases[i]}')
+    print(f'    Int. along y: {SMD_int_y_cases[i]}')
+    print(f'    Int. along z: {SMD_int_z_cases[i]}')
 

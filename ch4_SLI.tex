@@ -315,6 +315,7 @@ NMSE^{t_i} = \frac{MSE^{t_i}}{\max_{t_i} \left( MSE \right)}
 The evolution of NMSE can be displayed with time as shown in Figure \ref{fig:NMSE_evolution}. The NMSE decreases with accumulation time until reaching a plateau, where the NMSE does not move significantly. Convergence is achieved at the beginning of this plateau, which is defined for values of the NMSE below a threshold $\varepsilon_\mathrm{th}$.
 
 \begin{equation}
+\label{eq:NMSE_convergence_criterion}
 NMSE < \varepsilon_\mathrm{th}
 \end{equation}
 
@@ -600,22 +601,22 @@ As depicted in Figure \ref{fig:arienti_2006_jicf}, the presence of the dense cor
 
 Figure \ref{fig:ALM_DC_learning} shows the representation of the dense core (top figures) as an actuator line model (bottom figures). Its complex topology is emulated by a frustum with increasing chord from the bottom ($c_0 = d_\mathrm{inj}$) to the top ($c_L = W$). The frustum has a length $L$ and an inclination angle $\theta$ which are obtained from the breakup point coordinates $(x_b, z_b)$ of the dense core in resolved atomization simulations: $L = \sqrt{x_b^2 + z_b^2}$ and $\theta = \tan^{-1} \left( z_b / x_b\right)$. The actuator points where discrete forces are placed are equally-spaced with a distance $w$ along the center line of the frustum. The number of points $N_p$ also needs to be specified in the ALM model.
 
-Apart from the geometry, the forces applied to the actuator points are also defined. In this model, instead of specifying coefficients as done in wind turbine blades, the forces will be directly imposed in the actuator points. As shown in Figure \ref{fig:ALM_DC_learning}c, the force in the actuator will evolve linearly from the bottom to the top in order to take into account the real increasing cross-section of the actuator, which has the effect of increasing drag \citepColor[mashayek_jet_2006]. The force acts in a direction normal to the axis of the frustum. Therefore, the imposed forces can be decomposed into two components: a drag force $D$ along the $x$ direction and a lift force $L$ along the $z$ direction. As each point force is specified at each actuator point $\left( x_p, z_p \right)$, the decomposition holds as follows:
+Apart from the geometry, the forces applied to the actuator points are also defined. In this model, instead of specifying coefficients as done in wind turbine blades, the forces will be directly imposed in the actuator points. As shown in Figure \ref{fig:ALM_DC_learning}c, the force in the actuator will evolve linearly from the bottom to the top in order to take into account the real increasing cross-section of the actuator, which has the effect of increasing drag \citepColor[mashayek_jet_2006]. The force acts in a direction normal to the axis of the frustum. Therefore, the imposed forces can be decomposed into two components: a drag force $D$ along the $x$ direction and a lift force $L$ along the $z$ direction. Forces are specified at each actuator point with coordinates $\left( x_p, z_p \right)$ along the actuator. As the coordinates are automatically calculated according to the number of actuator points $N_p$ and the breakup point $\left( x_b, z_b \right)$, the forces will be expressed with respect to the line coordinate $s_p = \left( x_p^2 + z_p^2 \right)^{1/2}$ with expresses the distance of each actuator point to its base. Hence, the force decomposition into lift and drag holds as follows:
 
 \begin{equation}
-\textbf{F} \left( x_p, z_p \right) = D \left( x_p, z_p \right) \textbf{i} + L \left( x_p, z_p \right) \textbf{k} 
+\textbf{F} \left( s_p \right) = D \left( s_p \right) \textbf{i} + L \left( s_p \right) \textbf{k} 
 \end{equation}
 
-where $\textbf{i}$ and $\textbf{k}$ are the unit vectors in the $x$ and $z$ directions, respectively. To estimate these forces, the net force applied to the dense core $\textbf{F}_\mathrm{DC}$ is obtained from the resolved simulations (see $\S$\ref{subsec:ch4_ALM_forces_determination}). This force is assumed to act in the same direction as the forces $\textbf{F} \left( x_p, z_p \right)$ from the actuator model, and is repartitioned into the several forces that are applied to the actuator points. Therefore, the following condition must be fulfilled:
+where $\textbf{i}$ and $\textbf{k}$ are the unit vectors in the $x$ and $z$ directions, respectively. To estimate these forces, the net force applied to the dense core $\textbf{F}_\mathrm{DC}$ is obtained from the resolved simulations (see $\S$\ref{subsec:ch4_ALM_forces_determination}). This force is assumed to act in the same direction as the forces $\textbf{F} \left( s_p \right)$ from the actuator model, and is repartitioned into the several forces that are applied to the actuator points. Therefore, the following condition must be fulfilled:
 
 \begin{equation}
-\sum_{p=1}^{N_p} | \textbf{F} \left( x_p, z_p \right)| = | \textbf{F}_\mathrm{DC} |
+\sum_{p=1}^{N_p} | \textbf{F} \left( s_p \right)| = | \textbf{F}_\mathrm{DC} |
 \end{equation}
 
-As the forces $| \textbf{F} \left( x_p, z_p \right)|$ increase linearly along the actuator, its evolution is represented by the following expression accordingly to the vertical coordinates $z_p$ of the actuator points:
+As the forces $| \textbf{F} \left( s_p \right)|$ increase linearly along the actuator, its evolution is represented by the following expression accordingly to the vertical coordinates $z_p$ of the actuator points:
 
 \begin{equation}
-|\textbf{F} \left( x_p, z_p \right) | = | \textbf{F}_\mathrm{DC} | \frac{z_p}{\sum_{p=1}^{N_p} z_p}
+|\textbf{F} \left( s_p \right) | = | \textbf{F}_\mathrm{DC} | \frac{s_p}{\sum_{p=1}^{N_p} s_p}
 \end{equation}
 
 And finally, the drag and lift forces to impose are calculated as follows:
@@ -623,12 +624,14 @@ And finally, the drag and lift forces to impose are calculated as follows:
 \begin{subequations}
 \label{eq:ALM_SLI_lift_drag_definitions}
 \begin{align}
-L \left( x_p, z_p \right) &= |\textbf{F} \left( x_p, z_p \right) | \sin \theta = | \textbf{F}_\mathrm{DC} | \sin \theta \frac{z_p}{\sum_{p=1}^{N_p} z_p} \\
-D \left( x_p, z_p \right) &= |\textbf{F} \left( x_p, z_p \right) | \cos \theta = | \textbf{F}_\mathrm{DC} | \cos \theta \frac{z_p}{\sum_{p=1}^{N_p} z_p}
+L \left( s_p \right) &= - |\textbf{F} \left( s_p \right) | \cos \theta = - | \textbf{F}_\mathrm{DC} | \cos \theta \frac{s_p}{\sum_{p=1}^{N_p} s_p} \\
+D \left( s_p \right) &= |\textbf{F} \left( s_p \right) | \sin \theta = | \textbf{F}_\mathrm{DC} | \sin \theta \frac{s_p}{\sum_{p=1}^{N_p} s_p}
 \end{align}
 \end{subequations}
 
-Therefore, the forces imposed to the actuator points are parametrized by the dense core net force $| \textbf{F}_\mathrm{DC} |$, the actuator inclination $\theta$ and the actuator points. Table \ref{tab:alm_parameters} shows a recap of the parameters used in the proposed model. In this table, the angle $\theta$ is not shown since it can be obtained with trigonometry from the initial and end points of the actuator. %The actuator chords shown in Figure \ref{fig:ALM_DC_learning} are not shown in this model since the increase in cross-section is directly contained in the linear evolution of the forces, Eqs. (\ref{eq:ALM_lift_drag_definitions}).
+Therefore, the forces imposed to the actuator points are parametrized by the dense core net force $| \textbf{F}_\mathrm{DC} |$, the actuator inclination $\theta$ and the actuator points. Table \ref{tab:alm_parameters} shows a recap of the parameters used in the proposed model. In this table, the angle $\theta$ is not shown since it can be obtained with trigonometry from the initial and end points of the actuator. The number of actuator points $N_p$ is not taken as an input parameter as it has been checked that, if large enough, it does not have an effect of the perturbed flow field: therefore, it has been set to $N_p = 100$ for all cases.
+
+%The actuator chords shown in Figure \ref{fig:ALM_DC_learning} are not shown in this model since the increase in cross-section is directly contained in the linear evolution of the forces, Eqs. (\ref{eq:ALM_lift_drag_definitions}).
 
 \begin{table}[!h]
 \centering
@@ -641,7 +644,6 @@ $x_b, z_b$ & mm & Actuator end point  \\
 %$c_0$ & mm & Chord at base of actuator \\
 $c_L$ & mm & Chord at tip of actuator \\
 %$\theta$ & $\degree$ & Dense core inclination  \\
-$N_p$ & - & Number of actuator points \\
 $| \textbf{F}_\mathrm{DC} |$ & N & Dense core net force\\
 %$\Delta p$ & Pa & \\
 \thickhline 
@@ -879,7 +881,7 @@ which can be inverted to obtain $r_{ch}$:
 r_{ch} = r_{32} \sqrt[3.5]{- \log \left( 1 - Q \right) }
 \end{equation}
 
-where $Q$ is the value for the CDF. To sample droplets from this distribution, $Q$ is sampled from a uniform distribution $\in [0,1]$. The resulting random number is introduced in the previous expression, yielding a value for one children droplet. This procedure is repeated until the volume of all children droplets equals the volume of the parent, hence conserving mass. Children droplets are then randomly located along the surface of the parent droplet. They will all inherit the velocity of the parent droplet, plus a component $v_\perp$ with magnitude:
+where $Q$ is Cumulative Density Function (CDF). To estimate the size of children droplets droplets from this distribution, $Q$ is randomly sampled from a uniform distribution $\in [0,1]$. The resulting random number is introduced in the previous expression, yielding a value for one children droplet. This procedure is repeated until the volume of all children droplets equals the volume of the parent, hence conserving mass. Children droplets are then randomly located along the surface of the parent droplet. They will all inherit the velocity of the parent droplet, plus a component $v_\perp$ with magnitude:
 
 \begin{equation}
 \label{eq:TAB_v_perp}
@@ -980,14 +982,18 @@ This function will be later used to obtain the size of children droplets. The pr
 
 \end{itemize}
 
-If both $r > r_\mathrm{crit}$ \textbf{and} $t > t_{bu}$ (both criteria must be met) as given by the previous expressions, breakup occurs. In this case, size of children droplet is obtained from the cumulative density function $T \left( \ln r_{ch}, t \right)$, Eq. (\ref{eq:gorokhovski_T_CDF}), from which $\ln r_{ch}$ can be solved:
+If both $r > r_\mathrm{crit}$ \textbf{and} $t > t_{bu}$, breakup occurs. In this case, size of children droplet is obtained from the cumulative density function $T \left( \ln r_{ch}, t \right)$, Eq. (\ref{eq:gorokhovski_T_CDF}), from which $\ln r_{ch}$ can be solved:
  
  
 \begin{equation}
-\ln r_{ch} = \ln r + \langle \xi \rangle  + \sqrt{2 \langle \xi^2 \rangle} \erf^{-1} \left(  2 T - 1 \right)
+r_{ch} = r \exp \left( \langle \xi \rangle  + \sqrt{2 \langle \xi^2 \rangle} \erf^{-1} \left(  2 T - 1 \right) \right)
 \end{equation}
 
-The size of children droplets are then obtained by sampling a random value of $T$ from a uniform distribution between $0$ and $1$, and then applying the previous equation. The parameters $\langle \xi \rangle$ and $\langle \xi^2 \rangle$ are calculated from the following equations:
+%\begin{equation}
+%\ln r_{ch} = \ln r + \langle \xi \rangle  + \sqrt{2 \langle \xi^2 \rangle} \erf^{-1} \left(  2 T - 1 \right)
+%\end{equation}
+
+The size of children droplets are then obtained by sampling a random value of $T$ from a uniform distribution between $0$ and $1$, $T \sim \mathcal{U} \left( 0, 1 \right)$ , and then applying the previous equation. The parameters $\langle \xi \rangle$ and $\langle \xi^2 \rangle$ are calculated from the following equations:
 
 \begin{subequations}
 \label{eq:gorokhovski_epsilon_parameters_definition}

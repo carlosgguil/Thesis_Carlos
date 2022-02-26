@@ -36,10 +36,12 @@ x_label_ = r'$t^{\prime}$'
 y_label_ = '$N_\mathrm{elements} ~(10^6$)'
 
 
+ticks_tp_label = np.linspace(0,6,7)
 
-tau_dr_DX15  = 1
-tau_dr_DX10  = 1
-tau_dr_DX07p5 = 1
+# Times correspond to x_c/d_inj = 6.67 #10
+tau_dr_DX15  = 562e-3 #633e-3
+tau_dr_DX10  = 354e-3 #428e-3
+tau_dr_DX07p5 = 359e-3 #434e-3
 
 
 
@@ -50,21 +52,23 @@ time_all_cases  = []
 nelem_all_cases = []
 
 # DX15
-df = pd.read_csv(folder + 'nelem_BIMER_DX15.csv')
+df = pd.read_csv(folder + 'nelem_BIMER_dx15p0.csv')
 time_DX15  = (df['total_time'].values - df.iloc[0]['total_time'])*1e3/tau_dr_DX15
 nelem_DX15 = df['nelem'].values/1e6
 
-# DX15
-df = pd.read_csv(folder + 'nelem_BIMER_DX10.csv')
+# DX10
+df = pd.read_csv(folder + 'nelem_BIMER_dx10p0.csv')
 time_DX10  = (df['total_time'].values - df.iloc[0]['total_time'])*1e3/tau_dr_DX10
 nelem_DX10 = df['nelem'].values/1e6
 
 # DX07p5
-df = pd.read_csv(folder + 'nelem_BIMER_DX07p5.csv')
+df = pd.read_csv(folder + 'nelem_BIMER_dx07p5.csv')
 time_DX07p5  = (df['total_time'].values - df.iloc[0]['total_time'])*1e3/tau_dr_DX07p5
 nelem_DX07p5 = df['nelem'].values/1e6
 
 
+
+y_lim_nelem = (nelem_DX15[0],3.5e2)
 
 #%% 
 plt.rcParams['ytick.minor.visible'] = True
@@ -79,10 +83,10 @@ plt.plot(time_DX07p5, nelem_DX07p5, 'b', label='$\mathrm{DX}07$')
 
 plt.xlabel(x_label_)
 #plt.xlabel("$t$")
-plt.xticks([0,0.5,1,1.5])
+plt.xticks(ticks_tp_label)
 plt.ylabel(y_label_)
-plt.xlim(1e-1,2)
-plt.ylim(nelem_DX15[0],1e3)
+#plt.xlim(1e-1,2)
+plt.ylim(y_lim_nelem)
 #plt.xscale('log')
 plt.yscale('log')
 plt.legend(loc='best')

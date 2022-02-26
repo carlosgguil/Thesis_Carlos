@@ -55,9 +55,9 @@ cases = [label_UG75_DX10 , label_UG75_DX20,
          label_UG100_DX10, label_UG100_DX20,
          label_UG100_DX20_NT]
 
-label_UG100_DX20_saving = r'$\mathrm{UG}100\_\mathrm{DX}20$\\\\ ~~~~~~~~~~$t_\mathrm{ph} = X.X~\mathrm{ms} $'
-label_UG100_DX10_saving = r'$\mathrm{UG}100\_\mathrm{DX}10$\\\\ ~~~~~~~~~~$t_\mathrm{ph} = X.X~\mathrm{ms} $'
-label_UG100_DX10_saving_long = r'$\mathrm{UG}100\_\mathrm{DX}10$\\\\ ~~~~~~~~~~$t_\mathrm{ph} = X.X~\mathrm{ms} $'
+label_UG100_DX20_saving = r'$\mathrm{UG}100\_\mathrm{DX}20$\\\\ ~~~~~~~~~~$t_\mathrm{acc} = 5.57~\mathrm{ms} $'
+label_UG100_DX10_saving = r'$\mathrm{UG}100\_\mathrm{DX}10$\\\\ ~~~~~~~~~~$t_\mathrm{acc} = 0.37~\mathrm{ms} $'
+label_UG100_DX10_saving_long = r'$\mathrm{UG}100\_\mathrm{DX}10$\\\\ ~~~~~~~~~~$t_\mathrm{acc} = 5.57~\mathrm{ms} $'
 cases_saving = [label_UG100_DX20_saving, label_UG100_DX10_saving, label_UG100_DX10_saving_long]
 
 
@@ -68,8 +68,9 @@ r1 = np.arange(len(cases))
 r1_saving = np.arange(len(cases_saving))
 
 # computed, absolute costs in hours (million)
-t_cpu  = np.array([2.161506889, 1.509856, 4.661008, 1.252864, 0.765312])
-t_phys = np.array([1.0756, 6.2961, 0.7826, 6.1595, 6.2894])
+t_cpu  = np.array([2.161506889, 1.14056, 4.661008, 1.252864, 0.765312])
+t_phys = np.array([1.0756, 6.2961, 0.7826, 6.1595, 6.10])
+#t_ = np.array([1.0756, 6.2961, 0.7826, 6.1595, 6.2894])
 t_cpu_over_t_phys = t_cpu/t_phys
 
 # saving costs for UG100

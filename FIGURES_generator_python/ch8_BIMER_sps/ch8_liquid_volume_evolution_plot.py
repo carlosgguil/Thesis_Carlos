@@ -35,12 +35,12 @@ x_label_ = r'$t^{\prime}$'
 #y_label_ = '$\# ~\mathrm{elements} ~(10^6$)'
 y_label_ = r'$V_l ~[\mathrm{mm}^3$]'
 
+ticks_tp_label = np.linspace(0,6,7)
 
-
-tau_dr_DX15  = 1
-tau_dr_DX10  = 1
-tau_dr_DX07p5 = 1
-
+# Times correspond to x_c/d_inj = 6.67 #10
+tau_dr_DX15  = 562e-3 #633e-3
+tau_dr_DX10  = 354e-3 #428e-3
+tau_dr_DX07p5 = 359e-3 #434e-3
 
 
 #%% Read files
@@ -49,38 +49,81 @@ time_all_cases  = []
 liquid_volume_all_cases = []
 
 # DX15
-df = pd.read_csv(folder + 'liquid_volume_BIMER_DX15.csv')
+df = pd.read_csv(folder + 'liquid_volume_BIMER_dx15p0.csv')
 time_DX15  = (df['total_time'].values - df.iloc[0]['total_time'])*1e3/tau_dr_DX15
 liquid_volume_DX15 = df['volume'].values*1e9
 
 # DX10
-df = pd.read_csv(folder + 'liquid_volume_BIMER_DX10.csv')
+df = pd.read_csv(folder + 'liquid_volume_BIMER_dx10p0.csv')
 time_DX10  = (df['total_time'].values - df.iloc[0]['total_time'])*1e3/tau_dr_DX10
 liquid_volume_DX10 = df['volume'].values*1e9
 
 # DX07p5
-df = pd.read_csv(folder + 'liquid_volume_BIMER_DX07p5.csv')
+df = pd.read_csv(folder + 'liquid_volume_BIMER_dx07p5.csv')
 time_DX07p5  = (df['total_time'].values - df.iloc[0]['total_time'])*1e3/tau_dr_DX07p5
 liquid_volume_DX07p5 = df['volume'].values*1e9
 
 
 
+
+#%% Fix UG75_DX15
+factor_tp_if_tau_changes = 633e-3/tau_dr_DX15
+
+tp_Ql_min = 3.9*factor_tp_if_tau_changes
+tp_Ql_max = 5.95*factor_tp_if_tau_changes
+tp_threshold = 3.5*factor_tp_if_tau_changes
+
+# find indexes corresponding to times
+i = 0
+FOUND_tp_Ql_min = False
+FOUND_tp_Ql_max = False
+FOUND_tp_threshold = False
+while( (not FOUND_tp_Ql_min) or (not FOUND_tp_Ql_max) or (not FOUND_tp_threshold)):
+    t_i = time_DX15[i]
+    if (not FOUND_tp_Ql_min):
+        if t_i > tp_Ql_min:
+            FOUND_tp_Ql_min = True
+            index_tp_Ql_min = i
+    if (not FOUND_tp_Ql_max):
+        if t_i > tp_Ql_max:
+            FOUND_tp_Ql_max = True
+            index_tp_Ql_max = i
+    if (not FOUND_tp_threshold):
+        if t_i > tp_threshold:
+            FOUND_tp_threshold = True
+            index_tp_threshold = i
+    i += 1
+
+Ql_shift_num = liquid_volume_DX15[index_tp_Ql_max] - liquid_volume_DX15[index_tp_Ql_min]
+Ql_shift_den = time_DX15[index_tp_Ql_max] - time_DX15[index_tp_Ql_min]
+Ql_shift     = Ql_shift_num/Ql_shift_den
+
+
+# finally, shift values
+t0_shift = time_DX15[index_tp_threshold]
+for i in range(index_tp_threshold,len(liquid_volume_DX15)):
+    Vl_shift = Ql_shift*(time_DX15[i] - t0_shift)
+    V_l_actual = liquid_volume_DX15[i]
+    liquid_volume_DX15[i] = V_l_actual - Vl_shift
+
+
 #%% 
-plt.rcParams['ytick.minor.visible'] = True
+
+y_lim_Vl = (liquid_volume_DX15[0], liquid_volume_DX15[-1]+0.01)
+
 
 # Full figure
 plt.figure(figsize=figsize_)
-#plt.plot([1]*2,[0,1e4],'--k')
 
+plt.plot([1]*2,[0,1e4],'--k')
 plt.plot(time_DX15, liquid_volume_DX15, 'y', label='$\mathrm{DX}15$')
 plt.plot(time_DX10, liquid_volume_DX10, 'g', label='$\mathrm{DX}10$')
 plt.plot(time_DX07p5, liquid_volume_DX07p5, 'b', label='$\mathrm{DX}07$')
 
 plt.xlabel(x_label_)
-#plt.xlabel("$t$")
-plt.xticks([0,0.5,1,1.5])
+plt.xticks(ticks_tp_label)
 plt.ylabel(y_label_)
-#plt.xlim(-1E-2,2)
+plt.ylim(y_lim_Vl)
 #plt.ylim(nelem_DX15[0],1e3)
 plt.legend(loc='best')
 plt.grid(which='major',linestyle='-',linewidth=4*FFIG)

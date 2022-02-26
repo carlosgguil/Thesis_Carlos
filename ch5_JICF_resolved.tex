@@ -217,7 +217,7 @@ Density ratio & $r$ & - & 110 & 110 \\
 \caption{Nomenclature for resolved atomization simulations}
 \begin{tabular}{cccc}
 \thickhline
-$\Delta x_\mathrm{min}$ [$\mu$m]  & Turbulence & \multicolumn{2}{c}{\textbf{Operating condition}} \\ 
+\multirow{2}{*}{ $\Delta x_\mathrm{min}$ [$\mu$m] } & Turbulence & \multicolumn{2}{c}{\textbf{Operating condition}} \\ 
 \cline{3-4}
  & injection ? & Low $We_g$ &  High $We_g$ \\ 
 \thickhline
@@ -1026,10 +1026,10 @@ Secondly, characteristic times can also be obtained directly from the simulation
 \cline{3-5}
  & & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
 \thickhline 
-UG75\_DX10  & 1021 & 192.7 & 295.2 & -  \\
-UG75\_DX20  & 214 & 234.7 & 355.8 & 456.7 \\
-UG100\_DX10 & 421 & 143.7 & 218.7 & - \\
-UG100\_DX20 & 1873 & 176.8 & 258.4 & 362.8 \\
+UG75\_DX10  & 625 & 192.7 & 295.2 & -  \\
+UG75\_DX20  & 1389 & 234.7 & 355.8 & 456.7 \\
+UG100\_DX10 & 422 & 143.7 & 218.7 & - \\
+UG100\_DX20 & 1887 & 176.8 & 258.4 & 362.8 \\
 UG100\_DX20\_NT & 746 & 167.9 & 260.2 & - \\
 \thickhline
 \end{tabular}
@@ -1324,7 +1324,7 @@ The first hypothesis to be tested for clarifying why the coarse mesh does not sh
 From previous studies, it is believed that the formation of instabilities in injectors is caused by the turbulence within the injection nozzle. This applies to two-phase problems involving liquid injectors \citepColor[wu_effects_1994,xiao_les_2014]
 as well as in single-phase, mixing problems where one gaseous species is injected into a plenum containing a different gas, such as in gaseous jets in crossflow \citepColor[kelso_experimental_1996,karagozian_jet_2014]. \citeColor[wu_effects_1994] studied experimentally a round liquid jet in which they suppressed the boundary layer at the injector exit, finding that interface instabilities are reduced in such case. They concluded then that "\textsl{boundary layer effects, such as vorticity or variations of mean velocities from viscous effects, play a dominant role in primary breakup} (sic)".
 
-A view of the nozzle for the high Weber case colored by $y^+$ is displayed in Figure \ref{fig:injector_visualization_y_plus}. Both fine and coarse resolutions are shown. The $y^+$ is a scalar magnitude representing the dimensionless distance from the first cell to the wall, and indicates the level of resolution in the vicinity of the walls: high values ($y^+ > 12$) mean that the boundary layer is poorly resolved and wall functions are needed as boundary conditions, while low values denote good resolution and wall laws can be avoided \citepColor[pope_turbulent_2000]. Figure \ref{fig:injector_visualization_y_plus} shows the $y^+$ distribution to be low in both nozzles. The PDF of the $y^+$ at the injector walls for both cases is plotted in Figure \ref{fig:jicf_nozzle_y_plus_PDF}: its magnitude is always lower than $15$, hence the wall is properly resolved in both cases and no wall functions are needed, which justifies the choice of non-slip wall boundary condition as indicated in Figure \ref{fig:numerical_setup_maquette_JICF_DLR}.  The coarse resolution shows the smallest $y^+$ to be around 4, while the fine one displays values close to 1 and higher presence of elements with $y^+$ between 1 and 5. In fact, the case $\Delta x_\mathrm{min} = 10 ~\mu$m shows smaller $y^+$ values in the top part of the injector, close to the outlet. A zoomed-in view of this section in Figure \ref{fig:jicf_nozzle_y_plus_PDF} shows that the cell is finer in a region spanning $120~ \mu$m upstream the nozzle exit: here, the mesh size is $10~ \mu$m for the fine case while the coarse simulation contains elements with $20 ~\mu$m cell size. The reason is that the levelset band has been set to 12 cells from the liquid interfacen, and the interface is attached to the nozzle edges at the exit of the injector: the refinement extends then up to 12 cells upstream the injection point, creating a region of $120~\mu$m with cells of $10~\mu$m size. For the coarse case, the same applies but with a cell size of $20~\mu$m (and therefore a refinement region of $240~\mu$m length). As a consequence, the $y^+$ values are low in the end section of the nozzle for the fine case, yielding cells with $y^+ < 5$ (an $y^+ < 5$ indicates that the viscous sublayer, which is the closest part of the boundary layer close to the wall, is resolved) as shown by the PDF of Figure \ref{fig:jicf_nozzle_y_plus_PDF} which are not captured by the coarse case. 
+A view of the nozzle for the high Weber case colored by $y^+$ is displayed in Figure \ref{fig:injector_visualization_y_plus}. Both fine and coarse resolutions are shown. The $y^+$ is a scalar magnitude representing the dimensionless distance from the first cell to the wall, and indicates the level of resolution in the vicinity of the walls: high values ($y^+ > 12$) mean that the boundary layer is poorly resolved and wall functions are needed as boundary conditions, while low values denote good resolution and wall laws can be avoided \citepColor[pope_turbulent_2000]. Figure \ref{fig:injector_visualization_y_plus} shows the $y^+$ distribution to be low in both nozzles. The PDF of the $y^+$ at the injector walls for both cases is plotted in Figure \ref{fig:jicf_nozzle_y_plus_PDF}: its magnitude is always lower than $15$, hence the wall is properly resolved in both cases and no wall functions are needed, which justifies the choice of non-slip wall boundary condition as indicated in Figure \ref{fig:numerical_setup_maquette_JICF_DLR}.  The coarse resolution shows the smallest $y^+$ to be around 4, while the fine one displays values close to 1 and higher presence of elements with $y^+$ between 1 and 5. In fact, the case $\Delta x_\mathrm{min} = 10 ~\mu$m shows smaller $y^+$ values in the top part of the injector, close to the outlet. A zoomed-in view of this section in Figure \ref{fig:injector_visualization_y_plus} shows that the cell is finer in a region spanning $120~ \mu$m upstream the nozzle exit: here, the mesh size is $10~ \mu$m for the fine case while the coarse simulation contains elements with $20 ~\mu$m cell size. The reason is that the levelset band has been set to 12 cells from the liquid interfacen, and the interface is attached to the nozzle edges at the exit of the injector: the refinement extends then up to 12 cells upstream the injection point, creating a region of $120~\mu$m with cells of $10~\mu$m size. For the coarse case, the same applies but with a cell size of $20~\mu$m (and therefore a refinement region of $240~\mu$m length). As a consequence, the $y^+$ values are low in the end section of the nozzle for the fine case, yielding cells with $y^+ < 5$ (an $y^+ < 5$ indicates that the viscous sublayer, which is the closest part of the boundary layer close to the wall, is resolved) as shown by the PDF of Figure \ref{fig:jicf_nozzle_y_plus_PDF} which are not captured by the coarse case. 
 
 
 \begin{figure}[ht]
@@ -1337,7 +1337,7 @@ A view of the nozzle for the high Weber case colored by $y^+$ is displayed in Fi
 \begin{figure}[ht]
 	\centering
    \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/instabilities_resolution/y_plus_injector}
-   \vspace{-0.35in}
+   \vspace{-0.15in}
    \caption{PDF of $y^+$ at the nozzle walls for high Weber cases}
    \label{fig:jicf_nozzle_y_plus_PDF}
 \end{figure}
@@ -1347,7 +1347,7 @@ A view of the nozzle for the high Weber case colored by $y^+$ is displayed in Fi
 
 A cut on the $y = 0$ plane with a view on the nozzle region is displayed in Figure \ref{fig:jicf_injector_resolution_with_mesh}.  For $x < 0$ the element size field $\Delta x$ in the fine resolution simulation is shown, while the coarse one is displayed for $x > 0$. The interface outside the injector is highlighted by the white contour, and the band limits are denoted by the black contour. The metric at the band region is smaller for the fine resolution, which is straightforward since this is the region with imposed $\Delta x_\mathrm{min}$. The band attaches inside the injector and refines the wall in this region, producing a better wall resolution for the fine simulation as it was shown in Figure \ref{fig:injector_visualization_y_plus}. Below the band reattachment location, the nozzle walls are not refined but the rest of the injector is due to the transition from the cell size $\Delta x_\mathrm{min}$ to the baseline cell size, as represented in Figure \ref{fig:AMR_strategy}. The refinement is found to extend upstream the straight section of the injector: the fine simulation contains smaller elements that the coarse one in this region, while both meshes then show similar element sizes in the tapered section of the nozzle as shown by the zoomed-in region of Figure \ref{fig:jicf_injector_resolution_with_mesh}.
 
-The improved resolution inside the last section of the nozzle as shown by Figure \ref{fig:jicf_injector_resolution_with_mesh} might have an impact on the development of turbulence in this region. Further insight is given in Figure \ref{fig:jicf_nozzle_y_plus_PDF}, where $TKE$ is displayed in two planes perpendicular to the flow direction at two vertical locations: $z = -0.35$ mm (in the middle of the injector, outside the levelset band refined region) and $z = 0$ mm (the nozzle exit, where cells are refined within the levelset band). The $TKE$ values are low at the center of the injector and high around the walls: in fact, the liquid Reynolds numbers $Re_l$ in the operating points considered (see Table \ref{tab:jicf_operating_conditions}) indicate laminar flow within the injector, hence the freestream liquid flow does not transition into a turbulent state and the turbulent content is null at the center of the injector. $TKE$ increases then at the walls due to the presence of the boundary layer. As observed in the Figure, the coarse case displays lows values of $TKE$ with respect to the fine simulation, where $TKE \sim 1$ closer to the walls around all its azimuthal perimeter. The differences in the turbulent state are seen both at $z = 0$ mm and at $z = -0.35$ mm due to the nozzle refinement from the levelset band location up to the tapered section.
+The improved resolution inside the last section of the nozzle as shown by Figure \ref{fig:jicf_injector_resolution_with_mesh} might have an impact on the development of turbulence in this region. Further insight is given in Figure \ref{fig:jicf_nozzle_disks}, where $TKE$ is displayed in two planes perpendicular to the flow direction at two vertical locations: $z = -0.35$ mm (in the middle of the injector, outside the levelset band refined region) and $z = 0$ mm (the nozzle exit, where cells are refined within the levelset band). The $TKE$ values are low at the center of the injector and high around the walls: in fact, the liquid Reynolds numbers $Re_l$ in the operating points considered (see Table \ref{tab:jicf_operating_conditions}) indicate laminar flow within the injector, hence the freestream liquid flow does not transition into a turbulent state and the turbulent content is null at the center of the injector. $TKE$ increases then at the walls due to the presence of the boundary layer. As observed in the Figure, the coarse case displays lows values of $TKE$ with respect to the fine simulation, where $TKE \sim 1$ closer to the walls around all its azimuthal perimeter. The differences in the turbulent state are seen both at $z = 0$ mm and at $z = -0.35$ mm due to the nozzle refinement from the levelset band location up to the tapered section.
 
 \clearpage
 
@@ -1362,11 +1362,11 @@ The improved resolution inside the last section of the nozzle as shown by Figure
 	\centering
    \includegraphics[scale=0.5]{./part2_developments/figures_ch5_resolved_JICF/instabilities_resolution/injector_visualization_disks}
    \caption{Planes within the injector showing TKE at locations $z = 0, -0.35$ mm for the high Weber case}
-   \label{fig:jicf_nozzle_y_plus_PDF}
+   \label{fig:jicf_nozzle_disks}
 \end{figure}
 
 
-The profiles of mean vertical velocity $\overline{w}$, $TKE$ and mean vorticity magnitude $|\overline{\omega}|$ obtained at the black lines from Figure \ref{fig:jicf_nozzle_y_plus_PDF} are plotted in Figure \ref{fig:jicf_data_lines_inside_injector}.. Due to symmetry of all profiles, only the first half has been shown. The boundary layer thicknesses $\delta$ have been obtained as the points where $\overline{w}$ decrease to $99~\%$ of its value at the center ($x = 0$ mm). The $\overline{w}$ graph shows that thickness and $\overline{w}$ profiles are obtained depending on the resolution $\Delta x_\mathrm{min}$ employed: the fine case shows a thinner boundary layer and a steeper $\overline{w}$ profile, specially at $z = 0$ mm. The $TKE$ and mean vorticity profiles show higher contents in both within the boundary layer for the fine case: in the case of $TKE$, case UG100\_DX20 shows a peak of $0.2~J.kg^{-1}$ magnitude while case UG100\_DX10 retrieves $0.57~J.kg^{-1}$, which is almost three times larger. This higher liquid turbulent state within the injector for the fine resolution could cause the initial interface perturbations that develop into the surface instabilities not captured in the coarse case. Nevertheless, it is not clear whether the differences in the turbulent state are significant to trigger instabilities: even though there is a ratio of 3 between the maximum $TKE$ found among resolutions, the relation $TKE/ \left( 0.5 u_l^2 \right)$ (i.e. TKE againt bulk liquid kinetic energy) is of $0.075~\%$ for UG100\_DX20 and of $0.2~\%$ for UG100\_DX10, while turbulent liquid jets where the turbulence within the injector is thought to create the instabilities \citepColor[xiao_large_2013] yield ratios of the order of $TKE/ \left( 0.5 u_l^2 \right) \sim 2 \%$ \citepColor[tretola_effect_2021]. Such low values on TKE could suppose that turbulent fluctuations do not reach the threshold to overcome surface tension forces, meaning that they would not be the cause of the instabilities \citepColor[lee_primary_2007]. Nevertheless, this cannot be concluded from this study and further research is needed in this direction.
+The profiles of mean vertical velocity $\overline{w}$, $TKE$ and mean vorticity magnitude $|\overline{\omega}|$ obtained at the black lines from Figure \ref{fig:jicf_nozzle_disks} are plotted in Figure \ref{fig:jicf_data_lines_inside_injector}.. Due to symmetry of all profiles, only the first half has been shown. The boundary layer thicknesses $\delta$ have been obtained as the points where $\overline{w}$ decrease to $99~\%$ of its value at the center ($x = 0$ mm). The $\overline{w}$ graph shows that thickness and $\overline{w}$ profiles are obtained depending on the resolution $\Delta x_\mathrm{min}$ employed: the fine case shows a thinner boundary layer and a steeper $\overline{w}$ profile, specially at $z = 0$ mm. The $TKE$ and mean vorticity profiles show higher contents in both within the boundary layer for the fine case: in the case of $TKE$, case UG100\_DX20 shows a peak of $0.2~J.kg^{-1}$ magnitude while case UG100\_DX10 retrieves $0.57~J.kg^{-1}$, which is almost three times larger. This higher liquid turbulent state within the injector for the fine resolution could cause the initial interface perturbations that develop into the surface instabilities not captured in the coarse case. Nevertheless, it is not clear whether the differences in the turbulent state are significant to trigger instabilities: even though there is a ratio of 3 between the maximum $TKE$ found among resolutions, the relation $TKE/ \left( 0.5 u_l^2 \right)$ (i.e. TKE againt bulk liquid kinetic energy) is of $0.075~\%$ for UG100\_DX20 and of $0.2~\%$ for UG100\_DX10, while turbulent liquid jets where the turbulence within the injector is thought to create the instabilities \citepColor[xiao_large_2013] yield ratios of the order of $TKE/ \left( 0.5 u_l^2 \right) \sim 2 \%$ \citepColor[tretola_effect_2021]. Such low values on TKE could suppose that turbulent fluctuations do not reach the threshold to overcome surface tension forces, meaning that they would not be the cause of the instabilities \citepColor[lee_primary_2007]. Nevertheless, this cannot be concluded from this study and further research is needed in this direction.
 
 
 \begin{figure}[ht]
@@ -1413,7 +1413,7 @@ The profiles of mean vertical velocity $\overline{w}$, $TKE$ and mean vorticity 
 
 
 %\textbf{Ver tambien refs: 2013-Xiao, 2020-zhou, 2017-zhanng}
-The former analysis on the conditions within the liquid injection nozzle have shown that the boundary layer is more resolved in the fine JICF case, hence showing higher values in the $TKE$ and mean vorticity. However, it is not clear whether these higher turbulent state within the injector is sufficient to cause the interface instabilities which are present in the fine simulations but not in the coarse one. The liquid conditions within the injector are laminar, and a previous study on laminar and turbulent liquid JICF (\textbf{ref:2013-xiao}) suggested that for turbulent liquid conditions the instabilities are caused by the turbulent state of the liquid, while in laminar jets the liquid turbulence does not play a paramount role and instabilities are instead triggered by shear cause by the incoming gaseous crossflow. The influences of the interface mesh resolution $\Delta x_\mathrm{min}$ are examined in the following lines.
+The former analysis on the conditions within the liquid injection nozzle have shown that the boundary layer is more resolved in the fine JICF case, hence showing higher values in the $TKE$ and mean vorticity. However, it is not clear whether these higher turbulent state within the injector is sufficient to cause the interface instabilities which are present in the fine simulations but not in the coarse one. The liquid conditions within the injector are laminar, and a previous study on laminar and turbulent liquid JICF \citepColor[xiao_large_2013] suggested that for turbulent liquid conditions the instabilities are caused by the turbulent state of the liquid, while in laminar jets the liquid turbulence does not play a paramount role and instabilities are instead triggered by shear cause by the incoming gaseous crossflow. The influences of the interface mesh resolution $\Delta x_\mathrm{min}$ are examined in the following lines.
 
 
 
@@ -1498,7 +1498,7 @@ The error $\varepsilon_i$ is then obtained and plotted for all the abscissa valu
 
 %Different methods to obtain trajectories from resolved simulations were proposed in $\S$\ref{sec:ch5_tools_jicf_trajectories}. These methods are summarized in Table \ref{tab:jicf_tools_trajectories_obtention}. In this section, firstly  the four methods described are applied to the simulation UG100\_DX20, the trajectories obtained are then compared and discussed. Secondly, the method MEAN\_GRAD is chosen to perform experimental validation with all simulations from Table \ref{tab:jicf_resolved_simulations_performed}. \hl{Finally, a comparison of the $L_2$ errors based on the maximum distance downstream in the trajectory ...}
 
-The jet establishment discussed in $\S$\ref{sec:ch5_jet_evolution} showed that the jet is not developed at the early instants of injection. At these stages, the quantity of liquid inside the domain is low and the gaseous field at the vicinity of the injector is not perturbed by the jet along the region where instabilities are developed and the jet starts to atomize. Hence, the jet penetration at the early instants might not be representative of the trajectory followed afterwards, and so trajectories are obtained after a certain establishment time which here is taken as 1 time of the characteristic liquid time $\tau_{\mathrm{dr}_{x=10}}$. All gaseous and liquid fields statistics (velocity, pressure, $\psi$, etc. mean and RMS values) are reinitialised after this establishment time, hence the trajectories based on the mean $\psi$ field do not consider this prompt transient. Instantaneous trajectories averaged for obtaining mean trajectories based on them are also taken after this time.
+The jet establishment discussed in $\S$\ref{sec:ch5_jet_evolution} showed that the jet is not developed at the early instants of injection. At these stages, the quantity of liquid inside the domain is low and the gaseous field at the vicinity of the injector is not perturbed by the jet along the region where instabilities are developed and the jet starts to atomize. Hence, the jet penetration at the early instants might not be representative of the trajectory followed afterwards, and so trajectories are obtained after a certain establishment time which here is taken as $\sim 2 \tau_{\mathrm{dr}_{x=10}}$. All gaseous and liquid fields statistics (velocity, pressure, $\psi$, etc. mean and RMS values) are reinitialised after this establishment time, hence the trajectories based on the mean $\psi$ field do not consider this prompt transient. Instantaneous trajectories averaged for obtaining mean trajectories based on them are also taken after this time.
 
 
 \subsection{Comparison of obtention methods}
@@ -1718,7 +1718,7 @@ Each steep decay in the cycles of the sawtooth signals $x_b (t), z_b (t)$ is ass
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/instant_xb_zb_w_UG75_DX10}
-   \vspace*{-0.25in}
+   \vspace*{-0.3in}
    \caption{Case UG75\_DX10}
    \label{fig:instant_xb_zb_w_UG75_DX10} 
 \end{subfigure}
@@ -1726,7 +1726,7 @@ Each steep decay in the cycles of the sawtooth signals $x_b (t), z_b (t)$ is ass
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/instant_xb_zb_w_UG75_DX20}
-   \vspace*{-0.25in}
+   \vspace*{-0.3in}
    \caption{Case UG75\_DX20}
    \label{fig:instant_xb_zb_w_UG75_DX20}
 \end{subfigure}
@@ -1839,12 +1839,13 @@ Figure \ref{fig:dense_core_mean_parameters_scatterplots} reveals also a slight d
 
 \begin{table}[!h]
 \centering
-\caption{Dense core mean lengths $L_\mathrm{DC}~[\mathrm{mm}]$ for JICF simulations performed}
+\caption{Dense core mean lengths $L_\mathrm{DC}$ and widths $w$ from JICF simulations performed}
 \begin{tabular}{cccccc}
 \thickhline
 \textbf{Case} &  UG75\_DX10 & UG75\_DX20 & UG100\_DX10 & UG100\_DX20 &  UG100\_DX20\_NT \\
 \hline
 $L_\mathrm{DC}/d_\mathrm{inj}$ & 9.05 & 12.47 & 8.75 & 12.53 & 12.49 \\
+$w/d_\mathrm{inj}$ & 4.60 & 4.29 & 4.62 & 4.28 & 4.24 \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_L_DC_values}
@@ -1870,8 +1871,8 @@ S_\mathrm{DC} = \frac{\left( d_\mathrm{inj} + \overline{w} \right) L_\mathrm{DC}
 \end{equation}
 
 \begin{figure}[ht]
-\flushleft
-\includeinkscape[inkscapelatex=false,scale=0.37]{./part2_developments/figures_ch5_resolved_JICF/pressure_obtention_mean_DC/extraction_methodology_mean_DC}
+\centering
+\includeinkscape[inkscapelatex=false,scale=0.33]{./part2_developments/figures_ch5_resolved_JICF/pressure_obtention_mean_DC/extraction_methodology_mean_DC}
 \caption[Methodology to obtain windward and leeward surfaces of mean dense core from resolved atomization simulations]{Methodology to obtain windward and leeward surfaces of mean dense core from resolved atomization simulations. The displayed dense core corresponds to case UG100\_DX10.}
 \label{fig:extraction_methodology_mean_DC}
 \end{figure}
@@ -1883,13 +1884,13 @@ For estimating the mean pressures, the procedure schematized in Figure \ref{fig:
 \flushleft
 \begin{subfigure}[b]{0.45\textwidth}
 	\flushleft
-   \includegraphics[scale=0.3]{./part2_developments/figures_ch5_resolved_JICF/pressure_obtention_mean_DC/p_mean_scatter_UG100_DX10_windward}
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/pressure_obtention_mean_DC/p_mean_scatter_UG100_DX10_windward}
    %\label{} 
 \end{subfigure}
 \hspace{0.5in}
 \begin{subfigure}[b]{0.45\textwidth}
 	\flushleft
-   \includegraphics[scale=0.3]{./part2_developments/figures_ch5_resolved_JICF/pressure_obtention_mean_DC/p_mean_scatter_UG100_DX10_leeward}
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/pressure_obtention_mean_DC/p_mean_scatter_UG100_DX10_leeward}
    %\label{}
 \end{subfigure}
 \caption[Projection of the windward and leeward surfaces in the $x-y$ plane colored by $\overline{p}$.]{Projection of the windward and leeward surfaces in the $x-y$ plane colored by $\overline{p}$. The dashed circumference denotes the injection nozzle.}
@@ -1907,11 +1908,11 @@ The mean pressures $p_\mathrm{windward}$ $p_\mathrm{leeward}$ are defined as the
 \thickhline
 \textbf{Case} & $p_\mathrm{windward}$ [Pa] & $p_\mathrm{leeward}$ [Pa] & $S_\mathrm{DC}$ [mm$^2$]& $|\boldsymbol{F}_\mathrm{DC}|$ [N] \\
 \thickhline 
-UG75\_DX10  & & & &  \\
-UG75\_DX20  & & & & \\
-UG100\_DX10 & 10,400 & -8,800 & 5 & 0.095 N \\
-UG100\_DX20 & & & & \\
-UG100\_DX20\_NT & \hl{-} & \hl{-} & & \\
+UG75\_DX10  & 5,200 & -6,100 & 5.1 & 0.058  \\
+UG75\_DX20  & 3,200 & -8,000 & 6.7 & 0.074 \\
+UG100\_DX10 & 10,400 & -8,800 & 5.0 & 0.095 \\
+UG100\_DX20 & 5,700 & -14,000 & 6.7 & 0.13 \\
+UG100\_DX20\_NT & 5,000 & -14,000 & 6.6 & 0.12 \\
 \thickhline
 \end{tabular}
 \label{tab:dense_core_pressures_and_force_parameters}
@@ -2015,7 +2016,7 @@ Figure \ref{fig:JICF_sps_lines_y0_along_z_ux_mean} shows the velocity profiles a
 
 \begin{figure}[ht]
 \flushleft
-   \includegraphics[scale=0.26]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/lines_y0_along_z_ux_mean}
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/lines_y0_along_z_ux_mean}
 \caption{Mean axial velocity evolution along vertical coordinate at $x = 1, 2.5, 5, 10, 15$ mm locations of plane $y = 0$ (lines of Figure \ref{fig:JICF_turbulent_structures_plane_y0})}
 \label{fig:JICF_sps_lines_y0_along_z_ux_mean}
 \end{figure}
@@ -2097,13 +2098,12 @@ Firstly, the total flow rates through the interior boundaries are calculated. It
 \label{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX10}
 \end{figure}
 
-\vspace*{-0.25in}
 
 \subsection{Obtention of mean flow rates}
 
 The mean liquid flow rates through the sampling planes are obtained by applying Eq. (\ref{eq:Q_lIB_definition_with_Ne_and_No}). The IBs are firstly monitored at every time instant of the simulation. Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX10} shows an example of instantaneous liquid flow rates $Q_l$ obtained from case UG100\_DX10. Two IBs perpendicular to the $x$ axis ($x = $ 5, 10 mm) are shown in the left image, and two filming IBs ($x < $ 5, 10 mm) are shown in the right one. The injected flow rate, which is constant, is also plotted in the left figure as a dashed solid line. As observed, the fluxes in Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX10} left show a high variation around the injected flux in both planes. This is due to an intermittent presence of liquid crossing the sampling planes once atomization has started taken place: the liquid phase is no longer a coherent jet but is composed by an ensemble of ligaments and droplets. At some time instants there will be large liquid structures, or a high number of small of them (i.e. high volume of liquid), crossing an IB, hence the instantaneous flux can be larger than the injected flow rate. At other time instants this quantity will be lower, hence the instantaneous flux is smaller than the injected flow rate. This can be quantitatively verified by looking at, for instance, Figure \ref{fig:JICF_establishment_UG100_lateral}. In the case of a flux increase caused by large liquid structures, these correspond to the ligaments stripping from the dense core during the column breakup mechanism, whose transient is behaviour as studied in $\S$\ref{subsec:ch5_DC_topology_characterization}. In the case of a flux increase due to small droplets, these ones might be due to an ensemble of droplets caused by surface breakup and initially trapped in the recirculation region behind the dense core (see $\S$\ref{ch5:subsec_turbulent_structures_in_gaseous_field}): when leaving this zone, they are convected downstream and their flux then adds up to other droplets crossing the plane at the same instants. 
 
-Regarding the filming fluxes from Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX10} right, these present lower magnitudes than the ones from the planes normal to the crossflow but still display a varying behaviour which, in some cases, can descend up to $0$. This is coherent, since the instantaneous filming fluxes measure the quantity of liquid impinging the bottom wall at every time instant: in some cases there is no liquid reaching the wall, while in others there is a big quantity of droplets filming and creating the peaks of high $Q_l$, as the ones shown around $t^{\prime} \sim 3$ in the corresponding figure.
+Regarding the filming fluxes from Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX10} right, these present lower magnitudes than the ones from the planes normal to the crossflow but still display a varying behaviour which, in some cases, can descend up to $0$. This is coherent, since the instantaneous filming fluxes measure the quantity of liquid impinging the bottom wall at every time instant: in some cases there is no liquid reaching the wall, while in others there is a considerable amount of droplets filming and creating the peaks of high $Q_l$, as the ones shown around $t^{\prime} \sim 3$ in the corresponding figure.
 
 Due to the intermittent behaviour of the jet downstream the injection nozzle, the instantaneous fluxes are not useful to characterize the flow rates in the IBs. Instead, the mean and RMS fluxes provide useful information on the mass conservation in the JICF. The evolution of the mean and RMS values of IBs flow rates with time is shown in Figure \ref{fig:IB_mean_RMS_Ql_evolution}. Statistics have been taken from $t^{\prime} \sim 2$ onwards in all cases, as for all other studied in this chapter. The evolution of $\overline{Q}_l$ in the perpendicular IBs (Figure \ref{fig:IB_mean_RMS_Ql_evolution}a) shows that all cases tend towards convergence: the fine cases are shown to be completely converged, while the fine ones show some oscillations at the last timesteps sampled but with a lower amplitude, indicating that they are almost converged. In all cases, the mean values for perpendicular IBS are reduced downstream the crossflow, while the mean filming ones are increased. The RMS values of Figure \ref{fig:IB_mean_RMS_Ql_evolution}b show high magnitudes caused by the high fluctuations in the flow rates as illustrated in Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX10}a, which are present in all cases. The steep increases in the RMS at certain times is due to a high volume of liquid crossing the IB at the corresponding instant, as previously discussed before when commenting Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX10}.
 
@@ -2180,7 +2180,7 @@ Due to the intermittent behaviour of the jet downstream the injection nozzle, th
 \begin{subfigure}[b]{0.9\textwidth}
 	\centering
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/flow_rates_ibs/bar_graph_total_IBs}
-   \caption{Total (perpendicular + filming) frow rates from IBs}
+   \caption{Total (perpendicular + filming) flow rates from IBs}
    \label{fig:IB_bargraph_total}
 \end{subfigure}
 \caption{Mean flow rates (bars) and RMS (black vertical lines) obtained with IBs for each simulation.}
@@ -2432,12 +2432,12 @@ The mass losses at the end of the run are shown in Figure \ref{fig:JICF_liquid_e
 
 
 
-The effect of the number steps to perform the steps of the levelset reinitialization equation (\ref{eq:acls_reinit_2017}), $N_\mathrm{reinit}$, is increased increased from 3 to 6. Increasing the number of steps helps to better maintain the hyperbolic tangent profile of the levelset, to avoid numerical and to reduce spurious oscillations around the interface in flows where the interface is highly deformed (\textbf{ref:2014-McCasin}), as it is the case of the JICF operating conditions studied in this chapter. Consequently, the interface location $\psi = 0.5$ is better determined and the levelset transport is more accurate. Figure \ref{fig:JICF_liquid_losses_bar_graph}b shows that the $V_l$ curve gets closer to the $V_{l,\mathrm{NF}}$ for all the simulation; in other words, the amount of loss $\Delta V_{l,\mathrm{BF}}$ is reduced. The absolute amount of liquid loss $\Delta V_l$ as given in Figure \ref{fig:JICF_liquid_losses_bar_graph}a is reduced with respect to Case 1, and the percentual contribution of the band flagging to the total loss, given in Figure \ref{fig:JICF_liquid_losses_bar_graph}b, is also reduced: $35~\%$ for $\Delta V_{l,\mathrm{BF}}$ with respect to $65~\%$ obtained for $\Delta V_{l,\mathrm{NBF}}$. It is therefore demonstrated that increasing $N_\mathrm{reinit}$ has a positive effect in mass conservation.
+The effect of the number steps to perform the steps of the levelset reinitialization equation (\ref{eq:acls_reinit_2017}), $N_\mathrm{reinit}$, is increased increased from 3 to 6. Increasing the number of steps helps to better maintain the hyperbolic tangent profile of the levelset, to avoid numerical and to reduce spurious oscillations around the interface in flows where the interface is highly deformed \citepColor[mccaslin_localized_2014], as it is the case of the JICF operating conditions studied in this chapter. Consequently, the interface location $\psi = 0.5$ is better determined and the levelset transport is more accurate. Figure \ref{fig:JICF_liquid_losses_bar_graph}b shows that the $V_l$ curve gets closer to the $V_{l,\mathrm{NF}}$ for all the simulation; in other words, the amount of loss $\Delta V_{l,\mathrm{BF}}$ is reduced. The absolute amount of liquid loss $\Delta V_l$ as given in Figure \ref{fig:JICF_liquid_losses_bar_graph}a is reduced with respect to Case 1, and the percentual contribution of the band flagging to the total loss, given in Figure \ref{fig:JICF_liquid_losses_bar_graph}b, is also reduced: $35~\%$ for $\Delta V_{l,\mathrm{BF}}$ with respect to $65~\%$ obtained for $\Delta V_{l,\mathrm{NBF}}$. It is therefore demonstrated that increasing $N_\mathrm{reinit}$ has a positive effect in mass conservation.
 
 
 \subsubsection*{Case 3: Effect of $\Delta x_\mathrm{min}$}
 
-Figure \ref{fig:jicf_mass_loss_baseline_and_dx10}b shows an instantaneous snapshot at the end of the simulaton performed with $\Delta x_\mathrm{min} = 10~\mu$m. It is seen that liquid disappearance is more distributed in space than Case 1, which is due to a higher amount of droplets generated by surface and column breakup with a size close to the mesh resolution. At a first glance at the figure, it might seem that the total amount of liquid lost is larger than for case 1: nevertheless, Figure \ref{fig:JICF_liquid_losses_bar_graph}a shows that the total volume loss is of the same order than in Case 1, while the percentual contribution of $\Delta V_{l,\mathrm{BF}}$ is lower than for Case 1 ($78~\%$ with respect to $88~\%$) as given in Figure  \ref{fig:JICF_liquid_losses_bar_graph}b. Effectively, by increasing the mesh resolution from $_Delta x_\mathrm{min}$ = 20 to 10 $\mu$m, the droplets disappearing are of the order of this value and therefore, each individual droplet contains less volume than one droplet disappearing with a size of 20 $\mu$m. Even there are more droplets disappearing, the total volume being removed by band flagging is lower than in Case 1. There is on the other hand, according to Figure \ref{fig:JICF_liquid_losses_bar_graph}a, an increase in the absolute loss produced outside the band flagging process. by looking at Figure \ref{fig:JICF_liquid_evolution_loss_due_to_set_levelset_band}c, one can see that the reductions in $V_{l,NF}$ also occur during the adaptation iterations. The increase in $\Delta V_{l,\mathrm{NBF}}$ could be due to the fact that by reducing the interface cell size, the adaptation process needs to locate more cells around the interface and finds more difficulties to adapt its neighbouring elements within the levelset band so that their size increases progressively from $\Delta x_\mathrm{min}$ to the baseline mesh resolution. This will also suppose an important increase in the cost of the simulations, as it will be later shown in $\S$\ref{subsec:ch5_computational_performances}. Nevertheless, Figure \ref{fig:JICF_liquid_evolution_loss_due_to_set_levelset_band}c shows that, as in Case 1, the mass loss in the AMR process does not occur at every adaptation iteration but only at a few of them, and also that more AMR iterations have been performed in Case 3 than in Case 1 (for the same time period simulated). If the same number of AMR iterations had been performed, the value of $\Delta V_{l,\mathrm{NBF}}$ might be different: however, the frequency of AMR iterations is calculated automatically by Eq. (\ref{eq:ch2_N_iter_adapt_AMR}) and its possible influence has not been addressed in this study. 
+Figure \ref{fig:jicf_mass_loss_baseline_and_dx10}b shows an instantaneous snapshot at the end of the simulaton performed with $\Delta x_\mathrm{min} = 10~\mu$m. It is seen that liquid disappearance is more distributed in space than Case 1, which is due to a higher amount of droplets generated by surface and column breakup with a size close to the mesh resolution. At a first glance at the figure, it might seem that the total amount of liquid lost is larger than for case 1: nevertheless, Figure \ref{fig:JICF_liquid_losses_bar_graph}a shows that the total volume loss is of the same order than in Case 1, while the percentual contribution of $\Delta V_{l,\mathrm{BF}}$ is lower than for Case 1 ($78~\%$ with respect to $88~\%$) as given in Figure  \ref{fig:JICF_liquid_losses_bar_graph}b. Effectively, by increasing the mesh resolution from $\Delta x_\mathrm{min}$ = 20 to 10 $\mu$m, the droplets disappearing are of the order of this value and therefore, each individual droplet contains less volume than one droplet disappearing with a size of 20 $\mu$m. Even there are more droplets disappearing, the total volume being removed by band flagging is lower than in Case 1. There is on the other hand, according to Figure \ref{fig:JICF_liquid_losses_bar_graph}a, an increase in the absolute loss produced outside the band flagging process. by looking at Figure \ref{fig:JICF_liquid_evolution_loss_due_to_set_levelset_band}c, one can see that the reductions in $V_{l,NF}$ also occur during the adaptation iterations. The increase in $\Delta V_{l,\mathrm{NBF}}$ could be due to the fact that by reducing the interface cell size, the adaptation process needs to locate more cells around the interface and finds more difficulties to adapt its neighbouring elements within the levelset band so that their size increases progressively from $\Delta x_\mathrm{min}$ to the baseline mesh resolution. This will also suppose an important increase in the cost of the simulations, as it will be later shown in $\S$\ref{subsec:ch5_computational_performances}. Nevertheless, Figure \ref{fig:JICF_liquid_evolution_loss_due_to_set_levelset_band}c shows that, as in Case 1, the mass loss in the AMR process does not occur at every adaptation iteration but only at a few of them, and also that more AMR iterations have been performed in Case 3 than in Case 1 (for the same time period simulated). If the same number of AMR iterations had been performed, the value of $\Delta V_{l,\mathrm{NBF}}$ might be different: however, the frequency of AMR iterations is calculated automatically by Eq. (\ref{eq:ch2_N_iter_adapt_AMR}) and its possible influence has not been addressed in this study. 
 
 
 
@@ -2578,7 +2578,6 @@ Comparing operating conditions, the fluxes for the high Weber point are larger t
 \label{fig:ibs_spatial_distributions}
 \end{figure}
 
-
 \clearpage
 
 \section{Spray characterization}
@@ -2590,56 +2589,100 @@ The previous sections have shown analysis of the JICF simulations for the gaseou
 
 \subsection{Establishment of mean sprays}
 
-Droplets are tracked lagrangially as they cross the sampling planes, and are accumulated with time in order to get a mean-converged spray. Firstly, an establishment time of $t^{\prime} = 2$ is left before droplets start to be accumulated in order to retrieve a representative spray of a established jet, as it was done in the rest of this chapter's sections to obtain mean values. Droplets are then accumulated for the accumulation times shown in Table \ref{tab:jicf_SLI_t_prime_accumulation}. The total number of droplets accumulated is shown in Table \ref{tab:jicf_SLI_Ndr_accumulated}.
+Droplets are tracked lagrangially as they cross the sampling planes, and are accumulated with time in order to get a mean-converged spray. Firstly, an establishment time of $t^{\prime} \sim 2$ for each case is left before droplets start to be accumulated in order to retrieve a representative spray of a established jet, as it was done in the rest of this chapter's sections to obtain mean values. Droplets are then accumulated for the accumulation times shown in Table \ref{tab:jicf_SLI_t_prime_accumulation}. The total physical times simulated $t_\mathrm{ph} \sim t_\mathrm{acc} + 2 \tau_\mathrm{dr_{x=10}}$ are also stated.Both the absolute physical time and the dimensionless time calculated through Eq. (\ref{eq:t_prime_with_tau_drx10}) are shown. From the absolute time, it can be seen the huge differences among coarse and fine simulations: the former are cheaper and can run with a larger timestep than the latter ones, therefore reaching a further physical time. For the low Weber case, the physical time reached by the coarse simulations goes 10 times further in physical time than the fine one, while the fine Weber case shows a factor of 15 among resolutions. If, on the other hand, the dimensionless times are considered, the ratio of simulated times among resolutions reduce to 8.6 and 12.9 for the low and high Weber cases respectively. This is caused by the differences in the timescale $\tau_\mathrm{dr}$ between resolutions, as these values are lower for the fine simulations (see Table \ref{tab:jicf_characteristic_droplet_sampling_times}). When taking about the convergence of injectors, the timescale $t^{\prime}$ is the one to consider since it related the droplet arrival time to the sampling planes. On the other hand, when discussing physical characteristic among simulations it is more convenient to use either the absolute physical time of the dimensionless time defined by the relation to the liquid inertia timescale, Eq. (\ref{eq:t_dimensionless_with_tau_in}).
+
 
 \begin{table}[!h]
 \centering
-\caption{Total accumulation times $t_\mathrm{acc}^{\prime}$ (Eq. \ref{eq:t_prime_with_tau_drx10}) for each simulation.}
-\begin{tabular}{lccc}
+\caption{Total accumulation times $t_\mathrm{acc}$  and $t_\mathrm{acc}^{\prime}$ (Eq. \ref{eq:t_prime_with_tau_drx10}) for each simulation.}
+\begin{tabular}{cccccc}
 \thickhline
-\textbf{Case} & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
-\thickhline 
-UG75\_DX10  &  &  & - \\
-UG75\_DX20  &   &  &   \\
-UG100\_DX10 &  &  & - \\
-UG100\_DX20 &  &  &   \\
-UG100\_DX20\_NT &  & & - \\
+ &  UG75\_DX10 & UG75\_DX20 & UG100\_DX10 & UG100\_DX20 &  UG100\_DX20\_NT \\
+\hline
+$t_\mathrm{ph}~[\mathrm{ms}]$ & 1.08 & 6.30 & 0.78 & 6.16 & 6.10 \\
+$t_\mathrm{ph}^{\prime}$ & 3.64 & 17.70 & 3.58 & 23.84 & 23.44 \\
+$t_\mathrm{acc}~[\mathrm{ms}]$ & 0.53 & 5.48 & 0.37 & 5.57 & 5.53 \\
+$t_\mathrm{acc}^{\prime}$ & 1.79& 15.40 & 1.67 & 21.54 & 21.24 \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_SLI_t_prime_accumulation}
 \end{table}
 
 
+The total number of droplets accumulated is shown in Table \ref{tab:jicf_SLI_Ndr_accumulated}.
+
+%\begin{table}[!h]
+%\centering
+%\caption{Number of droplets accumulated in JICF simulations}
+%\begin{tabular}{lccc}
+%\thickhline
+%\textbf{Case} & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
+%\thickhline 
+%UG75\_DX10  & 19384 & 11823 & - \\
+%UG75\_DX20  & 25036 & 20399 & 15979 \\
+%UG100\_DX10 & 12832 & 9333 & - \\
+%UG100\_DX20 & 35345 & 29986 & 19885 \\
+%UG100\_DX20\_NT & 36443 & 30221 & - \\
+%\thickhline
+%\end{tabular}
+%\label{tab:jicf_SLI_Ndr_accumulated}
+%\end{table}
+
+%\begin{table}[!h]
+%\centering
+%\caption{Number of droplets sampled in JICF simulations: total amount ($N_\mathrm{dr}$) and total amount per accumulated time $N_\mathrm{dr}/t_\mathrm{acc}^{\prime}$}
+%\begin{tabular}{cccccccc}
+%\thickhline
+%\multirow{2}{*}{ \textbf{Case}}  & \multicolumn{3}{c}{$N_\mathrm{dr}$} & & \multicolumn{3}{c}{$N_\mathrm{dr}/t_\mathrm{acc}^{\prime}$} \\
+%\cline{2-4} \cline{6-8}
+%& $x = 5$ mm & $x = 10$ mm & $x = 15$ mm &  & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
+%\thickhline 
+%UG75\_DX10  & 19384 & 11823 & -  & & 10812 & 6594 & - \\
+%UG75\_DX20  & 25036 & 20399 & 15979  & & 1626 & 1325 & 1038\\
+%UG100\_DX10 & 12832 & 9333 & -  & & 7681 & 5587 & - \\
+%UG100\_DX20 & 35345 & 29986 & 19885  & & 1641 & 1393 & 923 \\
+%UG100\_DX20\_NT & 36443 & 30221 & -  & & 1716 & 1423 & - \\
+%\thickhline
+%\end{tabular}
+%\label{tab:jicf_SLI_Ndr_accumulated}
+%\end{table}
+
 \begin{table}[!h]
 \centering
-\caption{Number of droplets accumulated in JICF simulations}
-\begin{tabular}{lccc}
+\caption{Number of droplets sampled in JICF simulations: total amount ($N_\mathrm{dr}$) and total amount per accumulation time $N_\mathrm{dr}/t_\mathrm{acc}$}
+\begin{tabular}{cccccccc}
 \thickhline
-\textbf{Case} & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
+\multirow{2}{*}{ \textbf{Case}}  & \multicolumn{3}{c}{$N_\mathrm{dr}$} & & \multicolumn{3}{c}{$N_\mathrm{dr}/t_\mathrm{acc}~[\mathrm{ms}^{-1}]$} \\
+\cline{2-4} \cline{6-8}
+& $x = 5$ mm & $x = 10$ mm & $x = 15$ mm &  & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
 \thickhline 
-UG75\_DX10  & 14233 & 20677 & - \\
-UG75\_DX20  &  6882 & 12224 & 12077 \\
-UG100\_DX10 & 16442 & 11087 & - \\
-UG100\_DX20 & 21824 & 17793 & 9476 \\
-UG100\_DX20\_NT &  & & - \\
+UG75\_DX10  & 19384 & 11823 & -  & & 36574 & 22307 & - \\
+UG75\_DX20  & 25036 & 20399 & 15979  & & 4569 & 3722 & 2916 \\
+UG100\_DX10 & 12832 & 9333 & -  & & 34681 & 25224 & - \\
+UG100\_DX20 & 35345 & 29986 & 19885  & & 6346 & 5384 & 3570 \\
+UG100\_DX20\_NT & 33443 & 27221 & -  & & 6048 & 4922 & - \\
+%UG100\_DX20\_NT & 36443 & 30221 & -  & & 6595 & 5469 & - \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_SLI_Ndr_accumulated}
 \end{table}
 
-In first place, the establishment of the accumulated sprays is verified by checking the evolution of SMD and liquid flux $Q_l$, defined respectively by Eqs. (\ref{eq:ch4_SMD_definition}) and (\ref{eq:ch4_Ql_definition}), with time. Figure \ref{fig:ch5_spray_char_establishment} shows the results. \hl{As observed ...}.
 
-\hl{Tenemos que comprobar lo siguiente}:
 
-\begin{itemize}
 
-	\item \hl{Por que demonios algunos SMDs y flujos en el mismo caso tienden al mismo valor ???}
-	
-	\item \hl{Por que demonios en caso UG100\_DX10, el SMD de x = 5 mm es mayor que el de x = 10 mm ??}
 
-\end{itemize}
 
-\clearpage
+
+
+
+
+
+
+In first place, the establishment of the accumulated sprays is verified by checking the evolution of SMD and liquid flux $Q_l$, defined respectively by Eqs. (\ref{eq:ch4_SMD_definition}) and (\ref{eq:ch4_Ql_definition}), with time. Figure \ref{fig:ch5_spray_char_establishment} shows the results. As observed, all cases shows stabilization at the end of the sampling period considered. The flow rates show a decrease in the stabilized values with axial distance: the further from the injector, the larger the mass losses as obtained through the interior boundaries methodology and demonstrated in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}. The SMD values show a decrease of the final values with axial distance, which is expected since the atomization process breaks liquid structures into smaller ones. Further comments on the atomization process are given in $\S$\ref{ch5:subsec_spray_char_granulo}. In both the SMD and $Q_l$ evolutions, abrupt changes in the evolution of the mean quantities are observed for most cases, specially at the beginning of the sampling period. This is due to the fact that, in some instants, large liquid structures generated from the column breakup process will be tracked when crossing the sampling planes: these structures contain a large liquid volume that is reflected in both the SMD and the flux evolution at the same instant. Later on the sampling process, the mean values are more stable and such step changes in the curves are not observed, even though these liquid structures are still being sampled.
+
+Apart from the SMD and mean flux, the spray is also characterized by its mean and RMS velocity components in the three directions and by the deformation parameters $\alpha, \beta$. The convergence of these parameters is reported in Appendix \ref{app:SLI_convergence}: all these show converged values, but are not discussed here.
+
+
 
 \begin{figure}[ht]
 	\centering
@@ -2653,71 +2696,65 @@ In first place, the establishment of the accumulated sprays is verified by check
    \includegraphics[width=0.33\textwidth]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/establishment_and_fluxes/establishment_UG100_DX20}
    \hspace*{-0.1in}
    \includegraphics[width=0.33\textwidth]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/establishment_and_fluxes/establishment_UG100_DX20_NT}
-   \caption{\hl{Establishment of SMD and $Q_l$ in injectors.}}
+   \caption{Establishment of SMD and $Q_l$ in injector}
 \label{fig:ch5_spray_char_establishment}
 \end{figure}
-
-The convergence of the rest of magnitudes (mean and RMS velocities and deformation parameters $\alpha$ and $\beta$) are shown in Appendix \ref{app:SLI_convergence}.
 
 
 \subsection{Liquid fluxes: lagrangian versus resolved}
 \label{subsec:ch5_sli_fluxes_vs_IBs}
 
-The establishment of lagrangian liquid fluxes was depicted in Figure \ref{fig:ch5_spray_char_establishment}. In order to verify the effectivity of SLI in terms of liquid mass conservation, the liquid fluxes obtained from lagrangian tracking (i.e. the $Q_l$ values at the last accumulation time instant of Figure \ref{fig:ch5_spray_char_establishment}) are compared to their equivalent obtained through interior boundaries, which are the resolved liquid fluxes obtained in the planes perpendicular to the crossflow shown in Figure Figure \ref{fig:IB_bargraph_perp}. Results are shown in the bar graph of Figure \ref{fig:fluxes_bargraph_IBs_vs_LGS} for all cases except for the simulation without turbulence. \hl{As observed ...}
+The establishment of lagrangian liquid fluxes was depicted in Figure \ref{fig:ch5_spray_char_establishment}. In order to verify the effectivity of SLI in terms of liquid mass conservation, the liquid fluxes obtained from lagrangian tracking (i.e. the $Q_l$ values at the last accumulation time instant of Figure \ref{fig:ch5_spray_char_establishment}) are compared to their equivalent obtained through interior boundaries, which are the resolved liquid fluxes obtained in the planes perpendicular to the crossflow shown in Figure \ref{fig:IB_bargraph_perp}. Results are shown in the bar graph of Figure \ref{fig:fluxes_bargraph_IBs_vs_LGS} for all cases except for the simulation without turbulence, which has not been quantified with the IBs. As observed, there is a good agreement between the resolved and lagrangian tracked mass flow rates. To explain the observed discrepancies, it is necessary to consider that droplets are defined by their center of mass location/velocity and volume, and they are lagrangially tracked when the center of mass crosses the sampling plane. To estimate when the center of mass crosses the sampling plane, the location is projected forward in time with the sampled velocity and the simulation timestep. Droplets are then considered as point particles modelled through only their location and velocity, their volume being neglected. In reality, resolved liquid structures exchange momentum with the gaseous phase through drag, which changes their velocity with time. This can lead to droplets being sampled twice (specially large ones, as their higher inertia creates more momentum exchange and the point-particle approximation overestimates the real velocity of the droplet), which would explain the flux increases, or to droplets not being sampled at all (such as smaller droplets which are not perturbed by the dense core and relax faster towards the gaseous phase, accelerating with time and making the lagrangian projection to underestimate their actual velocity), causing the mass decreases with respect to IBs. A possible solution would be to include a tag field for the liquid structures which is transported in time, although the convection of such field is hindered by the stochastic nature of primary atomization which makes it extremely difficult to predict the breakup time and number of droplets produced. Nevertheless, despite this main inconvenient the lagrangian tracking algorithm provides accurate values for fluxes plus also statistics on velocities and droplet volumes (which actually IBs cannot provide), making it a suitable tool to retrieve the spray characteristics. It is also shown later ($\S$\hl{\textbf{XX}}) that when the lagrangan spray is spatially discretized, the fluxes maps also match quite closely the spatially discrete fluxes obtained through IBs.
+
+
+
 
 \begin{figure}[ht]
 	\centering
-   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/establishment_and_fluxes/fluxes_SLI_vs_IBs}
+   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/establishment_and_fluxes/fluxes_SLI_vs_IBs}
    \caption{Liquid fluxes provided by interior boundaries (solid color bars) and lagrangian tracking (black-dashed color bars).}
    \label{fig:fluxes_bargraph_IBs_vs_LGS}
 \end{figure}
 
 
 \subsection{Granulometry}
+\label{ch5:subsec_spray_char_granulo}
 
-
-
-The final SMDs are shown in Figure \ref{fig:ch5_spray_char_SMD_final}. \hl{As observed ...}
-
+From the equivalent diameters, information on the droplets sizes can be obtained through either statistical distributions or mean diameters, such as the SMD defined by Eq. (\ref{eq:ch4_SMD_definition}) and whose evolution with time for the sampled sprays was represented in Figure \ref{fig:ch5_spray_char_establishment}. In first place, the final SMDs obtained in all simulations are grouped in the graph of Figure \ref{fig:ch5_spray_char_SMD_final}. The first noticeable observation is a high sensitivity of the SMD with the resolution, which shows a difference of factor 2: this is expected since the resolutions differ by the same amount. There is also a difference among operating points: in general, the SMDs for the low Weber cases are higher than the ones for the high Weber one, which is expected since high kinetic energy of the gas and fluid phases in the latter foster atomization, generating more and smaller droplets. There are, however, two exceptions: at $x = 10$ mm for the fine resolution, and at $x = 15$ mm for the coarse one. In the former (fine resolutions), both cases present the same SMD at $x = 10$ mm while differ at $x = 5$ mm: in fact, UG75\_DX10 shows a reduction in SMD with axial distance (expected behaviour due to atomization) while UG100\_DX10 provides the same SMD (unexpected behaviour). Two reasons could explain the constant SMD for UG100\_DX10: 1) due to the higher kinetic energies in the gas and liquid phases, atomization is already completed at $x = 5$ mm, or 2) small droplets disappearing in UG100\_DX10 when reaching the mesh resolution would not be considered in the calculation of the SMD, making it larger than its true value in the real spray. This is also the most probable explanation for the almost constant SMDs between $x = 10$ and 15 mm in the coarse simulations.
 
 \begin{figure}[ht]
 \centering
    \includegraphics[scale=0.30]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/SMD_values}
+   %SMD_values_broken_axis
    \vspace*{-0.2in}
    \caption{Evolution of SMD with axial distance for each simulation.}
    \label{fig:ch5_spray_char_SMD_final}
 \end{figure}
 
 
-\hl{For the histograms, we can see 2013 Vie.}
+%\hl{For the histograms, we can see 2013 Vie.}
 
-Sprays generated by atomization processes can be characterized by means of distributions. A given spray where the sizes of the droplets are known can be studied by representing distributions which express the probability of finding a droplet diameter or volume in that spray. Size distributions are usually representing by the notation $f_0 \left( D \right)$, while volume distributions are denoted by $f_3 \left( D \right)$. Two types of distributions are possible: discrete (histograms) or continuous. In the former, the spectrum of droplets size is divided into several range of droplets named bins or classes, and the number of droplets comprised within each class each counted. Histograms are the usual way of representing the granulometry when the size of droplets is directly available, such as in most experimental campaings and computational studies resolving atomization. Continuous distributions, however, are often used to fit discrete distributions obtained experimentally and are used for making simplified models for spray injection in lagrangian simulations, since they can represent the spray by functions depending on few parameters. Examples of function widely used in sprays are the lognormal, Rosin-Rammler and Nukiyama-Tanasama distributions \citepColor[lefebvre_atomization_2017]. 
+More insight can be given into the sampled sprays by looking at the droplet size distributions. These ones are useful since they express the probability of finding a droplet diameter or volume in that spray. Size distributions are usually representing by the notation $f_0 \left( D \right)$, while volume distributions are denoted by $f_3 \left( D \right)$. Two types of distributions are possible: discrete (histograms) or continuous. In the former, the spectrum of droplets size is divided into several range of droplets named bins or classes, and the number of droplets comprised within each class each counted. Histograms are the usual way of representing the granulometry when the size of droplets is directly available, such as in most experimental campaings and computational studies resolving atomization. Continuous distributions, however, are often used to fit discrete distributions obtained experimentally and are used for making simplified models for spray injection in lagrangian simulations, since they can represent the spray by functions depending on few parameters. Examples of function widely used in sprays are the lognormal, Rosin-Rammler and Nukiyama-Tanasama distributions \citepColor[lefebvre_atomization_2017]. 
 
-Since in the resolved simulations performed in the work the size and volume of droplets are known (formally, the volume is known but the size is estimated with Eq. \ref{eq:ch4_r_equivalent_calculation}), probability histograms can be plotted. Figure \ref{fig:JICF_histograms_ug100_dx20} shows size (left) and volume (right) histograms for the sprays obtained from the case UG100\_DX20. The number of classes has been calculated according to Rice's rule, which estimates this value as $N_\mathrm{bins} = \sqrt[3]{2 N_\mathrm{dr}}$ \citepColor[terrel_oversmoothed_1985].
+Since in the resolved simulations performed in the work the volume and equivalent diameters of droplets are known, probability histograms can be plotted. Figure \ref{fig:jicf_size_volume_histograms_all} shows size (black bars) and volume (grey bars) histograms for the sprays obtained from the case UG100\_DX20. The number of classes in which the (equivalent) diameter spectrum is divided has been calculated according to Rice's rule, which estimates this value as $N_\mathrm{bins} = \sqrt[3]{2 N_\mathrm{dr}}$ \citepColor[terrel_oversmoothed_1985]. The number histograms $f_0$ show a positively skewed distribution with a lognormal shape where droplets smaller than the SMDs are more present. This lognormal behaviour, shown by the curve fits (these are discussed more in-depth in a few lines), is a common characteristic of sprays resulting from liquid JICF configuration and has been observed in previous numerical \citepColor[herrmann_detailed_2009] and experimental \citepColor[prakash_liquid_2018] studies. The volume histograms $f_3$ shows higher probabilities at higher diameters than $f_0$: in the fine simulations, only a small amount of droplets with large diameters are present due probably to their location in the decelerated gaseous phase caused by the crossflow; in the coarse simulations, the quantity of volume at high diameters is more uniform due to a larger droplets generated. The fine simulations also show a larger number of droplets than the coarse ones (as shown in Table \ref{tab:jicf_SLI_Ndr_accumulated}) of small size due to the better resolution of surface breakup and column breakup phenomena (see for instance Figure \ref{fig:jicf_column_breakup_ug100}), which leads to a higher total volume contained in droplets of small diameters with respect to large ones.
 
-
-
-
-Size distributions can be represented by means of histograms relating the probability of finding a droplet with a given size with respect to the diameter, $f_0 \left( D \right)$.
-
-
-
-In \citeColor[lefebvre_atomization_2017] ...
-
-
-
-\textbf{Log-normal distribution}. This distribution function is more representative of certain types of atomizers, such as the spray produced by the jet in crossflow. In contrast to the normal distribution, the log-normal distribution takes the logarithm of the particle diameter as a variable. It is given by the following expression, where $\overline{D}_{ng}$ is the geometric mean size of the logarithmic droplet size and $s_g$ is the geometric standard deviation:
+Finally, as mentioned before, lognormal curves are superimposed to the number histograms to show the trend of the sprays produced. Two lognormal curves are shown: one obtained through a theoretical correlation (red lines), and one obtained through a curve fit (blue lines). Both curves follow the following expression:
 
 \begin{equation}
  f_0 \left( D \right) = \frac{d N}{d D} =  \frac{1}{D  \sqrt{2 \pi \ln \left( s_g \right)^2}} \exp \left[ - \frac{1}{2 } \left( \frac{\ln D - \ln \overline{D}_{ng}}{\ln s_g}   \right)^2 \right]
 \end{equation}
+
+where $\overline{D}_{ng}$ and $s_g$ are the curves parameters. For the fitted lognormals, these parameters were obtained through a differential evolution algorithm to minimise a fitness function representing the deviation between the curve and the histogram \citepColor[storn_differential_1997]. The other case has been taken from  \citeColor[lefebvre_atomization_2017], who states that $\overline{D}_{ng}$ is the geometric mean size of the logarithmic droplet size and $s_g$ is the geometric standard deviation that can be obtained through the following formulas: 
+
 %
 \begin{equation}
+\label{eq:lefevbre_lognormal_fit_expressions}
 \overline{D}_{ng} = \exp \left(  \frac{\sum_i \ln D_i }{N_\mathrm{droplets}} \right)  ~~~~ ; ~~~~ 
 s_g = \exp \sqrt{  \frac{\sum_i \ln \left( D_i / \overline{D}_{ng} \right) ^2 }{N_\mathrm{droplets}} }
 \end{equation}
 
-Loco mirar Figure \ref{fig:jicf_size_volume_histograms_all}.
+As observed in the graphs, both curves show similar shapes in all cases but show larger differences when closer to the liquid injector (specially at the distribution's mode): since the fit curve is the lognormal configuration that better represents the histogram, this supposes that the definitions from Eq. (\ref{eq:lefevbre_lognormal_fit_expressions}) do not properly represent the spray. Further downstream, the curves get closer, so the former definitions become more accurate. The reason of the mismatch close to injector and the posterior approach is the deformation of the droplets: closer to the injector more deformed (i.e. less spherical) liquid structures are sampled, while further downstream the spray is more atomized and droplets are generally more spherical
+(see $\S$ \ref{subsec:def_liquid_structures}). The expressions (\ref{eq:lefevbre_lognormal_fit_expressions}) are based on the assumption that the spray is composed of spherical droplets, hence they match better the histogram further downstream than closer to the injector.
 
 \clearpage
 
@@ -2855,6 +2892,13 @@ Loco mirar Figure \ref{fig:jicf_size_volume_histograms_all}.
 
 \subsection{Liquid velocities}
 
+Final mean liquid velocities in axial and vertical directions for all simulations are shown in Figure \ref{fig:jicf_liquid_mean_velocities_with_x}. Lateral mean velocities are not displayed since they are in all cases close to 0 (see Appendix \ref{app:SLI_convergence}), which is explained by the fact that the opening of the jet is equal in both positive and negative lateral directions (a qualitative view of this fact is given by the top views of the jets in Figures \ref{fig:JICF_establishment_UG100_top} and \ref{fig:JICF_establishment_UG75_top}). Two different mean velocities are shown in the graph of Figure \ref{fig:jicf_liquid_mean_velocities_with_x}: the arithmetic mean velocities calculated with Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_definition}), given by the solid lines, and the volume-weighted velocities calculated from Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_VW_definition}) represented by the dashed lines.
+
+The mean axial velocities are displayed in Figure \ref{fig:jicf_liquid_mean_velocities_with_x}a. The dependence on resolution is clearly noticeable: fine simulations show much larger velocities than the coarse ones due to the presence of a large number of finer droplets which relax fast towards the gaseous phase. In all cases, the magnitudes for the low Weber point are lower than for the high Weber one. From $x = 5$ to $x = 10$ mm, both the arithmetic and volume-weighted velocities increase in magnitude, which is a priori expected since the liquid structures are dragged and accelerated towards the crossflow direction. From $x = 10$ to $15$ mm, however, the volume-weighted velocities still increase but the arithmetic ones show the opposite tendency. This unexpected decrease is attributed to the droplets disappearing from the simulation which cause the mass loss discussed previously in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}: these droplets are small (at some point they reach the size of the mesh resolution due to atomization, then disappearing) and with higher velocity than the bigger drops due to a faster relaxation towards the air velocity, hence the arithmetic mean will take them into account at $x = 10$ mm (when they are still in the simulation) and not at $x = 15$ mm, producing a reduction in the mean velocity. The volume-weighted velocities, on the other hand, do not show this reduction since they give more importance to the velocities of the larger droplets as they contain more liquid volume: as they are convected and relax also towards the gas mean velocity (but slower due to their lower size), they show a monotonic increase with axial direction. Furthermore, in all cases (except for the high Weber number at $x = 15$ mm) the volume-weighted velocities are lower than their arithmetic equivalent, a coherent behaviour due to the lower velocity of the larger droplets. 
+
+
+
+
 
 \begin{figure}[ht]
 \flushleft
@@ -2863,7 +2907,7 @@ Loco mirar Figure \ref{fig:jicf_size_volume_histograms_all}.
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/ug75_ux_mean}
    \hfill
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/ug100_ux_mean}
-	\caption{Mean velocities in $x$ direction.}
+	\caption{Mean velocities in axial direction.}
 \end{subfigure}
 
 \vskip\baselineskip
@@ -2873,7 +2917,7 @@ Loco mirar Figure \ref{fig:jicf_size_volume_histograms_all}.
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/ug75_uz_mean}
    \hfill
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/ug100_uz_mean}
-	\caption{Mean velocities in $z$ direction.}
+	\caption{Mean velocities in vertical direction.}
 \end{subfigure}
 
    \caption[Sampled mean liquid velocities for all cases]{Mean liquid velocities for all cases. Solid lines indicate arithmetic average velocities, while dashed ones indicate volume-weighted average velocities.}
@@ -2882,13 +2926,50 @@ Loco mirar Figure \ref{fig:jicf_size_volume_histograms_all}.
 
 % Volume-weighted velocities: see pilotage 04/06/2021
 
+The mean vertical velocities are displayed in Figure \ref{fig:jicf_liquid_mean_velocities_with_x}b. All volume-weighted velocities are shown to increase from $x = 5$ to $x = 10$ mm (not up to $x = 15$ mm for the reasons previously discussed). The volume-weighted ones show, on the other hand, a constant or even decreasing tendency. In fact, the mean vertical velocities are expected to decrease with axial distance due to the jet deviation and momentum exchange with the gaseous phase until reaching a null vertical velocity, moment at which the jet would be fully atomized and convected towards the crossflow direction without penetrating further vertically. The point of null vertical velocity has not been reached by the simulations since it might be much further than $x = 15$ mm, which is unreachable for the simulations considered due to their higher computational cost and to the resolution limits which create the mass losses. Nevertheless, a correct behaviour in terms of non-increasing vertical velocity with axial distance is correctly capture for all simulations excepts for case UG75\_DX10, which shows an increase in mean vertical velocities (both arithmetic and volume-weighted) from $x = 5$ to $10$ mm. An explanation for this increase has not been found: however, it is worth to mention that the mass losses for this case at $x = 10$ mm were unexpectedly larger for the resolution considered, as shown in Figure \ref{fig:delta_Ql_with_x}, and which could be lied to an issue within this simulation that has not been identified. It is also worth to comment that the fine resolutions show larger mean axial velocities than the coarse ones: this is explained by the larger vertical velocities generated by the column breakup behaviour as shown in Figure \ref{fig:jicf_column_breakup_ug100}. Finally, a last look at the graphs of Figure \ref{fig:jicf_liquid_mean_velocities_with_x} reveals that the differences between arithmetic and volume-weighted velocities decreases with increasing axial distance for all cases: this shows that the spray atomizes along the crossflow direction, breaking large droplets into smaller structures and approaching both velocities. The decreasing difference among velocities indicates a continuing atomization: nevertheless, it is not expected that a fully atomized spray would show equal arithmethic and volume-weighted velocities, since the JICF produces polydisperse sprays with non-uniform velocity distributions \citepColor[wu_spray_1998].
+
+
+
+%\begin{figure}[ht]
+%\centering
+%\begin{subfigure}[b]{0.3\textwidth}
+%	\flushleft
+%   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatter_ux_D.png}
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.3\textwidth}
+%	\flushleft
+%   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatter_uy_D.png}
+%\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.3\textwidth}
+%	\flushleft
+%   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatter_uz_D.png}
+%\end{subfigure}
+%   \caption{Scatterplots velocities - diameters for case UG100\_DX10 at plane $x = 10$ mm.}
+%\label{fig:jicf_global_scatterplots}
+%\end{figure}
+
 \begin{figure}[ht]
 \centering
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
+	\hspace*{-0.2in}
    \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatterplots_colorbar_z.png}
 \end{subfigure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\hspace*{0.36in}
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatterplots_colorbar_y.png}
+\end{subfigure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\hspace*{0.7in}
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatterplots_colorbar_z.png}
+\end{subfigure}
+
    \vskip\baselineskip
+   
    \vspace*{-0.2in}
 \begin{subfigure}[b]{0.3\textwidth}
 	\flushleft
@@ -2904,60 +2985,92 @@ Loco mirar Figure \ref{fig:jicf_size_volume_histograms_all}.
 	\flushleft
    \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatter_uz_D.png}
 \end{subfigure}
-   \caption{Scatterplots velocities - diameters for case UG100\_DX10 at plane $x = 10$ mm. \hl{\textbf{XX: Modify at the end from .png to .pdf to improve quality.}}}
+   \caption[Scatterplots velocities - diameters for case UG100\_DX10 at plane $x = 10$ mm]{Scatterplots velocities - diameters for case UG100\_DX10 at plane $x = 10$ mm. The axial velocity is non-dimensionalized with the bulk gaseous velocity, while the lateral and vertical ones have been non-dimensionalized  with the bulk liquid velocity}
 \label{fig:jicf_global_scatterplots}
 \end{figure}
 
-Some words on RMS
+To finish the analysis of velocities, the scatterplots of velocities against droplets diameters are shown in Figure \ref{fig:jicf_global_scatterplots} for case UG100\_DX10 at $x = 10$ mm. The axial and vertical and lateral velocities are coloured by the vertical distance $z$ of the droplet with respect to the wall, while the lateral ones are coloured with the lateral distance $y$ with respect to the spray centerline. The black lines show the mean arithmetic (solid) and volume-weighted (dashed) velocities for the spray. The axial velocities show a concentration of droplets with low axial velocity at low vertical distances: these droplets, which show equivalent diameters lower than 100 $\mu$m, correspond to the liquid structures filming close to the wall, and present also vertical velocities null or lower than 0. The fastest (axial velocity) droplets are also found for $D < 100 ~\mu$m, which correspond to droplets at a high axial location that have exchanged momentum with the crossflow. Larger droplets present lower velocities due to their slower relaxation towards the crossflow. As a consequence of such a heterogeneous axial velocity distribution, the mean arithmetic velocities differ from the VW ones by around $10~\%$, with the latter being lower than the former due to the lower velocities found in the larger droplets. The scatterplot of the lateral velocities display a rotated T shape which is symmetric with respect to $v = 0$, with the positive velocities for $y > 0$ and negative for $y < 0$, and the mean arithmetic and VW velocities are both null. These features indicate that the jet opens equally along the lateral directions, which is an expected behaviour since the freestream gas has no lateral velocity (this will not be the case in swirled configurations, such as the resolved simulations of BIMER shown in Chapter \ref{ch8:bimer_resolved_atomization}). The vertical velocities scatterplot also show a rotated T-shape where the droplets in the top part of the spray have positive velocities, indicating that the spray penetration increases, while the droplets at the bottom part have null or negative values. These droplets are generally small ($D < 100~\mu$m) and are probably entrained by the gaseous counter-rotating vortices induced by the dense core perturbation (see Figure \ref{fig:JICF_turbulent_structures_planes_x}). The mean arithmetic and VW velocities for the ensemble of droplets is positive (as also seen in Figure \ref{fig:jicf_liquid_mean_velocities_with_x}), indicating that the spray continues to penetrate vertically. 
 
 
-\clearpage
 
 \subsection{Deformation of liquid structures}
+\label{subsec:def_liquid_structures}
 
-Relate to droplets shape: oblonged, etc. (ellipsoid, look at Stefano PhD).
+Apart from the equivalent diameters and velocities, the sampled droplets in the resolved simulations are also characterized by their deformation parameters $\alpha$ and $\beta$ as defined in Eq. (\ref{eq:ch4_deformation_parameters_alpha_beta_calculation}). These magnitudes provide a quantification of the deviation of the liquid entity with respect to a perfect sphere. A perfect sphere would be defined by $\alpha = \beta = 1$, while deformed droplets would present $\alpha > 1$ and $\beta < 1$. Note that the values $\alpha < 1$ and $\beta > 1$ are not possible due to the inherent definitions of both magnitudes.
 
-We can see mean values in Figure \ref{fig:jicf_liquid_mean_deformation_with_x}.
+
+
+%\begin{figure}[ht]
+%\flushleft
+%\begin{subfigure}[b]{1.0\textwidth}
+%	\flushleft
+%   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug75_alpha_mean}
+%   \hfill
+%   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug100_alpha_mean}
+%	\caption{Mean $\alpha$ deformation.}
+%\end{subfigure}
+%
+%\vskip\baselineskip
+%
+%\begin{subfigure}[b]{1.0\textwidth}
+%	\flushleft
+%   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug75_beta_mean}
+%   \hfill
+%   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug100_beta_mean}
+%	\caption{Mean $\beta$ deformation.}
+%\end{subfigure}
+%
+%   \caption[Sampled mean deformation parameters for all cases]{Mean deformation parameters for all cases. Solid lines indicate arithmetic average deformation, while dashed ones indicate volume-weighted average deformation.}
+%\label{fig:jicf_liquid_mean_deformation_with_x}
+%\end{figure}
+
+
+The mean volume-weighted (VW) values $\overline{\alpha}_\mathrm{VW}$ and $\overline{\beta}_\mathrm{VW}$
+are shown in Figure \ref{fig:jicf_liquid_mean_deformation_with_x_condensed} These values have been found to be converged in all simulations (details are not discussed here but given in Appendix \ref{app:SLI_convergence}). As shown, $\overline{\alpha}_\mathrm{VW}$ decreases with axial distance in all cases, while $\overline{\beta}_\mathrm{VW}$ increases: the spray atomizes with axial distance, breaking large liquid structures (ligaments) into smaller droplets which are closer to an spherical shape.  Nevertheless, in any case there is convergence on the mean parameters with axial distance, indicating that the atomization is not complete in any case. The values for $\overline{\alpha}_\mathrm{VW}$ are always larger than 2.5, while $\overline{\beta}_\mathrm{VW}$ never exceeds 0.5.  It is worth to mention however, that these criteria are only based on rough geometrical parameters approximated from the simulations, and sphericity can be actually defined by thresholds on the values of $\alpha$ and $\beta$: for instance, \citeColor[zuzio_improved_2018] defines sphericity for liquid structures presenting $\beta > 0.5$, while \citeColor[herrmann_parallel_2010] defines a sphericity criterion as $\alpha < \alpha_\mathrm{th}$ where $\alpha_\mathrm{th}$ should be chosen according to the case. 
 
 \begin{figure}[ht]
-\flushleft
+\centering
 \begin{subfigure}[b]{1.0\textwidth}
-	\flushleft
-   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug75_alpha_mean}
-   \hfill
-   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug100_alpha_mean}
-	\caption{Mean $\alpha$ deformation.}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{1.0\textwidth}
-	\flushleft
-   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug75_beta_mean}
-   \hfill
-   \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug100_beta_mean}
-	\caption{Mean $\beta$ deformation.}
-\end{subfigure}
-
-   \caption[Sampled mean deformation parameters for all cases]{Mean deformation parameters for all cases. Solid lines indicate arithmetic average deformation, while dashed ones indicate volume-weighted average deformation.}
-\label{fig:jicf_liquid_mean_deformation_with_x}
-\end{figure}
-
-
-We can see the same parameters more condensed in Figure \ref{fig:jicf_liquid_mean_deformation_with_x_condensed}.
-
-\begin{figure}[ht]
-\flushleft
-\begin{subfigure}[b]{1.0\textwidth}
-	\flushleft
+	\centering
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug75_both_alpha_beta_mean}
-   \hfill
+   \hspace{0.1in}
+   \centering
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/ug100_both_alpha_beta_mean}
 \end{subfigure}
 
-   \caption[Sampled mean deformation parameters for all cases]{Mean deformation parameters for all cases. Solid lines indicate arithmetic average deformation, while dashed ones indicate volume-weighted average deformation.}
+   \caption[Mean deformation parameters for all simulations]{Mean deformation parameters for all simulations. Solid lines indicate arithmetic average deformation, while dashed ones indicate volume-weighted average deformation.}
 \label{fig:jicf_liquid_mean_deformation_with_x_condensed}
 \end{figure}
+
+The scatterplots $\alpha - \beta$ for cases UG100\_DX10 and UG100\_DX20 are shown in Figure \ref{fig:jicf_global_scatterplots_deformation}. Droplets are coloured and scaled according to their diameter. The general trend is that smaller droplets present high values of $\beta$ and low values of $\alpha$, meaning that they are closer to a spherical shape sincde perfect sphericity is given for $\alpha = \beta= 1$. Larger droplets get further away from these values. In general, droplets for the coarse case present lower sphericity than the fine one, since droplets are larger in this case due to limitations of mesh resolution and there are less droplets produced by the surface breakup phenomenon, which are small and less deformed than liquid structures produced by column breakup. The sphericity content in the sample sprays by calculating the percentage of droplets with respect to the total amount that are spherical according to the criterion previously introduced: $\beta > 0.5$, $\alpha < \alpha_{th}$ where $\alpha_{th} = 2$ for this study. This yields amounts of $35~\%$ and $15~\%$ spherical droplets for the fine and coarse cases respectively, confirming hence that the fine resolution resolved better atomization and produces more spherical droplets. Such a sphericity criterion is useful to determine injection criteria with SLI on mesh resolution and injection location, since a lower sphericity content can suppose that liquid ligaments or blobs have been sampled and considered in the SLI as spherical droplets. It is also useful to couple the resolved simulations with lagrangian transport of droplets through a conversion of spherical droplets to lagrangian particles \citeColor[janodet_numerical_2022]. However, the deformation criteria here introduced might not be fine enough to characterize the sphericity of sprays, needing the introduction of more accurate definitions that would include more information on the topology of the liquid entity \citepColor[cheron_droplets_2019]. 
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+	\centering
+	\hspace*{-0.2in}
+   \includegraphics[scale=0.3]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/scatter_alpha_beta_UG10_DX10.png}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+	\centering
+	\hspace*{0.35in}
+   \includegraphics[scale=0.3]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/scatter_alpha_beta_UG10_DX20.png}
+\end{subfigure}
+\begin{subfigure}[b]{0.1\textwidth}
+	\centering
+	\hspace*{0.35in}
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/scatterplots_colorbar_D_with_blank_space.png}
+\end{subfigure}
+   \caption[Scatterplots of deformation parameters $\alpha$ - $\beta$ for cases UG100\_DX10, UG100\_DX20 at plane $x = 10$ mm]{Scatterplots of deformation parameters $\alpha$ - $\beta$ for cases UG100\_DX10, UG100\_DX20 at plane $x = 10$ mm. Droplets are coloured and scaled by their equivalent diameter}
+\label{fig:jicf_global_scatterplots_deformation}
+\end{figure}
+
+%\vspace*{-2in}
+
+
+\subsection{Summary on spray characterization}
+
+This section has show the study of the global spray sampled from the resolved atomization simulations. In first place, the convergence of sprays from mean fluxes and SMDs has been verified for all computations. Mass conservation from the lagrangian tracking methodology has been compared to the resolved methodology of interior boundaries, showing a good agreement. The analysis on droplets sizes has shown that SMD decreases with axial distance and with resolution: for a fixed resolution, SMDs decrease with $x$ but not to a big extent, while for a fixed location reducing the resolution $\Delta x_\mathrm{min}$ by a factor $2$ reduces the mean diameter by a same amount. The histograms have shown that all cases display a number distribution close to a lognormal shape, which can be modelled with parameters $\overline{D}_{ng}$ and $s_g$. This analysis on the granulometry is useful to choose the location injection and resolution of the SLI according to the size distributions: closer to the injector large droplets will be injected, while further downstream they will be smaller due to a more complete atomization. The mean velocities in the sprays have shown how the differences between arithmetic mean and volume-weighted velocities: the latter show a more consistent physical behaviour expected in a JICF in which axial velocities are accelerated and vertical ones deccelerated with axial distance. Mean liquid velocities are useful to get an idea on the relative velocities that will be seen by the droplets after injection in dispersed-phase simulations, since secondary breakup determines breakup on the lagrangian droplets according to a criterion based on a Weber number based on the relative velocity. Finally, a short analysis on the mean volume-weighted deformation parameters has shown how the deformation varies with resolution (the finer the resolution, the more resolved and spherical droplets are) and axial distance (further from the injector, more complete atomization and more spherical sprays are found). The deformation criteria discussed are useful to get an idea of the degree of sphericity of the droplets that will be injected in the dispersed-phase simulations. From all the data analyzed, every magnitude except for the deformation will be used by the SLI to get a discretized spray and perform injection. The deformation criteria could be used in further works to account for modified momentum exchange laws in the earlies instant of the dispersed-phase computations \citepColor[bagheri_drag_2016].
 
 \clearpage
 
@@ -3671,10 +3784,10 @@ The lagrangian tracking methodology which is used to obtain the injectors allows
 
 \clearpage
 
-\section{Performances of the simulations}
+\section{Performances and cost}
 \label{subsec:ch5_computational_performances}
 
-This chapter ends with some words on the computational performances of the simulations, as well as the cost of convergence for the parameters presented such as the dense core mean values, flow rates and injectors.
+JICF simulations studied in this chapter have used an ACLS/AMR methodology to solved the liquid phase. As demonstrated, this methodology has the capability to resolve the atomization dynamics by transporting a levelset function without making any assumptions on the dispersed phase. Their main drawback is their cost, since such simulations are computationally expensive and therefore limited in terms of mesh resolution (which with the AMR strategy can be greatly improved with respect to a strategy without mesh adaptation), applicability and multiphysics coupling. In this section, the computational performances and costs of the simulations is reported. 
 
 \subsection{Computational performances}
 
@@ -3700,72 +3813,127 @@ t_\mathrm{CPU} = \mathrm{WCT} ~ N_\mathrm{cores}
 
 Which expresses the computational cost in hours that a simulation has taken. Thus, it is useful to express this quantity relatively to the total physical time simulated $t_\mathrm{ph}$. The ratio of both magnitudes provides therefore the amount of CPU hours that have been used to perform a simulation up to a certain physical time.
 
-Results for the simulations performed in this chapter are shown in Tables \ref{tab:jicf_Ncores_Ncells_Ndrops} and \ref{tab:jicf_computational_performances}. The physical time for which these magnitudes are evaluated is $t_\mathrm{ph} = 0.3$~ms in all simulations, which can be expressed non-dimensionless with Eq. (\ref{eq:t_dimensionless_with_tau_in}) as $t^*_{\mathrm{UG}100} = 16$, $t^*_{\mathrm{UG}75} = 12$. This time instant correponds to early injection; for the high-Weber operating point simulations, snapshots of the jet at this time instant were shown in Figure \ref{fig:JICF_w_mesh}. Table \ref{tab:jicf_Ncores_Ncells_Ndrops} shows the numbers of cores, cells and droplets present at the simulation for this time instant. In the simulations, the number of cores evolves in each run as the number of cells increase due to AMR for keeping a ratio $N_\mathrm{cells} / N_\mathrm{cores}$ between 100,000 and 150,000, which is optimum for parallellization purposes \citepColor[trobec_introduction_2018]. \hl{As seen ...}. 
+Results for the simulations performed in this chapter are shown in Tables \ref{tab:jicf_Ncores_Ncells_Ndrops} and \ref{tab:jicf_computational_performances}. All cases are evaluated at time $t^* = 12$. This instant correponds to early injection before droplets reach the axial distance at which liquid is artificially removed, and after the jet has started to develop, hence allowing for a comparison among cases. Table \ref{tab:jicf_Ncores_Ncells_Ndrops} shows the numbers of cores, cells and droplets present at this instant of the simulation. In the computations, the number of cores evolves in each run as the number of cells increase due to AMR for keeping a ratio $N_\mathrm{cells} / N_\mathrm{cores}$ between 100,000 and 150,000, which is optimum for parallellization purposes \citepColor[trobec_introduction_2018]. As observed in the table, changing the interface resolution $\Delta x_\mathrm{min}$ for a given operating point multiplies the number of droplets by around 6. A larger quantity of droplets with a finer interface cell size increases greatly the number of elements, of the order of 5 times. Then, the number of cores rises by the same factor in order to keep the ration $N_\mathrm{cores}/N_\mathrm{cells}$ within the optimal range for paralellization. A comparison of operating conditions for the fine mesh resolution shows that the number of droplets and cells are larger for the high Weber number than for the low one, which is coherent since the velocities are larger in the former one and more droplets are expected to be formed by surface breakup. When looking at the same mesh resolution, however, it is seen that the number of droplets stays generated is the same: this might be due to the surface breakup phenomenon not being sufficiently resolved for these cases. Also, by comparing the cases with and without turbulence (for the high Weber, coarse resolution), it is observed that the case without turbulence contains less droplets and less elements than when turbulence is injected. Therefore, that the addition of synthetic turbulence enhances breakup and produces more droplets. This was also reflected in Table \ref{tab:jicf_SLI_Ndr_accumulated}, which shows that more droplets have been accumulated in the case with turbulence for accumulation time. Further investigating the effect of synthetic turbulence on the quantity of droplets produced through atomization would require to perform a simulation with a fine resolution $\Delta x_\mathrm{min} = 10$, where atomization is better resolved, without turbulence. This has not been done here due to the high cost of the fine simulations and since the study of turbulence injection is not the main purpose of this work.
+
+ %Nevertheless, the ratio $N_\mathrm{dr}/t_\mathrm{acc}$ from Table \ref{tab:jicf_SLI_Ndr_accumulated} showed that there is no relevant differences among the cases with and without turbulence (indeed, the ...)
 
 
+
+%\begin{table}[!h]
+%\centering
+%\caption{Computational cores, mesh cells and total number of droplets present at the domain for JICF simulations at $t_\mathrm{ph} = 0.3$~ms ($t^*_{\mathrm{UG}75} = 12$, $t^*_{\mathrm{UG}100} = 16$).}
+%\begin{tabular}{cccc}
+%\thickhline
+%\textbf{Case} &  $N_\mathrm{cores}$ & $N_\mathrm{cells}$ ($\cdot 10^6$) & $N_\mathrm{drops}$\\
+%\thickhline 
+%UG75\_DX10 & 3840 & 430 & 2221 \\
+%UG75\_DX20 & 768 & 100 & 394 \\
+%UG100\_DX10 & 5760 & 830 & 4153 \\
+%UG100\_DX20 & 1024 & 138 & 596\\
+%UG100\_DX20\_NT & 1024 & 1318 & 531  \\ % actually it's 726 droplets?
+%\thickhline
+%\end{tabular}
+%\label{tab:jicf_Ncores_Ncells_Ndrops}
+%\end{table}
 
 \begin{table}[!h]
 \centering
-\caption{Computational cores, mesh cells and total number of droplets present at the domain for JICF simulations at $t_\mathrm{ph} = 0.3$~ms ($t^*_{\mathrm{UG}75} = 12$, $t^*_{\mathrm{UG}100} = 16$).}
+\caption{Computational cores, mesh cells and total number of droplets present at the domain for JICF simulations at $t^* = 12$}
 \begin{tabular}{cccc}
 \thickhline
 \textbf{Case} &  $N_\mathrm{cores}$ & $N_\mathrm{cells}$ ($\cdot 10^6$) & $N_\mathrm{drops}$\\
 \thickhline 
-UG75\_DX10 & 3840 & 430 & 2221 \\
+UG75\_DX10 & 3840  & 430 & 2221 \\ 
 UG75\_DX20 & 768 & 100 & 394 \\
-UG100\_DX10 & 5760 & 830 & 4153 \\
-UG100\_DX20 & 1024 & 138 & 596\\
-UG100\_DX20\_NT & 1024 & 1318 & \hl{-} \\
+UG100\_DX10 & 4224 & 440 & 2563 \\ % restart_03.o, iter 835
+UG100\_DX20 & 768 & 104 & 393 \\ % restart_01.o, iter 1990
+UG100\_DX20\_NT & 768 & 92 & 326 \\ % restart_01.o,  iter 1720
 \thickhline
 \end{tabular}
 \label{tab:jicf_Ncores_Ncells_Ndrops}
 \end{table}
 
+%\begin{table}[!h]
+%\centering
+%\caption{Computational cores, mesh cells and total number of droplets present at the domain for JICF simulations at $t^*_{\mathrm{UG}100} = 16$.}
+%\begin{tabular}{cccc}
+%\thickhline
+%\textbf{Case} &  $N_\mathrm{cores}$ & $N_\mathrm{cells}$ ($\cdot 10^6$) & $N_\mathrm{drops}$\\
+%\thickhline 
+%UG75\_DX10 & - & - & 3988 \\
+%UG75\_DX20 & - & - & 738 \\
+%UG100\_DX10 & 5760 & 830 & 4153 \\
+%UG100\_DX20 & 1024 & 138 & 596\\
+%UG100\_DX20\_NT & 1024 & 1318 & 531 \\ %actually it's 726 droplets?
+%\thickhline
+%\end{tabular}
+%\label{tab:jicf_Ncores_Ncells_Ndrops}
+%\end{table}
 
-Table \ref{tab:jicf_computational_performances} reports the different contributions to the RCT and the ration CPU time versus physical time simulated. In all simulations the physical time is the same, $t_\mathrm{ph} = 0.3$~ms, hence this ratio express the number of computing hours employed to reach this time. \hl{As seen ...}.
+
+Table \ref{tab:jicf_computational_performances} reports the RCT values and the ratio CPU time versus time simulated. In all simulations, the fastest routine is the NS while the slowest one, and therefore the most computationally expensive, is the AMR. For cases UG75\_DX20 and UG100\_DX20, the reduced time spent in the routines ACLS, AMR and NS is similar. Comparing cases with and without turbulence injection shows that there is a reduction of the RCT in the AMR for the latter case due to a lower degree of atomization which produces less droplets (see Table \ref{tab:jicf_Ncores_Ncells_Ndrops}) and, therefore, less surface of liquid interface to remesh. The largest differences are given among resolutions: in the fine cases, all the RCT contributions increase from 2 to 3 times with respect to their homologues from the coarse simulations. While for the routines NS and ACLS this does not suppose a great difference since their associated RCTs are low, for the AMR routine this supposes a great increase in the simulations. As a result, the total RCT increases by 3 with respect to the fine resolutions for both operating points. Therefore, the AMR is the most time-consuming and, therefore, computationally expensive routine in the resolved atomization simulations performed with the ACLS/AMR methodology. Nevertheless, it is thanks to the AMR methodology that such computations become possible: performing simulations with such fine resolutions at the interface in unstructured grid would be unfeasible if the interface cell size $\Delta x_\mathrm{min}$ had to be specified in all the mesh elements belonging to the region of influence of the jet. 
+
+
+%\begin{table}[!h]
+%\centering
+%\caption{Computational performances from JICF simulations at $t_\mathrm{ph} = 0.3$~ms ($t^*_{\mathrm{UG}75} = 12$, $t^*_{\mathrm{UG}100} = 16$).}
+%\begin{tabular}{cccccc}
+%\thickhline
+%\textbf{Case} &  $\mathrm{RCT}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{ACLS}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{AMR}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{NS}~[\mu \mathrm{s}]$ & $t_\mathrm{CPU} / t_\mathrm{ph}  ~ [\mathrm{h}~\mathrm{ms^{-1}}]$\\
+%\thickhline 
+%UG75\_DX10 & 1549.7 & 192.0 & 1182.6 & 175.1 & 204,200 \\
+%UG75\_DX20 & 494.1 & 88.8 & 362.3 & 43.0 & 17,100  \\
+%UG100\_DX10 & 1760.7 & 164.1 & 1476.7 & 119.9 & 413,000 \\
+%UG100\_DX20 & 1061.5 & 145.3 & 838.0 & 78.2 & 28,700  \\
+%UG100\_DX20\_NT & 981.1 & 142.4 & 767.5 & 71.2 & 22,300 \\
+%\thickhline
+%\end{tabular}
+%\label{tab:jicf_computational_performances}
+%\end{table}
 
 \begin{table}[!h]
 \centering
-\caption{Computational performances from JICF simulations at $t_\mathrm{ph} = 0.3$~ms ($t^*_{\mathrm{UG}75} = 12$, $t^*_{\mathrm{UG}100} = 16$).}
+\caption{Computational performances from JICF simulations at $t^* = 12$}
 \begin{tabular}{cccccc}
 \thickhline
-\textbf{Case} &  $\mathrm{RCT}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{ACLS}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{AMR}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{NS}~[\mu \mathrm{s}]$ & $t_\mathrm{CPU} / t_\mathrm{ph}  ~ [\mathrm{h}~\mathrm{ms^{-1}}]$\\
+\textbf{Case} &  $\mathrm{RCT}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{ACLS}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{AMR}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{NS}~[\mu \mathrm{s}]$ & $t_\mathrm{CPU} / t^*  ~ [\mathrm{h}]$\\
 \thickhline 
-UG75\_DX10 & 1549.7 & 192.0 & 1182.6 & 175.1 & 204,200 \\
-UG75\_DX20 & 494.1 & 88.8 & 362.3 & 43.0 & 17,100  \\
-UG100\_DX10 & 1760.7 & 164.1 & 1476.7 & 119.9 & 413,000 \\
-UG100\_DX20 & 1061.5 & 145.3 & 838.0 & 78.2 & 28,700  \\
-UG100\_DX20\_NT & 981.1 & 142.4 & 767.5 & 71.2 & 22,300 \\
+UG75\_DX10 & 1549.7 & 192.0 & 1182.6 & 175.1 &  5252 \\ % t_cpu/t_phys: 204,200
+UG75\_DX20 & 494.1 & 88.8 & 362.3 & 43.0 &  440 \\ % t_cpu/t_phys: 17,100
+UG100\_DX10 & 1643.6 & 162.5 & 1369 & 112.1&  5580 \\ % t_cpu/t_phys: 277,800
+UG100\_DX20 & 517.5 & 105.8 & 361.1 & 50.6 & 414  \\ % t_cpu/t_phys: 21,500
+UG100\_DX20\_NT & 444.0 & 105.0 & 295.0 & 44.0 & 342  \\ % t_cpu/t_phys: 17,700
 \thickhline
 \end{tabular}
 \label{tab:jicf_computational_performances}
 \end{table}
 
 
+
 \subsection{Computational costs}
 
-The injectors built from the JICF simulations were described in $\S$\ref{sec:ch5_learning_SLI}. \hl{It is now useful to provide }
-
-Figure \ref{fig:SLI_cost_convergence_all} shows the computational cost in CPU hours and the ratio between CPU hours and physical time simulated. \hl{This graph shows that, in absolute terms, the quantity of CPU hours needed to obtain converged injectors is much larger for the fine resolution than for the coarse one due to the higher cost of the simulations (demonstrated in Figure} \ref{tab:jicf_computational_performances}. \hl{The ratio $t_\mathrm{CPU}/t_\mathrm{ph}$ ... As observed ...}
+While the RCTs provides a measure of the computational time comparable among cases for a given time instant, it is also necessary to state the total cost of the simulations performed. Figure \ref{fig:SLI_cost_convergence_all} shows the computational cost in CPU hours ($t_\mathrm{CPU}$) and the ratio between CPU hours and physical time simulated ($t_\mathrm{CPU}/t_\mathrm{ph}$). The graph shows that, in absolute terms, the quantity of CPU hours is much larger for the fine resolution simulations than for the coarse one due to the higher cost of the simulations (demonstrated in Figure \ref{tab:jicf_computational_performances}). The simulations for the high Weber operating point are more expensive than the low Weber one, specially for the fine resolutions. This is also reflected in the ratio $t_\mathrm{CPU}/t_\mathrm{ph}$: simulating one milisecond for case UG100\_DX10 would cost twice more than for case UG75\_DX10 due to the larger velocities involved in the former. The computational timestep is governed by the CFL condition (the CFL number has been set equal in all simulations), yielding lower values for case UG100\_DX10 due to the higher velocities found. Furthermore, this case also generates more droplets than the low Weber one for identical resolution due to a more aggressive breakup, yielding more mesh elements due to the larger specific surface of the fuel (see Figure \ref{fig:JICF_nelem_increase_t_0_to_2}) which requires more $N_\mathrm{cores}$ to perform the simulations. The result of these two contributions (lower timestep and more number of cores required) is the increase in computational cost by a factor of 2.
 
 \begin{figure}[ht]
 	\centering
    \includegraphics[scale=0.225]{./part2_developments/figures_ch5_resolved_JICF/SLI_cost_for_convergence/cost_all_simulations}
-   \caption{Cost for convergence of SLI at $x = $\hl{10} mm for simulations performed.}
+   \caption{Cost of the JICF simulations in CPU time and CPU per physical times simulated}
    \label{fig:SLI_cost_convergence_all}
 \end{figure}
 
-\hl{\textbf{NEED TO CHECK PROPERLY THIS PARAGRAPH.}} Despite the high increase in absolute CPU hours for the fine resolution, less total physical time needs to be simulated in those to obtained converged SLI. This is due to the fact that in the fine simulations, the spray is better resolved from the early atomization region (closer to the injector) since finer droplets are obtained. Moreover,  more droplets are generated through surface breakup and column breakup is also influence by the presence of instabilities in these cases. The presence of finer liquid structures and a larger number of droplets (as Table \ref{tab:jicf_Ncores_Ncells_Ndrops} shows) makes injectors converge with less physical time than the coarse simulations, \hl{as discussed in} $\S$ \ref{sec:ch5_learning_SLI}. In fact, the CPU cost that a fine simulation would take to compute the same physical time that a coarse one takes to converge injectors can be estimated. For this, the ratio $t_\mathrm{CPU}/t_\mathrm{ph}$ from the fine simulation UG$100$\_DX$10$ shown in Figure \ref{fig:SLI_cost_convergence_all}, which is $1.2 \cdot 10^6$ h ms$^{-1}$, is multiplied by the simulated physical time in case UG$100$\_DX$20$, \hl{which happens to be 2.5 ms (\textbf{MAYBE PUT THEM IN A TABLE?})}. This yields a value of $3 \cdot 10^6$ CPU hours, while the simulation UG$100$\_DX$10$ employed an actual cost of $0.6 \cdot 10^6$ CPU hours to provide converged injectors. This yields a cost savings in terms of computational expenses of $2.4 \cdot 10^6$ CPU hours. This difference are shown graphically in Figure \ref{fig:SLI_cost_convergence_savings}, where the CPU cost of simulation UG$100$\_DX$20$ is also shown for comparison.
+Figure \ref{fig:SLI_cost_convergence_all} also shows the larger cost of the fine resolutions with respect to the coarse one. For the high Weber case, for instance, the ratio $t_\mathrm{CPU}/t_\mathrm{ph}$ among resolutions differs by a factor 30. This difference is due to the two contributions previously discussed: the increase in the number of elements and the lower timestep $\Delta t$ calculated through the CFL condition. In effect, reducing $\Delta x_\mathrm{min}$ by 2 will also reduce $\Delta t$ by the same ratio, since both are directly proportional. Furthermore, the fine simulations show higher maximum instantaneous velocities in the gaseous phase at the high turbulent regions such as the vicinity of the column instabilities (not captured in the coarse cases) due to more pronounced curvatures that accelerate the gas: this also contributes to reduce the $\Delta t$ estimated from the CFL, since it is inversely proportional to the maximum liquid velocity in the computation. Hence, lower timesteps and a larger number of elements that require more computational cores increase massively the cost of the simulations in terms of $t_\mathrm{CPU}/t_\mathrm{ph}$.
 
+It is necessary to consider that the cost increase of the simulations with respect to the mesh resolution in terms of $t_\mathrm{CPU}/t_\mathrm{ph}$, which is expected in atomization problems, is not actually the cost needed to obtain a SLI. As stated in $\S$\ref{sec:ch5_learning_SLI}, the accumulation times simulated for all cases have been enough to obtain converged injectors according to the MSE criterion given by Eq. (\ref{eq:NMSE_convergence_criterion}). With less physical time simulated, the fine SLI are converged as well as the coarse ones. This is due to the fact that in the fine simulations, the spray is better resolved from the early atomization region (closer to the injector) since finer droplets are obtained. Moreover,  more droplets are generated through surface breakup and column breakup is also influence by the presence of instabilities in these cases. The presence of finer liquid structures and a larger number of droplets makes injectors converge with less physical time than the coarse simulations. Let's consider, for instances, the high Weber operating condition: the coarse simulation needs to simulate $t_\mathrm{acc} = 5.57$ ms ($t^\prime_\mathrm{acc} = 21.54$) to obtain a converged SLI, while the fine one needs only $t_\mathrm{acc} = 0.37$ ms ($t^\prime_\mathrm{acc} = 1.67$), which supposes a difference of 15. Their computational costs are respectively 1.25 and 4.66 million CPU hours (factor 4). Therefore, if a priori the physical time is considered as the only criterion to obtain a converged SLI, a cost increase of 15 is expected by refining the mesh, while actually the fine simulations need less physical time to converge reducing the increase to only 4 times with respect to the coarse mesh. It is also worth to consider that, as shown in this chapter, the fine simulations produce finer injectors due to a better resolution of the gaseous phase. The SLI strategy proposed in these works, therefore, is computationally cheaper when refining the mesh than what is expected a priori from the cost increase in resolved atomization simulations. To illustrate the cost savings, the CPU time that a fine simulation should be run to obtain the same accumulation time as the coarse one is estimated in Figure \ref{fig:SLI_cost_convergence_savings}. The first and second columns show the absolut CPU hours from Figure \ref{fig:SLI_cost_convergence_all}. The third one shows the estimated cost of a fine simulation to run as much as the coarse one. It has been calculated by multiplying the ratio $t_\mathrm{CPU}/t_\mathrm{ph}$ from the fine simulation UG$100$\_DX$10$, which is $5.96 \cdot 10^6$ h ms$^{-1}$, by the total physical time of the coarse simulation UG100\_DX20 from Table \ref{tab:jicf_SLI_t_prime_accumulation}, which is $6.16$ ms, yielding a value of $t_\mathrm{CPU} = 36.7 \cdot 10^6$ hours. The cost savings are therefore estimated to be of $30.41 \cdot 10^6$ hours.
+
+\clearpage
 
 \begin{figure}[ht]
    \centering
    \includegraphics[scale=0.215]{./part2_developments/figures_ch5_resolved_JICF/SLI_cost_for_convergence/cost_savings_simulations}
-   \caption{Cost for convergence of SLI at $x = $\hl{10} mm for simulations performed.}
+   \caption{Cost savings in SLI development by refining grid resolution}
    \label{fig:SLI_cost_convergence_savings}
 \end{figure}
 
-\clearpage
 
 \section{Conclusions}
 

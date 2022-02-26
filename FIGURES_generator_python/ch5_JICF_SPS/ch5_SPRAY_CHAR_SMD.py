@@ -92,7 +92,7 @@ SMD_UG100_DX10 = [72.0, 64.6]
 
 
 
-#Plot
+#%% Plot all in one graph
 plt.figure(figsize=(FFIG*22,FFIG*13))
 i = 0; plt.plot(x_DX10, SMD_cases[i], '*-k',label=labels_[i])
 i = 1; plt.plot(x_DX20, SMD_cases[i], '^-k',label=labels_[i])
@@ -109,5 +109,53 @@ plt.savefig(folder_manuscript+'SMD_values.pdf')
 plt.show()
 plt.close()
 
+#%% Plot with broken y axis
 
-plt.rcParams['text.usetex'] = False
+f, (ax, ax2) = plt.subplots(2, 1, sharex=True, figsize=(FFIG*22,FFIG*15))
+
+
+# Coarse cases
+i = 1; ax.plot(x_DX20, SMD_cases[i], '^-k',label=labels_[i])
+i = 3; ax.plot(x_DX20, SMD_cases[i], '^-b',label=labels_[i])
+i = 4; ax.plot(x_DX10, SMD_cases[i], '^-r',label=labels_[i])
+
+# Fine cases
+i = 0; ax2.plot(x_DX10, SMD_cases[i], '*-k',label=labels_[i]) # UG75_DX10
+i = 2; ax2.plot(x_DX10, SMD_cases[i], '*-b',label=labels_[i]) # UG100_DX10
+
+ax.set_ylim(139, 170) # coarse cases
+ax.set_yticks([140,150,160,170])
+ax2.set_ylim(79, 90) # fine cases
+ax2.set_yticks([80,85,90])
+
+# hide the spines between ax and ax2
+ax.spines['bottom'].set_visible(False)
+ax2.spines['top'].set_visible(False)
+ax.xaxis.tick_top()
+ax.tick_params(labeltop=False)  # don't put tick labels at the top
+ax2.xaxis.tick_bottom()
+
+# plot diagonal lines
+diagonal_linewidth = 2
+d = .010  # how big to make the diagonal lines in axes coordinates
+# arguments to pass to plot, just so we don't keep repeating them
+kwargs = dict(transform=ax.transAxes, color='k', clip_on=False)
+ax.plot((-d, +d), (-d, +d), linewidth=diagonal_linewidth, **kwargs)        # top-left diagonal
+ax.plot((1 - d, 1 + d), (-d, +d), linewidth=diagonal_linewidth,**kwargs)  # top-right diagonal
+
+kwargs.update(transform=ax2.transAxes)  # switch to the bottom axes
+ax2.plot((-d, +d), (1 - d, 1 + d), linewidth=diagonal_linewidth,**kwargs)  # bottom-left diagonal
+ax2.plot((1 - d, 1 + d), (1 - d, 1 + d), linewidth=diagonal_linewidth,**kwargs)  # bottom-right diagonal
+
+ax.grid()
+ax2.grid()
+ax2.set_xlabel(x_label_x)
+ax2.set_xticks([5,10,15])
+
+#ax.set_ylabel(y_label_SMD )
+ax.set_title(y_label_SMD)
+
+plt.tight_layout()
+plt.savefig(folder_manuscript+'SMD_values_broken_axis.pdf')
+plt.show()
+plt.close()

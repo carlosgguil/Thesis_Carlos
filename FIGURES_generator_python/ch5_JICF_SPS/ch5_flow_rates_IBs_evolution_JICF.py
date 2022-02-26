@@ -709,7 +709,6 @@ Q_x_RMS_x15 = [Q_RMS_UG75_DX20_x15[-1],
 
 # Bar graph with RMS
 plt.figure(figsize=figsize_bar)
-#plt.title('Filming mean $Q_l$')
 plt.plot([r1[0]-barWidth*1.5,r2[0]+barWidth*1.5],[Q_inj_UG75]*2, '--k', label=label_Ql_injected,linewidth=4*FFIG)
 plt.plot([r1[2]-barWidth*1.5,r2[-1]+barWidth*1.5],[Q_inj_UG100]*2, '--k',linewidth=4*FFIG)
 plt.bar(r1-0.25, Q_x_mean_x05, yerr=Q_x_RMS_x05, width=barWidth, color='blue', edgecolor='white', label=label_x_equal_5, capsize=barWidth*20)

@@ -95,11 +95,39 @@ tau_ph_UG75_DX10 = 0.2952
 tau_ph_UG75_DX20 = 0.3558
 tau_ph_UG100_DX10 = 0.2187
 tau_ph_UG100_DX20 = 0.2584
-tau_ph_UG100_DX20_NO_TURB = 0.2584
+tau_ph_UG100_DX20_NO_TURB = 0.2602
 
 tau_values = [tau_ph_UG75_DX10 , tau_ph_UG75_DX20,
               tau_ph_UG100_DX10, tau_ph_UG100_DX20, tau_ph_UG100_DX20_NO_TURB]
 
+# shifting times
+tp_0_true_values = False
+
+if tp_0_true_values:
+    tp_0_UG100_DX20 = 0.6840/tau_ph_UG100_DX20
+    tp_0_UG100_DX20_NT = 0.7844/tau_ph_UG100_DX20_NO_TURB
+    tp_0_UG100_DX10 = 0.4173/tau_ph_UG100_DX10
+    tp_0_UG75_DX20 = 0.9640/tau_ph_UG75_DX20
+    tp_0_UG75_DX10 = 0.5032/tau_ph_UG75_DX10
+else:
+    tp_0_UG100_DX20 = 2.3
+    tp_0_UG100_DX20_NT = 2.2
+    tp_0_UG100_DX10 = 1.9080932784636488
+    tp_0_UG75_DX20 = 2.3
+    tp_0_UG75_DX10 = 1.85
+    
+# define maximum values for t' (obtained from ch5_nelem_plot.py)
+tp_max_UG100_DX20 = 23.8370270548746 # diff of 1*tp
+tp_max_UG100_DX20_NT = 23.436246263752494 # diff of 2*tp
+tp_max_UG100_DX10 = 3.5785496471047074 # diff of 0.5*tp
+tp_max_UG75_DX20 = 17.695510529612424 # no diff !
+tp_max_UG75_DX10 = 3.6428757530101596 # no diff !
+
+tp_0_cases = [tp_0_UG75_DX10, tp_0_UG75_DX20,
+              tp_0_UG100_DX10, tp_0_UG100_DX20, tp_0_UG100_DX20_NT]
+
+tp_max_cases =  [tp_max_UG75_DX10, tp_max_UG75_DX20,
+                 tp_max_UG100_DX10, tp_max_UG100_DX20, tp_max_UG100_DX20_NT]
 
 #%% Get dimensionless time and velocities evolution
 
@@ -113,11 +141,19 @@ for i in range(len(sprays_list_all)):
     time_val = []; 
     ux_mean_val = []; uy_mean_val = []; uz_mean_val = []
     ux_rms_val = []; uy_rms_val = []; uz_rms_val = []
+    # to shift time
+    tp_0_i = tp_0_cases[i]
+    tp_max_i = tp_max_cases[i]
     for j in range(len(case)):
         time = case[j].time_instants*1e3/tau_char
         time -= time[0]
         time += 2
-        time_val.append(time)
+        
+        
+        # Shift time
+        m_ij = (tp_max_i - tp_0_i)/(time[-1] - time[0])
+        t_plot_i = m_ij*(time - time[0]) + tp_0_i
+        time_val.append(t_plot_i)
         ux_mean_val.append(case[j].ux_mean_evol)
         ux_rms_val.append(case[j].ux_rms_evol)
         uy_mean_val.append(case[j].uy_mean_evol)
@@ -158,7 +194,7 @@ ax2.plot(tp_cases[i][j], uz_mean_cases[i][j], 'b', label=labels_[j])
 ax.plot([0,100],[30]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
 x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
-x_ticks_ = [2,3,4]
+x_ticks_ = [2,2.5,3,3.5]
 ax.set_xlim(x_lim_)
 ax2.set_xlim(x_lim_)
 ax.set_xticks(x_ticks_)
@@ -205,7 +241,7 @@ ax2.plot(tp_cases[i][j], uz_rms_cases[i][j], 'b', label=labels_[j])
 ax.plot([0,100],[5]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
 x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
-x_ticks_ = [2,3,4]
+x_ticks_ = [2,2.5,3,3.5]
 ax.set_xlim(x_lim_)
 ax2.set_xlim(x_lim_)
 ax.set_xticks(x_ticks_)

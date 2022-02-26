@@ -1,4 +1,4 @@
-\chapter{Validation in liquid jet in crossflow}
+\chapter{Dispersed-phase simulations in liquid JICF}
 	\label{ch6:jicf_lgs_simulations}
 
 
@@ -25,14 +25,20 @@ This chapter presents results from lagrangian simulations performed with the SLI
 
 \section{Computational setup}
 
-The geometry replicating the experimental test bench is the same than the one used for the resolved simulations, depicted in Figure \ref{fig:numerical_setup_maquette_JICF_DLR}. The operating points simulated are the ones from Table \ref{tab:jicf_operating_conditions}. Regarding the mesh employed, it was shown in $\S$\ref{sec:ch5_initial_conditions} that an element size of $\Delta x = 0.5$ mm allows to transport the estimated turbulence in these cases. Nevertheless, the simulations from Chapter \ref{ch5:jicf_resolved_simulations} use a mesh with this cell size only inside the plenum upstream and around the injector, while downstream the injector the mesh size is enlarged as there is no liquid at this region. This mesh was shown in Figure \ref{fig:jicf_dlr_mesh}. In the lagrangian simulations performed in this chapter, injection is performed at the sampling planes downstream the injector seen in Figure \ref{fig:jicf_IBs_sketch_discretization}, and the region of interest extends up to a location at $x = 80$ mm downstream the injector, which corresponds to the location where the experiments from \citeColor[becker_breakup_2002] report results on fluxes and SMD. Therefore, lagrangian simulations use a baseline cell size of $\Delta x = 0.5$ mm in the plenum from the gaseous inlet up to $x = 85$ mm downstream the injector. Furthermore, the mesh is refined \hl{in the region immediately downstream the injection nozzle to} $\Delta x = 0.3$ mm to allow for a better resolution of the gaseous field perturbed by the ALM, as the turbulent structures from the resolved simulations reported in $\S$\ref{ch5:subsec_turbulent_structures_in_gaseous_field} have smaller characteristic sizes than the turbulence further upstream. It is, however, worth to keep in mind that the gaseous field close to the interface was refined in the resolved simulations to the interface mesh size, allowing for a better resolution of turbulence. This refinement is not available in the dispersed phase simulations, therefore the refinement to $\Delta x = 0.3$ mm. The mesh used, shown in Figure \ref{fig:jicf_dlr_mesh_LGS}, is composed of \textbf{XX} elements, being therefore larger than the baseline mesh employed for the resolved simulations but eventually cheaper due to the lack of AMR, as simulations. Liquid particles are injected in this mesh as lagrangian point-particles whose dynamics follow the equations from  $\S$\ref{sec:ch3_EL_formalisms}. The energy equation is not considered since the test bench is at ambient temperature and evaporation does not take place.
+The geometry replicating the experimental test bench is the same than the one used for the resolved simulations, depicted in Figure \ref{fig:numerical_setup_maquette_JICF_DLR}. The operating points simulated are the ones from Table \ref{tab:jicf_operating_conditions}. Regarding the mesh employed, it was shown in $\S$\ref{sec:ch5_initial_conditions} that an element size of $\Delta x = 0.5$ mm allows to transport the estimated turbulence in these cases. Nevertheless, the simulations from Chapter \ref{ch5:jicf_resolved_simulations} use a mesh with this cell size only inside the plenum upstream and around the injector, while downstream the injector the mesh size is enlarged as there is no liquid at this region. This mesh was shown in Figure \ref{fig:jicf_dlr_mesh}. In the lagrangian simulations performed in this chapter, injection is performed at the sampling planes downstream the injector seen in Figure \ref{fig:jicf_IBs_sketch_discretization}, and the region of interest extends up to a location at $x = 80$ mm downstream the injector, which corresponds to the location where the experiments from \citeColor[becker_breakup_2002] report results on fluxes and SMD. Therefore, lagrangian simulations use a baseline cell size of $\Delta x = 0.5$ mm in the plenum from the gaseous inlet up to $x = 85$ mm downstream the injector in order to allow for turbulent transport up to the experimental validation plane (located at $x = 80$ mm). The mesh used, shown in Figure \ref{fig:jicf_dlr_mesh_LGS}, is composed of $74 \cdot 10^6$ elements, being therefore heavier than the baseline mesh employed for the resolved simulations but eventually lighter due to the lack of AMR (see the increase of element size in the resolved simulations at Figure \ref{fig:JICF_nelem_increase_t_0_to_2}, which shows that the smallest mesh obtained for a established jet contains $200 \cdot 10^6$ elements). Liquid particles are injected in this mesh as lagrangian point-particles whose dynamics follow the equations from  $\S$\ref{sec:ch3_EL_formalisms}. The energy equation is not considered since the test bench is at ambient temperature and evaporation does not take place.
+
+\clearpage
+
+
+%The geometry replicating the experimental test bench is the same than the one used for the resolved simulations, depicted in Figure \ref{fig:numerical_setup_maquette_JICF_DLR}. The operating points simulated are the ones from Table \ref{tab:jicf_operating_conditions}. Regarding the mesh employed, it was shown in $\S$\ref{sec:ch5_initial_conditions} that an element size of $\Delta x = 0.5$ mm allows to transport the estimated turbulence in these cases. Nevertheless, the simulations from Chapter \ref{ch5:jicf_resolved_simulations} use a mesh with this cell size only inside the plenum upstream and around the injector, while downstream the injector the mesh size is enlarged as there is no liquid at this region. This mesh was shown in Figure \ref{fig:jicf_dlr_mesh}. In the lagrangian simulations performed in this chapter, injection is performed at the sampling planes downstream the injector seen in Figure \ref{fig:jicf_IBs_sketch_discretization}, and the region of interest extends up to a location at $x = 80$ mm downstream the injector, which corresponds to the location where the experiments from \citeColor[becker_breakup_2002] report results on fluxes and SMD. Therefore, lagrangian simulations use a baseline cell size of $\Delta x = 0.5$ mm in the plenum from the gaseous inlet up to $x = 85$ mm downstream the injector. Furthermore, the mesh is refined \hl{in the region immediately downstream the injection nozzle to} $\Delta x = 0.3$ mm to allow for a better resolution of the gaseous field perturbed by the ALM, as the turbulent structures from the resolved simulations reported in $\S$\ref{ch5:subsec_turbulent_structures_in_gaseous_field} have smaller characteristic sizes than the turbulence further upstream. It is, however, worth to keep in mind that the gaseous field close to the interface was refined in the resolved simulations to the interface mesh size, allowing for a better resolution of turbulence. This refinement is not available in the dispersed phase simulations, therefore the refinement to $\Delta x = 0.3$ mm. The mesh used, shown in Figure \ref{fig:jicf_dlr_mesh_LGS}, is composed of \textbf{XX} elements, being therefore larger than the baseline mesh employed for the resolved simulations but eventually cheaper due to the lack of AMR, as simulations. Liquid particles are injected in this mesh as lagrangian point-particles whose dynamics follow the equations from  $\S$\ref{sec:ch3_EL_formalisms}. The energy equation is not considered since the test bench is at ambient temperature and evaporation does not take place.
 
 \begin{figure}[h!]
 	\centering
-	\includeinkscape[inkscapelatex=true,scale=0.8]{./part2_developments/figures_ch6_lagrangian_JICF/jicf_mesh_LGS}
-	\caption{Mesh employed for LGS simulations. \hl{CHANGE WHEN READY}}
+	\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch6_lagrangian_JICF/jicf_mesh_LGS}
+	\caption{Mesh employed for dispersed-phase simulations of the full configuration from Figure \ref{fig:numerical_setup_maquette_JICF_DLR}}
 	\label{fig:jicf_dlr_mesh_LGS}
 \end{figure}
+
 
 %\section{Evaporation phenomena}
 %
@@ -71,6 +77,7 @@ The geometry replicating the experimental test bench is the same than the one us
 %\end{itemize}
 
 \section{Experimental results from literature}
+\label{sec:ch6_experimental_results}
 
 The study from \citeColor[becker_breakup_2002] reports results on the droplets average size SMD and the liquid volume fluxes in the plane $x = 80$  mm perpendicular to the crossflow. In the resolved simulations of Chapter \ref{ch5:jicf_resolved_simulations} the liquid spray could not reach this location: the increase in mesh size due to a continuous liquid injection and formation of droplets due to atomizatio yielded computations unfeasible if liquid was allowed to travel too far downstream, and hence the liquid domain was restricted up to $x = 10, 15$ mm for the fine and coarse resolutions respectively. This limitation does not apply in the dispersed phase simulations, which can be transported up to the outlet of the domain due to their lower cost compared to the resolved ones. Therefore, the dispersed phase simulations will be compared to the experimental results presented at 80 mm.
 
@@ -129,6 +136,7 @@ Complementary to the maps, qualitative results are also present in the literatur
 \end{align}
 \end{subequations}
 
+
 %\begin{equation}
 %\langle q_l \left( z \right) \rangle = \frac{1}{L_y} \int_0^{L_y} q_l \left( y, z \right) dy ~~~~; ~~~~ \langle SMD \left( z \right) \rangle = \frac{1}{L_y \langle q_l \left( z \right) \rangle} \int_0^{L_y} q_l \left( y, z \right) SMD \left( y, z \right) dy
 %\end{equation}
@@ -162,29 +170,223 @@ With respect to the profiles integrated over $z$ (Figure \ref{fig:integrated_res
 \label{fig:integrated_results_Becker_expe_results}
 \end{figure}
 
-\section{Obtention of boundary conditions for gaseous phase}
-\label{sec:ch6_BC_gaseous_phase}
+\begin{table}[!h]
+\centering
+\caption{SMDs at $x = 80$ mm obtained from experiments }
+\begin{tabular}{cc}
+\thickhline
+Operating point & $SMD~\left[ \mu \mathrm{m}\right]$  \\
+\thickhline
+Low Weber & 31.0  \\  
+High Weber & 35.2 \\
+\thickhline
+\end{tabular}
+\label{tab:becker_hassa_SMD_values_sprays}
+\end{table}
 
-\subsection{Actuator Line Model}
 
-Prior to liquid injection, it is necessary to establish an initial solution for the gaseous phase as done for the resolved simulations. The difference with respect to the resolved simulations is that in this case, the initial solutions needs to consider the ALM since the dense core blockage effect needs to be modelled in the dispersed phase simulations. All the details of the model were addressed in $\S$\ref{sec:ch4_dense_core_modelling}. In this section, firstly results from the resolved simulations are employed as input parameters to feed the ALM model. Secondly, gaseous simulations are performed with the ALM to obtain initial solutions. The resulting gaseous fields are compared to the ones of the resolved simulations to check the accuracy of the proposed actuator model. \\
+%\section{Sources of uncertainty in PDA measurements}
+\section{Uncertainty in experimental data}
 
-%\subsection{Setup of actuator model}
+The experimental results previously shown, obtained by \citeColor[becker_breakup_2002], were obtained through PDA measurements. PDA is one of the most popular experimental techniques to characterize sprays, since it is non-intrusive and provies information on droplets size and velocities which can then be used to also estimate fluxes. It is not, however, exempt of errors, since it is built on the assumption that droplets are spherical and it is well known that PDA measurements yield considerable erros on droplets sizes and fluxes \citepColor[tropea_optical_2011]. Several sources of error have been identified in the past. \citeColor[bachalo_method_1980] explained that optics play a paramount role: the optical setup can lead to detection errors produced by phenomena associated to the misalignment of dual-beam reflected and refracted rays (Gaussian beam Effect) or to the well-known slit effect, which is cause a truncation on the measurement volume through a slit placed so that the droplet volumes to measure can be defined \citepColor[doublet_effet_2019]. Not associated to the actual setup, modifications in the refractive indices of droplets could affect the scattering and yield important errors in particle sizes, specially relevant in multicomponent fuels such as kerosene. The role of the droplet non-sphericity was discussed, stating that PDA is prone to size overestimation when particles are deformed or oscillate in a preferential direction, as also discussed by \citeColor[damaschke_optical_1998]. \citeColor[dullenkopf_comparative_1998] performed PDA measurements on two injectors, a pressure-swirl and an airblast atomizer, and quantified the errors in mass flux by comparing with the results obtained from a patternator. They identified three main sources of error in the flux estimation: the size measurement (which is powered to 3 to calculate the flux, hence increasing exponentially the flux errors), the number count of droplets and the reference area used for measurements (the smaller the area the better, since it can also avoid counting droplets twice). They found that the flux errors on the pressure swirl fluxes were of the order of 10 $\%$, while in the airblast configurations these increased up to 30 $\%$, and also showed that the SMDs could vary up to 30 $\%$ depending on the PDA system used. \citeColor[brandt_experimental_1998] tested an airblast configuration and discussed several possible sources of error in sizes, highlighting the contribution of alignment uncertainties in the setup ($\sim 1~\%$) the change in refractive indices due to heating ($\sim 3.5~\%$) and to deformation of the sampled particles, since accelerated droplets at high velocity environments will be elliptical rather than spherical and the droplets sizes would be overestimated, propagating later the error to the fluxes calculations (this would explain the larger errors found by \citeColor[dullenkopf_comparative_1998] in their airblast atomizer with respect to the pressure-swirl one). In total, uncertainty on dropsizes was quantified to be of 7 $\%$ while the error on fluxes added up to 10 $\%$ if the particles concentration was not too high. It is worth to remark that the test bench of \citeColor[brandt_experimental_1998] is the same one that \citeColor[becker_breakup_2002] used later at DLR to test the liquid kerosene JICF dealt in this theses (even though the atomizer and the operating conditions are different, the PDA systems and optical configurations are equivalent). The experiments from \citeColor[becker_breakup_2002] do not actually provide data on the dropsize uncertainties, but do discuss the errors on mass fluxes and report mean deviations of 20 $\%$ and maximum of 37 $\%$. A posterior study on this configuration was done by \citeColor[becker_experimental_2004], who tested a swirled injector and reported errors on the SMD of $\sim 5 \%$ (no data on fluxes) attributed to optical misalignment and hardware setting. \citeColor[tropea_optical_2011] makes a review on experimental methods involving optical techniques to characterize disperse multiphase flows, and states that PDA measurements often show uncertainted in flux measurements from $20~\%$ up to several hundrers, while errors in particle size often range, in ideal conditions, from 10 to 30 $\%$. 
 
-The model parameters for ALM were described in Table \ref{tab:alm_parameters}. For the two operating points simulated, the corresponding input parameters are summarized in Table \ref{tab:jicf_lgs_ALM_parameters}. The points $x_b$, $z_b$ and $c_L$ are obtained from the mean values of Figure \ref{fig:dense_core_mean_parameters_scatterplots} for the fine simulations (note that $c_L$ is equivalent to the resolved dense core width $w$); $c_0$ is equal to the injector diameter; $N_p$ has been set to 20 as default, but it has been checked not to have an effect on the results; and the force $\textbf{F}_\mathrm{DC}$ is obtained as explained in $\S$\ref{ch5:subsec_defining_pressure_differences}.
+The objective here is to estimate possible errors in the experimental measurements of \ref{fig:integrated_results_Becker_expe_results} to obtain confidence intervals for validation of numerical results. As mentioned in the previous paragraph, this study gives a mean uncertainty of 20 $\%$ in the fluxes but does not provide data on the diameters. For the same test bench but with different atomizers and operating conditions, \citeColor[brandt_experimental_1998] reports 7 $\%$ and 14 $\%$ of errors for the droplets diameters and fluxes, respectively, while \citeColor[becker_experimental_2004] give SMD uncertainties of $\sim 5 \%$. Even though the PDA setup is identical in the three studies, the provided errors differ among each other, which might be due to the operating conditions, the atomizer or modifications in the optical setup (indeed, \citeColor[doublet_effet_2019] showed through a error propagation analysis that the uncertainties in the diameters were actually spetially sensitive to the elevation angle of the PDA detectors rather than to other parameters). Therefore, in order to estimate the uncertainty of the diameters in the the experimental setup of \citeColor[becker_breakup_2002], it will be assumed that the relation between the dropsizes and fluxes errors is similar as in the study performed in the same testbench (and in similar operating conditions) by \citeColor[brandt_experimental_1998]: errors between fluxes and diameters differ by a factor of 2, which in case of \citeColor[becker_breakup_2002] yields diameter uncertainties of 10 $\%$ since their mean uncertainty for the fluxes is of 20 $\%$. It is important to keep in mind that this estimated error in droplets size is only approximative and could greatly vary in the actual experiments. \\ %Generally, as shown by the previous literature review,  errors in PDA measurements on droplets sizes are not often reported and characteristic 
+
+Since \citeColor[becker_breakup_2002] give values on the flux uncertainties and their experimental data are available, it is possible to estimate the fluxes obtained from the experiments. The flux map ax $x = 80$ mm for the high Weber operating condition together with the grid composed of the probes through which the spray has been sampled is shown in Figure \ref{tab:previous_numerical_studies_on_jicf_dlr_values}a. Square probes with 2 mm sides are placed as shown in the figure. Each probe contains a volume flux value $q_l$ which is stored atn the center of the probe to plot the maps (\hl{as done in the SLI injectors of Figures \textbf{XX}}). The grid is then composed of $N_y = 11$ probes in the lateral direction and $N_z = 9$ in the vertical one. Given an arbitrary probe located at a position $\left( j,k \right)$ (where $j$ is the probe index in the lateral direction $y$ and $k$ in the vertical one $z$) with surface $S_\mathrm{j,j}$, the absolute liquid flux through this probe can be calculated by applying Eq. (\ref{eq:ch4_volume_flux_definition}) to the probe volume flux $q_{l{j,k}}$:
+
+\begin{equation}
+Q_{l_{j,k}} = q_{l_{j,k}} S_{j,k}
+\end{equation}
+
+Then, the total liquid flow rate from the map can be calcuated by adding all the absolute fluxes from each probe:
+
+\begin{equation}
+Q_{l} = \sum_{j=1}^{N_y} \sum_{k=1}^{N_z} Q_{l_{j,k}} = \sum_{j=1}^{N_y} \sum_{k=1}^{N_z} q_{l_{j,k}} S_{j,k} = 4062 ~ \mathrm{mm}^3~\mathrm{s}^{-1}
+\end{equation}
+
+which, as shown, gives a value of $4062 ~ \mathrm{mm}^3~\mathrm{s}^{-1}$. The injected flow rate for this case is $Q_{l,\mathrm{inj}} = 3710~ \mathrm{mm}^3~\mathrm{s}^{-1}$, as given in Table \ref{tab:jicf_operating_conditions}. Therefore, the PDA measurements report a flux excess with respect to the injected flow rate of $9.5~\%$. This deviation is comprised within the mean uncertainty of $20~\%$ provided by the authors of the experiments. Nevertheless, it is paramount to consider this flux overestimation when comparing with the dispersed-phase simulations performed with SLI, since the liquid rates injected in these ones do not correspond to the experimental flux of $4062 ~ \mathrm{mm}^3~\mathrm{s}^{-1}$ but to the injected one of $Q_{l,\mathrm{inj}} = 3710~ \mathrm{mm}^3~\mathrm{s}^{-1}$. In reality, if the PDA was exempt of errors (which, as explained previously, is never the case), the retrieved experimental flux could not be larger than the injected one as mass is not created in the simulation: and actually, it should be lower since there is filming in the experiments, as shown in Figure \ref{fig:jicf_snapshot_expe_filming}, that reduces the liquid flux perpendicular to the crossflow. The resolved simulations could capture this filming phenomenon in the jet, and the filming flux was quantified in $\S$\ref{sec:ch5_direct_measurement_fluxes_IB}.
+
+
+\begin{figure}[h!]	
+	\centering	
+	\includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/expe_results/snapshot_expe_filming}
+	\caption{Snapshot of instantaneous liquid jet from \citeColor[becker_breakup_2002], showing the filming phenomenon}
+	\label{fig:jicf_snapshot_expe_filming}
+\end{figure}
+
+
+%snapshot_expe_filming
+
+%\include{ch6_literature_on_PDA}
+
+\section{Previous numerical studies}
+
+Prior to this work, several authors have performed dispersed-phase simulations on the experimental configuration of \citeColor[rachner_modelling_2002]. All cases simulated the high Weber operating point from Table \ref{tab:jicf_operating_conditions}. \citeColor[rachner_modelling_2002] simulated the jet in steady crossflow by considering the early liquid as a cylinder deflected by the airflow, which exchanges momentum with a modified drag coefficient, sheds mass and produces droplets whose properties are given from experimental correlations. Later on, \citeColor[eckel_semi-empirical_2016] extended this model to account for shear breakup of ellipsoids and flattened liquid jets (to account for more realistic JICF dense core effects) in both steady and unsteady crossflows, by using semi-empirical correlations. Independently of these studies, \citeColor[jaegle_large_2009] and \citeColor[senoner_simulation_2010] also developed models with this configuration: the former injected a developed spray at the liquid nozzle while accounting for a modified drag law in the near-nozzle region to mimic the liquid column momentum exchange, and the later injected big blobs at the nozzle but accounting for secondary atomization. All these models (except for
+\citeColor[rachner_modelling_2002] since it was more recently improved by \citeColor[eckel_semi-empirical_2016]) are summarized in the diagram of Figure \ref{ch3:subsec_lagrangian_liquid_JICF} and detailed in $\S$\ref{fig:state_art_injection}.
+
+In order to position the current work into the state of the art, it is worth to compare it to the previous studies performed. All the works aforementioned use data shown in Figure \ref{fig:maps_Becker_expe_results} to validate the computations. Nevertheless, not all the numerical studies previously mentioned use all these data for validation, but only display a few of them. Table \ref{tab:previous_numerical_studies_on_jicf_dlr_recap} shows a summary of the validation data directly available in the previous works. None of the papers referred present data on the SMD map, while only \citeColor[eckel_semi-empirical_2016] give data on the global SMD obtained. Most of the works give data on the flux and SMD profiles integrated over $y$, while only \citeColor[rachner_modelling_2002] provides profiles integrated over $y$. %The only work which does not provide data on SMD distributions is \citeColor[eckel_semi-empirical_2016]. 
+
+In first place, the flux maps from all the previous works that provide these information are shown in Figure \ref{fig:maps_previous_numerical_results}. The experimental map is also show for visual comparison. In general, all maps show a circular flux shape and an overestimation of the maximum flux location in the vertical direction (the integrated maps discussed in the following lines confirm this observation). Since the data belonging to the the maps of the numerical studies were unfortunately not directly available, it was obtained by digitalizing the 2D maps depicted in the papers. The grid used for digitalizion is not shown since it was finer than the experimental grid in order to properly capture all the features of the maps, and showing it together with the maps hinders their visualization. From the digitalized maps, the total flux in the plane can be calculated as done previously for the experimental data applying Eq. (\ref{eq:ch6_Ql_total_estimation_from_flux_profiles}). The results are shown in Table \ref{tab:previous_numerical_studies_on_jicf_dlr_values}: even though the fluxes are not exactly equal to the injected flux (the digitalization methodology is not robust enough to retrieve accurately the actual fluxes plotted by the authors, which should be equal to the injected flux and therefore differ from the values obtained), all values are lower than the flux integrated from the experimental map. The only exception is \citeColor[rachner_modelling_2002]: in fact, this work does not display neither maps nor absolute rates, but normalized integrated profiles which in this case have been de-normalized with the injected flux (it has been assumed that the flux retrieved at 80 mm is equal to the injected one). The integrated profiles of the fluxes shown in Figure \ref{fig:previous_works_profiles_comparison_with_expe} confirm these lower flow rates obtained in all simulations performed by each author. These integrated profiles have been obtained through either direct digitalization of the curves when available (Table \ref{tab:previous_numerical_studies_on_jicf_dlr_recap}) or by applying Eq. (\ref{eq:integrated_results_Becker_expe_results}) to the maps when not available. The error bars in the experimental flux profiles of Figure \ref{fig:previous_works_profiles_comparison_with_expe} correspond to a deviation of 20 $\%$ in each point. 
+
 
 \begin{table}[!h]
 \centering
-\caption{Parameters of an actuator representing the dense core}
+\caption{Available data from previous numerical studies on experimental validation in the configuration of  \citeColor[becker_breakup_2002]}
+\begin{tabular}{cccccccc}
+\thickhline
+\multirow{2}{*}{ Work }  & Global & SMD & Flux & \multirow{2}{*}{ $\langle SMD \left( z \right) \rangle$} & \multirow{2}{*}{ $\langle q_l \left( z \right) \rangle$} & \multirow{2}{*}{ $\langle SMD \left( y \right) \rangle$} & \multirow{2}{*}{ $\langle q_l \left( y \right) \rangle$} \\ 
+ & SMD & map & map & & & & \\ 
+\thickhline
+\citeColor[rachner_modelling_2002] &  & & & \checkmark & \checkmark & \checkmark & \checkmark \\
+\citeColor[jaegle_large_2009] & & & \checkmark & \checkmark & \checkmark & & \\
+\citeColor[senoner_simulation_2010] & & & \checkmark & \checkmark & \checkmark & & \\
+\citeColor[eckel_semi-empirical_2016] & \checkmark & & \checkmark & & & & \\
+\thickhline
+\end{tabular}
+\label{tab:previous_numerical_studies_on_jicf_dlr_recap}
+\end{table}
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+%	\hspace*{-0.35in}
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch6_lagrangian_JICF/previous_numerical_results/map_expe}
+   \caption*{\hspace{0.35in}(a) Experimental}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.35in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch6_lagrangian_JICF/previous_numerical_results/map_jaegle}
+   \caption*{(b) Jaegle (2009)}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.05in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch6_lagrangian_JICF/previous_numerical_results/map_senoner}
+   \caption*{(c) Senoner (2010)}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.05in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.225]{./part2_developments/figures_ch6_lagrangian_JICF/previous_numerical_results/map_eckel}
+   \caption*{(c) Eckel (2016)}
+   %\label{} 
+\end{subfigure}
+\caption{Volume flux maps at $x = 80$ mm obtained for the high Weber operating conditions from experiments \citepColor[becker_breakup_2002] and past computational works on the same configuration and operating condition. The experimental map shows the grid composed of the probes through which the spray is characterized}
+\label{fig:maps_previous_numerical_results}
+\end{figure}
+
+As previously mentioned, none of the previous works display SMD maps. Most of the works report, on the other hand, $SMD$ integrated profiles over $y$: these have been digitalized and are shown in Figure \ref{fig:previous_works_profiles_comparison_with_expe}.   The error bars in the experimental SMD profiles at this Figure correspond to a deviation of 10 $\%$ in each point. All cases show a ballistic behaviour in which the SMD increases with vertical distance $z$. The SMD profiles integrate over $z$ are only present in \citeColor[rachner_modelling_2002], who obtained accurate results at the center of the spray (region of maximum flux location) and showed a SMD overestimation when moving away towards the edges.
+
+From the SMD integrated profiles over $y$, a global SMD can be estimated by performing a further integration along the $z$ direction:
+
+\begin{equation}
+ SMD =  \frac{1}{ \int_0^{L_z} \langle q_l \left( z \right) \rangle dz} \int_0^{L_z} \langle q_l \left( z \right) \rangle \langle SMD \left( z \right) \rangle dz
+\end{equation}
+
+
+Results are shown in Table \ref{tab:previous_numerical_studies_on_jicf_dlr_values}.  \citeColor[eckel_semi-empirical_2016] do not provide the integrated SMD profile, yet they give directly the global SMD. Generally, all SMDs show a good agreement with respect to the experimental value of \citeColor[becker_breakup_2002]. The works of \citeColor[rachner_modelling_2002] and \citeColor[eckel_semi-empirical_2016] perform a calibration of their model to match the experimental size distribution, hence such a good agreement is expected. Similar is the case of \citeColor[jaegle_large_2009], who already injected the experimental size distribution at the injector without including any secondary atomization model: then, the flux-weighted SMD is expected to be close to the SMD of this distribution. \citeColor[senoner_simulation_2010] does not inject any distribution but injects droplets at the liquid nozzle with size equal to the nozzle's diameter, drags them with a modified momentum transfer law at the column liquid region and then applies the stochastic secondary breakup model of \citeColor[gorokhovski_stochastic_2001], used in this thesis and explained in $\S$\ref{subsec:ch4_goro_model}, to account for further breakup of droplets. The good results in terms of global SMD and integrated profiles obtained in his work denote the suitabitliy of the stochastic breakup model to simulate such configurations.
+
+
+
+
+%\citeColor[rachner_modelling_2002], who performed the first computations on this experimental bench, stated that the injected fuel flow rate is not conserved in the measurements at $x = 80$ mm since "\textsl{PDA measurements are less accurate at high local liquid fluxes because of dense spray effects} (sic)". \hl{...} The experimental volume flux map at $x = 80$ together with the grid in whose center the measurement probes have been located is shown in Figure \hl{\textbf{XX}} left. For each discrete probe ($j,k$), the absolute flux $Q_{l_{j,k}}$ can be calculated as:
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.9\textwidth}
+	\centering
+   \includegraphics[scale=0.22]{./part2_developments/figures_ch6_lagrangian_JICF/previous_numerical_results/flux_profiles_along_z}
+%    \hfill
+   \includegraphics[scale=0.22]{./part2_developments/figures_ch6_lagrangian_JICF/previous_numerical_results/SMD_profiles_along_z}
+   \caption{Profiles integrated over y}
+   %\label{} 
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.9\textwidth}
+	\centering
+   \includegraphics[scale=0.22]{./part2_developments/figures_ch6_lagrangian_JICF/previous_numerical_results/flux_profiles_along_y}
+    %\hfill
+   \includegraphics[scale=0.22]{./part2_developments/figures_ch6_lagrangian_JICF/previous_numerical_results/SMD_profiles_along_y}
+   \caption{Profiles integrated over z}
+   %\label{} 
+\end{subfigure}
+\caption{Integrated $SMD$ and volume flux profiles from experiments and past computational works. Computational fluxes have been obtained through digitalization and are hence not fully reliable }
+\label{fig:previous_works_profiles_comparison_with_expe}
+\end{figure}
+
+\clearpage
+
+\begin{table}[!h]
+\centering
+\caption{Global data obtained at $x = 80$ mm from experiments and previous computational studies }
+\begin{tabular}{ccc}
+\thickhline
+Reference & $SMD~\left[ \mu \mathrm{m}\right]$  & $Q_l~\left[ \mathrm{mm}^3 s^{-1} \right]$ \\
+\thickhline
+\citeColor[becker_breakup_2002] & 31.0 &   4062  \\  
+\citeColor[rachner_modelling_2002] & 31.9  & 3710  \\
+\citeColor[jaegle_large_2009] & 33.2 &  3693.8  \\
+\citeColor[senoner_simulation_2010] & 29.6  & 3573  \\
+\citeColor[eckel_semi-empirical_2016] & 32.7  & 3775.9  \\
+\thickhline
+\end{tabular}
+\label{tab:previous_numerical_studies_on_jicf_dlr_values}
+\end{table}
+
+
+%\begin{table}[!h]
+%\centering
+%\caption{Data obtained from previous work }
+%\begin{tabular}{ccccc}
+%\thickhline
+%Work & $SMD~\left[ \mu \mathrm{m}\right]$ & $\varepsilon_{SMD}~\left[\% \right]$ & $Q_l~\left[ \mathrm{mm}^3 s^{-1} \right]$ & $\varepsilon_{Q_l}~\left[ \% \right]$ \\
+%\thickhline
+%\citeColor[becker_breakup_2002] & 31 & &  4062&  \\  
+%\citeColor[rachner_modelling_2002] & 31.9 & & 3710 & \\
+%\citeColor[jaegle_large_2009] & 33.2 & & 3693.8 & \\
+%\citeColor[senoner_simulation_2010] & 29.6 & & 3573 & \\
+%\citeColor[eckel_semi-empirical_2016] & 32. & & 3775.9 & \\
+%\thickhline
+%\end{tabular}
+%\label{tab:previous_numerical_studies_on_jicf_dlr_values}
+%\end{table}
+
+
+
+
+\section{Obtention of boundary conditions for gaseous phase}
+\label{sec:ch6_BC_gaseous_phase}
+
+Prior to liquid injection, it is necessary to establish an initial solution for the gaseous phase as done for the resolved simulations. The difference with respect to the resolved simulations is that in this case, the initial solutions needs to consider the ALM since the dense core blockage effect needs to be modelled in the dispersed phase simulations. All the details of the model were addressed in $\S$\ref{sec:ch4_dense_core_modelling}. In this section, results from the resolved simulations are employed as input parameters to feed the ALM model. It is shown that the initial parameters do not capture correctly the gaseous turbulent structures, and are tuned in order to find an optimal configuration that better retrieves them. This optimal configuration is nevertheless not able to capture all the gaseous features, and another methodology to prescribe inlet boundary conditions obtained from the resolved atomization simulations in a reduced computational domain.
+
+
+\subsection{Actuator Line Model}
+
+%\subsection{Setup of actuator model}
+
+The model parameters for ALM were described in Table \ref{tab:alm_parameters}. For the two operating points simulated, the corresponding input parameters are summarized in Table \ref{tab:jicf_lgs_ALM_parameters}. These parameters are 
+
+The final actuator point $x_b$, $z_b$ and $c_L$ are obtained from the mean values of Figure \ref{fig:dense_core_mean_parameters_scatterplots} for the fine simulations (note that $c_L$ is equivalent to the resolved dense core width $w$); $c_0$ is equal to the injector diameter; $N_p$ has been set to 20 as default, but it has been checked not to have an effect on the results; and the force $\textbf{F}_\mathrm{DC}$ is obtained as explained in $\S$\ref{ch5:subsec_defining_pressure_differences}.
+
+\begin{table}[!h]
+\centering
+\caption{Parameters of an actuator representing the dense core for the high Weber case}
 \begin{tabular}{cccc}
 \thickhline
-\textbf{Parameter} & \textbf{Units} & \textbf{Low Weber} &  \textbf{High Weber} \\
+\textbf{Parameter} & \textbf{Units} & \textbf{Initial} &  \textbf{Final} \\
 \thickhline
 $x_b$ & mm & & \\
 $z_b$ & mm & & \\
 $c_0$ & mm & 0.45 & 0.45 \\
 $c_L$ & mm & & \\
-$N_p$ & - & 20 & 20 \\
 $| \textbf{F}_\mathrm{DC} |$ & N &  & \\
 %$\Delta p$ & Pa &  & \\
 \thickhline
@@ -200,64 +402,49 @@ The perturbed gaseous fields created by the presence of the dense core in the \h
 
 A quantitative assessment of the actuator blockage effect can be performed by looking at the mean velocity distribution along the lines \textbf{XX} shown in Figure \ref{XX}. Equivalent data was obtained for the resolved simulations in \hl{\textbf{$\S$XX}}, which is also shown in the same Figure for comparison ... \\
 
-OJO: ver pilotage 2021-05-26 para graficas de interes.
-
-\begin{equation}
-\overline{\textbf{u}}_\mathrm{rel,SPS} = \overline{\textbf{u}}_{g,\mathrm{SPS}} - \overline{\textbf{u}}_l ~~~~ ; ~~~~  \overline{\textbf{u}}_\mathrm{rel,ALM} = \overline{\textbf{u}}_{g,\mathrm{ALM}} - \overline{\textbf{u}}_l
-\end{equation}
-
-\begin{equation}
-\Delta u_\mathrm{rel} = | \overline{\textbf{u}}_\mathrm{rel,ALM}| - |\overline{\textbf{u}}_\mathrm{rel,SPS}|
-\end{equation}
-
-\begin{equation}
-\varepsilon =  \frac{|\overline{\textbf{u}}_\mathrm{rel,ALM}| - |\overline{\textbf{u}}_\mathrm{rel,SPS}|}{|\overline{\textbf{u}}_\mathrm{rel,SPS}|} 
-\end{equation}
-
-\begin{equation}
-\overline{\textbf{u}}_\mathrm{l,LGS} = \overline{\textbf{u}}_{g,\mathrm{LGS}} - \overline{\textbf{u}}_\mathrm{rel,SPS}
-\end{equation}
-
-Modification in secondary breakup:
-
-\begin{equation}
-\Delta \textbf{u}_\mathrm{rel} = \textbf{u}_\mathrm{rel,LGS} - \textbf{u}_\mathrm{rel,SPS}
-\end{equation}
-
-\begin{equation}
-\frac{\Delta \textbf{u}_\mathrm{rel}}{\textbf{u}_\mathrm{rel,SPS}} < \alpha 
-\end{equation}
 
 \subsubsection{Parametric study on actuator model}
 
 
 \subsection{Prescription of gaseous inlet from resolved simulations }
 
-The ALM model 
-
-Another methodology to 
-
-This method is based on the weak recycling method of synthetic turbulence by \textbf{ref:1995-wu}, without th
-
-
 
 \subsubsection{Methodology}
 
+As previously shown, the ALM model has been proved to be able to perturb the gaseous field. \hl{From an initial actuator obtained from the parameters of the resolved atomization simulation, the forces have been tuned to seek for a better match of the mean velocity profiles in the dispersed-phase simulations}. The match, however, is not completely accurate and the perturbation effect from the resolved simulations cannot be fully captured by ALM, since the dynamics and topology of the liquid dense core hinder their modelling with the relatively simple ALM model developed. 
+
+With the objective of trying to improve the matching of the resolvded gaseous fields, a different strategy has been approached. This one is based on obtaining the gaseous field in a plane perpendicular to the crossflow from the resolved simulations. The field is characterized by the mean and RMS values of the velocities in the three directions. Such profiles are then imposed in a reduced domain consisting of a box with length $150$ mm and cross-section 25x40 mm$^2$ representing the downstream part of the plenum from the JICF configuration of Figure \ref{fig:numerical_setup_maquette_JICF_DLR}. A schematic of the methodology is illustrated in Figure \ref{fig:custom_inlet_methodology}. The velocity profiles are imposed at the inlet of the prescribed domain according to the following law:
+
+\begin{equation}
+\textbf{u} \left( \textbf{x}, t \right) = \overline{\textbf{u}} \left( \textbf{x} \right)  + r \left( t \right)  \textbf{u}_\mathrm{RMS} \left( \textbf{x} \right) 
+\end{equation}
+
+where $\overline{\textbf{u}} \left( \textbf{x} \right)$ and $\textbf{u}_\mathrm{RMS} \left( \textbf{x} \right)$ are the mean and RMS velocity distributions in the crossflow plane extracted from the resolved atomization simulations. $r \left( t \right)$ is a time-varying scalar sampled from a normal distribution with mean 0 and variance 1: $r \sim \mathcal{N} \left( \mu = 0, \sigma^2 = 1 \right)$. This velocity prescription law, which is based on the weak recycling method of synthetic turbulence injection by \citeColor[wu_large_1995], ensures that the injected $TKE$ in the dispersed phase simulations is the same as the one retrieved from the resolved atomization ones. \hl{Nevertheless, due to the coarser mesh employed in the reduced domain with respect to the }
 
 \begin{figure}[h!]	
-	\centering
-	\includeinkscape[inkscapelatex=false,scale=0.25]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_inlet_methodology}
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.25]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_inlet_methodology}
 	\caption{Methodology to prescribe mean and RMS velocity fields from resolved simulations in reduced domain for dispersed-phase computation.}
 	\label{fig:custom_inlet_methodology}
 \end{figure}
 
+The mesh employed for performing simulations with the prescribed inlet is shown in Figure \ref{fig:mesh_reduced_inlet}. The mesh, which contains $12 \cdot 10^6$ elements, has been refined up to a location $x = 40$ mm downstream the inlet to a mesh size $\Delta x = 0.3$ mm, while from $x = 40$ mm up to $x = 100$ mm, the mesh size has been set to $\Delta x = 0.5$ mm as in the mesh of Figure \ref{fig:jicf_dlr_mesh_LGS}. The finer cell size of $\Delta x = 0.3$ mm has been selected  with the objective of better capturing the turbulent structures created by the inhomogeneous gaseous velocity profile injected. Nevertheless, \hl{as it will be shown later}, this cell size is not resolved enough to capture those: in the resolved simulations of Chapter \ref{ch5:jicf_resolved_simulations}, the cell size in the gaseous field around the liquid regions was of the order of the interface cell sizes ($20, 10~\mu$m) created by the ALM method, while such resolutions cannot be imposed into this reduced domain as the mesh size greatly increases and yields computations considerably expensive. Furthermore, a too fine mesh would create large volume fractions which are not in accordance with the application of lagrangian methods to simulate dispersed multiphase flows, which are applicable to small volume fractions \citepColor[murrone_numerical_2011].
+
+\begin{figure}[h!]	
+	\centering	
+	\includeinkscape[inkscapelatex=false,scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/mesh_reduced_inlet}
+	\caption{Mesh used for a direct prescription of velocity profiles at gaseous inlet in dispersed-phase simulations}
+	\label{fig:mesh_reduced_inlet}
+\end{figure}
+
+
 
 \subsubsection{Setup and results}
 
+The injected profiles, shown in the maps of Figure \ref{fig:custom_inlet_methodology}, have been obtained from the location $x = 3$ mm downstream the liquid injector in the resolved atomization simulations. Other plane locations have been tested without observing significant differences in the velocity profiles in the dispersed-phase simulations. In fact, the range of the possible planes to retrieve gaseous data for prescribing inlet BCs is narrow: upstream $x = 3$ mm the jet dense core is present and mean gaseous profiles would contain velocities corresponding to the liquid phase, while further downstream the lagrangian spray is injected in the dispersed-phase simulations (the earliest injection location is $x = 5$ mm). Hence, the only reported case here corresponds to the location $x = 3$ mm. Since the computational domain is reduced with respect to the full computational configuration used for the ALM, the axial coordinates are shifted 3 mm and the experimental validation plane, located at 80 mm downstream the liquid injection nozzle in the test bench, corresponds to the location $x = 77$ mm as depicted in Figure \ref{fig:mesh_reduced_inlet}. Hereafter, however, all axial coordinates reported will be expressed in the absolute reference frame of the experimental test bench for easening comparison with the ALM dispersed-phase simulations.
 
 
 
-\subsection{Comparison with resolved simulations}
+\subsection{Comparison between ALM and prescribed gas profiles}
 
 Planes y in Figure \ref{fig:JICF_lgs_gaseous_conditions_comparison_plane_y}. Planes x in Figure \ref{fig:JICF_lgs_gaseous_conditions_comparison_planes_x}. 
 
@@ -278,382 +465,20 @@ Planes y in Figure \ref{fig:JICF_lgs_gaseous_conditions_comparison_plane_y}. Pla
 
 \clearpage
 
-\section{(OLD) Numerical experiments (OLD)}
+\section{Dispersed phase simulations}
 
-\hl{ALSO: effect of one and two-way coupling !! Ver articulos 2010, 2011 Li }.
+In Chapter \ref{ch5:jicf_resolved_simulations}, the five resolved atomization simulations from Table \ref{fig:location_JICF_ops_in_breakup_map} were performed and analyzed. These ones tested two mesh interface mesh resolutions ($\Delta x_\mathrm{min} = 20, 10~\mu$m), two operating points ($We_g = 830, 1470$) and the influence of turbulence injection in one simulation for the coarse resolution, high $We_g$ case. Results shown a high dependency of the trajectories ($\S$\ref{subsec:ch5_jet_trajectories_results}) and jet topologies ($\S$\ref{sec:ch5_jet_evolution}) on the resolution, which led later to different spray characteristics ($\S$\ref{sec:ch5_sec_spray_characterization}) and resulting injectors ($\S$\ref{sec:ch5_learning_SLI}). Therefore, it is of interest to test such effects in the disperse-phase simulations by initializing these computations with the different injectors obtained.
 
-%
+Figure \ref{fig:dispersed_phase_sli_parameters} shows the different models involved in the dispersed phase simulations with their control parameters: they are split into the possible influences on the gas and liquid phases, as well as the secondary breakup which is considered as an interaction between both (even though it acts on the liquid phase, it needs the gas velocity for calculating the relative velocity in order to estimate liquid brekaup).
+
+
+
 \begin{figure}[h!]	
-	\centering
-	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/chart_input_parameters_LGS}
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/chart_input_parameters_LGS}
 	\caption{Parameters tested}
 	\label{fig:dispersed_phase_sli_parameters}
 \end{figure}
 
 
-\subsection{Design of experiments}
 
-In Chapter \ref{ch5:jicf_resolved_simulations}, the five resolved atomization simulations from Table \ref{fig:location_JICF_ops_in_breakup_map} were performed and analyzed. These ones tested two mesh interface mesh resolutions ($\Delta x_\mathrm{min} = 20, 10~\mu$m), two operating points ($We_g = 830, 1470$) and the influence of turbulence injection in one simulation for the coarse resolution, high $We_g$ case. Results shown a high dependency of the trajectories ($\S$\ref{subsec:ch5_jet_trajectories_results}) and jet topologies ($\S$\ref{sec:ch5_jet_evolution}) on the resolution, which led later to different spray characteristics ($\S$\ref{sec:ch5_sec_spray_characterization}) and resulting injectors ($\S$\ref{sec:ch5_learning_SLI}) for each case, which a high dependency on the operating point due to the different velocity magnitudes involved. Therefore, it is of interest to test such effects in the disperse-phase simulations by initializing these computations with the different injectors obtained.
 
-Apart from the resolved simulation parameters (i.e. $\Delta x_\mathrm{min}$, operating condition, turbulence injection), the SLI parameters to perform injection derived in Chapter \ref{ch4:sli_development} and summarized in Table \ref{subsec:ch4_injectors_definition} can also be tested, as well as the influence of the ALM model ($\S$\ref{sec:ch4_dense_core_modelling}) and the secondary atomization models ($\S$\ref{sec:ch4_dense_core_modelling}). The influence of all these parameters can be studied by performing a design of experiments with consists of the simulations from Table \ref{tab:lgs_jicf_DoF}, and which proceeds as follows: 
-
-
-\begin{itemize}
-
-	\item A \textbf{baseline} case is selected to perform injection. The resolved case UG100\_DX10 is chosen with injection being performed at $x_\mathrm{inj} = 5$ mm, ALM activated, Gaussian $\textbf{r}$  law and Gorokhovski's atomization model ($\S$\ref{subsec:ch4_goro_model}). \hl{This case was studied in ... and has been selected because ...}. It corresponds to case 1 from Table \ref{tab:lgs_jicf_DoF}, and all the rest of dispersed-phase simulations are compared to this case.
-
-		\item The effect of the \textbf{resolved mesh resolution} in the injectors is studied by keeping all parameters identical but choosing the SLI obtained from case UG100\_DX20 (see Figure \textbf{XX}). It corresponds to case 2 from Table \ref{tab:lgs_jicf_DoF}
-
-	\item The effect of \textbf{injection location} $x_\mathrm{inj}$ downstream the injector nozzle. The resolved JICF trajectories from Figure \ref{fig:JICF_trajectories_validation} show that the numerical trajectories are properly estimated in the near-nozzle region but that after a certain point, the coarse resolutions underestimate the trajectory while the fine ones overestimate it. To study the influence this can have in the dispesed-phase simulations, three different simulations are performed: two simulations for the resolved case UG100\_DX10 at 1) $x = 5$ mm ($x/d_\mathrm{inj} = 11$);, where the trajectory is properly estimated, and 2) $x = 10$ mm ($x/d_\mathrm{inj} = 22$) where the trajectory is overestimated; and 3) one simulation for the resolved case UG100\_DX20 at $x = 10$ mm ($x/d_\mathrm{inj} = 22$), where the trajectory is underestimated. These cases have been considered since they present low relative values for mass conservation of liquid mass, as shown in Figure \ref{fig:delta_Ql_with_x}. Both simulations performed correspond to cases 3 and 4 from Table \ref{tab:lgs_jicf_DoF}.
-	
-	\item The \textbf{operating condition} is tested by simulating the case UG75\_DX10 with the rest of parameters identical to the baseline (case 5 from Table \ref{tab:lgs_jicf_DoF}).
-	
-	\item \hl{The effect of the \textbf{injection diameters law} $f_0$ ...}
-	
-	\item \textbf{Spray velocities in the SLI} are tested by simulating the baseline case with the two other $\text{r}$ laws: uniform and zero, corresponding to cases 6 and 7 from Table \ref{tab:lgs_jicf_DoF}.
-	
-	\item A simulation without \textbf{ALM} is performed (case 8 from Table \ref{tab:lgs_jicf_DoF}).
-	
-	\item Finally, the effect of the different atomization models is tested by using the TAB and ETAB modes with the baseline conditions (cases 9 and 10 from Table \ref{tab:lgs_jicf_DoF}).	
-	
-\end{itemize}
-
-\clearpage
-	
-%\begin{table}[!h]
-%\centering
-%\caption{Design of experiments to test injection parameters. Modified parameters are highlighted in blue.}
-%\begin{tabular}{ccccccc}
-%\thickhline
-%\multirow{2}{*}{ \textbf{Case}} &  \multirow{2}{*}{ \begin{tabular}{c} \textbf{Resolved} \\ \textbf{simulation} \end{tabular}}    &  \multirow{2}{*}{  \begin{tabular}{c} $x_\mathrm{inj}$  \\ $\left[ \mathrm{mm} \right]$ \end{tabular}} &   \multirow{2}{*}{ \begin{tabular}{c} $\textbf{r}$ \\ \textbf{law} \end{tabular}} & \multirow{2}{*}{ \textbf{ALM ?}}  & \multirow{2}{*}{ \begin{tabular}{c} \textbf{Atomization} \\ \textbf{model} \end{tabular}} &    \multirow{2}{*}{ \textbf{Description}}\\
-% & & & & & & \\
-%\thickhline
-%\vspace*{0.1in}
-%1 & UG100\_DX10 & 5 & Gaussian & Yes & Goro  & Baseline \tab_space
-%\multirow{2}{*}{2} & \multirow{2}{*}{UG100\_\textcolor{blue}{DX20}} & \multirow{2}{*}{5} & \multirow{2}{*}{Gaussian} & \multirow{2}{*}{Yes} & \multirow{2}{*}{Goro}  &  
-% \multirow{2}{*}{ \begin{tabular}{c} Effect of \\ resolution \end{tabular}} \\
-% & & & & & & \tab_space
-%3 & UG100\_DX10 & \textcolor{blue}{10} & Gaussian & Yes & Goro  & Effect of $x_\mathrm{inj}$ \tab_space
-%4 & UG100\_\textcolor{blue}{DX20} & \textcolor{blue}{10} & Gaussian & Yes & Goro  & Effect of $x_\mathrm{inj}$ \tab_space
-%\multirow{2}{*}{5} & \multirow{2}{*}{\textcolor{blue}{UG75}\_DX10} & \multirow{2}{*}{10} & \multirow{2}{*}{Gaussian} & \multirow{2}{*}{Yes} & \multirow{2}{*}{Goro}  & \multirow{2}{*}{ \begin{tabular}{c} Effect of  \\ operating condition  \end{tabular}} \\
-% & & & & & & \tab_space
-%6 & UG100\_DX10 & 5 & \textcolor{blue}{Uniform} & Yes & Goro  & Effect of $r$ law \tab_space
-%7 & UG100\_DX10 & 5 & \textcolor{blue}{Zero} & Yes & Goro  & Effect of $r$ law \tab_space
-%8 & UG100\_DX10 & 5 & Gaussian & \textcolor{blue}{No} & Goro  & Effect of ALM \tab_space
-%\multirow{2}{*}{9} & \multirow{2}{*}{UG100\_DX10} & \multirow{2}{*}{5} & \multirow{2}{*}{Gaussian} & \multirow{2}{*}{Yes} & \multirow{2}{*}{\textcolor{blue}{TAB}} & \multirow{2}{*}{ \begin{tabular}{c} Effect of  \\ atomization model\end{tabular}}\\
-% & & & & & & \tab_space
-%\multirow{2}{*}{10} & \multirow{2}{*}{UG100\_DX10} & \multirow{2}{*}{5} & \multirow{2}{*}{Gaussian} & \multirow{2}{*}{Yes} & \multirow{2}{*}{\textcolor{blue}{ETAB}} & \multirow{2}{*}{ \begin{tabular}{c} Effect of  \\ atomization model\end{tabular}}\\
-% & & & & & & \tab_space
-%\thickhline
-%\end{tabular}
-%\label{tab:lgs_jicf_DoF}
-%\end{table}
-
-	
-\begin{table}[!h]
-\centering
-\caption{Design of experiments to test injection parameters. Blue highlight indicates modified parameters.}
-\begin{tabular}{ccccccc}
-\thickhline
-\multirow{2}{*}{ \textbf{Case}} &  \multirow{2}{*}{ \begin{tabular}{c} \textbf{Resolved} \\ \textbf{simulation} \end{tabular}}    &  \multirow{2}{*}{  \begin{tabular}{c} $x_\mathrm{inj}$  \\ $\left[ \mathrm{mm} \right]$ \end{tabular}} &   \multirow{2}{*}{ \begin{tabular}{c} $\textbf{r}$ \\ \textbf{law} \end{tabular}} & \multirow{2}{*}{ \textbf{ALM ?}}  & \multirow{2}{*}{ \begin{tabular}{c} \textbf{Atomization} \\ \textbf{model} \end{tabular}} &    \multirow{2}{*}{ \textbf{Modification}}\\
- & & & & & & \\
-\thickhline
-1 & UG100\_DX10 & 5 & Gaussian & Yes & Goro  & Baseline \tab_space
-2 & UG100\_\textcolor{blue}{DX20} & 5 & Gaussian & Yes & Goro  & SPS resolution \tab_space
-3 & UG100\_DX10 & \textcolor{blue}{10} & Gaussian & Yes & Goro  & $x_\mathrm{inj}$ \tab_space
-4 & UG100\_\textcolor{blue}{DX20} & \textcolor{blue}{10} & Gaussian & Yes & Goro  & $x_\mathrm{inj}$ \tab_space
-5 & \textcolor{blue}{UG75}\_DX10 & 10 & Gaussian & Yes & Goro  & Operating condition \tab_space
-6 & UG100\_DX10 & 5 & \textcolor{blue}{Uniform} & Yes & Goro  & $r$ law \tab_space
-7 & UG100\_DX10 & 5 & \textcolor{blue}{Zero} & Yes & Goro  & $r$ law \tab_space
-8 & UG100\_DX10 & 5 & Gaussian & \textcolor{blue}{No} & Goro  & ALM \tab_space
-9 & UG100\_DX10 & 5 & Gaussian & Yes & \textcolor{blue}{TAB} & Atomization model \tab_space
-10 & UG100\_DX10 & 5 & Gaussian & Yes & \textcolor{blue}{ETAB} & Atomization model \tab_space
-\thickhline
-\end{tabular}
-\label{tab:lgs_jicf_DoF_OLD}
-\end{table}
-
-	
-\subsection{Results}
-
-
-\subsubsection*{Effect of mesh resolution}
-
-\subsubsection*{Effect of injection location}
-
-\subsubsection*{Effect of operating condition}
-
-\subsubsection*{Effect of $\textbf{r}$ law}
-
-\subsubsection*{Effect of ALM}
-
-\subsubsection*{Effect of atomization model}
-
-\clearpage
-
-\section{Dispersed phase simulations}
-
-
-\subsection{Design of experiments}
-
-
-In Chapter \ref{ch5:jicf_resolved_simulations}, the five resolved atomization simulations from Table \ref{fig:location_JICF_ops_in_breakup_map} were performed and analyzed. These ones tested two mesh interface mesh resolutions ($\Delta x_\mathrm{min} = 20, 10~\mu$m), two operating points ($We_g = 830, 1470$) and the influence of turbulence injection in one simulation for the coarse resolution, high $We_g$ case. Results shown a high dependency of the trajectories ($\S$\ref{subsec:ch5_jet_trajectories_results}) and jet topologies ($\S$\ref{sec:ch5_jet_evolution}) on the resolution, which led later to different spray characteristics ($\S$\ref{sec:ch5_sec_spray_characterization}) and resulting injectors ($\S$\ref{sec:ch5_learning_SLI}) for each case, which a high dependency on the operating point due to the different velocity magnitudes involved. Therefore, it is of interest to test such effects in the disperse-phase simulations by initializing these computations with the different injectors obtained.
-
-Apart from the different injectors obtained from the resolved simulations (i.e. $\Delta x_\mathrm{min}$, operating condition, turbulence injection), the SLI parameters to perform injection derived in Chapter \ref{ch4:sli_development} and summarized in Table \ref{subsec:ch4_injectors_definition} are tested, as well as the influence of the ALM model ($\S$\ref{sec:ch4_dense_core_modelling}) and the secondary atomization models ($\S$\ref{sec:ch4_dense_core_modelling}). Figure \ref{fig:dispersed_phase_sli_parameters} shows the different models involved in the dispersed phase simulations with their control parameters: they are split into the possible influences on the gas and liquid phases, as well as the secondary breakup which is considered as an interaction between both (even though it acts on the liquid phase, it needs the gas velocity for calculating the relative velocity in order to estimate liquid brekaup). The influence of all these parameters can be studied by performing a Design of Experiments (DoE) where each relevant parameter is assessed individually. Due to the large number of parameters, \hl{four} different sets of simulations (summarized in Table \ref{tab:lgs_jicf_DoF}) are performed and validated with the experimental results:
-
-\begin{itemize}
-
-	\item \textbf{Set I}: the effect of the gaseous phase boundary conditions is checked in first place. According to the parameters shown in Figure \ref{fig:dispersed_phase_sli_parameters} and the results from $\S$\ref{sec:ch6_BC_gaseous_phase}, \hl{four} simulations are performed to test the: 1) unperturbed case, 2) perturbed case with baseline ALM, 3) perturbed case with optimum ALM, and 4) perturbed case with prescribed inlet. The same SLI is used for all simulations, which is described in first place. From these simulations, the case \hl{??} has been found to yield the best experimental comparison, and so has been chosen to proceed with the numerical experiments of the set 2.
-	
-	\item \textbf{Set II}: assessing the effect of the SLI parameters (liquid phase in in Figure \ref{fig:dispersed_phase_sli_parameters}). Parameters tested include the liquid injection velocity law $r$ and the use of convergence-driven discretization to build SLI. \hl{From these simulations, it has been found ...}
-	
-	\item \textbf{Set III}: effect of the secondary atomization model. The three implemented models (TAB, ETAB and Gorokhovski) are tested. \hl{Two extra parameters}, $\Delta x_\mathrm{atom}$ and $\Delta u_\mathrm{rel}$, ...
-	
-	\item \textbf{Set IV}: influence of resolved atomization parameters. From the previous analyses, the best configuration is chosen and applied to study the effect of injection location ($x = $10 mm), resolution ($\Delta x_\mathrm{min} = 20~\mu$m), \hl{synthethic turbulence injection in the gaseous inlet} and operating condition (SLI from low Weber operating point.)
-
-\end{itemize}
-
-\clearpage
-
-\begin{table}[!h]
-\centering
-\caption{Design of experiments to test injection parameters}
-\begin{tabular}{ccc}
-\thickhline
-\textbf{Series} & \textbf{Case} & \textbf{Modification} \\
-\thickhline
-\multirow{4}{*}{ 1} & 1.1 & No perturbed gaseous inlet \\
-& 1.2 & Baseline ALM \\
-& 1.3 & Optimum ALM \\
-& 1.4 & Prescribed inlet \\
-\hline
-\multirow{3}{*}{ 2} & 2.1 & $r$ law: uniform \\
-& 2.2 & $r$ law: zero \\
-& 2.3 & SLI built with convergence-driven discretization \\
-\hline
-\multirow{2}{*}{ 2} & 3.1 & Atomization model: TAB \\
-& 3.2 & Atomization model: TAB \\
-\hline
-\multirow{4}{*}{ 4} & 4.1 & Injection location: $x_\mathrm{inj} = 10$ mm \\
-& 4.2 & Resolution: $\Delta x_\mathrm{min} = 20~\mu$m \\
-& 4.3 & Synthetic turbulence injection \\
-& 4.4 & Operating condition: UG75\_DX10 \\
-\thickhline
-\end{tabular}
-\label{tab:lgs_jicf_DoF_simple}
-\end{table}
-
-\clearpage
-
-\begin{table}[!h]
-\centering
-\caption{Design of experiments to test injection parameters. Blue highlight indicates modified parameters.}
-\begin{tabular}{ccccccc}
-\thickhline
-\multirow{2}{*}{ \textbf{Set}} & \multirow{2}{*}{ \textbf{Case}} &  \multirow{2}{*}{ \begin{tabular}{c} \textbf{Resolved} \\ \textbf{simulation} \end{tabular}}    &  \multirow{2}{*}{  \begin{tabular}{c} $x_\mathrm{inj}$  \\ $\left[ \mathrm{mm} \right]$ \end{tabular}} &   \multirow{2}{*}{ \begin{tabular}{c} $\textbf{r}$ \\ \textbf{law} \end{tabular}} & \multirow{2}{*}{ \begin{tabular}{c} \textbf{Gas} \\ \textbf{phase} \end{tabular}} & \multirow{2}{*}{ \begin{tabular}{c} \textbf{Breakup} \\ \textbf{model} \end{tabular}} \\
- & & & & & & \\
-\thickhline
-\multirow{5}{*}{I} & I.1 & UG100\_DX10 & 5 & Gaussian & \textcolor{blue}{Unperturbed} & Goro   \tab_space
- & I.2 & UG100\_DX10 & 5 & Gaussian & \textcolor{blue}{ALM baseline} & Goro   \tab_space
- & I.3 & UG100\_DX10 & 5 & Gaussian & \textcolor{blue}{ALM optimum} & Goro   \tab_space
- & I.4 & UG100\_DX10 & 5 & Gaussian & \textcolor{blue}{Prescribed inlet} & Goro   \tab_space
- \hline
-\multirow{3}{*}{II} & II.1 & UG100\_DX10 & 5 & \textcolor{blue}{Uniform} & \hl{?} & Goro   \tab_space
- & II.2 & UG100\_DX10 & 5 & \textcolor{blue}{Zero} & \hl{?} & Goro   \tab_space
-\hline
-\multirow{3}{*}{III} & III.1 & UG100\_DX10 & 5 & \hl{?} & \hl{?} & \textcolor{blue}{TAB} \tab_space
- & III.2 & UG100\_DX10 & 5 & \hl{?} & \hl{?} & \textcolor{blue}{ETAB} \tab_space
-\hline
-\multirow{5}{*}{IV} & IV.1 & UG100\_DX10 & \textcolor{blue}{10} & \hl{?} & \hl{?} & \hl{Goro} \tab_space
- & IV.2 & UG100\_\textcolor{blue}{DX20} & 5 & \hl{?} & \hl{?} & \hl{Goro} \tab_space
- & IV.3 & UG100\_DX20 & 5 & \hl{?} & \hl{?} + \textcolor{blue}{no turb.} & \hl{Goro} \tab_space
- & IV.4 & UG\textcolor{blue}{75}\_DX10 & 5 & \hl{?} & \hl{?} & \hl{Goro} \tab_space
-\thickhline
-
-
-
-\end{tabular}
-\label{tab:lgs_jicf_DoF}
-\end{table}
-
-\clearpage
-
-
-\subsection{Set I: influence of gas phase parameters}
-
-\subsubsection{Baseline liquid conditions}
-
-\subsubsection{Results}
-
-\begin{table}[!h]
-\centering
-\caption{SMD values at $x = 80$ mm for simulations from Set I}
-\begin{tabular}{ccc}
-\thickhline
-Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
-\thickhline
-Experiments & 31 & - \\
-I.1 - Unperturbed & \hl{?} & \hl{?} \\
-I.2 - ALM baseline & \hl{?} & \hl{?} \\
-I.3 - ALM optimum & \hl{?} & \hl{?} \\
-I.4 - Prescribed inlet & \hl{?} & \hl{?} \\
-\thickhline
-\end{tabular}
-\label{tab:jicf_tools_trajectories_obtention}
-\end{table}
-
-\begin{figure}[ht]
-\centering
-\includeinkscape[inkscapelatex=false,scale=0.6]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_1/jet_views_set_I}
-\caption{Instantaneous views of the lagrangian simulations for simulations from Set I}
-%\label{fig:extraction_methodology_mean_DC}
-\end{figure}
-
-
-
-\begin{figure}[ht]
-\flushleft
-\begin{subfigure}[b]{0.9\textwidth}
-	\flushleft
-   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_1/integrated_fluxes_along_z}
-   \hfill
-   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_1/integrated_SMD_along_z}
-	\caption{Magnitudes integrated along the $y$ direction}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{0.9\textwidth}
-	\flushleft
-   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_1/integrated_fluxes_along_y}
-   \hfill
-   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_1/integrated_SMD_along_y}
-	\caption{Magnitudes integrated along the $z$ direction}
-\end{subfigure}
-
-   \caption{Set I: Integrated $SMD$ and $q_l$ values at $x = 80$ mm and comparison with experimental results}
-%\label{fig:jicf_liquid_mean_velocities_with_x}
-\end{figure}
-
-
-\subsection{Set II: influence of SLI parameters}
-
-\subsection{Set III: influence of secondary atomization model}
-
-\subsection{Set IV: influence of resolved parameters}
-
-\begin{table}[!h]
-\centering
-\caption{SMD values at $x = 80$ mm for simulations from Set I}
-\begin{tabular}{ccc}
-\thickhline
-Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
-\thickhline
-Experiments high We & 31 & - \\
-IV.1 - $x_\mathrm{inj} = 10$ mm & \hl{?} & \hl{?} \\
-I.2 - $\Delta x_\mathrm{min} = 20~\mu$m & \hl{?} & \hl{?} \\
-I.3 - No turbulence & \hl{?} & \hl{?} \\
-\hline 
-Experiments low We & 36 & - \\
-I.4 - Low Weber point & 27 & - 25 \\
-\thickhline
-\end{tabular}
-\label{tab:jicf_tools_trajectories_obtention}
-\end{table}
-
-\subsubsection{IV.4 - Operating point}
-
-\begin{figure}[ht]
-\flushleft
-\begin{subfigure}[b]{0.9\textwidth}
-	\flushleft
-   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_4/integrated_fluxes_along_z}
-   \hfill
-   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_4/integrated_SMD_along_z}
-	\caption{Magnitudes integrated along the $y$ direction}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{0.9\textwidth}
-	\flushleft
-   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_4/integrated_fluxes_along_y}
-   \hfill
-   \includegraphics[scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/expe_validation_set_4/integrated_SMD_along_y}
-	\caption{Magnitudes integrated along the $z$ direction}
-\end{subfigure}
-
-   \caption{Set IV, effect of operating condition: Integrated $SMD$ and $q_l$ values at $x = 80$ mm and comparison with experimental results}
-%\label{fig:jicf_liquid_mean_velocities_with_x}
-\end{figure}
-
-
-
-\clearpage
-
-\section{Additional considerations}
-
-\subsection{Lagrangian trajectories}
-
-\subsection{Frequential analysis}
-
-\section{Conclusions}
-
-\section{Relation between volume and mixture fractions}
-
-So we can relate $\overline{\alpha}$ field with the mixture fraction somehow, this will be interesting for people doing combustion. I have developed the following relation between mixture fraction $Z$ and volume fraction $\alpha$ (need to check it properly):
-
-\begin{equation}
-Z = \frac{m_l}{m_l + m_g} = \frac{V_l \rho_l}{V_l \rho_l + V_g \rho_g} = \frac{1}{1 + \frac{V_g}{V_l} \frac{\rho_g}{\rho_l}} = \frac{1}{1 + \frac{\rho_g}{\rho_l} \frac{1 - \alpha}{\alpha}}
-\end{equation}
-
-
-We can also make a link to heat relase, for the interest of combustion studies.
-
-
-
-
-\section{Results}
-
-%\subsection{Mesh convergence study}
-
-\subsection{Validation with experiments (quantitative/qualitative)}
-
-\subsection{Trajectories}
-
-In order to illustrate the lagrangian trajectories and the continuity with respect to the resolved jets, a volume fraction field can be defined in the lagrangian simulations:
-
-\begin{equation}
-\alpha_l \left( \textbf{x}, t \right) = \frac{V_l \left( \textbf{x}, t \right)}{V_{el}}
-\end{equation}
-
-where $V_{el}$ is the volume of the element in the eulerian mesh grid. Therefore, the volume fraction is a magnitude defined in the main eulerian grid. Since the dispersed phase is not directly represented in this grid but by lagrangian particles, $V_l \left( \textbf{x}, t \right)$ is calculated by interpolating the volume of the particles located within each element at each iteration.
-
-\subsection{Frequential analysis}
-
-Several probes have been located in the outer part of the jet to see the spectra. See Figures \ref{fig:probes_dx10m} and \ref{fig:probes_dx20m} for volume fraction probes, and Figure \ref{fig:probes_U_planey0} for determining velocity spectra at plane y = 0. These are available at pilotage 30-04-2021.
-
-Para velocidades: OJITO con la probe 18 !
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.7]{./part2_developments/figures_ch6_lagrangian_JICF/probes_vol_frac}
-	\caption{Probes for $\alpha$ frequential analysis for volume fraction}
-	\label{fig:probes_dx10m}
-\end{figure}
-
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.7]{./part2_developments/figures_ch6_lagrangian_JICF/probes_U_planey0}
-	\caption{Probes for $U$ study}
-	\label{fig:probes_U_planey0}
-\end{figure}
-
-\section{Performance of the simulations}
-
-These ones are cheaper than the resolved ones.
-
-
-
-\section{Conclusions}

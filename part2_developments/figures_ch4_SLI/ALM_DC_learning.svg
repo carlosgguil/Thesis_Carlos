@@ -2,20 +2,20 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="210mm"
    height="297mm"
    viewBox="0 0 210 297"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.0 r15299"
-   sodipodi:docname="ALM_DC_learning.svg">
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="ALM_DC_learning.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
   <defs
      id="defs2">
     <marker
@@ -1734,17 +1734,18 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.5229574"
-     inkscape:cx="-250.39073"
-     inkscape:cy="614.17048"
+     inkscape:cx="249.54231"
+     inkscape:cy="570.79219"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
-     inkscape:window-height="986"
-     inkscape:window-x="-11"
-     inkscape:window-y="-11"
+     inkscape:window-height="1001"
+     inkscape:window-x="3831"
+     inkscape:window-y="442"
      inkscape:window-maximized="1"
-     showguides="false" />
+     showguides="false"
+     inkscape:pagecheckerboard="0" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -1753,7 +1754,6 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1785,10 +1785,10 @@
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        xml:space="preserve"><tspan
          id="tspan383-6-5-6-9"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.26458332"
          y="128.76624"
          x="215.14459"
-         sodipodi:role="line" /></text>
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.26458332" /></text>
     <path
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
@@ -2090,10 +2090,10 @@
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        xml:space="preserve"><tspan
          id="tspan383-6-5-6-1-5-1"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.26458332"
          y="64.363548"
          x="422.23669"
-         sodipodi:role="line" /></text>
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46666622px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.26458332" /></text>
     <text
        inkscape:export-ydpi="853.526"
        inkscape:export-xdpi="853.526"
@@ -2286,27 +2286,27 @@
          sodipodi:role="line">w</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:17.05456734px;line-height:21.31820869px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.42636415"
-       x="-41.404312"
-       y="242.6778"
+       style="font-style:normal;font-weight:normal;font-size:17.0546px;line-height:21.3182px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.426364"
+       x="-31.376665"
+       y="242.30606"
        id="text4693-2-0-6-3-0-1-2-4-7"
        inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
        inkscape:export-xdpi="853.526"
        inkscape:export-ydpi="853.526"
        transform="scale(1.0390778,0.96239184)"><tspan
          sodipodi:role="line"
-         x="-41.404312"
-         y="242.6778"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.39031267px;line-height:18.09663963px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.42636415"
+         x="-31.376665"
+         y="242.30606"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.39031px;line-height:18.0966px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.426364"
          id="tspan383-6-7-0-23-1-2"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.09576893px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.42636415"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.09577px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.426364"
            id="tspan8725">(x</tspan><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.68485546px;font-family:serif;-inkscape-font-specification:serif;baseline-shift:sub;stroke-width:0.42636415"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.68486px;font-family:serif;-inkscape-font-specification:serif;baseline-shift:sub;stroke-width:0.426364"
            id="tspan7918">p</tspan><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.09576893px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.42636415"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.09577px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.426364"
            id="tspan8727">,z</tspan><tspan
            id="tspan8256"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.82182646px;font-family:serif;-inkscape-font-specification:serif;baseline-shift:sub;stroke-width:0.42636415">p)</tspan></tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.82183px;font-family:serif;-inkscape-font-specification:serif;baseline-shift:sub;stroke-width:0.426364">p)</tspan></tspan></text>
     <text
        inkscape:export-ydpi="853.526"
        inkscape:export-xdpi="853.526"
@@ -2795,5 +2795,32 @@
        id="path4572-2-8-6"
        d="M 12.54948,172.79932 0.81663695,187.06017"
        style="fill:none;stroke:#000000;stroke-width:0.63953167;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend-2-2-5-0-0-8-2)" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.365;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker6280)"
+       d="m -68.447574,282.7293 30.145825,-49.43554"
+       id="path1941"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.465;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -42.877887,229.51773 10.928284,6.93009"
+       id="path10748-0-5"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       inkscape:export-ydpi="853.526"
+       inkscape:export-xdpi="853.526"
+       inkscape:export-filename="C:\Users\Carlos\Desktop\VKI\Presentation\Figures\CAE_flowchart.png"
+       id="text4693-2-0-6-3-4-0-6-3-7"
+       y="252.67241"
+       x="-57.600304"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       xml:space="preserve"><tspan
+         id="tspan383-6-5-6-0-9-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
+         y="252.67241"
+         x="-57.600304"
+         sodipodi:role="line">s<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan6703">p</tspan></tspan></text>
   </g>
 </svg>

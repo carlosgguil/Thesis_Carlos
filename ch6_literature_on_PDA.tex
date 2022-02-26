@@ -1,0 +1,54 @@
+\section*{REVIEW on uncertainty: PDA literature}
+
+The work of 1998 paper on ... disclosed errors on the fluxes of 10 $\%$ for a pressure swirl atomizer and of 30 $\%$ for an airblast configuration. Indeed, the experiments of Becker and Hassa report mean errors of 20 $\%$ maximum of 37 $\%$ for liquid fluxes.
+
+PDA present sources of error in:
+
+\begin{itemize}
+
+	\item \textbf{Fluxes}.
+	
+	\item \textbf{Droplets sizes}. 
+
+\end{itemize}
+
+There are several works that I've obtained dealing with PDA measurement uncertainties. Chronologically:
+
+\begin{itemize}
+
+	\item \textbf{1980 Bachalo} explains that the optical configuration is of particular importance. "\textsl{An error of 10 $\%$ in refractive index results in an error of 10 $\%$ in particle size. For droplets that are deformed in a preferred direction due to, for example, aerodynamic pressure distributions on the droplet, a systematic error in the size measurement could occur}". Hence, if droplets are not spherical the errors can become significant.
+
+	\item \textbf{1998 paper on PDA uncertainties} reports that in previous works (to 1998), errors in fluxes of 100 $\%$ have been reported. Recent efforts (to that date) have been done to minimize such errors. Then, several sources of errors have been identified to arise from the equation used to estimate the flux (put equation somewhere maybe): 1) size measurement due to the third power dependence; 2) umber count depending on the electronics; 3) reference area depending on droplet size, optical configuration and validation scheme. In general, "\textsl{small droplets will not influnce the mass flux significantly so poor detection of small drops should not be a major source of error; however, small droplets sized as large droplets (e.g. slit effect [4]) or large droplets sized as small droplets (trajectory effect [5]) remain problems to be addressed. [...] A final, more subtle, source of error is the alignment and adjustment of the instrument}". This article is also interesting because it compares three different PDA configurations: DualPDA, QS-PDA and PDPA; these are compared to a patternator which is apparently the \textsl{truth}. Two configurations are tested: a pressure-swirl and an airblast atomizer. In general, QS-PDA and DualPDA yield better estimations on the mass fluxes. The pressure-swirl yielded mass flux accuracies of 10 $\%$ for the DualPDA, while the airblast yielded 30 $\%$ (more error).
+	
+	\item \textbf{1998 Brandt} report how raw PDA data was treated in the same experimental test bench as Becker and Hassa. It is interesting since they test an airblast spray in this configuration. Need to check if the optical setup is exactly the same as in the JICF, but if it is then: \textsl{velocity and dropsize measurement errors due to alignment uncertainties were below 1 \%. Neglecting refractive index gradients, dropsizing errors due to the change of the refractive index of kerosine for droplets being heated up from ambient temperature to their wet-bulb temperature were about 3.5\%}. Errors on droplet diameters are discussed and related to the Bond number (very insteresting), concluding that \textsl{the mean value of the dropsize is measured about 7\% too large.} Later on ($\S$2.3.1), they discuss that volume fluxes errors between 10 and 14 \% were obtained. They also relate errors on sizes due to variations in the refractive index (as in \textbf{1980-Bachalo}). 
+	
+	\item \textbf{2001 Roisman - Flux measurements ...} develop a model to improve the estimate on size distirbutions and flux measurements with PDA. They emphasize that the difference between detection and illuminated volume is paramount, as well as to consider the error when counting droplets more than one. They also state that PDA errors on \textbf{particles velocities} are not high and they do not affect the fluxes too much: the errors on \textbf{size distributions} are the ones that are important! \textsl{significant sizing errors can be made when the signal-to-noise ratio (SNR) is low or if the premise that a single scattering mode is dominant no longer holds. The latter situation arises via the Gaussian beam effect [2–4] or the slit effect [5]}. To minimize erros, a large enough ratio between diameter of the illuminated volume and the maximum expected particle diameter are chosen. Furthermore, another magnitude susceptible to errors is the \textbf{number of particles} passing through the detection volume during a given observation time. For me, it is necessary to check if the experimental test bench of Becker and Hassa present features that could enhance these errors (the thing on the Brewster's angle might be a clue).
+
+	\item \textbf{2002 Becker}, oh my Goodness how many times I've seen this name, report taht \textsl{at a postion 80 mm downstream the injection point, the difference between measured kerosene mass flows and actualed metered flows was about 20 $\%$ on average, with the maximum difference being 37 $\%$}. 2D-PDA was used: maybe relate it to 1998 article. It is also said that "thereceiving optics could not be positioned at Brewster’s angle (approx. 68 deg) due to limitations of optical access", (ver que demonios es el Brewster angle) which could also affect the results.
+	
+	\item \textbf{2002 Rachner}, who performed the first computations on this experimental bench, stated that the injected fuel flow rate is not conserved in the measurements at $x = 80$ mm since "\textsl{PDA
+measurements are less accurate at high local liquid fluxes because of dense spray effects} (sic)".
+	
+	\item \textbf{2011 Tropea}
+	
+	\item \textbf{2016 Eckel} cites \textbf{2011 Tropea} by saying that \textsl{it should be noted that PDA measurements of fuel fluxes are known to have large uncertainties}.
+	
+	\item \textbf{Malbois 2018 (PhD Thesis)} en verdad no es muy relevante: menciona la PDA brevemente, pero no la utiliza (o no dice utilizarla) y presenta errores en otras medidas.
+	
+	\item \textbf{Doublet 2020 (PhD Thesis)} si que habla guay de la PDA! Hay que ver la descripcion de la PDA (p. 67) y cuando habla del setup experimental que utiliza (pagina 105), pues aqui hace una propagacion de errores. Igualmente, muestra que la incertitud en los diametros no es muy dependiente de la temperatura, pero MUY dependiente del setup.
+
+\end{itemize}
+
+Also, there are the articles sent by Lea:
+
+\begin{itemize}
+
+	\item \textbf{2004 Becker} (joder con Becker tio) dice que ... Echarle un ojo al correo de Léa, Brunet hace un buen resumen. Igualmente, en el articulo dice que errores de SMD son de un 5 $\%$ (solo?).
+	
+	\item \textbf{1998 Damaschke} relates that the analysis should depend on the particle types: dependent on shapes, refractive indices, composition and size relative to the wavelength employed. The droplets shapes would affect the light scattering from the particle, which would then affect the measurements.
+	
+	\item \textbf{1998 Brandt} - Ver arriba.
+	
+	\item \textbf{2000 Araneo} (careful: diesel spray) quantify the uncertainty in drop diameter and study the influence of the measurement location inside the spray.
+
+\end{itemize}

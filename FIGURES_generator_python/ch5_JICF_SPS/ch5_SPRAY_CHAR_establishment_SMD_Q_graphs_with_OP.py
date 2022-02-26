@@ -92,7 +92,8 @@ tau_ph_UG75_DX10 = 0.2952
 tau_ph_UG75_DX20 = 0.3558
 tau_ph_UG100_DX10 = 0.2187
 tau_ph_UG100_DX20 = 0.2584
-tau_ph_UG100_DX20_NO_TURB = 0.2584
+tau_ph_UG100_DX20_NO_TURB = 0.2602
+
 
 tau_values = [tau_ph_UG75_DX10 , tau_ph_UG75_DX20,
               tau_ph_UG100_DX10, tau_ph_UG100_DX20, tau_ph_UG100_DX20_NO_TURB]
@@ -102,6 +103,36 @@ d_inj = 0.45E-3
 Q_inj_UG100 = np.pi/4*d_inj**2*23.33*SCALE_FACTOR #3.6700294207081691E-006*SCALE_FACTOR
 Q_inj_UG75 = np.pi/4*d_inj**2*17.5*SCALE_FACTOR #3.6700294207081691E-006*SCALE_FACTOR
 
+# shifting times
+tp_0_true_values = False
+
+if tp_0_true_values:
+    tp_0_UG100_DX20 = 0.6840/tau_ph_UG100_DX20
+    tp_0_UG100_DX20_NT = 0.7844/tau_ph_UG100_DX20_NO_TURB
+    tp_0_UG100_DX10 = 0.4173/tau_ph_UG100_DX10
+    tp_0_UG75_DX20 = 0.9640/tau_ph_UG75_DX20
+    tp_0_UG75_DX10 = 0.5032/tau_ph_UG75_DX10
+else:
+    tp_0_UG100_DX20 = 2.3
+    tp_0_UG100_DX20_NT = 2.2
+    tp_0_UG100_DX10 = 1.9080932784636488
+    tp_0_UG75_DX20 = 2.3
+    tp_0_UG75_DX10 = 1.85
+    
+# define maximum values for t' (obtained from ch5_nelem_plot.py)
+tp_max_UG100_DX20 = 23.8370270548746 # diff of 1*tp
+tp_max_UG100_DX20_NT = 23.436246263752494 # diff of 2*tp
+tp_max_UG100_DX10 = 3.5785496471047074 # diff of 0.5*tp
+tp_max_UG75_DX20 = 17.695510529612424 # no diff !
+tp_max_UG75_DX10 = 3.6428757530101596 # no diff !
+
+tp_0_cases = [tp_0_UG75_DX10, tp_0_UG75_DX20,
+              tp_0_UG100_DX10, tp_0_UG100_DX20, tp_0_UG100_DX20_NT]
+
+tp_max_cases =  [tp_max_UG75_DX10, tp_max_UG75_DX20,
+                 tp_max_UG100_DX10, tp_max_UG100_DX20, tp_max_UG100_DX20_NT]
+    
+
 #%% Get dimensionless time, SMD and fluxes evolution
 
 
@@ -110,11 +141,19 @@ for i in range(len(sprays_list_all)):
     case = sprays_list_all[i]
     tau_char = tau_values[i]
     time_val = []; SMD_val = []; Ql_val = []
+    # to shift time
+    tp_0_i = tp_0_cases[i]
+    tp_max_i = tp_max_cases[i]
     for j in range(len(case)):
         time = case[j].time_instants*1e3/tau_char
         time -= time[0]
         time += 2
-        time_val.append(time)
+        
+        
+        # Shift time
+        m_ij = (tp_max_i - tp_0_i)/(time[-1] - time[0])
+        t_plot_i = m_ij*(time - time[0]) + tp_0_i
+        time_val.append(t_plot_i)
         SMD_val.append(case[j].SMD_evol)
         Ql_val.append(case[j].Q_evol*SCALE_FACTOR)
     tp_cases.append(time_val)
@@ -145,14 +184,14 @@ ax2.plot(tp_cases[i][j], SMD_cases[i][j], 'b', label=labels_[j])
 ax.plot([0,100],[0]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
 x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
-x_ticks_ = [2,3,4]
+#x_ticks_ = [2,3,4]
 ax.set_xlim(x_lim_)
 ax2.set_xlim(x_lim_)
-ax.set_xticks(x_ticks_)
-ax2.set_xticks(x_ticks_)
+#ax.set_xticks(x_ticks_)
+#ax2.set_xticks(x_ticks_)
 
 ax.set_ylabel(y_label_Ql)
-ax.set_ylim(-5500,5500)
+ax.set_ylim(-5500,5250)
 ax.set_yticks([0, 1000, 2000, 3000, 4000, 5000])
 ax.yaxis.set_label_coords(-0.15,0.8)
 
@@ -160,7 +199,7 @@ ax2.set_ylabel(y_label_SMD)
 #ax2.set_ylim(0,300)
 #ax2.set_yticks([0,50,100,150])
 ax2.set_ylim(30,270)
-ax2.set_yticks([50,100,150])
+ax2.set_yticks([50,75,100,125,150])
 ax2.yaxis.set_label_coords(1.1,0.224)
 
 ax.grid()
@@ -176,7 +215,7 @@ plt.close()
 
 
 
-
+#%%
 
 # UG75_DX20
 i = 1
@@ -209,20 +248,20 @@ ax2.set_xlim(x_lim_)
 #ax2.set_xticks(x_ticks_)
 
 ax.set_ylabel(y_label_Ql)
-ax.set_ylim(-5500,5500)
-ax.set_yticks([0, 1000, 2000, 3000, 4000, 5000])
+ax.set_ylim(-5500,6500)
+ax.set_yticks([0, 1000, 2000, 3000, 4000, 5000,6000])
 ax.yaxis.set_label_coords(-0.15,0.8)
 
 ax2.set_ylabel(y_label_SMD)
 #ax2.set_ylim(0,300)
 #ax2.set_yticks([0,50,100,150])
-ax2.set_ylim(50,410)
-ax2.set_yticks(np.linspace(50,230,7))
+ax2.set_ylim(50,540)
+ax2.set_yticks(np.linspace(50,250,6))
 ax2.yaxis.set_label_coords(1.11,0.224)
 
 ax.grid()
 ax2.grid()
-ax.legend(loc='best',ncol=2)
+#ax.legend(loc='upper right',ncol=2)
 plt.tight_layout(pad=0)
 plt.savefig(folder_manuscript+'establishment_UG75_DX20.pdf')
 plt.show()
@@ -231,7 +270,7 @@ plt.close()
 
 
 
-
+#%%
 
 # UG100_DX10
 i = 2
@@ -253,22 +292,22 @@ ax2.plot(tp_cases[i][j], SMD_cases[i][j], 'b', label=labels_[j])
 ax.plot([0,100],[0]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
 x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
-x_ticks_ = [2,2.5,3]
+x_ticks_ = [2,2.5,3,3.5]
 ax.set_xlim(x_lim_)
 ax2.set_xlim(x_lim_)
 ax.set_xticks(x_ticks_)
 ax2.set_xticks(x_ticks_)
 
 ax.set_ylabel(y_label_Ql)
-ax.set_ylim(-8000,8000)
-ax.set_yticks([0, 2000, 4000, 6000, 8000])
+ax.set_ylim(-5000,5000)
+ax.set_yticks([0, 1000, 2000, 3000, 4000, 5000])
 ax.yaxis.set_label_coords(-0.15,0.8)
 
 ax2.set_ylabel(y_label_SMD)
 #ax2.set_ylim(0,300)
 #ax2.set_yticks([0,50,100,150])
-ax2.set_ylim(50,350)
-ax2.set_yticks([50,75,100,125,150,200])
+ax2.set_ylim(50,225)
+ax2.set_yticks([50,75,100,125])
 ax2.yaxis.set_label_coords(1.11,0.224)
 
 ax.grid()
@@ -280,7 +319,7 @@ plt.close()
 
 
 
-
+#%%
 
 
 
@@ -316,24 +355,27 @@ ax2.set_xlim(x_lim_)
 #ax2.set_xticks(x_ticks_)
 
 ax.set_ylabel(y_label_Ql)
-ax.set_ylim(-5500,5500)
-ax.set_yticks([0, 1000, 2000, 3000, 4000, 5000])
+ax.set_ylim(-6000,6000)
+ax.set_yticks([0, 1000, 2000, 3000, 4000, 5000, 6e3])
 ax.yaxis.set_label_coords(-0.15,0.8)
 
 ax2.set_ylabel(y_label_SMD)
-ax2.set_ylim(50,289)
-ax2.set_yticks(np.linspace(50,170,5))
+ax2.set_ylim(50,350)
+ax2.set_yticks(np.linspace(50,200,6))
 ax2.yaxis.set_label_coords(1.11,0.224)
 
 ax.grid()
 ax2.grid()
+# Plot just to add legend
+ax2.plot((0,0),(0,1), '--k',linewidth = linewidth_Ql, label=r'$Q_l~\mathrm{injected}$')
+ax2.legend(loc='lower right',ncol=2)
 plt.tight_layout(pad=0)
 plt.savefig(folder_manuscript+'establishment_UG100_DX20.pdf')
 plt.show()
 plt.close()
 
 
-
+#%%
 
 
 # UG100_DX20_NT
@@ -366,19 +408,31 @@ ax2.set_xlim(x_lim_)
 #ax2.set_xticks(x_ticks_)
 
 ax.set_ylabel(y_label_Ql)
-ax.set_ylim(-8000,8000)
-ax.set_yticks([0, 2000, 4000, 6000, 8000])
+ax.set_ylim(-10000,10000)
+ax.set_yticks([0, 2000, 4000, 6000, 8000, 10e3])
 ax.yaxis.set_label_coords(-0.15,0.8)
 
 ax2.set_ylabel(y_label_SMD)
-ax2.set_ylim(60,340)
-ax2.set_yticks(np.linspace(60,200,5))
+ax2.set_ylim(60,417)
+ax2.set_yticks(np.linspace(60,240,7))
 ax2.yaxis.set_label_coords(1.11,0.224)
 
 plt.tight_layout(pad=0)
 plt.savefig(folder_manuscript+'establishment_UG100_DX20_NT.pdf')
 plt.show()
 plt.close()
+
+# Plot acumulation times, N_dr and N_dr per tp
+for i in range(len(sprays_list_all)):
+    print('\nCase '+labels_title[i])
+    tp_acc_ = tp_cases[i][0][-1] - tp_cases[i][0][0]
+    t_acc_ = tp_acc_*tau_values[i]
+    print(f'   t_acc = {t_acc_}')
+    print(f'   tp_acc = {tp_acc_}')
+    sprays = sprays_list_all[i]
+    for j in range(len(sprays)):
+        spray = sprays[j]
+        print(f' Plane {j}: N_dr = {spray.n_droplets} ; N_dr/tp = {spray.n_droplets/tp_acc_:.3f} ; N_dr/t = {spray.n_droplets/t_acc_:.3f}')
 
 
 #%% Plots (SMD above, Ql below)

@@ -1,4 +1,4 @@
-%% Creator: Inkscape inkscape 0.92.0, www.inkscape.org
+%% Creator: Inkscape 1.1.1 (3bf5ae0d25, 2021-09-20), www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
 %% Accompanies image file 'domain_partition.pdf' (pdf, eps, ps)
 %%
@@ -35,8 +35,10 @@
     \renewcommand\transparent[1]{}%
   }%
   \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{539.42189203bp}%
+    \setlength{\unitlength}{590.32833773bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,21 +50,30 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.7368785)%
+  \begin{picture}(1,0.62531631)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{domain_partition.pdf}}%
-    \put(0.71001791,0.16370254){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$y$}}}%
-    \put(0.25111059,0.17916319){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z$}}}%
+    \put(0.62478108,0.12557674){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}$y$\end{tabular}}}}%
+    \put(0.20544722,0.13970415){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}$z$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{domain_partition.pdf}}%
-    \put(0.46253824,0.10785498){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$y=b_y -  \delta$}}}%
-    \put(0.62029053,0.21754313){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z=\delta$}}}%
+    \put(0.38209377,0.07690926){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}$y=b_y -  \delta$\end{tabular}}}}%
+    \put(0.54279126,0.17477443){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}$z=\delta$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{domain_partition.pdf}}%
-    \put(0.53896206,0.1741934){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{S1}}}%
+    \put(0.46847608,0.13516292){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}S1\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{domain_partition.pdf}}%
-    \put(0.79433389,0.32325854){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$b_z = 20$ mm}}}%
-    \put(0.39675426,0.05174301){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$b_y = 12.5$ mm}}}%
-    \put(0.54362968,0.29418152){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{S2}}}%
-    \put(0.42151005,0.15500257){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{S3}}}%
-    \put(0.41887996,0.28231731){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{S4}}}%
+    \put(0.64565676,0.27875275){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}$b_z = 20$ mm\end{tabular}}}}%
+    \put(0.33853144,0.02327193){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}$b_y = 12.5$ mm\end{tabular}}}}%
+    \put(0.47274119,0.24480398){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}S2\end{tabular}}}}%
+    \put(0.36115244,0.117627){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}S3\end{tabular}}}}%
+    \put(0.35874915,0.23396286){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}S4\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{domain_partition.pdf}}%
+    \put(0.67073768,0.37138445){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}\textbf{Numerical JICF domain}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{domain_partition.pdf}}%
+    \put(0.5403617,0.52046727){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}\textbf{Gaseous inlet}\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{domain_partition.pdf}}%
+    \put(0.77430723,0.43301506){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}$z$\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{domain_partition.pdf}}%
+    \put(0.71609032,0.41296637){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.5625006}\smash{\begin{tabular}[t]{l}$y$\end{tabular}}}}%
   \end{picture}%
 \endgroup%

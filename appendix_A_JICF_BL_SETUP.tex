@@ -1,14 +1,14 @@
 \chapter{Setup of JICF gaseous inlet profile}
 \label{app:JICF_BL_setup}
 
-This appendix describes the mathematical derivations to impose a gaseous inlet velocity profile in the JICF simulations presented in Chapter \ref{ch5:jicf_resolved_simulations}. The modelled geometry representing the experimental test bench is shown in Figure \ref{fig:numerical_setup_maquette_JICF_DLR}. The gaseous inlet consists of a rectangular channel of section 25x40 mm$^2$. The experiments \citepColor[becker_breakup_2002] report a gaseous boundary layer thickness $\delta_\mathrm{exp}$ of between 4 and 5 mm at the lip of the liquid injector, so a profile aiming at obtaining this thickness is developed. The computational domain of the JICF (Figure \ref{fig:numerical_setup_maquette_JICF_DLR}) is a reduced portion of the experimental test rig (Figure \ref{fig:experiment_JICF_DLR}), so an artificial velocity profile with a boundary layer is imposed at the liquid inlet. The gaseous inlet boundary is shown in the following Figure:
+This appendix describes the mathematical derivations to impose a gaseous inlet velocity profile in the JICF simulations presented in Chapter \ref{ch5:jicf_resolved_simulations}. The modelled geometry representing the experimental test bench is shown in Figure \ref{fig:numerical_setup_maquette_JICF_DLR}. The gaseous inlet consists of a rectangular channel of section 25x40 mm$^2$. The experiments \citepColor[becker_breakup_2002] report a gaseous boundary layer thickness $\delta_\mathrm{exp}$ of between 4 and 5 mm at the lip of the liquid injector, so a profile aiming at obtaining this thickness is developed. The computational domain of the JICF (Figure \ref{fig:numerical_setup_maquette_JICF_DLR}) is a reduced portion of the experimental test rig (Figure \ref{fig:experiment_JICF_DLR}), so an artificial velocity profile with a boundary layer is imposed at the gaseus inlet. The gaseous inlet boundary and the repartition performed to impose boundary layer profiles is shown in Figure \ref{fig:domain_partition_3D_profile}.
 
 
 \begin{figure}[h!]	
 	\centering
 	\includeinkscape[inkscapelatex=true,width=13cm]{./appendices_figures/domain_partition}
 %	\includesvg[width=13cm,pretex=\normalsize,svgpath=./files/Images/3D_BL/]{domain_partition}
-	\caption{Inlet domain and partition into sections for calculation of the velocity profile}
+	\caption{Inlet domain and partition into sections for calculation of the gaseous velocity profile in JICF simulations}
 	\label{fig:domain_partition_3D_profile}
 \end{figure}
 

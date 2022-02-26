@@ -29,7 +29,7 @@ plt.rcParams['text.usetex'] = True
 figsize_ = (FFIG*22,FFIG*18)
 
 
-folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/pressure_difference_mean_dense_core/data/'
+folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/presure_difference_DC/data/'
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/pressure_obtention_mean_DC/'
 
     
@@ -110,8 +110,8 @@ cbar.set_label(p_label_,labelpad=labelpad_)
 cbar.set_ticks(p_ticks)
 plt.clim(p_lim)
 plt.tight_layout()
-plt.show()
 plt.savefig(folder_manuscript+'p_mean_scatter_UG100_DX10_windward.png')
+plt.show()
 plt.close()
 
 
@@ -131,8 +131,8 @@ cbar.set_label(p_label_,labelpad=labelpad_)
 cbar.set_ticks(p_ticks)
 plt.clim(p_lim)
 plt.tight_layout()
-plt.show()
 plt.savefig(folder_manuscript+'p_mean_scatter_UG100_DX10_leeward.png')
+plt.show()
 plt.close()
 
 

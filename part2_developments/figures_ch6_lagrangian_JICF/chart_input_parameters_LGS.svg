@@ -23,13 +23,13 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.51150168"
-     inkscape:cx="38.123042"
-     inkscape:cy="135.87443"
-     inkscape:window-width="1920"
-     inkscape:window-height="1001"
+     inkscape:zoom="0.36168632"
+     inkscape:cx="783.82837"
+     inkscape:cy="604.11464"
+     inkscape:window-width="1680"
+     inkscape:window-height="971"
      inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-y="25"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
   <defs
@@ -282,12 +282,12 @@
          y="117.56301"
          id="tspan8559-0">SLI</tspan></text>
     <rect
-       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#000000;stroke-width:0.556264;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect22070-7-9"
-       width="150.35429"
-       height="47.24345"
-       x="163.84526"
-       y="105.9565" />
+       width="150.29802"
+       height="58.496052"
+       x="163.8734"
+       y="105.98463" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.46667px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -382,40 +382,52 @@
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8.46667px;font-family:serif;-inkscape-font-specification:'serif Bold';stroke-width:0.264583"
          x="47.710434"
          y="114.54864"
-         id="tspan112885">Secondary breakup</tspan></text>
+         id="tspan112885">Secondary breakup model</tspan></text>
     <rect
-       style="fill:none;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#000000;stroke-width:0.581369;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect22070-0-4"
-       width="91.687729"
-       height="49.369839"
-       x="45.952938"
-       y="106.23227" />
+       width="100.65854"
+       height="60.797676"
+       x="45.993626"
+       y="106.27296" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.46667px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="55.198105"
-       y="137.76633"
+       x="55.122353"
+       y="148.15605"
        id="text1112-6-3-6-3-56-4"><tspan
          sodipodi:role="line"
          id="tspan1110-7-7-6-5-9-8"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;line-height:1.15;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
-         x="55.198105"
-         y="137.76633">- Δu<tspan
-   style="font-size:8.46667px;baseline-shift:sub"
-   id="tspan94578">rel</tspan></tspan></text>
+         x="55.122353"
+         y="148.15605">- TAB</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.46667px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="55.045357"
-       y="149.11464"
+       x="54.622391"
+       y="160.78587"
+       id="text1112-6-3-6-3-56-4-69"><tspan
+         sodipodi:role="line"
+         id="tspan1110-7-7-6-5-9-8-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;line-height:1.15;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
+         x="54.622391"
+         y="160.78587">- ETAB</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.46667px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="87.054779"
+       y="125.19458"
        id="text1112-6-3-6-3-56-4-2"><tspan
          sodipodi:role="line"
          id="tspan1110-7-7-6-5-9-8-4"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;line-height:1.15;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
-         x="55.045357"
-         y="149.11464">- Δx<tspan
-   style="font-size:8.46667px;baseline-shift:sub"
-   id="tspan94578-1">atom</tspan></tspan></text>
+         x="87.054779"
+         y="125.19458">- K1 constant</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;line-height:1.15;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
+         x="87.054779"
+         y="134.93124"
+         id="tspan1275">- K2 constant</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
        d="m 18.387868,28.191449 h -58.11969 v 28.318267"
@@ -432,13 +444,13 @@
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.46667px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        x="55.225891"
-       y="126.0088"
+       y="129.75787"
        id="text1112-6-3-6-3-56-4-6"><tspan
          sodipodi:role="line"
          id="tspan1110-7-7-6-5-9-8-6"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;line-height:1.15;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
          x="55.225891"
-         y="126.0088">- Model: (E)TAB, Apte</tspan></text>
+         y="129.75787">- Apte</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="M -7.6810343,70.592364 H 159.47291"
@@ -476,5 +488,23 @@
        style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        d="M -39.776786,83.119763 V 95.464285"
        id="path3651" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.46667px;line-height:0;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="175.64174"
+       y="158.68172"
+       id="text1112-6-3-6-3-6"><tspan
+         sodipodi:role="line"
+         id="tspan1110-7-7-6-5-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;line-height:1.15;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
+         x="175.64174"
+         y="158.68172">- Injection location x<tspan
+   style="font-size:6.35px;baseline-shift:sub"
+   id="tspan3240">inj</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.371097;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 83.336169,117.49947 c -0.873758,0.0469 -1.376956,0.37445 -1.286808,1.15153 v 7.51228 c 0.03758,0.48753 -0.06278,0.73837 -1.769363,1.37086 1.549237,0.44365 1.814336,0.77055 1.769363,1.06926 v 9.07508 c 0.03969,0.78679 0.650885,0.69678 1.085745,0.87734"
+       id="path75767-2-5"
+       sodipodi:nodetypes="ccccccc" />
   </g>
 </svg>

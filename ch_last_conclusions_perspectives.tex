@@ -1,0 +1,35 @@
+\chapter{Conclusions and perspectives}
+
+\section*{Conclusions}
+
+In this thesis, performed in the context of the ANNULIGhT project,a new methodology to model liquid fuel injection in multipoint systems relevant for aeronautical applications has been developed and tested. The new models, baptised as Smart Lagrangian Injectors (SLI), are able to learn the spray from resolved simulations of the atomization process, where the liquid phase and atomization dynamics are accurately solved, and process it to created boundary conditions which prescribe a realistic, polydisperse spray in dispersed-phase simulations where the liquid phase is represented by lagrangian particles. 
+
+In a first step, a literature review on the injection physical phenomena relevant to multi-staged fuel injection (MSFI) burners and numerical approaches to model injection systems has been performed (Chapter \ref{ch1:introduction}). Among the three injection phenomena existing in MSFI configurations, the liquid jet in crossflow (LJICF) has been chosen for study due to its relevance in MSFI, as they are injected through the multipoint stage which is characteristic of these burners. The review on numerical approaches has been divided into two: one chapter dealing with the methods to simulate resolved atomization, and another chapter on the methods to simulate a dispersed-phase spray. Among the methods dealing with resolved atomization (Chapter \ref{ch2:numerical_methods_resolved_atomization}), the Automatic Conservative Level-Set (ACLS) combined with a Ghost-Fluid Method (GFM) and an Adaptive Mesh Refinement (AMR) strategy to solved dynamically the liquid interface while keeping a reasonable computational cost has been selected. This methodology has been used for the resolved atomization simulations from this thesis with the software YALES2. The review on dispersed-phase methods (Chapter \ref{ch3:disperse_phase_methods}) has presented several approaches to mathematically represent a dispersed spray, among which the lagrangian-point particle representation has been chosen due to its low computational cost, simplicity in numerical implementation, ability to couple with multiphysics phenomena and its extensive usage in the two-phase community for sprays modelling. Then, the state of the art in lagrangian injection models has been summarized in a Venn diagram where previous research work are classified according to the modelling strategies used. The SLI strategy developed in this thesis has been included in this diagram: it combines the learning of a reference spray with inclusion of the secondary breakup of lagrangian particles and modelling the effect of the dense spray structures in the gaseous phase, which is not accounted for in all existing models. A review on the existing methods to model lagrangian sprays in multipoint systems, with special emphasis in previous works on LJICF, shows that currently there are no models combining all three characteristics of SLI (reference spray learning without exclusively relying on empirical laws or results, secondary breakup and dense liquid perturbation effects towards the gaseuos phase), justifying the research gap that this thesis aims at filling.
+
+Part 2 has addressed the SLI models, their construction from resolved atomization simulations of a classical LJICF test bench and their application to dispersed-phase simulations in the same configuration. SLI fundamentals are introduced and discussed in Chapter \ref{ch4:sli_development}. A general spray formulation has been used to derive  a mathematical description of the spray, and has been applied to a liquid JICF in order to explain how the statistical magnitudes characterizing the spray are obtained. The full computational procedure followed by the SLI is described through a flowchart: the models retrieve the spray data sampled at planes perpendicular to the crossflow from resolved atomization simulations, then process it through a lagrangian injectors learning procedure in order to produce a lagrangian injector for initializing the spray phase in dispersed-phase simulations. The injectors learning process is thoroughly describe, which consists on sampling resolved droplets when these cross planes perpendicular to the crossflow and process their volume, center of mass location and velocities, and eccentricity radii in order to characterize the spray by their SMD, droplets distribution function, fluxes, and mean and RMS velocity components. The spray sampling process is averaged with time, and the spray convergence is checked through a proposed Normalized Mean Square Error (NMSE) criterion which monitors the evolution of the spray size distribution with time. Then, the full sampled spray is discretized in a grid composed of several probes to get an in-plane spatially discretized, polydisperse lagrangian injector. The discretization process can be done in two ways: ad-hoc, meaning that the grid size is given as input, or through a conergence-driven discretization process, in which a quadtree refinement process creates an automatic grid according to the local convergence of the sprays contained within the probes. Apart from the lagrangian injectors, the methodology also includes a dense core learning process through which the perturbation effect of the liquid column to the air, which is not a priori accounted for in the dispersed-phase computations, can be considered through an Actuator Line Model (ALM). The dense core is extracted from the resolved atomization simulations by characterizing its topology (defined by the breakup point coordinates and dense core with at the breakup point) and the force imposed by the dense core (which is calculated by obtaining the pressures in the windward and leeward sides of the jet). Then, the ALM model mimics its perturbation effect by applying discrete forces in the dispersed-phase simulations in a region known as actuator: the forces imposed represent the calculated dense core forces, while the actuator region represents its geometry. Finally, the models account for secondary atomization models to consider further breakup of the lagrangian droplets in case they are not in equilibrium with the surrounding environment. Three models have been implemented so far: the Taylor Analogy Breakup (TAB), the Enhanced TAB (ETAB) which is an improvement of the former one, and the Gorokhovski's stochastic model.
+
+Chapter \ref{ch5:jicf_resolved_simulations} ...
+
+
+\section*{Perspectives}
+
+\begin{itemize}
+
+\item Chapter 4: SLI
+
+	\begin{itemize}
+
+		\item Improve the convergence criterion by adding other magnitudes to the NMSE definition: velocities, for example.
+		
+		\item Apply the SLI methodology to other configurations, such as hollow cone or airblast.
+		
+		\item ALM: include spectral information (time-varying force application).
+
+	\end{itemize}
+
+\end{itemize}
+
+
+
+
+Chapter \ref{ch6:jicf_lgs_simulations} ...

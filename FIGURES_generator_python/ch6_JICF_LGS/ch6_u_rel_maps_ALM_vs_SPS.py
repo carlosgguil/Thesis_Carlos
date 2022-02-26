@@ -169,6 +169,91 @@ plt.tight_layout()
 plt.show()
 plt.close()
 
+#%% Map SMD
+
+N_LEVELS  = 10
+map_values = grid.map_SMD
+max_level = np.nanmax(map_values.data)
+min_level = np.nanmin(map_values.data)
+levels_ = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+
+
+plt.figure(figsize=figsize_maps)
+plt.title(r'$SMD~[\mu m]$')
+plt.contourf(grid.yy_center, grid.zz_center, map_values, cmap='binary',
+             levels = levels_)
+plt.colorbar(format = '%.1f',ticks=levels_)
+contour = plt.contour(grid.yy_center, grid.zz_center, map_values, 
+                      levels = levels_, colors= 'k', linewidths = 2*FFIG)
+plt.xlabel(y_label_)
+plt.ylabel(z_label_)
+plt.tight_layout()
+#plt.title('$SMD ~ [\mu m]$')
+#plt.xticks([-10, -5, 0, 5, 10])
+#plt.xlim(-12, 12)#(plot_bounds[0])
+#plt.ylim(0, 20)#(plot_bounds[1])
+#plt.yticks(range(0, 20, 4))
+plt.tight_layout()
+plt.show()
+plt.close()
+
+#%% Map vol flux
+
+N_LEVELS  = 10
+map_values = grid.map_vol_flux*1e2
+max_level = np.nanmax(map_values.data)
+min_level = np.nanmin(map_values.data)
+levels_ = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+
+
+plt.figure(figsize=figsize_maps)
+plt.title(r'$q_l~[cm^3 s^{-1} cm^{-2}]$')
+plt.contourf(grid.yy_center, grid.zz_center, map_values, cmap='binary',
+             levels = levels_)
+plt.colorbar(format = '%.1f',ticks=levels_)
+contour = plt.contour(grid.yy_center, grid.zz_center, map_values, 
+                      levels = levels_, colors= 'k', linewidths = 2*FFIG)
+plt.xlabel(y_label_)
+plt.ylabel(z_label_)
+plt.tight_layout()
+#plt.title('$SMD ~ [\mu m]$')
+#plt.xticks([-10, -5, 0, 5, 10])
+#plt.xlim(-12, 12)#(plot_bounds[0])
+#plt.ylim(0, 20)#(plot_bounds[1])
+#plt.yticks(range(0, 20, 4))
+plt.tight_layout()
+plt.show()
+plt.close()
+
+#%% Map uz
+
+N_LEVELS  = 10
+map_values = grid.map_uz_mean
+max_level = np.nanmax(map_values.data)
+min_level = np.nanmin(map_values.data)
+levels_ = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+
+
+plt.figure(figsize=figsize_maps)
+plt.title(r'$w~[m s^{-1} ]$')
+plt.contourf(grid.yy_center, grid.zz_center, map_values, cmap='binary',
+             levels = levels_)
+plt.colorbar(format = '%.1f',ticks=levels_)
+contour = plt.contour(grid.yy_center, grid.zz_center, map_values, 
+                      levels = levels_, colors= 'k', linewidths = 2*FFIG)
+plt.xlabel(y_label_)
+plt.ylabel(z_label_)
+plt.tight_layout()
+#plt.title('$SMD ~ [\mu m]$')
+#plt.xticks([-10, -5, 0, 5, 10])
+#plt.xlim(-12, 12)#(plot_bounds[0])
+#plt.ylim(0, 20)#(plot_bounds[1])
+#plt.yticks(range(0, 20, 4))
+plt.tight_layout()
+plt.show()
+plt.close()
+
+
 #%% Map u_mean_g SPS and LGS
 
 max_level_SPS = np.nanmax(grid.map_ug_sps_mean_x.data); min_level_SPS = np.nanmin(grid.map_ug_sps_mean_x.data)
