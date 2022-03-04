@@ -47,7 +47,7 @@ folder_numerics = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/LGS_previous_nume
 folder_expe = 'C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/DLR_data/'
 
 
-
+PLOT_numerical_works = True
 
 
 
@@ -112,8 +112,9 @@ plt.figure(figsize=figsize_flux_z)
 plt.plot(q_z_expe, z_expe,format_expe,label=labels_expe)
 plt.errorbar(q_z_expe, z_expe, xerr=error_q_z_expe, color='black', fmt='o',
              linewidth=width_error_lines,capsize=caps_error_lines)
-for i in range(len(z_q)):
-    plt.plot(q_z[i], z_q[i], formats[i], label=labels_cases[i])
+if PLOT_numerical_works:
+    for i in range(len(z_q)):
+        plt.plot(q_z[i], z_q[i], formats[i], label=labels_cases[i])
 plt.legend(loc='best')
 plt.xlabel(label_ql)
 plt.xlim(lims_ql)
@@ -133,9 +134,10 @@ plt.figure(figsize=figsize_SMD_z)
 plt.plot(SMD_z_expe, z_expe,format_expe,label=labels_expe)
 plt.errorbar(SMD_z_expe, z_expe, xerr=error_SMD_z_expe, color='black', fmt='o',
              linewidth=width_error_lines,capsize=caps_error_lines)
-for i in range(len(z_SMD)):
-    if z_SMD[i] is not None:
-        plt.plot(SMD_z[i], z_SMD[i], formats[i], label=labels_cases[i])
+if PLOT_numerical_works:
+    for i in range(len(z_SMD)):
+        if z_SMD[i] is not None:
+            plt.plot(SMD_z[i], z_SMD[i], formats[i], label=labels_cases[i])
 #plt.legend(loc='best')
 plt.xlabel(label_SMD)
 plt.xlim(lims_SMD_z)
@@ -170,8 +172,9 @@ plt.figure(figsize=figsize_flux_y)
 plt.plot(y_expe, q_y_expe,format_expe,label=labels_expe)
 plt.errorbar(y_expe, q_y_expe, yerr=error_q_y_expe, color='black', fmt='o',
              linewidth=width_error_lines,capsize=caps_error_lines)
-for i in range(len(y_q)):
-    plt.plot(y_q[i], q_y[i], formats[i], label=labels_cases[i])
+if PLOT_numerical_works:
+    for i in range(len(y_q)):
+        plt.plot(y_q[i], q_y[i], formats[i], label=labels_cases[i])
 #plt.legend(loc='best')
 plt.xlabel(label_y)
 plt.xlim(lims_y)
@@ -190,9 +193,10 @@ plt.figure(figsize=figsize_SMD_y)
 plt.plot(y_expe, SMD_y_expe,format_expe,label=labels_expe)
 plt.errorbar(y_expe, SMD_y_expe, yerr=error_SMD_y_expe, color='black', fmt='o',
              linewidth=width_error_lines,capsize=caps_error_lines)
-for i in range(len(y_SMD)):
-    if y_SMD[i] is not None:
-        plt.plot(y_SMD[i], SMD_y[i], formats[i], label=labels_cases[i])
+if PLOT_numerical_works:
+    for i in range(len(y_SMD)):
+        if y_SMD[i] is not None:
+            plt.plot(y_SMD[i], SMD_y[i], formats[i], label=labels_cases[i])
 #plt.legend(loc='best')
 plt.xlabel(label_y)
 plt.xlim(lims_y)

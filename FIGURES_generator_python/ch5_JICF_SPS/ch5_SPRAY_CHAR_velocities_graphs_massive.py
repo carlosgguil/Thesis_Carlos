@@ -67,12 +67,12 @@ linewidth_Ql = 6*FFIG
 
 # axis labels
 x_label_  = r'$x~[\mathrm{mm}]$' #r'$t~[\mathrm{ms}]$'
-y_label_ux_mean = r'$\overline{u}_x~[\mathrm{m}~\mathrm{s}^{-1}]$'
-y_label_ux_rms  = r'$u_{x,\mathrm{RMS}}~[\mathrm{m}~\mathrm{s}^{-1}]$'
-y_label_uy_mean = r'$\overline{u}_y~[\mathrm{m}~\mathrm{s}^{-1}]$'
-y_label_uz_mean = r'$\overline{u}_z~[\mathrm{m}~\mathrm{s}^{-1}]$'
-y_label_uy_rms = r'$u_{y,\mathrm{RMS}}~[\mathrm{m}~\mathrm{s}^{-1}]$'
-y_label_uz_rms = r'$u_{z,\mathrm{RMS}}~[\mathrm{m}~\mathrm{s}^{-1}]$'
+y_label_ux_mean = r'$\overline{u}~[\mathrm{m}~\mathrm{s}^{-1}]$'
+y_label_ux_rms  = r'$u_{\mathrm{RMS}}~[\mathrm{m}~\mathrm{s}^{-1}]$'
+y_label_uy_mean = r'$\overline{v}~[\mathrm{m}~\mathrm{s}^{-1}]$'
+y_label_uz_mean = r'$\overline{w}~[\mathrm{m}~\mathrm{s}^{-1}]$'
+y_label_uy_rms = r'$v_{\mathrm{RMS}}~[\mathrm{m}~\mathrm{s}^{-1}]$'
+y_label_uz_rms = r'$w_{\mathrm{RMS}}~[\mathrm{m}~\mathrm{s}^{-1}]$'
 
 # legend labels
 label_UG75_DX10  = r'$\mathrm{UG}75\_\mathrm{DX}10$'

@@ -19,8 +19,8 @@ sys.path.append(folder)
 # Change size of figures if wished
 FFIG = 0.5
 figsize_ = (FFIG*30,FFIG*20)
-figsize_3_in_a_row = (FFIG*45,FFIG*15) #(FFIG*55,FFIG*15)
-figsize_bar = (FFIG*50,FFIG*20)
+figsize_2_in_a_row = (FFIG*30,FFIG*15) #(FFIG*55,FFIG*15)
+figsize_bar = (FFIG*45,FFIG*20)
 
 # rcParams for plots
 plt.rcParams['xtick.labelsize'] = 90*FFIG # 80*FFIG 
@@ -59,7 +59,7 @@ y_label_Ql_RMS_perp = r"$Q_{l,\mathrm{RMS}} ~[\mathrm{mm}^3~\mathrm{s}^{-1}]$"
 label_DX15  = r'$\mathrm{DX}15$'
 label_DX10  = r'$\mathrm{DX}10$'
 label_DX07  = r'$\mathrm{DX}07$'
-cases = [label_DX15 , label_DX10, label_DX07]
+cases = [label_DX07 , label_DX10, label_DX15]
 
 label_Ql_injected = r'$Q_l ~\mathrm{injected}$'
 
@@ -264,7 +264,6 @@ t_DX07_x11p66 = t_DX07
 # DX15
 plt.figure(figsize=figsize_)
 plt.title(label_DX15)
-plt.plot(t_DX15_x03p33, Q_inst_DX15_x03p33, 'b', label=label_xD_03p33)
 plt.plot(t_DX15_x05p00, Q_inst_DX15_x05p00, 'k', label=label_xD_05p00)
 plt.plot(t_DX15_x11p66, Q_inst_DX15_x11p66, 'r', label=label_xD_11p66)
 #plt.plot([t_min, t_max], [Q_inj_UG100]*2, '--k', label=label_Ql_injected)
@@ -286,9 +285,8 @@ t_max = max(t_DX10_x03p33)
 # DX10
 plt.figure(figsize=figsize_)
 plt.title(label_DX10)
-plt.plot(t_DX10_x03p33, Q_inst_DX10_x03p33, 'b', label=label_xD_03p33)
 plt.plot(t_DX10_x05p00, Q_inst_DX10_x05p00, 'k', label=label_xD_05p00)
-plt.plot(t_DX10_x06p67, Q_inst_DX10_x06p67, 'r', label=label_xD_06p67)
+plt.plot(t_DX10_x06p67, Q_inst_DX10_x06p67, 'b', label=label_xD_06p67)
 #plt.plot(t_DX10_x11p66, Q_inst_DX10_x11p66, 'r', label=label_xD_11p66)
 plt.plot([t_min, t_max], [Q_inj]*2, '--k', label=label_Ql_injected)
 plt.xlabel(x_label_time)
@@ -303,24 +301,6 @@ plt.show()
 plt.close()
 
 #%%-
-# DX07p5
-plt.figure(figsize=figsize_)
-plt.title(label_DX07)
-plt.plot(t_DX07_x03p33, Q_inst_DX07_x03p33, 'b', label=label_xD_03p33)
-plt.plot(t_DX07_x05p00, Q_inst_DX07_x05p00, 'k', label=label_xD_05p00)
-plt.plot(t_DX07_x11p66, Q_inst_DX07_x11p66, 'g', label=label_xD_11p66)
-#plt.plot([t_min, t_max], [Q_inj_UG100]*2, '--k', label=label_Ql_injected)
-#plt.xlabel(x_label_time)
-plt.ylabel(y_label_Ql_inst)
-#plt.xlim(t_min-0.05,t_max+0.05)
-#plt.ylim(0,1e4)
-plt.legend(loc='best')
-plt.grid()
-plt.tight_layout()
-#plt.savefig(folder_manuscript+'inst_Q_iso_x_UG100_dx10.pdf')
-plt.show()
-plt.close()
-
 
 
 
@@ -336,43 +316,33 @@ label_xD_11p67 = r'$x_c/d_\mathrm{inj} = 11.67$'
 
 
 
-fig = plt.figure(figsize=figsize_3_in_a_row)
-gs = fig.add_gridspec(1, 3, wspace=0)
+fig = plt.figure(figsize=figsize_2_in_a_row)
+gs = fig.add_gridspec(1, 2, wspace=0)
 axs = gs.subplots(sharex=False, sharey=True)
-(ax1, ax2, ax3) = gs.subplots(sharey='row')
-ax1.plot([t_min, max(t_DX07_x03p33)], [Q_inj]*2, '--k', label=label_Ql_injected)
-ax1.plot(t_DX07_x03p33, Q_mean_DX07_x03p33, 'b', label=label_xD_03p33)
-ax1.plot(t_DX07_x05p00, Q_mean_DX07_x05p00, 'k', label=label_xD_05p00)
-ax1.plot(t_DX07_x06p67, Q_mean_DX07_x06p67, 'r', label=label_xD_06p67)
-#ax1.plot(t_DX07_x08p33, Q_mean_DX07_x08p33, '--b', label=label_xD_08p33)
-#ax1.plot(t_DX07_x10p00, Q_mean_DX07_x10p00, '--k', label=label_xD_10p00)
-#ax1.plot(t_DX07_x11p66, Q_mean_DX07_x11p66, '--r', label=label_xD_11p66)
-ax1.set_title(label_DX07)
-#ax1.xaxis.set_ticks(tp_ticks_UG75_DX10)
-#ax1.yaxis.set_ticks([0,1000,2000,3000,4000,5000])
+(ax1, ax2) = gs.subplots(sharey='row')
 
-ax2.plot([t_min, max(t_DX10_x03p33)], [Q_inj]*2, '--k', label=label_Ql_injected)
-ax2.plot(t_DX10_x03p33, Q_mean_DX10_x03p33, 'b', label=label_xD_03p33)
-ax2.plot(t_DX10_x05p00, Q_mean_DX10_x05p00, 'k', label=label_xD_05p00)
-ax2.plot(t_DX10_x06p67, Q_mean_DX10_x06p67, 'r', label=label_xD_06p67)
-#ax2.plot(t_DX10_x08p33, Q_mean_DX10_x08p33, '--b', label=label_xD_08p33)
-#ax2.plot(t_DX10_x10p00, Q_mean_DX10_x10p00, '--k', label=label_xD_10p00)
-#ax2.plot(t_DX10_x11p66, Q_mean_DX10_x11p66, '--r', label=label_xD_11p66)
-ax2.set_title(label_DX10)
-#ax2.set_title(label_UG75_DX20)
-#ax2.xaxis.set_ticks(tp_ticks_UG75_DX20)
-ax2.legend(loc='best',fontsize=45*FFIG,ncol=2)
+#ax1.plot(t_DX10_x03p33, Q_mean_DX10_x03p33, 'r', label=label_xD_03p33)
+ax1.plot(t_DX10_x05p00, Q_mean_DX10_x05p00, 'k', label=label_xD_05p00)
+ax1.plot(t_DX10_x06p67, Q_mean_DX10_x06p67, 'b', label=label_xD_06p67)
+#ax1.plot(t_DX10_x08p33, Q_mean_DX10_x08p33, '--r', label=label_xD_08p33)
+#ax1.plot(t_DX10_x10p00, Q_mean_DX10_x10p00, '--k', label=label_xD_10p00)
+#ax1.plot(t_DX10_x11p66, Q_mean_DX10_x11p66, '--b', label=label_xD_11p66)
+ax1.plot([t_min, max(t_DX10_x03p33)], [Q_inj]*2, '--k', label=label_Ql_injected)
+ax1.set_title(label_DX10)
+#ax1.set_title(label_UG75_DX20)
+#ax1.xaxis.set_ticks(tp_ticks_UG75_DX20)
+ax1.legend(loc='best',fontsize=45*FFIG,ncol=2)
 
 
 
-ax3.plot([t_min, max(t_DX15_x03p33)], [Q_inj]*2, '--k', label=label_Ql_injected)
-ax3.plot(t_DX15_x03p33, Q_mean_DX15_x03p33, 'b', label=label_xD_03p33)
-ax3.plot(t_DX15_x05p00, Q_mean_DX15_x05p00, 'k', label=label_xD_05p00)
-ax3.plot(t_DX15_x06p67, Q_mean_DX15_x06p67, 'r', label=label_xD_06p67)
-#ax3.plot(t_DX15_x08p33, Q_mean_DX15_x08p33, '--b', label=label_xD_08p33)
-#ax3.plot(t_DX15_x10p00, Q_mean_DX15_x10p00, '--k', label=label_xD_10p00)
-#ax3.plot(t_DX15_x11p66, Q_mean_DX15_x11p66, '--r', label=label_xD_11p66)
-ax3.set_title(label_DX15)
+ax2.plot([t_min, max(t_DX15_x03p33)], [Q_inj]*2, '--k', label=label_Ql_injected)
+#ax2.plot(t_DX15_x03p33, Q_mean_DX15_x03p33, 'b', label=label_xD_03p33)
+ax2.plot(t_DX15_x05p00, Q_mean_DX15_x05p00, 'k', label=label_xD_05p00)
+ax2.plot(t_DX15_x06p67, Q_mean_DX15_x06p67, 'b', label=label_xD_06p67)
+#ax2.plot(t_DX15_x08p33, Q_mean_DX15_x08p33, '--r', label=label_xD_08p33)
+#ax2.plot(t_DX15_x10p00, Q_mean_DX15_x10p00, '--k', label=label_xD_10p00)
+#ax2.plot(t_DX15_x11p66, Q_mean_DX15_x11p66, '--b', label=label_xD_11p66)
+ax2.set_title(label_DX15)
 #ax3.xaxis.set_ticks(tp_ticks_UG100_DX10)
 
 axs.flat[0].set(ylabel = y_label_Ql_mean_perp)
@@ -392,41 +362,32 @@ plt.close
 
 
 
-fig = plt.figure(figsize=figsize_3_in_a_row)
-gs = fig.add_gridspec(1, 3, wspace=0)
+fig = plt.figure(figsize=figsize_2_in_a_row)
+gs = fig.add_gridspec(1, 2, wspace=0)
 axs = gs.subplots(sharex=False, sharey=True)
-(ax1, ax2, ax3) = gs.subplots(sharey='row')
-ax1.plot(t_DX07_x03p33, Q_RMS_DX07_x03p33, 'b', label=label_xD_03p33)
-ax1.plot(t_DX07_x05p00, Q_RMS_DX07_x05p00, 'k', label=label_xD_05p00)
-ax1.plot(t_DX07_x06p67, Q_RMS_DX07_x06p67, 'r', label=label_xD_06p67)
-#ax1.plot(t_DX07_x08p33, Q_RMS_DX07_x08p33, '--b', label=label_xD_08p33)
-#ax1.plot(t_DX07_x10p00, Q_RMS_DX07_x10p00, '--k', label=label_xD_10p00)
-#ax1.plot(t_DX07_x11p66, Q_RMS_DX07_x11p66, '--r', label=label_xD_11p66)
-ax1.set_title(label_DX07)
-#ax1.xaxis.set_ticks(tp_ticks_UG75_DX10)
-#ax1.yaxis.set_ticks([0,1000,2000,3000,4000,5000])
+(ax1, ax2) = gs.subplots(sharey='row')
 
-ax2.plot(t_DX10_x03p33, Q_RMS_DX10_x03p33, 'b', label=label_xD_03p33)
-ax2.plot(t_DX10_x05p00, Q_RMS_DX10_x05p00, 'k', label=label_xD_05p00)
-ax2.plot(t_DX10_x06p67, Q_RMS_DX10_x06p67, 'r', label=label_xD_06p67)
-#ax2.plot(t_DX10_x08p33, Q_RMS_DX10_x08p33, '--b', label=label_xD_08p33)
-#ax2.plot(t_DX10_x10p00, Q_RMS_DX10_x10p00, '--k', label=label_xD_10p00)
-#ax2.plot(t_DX10_x11p66, Q_RMS_DX10_x11p66, '--r', label=label_xD_11p66)
-ax2.set_title(label_DX10)
-#ax2.set_title(label_UG75_DX20)
-#ax2.xaxis.set_ticks(tp_ticks_UG75_DX20)
-#ax2.legend(loc='best',fontsize=45*FFIG,ncol=2)
+ax1.plot(t_DX10_x03p33, Q_RMS_DX10_x03p33, 'b', label=label_xD_03p33)
+ax1.plot(t_DX10_x05p00, Q_RMS_DX10_x05p00, 'k', label=label_xD_05p00)
+ax1.plot(t_DX10_x06p67, Q_RMS_DX10_x06p67, 'r', label=label_xD_06p67)
+#ax1.plot(t_DX10_x08p33, Q_RMS_DX10_x08p33, '--b', label=label_xD_08p33)
+#ax1.plot(t_DX10_x10p00, Q_RMS_DX10_x10p00, '--k', label=label_xD_10p00)
+#ax1.plot(t_DX10_x11p66, Q_RMS_DX10_x11p66, '--r', label=label_xD_11p66)
+ax1.set_title(label_DX10)
+#ax1.set_title(label_UG75_DX20)
+#ax1.xaxis.set_ticks(tp_ticks_UG75_DX20)
+#ax1.legend(loc='best',fontsize=45*FFIG,ncol=2)
 
 
 
-ax3.plot(t_DX15_x03p33, Q_RMS_DX15_x03p33, 'b', label=label_xD_03p33)
-ax3.plot(t_DX15_x05p00, Q_RMS_DX15_x05p00, 'k', label=label_xD_05p00)
-ax3.plot(t_DX15_x06p67, Q_RMS_DX15_x06p67, 'r', label=label_xD_06p67)
-#ax3.plot(t_DX15_x08p33, Q_RMS_DX15_x08p33, '--b', label=label_xD_08p33)
-#ax3.plot(t_DX15_x10p00, Q_RMS_DX15_x10p00, '--k', label=label_xD_10p00)
-#ax3.plot(t_DX15_x11p66, Q_RMS_DX15_x11p66, '--r', label=label_xD_11p66)
-ax3.set_title(label_DX15)
-#ax3.xaxis.set_ticks(tp_ticks_UG100_DX10)
+ax2.plot(t_DX15_x03p33, Q_RMS_DX15_x03p33, 'b', label=label_xD_03p33)
+ax2.plot(t_DX15_x05p00, Q_RMS_DX15_x05p00, 'k', label=label_xD_05p00)
+ax2.plot(t_DX15_x06p67, Q_RMS_DX15_x06p67, 'r', label=label_xD_06p67)
+#ax2.plot(t_DX15_x08p33, Q_RMS_DX15_x08p33, '--b', label=label_xD_08p33)
+#ax2.plot(t_DX15_x10p00, Q_RMS_DX15_x10p00, '--k', label=label_xD_10p00)
+#ax2.plot(t_DX15_x11p66, Q_RMS_DX15_x11p66, '--r', label=label_xD_11p66)
+ax2.set_title(label_DX15)
+#ax2.xaxis.set_ticks(tp_ticks_UG100_DX10)
 
 axs.flat[0].set(ylabel = y_label_Ql_RMS_perp)
 for ax in axs.flat:
@@ -462,17 +423,18 @@ Q_x_RMS_xD_06p67 = [Q_RMS_DX07_x06p67[-1],Q_RMS_DX10_x06p67[-1],
 
 
 
+figsize_bar = (FFIG*40,FFIG*20)
+
 # Bar graph with RMS
 plt.figure(figsize=figsize_bar)
 #plt.title('Filming mean $Q_l$')
-plt.plot([r1[0]-barWidth*1.5,r1[-1]+barWidth*1.5],[Q_inj]*2, '--k', label=label_Ql_injected,linewidth=4*FFIG)
-plt.bar(r1-0.25, Q_x_mean_xD_03p33, yerr=Q_x_RMS_xD_03p33, width=barWidth, color='blue', edgecolor='white', label=label_xD_03p33, capsize=barWidth*20)
-plt.bar(r1, Q_x_mean_xD_05p00, yerr=Q_x_RMS_xD_05p00, width=barWidth, color='grey', edgecolor='white', label=label_xD_05p00, capsize=barWidth*20)
-plt.bar(r1+0.25, Q_x_mean_xD_06p67, yerr=Q_x_RMS_xD_06p67, width=barWidth, color='red', edgecolor='white', label=label_xD_06p67, capsize=barWidth*20)
+plt.plot([r1[0]-barWidth*1.25,r1[-1]+barWidth*1.25],[Q_inj]*2, '--k', label=label_Ql_injected,linewidth=4*FFIG)
+plt.bar(r1-0.25/2, Q_x_mean_xD_05p00, yerr=Q_x_RMS_xD_05p00, width=barWidth, color='blue', edgecolor='white', label=label_xD_05p00, capsize=barWidth*20)
+plt.bar(r1+0.25/2, Q_x_mean_xD_06p67, yerr=Q_x_RMS_xD_06p67, width=barWidth, color='red', edgecolor='white', label=label_xD_06p67, capsize=barWidth*20)
 #plt.xlabel('Case')#, fontweight='bold')
 plt.ylabel(y_label_Ql_mean_perp)
 plt.xticks([r for r in range(len(cases))], cases)
-plt.legend(loc='upper left', ncol=2)
+plt.legend(loc='upper left', ncol=3)
 plt.tight_layout()
 plt.savefig(folder_manuscript+'bar_graph_isox_IBs.pdf')
 plt.show()

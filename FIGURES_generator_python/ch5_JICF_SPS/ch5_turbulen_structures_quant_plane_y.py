@@ -61,15 +61,22 @@ folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/turbulence_state_u_mean_rm
 
 cases = [folder + 'SPS_UG75_DX10/',
          folder + 'SPS_UG75_DX20/',
+         folder + 'ics_unperturbed_2nd_op/',
          folder + 'SPS_UG100_DX10/',
-         folder + 'SPS_UG100_DX20/']
+         folder + 'SPS_UG100_DX20/',
+         folder + 'ics_unperturbed_1st_op/']
 
 label_u_ax  = r'$\overline{u} ~[\mathrm{m}~\mathrm{s}^{-1}$]'
 label_x_ax   = '$x ~[\mathrm{mm}]$'
 label_z_ax   = '$z ~[\mathrm{mm}]$'
 
-labels_cases = [r'$\mathrm{UG75}\_\mathrm{DX10}$' ,r'$\mathrm{UG75}\_\mathrm{DX20}$',
-                r'$\mathrm{UG100}\_\mathrm{DX10}$' , r'$\mathrm{UG100}\_\mathrm{DX20}$']
+labels_cases = [r'$\mathrm{UG75}\_\mathrm{DX10}$' ,r'$\mathrm{UG75}\_\mathrm{DX20}$', r'$\mathrm{UG75~no~jet}$',
+                r'$\mathrm{UG100}\_\mathrm{DX10}$' , r'$\mathrm{UG100}\_\mathrm{DX20}$', r'$\mathrm{UG100~no~jet}$']
+
+
+
+
+formats = ['k','--k',':k','b','--b',':b']
 
 
 labels_x_planes = [r'$x = 1~\mathrm{mm}$', 
@@ -77,6 +84,12 @@ labels_x_planes = [r'$x = 1~\mathrm{mm}$',
                    r'$x = 5~\mathrm{mm}$',  
                    r'$x = 10~\mathrm{mm}$', 
                    r'$x = 15~\mathrm{mm}$']
+
+labels_x_planes_ICS = [r'$x = 1~\mathrm{mm}$', 
+                       r'$x = 2.5~\mathrm{mm}$', 
+                       r'$x = 5~\mathrm{mm}$',  
+                       r'$x = 10~\mathrm{mm}$', 
+                       r'$x = 15~\mathrm{mm}$']
 
 labels_z_planes = [r'$z = 0.2~\mathrm{mm}$', 
                    r'$z = 0.5~\mathrm{mm}$', 
@@ -94,7 +107,7 @@ y_lim_u_vs_x = (-20,120)
 
 y_ticks_u_vs_x = [-20, 0, 20, 40, 60, 80, 100, 120]
 
-#%% get data
+#%% get data 
 
 # Define arrays
 z_values_x_lines      = [ [] for m in range(len(cases)) ]
@@ -112,16 +125,22 @@ for i in range(len(cases)):
     case_i_folder = cases[i]+'probes_turb_gas_planeY/'
     
         
-    #----- x lines
+    #----- x lines SPS
     line_x01 = case_i_folder+'/line_planeY_x01mm_U_MEAN.dat'
     line_x02p5 = case_i_folder+'/line_planeY_x02p5mm_U_MEAN.dat'
     line_x05 = case_i_folder+'/line_planeY_x05mm_U_MEAN.dat'
     line_x10 = case_i_folder+'/line_planeY_x10mm_U_MEAN.dat'
-    line_x15 = case_i_folder+'/line_planeY_x15mm_U_MEAN.dat'
-    
-    
-           
+    line_x15 = case_i_folder+'/line_planeY_x15mm_U_MEAN.dat' 
     lines_x = [line_x01, line_x02p5, line_x05, line_x10, line_x15]    
+    
+    #----- x lines ICS
+    line_x01_ICS = case_i_folder+'/x01mm.csv'
+    line_x02p5_ICS = case_i_folder+'/x02p5mm.csv'
+    line_x05_ICS = case_i_folder+'/x05mm.csv'
+    line_x10_ICS = case_i_folder+'/x10mm.csv'
+    line_x15_ICS = case_i_folder+'/x15mm.csv' 
+    lines_x_ICS = [line_x01_ICS, line_x02p5_ICS, 
+                   line_x05_ICS, line_x10_ICS, line_x15_ICS]    
     
     # add arrays per each plane
     z_values_x_lines[i]      = [ [] for m in range(len(lines_x)) ]
@@ -130,30 +149,43 @@ for i in range(len(cases)):
     w_mean_values_x_lines[i] = [ [] for m in range(len(lines_x)) ]
     
     for j in range(len(lines_x)):
-        probe = pd.read_csv(lines_x[j],sep='(?<!\\#)\s+',engine='python')
-        probe.columns =  [name.split(':')[1] for name in probe.columns] 
-        
-        # Get indices where time instants changes
-        indices = [-1]
-        for n in range(len(probe)):
-            if np.isnan(probe.loc[n]['total_time']):
-                indices.append(n)
-                
-        # recover mean values from last time instant
-        df = probe.loc[indices[-2]+1:indices[-1]-1]
-        
-        
-        z_values_x_lines[i][j] = df['Z'].values*1e3
-        u_mean_values_x_lines[i][j] = df['U_MEAN(1)'].values
-        v_mean_values_x_lines[i][j] = df['U_MEAN(2)'].values
-        w_mean_values_x_lines[i][j] = df['U_MEAN(3)'].values
+        try:
+            probe = pd.read_csv(lines_x[j],sep='(?<!\\#)\s+',engine='python')
+            probe.columns =  [name.split(':')[1] for name in probe.columns] 
+            
+            # Get indices where time instants changes
+            indices = [-1]
+            for n in range(len(probe)):
+                if np.isnan(probe.loc[n]['total_time']):
+                    indices.append(n)
+                    
+            # recover mean values from last time instant
+            df = probe.loc[indices[-2]+1:indices[-1]-1]
+            
+            
+            z_values_x_lines[i][j] = df['Z'].values*1e3
+            u_mean_values_x_lines[i][j] = df['U_MEAN(1)'].values
+            v_mean_values_x_lines[i][j] = df['U_MEAN(2)'].values
+            w_mean_values_x_lines[i][j] = df['U_MEAN(3)'].values
+        except:
+            try:
+                df = pd.read_csv(lines_x_ICS[j])
+                z_values_x_lines[i][j] = df['Points_2'].values*1e3
+                u_mean_values_x_lines[i][j] = df['U_MEAN_0'].values
+                v_mean_values_x_lines[i][j] = df['U_MEAN_1'].values
+                w_mean_values_x_lines[i][j] = df['U_MEAN_2'].values
+            except:
+                z_values_x_lines[i][j] = None
+                u_mean_values_x_lines[i][j] = None
+                v_mean_values_x_lines[i][j] = None
+                w_mean_values_x_lines[i][j] = None
     
     
     
     
     
     
-    #---- z lines
+    #---- z lines SPS
     line_z00p2 = case_i_folder+'/line_planeY_z00p2mm_U_MEAN.dat'
     line_z00p5 = case_i_folder+'/line_planeY_z00p5mm_U_MEAN.dat'
     line_z00p8 = case_i_folder+'/line_planeY_z00p8mm_U_MEAN.dat'
@@ -162,11 +194,22 @@ for i in range(len(cases)):
     line_z02 = case_i_folder+'/line_planeY_z02mm_U_MEAN.dat'
     line_z03 = case_i_folder+'/line_planeY_z03mm_U_MEAN.dat'
     line_z04 = case_i_folder+'/line_planeY_z04mm_U_MEAN.dat'
-    line_z05 = case_i_folder+'/line_planeY_z05mm_U_MEAN.dat'
-    
-    
+    line_z05 = case_i_folder+'/line_planeY_z05mm_U_MEAN.dat'    
     lines_z = [line_z00p2, line_z00p5, line_z00p8, line_z01, line_z01p6,
-               line_z02, line_z03, line_z04, line_z05]    
+               line_z02, line_z03, line_z04, line_z05]   
+    
+    #---- z lines ICS
+    line_z00p2_ICS = case_i_folder+'/z00p2mm.csv'
+    line_z00p5_ICS = case_i_folder+'/z00p5mm.csv'
+    line_z00p8_ICS = case_i_folder+'/z00p8mm.csv'
+    line_z01_ICS = case_i_folder+'/z01mm.csv'
+    line_z01p6_ICS = case_i_folder+'/z01p6mm.csv'
+    line_z02_ICS = case_i_folder+'/z02mm.csv'
+    line_z03_ICS = case_i_folder+'/z03mm.csv'
+    line_z04_ICS = case_i_folder+'/z04mm.csv'
+    line_z05_ICS = case_i_folder+'/z05mm.csv'    
+    lines_z_ICS = [line_z00p2_ICS, line_z00p5_ICS, line_z00p8_ICS, line_z01_ICS, 
+                   line_z01p6_ICS, line_z02_ICS, line_z02_ICS, line_z04_ICS, line_z05_ICS]     
     
     # add arrays per each plane
     x_values_z_lines[i]      = [ [] for m in range(len(lines_z)) ]
@@ -175,24 +218,38 @@ for i in range(len(cases)):
     w_mean_values_z_lines[i] = [ [] for m in range(len(lines_z)) ]
     
     for j in range(len(lines_z)):
-        probe = pd.read_csv(lines_z[j],sep='(?<!\\#)\s+',engine='python')
-        probe.columns =  [name.split(':')[1] for name in probe.columns] 
-        
-        # Get indices where time instants changes
-        indices = [-1]
-        for n in range(len(probe)):
-            if np.isnan(probe.loc[n]['total_time']):
-                indices.append(n)
-                
-        # recover mean values from last time instant
-        df = probe.loc[indices[-2]+1:indices[-1]-1]
-        
-        
-        x_values_z_lines[i][j] = df['X'].values*1e3
-        u_mean_values_z_lines[i][j] = df['U_MEAN(1)'].values
-        v_mean_values_z_lines[i][j] = df['U_MEAN(2)'].values
-        w_mean_values_z_lines[i][j] = df['U_MEAN(3)'].values
-    
+        try:
+            probe = pd.read_csv(lines_z[j],sep='(?<!\\#)\s+',engine='python')
+            probe.columns =  [name.split(':')[1] for name in probe.columns] 
+            
+            # Get indices where time instants changes
+            indices = [-1]
+            for n in range(len(probe)):
+                if np.isnan(probe.loc[n]['total_time']):
+                    indices.append(n)
+                    
+            # recover mean values from last time instant
+            df = probe.loc[indices[-2]+1:indices[-1]-1]
+            
+            
+            x_values_z_lines[i][j] = df['X'].values*1e3
+            u_mean_values_z_lines[i][j] = df['U_MEAN(1)'].values
+            v_mean_values_z_lines[i][j] = df['U_MEAN(2)'].values
+            w_mean_values_z_lines[i][j] = df['U_MEAN(3)'].values
+        except:
+            try:
+                df = pd.read_csv(lines_z_ICS[j])
+                x_values_z_lines[i][j] = df['Points_0'].values*1e3
+                u_mean_values_z_lines[i][j] = df['U_MEAN_0'].values
+                v_mean_values_z_lines[i][j] = df['U_MEAN_1'].values
+                w_mean_values_z_lines[i][j] = df['U_MEAN_2'].values
+            except:
+                x_values_z_lines[i][j] = None
+                u_mean_values_z_lines[i][j] = None
+                v_mean_values_z_lines[i][j] = None
+                w_mean_values_z_lines[i][j] = None
+ 
+
 
 #%% Plots u vs x
 u_to_plot = u_mean_values_z_lines
@@ -204,10 +261,8 @@ j = 4
 plt.figure(figsize=figsize_u_vs_x)
 plt.title(labels_z_planes[j])
 plt.plot(x_lim_u_vs_x,(0,0),'k',zorder=-1,linewidth=6*FFIG)
-i = 0; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'k', label=labels_cases[i])
-i = 1; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'--k', label=labels_cases[i])
-i = 2; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'b', label=labels_cases[i])
-i = 3; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'--b', label=labels_cases[i])
+for i in range(len(cases)):
+    plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],formats[i], label=labels_cases[i])
 plt.yticks(y_ticks_u_vs_x)
 plt.xlim(x_lim_u_vs_x)
 plt.ylim(y_lim_u_vs_x)
@@ -215,7 +270,7 @@ plt.xlabel(label_x_ax)
 plt.ylabel(label_u_ax)
 #plt.legend(bbox_to_anchor=(1.0, 1.0))
 plt.grid()
-plt.legend(loc='upper left',ncol=2)
+plt.legend(loc='lower right',ncol=2)
 plt.tight_layout()
 plt.savefig(folder_manuscript+'line_y0_along_x_z01p6.pdf')
 plt.show()
@@ -228,10 +283,8 @@ j = -2
 plt.figure(figsize=figsize_u_vs_x)
 plt.title(labels_z_planes[j])
 plt.plot(x_lim_u_vs_x,(0,0),'k',zorder=-1,linewidth=6*FFIG)
-i = 0; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'k', label=labels_cases[i])
-i = 1; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'--k', label=labels_cases[i])
-i = 2; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'b', label=labels_cases[i])
-i = 3; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'--b', label=labels_cases[i])
+for i in range(len(cases)):
+    plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],formats[i], label=labels_cases[i])
 plt.yticks(y_ticks_u_vs_x)
 plt.xlim(x_lim_u_vs_x)
 plt.ylim(y_lim_u_vs_x)
@@ -246,7 +299,7 @@ plt.show()
 plt.close()
 
 # UG75_DX20
-i = 2
+i = 1
 plt.figure(figsize=figsize_u_vs_x)
 plt.title(labels_cases[i])
 j = 1; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'k',label=labels_z_planes[j])
@@ -303,54 +356,44 @@ axs = gs.subplots(sharex=False, sharey=True)
 
 # x = 1 mm
 j = 0
-i = 0; ax1.plot(u_to_plot[i][j],z_values_x_lines[i][j], 'k', label=labels_cases[i])
-i = 1; ax1.plot(u_to_plot[i][j],z_values_x_lines[i][j], '--k', label=labels_cases[i])
-i = 2; ax1.plot(u_to_plot[i][j],z_values_x_lines[i][j], 'b', label=labels_cases[i])
-i = 3; ax1.plot(u_to_plot[i][j],z_values_x_lines[i][j], '--b', label=labels_cases[i])
+for i in range(len(cases)):
+    ax1.plot(u_to_plot[i][j],z_values_x_lines[i][j], formats[i], label=labels_cases[i])
 #ax1.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax1.set_title(labels_x_planes[j])
 ax1.yaxis.set_ticks([0,2,4,6,8, 10])
 
 # x = 2.5 mm
 j = 1
-i = 0; ax2.plot(u_to_plot[i][j],z_values_x_lines[i][j], 'k', label=labels_cases[i])
-i = 1; ax2.plot(u_to_plot[i][j],z_values_x_lines[i][j], '--k', label=labels_cases[i])
-i = 2; ax2.plot(u_to_plot[i][j],z_values_x_lines[i][j], 'b', label=labels_cases[i])
-i = 3; ax2.plot(u_to_plot[i][j],z_values_x_lines[i][j], '--b', label=labels_cases[i])
+for i in range(len(cases)):
+    ax2.plot(u_to_plot[i][j],z_values_x_lines[i][j], formats[i], label=labels_cases[i])
 #ax2.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax2.set_title(labels_x_planes[j])
+ax2.legend(loc='best',fontsize=45*FFIG)
 #ax2.xaxis.set_ticks(np.array([0,1,2,3])+2)
 #ax2.yaxis.set_ticks([0,50,100,150,200,250,300])
 #ax2.legend(loc='best',fontsize=40*FFIG)
 
 # x = 5 mm
 j = 2
-i = 0; ax3.plot(u_to_plot[i][j],z_values_x_lines[i][j], 'k', label=labels_cases[i])
-i = 1; ax3.plot(u_to_plot[i][j],z_values_x_lines[i][j], '--k', label=labels_cases[i])
-i = 2; ax3.plot(u_to_plot[i][j],z_values_x_lines[i][j], 'b', label=labels_cases[i])
-i = 3; ax3.plot(u_to_plot[i][j],z_values_x_lines[i][j], '--b', label=labels_cases[i])
+for i in range(len(cases)):
+    ax3.plot(u_to_plot[i][j],z_values_x_lines[i][j], formats[i], label=labels_cases[i])
 #ax3.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax3.set_title(labels_x_planes[j])
 #ax3.xaxis.set_ticks(np.array([0,1,2,3])+2)
 
 # x = 10 mm
 j = 3
-i = 0; ax4.plot(u_to_plot[i][j],z_values_x_lines[i][j], 'k', label=labels_cases[i])
-i = 1; ax4.plot(u_to_plot[i][j],z_values_x_lines[i][j], '--k', label=labels_cases[i])
-i = 2; ax4.plot(u_to_plot[i][j],z_values_x_lines[i][j], 'b', label=labels_cases[i])
-i = 3; ax4.plot(u_to_plot[i][j],z_values_x_lines[i][j], '--b', label=labels_cases[i])
+for i in range(len(cases)):
+    ax4.plot(u_to_plot[i][j],z_values_x_lines[i][j], formats[i], label=labels_cases[i])
 #ax4.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax4.set_title(labels_x_planes[j])
 #ax4.xaxis.set_ticks(np.array([0,1,2,3])+2)
-ax4.legend(loc='best',fontsize=45*FFIG)
 
 
 # x = 15 mm
 j = 4
-i = 0; ax5.plot(u_to_plot[i][j],z_values_x_lines[i][j], 'k', label=labels_cases[i])
-i = 1; ax5.plot(u_to_plot[i][j],z_values_x_lines[i][j], '--k', label=labels_cases[i])
-i = 2; ax5.plot(u_to_plot[i][j],z_values_x_lines[i][j], 'b', label=labels_cases[i])
-i = 3; ax5.plot(u_to_plot[i][j],z_values_x_lines[i][j], '--b', label=labels_cases[i])
+for i in range(len(cases)):
+    ax5.plot(u_to_plot[i][j],z_values_x_lines[i][j], formats[i], label=labels_cases[i])
 #ax5.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax5.set_title(labels_x_planes[j])
 #ax5.xaxis.set_ticks(np.array([0,1,2,3])+2)

@@ -59,7 +59,7 @@ The aerodynamic field inside BIMER for the operating points of interest was disc
 
 For the resolved atomization simulations, the relevant gas conditions are those found close to the liquid injection point. In the case of a simple JICF geometry like the one studied in Chapter \ref{ch5:jicf_resolved_simulations}, the gas and liquid flows directions are known, and the gaseous conditions impinging the jet and relevant for liquid breakup are easily determined. For a complex geometry, swirled injector such as BIMER, the crossflow direction is not known a prior and needs to be determined. For such purpose, resolved simulations are a useful tool since they provide all the information regarding the jet. For determining the crossflow reference system $\textbf{x}_c$, displayed in Figure \ref{fig:BIMER_local_FoR_and_sampling_planes},  a first simulation was run and the direction in which droplets were convected was taken as the crossflow direction $x_c$. 
 
-Figure \ref{fig:BIMER_Umean_profile_with_jet} left shows the gas mean streamlines through the inlet vane of the multipoint stage that impinge the crossflow. An instantaneous view of the jet is shown for visualization, although the streamlines correspond to the gaseous solution without the jet. As observed, the jet is fully immersed within the gas coming through the closest vane, and is not affected by the gas coming from the neighbouring vanes. The streamlines also show a high variation in the velocity magnitude along the vane width, with the highest velocity streamlines being the ones affecting the jet. The jet crossflow direction $x_c$ is also indicated in the view. Figure \ref{fig:BIMER_Umean_profile_with_jet} right shows the mean axial velocity field in the middle crossflow plane $y_c = 0$. The velocity coordinates have been transformed from the absolute coordinate system to the crossflow one, hence the axial velocity displayed $\overline{u}_c$ is the one in the crossflow direction. The arrows show the velocity profile along the crossflow vertical direction $z_c$ at a location $x_c/d_\mathrm{inj} = -0.5$, i.e. right upstream the injector (it has been shifted in the figure to allow for visual comparison with the jet). This profile, together with the $TKE$ profile along the same line, are plotted in Figure \ref{fig:BIMER_gas_inlet_profiles}. A bulk gaseous velocity $u_g = 75 ~\mathrm{m}.\mathrm{s}^{-1}$, which was used in $\S$\ref{sec:ch8_BIMER_operating_condition} to determine the operating condition of the liquid jet, is obtained as the mean of the gaseous velocity profile. The TKE profile shows high values in general along all the vertical coordinate, which reflects a high turbulent state of the flow created by the swirled injector. %From the walls upwards, the $TKE$ firstly increases and then undergoes a decrease at $x_c \sim 1$ to then start augmenting again at the center of the channel. 
+Figure \ref{fig:BIMER_Umean_profile_with_jet} left shows the gas mean streamlines through the inlet vane of the multipoint stage that impinge the crossflow. An instantaneous view of the jet is shown for visualization, although the streamlines correspond to the gaseous solution without the jet. As observed, the jet is fully immersed within the gas coming through the closest vane, and is not affected by the gas coming from the neighbouring vanes. The streamlines also show a high variation in the velocity magnitude along the vane width, with the highest velocity streamlines being the ones affecting the jet. The jet crossflow direction $x_c$ is also indicated in the view. Figure \ref{fig:BIMER_Umean_profile_with_jet} right shows the mean axial velocity field in the middle crossflow plane $y_c = 0$. The velocity coordinates have been transformed from the absolute coordinate system to the crossflow one, hence the axial velocity displayed $\overline{u}_c$ is the one in the crossflow direction. The arrows show the velocity profile along the crossflow vertical direction $z_c$ at a location $x_c/d_\mathrm{inj} = -0.5$, i.e. right upstream the injector (it has been shifted in the figure to allow for visual comparison with the jet). This profile, together with the $TKE$ profile along the same line, are plotted in Figure \ref{fig:BIMER_gas_inlet_profiles}. A bulk gaseous velocity $u_g = 56 ~\mathrm{m}.\mathrm{s}^{-1}$ is obtained as the mean of the gaseous velocity profile. The TKE profile shows high values in general along all the vertical coordinate, which reflects a high turbulent state of the flow created by the swirled injector. %From the walls upwards, the $TKE$ firstly increases and then undergoes a decrease at $x_c \sim 1$ to then start augmenting again at the center of the channel. 
 
 
 \begin{figure}[ht]
@@ -103,7 +103,7 @@ The velocity profile imposed at the liquid inlet shown in Figure \ref{fig:BIMER_
 %\end{subequations}
 
 \begin{equation}
-q =  \frac{\rho_l u_l^2}{\rho_g u_g^2} \approx 1 ~~~~ ; ~~~~  We_g =  \frac{\rho_g d_\mathrm{inj} u_g^2}{\sigma} \approx 55
+q =  \frac{\rho_l u_l^2}{\rho_g u_g^2} \approx 2 ~~~~ ; ~~~~  We_g =  \frac{\rho_g d_\mathrm{inj} u_g^2}{\sigma} \approx 30
 \end{equation}
 
 %\begin{subequations}
@@ -133,7 +133,7 @@ Figure \ref{fig:location_BIMER_op_in_breakup_map} shows the BIMER JICF operating
 \thickhline
 Nozzle diameter & $d_\mathrm{inj}$ & mm & 0.3 \\
 %\hline
-Gas bulk velocity & $u_g$ & m s$^{-1}$ & 75 \\
+Gas bulk velocity & $u_g$ & m s$^{-1}$ & 56 \\
 %\hline
 Gas flow rate & $Q_g$ & m$^3$ s$^{-1}$ & $2.2833 \cdot 10^{-3}$   \\
 %\hline
@@ -341,6 +341,17 @@ Images show the features of a liquid JICF configuration: the jet leaves the inje
 \subsection{Breakup topology}
 \label{ch8:subsec_BIMER_breakup_topology}
 
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.125]{./part3_applications/figures_ch8_resolved/breakup_topology/DX10_breakup_both}
+\caption{Breakup in BIMER, case DX10. }
+% Soluciones:
+% column breakup: sol02_37, sol03_08,_20,_32, sol04_07,_19
+% surface breakup:sol03_32,37, sol04_05,10,13
+\label{fig:BIMER_breakup_topology}
+\end{figure}
+
+
 \subsection{Jet establishment}
 
 Esbalishment of the liquid jet in the BIMER configuration is monitored by quantifying the evolution of the number of mesh elements and the liquid volume inside the domain calculated from Eq. (\ref{eq:liquid_volume_from_levelset_definition}). Time has been non-dimensionalized with the timescale $\tau_{\mathrm{dr}_{x_c/d_\mathrm{inj}=6.67}}$ as given in Table \ref{tab:BIMER_SPS_characteristic_droplet_sampling_times}:
@@ -361,7 +372,7 @@ Results are shown in Figure \ref{fig:BIMER_volume_nelem_evolution}. Volume incre
 \centering
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
-   \includegraphics[scale=0.24]{./part3_applications/figures_ch8_resolved/BIMER_liquid_volume_increase}
+   \includegraphics[scale=0.2]{./part3_applications/figures_ch8_resolved/BIMER_liquid_volume_increase}
    %\caption{Liquid volume}
    \label{fig:BIMER_liquid_volume_evolution} 
 \end{subfigure}
@@ -372,7 +383,6 @@ Results are shown in Figure \ref{fig:BIMER_volume_nelem_evolution}. Volume incre
    %\caption{Zoomed-in view of Figure \ref{fig:JICF_nelem_increase_all_t} in range $t^{\prime} \in [0, 2]$}
    \label{fig:BIMER_nelem_increase}
 \end{subfigure}
-	\vspace*{-0.25in}
    \caption[Evolution of number of mesh elements (\textsl{left}) and number of mesh elements (\textsl{right}) with time in BIMER resolved simulations]{Evolution of number of mesh elements (\textsl{left}) and number of mesh elements (\textsl{right}) with time in BIMER resolved simulations. The dashed, black vertical line corresponds to $t^\prime = 1$, time instant when the first droplet reaches the sampling plane $x_c/d_\mathrm{inj} = 10$}
 \label{fig:BIMER_volume_nelem_evolution}
 \end{figure}
@@ -497,6 +507,35 @@ DX15 & 2340 & 1550 & 0.57 & 0.3 \\
 
 Mean axial velocity and flow streamlines in planes perpendicular to the crossflow $x_c/d_\mathrm{inj} =$ \textbf{XX} are shown in Figure \textbf{XX}. Looking at the streamlines, one of the first observations is that the classical CVP pairs typically observed in JICF configurations, visualized in the JICF configuration of DLR in Figure \ref{fig:JICF_turbulent_structures_planes_x}, are not present in BIMER. A possible explanation of missing CVPs in due to the lack of jet deflection towards the axial direction, which was notorious in the classical JICF (see for instance Figure \ref{fig:JICF_establishment_UG100_lateral}) but which is not very pronounced in BIMER, as shown in Figure \ref{fig:BIMER_jet_establishment}. \citeColor[broadwell_structure_1984] argued that the strength of the CVPs is dependent on the momentum transferred to the crossflow by the jet; later, \citeColor[karagozian_analytical_1986] confirmed this statement while also showing that this momentum transfer is not relevant until the jet has been deflected by the crossflow. Since in the present results the BIMER liquid jet does not deflect to a large excent towards the crossflow direction, this hypothesis might explain the absence of CVPs found in the simulations.
 
+\hl{OJO:} para ver vortices en planos iso-x, mirar articulos Denev-Froelich et swirl-jicf-2011.
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.22]{./part3_applications/figures_ch8_resolved/turbulent_structures/line_y0_along_x_zlow}
+   %\caption{}
+   %\label{} 
+\end{subfigure}
+\hspace{0.4in}
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.22]{./part3_applications/figures_ch8_resolved/turbulent_structures/line_y0_along_x_zhigh}
+   %\caption{}
+   %\label{}
+\end{subfigure}
+\caption{Mean axial velocity evolution along axial coordinate at locations \textbf{XX:??} $z = 1.6, 4$ mm in plane $y = 0$ (lines of Figure \textbf{XX:??})}
+\label{fig:BIMER_sps_lines_y0_along_x_ux_mean}
+\end{figure}
+
+
+\begin{figure}[ht]
+\centering
+   \includegraphics[scale=0.24]{./part3_applications/figures_ch8_resolved/turbulent_structures/lines_y0_along_z_ux_mean}
+\caption{Mean axial velocity evolution along vertical coordinate at \textbf{XX:??} $x = 1, 2.5, 5, 10, 15$ mm locations of plane $y = 0$ (lines of Figure \textbf{XX:??})}
+\label{fig:BIMER_sps_lines_y0_along_z_ux_mean}
+\end{figure}
+
 \clearpage
 
 \section{Direct measurement of liquid fluxes}
@@ -524,7 +563,7 @@ In all simulations, there is a decrease in the mass flux with increasing axial d
 \centering
 \begin{subfigure}[b]{0.9\textwidth}
 	\centering
-   \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/evolution_mean_Q_iso_x}
+   \includegraphics[scale=0.4]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/evolution_mean_Q_iso_x}
    \vspace*{-0.15in}
    \caption{Mean $Q_l$ evolution in IBs perpendicular to crossflow.}
    %\label{} 
@@ -532,7 +571,7 @@ In all simulations, there is a decrease in the mass flux with increasing axial d
 \vskip\baselineskip
 \begin{subfigure}[b]{0.9\textwidth}
 	\centering
-   \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/evolution_RMS_Q_iso_x}
+   \includegraphics[scale=0.4]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/evolution_RMS_Q_iso_x}
    \vspace*{-0.15in}
    \caption{RMS $Q_l$ evolution in IBs perpendicular to crossflow.}
    %\label{}
@@ -546,7 +585,7 @@ In all simulations, there is a decrease in the mass flux with increasing axial d
 
 \begin{figure}[ht]
 \centering
-   \includegraphics[scale=0.225]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/bar_graph_isox_IBs}
+   \includegraphics[scale=0.3]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/bar_graph_isox_IBs}
 \caption{Mean flow rates from IBs perpendicular to crossflow in BIMER}
 \label{fig:BIMER_IB_bargraph_mean}
 \end{figure}
@@ -556,6 +595,171 @@ In all simulations, there is a decrease in the mass flux with increasing axial d
 
 
 \section{Spray characterization}
+
+\subsection{Establishment of mean sprays}
+
+\begin{figure}[ht]
+	\centering
+   \includegraphics[width=0.45\textwidth]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/establishment_and_fluxes/establishment_DX10}
+   \includegraphics[width=0.45\textwidth]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/establishment_and_fluxes/establishment_DX15}
+   \caption{Establishment of SMD and $Q_l$ in BIMER sprays}
+\label{fig:ch8_spray_char_establishment}
+\end{figure}
+
+
+
+\subsection{Liquid fluxes: lagrangian versus resolved}
+\label{subsec:ch8_sli_fluxes_vs_IBs}
+
+
+
+\begin{figure}[ht]
+	\centering
+   \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/establishment_and_fluxes/fluxes_SLI_vs_IBs}
+   \caption{Liquid fluxes provided by interior boundaries (solid color bars) and lagrangian tracking (black-dashed color bars).}
+   \label{fig:ch8_fluxes_bargraph_IBs_vs_LGS}
+\end{figure}
+
+
+\subsection{Granulometry}
+\label{ch8:subsec_spray_char_granulo}
+
+
+\begin{figure}[ht]
+\centering
+   \includegraphics[scale=0.40]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/SMD_values}
+   %SMD_values_broken_axis
+   \vspace*{-0.2in}
+   \caption{Evolution of SMD with axial distance for each simulation.}
+   \label{fig:ch8_spray_char_SMD_final}
+\end{figure}
+
+
+%\hl{For the histograms, we can see 2013 Vie.}
+
+
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD05p00_histograms}
+   \includegraphics[scale=0.35]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD06p67_histograms}
+	\caption{Case DX10}
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD05p00_histograms}
+   \includegraphics[scale=0.35]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD06p67_histograms}
+	\caption{Case DX10}
+\end{subfigure}
+
+   \caption{Droplets size ($f_0$) and volume ($f_3$) histograms for all BIMER cases}
+\label{fig:ch8_jicf_size_volume_histograms_all}
+\end{figure}
+
+
+
+\subsection{Liquid velocities}
+
+
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/velocities/ux_mean}
+   %\hfill
+   \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/velocities/uy_mean}
+   %\hfill
+   \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/velocities/uz_mean}
+	\caption{Mean velocities in axial, lateral and vertical crossflow directios}
+\end{subfigure}
+
+   \caption[Sampled mean liquid velocities for all cases]{Mean liquid velocities for all cases. Solid lines indicate arithmetic average velocities, while dashed ones indicate volume-weighted average velocities.}
+\label{fig:ch8_jicf_liquid_mean_velocities_with_x}
+\end{figure}
+
+% Volume-weighted velocities: see pilotage 04/06/2021
+
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\hspace*{-0.2in}
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatterplots_colorbar_z.png}
+\end{subfigure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\hspace*{0.36in}
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatterplots_colorbar_y.png}
+\end{subfigure}
+\begin{subfigure}[b]{0.3\textwidth}
+	\centering
+	\hspace*{0.7in}
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatterplots_colorbar_z.png}
+\end{subfigure}
+
+   \vskip\baselineskip
+   
+   \vspace*{-0.2in}
+\begin{subfigure}[b]{0.3\textwidth}
+	\flushleft
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatter_ux_D.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.3\textwidth}
+	\flushleft
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatter_uy_D.png}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.3\textwidth}
+	\flushleft
+   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatter_uz_D.png}
+\end{subfigure}
+   \caption[Scatterplots velocities - diameters for case UG100\_DX10 at plane $x = 10$ mm]{Scatterplots velocities - diameters for case UG100\_DX10 at plane $x = 10$ mm. The axial velocity is non-dimensionalized with the bulk gaseous velocity, while the lateral and vertical ones have been non-dimensionalized  with the bulk liquid velocity}
+\label{fig:jicf_global_scatterplots}
+\end{figure}
+
+
+
+\subsection{Deformation of liquid structures}
+\label{subsec:ch8_def_liquid_structures}
+
+
+\begin{figure}[ht]
+\centering
+   \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/deformation/deformation_both_alpha_beta_mean}
+   \caption{Mean deformation parameters for BIMER simulations}
+\label{fig:ch8_jicf_liquid_mean_deformation_with_x_condensed}
+\end{figure}
+
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+	\centering
+	\hspace*{-0.2in}
+   \includegraphics[scale=0.3]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/deformation/scatter_alpha_beta_DX10.png}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+	\centering
+	\hspace*{0.35in}
+   \includegraphics[scale=0.3]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/deformation/scatter_alpha_beta_DX15.png}
+\end{subfigure}
+\begin{subfigure}[b]{0.1\textwidth}
+	\centering
+	\hspace*{0.35in}
+   \includegraphics[scale=0.5]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/deformation/scatterplots_colorbar_D_with_blank_space.png}
+\end{subfigure}
+   \caption[Scatterplots of deformation parameters $\alpha$ - $\beta$ for cases DX10, DX15 at plane $x_c/d_\mathrm{inj} = 6.67$ ]{Scatterplots of deformation parameters $\alpha$ - $\beta$ for cases DX10, DX15 at plane $x_c/d_\mathrm{inj} = 6.67$. Droplets are coloured and scaled by their equivalent diameter}
+\label{fig:ch8_jicf_global_scatterplots_deformation}
+\end{figure}
+
 
 \section{Smart Lagrangian Injectors}
 \label{sec:ch8_learning_SLI_in_BIMER}

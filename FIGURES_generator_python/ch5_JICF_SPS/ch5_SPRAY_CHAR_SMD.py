@@ -9,7 +9,7 @@ import numpy as np
 import sys
 sys.path.append('C:/Users/Carlos Garcia/Documents/GitHub/spr_post')
 sys.path.append('..')
-from sli_functions import load_all_SPS_global_sprays
+from sli_functions import load_all_SPS_global_sprays, load_all_SPS_grids
 
 FFIG = 0.5
 plt.rcParams['xtick.labelsize'] = 60*FFIG #40*FFIG
@@ -52,6 +52,9 @@ sprays_list_UG100_DX20 = sp4
 sprays_list_UG100_DX20_NT = sp5
 
 sprays_list_all = [sp1, sp2, sp3, sp4, sp5]
+
+# load grids
+grids_list = 
 
 #%% Get SMD
 SMD_cases = []

@@ -28,6 +28,7 @@ plt.rcParams['legend.framealpha']      = 1.0
 plt.rcParams['text.usetex'] = True
 plt.rcParams['font.family'] = 'serif'
 figsize_ = (FFIG*19,FFIG*12)
+figsize_no_axe = (FFIG*15.8,FFIG*12)
 
 
 
@@ -163,13 +164,13 @@ for c in range(len(cases)):
     
 
     
-    plt.figure(figsize=figsize_) 
+    plt.figure(figsize=figsize_no_axe) 
     ax = plt.gca()
     plt.hist(np.sort(data), sp.n_bins, color='black', rwidth = bars_width/2, density = True, label=label_numb_hist)
     plt.hist(bins[:-1]+dD/2, sp.n_bins, color='grey', weights = vol_total, rwidth = 0.9/2, density = True, label=label_vol_hist) 
     plt.plot(sp.spaceDiam, sp.lognormal.PDF_f0, color='red', label='Lognormal (corr.)')
     plt.plot(sp.spaceDiam, sp.lognormal_opt.PDF_f0, color='blue', label='Lognormal (fit)')
-    plt.plot([20]*2,[0,1],':k',label=r'$\Delta x = 20~\mu m$')
+    plt.plot([resolutions[c]]*2,[0,1],':k',label=f'$\Delta x = {resolutions[c]}~\mu m$')
     plt.plot([sp.SMD]*2,[0,1],'--k',label='SMD')
     plt.xlim([D_min,D_max_all[c]])
     plt.ylim(p_min, p_max_all[c])
@@ -194,13 +195,13 @@ for c in range(len(cases)):
         medium_values = (bins[1:] + bins[:-1])*0.5
         vol_total = medium_values**3*n  
         
-        plt.figure(figsize=figsize_)
+        plt.figure(figsize=figsize_no_axe)
         ax = plt.gca()
         plt.hist(np.sort(data), sp.n_bins, color='black', rwidth = bars_width/2, density = True, label='Number hist.')
         plt.hist(bins[:-1]+dD/2, sp.n_bins, color='grey', weights = vol_total, rwidth = 0.9/2, density = True, label='Volume hist.') 
         plt.plot(sp.spaceDiam, sp.lognormal.PDF_f0, color='red', label='Lognormal (corr.)')
         plt.plot(sp.spaceDiam, sp.lognormal_opt.PDF_f0, color='blue', label='Lognormal (fit)')
-        plt.plot([20]*2,[0,1],':k',label=r'$\Delta x = 20~\mu m$')
+        plt.plot([resolutions[c]]*2,[0,1],':k',label=f'$\Delta x = {resolutions[c]}~\mu m$')
         plt.plot([sp.SMD]*2,[0,1],'--k',label='SMD')
         plt.xlim([D_min,D_max_all[c]])
         plt.ylim(p_min, p_max_all[c])
