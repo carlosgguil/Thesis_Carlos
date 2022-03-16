@@ -105,9 +105,9 @@ line_umean_format = 'k'
 line_umean_vw_format = '--k' 
 x_lim_ = [0,250]
 
-alpha_lim = (1,7)
+alpha_lim = (1,5)
 beta_lim = (0,1)
-alpha_ticks = ([1,3,5,7])
+alpha_ticks = ([1,2,3,4,5])
 
 diam_min = 25
 diam_max = 100

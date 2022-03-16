@@ -35,7 +35,8 @@ x_label_ = r'$t^{\prime}$'
 #y_label_ = '$\# ~\mathrm{elements} ~(10^6$)'
 y_label_ = r'$V_l ~[\mathrm{mm}^3$]'
 
-ticks_tp_label = np.linspace(0,6,7)
+ticks_tp_label = np.linspace(0,7,8)
+ticks_Vl_label = [0.6,0.65,0.7,0.75,0.8]
 
 # Times correspond to x_c/d_inj = 6.67 #10
 tau_dr_DX15  = 562e-3 #633e-3
@@ -116,18 +117,20 @@ y_lim_Vl = (liquid_volume_DX15[0], liquid_volume_DX15[-1]+0.01)
 plt.figure(figsize=figsize_)
 
 plt.plot([1]*2,[0,1e4],'--k')
-plt.plot(time_DX15, liquid_volume_DX15, 'y', label='$\mathrm{DX}15$')
-plt.plot(time_DX10, liquid_volume_DX10, 'g', label='$\mathrm{DX}10$')
-plt.plot(time_DX07p5, liquid_volume_DX07p5, 'b', label='$\mathrm{DX}07$')
+plt.plot(time_DX15, liquid_volume_DX15, 'k', label='$\mathrm{DX}15$')
+plt.plot(time_DX10, liquid_volume_DX10, 'b', label='$\mathrm{DX}10$')
+#plt.plot(time_DX07p5, liquid_volume_DX07p5, 'b', label='$\mathrm{DX}07$')
 
 plt.xlabel(x_label_)
+plt.xlim((0,7))
 plt.xticks(ticks_tp_label)
 plt.ylabel(y_label_)
 plt.ylim(y_lim_Vl)
+plt.yticks(ticks_Vl_label)
 #plt.ylim(nelem_DX15[0],1e3)
 plt.legend(loc='best')
 plt.grid(which='major',linestyle='-',linewidth=4*FFIG)
-plt.grid(which='minor',linestyle='--')
+#plt.grid(which='minor',linestyle='--')
 plt.tight_layout()
 #plt.savefig(folder_manuscript + 'JICF_nelem_increase.eps',format='eps',dpi=1000)
 plt.savefig(folder_manuscript + 'BIMER_liquid_volume_increase.pdf',format='pdf')

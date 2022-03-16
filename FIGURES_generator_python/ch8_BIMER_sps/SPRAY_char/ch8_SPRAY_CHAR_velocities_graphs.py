@@ -82,7 +82,8 @@ labels_ = [label_xD05p00, label_xD06p67]
 # x coordinates
 xD = [5,6.67]
 x_lim = (4.8,6.8)
-x_ticks = [5,6.67]
+#x_ticks = [5,6.67]
+x_ticks = [5, 5.5, 6, 6.5, 7]
 
 
 #%% Get dimensionless time and velocities evolution
@@ -146,7 +147,7 @@ ax.set_xticks(x_ticks)
 ax.set_xlabel(x_label_)
 ax.set_ylabel(y_label_ux_mean)
 ax.grid()
-ax.legend(loc='best',ncol=1)
+#ax.legend(loc='best',ncol=1)
 plt.tight_layout(pad=0)
 plt.savefig(folder_manuscript+'ux_mean.pdf')
 plt.show()
@@ -230,6 +231,7 @@ ax.set_xticks(x_ticks)
 ax.set_xlabel(x_label_)
 ax.set_ylabel(y_label_uz_mean)
 ax.grid()
+ax.legend(loc='best',ncol=1)
 plt.tight_layout(pad=0)
 plt.savefig(folder_manuscript+'uz_mean.pdf')
 plt.show()

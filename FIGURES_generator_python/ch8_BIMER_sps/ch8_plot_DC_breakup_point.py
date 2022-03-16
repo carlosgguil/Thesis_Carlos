@@ -51,7 +51,7 @@ folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part3_a
 folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/BIMER/DC_characterization/data_breakup_points/'
 
 
-cases = [folder+'breakup_point_dx07p5_NSEC_100.csv',
+cases = [folder+'breakup_point_dx07p5.csv',
          folder+'breakup_point_dx10p0.csv',
          folder+'breakup_point_dx15p0.csv']
 
@@ -71,7 +71,7 @@ tau_char = [tau_dr_DX07p5 , tau_dr_DX10, tau_dr_DX15]
 # axis labels
 x_label_time  = r'$t^{\prime}$' #r'$t~[\mathrm{ms}]$'
 #y_label_xb_zb = r'$x_b/d_\mathrm{inj},~\textcolor{blue}{ z_b/d_\mathrm{inj}}$'
-y_label_xb_zb = r'$x_b/d_\mathrm{inj}, z_b/d_\mathrm{inj}$'
+y_label_xb_zb = r'$x_b/d_\mathrm{inj}, z_b/d_\mathrm{inj}, w/d_\mathrm{inj}$'
 y_label_w = r'$w/d_\mathrm{inj}$'
 y_label_theta = r'$\theta~[^\circ]$'
 
@@ -98,7 +98,24 @@ label_w  = r'$w/d_\mathrm{inj}$'
 x_lim_frequency = (0,30)
 
 
+# tp_ticks
+tp_ticks_DX07 = [2,3]
+tp_ticks_DX10 = [2,3,4,5]
+tp_ticks_DX15 = [2,3,4,5,6,7]
+tp_ticks = [tp_ticks_DX07,
+            tp_ticks_DX10,
+            tp_ticks_DX15]
+# tp_lims
+tp_lims_DX07 = (2,3)
+tp_lims_DX10 = (2,5)
+tp_lims_DX15 = (2,7)
+tp_lims = [tp_lims_DX07,
+           tp_lims_DX10,
+           tp_lims_DX15]
 
+
+
+#%%
 # shifting times
 tp_0_true_values = False
 
@@ -264,18 +281,37 @@ width_std  = np.array(width_std)
 
 #%% Plot signals
 
-# Limits to separate graphs
-ylims_xb_zb_temp = [(-0.4,2.2), (-0.5,2.1), (0,2)]
-y_ticks_xb_zb_temp = [0,2,4,6]
-ylims_w_temp     = [(0,0.5), (0,0.6), (0,0.6)]
+# xb_zb_ticks
+xb_zb_ticks_DX07 = [-2,0,2,4,6,8]
+xb_zb_ticks_DX10 = np.linspace(0,8,9) #[-2,0,2,4,6,8]
+xb_zb_ticks_DX15 = np.linspace(0,8,9)
+xb_zb_ticks = [xb_zb_ticks_DX07,
+               xb_zb_ticks_DX10,
+               xb_zb_ticks_DX15]
 
-ylims_xb_zb = []; ylims_w = [] 
-for i in range(len(ylims_xb_zb_temp)):
-    ylims_xb_zb.append( tuple([z/d_inj for z in ylims_xb_zb_temp[i]]) )
-    ylims_w.append( tuple([z/d_inj for z in ylims_w_temp[i]]) )
+# xb_zb lims
+xb_zb_lims_DX07 = (-2,8)
+xb_zb_lims_DX10 = (-0.5,8)
+xb_zb_lims_DX15 = (-0.5,8)
+xb_zb_lims = [xb_zb_lims_DX07,
+              xb_zb_lims_DX10,
+              xb_zb_lims_DX15]
+
+# w lims
+w_lims_DX07 = (-2,8)
+w_lims_DX10 = (-2,9)
+w_lims_DX15 = (0,9)
+w_lims = [w_lims_DX07,
+          w_lims_DX10,
+          w_lims_DX15]
+
+
 
 for i in range(len(labels_)):
     
+    if i == 0:
+        continue
+
 
     fig = plt.figure(figsize=figsize_)
     ax = fig.add_subplot(111)
@@ -285,18 +321,22 @@ for i in range(len(labels_)):
     lns3 = ax2.plot(time_plot[i],width_DC[i],'r',label=label_w)
     lns = lns1+lns2+lns3
     labs = [l.get_label() for l in lns]
-    if i==0:
+    if i==2:
         ax.legend(lns, labs, loc='upper left',ncol=3)
     #ax.legend(loc='upper left')
     ax.grid()
     ax.set_xlabel(x_label_time)
     ax.set_ylabel(y_label_xb_zb)
-    ax2.set_ylabel(y_label_w)
-    ax.set_ylim(ylims_xb_zb[i])
-    ax.set_yticks(y_ticks_xb_zb_temp)
-    ax2.set_ylim(ylims_w[i])
-    ax2.tick_params(axis='y', colors='red')
-    ax2.yaxis.label.set_color('red')
+    #ax2.set_ylabel(y_label_w)
+    ax.set_ylim(xb_zb_lims[i])
+    ax2.set_ylim(xb_zb_lims[i])
+    ax.set_yticks(xb_zb_ticks[i])
+    ax2.set_yticks([])
+    #ax2.tick_params(axis='y', colors='red')
+    #ax2.yaxis.label.set_color('red')
+    ax.set_xticks(tp_ticks[i])
+    ax.set_xlim(tp_lims[i])
+    ax2.set_xlim(tp_lims[i])
     plt.tight_layout()
     plt.savefig(folder_manuscript+'instant_xb_zb_w_'+save_labels[i]+'.pdf')
     plt.show()
@@ -315,12 +355,13 @@ figsize_mean_convergence = (FFIG*20,FFIG*16)
 
 # mean(xb)
 plt.figure(figsize=figsize_mean_convergence)
-i = 0; plt.plot(time_plot[i], xb_mean_t[i], color='blue',label=labels_[i]) 
-i = 1; plt.plot(time_plot[i], xb_mean_t[i], color='black',label=labels_[i]) 
-i = 2; plt.plot(time_plot[i], xb_mean_t[i], color='red',label=labels_[i]) 
+#i = 0; plt.plot(time_plot[i], xb_mean_t[i], color='red',label=labels_[i]) 
+i = 1; plt.plot(time_plot[i], xb_mean_t[i], color='blue',label=labels_[i]) 
+i = 2; plt.plot(time_plot[i], xb_mean_t[i], color='black',label=labels_[i]) 
 plt.xlabel(x_label_time)
 plt.ylabel(label_mean_xb)
-plt.xticks([2,4,6])
+plt.xticks(tp_ticks_DX15)
+plt.ylim((0,3.5))
 plt.legend(loc='best')
 plt.grid()
 #plt.title(label_mean_xb+r' $\mathrm{convergence~graph}$')
@@ -331,11 +372,12 @@ plt.close()
 
 # std(xb)
 plt.figure(figsize=figsize_mean_convergence)
-i = 0; plt.plot(time_plot[i], xb_std_t[i], color='blue',label=labels_[i]) 
-i = 1; plt.plot(time_plot[i], xb_std_t[i], color='black',label=labels_[i]) 
-i = 2; plt.plot(time_plot[i], xb_std_t[i], color='red',label=labels_[i]) 
+#i = 0; plt.plot(time_plot[i], xb_std_t[i], color='red',label=labels_[i]) 
+i = 1; plt.plot(time_plot[i], xb_std_t[i], color='blue',label=labels_[i]) 
+i = 2; plt.plot(time_plot[i], xb_std_t[i], color='black',label=labels_[i]) 
 plt.xlabel(x_label_time)
 plt.ylabel(label_std_xb)
+plt.xticks(tp_ticks_DX15)
 plt.legend(loc='best')
 plt.grid()
 plt.title(label_std_xb+r' $\mathrm{convergence~graph}$')
@@ -344,12 +386,13 @@ plt.close()
 
 # mean(zb)
 plt.figure(figsize=figsize_mean_convergence)
-i = 0; plt.plot(time_plot[i], zb_mean_t[i], color='blue',label=labels_[i]) 
-i = 1; plt.plot(time_plot[i], zb_mean_t[i], color='black',label=labels_[i]) 
-i = 2; plt.plot(time_plot[i], zb_mean_t[i], color='red',label=labels_[i]) 
+#i = 0; plt.plot(time_plot[i], zb_mean_t[i], color='red',label=labels_[i]) 
+i = 1; plt.plot(time_plot[i], zb_mean_t[i], color='blue',label=labels_[i]) 
+i = 2; plt.plot(time_plot[i], zb_mean_t[i], color='black',label=labels_[i]) 
 plt.xlabel(x_label_time)
 plt.ylabel(label_mean_zb)
-plt.xticks([2,4,6])
+plt.xticks(tp_ticks_DX15)
+plt.ylim((0,6))
 #plt.legend(loc='best')
 plt.grid()
 #plt.title(label_mean_zb+r' $\mathrm{convergence~graph}$')
@@ -360,11 +403,12 @@ plt.close()
 
 # std(zb)
 plt.figure(figsize=figsize_mean_convergence)
-i = 0; plt.plot(time_plot[i], zb_std_t[i], color='blue',label=labels_[i]) 
-i = 1; plt.plot(time_plot[i], zb_std_t[i], color='black',label=labels_[i]) 
-i = 2; plt.plot(time_plot[i], zb_std_t[i], color='red',label=labels_[i]) 
+#i = 0; plt.plot(time_plot[i], zb_std_t[i], color='red',label=labels_[i]) 
+i = 1; plt.plot(time_plot[i], zb_std_t[i], color='blue',label=labels_[i]) 
+i = 2; plt.plot(time_plot[i], zb_std_t[i], color='black',label=labels_[i]) 
 plt.xlabel(x_label_time)
 plt.ylabel(label_std_zb)
+plt.xticks(tp_ticks_DX15)
 plt.legend(loc='best')
 plt.grid()
 plt.title(label_std_zb+r' $\mathrm{convergence~graph}$')
@@ -373,12 +417,13 @@ plt.close()
 
 # mean(width)
 plt.figure(figsize=figsize_mean_convergence)
-i = 0; plt.plot(time_plot[i], width_mean_t[i], color='blue',label=labels_[i]) 
-i = 1; plt.plot(time_plot[i], width_mean_t[i], color='black',label=labels_[i]) 
-i = 2; plt.plot(time_plot[i], width_mean_t[i], color='red',label=labels_[i]) 
+#i = 0; plt.plot(time_plot[i], width_mean_t[i], color='red',label=labels_[i]) 
+i = 1; plt.plot(time_plot[i], width_mean_t[i], color='blue',label=labels_[i]) 
+i = 2; plt.plot(time_plot[i], width_mean_t[i], color='black',label=labels_[i]) 
 plt.xlabel(x_label_time)
 plt.ylabel(label_mean_w)
-plt.xticks([2,4,6])
+plt.xticks(tp_ticks_DX15)
+plt.ylim((0,1.5))
 #plt.legend(loc='best')
 plt.grid()
 #plt.title(label_mean_w+r' $\mathrm{convergence~graph}$')
@@ -389,11 +434,12 @@ plt.close()
 
 # std(width)
 plt.figure(figsize=figsize_mean_convergence)
-i = 0; plt.plot(time_plot[i], width_std_t[i], color='blue',label=labels_[i]) 
-i = 1; plt.plot(time_plot[i], width_std_t[i], color='black',label=labels_[i]) 
-i = 2; plt.plot(time_plot[i], width_std_t[i], color='red',label=labels_[i]) 
+#i = 0; plt.plot(time_plot[i], width_std_t[i], color='red',label=labels_[i]) 
+i = 1; plt.plot(time_plot[i], width_std_t[i], color='blue',label=labels_[i]) 
+i = 2; plt.plot(time_plot[i], width_std_t[i], color='black',label=labels_[i]) 
 plt.xlabel(x_label_time) 
 plt.ylabel(label_std_w)
+plt.xticks(tp_ticks_DX15)
 plt.legend(loc='best')
 plt.grid()
 plt.title(label_std_w+r' $\mathrm{convergence~graph}$')
@@ -447,17 +493,19 @@ plt.text(2.1,2.5,r'$\overline{z_b} = \overline{x_b}$',rotation=35, fontsize=80*F
 plt.text(-1.5,7.7,r'$(\mathrm{a})$',fontsize=80*FFIG)
 
 # Numerical results
-i = 0; plt.scatter(xb_mean[i], zb_mean[i], s=260, color='blue',label=labels_[i]) 
+'''
+i = 0; plt.scatter(xb_mean[i], zb_mean[i], s=260, color='red',label=labels_[i]) 
+plt.errorbar(xb_mean[i], zb_mean[i], 
+             xerr=xb_std[i], yerr=zb_std[i], color='red',
+             linewidth=width_error_lines,capsize=caps_error_lines)
+'''
+i = 1; plt.scatter(xb_mean[i], zb_mean[i], s=260,color='blue',label=labels_[i])
 plt.errorbar(xb_mean[i], zb_mean[i], 
              xerr=xb_std[i], yerr=zb_std[i], color='blue',
              linewidth=width_error_lines,capsize=caps_error_lines)
-i = 1; plt.scatter(xb_mean[i], zb_mean[i], s=260,color='black',label=labels_[i])
+i = 2; plt.scatter(xb_mean[i], zb_mean[i], s=260, color='black',label=labels_[i])
 plt.errorbar(xb_mean[i], zb_mean[i], 
              xerr=xb_std[i], yerr=zb_std[i], color='black',
-             linewidth=width_error_lines,capsize=caps_error_lines)
-i = 2; plt.scatter(xb_mean[i], zb_mean[i], s=260, color='red',label=labels_[i])
-plt.errorbar(xb_mean[i], zb_mean[i], 
-             xerr=xb_std[i], yerr=zb_std[i], color='red',
              linewidth=width_error_lines,capsize=caps_error_lines)
 # UG100_DX10
 plt.scatter(UG100_DX10_xb_mean, UG100_DX10_zb_mean, marker='^', s=260, color='grey',label=label_UG100_DX10)
@@ -466,8 +514,9 @@ plt.errorbar(UG100_DX10_xb_mean, UG100_DX10_zb_mean,
              linewidth=width_error_lines,capsize=caps_error_lines)
 #plt.xticks([4,6,8,10,12])
 #plt.yticks([4,6,8,10,12])
-plt.xlim(-0.5,8)
-plt.ylim(2,8.2)
+plt.xlim(-0,8)
+plt.ylim(0,8.2)
+plt.yticks([0,2,4,6,8])
 plt.xlabel(r'$\overline{x_b}/d_\mathrm{inj}$')
 plt.ylabel(r'$\overline{z_b}/d_\mathrm{inj}$')
 #plt.legend(bbox_to_anchor=(1.0, 1.0))
@@ -488,17 +537,19 @@ fig = plt.figure(figsize=figsize_)
 plt.text(-1.5,4.91,r'$(\mathrm{b})$',fontsize=80*FFIG)
 
 # Numerical results
-i = 0; plt.scatter(xb_mean[i], width_mean[i], s=260, color='blue',label=labels_[i]) 
+'''
+i = 0; plt.scatter(xb_mean[i], width_mean[i], s=260, color='red',label=labels_[i]) 
+plt.errorbar(xb_mean[i], width_mean[i], 
+             xerr=xb_std[i], yerr=width_std[i], color='red',
+             linewidth=width_error_lines,capsize=caps_error_lines)
+'''
+i = 1; plt.scatter(xb_mean[i], width_mean[i], s=260, color='blue',label=labels_[i])
 plt.errorbar(xb_mean[i], width_mean[i], 
              xerr=xb_std[i], yerr=width_std[i], color='blue',
              linewidth=width_error_lines,capsize=caps_error_lines)
-i = 1; plt.scatter(xb_mean[i], width_mean[i], s=260, color='black',label=labels_[i])
+i = 2; plt.scatter(xb_mean[i], width_mean[i], s=260, color='black',label=labels_[i])
 plt.errorbar(xb_mean[i], width_mean[i], 
              xerr=xb_std[i], yerr=width_std[i], color='black',
-             linewidth=width_error_lines,capsize=caps_error_lines)
-i = 2; plt.scatter(xb_mean[i], width_mean[i], s=260, color='red',label=labels_[i])
-plt.errorbar(xb_mean[i], width_mean[i], 
-             xerr=xb_std[i], yerr=width_std[i], color='red',
              linewidth=width_error_lines,capsize=caps_error_lines)
 # UG100_DX10
 plt.scatter(UG100_DX10_xb_mean, UG100_DX10_width_mean, s=260,marker='^', color='grey',label=label_UG100_DX10)
@@ -508,8 +559,9 @@ plt.errorbar(UG100_DX10_xb_mean, UG100_DX10_width_mean,
 plt.plot([-10,10],[1]*2,'--',color='grey')
 #plt.text(4.2,1.2,r'$w/d_\mathrm{inj} = 1$',color='grey',fontsize=70*FFIG)
 #plt.xticks([4,6,8,10,12])
-plt.yticks([1,2,3,4,5])
-plt.xlim(-0.5,8)
+plt.xlim(0,8)
+plt.ylim(0,5.5)
+plt.yticks([0,1,2,3,4,5])
 plt.xlabel(r'$\overline{x_b}/d_\mathrm{inj}$')
 plt.ylabel(r'$\overline{w}/d_\mathrm{inj}$')
 plt.grid()

@@ -85,8 +85,18 @@ bar_label_volume_flux = r'$q_l~[\mathrm{cm}^3 ~ \mathrm{s}^{-1} ~ \mathrm{cm}^{-
 x_lim_y_coord = (-10,10)
 y_lim_z_coord = (0,15)
 
+
+
+
 x_ticks_ = [-10,-5,0,5,10]
 y_ticks_ = [0,3,6,9,12,15]
+
+
+# For comparison with SLI
+x_lim_y_coord = (-7,7)
+y_lim_z_coord = (0,12)
+x_ticks_ = np.linspace(-5,5,3)
+y_ticks_ = np.linspace(0,12,7)
 
 # For the figure size
 AR = 20/15
@@ -131,8 +141,8 @@ print('--------- BOUNDS ------------')
 
 
 for i in range(len(cases)):
-    #if i < 2 or i > 2:
-    #    continue
+    if i < 1 or i > 1:
+        continue
     
     case = cases[i]
     

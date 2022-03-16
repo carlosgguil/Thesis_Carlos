@@ -492,7 +492,9 @@ In this work, the DC topology is determined and studied from the resolved atomiz
 	
 	\begin{itemize}
 	
-		\item The breakup point ($x_b, z_b$) is obtained as the point at the symmetry plane $y = 0$ with is located further in the streamwise direction $x$. 
+		%\item The breakup point ($x_b, z_b$) is obtained as the point at the symmetry plane $y = 0$ with is located further in the streamwise direction $x$. 
+	
+		\item The breakup point ($x_b, z_b$) is obtained as the point at the symmetry plane $y = 0$ with is located further away from the injection location in the vertical direction $z$.
 		
 		\item The width $w$ is obtained by sweeping the DC along the $x$ axis and discretizing it into segments of size $\Delta x$. For each segment, the maximum and minimum points in the $y$ direction are calculated, i.e. the points which are located further away from the symmetry plane above and below the jet in a $x-y$ plane. The difference between this maximum and minimum denote the local width at each segment: the DC width is obtained as the maximum value of all the local widths obtained.
 	
@@ -1657,9 +1659,7 @@ Finally, the relative error along the trajectory $\varepsilon$ is displayed in F
 \section{Perturbation effect of jet dense core}
 \label{subsec:ch5_dense_core_in_ACLS_simus}
 
-
-
-Resolved simulations are characterized by the presence of the liquid dense core, which perturbs the incoming air and creates turbulence downstream the injector. To illustrate this disturbance, the instantaneous axial fluctuations $u'$ and the jet interface are plotted in the middle plane y = 0 in Figure \ref{fig:jet_air_interaction_up_and_skeleton}a. The dense core creates turbulence downstream the injection point, as shown by the high fluctuations in velocity. Such perturbations can have a great impact on spray dispersion once atomization has taken place, therefore modelling this perturbance effect as accurate as possible is paramount for performing dispersed-phase simulations presented in Chapter \ref{ch6:jicf_lgs_simulations}, where the dense core is neglected and a developed spray is injected. At the same time, the incoming crossflow deviates the jet and deforms its cross-section from a circular shape with diameter equal to the injector size to a kidney-shaped cross-section, as illustrated in Figure \ref{fig:jet_air_interaction_up_and_skeleton}b. This change in cross-section is associated to an increase in the drag force exerted by the air to the jet along the liquid column \citepColor[mashayek_jet_2006].
+Resolved simulations are characterized by the presence of the liquid dense core, which perturbs the incoming air and creates turbulence downstream the injector. To illustrate this disturbance, the instantaneous axial fluctuations $u'$ and the jet interface are plotted in the middle plane y = 0 in Figure \ref{fig:jet_air_interaction_up_and_skeleton} left. The dense core creates turbulence downstream the injection point, as shown by the high fluctuations in velocity. Such perturbations can have a great impact on spray dispersion once atomization has taken place, therefore modelling this perturbance effect as accurate as possible is paramount for performing dispersed-phase simulations presented in Chapter \ref{ch6:jicf_lgs_simulations}, where the dense core is neglected and a developed spray is injected. At the same time, the incoming crossflow deviates the jet and deforms its cross-section from a circular shape with diameter equal to the injector size to a kidney-shaped cross-section, as illustrated in Figure \ref{fig:jet_air_interaction_up_and_skeleton} right. This change in cross-section is associated to an increase in the drag force exerted by the air to the jet along the liquid column \citepColor[mashayek_jet_2006].
 
 %
 %\begin{figure}[ht]
@@ -1694,7 +1694,7 @@ Resolved simulations are characterized by the presence of the liquid dense core,
 \begin{figure}[ht]
 \flushleft
 \includeinkscape[inkscapelatex=false,scale=1.1]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/jet_air_interaction_up_and_skeleton}
-\caption[Interaction between liquid dense core and gaseous phase.]{Interaction between liquid dense core and gaseous phase. \textsl{a)} Instantaneous $u'$ field in a JICF simulation from case UG100\_DX20. The black contours indicate the lines with zero instantaneous fluctuation $u' = 0$, while the white contours denote the location of the interface at the plane. \textsl{b)} JICF depicted as a combination of cross-sections in planes $y = 0$ and several planes perpendicular to $z$ axis.}
+\caption[Interaction between liquid dense core and gaseous phase.]{Interaction between liquid dense core and gaseous phase. \textsl{Left}: Instantaneous $u'$ field in a JICF simulation from case UG100\_DX20. The black contours indicate the lines with zero instantaneous fluctuation $u' = 0$, while the white contours denote the location of the interface at the plane. \textsl{Right}: JICF depicted as a combination of cross-sections in planes $y = 0$ and several planes perpendicular to $z$ axis.}
 \label{fig:jet_air_interaction_up_and_skeleton}
 \end{figure}
 
@@ -1708,8 +1708,7 @@ The methodology proposed to obtain the breakup point in resolved simulations was
 
 In first place, the instantaneous evolution with time of the breakup point coordinates and width are shown in Figure \ref{fig:JICF_xb_zb_w_evolution}. The time has been non-dimensionalized according to Eq. (\ref{eq:t_prime_with_tau_drx10}). All signals display a sawtooth shape that reflects the dynamic behaviour of the dense core: increasing parameters are due to ligaments that start to be formed from the dense core (i.e. the breakup point $x_\mathrm{b}, z_\mathrm{b}$ moves further downstream and upwards, while the width $w$ increases due to the deformation of the dense core cross-section), then they suffer an abrupt decrease when the ligaments are dettached from the jet, and the process repeats once and again.  This periodic behaviour has been observed in several experimental studies for the breakup point coordinates $x_\mathrm{b}, z_\mathrm{b}$ \citepColor[wang_characterization_2011, prakash_liquid_2018], while no signals on the width $w$ evolution have been reported in literature to the knowledge of the author.
 
-
-Each steep decay in the cycles of the sawtooth signals $x_b (t), z_b (t)$ is associated to a ligament which strips from the liquid column. Therefore, their associated frequencies are of the order of the frequencies of ligament stripping. The spectra of signals $x_b (t)$ calculated through FFT are shown in Figure \ref{fig:JICF_DC_FFTs_xb}. The coarse simulations have run for a long physical time and enough sampled points are available in the frequency axis (low $\Delta f$ between consecutive points) to retrieve frequency peaks, while fine simulations have not run long enough and the amount of frequency points is scarce (high $\Delta f$ between consecutive points). Consequently, the frequency peaks present in the fine simulation (located at $f \sim 1~kHz$ for UG100\_DX75 and at $f \sim 2.5~kHz$ for UG100\_DX10) are not accurate enough and might represent of the ligament stripping frequencies, although they give an idea of their order of magnitude. Table \ref{fig:JICF_DC_FFTs_xb} shows the characteristic frequencies for each case and their associated $\tau_\mathrm{strm}$, calculated as their inverse. The fine cases show higher breakup frequencies, which are due to a shorter breakup length (discussed in the next lines). 
+Each steep decay in the cycles of the sawtooth signals $x_b (t), z_b (t)$ is associated to a ligament which strips from the liquid column. Therefore, their associated frequencies are of the order of the frequencies of ligament stripping. The spectra of signals $x_b (t)$ calculated through FFT are shown in Figure \ref{fig:JICF_DC_FFTs_xb}. The coarse simulations have run for a long physical time and enough sampled points are available in the frequency axis (low $\Delta f$ between consecutive points) to retrieve frequency peaks, while fine simulations have not run long enough and the amount of frequency points is scarce (high $\Delta f$ between consecutive points). Consequently, the frequency peaks present in the fine simulation (located at $f \sim 1~kHz$ for UG100\_DX75 and at $f \sim 2.5~kHz$ for UG100\_DX10) are not accurate enough and might represent of the ligament stripping frequencies, although they give an idea of their order of magnitude. Table \ref{fig:JICF_DC_FFTs_xb} shows the characteristic frequencies for each case and their associated $\tau_\mathrm{str}$, calculated as their inverse. The fine cases show higher breakup frequencies, which are due to a shorter breakup length (discussed in the next lines). 
 
 %Regarding the coarse cases, spectra is very noisy in all cases but still the characteristic frequencies can be observed: $f \sim 0.7, 0.5, 1.3 ~kHz$ for cases UG75\_DX20, UG100\_DX20 and UG100\_DX20\_NT respectively. 
 
@@ -1814,7 +1813,7 @@ In order to define an actuator in the dispersed phase simulations represening th
 
 The final mean values obtained for the geometrical parameters are shown in the graphs of Figure \ref{fig:dense_core_mean_parameters_scatterplots}, which relate $z_\mathrm{b}$ and $w$ to $x_\mathrm{b}$. The bars in the figures denote the standard deviation of the instantaneous signals. Figure \ref{fig:dense_core_mean_parameters_scatterplots}a shows that the mean values for the coarse resolution are below the $\overline{z_\mathrm{b}} = \overline{x_\mathrm{b}}$, indicating that the dense core penetrates further along the streamwise direction $x$ than in the vertical $z$. On the contrary, the points for the fine resolution are located above this line, which shows that the dense core is elongated along the vertical direction. The dense core length can be calculated as $L_\mathrm{DC} = \sqrt{\overline{x_b}^2 + \overline{z_b}^2}$, results for the simulations are summarized in Table \ref{tab:jicf_L_DC_values}. Lengths are similar for identical resolutions regardless the operating condition but present significant differences among resolutions. The dashed grey lines of Figure \ref{fig:dense_core_mean_parameters_scatterplots} are iso-contours of the dense core length.  Two values are displayed: $L_\mathrm{DC}/d_\mathrm{inj} = 8.9$ and $12.5$, which correspond to the mean values of the lengths for the fine and coarse cases respectively. As observed, fine simulations present a shorter dense core than the coarse ones; in other words, fine simulations capture an earlier breakup than the coarse ones. This is due to the resolution of instabilities for the fine resolution, which forster an earlier breakup of the liquid dense core \citemColor[xiao_les_2014,prakash_liquid_2018,crialesi-esposito_analysis_2019].
 
-Figure \ref{fig:dense_core_mean_parameters_scatterplots} reveals also a slight dependendency of the mean parameters with respect to the operating conditions in the coarse simulations (the fine simulations are not converged enough to asses this effect). The breakup coordinates $\overline{x_\mathrm{b}}$ ($\overline{z_\mathrm{b}}$) are slightly lower (higher) for the low $We$ operating point: increasing aerodynamic gas forces pushes the breakup point further downstream and upwards. This is coherent with the experimental results from \citeColor[patil_liquid_2021], who obtained a correlation for the axial breakup point which varies with the gas Weber number as $x_\mathrm{b} \propto We_g^{0.1}$. The dependency with $We_g$ is however weak, as also found in Figure \ref{fig:dense_core_mean_parameters_scatterplots}a. This experimental study also includes a correlation for the width $w$ which is found to depend solely on the $q$ factor, which is also coherent with the results from Figure \ref{fig:dense_core_mean_parameters_scatterplots}b for the coarse resolution. It is to bear in mind that these experiments do not correspond to the operating points studied here, and so the actual behaviour at these conditions might be different. The present computational study shows, however, similar qualitative trends. 
+Figure \ref{fig:dense_core_mean_parameters_scatterplots} reveals also a slight dependendency of the mean parameters with respect to the operating conditions in the coarse simulations (the fine simulations are not converged enough to asses this effect). The breakup coordinates $\overline{x_\mathrm{b}}$ ($\overline{z_\mathrm{b}}$) are slightly lower (higher) for the low $We$ operating point: increasing aerodynamic gas forces pushes the breakup point further downstream and upwards. This is coherent with the experimental results from \citeColor[patil_liquid_2021], who obtained a correlation for the axial breakup point which varies with the gas Weber number as $x_\mathrm{b} \propto We_g^{0.1}$. The dependency with $We_g$ is however very weak, as also found in Figure \ref{fig:dense_core_mean_parameters_scatterplots}a since the changes in mean values are not actually very significant. This experimental study also includes a correlation for the width $w$ which is found to depend solely on the $q$ factor, which is also coherent with the results from Figure \ref{fig:dense_core_mean_parameters_scatterplots}b for the coarse resolution. It is to bear in mind that these experiments do not correspond to the operating points studied here, and so the actual behaviour at these conditions might be different. The present computational study shows, however, similar qualitative trends. 
 
 %The fine resolution shows a dependency of $w$ with the operating point: however, it is to bear in mind that the parameters from the fine resolutions are not fully converged, and therefore definitive conclusions cannot be extracted from these results. Further analysis would require running longer the fine simulations to reach convergence of the parameters. 
 
@@ -1863,6 +1862,7 @@ $w/d_\mathrm{inj}$ & 4.60 & 4.29 & 4.62 & 4.28 & 4.24 \\
 %\end{equation}
 
 \subsection{Force determination in JICF dense core}
+\label{eq:ch5_subsec_force_determination_JICF}
 
 Besides the dense core geometry, the net force $|\textbf{F}_\mathrm{DC}|$ needs also to be provided as input parameter to the ALM model. As explained in $\S$\ref{subsec:ch4_ALM_forces_determination}, the model considers only the contribution of the pressure momentum term and the force is calculated through Eq. (\ref{eq:ALM_Fp_calculation_simplified}). Two parameters are therefore needed: the dense core surface $S_\mathrm{DC}$ and the mean pressures in the windward and leeward sides. The surface is calculated through the geometrical parameters calculated in the previous section, assuming that the dense core is a trapezoid with bases $d_\mathrm{inj}$,$\overline{w}$ and length $L_\mathrm{DC}$:
 
@@ -2326,7 +2326,7 @@ The ACLS/AMR methodology was described in $\S$\ref{subsec:ch2_ACLS}. Two sources
 
 \begin{itemize}
 
-	\item \textbf{Flagging the levelset band}. The levelset band needs to be flagged at each iteration in order to define the region where to compute interface features such as signed distance, normals, curvature and reinitialization fluxes (\textbf{ref:Janodet-2021-JCP}). When encountering cell-size gradients, it has been observed that some liquid structures diffuse in the mesh and dissapear. The amount of liquid lost by this source is quantitied and discussed in this section.
+	\item \textbf{Flagging the levelset band}. The levelset band needs to be flagged at each iteration in order to define the region where to compute interface features such as signed distance, normals, curvature and reinitialization fluxes \citepColor[janodet_massively_2022]. When encountering cell-size gradients, it has been observed that some liquid structures diffuse in the mesh and dissapear. The amount of liquid lost by this source is quantitied and discussed in this section.
 	
 	\item \textbf{Mesh adaptation}. AMR is performed every $N_\mathrm{iter}^\mathrm{adapt}$ iterations according to Eq. (\ref{eq:ch2_N_iter_adapt_AMR}). This value is intended to provide a reasonable frequency for AMR which is neither too low (adaptation triggered very often, yielding high computational costs) nor too high (adaptation barely happens and the advected interface finds cell size gradients). Nevertheless, regions in the mesh containing small droplets with size close to mesh resolution or which are travelling fast might sometimes be difficult to adapt, and liquid might disappear there when triggering AMR. The quantity of liquid lost in these computational rotuines has not been directly quantified, but it can be estimated by substracting the quantity lost by the band flagging to the total volume of levelset in the domain.
 
@@ -2574,7 +2574,7 @@ Comparing operating conditions, the fluxes for the high Weber point are larger t
 \end{subfigure}
 
 
-   \caption{Spatial distributions of volume fluxes obtained from interior boundaries.}
+   \caption{Spatial distributions of volume fluxes obtained from interior boundaries}
 \label{fig:ibs_spatial_distributions}
 \end{figure}
 
@@ -2594,19 +2594,36 @@ Droplets are tracked lagrangially as they cross the sampling planes, and are acc
 
 \begin{table}[!h]
 \centering
-\caption{Total accumulation times $t_\mathrm{acc}$  and $t_\mathrm{acc}^{\prime}$ (Eq. \ref{eq:t_prime_with_tau_drx10}) for each simulation.}
-\begin{tabular}{cccccc}
+\caption{Total physical $t_\mathrm{ph}$ and accumulation times $t_\mathrm{acc}$, absolute and dimensionless with Eq. (\ref{eq:t_prime_with_tau_drx10}), for each JICF simulation}
+\begin{tabular}{ccccc}
 \thickhline
- &  UG75\_DX10 & UG75\_DX20 & UG100\_DX10 & UG100\_DX20 &  UG100\_DX20\_NT \\
+\textbf{Case} & $t_\mathrm{ph}~[\mathrm{ms}]$ &  $t_\mathrm{ph}^{\prime}$ & $t_\mathrm{acc}~[\mathrm{ms}]$  & $t_\mathrm{acc}^{\prime}$  \\
 \hline
-$t_\mathrm{ph}~[\mathrm{ms}]$ & 1.08 & 6.30 & 0.78 & 6.16 & 6.10 \\
-$t_\mathrm{ph}^{\prime}$ & 3.64 & 17.70 & 3.58 & 23.84 & 23.44 \\
-$t_\mathrm{acc}~[\mathrm{ms}]$ & 0.53 & 5.48 & 0.37 & 5.57 & 5.53 \\
-$t_\mathrm{acc}^{\prime}$ & 1.79& 15.40 & 1.67 & 21.54 & 21.24 \\
+UG75\_DX10 & 1.08 & 3.64 & 0.53 & 1.79 \\
+UG75\_DX20 & 6.30 & 17.70 & 5.48  & 15.40 \\
+UG100\_DX10 & 0.78  & 3.58 & 0.37 & 1.67 \\
+UG100\_DX20  & 6.16 & 23.84 & 5.57 & 21.54 \\
+UG100\_DX20\_NT  & 6.10  & 23.44 & 5.53 &  21.24 \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_SLI_t_prime_accumulation}
 \end{table}
+
+%\begin{table}[!h]
+%\centering
+%\caption{Total accumulation times $t_\mathrm{acc}$  and $t_\mathrm{acc}^{\prime}$ (Eq. \ref{eq:t_prime_with_tau_drx10}) for each simulation.}
+%\begin{tabular}{cccccc}
+%\thickhline
+% &  UG75\_DX10 & UG75\_DX20 & UG100\_DX10 & UG100\_DX20 &  UG100\_DX20\_NT \\
+%\hline
+%$t_\mathrm{ph}~[\mathrm{ms}]$ & 1.08 & 6.30 & 0.78 & 6.16 & 6.10 \\
+%$t_\mathrm{ph}^{\prime}$ & 3.64 & 17.70 & 3.58 & 23.84 & 23.44 \\
+%$t_\mathrm{acc}~[\mathrm{ms}]$ & 0.53 & 5.48 & 0.37 & 5.57 & 5.53 \\
+%$t_\mathrm{acc}^{\prime}$ & 1.79& 15.40 & 1.67 & 21.54 & 21.24 \\
+%\thickhline
+%\end{tabular}
+%\label{tab:jicf_SLI_t_prime_accumulation}
+%\end{table}
 
 
 The total number of droplets accumulated is shown in Table \ref{tab:jicf_SLI_Ndr_accumulated}.
@@ -2741,6 +2758,7 @@ Since in the resolved simulations performed in the work the volume and equivalen
 Finally, as mentioned before, lognormal curves are superimposed to the number histograms to show the trend of the sprays produced. Two lognormal curves are shown: one obtained through a theoretical correlation (red lines), and one obtained through a curve fit (blue lines). Both curves follow the following expression:
 
 \begin{equation}
+\label{eq:ch5_f0_lognormal_distr_expression}
  f_0 \left( D \right) = \frac{d N}{d D} =  \frac{1}{D  \sqrt{2 \pi \ln \left( s_g \right)^2}} \exp \left[ - \frac{1}{2 } \left( \frac{\ln D - \ln \overline{D}_{ng}}{\ln s_g}   \right)^2 \right]
 \end{equation}
 
@@ -3077,713 +3095,8 @@ This section has show the study of the global spray sampled from the resolved at
 \section{Smart Lagrangian injectors}
 \label{sec:ch5_learning_SLI}
 
-\subsection{Convergence of global sprays}
+\input{ch5_SLI_all_cases}
 
-
-\subsection{Spatial discretization of sprays}
-
-\subsection{Comparison of lagrangian and resolved flow rates}
-
-The lagrangian tracking methodology which is used to obtain the injectors allows to 
-
-\clearpage
-
-\subsection*{Case UG75\_DX10}
-
-
-
-%%%%%%%%%%%%%%%% UG75_DX10, x = 5 mm
-
-
-\begin{figure}[h!]
-\flushleft
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_SMD_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_ux_mean_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_uy_mean_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_uz_mean_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_volume_flux_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_ux_rms_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_uy_rms_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_uz_rms_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-\caption{Spray states at x = 5 mm for case UG75\_DX10}
-\label{fig:injectors_sli_uG75_dx10_x05}
-\end{figure}
-
-
-%%%%%%%%%%%%%%%% UG75_DX10, x = 10 mm
-
-
-\begin{figure}[h!]
-\flushleft
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_SMD_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_ux_mean_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_uy_mean_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_uz_mean_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_volume_flux_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_ux_rms_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_uy_rms_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_uz_rms_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-\caption{Spray states at x = 10 mm for case UG75\_DX10}
-\label{fig:injectors_sli_uG75_dx10_x10}
-\end{figure}
-
-
-\clearpage
-
-\subsection*{Case UG75\_DX20}
-
-
-
-%%%%%%%%%%%%%%%% UG75_DX20, x = 5 mm
-
-
-\begin{figure}[h!]
-\flushleft
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_SMD_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_ux_mean_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_uy_mean_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_uz_mean_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_volume_flux_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_ux_rms_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_uy_rms_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x05_uz_rms_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-\caption{Spray states at x = 5 mm for case UG75\_DX20}
-\label{fig:injectors_sli_uG75_dx20_x05}
-\end{figure}
-
-
-%%%%%%%%%%%%%%%% UG75_DX10, x = 10 mm
-
-
-\begin{figure}[h!]
-\flushleft
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_SMD_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_ux_mean_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_uy_mean_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_uz_mean_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_volume_flux_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_ux_rms_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_uy_rms_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x10_uz_rms_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-\caption{Spray states at x = 10 mm for case UG75\_DX20}
-\label{fig:injectors_sli_uG75_dx20_x10}
-\end{figure}
-
-
-%%%%%%%%%%%%%%%% UG75_DX10, x = 15 mm
-
-
-\begin{figure}[h!]
-\flushleft
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_SMD_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_ux_mean_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_uy_mean_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_uz_mean_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_volume_flux_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_ux_rms_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_uy_rms_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx20_x15_uz_rms_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-\caption{Spray states at x = 15 mm for case UG75\_DX20}
-\label{fig:injectors_sli_uG75_dx20_x15}
-\end{figure}
-
-
-\clearpage
-
-\subsection*{Case UG100\_DX10}
-
-
-
-%%%%%%%%%%%%%%%% UG100_DX10, x = 5 mm
-
-
-\begin{figure}[h!]
-\flushleft
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_SMD_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_ux_mean_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_uy_mean_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_uz_mean_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_volume_flux_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_ux_rms_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_uy_rms_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_uz_rms_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-\caption{Spray states at x = 5 mm for case UG100\_DX10}
-\label{fig:injectors_sli_uG100_dx10_x05}
-\end{figure}
-
-
-%%%%%%%%%%%%%%%% UG100_DX10, x = 10 mm
-
-
-\begin{figure}[h!]
-\flushleft
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_SMD_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_ux_mean_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_uy_mean_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_uz_mean_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_volume_flux_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_ux_rms_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_uy_rms_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x10_uz_rms_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-\caption{Spray states at x = 10 mm for case UG100\_DX10}
-\label{fig:injectors_sli_uG100_dx10_x10}
-\end{figure}
-
-
-\clearpage
-
-\subsection*{Case UG100\_DX20}
-
-
-
-%%%%%%%%%%%%%%%% UG100_DX20, x = 5 mm
-
-
-\begin{figure}[h!]
-\flushleft
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_SMD_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_ux_mean_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_uy_mean_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_uz_mean_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_volume_flux_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_ux_rms_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_uy_rms_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x05_uz_rms_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-\caption{Spray states at x = 5 mm for case UG100\_DX20}
-\label{fig:injectors_sli_uG100_dx20_x05}
-\end{figure}
-
-
-%%%%%%%%%%%%%%%% UG100_DX10, x = 10 mm
-
-
-\begin{figure}[h!]
-\flushleft
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_SMD_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_ux_mean_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_uy_mean_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_uz_mean_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_volume_flux_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_ux_rms_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_uy_rms_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x10_uz_rms_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-\caption{Spray states at x = 10 mm for case UG100\_DX20}
-\label{fig:injectors_sli_uG100_dx20_x10}
-\end{figure}
-
-
-%%%%%%%%%%%%%%%% UG100_DX10, x = 15 mm
-
-
-\begin{figure}[h!]
-\flushleft
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_SMD_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_ux_mean_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_uy_mean_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_uz_mean_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_volume_flux_map}
-   %\caption{Case UG100\_DX20: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_ux_rms_map}
-   %\caption{Case UG100\_DX20: filming planes}
-   %\label{}
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_uy_rms_map}
-   %\caption{Case UG100\_DX10: crossflow planes}
-   %\label{} 
-\end{subfigure}
-   \hspace{0.17in}
-\begin{subfigure}[b]{0.22\textwidth}
-	\centering
-   \includegraphics[scale=0.17]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx20_x15_uz_rms_map}
-   %\caption{Case UG100\_DX10: filming planes}
-   %\label{}
-\end{subfigure}
-\caption{Spray states at x = 15 mm for case UG100\_DX20}
-\label{fig:injectors_sli_uG100_dx20_x15}
-\end{figure}
-
-%\subsection{Feeding the models (??)}
-%Find a more attractive name
-
-
-\clearpage
 
 \section{Performances and cost}
 \label{subsec:ch5_computational_performances}
@@ -3792,7 +3105,7 @@ JICF simulations studied in this chapter have used an ACLS/AMR methodology to so
 
 \subsection{Computational performances}
 
-In order to assess the computational performances of the performed simulations, a Reduced Computational Time (RCT) can be defined as (\textbf{ref:janodet-JCP}):
+In order to assess the computational performances of the performed simulations, a Reduced Computational Time (RCT) can be defined as \citepColor[janodet_massively_2022]:
 
 \begin{equation}
 \mathrm{RCT} = \frac{\mathrm{WCT} ~ N_\mathrm{cores}}{N_\mathrm{iter}~N_\mathrm{cv}}
@@ -3925,8 +3238,6 @@ While the RCTs provides a measure of the computational time comparable among cas
 Figure \ref{fig:SLI_cost_convergence_all} also shows the larger cost of the fine resolutions with respect to the coarse one. For the high Weber case, for instance, the ratio $t_\mathrm{CPU}/t_\mathrm{ph}$ among resolutions differs by a factor 30. This difference is due to the two contributions previously discussed: the increase in the number of elements and the lower timestep $\Delta t$ calculated through the CFL condition. In effect, reducing $\Delta x_\mathrm{min}$ by 2 will also reduce $\Delta t$ by the same ratio, since both are directly proportional. Furthermore, the fine simulations show higher maximum instantaneous velocities in the gaseous phase at the high turbulent regions such as the vicinity of the column instabilities (not captured in the coarse cases) due to more pronounced curvatures that accelerate the gas: this also contributes to reduce the $\Delta t$ estimated from the CFL, since it is inversely proportional to the maximum liquid velocity in the computation. Hence, lower timesteps and a larger number of elements that require more computational cores increase massively the cost of the simulations in terms of $t_\mathrm{CPU}/t_\mathrm{ph}$.
 
 It is necessary to consider that the cost increase of the simulations with respect to the mesh resolution in terms of $t_\mathrm{CPU}/t_\mathrm{ph}$, which is expected in atomization problems, is not actually the cost needed to obtain a SLI. As stated in $\S$\ref{sec:ch5_learning_SLI}, the accumulation times simulated for all cases have been enough to obtain converged injectors according to the MSE criterion given by Eq. (\ref{eq:NMSE_convergence_criterion}). With less physical time simulated, the fine SLI are converged as well as the coarse ones. This is due to the fact that in the fine simulations, the spray is better resolved from the early atomization region (closer to the injector) since finer droplets are obtained. Moreover,  more droplets are generated through surface breakup and column breakup is also influence by the presence of instabilities in these cases. The presence of finer liquid structures and a larger number of droplets makes injectors converge with less physical time than the coarse simulations. Let's consider, for instances, the high Weber operating condition: the coarse simulation needs to simulate $t_\mathrm{acc} = 5.57$ ms ($t^\prime_\mathrm{acc} = 21.54$) to obtain a converged SLI, while the fine one needs only $t_\mathrm{acc} = 0.37$ ms ($t^\prime_\mathrm{acc} = 1.67$), which supposes a difference of 15. Their computational costs are respectively 1.25 and 4.66 million CPU hours (factor 4). Therefore, if a priori the physical time is considered as the only criterion to obtain a converged SLI, a cost increase of 15 is expected by refining the mesh, while actually the fine simulations need less physical time to converge reducing the increase to only 4 times with respect to the coarse mesh. It is also worth to consider that, as shown in this chapter, the fine simulations produce finer injectors due to a better resolution of the gaseous phase. The SLI strategy proposed in these works, therefore, is computationally cheaper when refining the mesh than what is expected a priori from the cost increase in resolved atomization simulations. To illustrate the cost savings, the CPU time that a fine simulation should be run to obtain the same accumulation time as the coarse one is estimated in Figure \ref{fig:SLI_cost_convergence_savings}. The first and second columns show the absolut CPU hours from Figure \ref{fig:SLI_cost_convergence_all}. The third one shows the estimated cost of a fine simulation to run as much as the coarse one. It has been calculated by multiplying the ratio $t_\mathrm{CPU}/t_\mathrm{ph}$ from the fine simulation UG$100$\_DX$10$, which is $5.96 \cdot 10^6$ h ms$^{-1}$, by the total physical time of the coarse simulation UG100\_DX20 from Table \ref{tab:jicf_SLI_t_prime_accumulation}, which is $6.16$ ms, yielding a value of $t_\mathrm{CPU} = 36.7 \cdot 10^6$ hours. The cost savings are therefore estimated to be of $30.41 \cdot 10^6$ hours.
-
-\clearpage
 
 \begin{figure}[ht]
    \centering

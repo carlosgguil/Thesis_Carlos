@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{870.82729606bp}%
+    \setlength{\unitlength}{925.17761287bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,16 +50,16 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.21425942)%
+  \begin{picture}(1,0.21516951)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{BIMER_local_FoR_and_sampling_planes.pdf}}%
-    \put(0.51896963,0.13278481){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$x_c$\end{tabular}}}}%
+    \put(0.51423618,0.10273118){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$x_c$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{BIMER_local_FoR_and_sampling_planes.pdf}}%
-    \put(0.4573344,0.03114621){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$x_c/d_\mathrm{inj} = 5$\end{tabular}}}}%
-    \put(0.50284841,0.05388389){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$x_c/d_\mathrm{inj} = 10$\end{tabular}}}}%
-    \put(0.21661188,0.05549341){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$y_c$\end{tabular}}}}%
-    \put(0.27451372,0.17684521){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_c$\end{tabular}}}}%
+    \put(0.45232081,0.00669738){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$x_c/d_\mathrm{inj} = 5$\end{tabular}}}}%
+    \put(0.49964369,0.01857366){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$x_c/d_\mathrm{inj} = 6.67$\end{tabular}}}}%
+    \put(0.16036369,0.07341685){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$y_c$\end{tabular}}}}%
+    \put(0.21638857,0.17193816){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z_c$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{BIMER_local_FoR_and_sampling_planes.pdf}}%
   \end{picture}%
 \endgroup%

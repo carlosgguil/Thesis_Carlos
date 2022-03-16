@@ -13,13 +13,13 @@ import numpy as np
 import sys
 sys.path.append('C:/Users/Carlos Garcia/Documents/GitHub/spr_post')
 sys.path.append('..')
-from sli_functions import load_all_SPS_global_sprays, load_all_SPS_grids
+from sli_functions import load_all_SPS_global_sprays, load_all_SPS_grids, plot_grid
 
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/injectors_SLI/'
 folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/'
 
-plt.rcParams['xtick.labelsize'] = 70*FFIG #40*FFIG
-plt.rcParams['ytick.labelsize'] = 70*FFIG#40*FFIG
+plt.rcParams['xtick.labelsize'] = 80*FFIG #40*FFIG
+plt.rcParams['ytick.labelsize'] = 80*FFIG#40*FFIG
 plt.rcParams['axes.labelsize']  = 70*FFIG #40*FFIG
 plt.rcParams['axes.labelpad']   = 30*FFIG
 plt.rcParams['axes.titlesize']  = 70*FFIG
@@ -36,7 +36,6 @@ plt.rcParams['font.family'] = 'serif'
 cbar_ticks = None
 variable_limits = None
 plot_limits = None
-cmap_      = 'binary' #'binary, 'Greys'
 N_LEVELS = 10
 format_ = '%d'
 xlabel_ = 'y [mm]'
@@ -51,11 +50,11 @@ cases = [['uG75_dx10_x05', 'uG75_dx10_x10'],
          ['uG100_dx20_x05_NT', 'uG100_dx20_x10_NT']]
 
 # plot limits
-plot_bounds = [[(-10,10),(0,12)],
-               [(-10,10),(0,12)],
-               [(-5,5),(0,8)],
-               [(-5,5),(0,8)],
-               [(-5,5),(0,8)]]
+plot_bounds = [[(-8.5,8.5),(0,12.5)],
+               [(-8.5,10.5),(0,10.5)],
+               [(-8.5,8.5),(0,12.5)],
+               [(-10.5,10.5),(0,10.5)],
+               [(-8.5,8.5),(0,8.5)]]
 
 #%% Load sprays and grids
 
@@ -75,11 +74,12 @@ params_simulation_UG75['Q_inj'] = np.pi/4*params_simulation_UG75['D_inj']**2*par
 
 
 # load sprays
-sp1, sp2, sp3, sp4, sp5 = load_all_SPS_global_sprays(params_simulation_UG75, params_simulation_UG100)
+sp1, sp2, sp3, sp4, sp5 = load_all_SPS_global_sprays(params_simulation_UG75, params_simulation_UG100,
+                                                     save_dir = 'store_variables_SLI_manuscript')
 sprays_list = [sp1, sp2, sp3, sp4, sp5]
 
 # load grids
-grids_list = load_all_SPS_grids(sprays_list)
+grids_list = load_all_SPS_grids(sprays_list, save_dir = 'store_variables_SLI_manuscript')
 
 
 
@@ -90,16 +90,23 @@ for i in range(len(grids_list)):
     plot_limits = plot_bounds[i]
     for j in range(len(grids_list[i])):
         
+        #if i != 4:# or j != 0:
+        #    continue
+        
+        
         # save tags
         case = cases[i][j]
         # grid
         parent_grid = grids_list[i][j]
         
         
-        dy = np.diff(parent_grid.bounds[0])[0]
-        dz = np.diff(parent_grid.bounds[1])[0]
-        AR = dy/dz 
-
+        #dy = np.diff(parent_grid.bounds[0])[0]
+        #dz = np.diff(parent_grid.bounds[1])[0]
+        dy = np.diff(plot_limits[1])[0]
+        dz = np.diff(plot_limits[0])[0]
+        AR = dz/dy
+        
+        cmap_      = 'binary' #'binary, 'Greys'
         
         #%% Plot u mean
         
@@ -379,7 +386,7 @@ for i in range(len(grids_list)):
         bar_label  = '$SMD$ [$\mu \mathrm{m}$]'
         
         
-        plt.figure(figsize=(AR*FFIG*15,FFIG*15))
+        plt.figure(figsize=(AR*FFIG*15.2,FFIG*15))
         if variable_limits:
             min_level = variable_limits[0]
             max_level = variable_limits[1]
@@ -425,7 +432,7 @@ for i in range(len(grids_list)):
         format_ = '%.1f'
         
         
-        plt.figure(figsize=(AR*FFIG*15,FFIG*15))
+        plt.figure(figsize=(AR*FFIG*15.2,FFIG*15))
         if variable_limits:
             min_level = variable_limits[0]
             max_level = variable_limits[1]
@@ -456,8 +463,45 @@ for i in range(len(grids_list)):
         if plot_limits:
             plt.xlim(plot_limits[0][0], plot_limits[0][1])
             plt.ylim(plot_limits[1][0], plot_limits[1][1])
+        plot_grid(parent_grid, ADD_TO_FIGURE = True)
         plt.tight_layout()
         plt.savefig(folder_manuscript+case+'_volume_flux_map.pdf' )
+        plt.show()
+        plt.close()
+        
+        
+        
+        
+             
+
+        
+        #%% Plot Convergence
+        
+        map_values = parent_grid.map_statsConv
+        bar_label  = 'Not conv. ~~~~~~ Converged'
+        format_ = '%d'
+        
+        plt.figure(figsize=(AR*FFIG*14.5,FFIG*15))   
+        
+        levels_map = [0,  1]
+        cmap_ = plt.cm.get_cmap('viridis',2)
+        plt.pcolor(parent_grid.yy_edges, parent_grid.zz_edges, map_values,
+                   vmin = levels_map[0], vmax = levels_map[-1], cmap = cmap_)
+        cbar = plt.colorbar(format=format_)
+        cbar.set_label(bar_label)
+        cbar.set_ticks([0, 0.25, 0.5, 0.75, 1])
+        cbar.set_ticks([])
+        cbar.set_label(bar_label)
+        #cbar.ax.set_xticklabels(['Converged', 'Not converged'])  # horizontal colorbar
+        #plt.title(title)
+        plt.xlabel(xlabel_)
+        plt.ylabel(ylabel_)
+        if plot_limits:
+            plt.xlim(plot_limits[0][0], plot_limits[0][1])
+            plt.ylim(plot_limits[1][0], plot_limits[1][1])
+        plot_grid(parent_grid, ADD_TO_FIGURE = True)
+        plt.tight_layout()
+        plt.savefig(folder_manuscript+case+'_convergence_map.pdf' )
         plt.show()
         plt.close()
         

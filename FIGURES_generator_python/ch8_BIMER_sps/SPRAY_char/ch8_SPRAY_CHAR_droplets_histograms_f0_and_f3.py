@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 sys.path.append('C:/Users/Carlos Garcia/Documents/GitHub/spr_post')
-sys.path.append('..')
+sys.path.append('../..')
 from sli_functions import load_all_BIMER_global_sprays
 
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/'
@@ -97,11 +97,19 @@ y_ticks_all = [y_ticks_DX07 , y_ticks_DX10 , y_ticks_DX15]
 # resolutions
 resolutions = [7.5, 10, 15]
 
+dmin_factor = 2
 
 for c in range(len(cases)):
 
     case = cases[c]
     sprays_list = sprays_list_all[c]
+    
+    if case == 'DX07':
+        dmin_factor = 4
+    elif case == 'DX10':
+        dmin_factor = 3
+    elif case == 'DX15':
+        dmin_factor = 2
     
     
     # xD = 03.33
@@ -118,7 +126,9 @@ for c in range(len(cases)):
     plt.hist(bins[:-1]+dD/2, sp.n_bins, color='grey', weights = vol_total, rwidth = 0.9/2, density = True, label=label_vol_hist) 
     plt.plot(sp.spaceDiam, sp.lognormal.PDF_f0, color='red', label='Lognormal (corr.)')
     plt.plot(sp.spaceDiam, sp.lognormal_opt.PDF_f0, color='blue', label='Lognormal (fit)')
-    plt.plot([resolutions[c]]*2,[0,1],':k',label=f'$\Delta x = {resolutions[c]}~\mu m$')
+    plt.plot([resolutions[c]]*2,[0,1],':k',label=r'$\Delta x_\mathrm{min}'+f' = {resolutions[c]}~\mu m$')
+    plt.plot([30]*2,[0,1],'-.k',label='$30~\mu m$')
+    #plt.plot([dmin_factor*resolutions[c]]*2,[0,1],'-.k',label=str(dmin_factor)+r'$\Delta x_\mathrm{min}$')
     plt.plot([sp.SMD]*2,[0,1],'--k',label='SMD')
     plt.xlim([D_min,D_max_all[c]])
     plt.ylim(p_min, p_max_all[c])
@@ -151,7 +161,9 @@ for c in range(len(cases)):
     plt.hist(bins[:-1]+dD/2, sp.n_bins, color='grey', weights = vol_total, rwidth = 0.9/2, density = True, label=label_vol_hist) 
     plt.plot(sp.spaceDiam, sp.lognormal.PDF_f0, color='red', label='Lognormal (corr.)')
     plt.plot(sp.spaceDiam, sp.lognormal_opt.PDF_f0, color='blue', label='Lognormal (fit)')
-    plt.plot([resolutions[c]]*2,[0,1],':k',label=f'$\Delta x = {resolutions[c]}~\mu m$')
+    plt.plot([resolutions[c]]*2,[0,1],':k',label=r'$\Delta x_\mathrm{min}'+f' = {resolutions[c]}~\mu m$')
+    plt.plot([30]*2,[0,1],'-.k',label='$30~\mu m$')
+    #plt.plot([dmin_factor*resolutions[c]]*2,[0,1],'-.k',label=str(dmin_factor)+r'$\Delta x_\mathrm{min}$')
     plt.plot([sp.SMD]*2,[0,1],'--k',label='SMD')
     plt.xlim([D_min,D_max_all[c]])
     plt.ylim(p_min, p_max_all[c])
@@ -184,7 +196,9 @@ for c in range(len(cases)):
     plt.hist(bins[:-1]+dD/2, sp.n_bins, color='grey', weights = vol_total, rwidth = 0.9/2, density = True, label=label_vol_hist) 
     plt.plot(sp.spaceDiam, sp.lognormal.PDF_f0, color='red', label='Lognormal (corr.)')
     plt.plot(sp.spaceDiam, sp.lognormal_opt.PDF_f0, color='blue', label='Lognormal (fit)')
-    plt.plot([resolutions[c]]*2,[0,1],':k',label=f'$\Delta x = {resolutions[c]}~\mu m$')
+    plt.plot([resolutions[c]]*2,[0,1],':k',label=r'$\Delta x_\mathrm{min}'+f' = {resolutions[c]}~\mu m$')
+    plt.plot([30]*2,[0,1],'-.k',label='$30~\mu m$')
+    #plt.plot([dmin_factor*resolutions[c]]*2,[0,1],'-.k',label=str(dmin_factor)+r'$\Delta x_\mathrm{min}$')
     plt.plot([sp.SMD]*2,[0,1],'--k',label='SMD')
     plt.xlim([D_min,D_max_all[c]])
     plt.ylim(p_min, p_max_all[c])

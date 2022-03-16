@@ -4,21 +4,22 @@ Created on Mon Jul  1 10:04:13 2019
 @author: Carlos G. GUILLAMON
 """
 
-
+import matplotlib.pyplot as plt
 from sprPost_calculations import get_sprays_list, get_discrete_spray
 import sys
 sys.path.append('C:/Users/Carlos Garcia/Documents/GitHub/spr_post')
 
 
 
-def load_all_BIMER_global_sprays(params_simulation):
+def load_all_BIMER_global_sprays(params_simulation, sampling_planes = None):
     
     # General keywords
     parent_dir = "C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/BIMER_SPS_sprays"
     filename   = "vol_dist_plane"
     
     # BIMER
-    sampling_planes = ['xD_03p33','xD_05p00','xD_06p67']
+    if sampling_planes is None:
+        sampling_planes = ['xD_03p33','xD_05p00','xD_06p67']
     
     
     dirs_DX15 = ["dx15p0"]
@@ -60,11 +61,14 @@ def load_all_BIMER_global_sprays(params_simulation):
 
     
 
-def load_all_SPS_global_sprays(params_simulation_UG75, params_simulation_UG100):    
+def load_all_SPS_global_sprays(params_simulation_UG75, params_simulation_UG100,
+                               parent_dir = None,
+                               save_dir = 'store_variables'):    
     
     # General keywords
-    parent_dir = "C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/SPS_sprays"
     filename   = "vol_dist_coarse"
+    if parent_dir is None:
+        parent_dir = "C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/SPS_sprays"
     
     # JICF SPS solutions 
     filename        = "vol_dist_coarse"
@@ -90,7 +94,8 @@ def load_all_SPS_global_sprays(params_simulation_UG75, params_simulation_UG100):
                                              filename,
                                              params_simulation_UG75,
                                              CASE = 'JICF',
-                                             sols_dirs_name = ".")
+                                             sols_dirs_name = ".",
+                                             save_dir = save_dir)
     sprays_list_UG75_DX10 = sprays_list_UG75_DX10[0]
     
     # UG75_DX20
@@ -99,7 +104,8 @@ def load_all_SPS_global_sprays(params_simulation_UG75, params_simulation_UG100):
                                              filename,
                                              params_simulation_UG75,
                                              CASE = 'JICF',
-                                             sols_dirs_name = ".")
+                                             sols_dirs_name = ".",
+                                             save_dir = save_dir)
     sprays_list_UG75_DX20 = sprays_list_UG75_DX20[0]
     
     
@@ -109,7 +115,8 @@ def load_all_SPS_global_sprays(params_simulation_UG75, params_simulation_UG100):
                                              filename,
                                              params_simulation_UG100,
                                              CASE = 'JICF',
-                                             sols_dirs_name = ".")
+                                             sols_dirs_name = ".",
+                                             save_dir = save_dir)
     sprays_list_UG100_DX10 = sprays_list_UG100_DX10[0]
     
     # UG100_DX20
@@ -118,7 +125,8 @@ def load_all_SPS_global_sprays(params_simulation_UG75, params_simulation_UG100):
                                              filename,
                                              params_simulation_UG100,
                                              CASE = 'JICF',
-                                             sols_dirs_name = ".")
+                                             sols_dirs_name = ".",
+                                             save_dir = save_dir)
     sprays_list_UG100_DX20 = sprays_list_UG100_DX20[0]
     
     # UG100_DX20_NT
@@ -127,25 +135,102 @@ def load_all_SPS_global_sprays(params_simulation_UG75, params_simulation_UG100):
                                              filename,
                                              params_simulation_UG100,
                                              CASE = 'JICF',
-                                             sols_dirs_name = ".")
+                                             sols_dirs_name = ".",
+                                             save_dir = save_dir)
     sprays_list_UG100_DX20_NT = sprays_list_UG100_DX20_NT[0]
     
     return sprays_list_UG75_DX10, sprays_list_UG75_DX20, sprays_list_UG100_DX10, sprays_list_UG100_DX20, sprays_list_UG100_DX20_NT 
 
-    
 
 
-def load_all_SPS_grids(sprays_list):   
     
-    parent_dir = "C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/"
+def load_all_BIMER_grids(sprays_list, parent_dir = None, save_dir = 'store_variables'):   
+    
+    if parent_dir is None:
+        parent_dir = "C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/"
     
 
     grids_list = get_discrete_spray(True, sprays_list, None, None, None,
-                                    DIR = parent_dir)
+                                    DIR = parent_dir, save_dir = save_dir,
+                                    CASE = 'BIMER')
+    
+    return grids_list
+
+
+def load_all_SPS_grids(sprays_list, parent_dir = None, save_dir = 'store_variables'):   
+    
+    if parent_dir is None:
+        parent_dir = "C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/"
+    
+
+    grids_list = get_discrete_spray(True, sprays_list, None, None, None,
+                                    DIR = parent_dir, save_dir = save_dir)
     
     return grids_list
 
 
 
-            
+         
+def plot_grid(grid, ADD_TO_FIGURE = True, PLOT_CENTER = False, PLOT_QUADTREES = False):
+    if not ADD_TO_FIGURE:
+        plt.figure(figsize=(20,15))
+        if PLOT_CENTER:
+            plt.plot(grid.yy_center, grid.zz_center, marker='.', 
+                     markersize=100/min(grid.grid_size), color='k', linestyle='None')
+
+    for i in range(0,grid.grid_size[0] + 1):
+        plt.plot([grid.y[i]]*2,[grid.bounds[1][0], grid.bounds[1][1]], 
+                 linewidth=3, color='k', alpha=0.5)
+    # Plot now horizontal lines, so we need to iterate between z lines
+    for j in range(0,grid.grid_size[1] + 1):
+        plt.plot([grid.bounds[0][0], grid.bounds[0][1]], [grid.z[j]]*2, 
+                 linewidth=3, color='k', alpha=0.5)
+        
+    # If quadtrees, refine grid first level
+    for m in range(grid.grid_size[1]):
+        for n in range(grid.grid_size[0]):
+            if grid.QUADTREES[m][n] and PLOT_QUADTREES:
+                child_x02_grid = grid.SPRAYS_array[m][n]
+                for i in range(0,child_x02_grid.grid_size[0] + 1):
+                    plt.plot([child_x02_grid.y[i]]*2,[child_x02_grid.bounds[1][0], child_x02_grid.bounds[1][1]], 
+                             linewidth=3, color='k')
+                for j in range(0,child_x02_grid.grid_size[1] + 1):
+                    plt.plot([child_x02_grid.bounds[0][0], child_x02_grid.bounds[0][1]], [child_x02_grid.z[j]]*2,
+                             linewidth=3, color='k')
+                    
+                #  If quadtrees, refine grid second level 
+                for m_ch in range(child_x02_grid.grid_size[0]):
+                    for n_ch in range(child_x02_grid.grid_size[1]):
+                        if child_x02_grid.QUADTREES[m_ch][n_ch]:
+                            child_x04_grid = child_x02_grid.SPRAYS_array[m_ch][n_ch]
+                            for i in range(0,child_x04_grid.grid_size[0] + 1):
+                                plt.plot([child_x04_grid.y[i]]*2,[child_x04_grid.bounds[1][0], child_x04_grid.bounds[1][1]], 
+                                         linewidth=3, color='k')
+                            for j in range(0,child_x04_grid.grid_size[1] + 1):
+                                plt.plot([child_x04_grid.bounds[0][0], child_x04_grid.bounds[0][1]], [child_x04_grid.z[j]]*2,
+                                         linewidth=3, color='k')
+                    
+                
+    
+    if not ADD_TO_FIGURE:
+        plt.title("The grid", fontsize=30)
+        plt.xticks(fontsize=30)
+        plt.yticks(fontsize=30)
+        plt.xlabel('y [mm]',fontsize=30)
+        plt.ylabel('z [mm]',fontsize=30)
+        plt.show()
+        
+def plot_grid_highlight_probe(grid, m, n, color='blue'):
+    
+    
+    # Plot vertical lines
+    for i in range(m, m+2):
+        plt.plot([grid.y[i]]*2,[grid.z[n],grid.z[n+1]], 
+                 linewidth=6, color=color)
+    # Plot  horizontal lines
+    for j in range(n, n+ 2):
+        plt.plot([grid.y[m],grid.y[m+1]], [grid.z[j]]*2, 
+                 linewidth=6, color=color)
+    
+   
             
