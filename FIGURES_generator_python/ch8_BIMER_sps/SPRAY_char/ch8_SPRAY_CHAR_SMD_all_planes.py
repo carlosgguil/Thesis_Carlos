@@ -17,7 +17,7 @@ plt.rcParams['ytick.labelsize'] = 60*FFIG#40*FFIG
 plt.rcParams['axes.labelsize']  = 60*FFIG #40*FFIG
 plt.rcParams['axes.labelpad']   = 30*FFIG
 plt.rcParams['axes.titlesize']  = 50*FFIG
-plt.rcParams['legend.fontsize'] = 40*FFIG  #30*FFIG
+plt.rcParams['legend.fontsize'] = 50*FFIG  #30*FFIG
 plt.rcParams['lines.linewidth'] = 6*FFIG
 plt.rcParams['legend.loc']      = 'lower right'
 plt.rcParams['legend.framealpha']      = 1.0
@@ -37,7 +37,7 @@ params_simulation = {'RHO_L': 750, 'MU_L': 1.36e-3, 'U_L'  : 2.6,
                      'D_inj': 0.3e-3}
 
 sampling_planes = ['xD_05p00','xD_06p67',
-                   'xD_08p33','xD_10p00','xD_11p66']    
+                   'xD_08p33','xD_10p00']    
 
 # Load sprays
 sp1, sp2, sp3 = load_all_BIMER_global_sprays(params_simulation, sampling_planes = sampling_planes)
@@ -68,7 +68,7 @@ labels_ = [label_DX15 , label_DX10,label_DX07]
 x_label_x = r'$x_c/d_\mathrm{inj}$'
 y_label_SMD   = r'$\mathrm{SMD}~[\mu \mathrm{m}]$'
 
-xD = [5,6.67, 8.33, 10, 11.6]
+xD = [5,6.67, 8.33, 10]
 
 
 
@@ -80,10 +80,11 @@ i = 1; plt.plot(xD, SMD_cases[i], '^-b',label=labels_[i])
 plt.xlabel(x_label_x)
 plt.ylabel(y_label_SMD )
 plt.legend(loc='best')
-plt.xticks([5, 6, 7, 8, 9, 10, 11, 12])
-plt.yticks([35, 40, 45, 50, 55])
+plt.xticks([5, 6, 7, 8, 9, 10])
+#plt.yticks([35, 40, 45, 50, 55])
+plt.ylim(20,60)
 plt.grid()
 plt.tight_layout()
-#plt.savefig(folder_manuscript+'SMD_values.pdf')
+plt.savefig(folder_manuscript+'SMD_values.pdf')
 plt.show()
 plt.close()

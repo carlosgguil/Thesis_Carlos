@@ -62,46 +62,54 @@ cases = [folder + 'DX07p5_lines/',
          folder + 'lines_u_mean_ics/']
 
 label_u_ax  = r'$\overline{u} ~[\mathrm{m}~\mathrm{s}^{-1}$]'
-label_x_ax   = '$x ~[\mathrm{mm}]$'
-label_z_ax   = '$z ~[\mathrm{mm}]$'
+label_x_ax   = '$x_c ~[\mathrm{mm}]$'
+label_z_ax   = '$z_c ~[\mathrm{mm}]$'
 
 labels_cases = [r'$\mathrm{DX07}$' ,r'$\mathrm{DX10}$',
                 r'$\mathrm{DX15}$',r'$\mathrm{No~jet}$']
 
-
-labels_x_planes = [r'$x/d_\mathrm{inj} = 3.33$',  
-                   r'$x/d_\mathrm{inj} = 5.00$',  
-                   r'$x/d_\mathrm{inj} = 6.67$']
-
-labels_z_planes = [r'$z = 0.15~\mathrm{mm}$',  
-                   r'$z = 0.3~\mathrm{mm}$', 
-                   r'$z = 0.6~\mathrm{mm}$', 
-                   r'$z = 1~\mathrm{mm}$',  
-                   r'$z = 1.5~\mathrm{mm}$'] 
+'''
+labels_x_planes = [r'$x_c/d_\mathrm{inj} = 3.33$',  
+                   r'$x_c/d_\mathrm{inj} = 5.00$',  
+                   r'$x_c/d_\mathrm{inj} = 6.67$', 
+                   r'$x_c/d_\mathrm{inj} = 10$']
+'''
 
 
-y_coord_lim = (-3,3)
+labels_x_planes = [r'$x_c = 1~\mathrm{mm}$',  
+                   r'$x_c = 1.5~\mathrm{mm}$',  
+                   r'$x_c = 2~\mathrm{mm}$',  
+                   r'$x_c = 3~\mathrm{mm}$']
+
+labels_z_planes = [r'$z_c = 0.15~\mathrm{mm}$',  
+                   r'$z_c = 0.3~\mathrm{mm}$', 
+                   r'$z_c = 0.6~\mathrm{mm}$', 
+                   r'$z_c = 1~\mathrm{mm}$',  
+                   r'$z_c = 1.5~\mathrm{mm}$']
+
+
+y_coord_lim = (-2,2)
 y_coord_ticks = [-2,-1,0,1,2]
-u_lim = (-20,60)#(30,120)
-u_ticks = [0,30, 60]
+u_lim = (0,60)#(30,120)
+u_ticks = [0,20,40, 60]
 
 #y_ticks_u_vs_x = [-20, 0, 20, 40, 60, 80, 100, 120]
 
-label_u_ax  = r'$\overline{u} ~[\mathrm{m}~\mathrm{s}^{-1}$]'
-label_y_ax   = '$y ~[\mathrm{mm}]$'
+label_u_ax  = r'$\overline{u}_c ~[\mathrm{m}~\mathrm{s}^{-1}$]'
+label_y_ax   = '$y_c ~[\mathrm{mm}]$'
 
 # For z locations
-k_low = 4; k_high = 1
+k_low = 1; k_high = 4
 #k_low = 2; k_high = -3
 
-label_DX07_low  = 'k'
-label_DX07_high = '--k'
-label_DX10_low  = 'b'
-label_DX10_high = '--b'
-label_DX15_low  = 'r'
-label_DX15_high = '--r'
+label_DX07_low  = 'r'
+label_DX07_high = '--r'
+label_DX10_low  = 'k'
+label_DX10_high = 'b'
+label_DX15_low  = '--k'
+label_DX15_high = '--b'
 label_ics_low  = ':k'
-label_ics_high = '--r'
+label_ics_high = ':b'
 
 #%% get data
 
@@ -117,12 +125,15 @@ for i in range(len(cases)):
     case_i_xD03p33 = cases[i]+'plane_xD_03p33/'
     case_i_xD05p00  = cases[i]+'plane_xD_05p00/'
     case_i_xD06p67   = cases[i]+'plane_xD_06p67/'
+    case_i_xD10p00   = cases[i]+'plane_xD_10p00/'
     
     # put all folders together
     cases_x_planes = [case_i_xD03p33, 
                       case_i_xD05p00, 
-                      case_i_xD06p67]
-    names_planes = ['planeXD03p33', 'planeXD05p00', 'planeXD06p67']
+                      case_i_xD06p67, 
+                      case_i_xD10p00]
+    names_planes = ['planeXD03p33', 'planeXD05p00', 
+                    'planeXD06p67', 'planeXD10p00']
     
     # add arrays per each plane
     y_values[i]      = [ [] for m in range(len(cases_x_planes)) ]
@@ -166,21 +177,22 @@ for i in range(len(cases)):
 
 u_to_plot = u_mean_values
 
-j = 0  # plane xD = 3.33
+
+j = 1  # plane x = 1.5 mm
 plt.figure(figsize=figsize_)
 plt.title(labels_x_planes[j])
-i = 0  # DX07
-plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_DX07_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
-#plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX07_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
-i = 1  # DX10
+i = 1  # DX10 z low
 plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_DX10_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
-#plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX10_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
-i = 2  # DX15
+i = 2  # DX15 z_low
 plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_DX15_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
-#plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX15_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
-i =  3  # ics, no jet
+i =  3  # ics z_low
 plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_ics_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
-#plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_ics_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
+i = 1 # DX10 z_low
+plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX10_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
+i = 2 # DX15 z_high
+plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX15_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
+i = 3 # ics z_high
+plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_ics_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
 plt.xlabel(label_y_ax)
 plt.ylabel(label_u_ax)
 plt.xlim(y_coord_lim)
@@ -188,55 +200,31 @@ plt.ylim(u_lim)
 plt.xticks(y_coord_ticks)
 plt.yticks(u_ticks)
 plt.grid()
+#plt.legend(loc='best',ncol=2)
 plt.tight_layout()
-plt.savefig(folder_manuscript+'lines_iso-x_along_y_ux_mean_UG100_x05.pdf')
-plt.show()
-plt.close()
-
-j = 1  # plane xD = 5.00
-plt.figure(figsize=figsize_)
-plt.title(labels_x_planes[j])
-i = 0  # DX07
-plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_DX07_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
-#plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX07_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
-i = 1  # DX10
-plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_DX10_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
-#plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX10_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
-i = 2  # DX15
-plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_DX15_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
-#plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX15_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
-i =  3  # ics, no jet
-plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_ics_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
-#plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_ics_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
-plt.xlabel(label_y_ax)
-plt.ylabel(label_u_ax)
-plt.xlim(y_coord_lim)
-plt.ylim(u_lim)
-plt.xticks(y_coord_ticks)
-plt.yticks(u_ticks)
-plt.grid()
-plt.tight_layout()
-plt.savefig(folder_manuscript+'lines_iso-x_along_y_ux_mean_UG100_x05.pdf')
+plt.savefig(folder_manuscript+'lines_iso_x_along_y_plane_x01p5mm.pdf')
 plt.show()
 plt.close()
 
 
 
-j = 2  # plane xD = 6.67
+
+
+j = 3  # plane xD = 10
 plt.figure(figsize=figsize_)
 plt.title(labels_x_planes[j])
-i = 0  # DX07
-plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_DX07_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
-#plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX07_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
-i = 1  # DX10
+i = 1  # DX10 z low
 plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_DX10_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
-#plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX10_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
-i = 2  # DX15
+i = 2  # DX15 z_low
 plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_DX15_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
-#plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX15_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
-i =  3  # ics, no jet
+i =  3  # ics z_low
 plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_ics_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
-#plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_ics_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
+i = 1 # DX10 z_low
+plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX10_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
+i = 2 # DX15 z_high
+plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX15_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
+i = 3 # ics z_high
+plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_ics_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
 plt.xlabel(label_y_ax)
 plt.ylabel(label_u_ax)
 plt.xlim(y_coord_lim)
@@ -246,7 +234,7 @@ plt.yticks(u_ticks)
 plt.grid()
 plt.legend(loc='best',ncol=2)
 plt.tight_layout()
-plt.savefig(folder_manuscript+'lines_iso-x_along_y_ux_mean_UG100_x10.pdf')
+plt.savefig(folder_manuscript+'lines_iso_x_along_y_plane_x03mm.pdf')
 plt.show()
 plt.close()
 

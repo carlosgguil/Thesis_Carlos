@@ -15,7 +15,7 @@ In this chapter, resolved simulations of the atomization process through one inj
 
 The computational geometry for performing the resolved atomization simulations is the same one as the one used for the aerodynamic ones, displayed in Figure \ref{fig:BIMER_geometry_full_domain}. The fine mesh from Figure \ref{fig:BIMER_mesh_fine} is used, its details provided in Table \ref{tab:BIMER_meshes_gaseous}. The aerodynamic field described in $\S$\ref{ch7:BIMER_application_point} is used as initial condition for the resolved atomization simulations. The boundary conditions are also the same ones in all the boundary except for the liquid injection point, which for the aerodynamic simulations it was specified as solid wall and for the resolved ones is changed to inlet. 
 
-The location of the liquid injection point in the take-off stage is shown in Figure \ref{fig:BIMER_geometry_flower_details}. The injector consists of a nozzle with 8 mm length and a circular cross-section of diameter 0.3 mm. The injection nozzle can be appreciated in Figure \ref{fig:BIMER_liquid_injector_views}, where zoomed-in views of the liquid injection point rear and front sides are shown. The direction of the incoming air $u_g$ and the liquid injection $u_l$ are detailed, as well as the crossflow direction $x_c$ obtained from the resolved atomization simulations (see $\S$\ref{sec:ch8_BIMER_initial_conditions}). A cut of the mesh in the injector is appreciated in the left figure: the cell size within the injector has been set to $35 \sim \mu$m, and the walls are refined to $15 \sim \mu$m. The right figure shows the dimensions of the gaseous inlet channel, which yield a hydraulic diameter of $D_h = 7.5$ mm. 
+The location of the liquid injection point in the take-off stage is shown in Figure \ref{fig:BIMER_geometry_flower_details}. The injector consists of a nozzle with 8 mm length and a circular cross-section of diameter 0.3 mm. The injection nozzle can be appreciated in Figure \ref{fig:BIMER_liquid_injector_views}, where zoomed-in views of the liquid injection point rear and front sides are shown. The direction of the incoming air $u_g$ and the liquid injection $u_l$ are detailed, as well as the crossflow direction $x_c$ obtained from the resolved atomization simulations. A cut of the mesh in the injector is appreciated in the left figure: the cell size within the injector has been set to $35 \sim \mu$m, and the walls are refined to $15 \sim \mu$m. The right figure shows the dimensions of the gaseous inlet channel, which yield a hydraulic diameter of $D_h = 7.5$ mm. 
 
 
 \begin{figure}[h!]
@@ -33,8 +33,7 @@ The purpose of the BIMER resolved simulations is to characterize the produced sp
 	\centering
 	\includeinkscape[inkscapelatex=false,scale=0.7]{./part3_applications/figures_ch8_resolved/BIMER_local_FoR_and_sampling_planes}
 	%\vspace*{-0.5in}
-	\caption{Instantaneous snapshot of liquid injection in BIMER shown the local coordinate system and the location of spray sampling planes}
-	\label{fig:BIMER_local_FoR_and_sampling_planes}
+	\caption{Instantaneous snapshot of liquid injection in BIMER shown the local coordinate system and the location of spray sampling planes}	\label{fig:BIMER_local_FoR_and_sampling_planes}
 \end{figure}
 
 
@@ -240,16 +239,34 @@ As shown in the previous table, the lower timescale is found for the inertia pro
 %\end{table}
 
 
+%\begin{table}[!h]
+%\centering
+%\caption{Characteristic droplet arrival times to sampling planes $\tau_\mathrm{dr_{x_c}}$ [$\mu$s] in BIMER simulations}
+%\begin{tabular}{cccc}
+%\thickhline
+%\textbf{Case} &  $x_c/d_\mathrm{inj} = 5$ & $x_c/d_\mathrm{inj} = 6.67$  \\
+%\thickhline 
+%%BIMER\_DX07 & 340 & 359 \\
+%BIMER\_DX10 & 331 & 354 \\
+%BIMER\_DX15 & 511 & 562 \\
+%\thickhline
+%% NOTA: valores DX07 corresponden en realidad a dx_min = 5 µm
+%% NOTA: valores DX07 a partir de 8.33 han sido estimados a ojo
+%\end{tabular}
+%\label{tab:BIMER_SPS_characteristic_droplet_sampling_times}
+%\end{table}
+
+
 \begin{table}[!h]
 \centering
 \caption{Characteristic droplet arrival times to sampling planes $\tau_\mathrm{dr_{x_c}}$ [$\mu$s] in BIMER simulations}
-\begin{tabular}{cccc}
+\begin{tabular}{cccccc}
 \thickhline
-\textbf{Case} &  $x_c/d_\mathrm{inj} = 5$ & $x_c/d_\mathrm{inj} = 6.67$  \\
+\textbf{Case} &  $x_c = 1.5~\mathrm{mm}$ & $x_c = 2 ~ \mathrm{mm}$ & $x_c = 2.5 ~ \mathrm{mm}$ & $x_c = 3 ~ \mathrm{mm}$ \\
 \thickhline 
-%BIMER\_DX07 & 340 & 359 \\
-BIMER\_DX10 & 331 & 354 \\
-BIMER\_DX15 & 511 & 562 \\
+%BIMER\_DX07 & 340 & 359 & & \\
+BIMER\_DX10 & 331 & 354 & 380 & 398 \\
+BIMER\_DX15 & 511 & 562 & 569 & 582 \\
 \thickhline
 % NOTA: valores DX07 corresponden en realidad a dx_min = 5 µm
 % NOTA: valores DX07 a partir de 8.33 han sido estimados a ojo
@@ -258,13 +275,11 @@ BIMER\_DX15 & 511 & 562 \\
 \end{table}
 
 
-
-
 \section{Jet evolution}
 
 The jet evolution at the early instants of the injection process is shown in Figure \ref{fig:BIMER_jet_establishment}. Snapshots are shown for values of dimensionless time $t^*$ defined by Eq. (\ref{eq:t_dimensionless_with_tau_in}), in which the physical time is expressed in relation to the timescale $\tau_\mathrm{in}$ from Table \ref{tab:BIMER_SPS_characteristic times}. As in the simulations from Chapter \ref{ch5:jicf_resolved_simulations}, this timescale has been chosen since is the same for all simulations and the jets depicted represent therefore equivalent instants.
 
-Images show the features of a liquid JICF configuration: the jet leaves the injection nozzle and enters into contact with the crossflow, which has the effect of deforming the liquid column and deviating the jet towards the crossflow direction (which is represented in Figure \ref{fig:BIMER_jet_establishment} by the black solid line). However, the jet topology is very different to a classical JICF configuration such as the one studied in Chapter \ref{ch5:jicf_resolved_simulations}: both surface and column breakup are present (more details are given on the next section), but in BIMER column breakup creates mainly thin liquid sheets that are quickly disintegrated into small droplets (more details are given on the next section). The jet does not penetrate far and the deviation of the jet column towards the crossflow direction is not highly significant, since breakup occurs close to the injection location (as demonstrated in $\S$\ref{ch8:sec_BIMER_DC_characterization}). The low penetration is due to the low value of $q$ for this operating point, which is the parameter governing the jet penetration. The quick disintegration to low droplets and the instabilities shown along the liquid columns, which are clearly different to the column waves alanyzed in $\S$\ref{subsec:ch5_instabilities_presence} for the classical JICF configuration), are attributed to the highly turbulent state of the flow, as shown by the $TKE$ profile in Figure \ref{fig:BIMER_gas_inlet_profiles}.
+Images show the features of a liquid JICF configuration: the jet leaves the injection nozzle and enters into contact with the crossflow, which has the effect of deforming the liquid column and deviating the jet towards the crossflow direction (which is represented in Figure \ref{fig:BIMER_jet_establishment} by the black solid line). However, the jet topology is very different to a classical JICF configuration such as the one studied in Chapter \ref{ch5:jicf_resolved_simulations}: both surface and column breakup are present (more details are given on the next section), but in BIMER column breakup creates mainly thin liquid sheets that are quickly disintegrated into small droplets (more details are given on the next section). The jet does not penetrate far and the deviation of the jet column towards the crossflow direction is not highly significant, since breakup occurs close to the injection location (as demonstrated in $\S$\ref{ch8:sec_BIMER_DC_characterization}). The low penetration is due to the low value of $q$ for this operating point, which is the parameter governing the jet penetration. The quick disintegration to low droplets and the instabilities shown along the liquid columns, which are clearly different to the column waves analyzed in $\S$\ref{subsec:ch5_instabilities_presence} for the classical JICF configuration), are attributed to the highly turbulent state of the flow, as shown by the $TKE$ profile in Figure \ref{fig:BIMER_gas_inlet_profiles}. The interface resolution has also an effect on the jet topology: the coarse case (DX15) penetrates further than the fine one (DX10) and undergoes more deviation due to the action of the crossflow. 
 
 
 
@@ -329,7 +344,7 @@ Images show the features of a liquid JICF configuration: the jet leaves the inje
 \subsection{Breakup topology}
 \label{ch8:subsec_BIMER_breakup_topology}
 
-Classification of the BIMER operating point considered in the breakup map of Figure \ref{fig:location_BIMER_op_in_breakup_map} estimates the regime to be comprised in the column breakup region, within the multimode breakup regime but very close to bag breakup. This regime is characterized by a mixture of breakup properties from both bag breakup, like enough spacing among column instabilities so that both bags and ligaments can be formed and lead to breakup, and shear breakup, such as surface stripping \citepColor[sallam_breakup_2004]. As in any traditional JICF, these are also expressed in terms of column and surface breakup features. Figure \ref{fig:BIMER_breakup_topology} shows these two phenoment observed in BIMER. In the first snapshot of the column breakup series, the red circle denotes the onset of an instability which propagates along the jet vertical and lateral directions. The vertical-propagating instability evolves into a thin sheet (green highlight) that eventually breaks into large liquid ligaments during primary atomization: this is the column breakup phenomenon. As in a classical JICF, these ligaments will propagate further downstream and keep on breaking. This sheet is followed by a column flattening in the lateral directions that is not typical from a classical JICF configuration (black highlight) and which modifies the ligaments produced later through column breakup. After this flattening, the process repeats again from the beginning. The lateral-propagating instabilities evolve in the surface breakup phenomenon, as illustrated in the bottom snapshots of Figure \ref{fig:location_BIMER_op_in_breakup_map}. As in the surface breakup of the canonical JICF depicted in Figure \ref{fig:jicf_surface_breakup_ug75_dx10}, two different features are highlighted: the generation of very small droplets (green highlight), whose size is of the order of the mesh resolution and will eventually disappear producing mass losses in the simulations, and the generation of small ligaments (red highlight) which break faster into smaller droplets that are later transported. Both column and surface breakup phenomena have been widely observed in traditional JICF configurations and are also captured in BIMER. What has been unexpected, though, is the onset of both phenomena through a central instability that evolves along the column vertical and sides direction, as well as the column flattening in the lateral direction. Both phenomena have been observed in both resolutions simulated and might be associated to the gaseous swirl. Nevertheless, no analysis on the breakup phenomena in liquid JICF with swirl (either in the gas or liquid phases) have been reported in literature to the knowledge of the authors, even though some analysis on swirled JICF are available on other magnitudes (\textbf{ref:XX?}).
+Classification of the BIMER operating point considered in the breakup map of Figure \ref{fig:location_BIMER_op_in_breakup_map} estimates the regime to be comprised in the column breakup region, within the multimode breakup regime but very close to bag breakup. This regime is characterized by a mixture of breakup properties from both bag breakup, like enough spacing among column instabilities so that both bags and ligaments can be formed and lead to breakup, and shear breakup, such as surface stripping \citepColor[sallam_breakup_2004]. As in any traditional JICF, these are also expressed in terms of column and surface breakup features. Figure \ref{fig:BIMER_breakup_topology} shows these two phenomena observed in BIMER. In the first snapshot of the column breakup series, the red circle denotes the onset of an instability which propagates along the jet vertical and lateral directions. The vertical-propagating instability evolves into a thin sheet (green highlight) that eventually breaks into large liquid ligaments during primary atomization: this is the column breakup phenomenon. As in a classical JICF, these ligaments will propagate further downstream and keep on breaking. This sheet is followed by a column flattening in the lateral directions that is not typical from a classical JICF configuration (black highlight) and which modifies the ligaments produced later through column breakup. After this flattening, the process repeats again from the beginning. The lateral-propagating instabilities evolve in the surface breakup phenomenon, as illustrated in the bottom snapshots of Figure \ref{fig:location_BIMER_op_in_breakup_map}. As in the surface breakup of the canonical JICF depicted in Figure \ref{fig:jicf_surface_breakup_ug75_dx10}, two different features are highlighted: the generation of very small droplets (green highlight), whose size is of the order of the mesh resolution and will eventually disappear producing mass losses in the simulations, and the generation of small ligaments (red highlight) which break faster into smaller droplets that are later transported. Both column and surface breakup phenomena have been widely observed in traditional JICF configurations and are also captured in BIMER. What has been unexpected, though, is the onset of both phenomena through a central instability that evolves along the column vertical and sides direction, as well as the column flattening in the lateral direction. Both phenomena have been observed in both resolutions simulated and might be associated to the gaseous swirl. Nevertheless, no analysis on the breakup phenomena in liquid JICF with swirl (either in the gas or liquid phases) have been reported in literature to the knowledge of the authors.%, even though some analysis on swirled JICF are available on other magnitudes (\textbf{ref:XX?}).
 
 \begin{figure}[ht]
 \centering
@@ -343,17 +358,23 @@ Classification of the BIMER operating point considered in the breakup map of Fig
 
 \subsection{Jet establishment}
 
-Esbalishment of the liquid jet in the BIMER configuration is monitored by quantifying the evolution of the number of mesh elements and the liquid volume inside the domain calculated from Eq. (\ref{eq:liquid_volume_from_levelset_definition}). Time has been non-dimensionalized with the timescale $\tau_{\mathrm{dr}_{x_c/d_\mathrm{inj}=6.67}}$ as given in Table \ref{tab:BIMER_SPS_characteristic_droplet_sampling_times}:
+Esbalishment of the liquid jet in the BIMER configuration is monitored by quantifying the evolution of the number of mesh elements and the liquid volume inside the domain calculated from Eq. (\ref{eq:liquid_volume_from_levelset_definition}). Time has been non-dimensionalized with the timescale $\tau_{\mathrm{dr}_{x_c/=2}}$ as given in Table \ref{tab:BIMER_SPS_characteristic_droplet_sampling_times}:
 
 %\begin{equation}
 %\label{eq:t_prime_BIMER_with_tau_drx10}
 %t^{\prime} = \frac{t}{\tau_{\mathrm{dr}_{x_c/d_\mathrm{inj}=10}}}
 %\end{equation}
 
+%\begin{equation}
+%\label{eq:t_prime_BIMER_with_tau_drx10}
+%t^{\prime} = t / \tau_{\mathrm{dr}_{x_c/d_\mathrm{inj}=6.67}}
+%\end{equation}
+
 \begin{equation}
 \label{eq:t_prime_BIMER_with_tau_drx10}
-t^{\prime} = t / \tau_{\mathrm{dr}_{x_c/d_\mathrm{inj}=6.67}}
+t^{\prime} = t / \tau_{\mathrm{dr}_{x_c/=2}}
 \end{equation}
+
 
 Results are shown in Figure \ref{fig:BIMER_volume_nelem_evolution}. Volume increase linearly at the early instants of injection due to the constant flow rate injected. At a certain point, the slope of $V_l$ starts to decrease due to droplets being removed from the simulation when reaching the sponge layer. Liquid volume shows establishment at value between $V_l = 0.75$ and $0.8$ mm$^3$. The evolution of the number of elements in the simulation shows a fast establishment for $DX15$ at a value around $60 \cdot 10^6$ elements. Case DX10 shows maximum values around $100 \cdot 10^6$ elements, and shows large magnitude oscillations due to the clusters of droplets resulting from column breakup and reaching the sponge layer at the same time instants, causing large decreases in the number of elements and small ones in the liquid volume evolution. The decreases in the number of elements are specially notorious for case DX10, which shows an abrupt decrease at the end of the simulation time from $125 \cdot 10^6$ to $90 \cdot 10^6$ elements. The time among element peaks might be associated to the frequencies of column breakup sheets/ligament shedding observed in Figure \ref{fig:BIMER_breakup_topology}. Further assessing this hypothesis would need the simulations to run for longer, since these frequencies associated to column breakup are low (which are low when compared to the frequencies of droplets ejected from surface breakup) and larger simulation times would be needed. This has not done in this work due to constraints in computational resources and since the actual purpose of these simulations is the obtention of data for creating converged SLIs, which has been achieved with the physical times simulated (see $\S$\ref{sec:ch8_learning_SLI_in_BIMER})
 
@@ -396,6 +417,20 @@ Results are shown in Figure \ref{fig:BIMER_volume_nelem_evolution}. Volume incre
 \end{figure}
 
 
+
+\section{Jet trajectories}
+
+Vertical trajectories for quantifying the penetration of BIMER can be obtained by applying the methodologies described in $\S$\ref{sec:ch5_tools_jicf_trajectories}. The maximum gradient method of the mean levelset function is used. The trajectories obtained are shown in Figure \ref{fig:BIMER_trajectories}. There are no experimental data to compare the BIMER resolved simulations: yet, the trajectory given by Eq. (\ref{eq:jicf_trajectory_becker}) with $q = 2$, from the study by \citepColor[becker_breakup_2002], is used for comparison. This expression was chosen since it was the only one found in literature (see Table \ref{tab:correlations_experimental_JICF} for a compilation of several correlations) valid at low $q$ values. The actual comparison with experiments show a good match among the correlation and the experiments closer to injector: numerical trajectories are within the bounds and show a similar deviation trend to the experiments for $x_c/d_\mathrm{inj} < 3$ in case DX15 and $x_c/d_\mathrm{inj} < 2$ in case DX15, where curves also display a smooth evolution. This confirms again the ability of the ACLS methodology to capture JICF physical features. After the indicated values, however, the numerical trajectories underestimate the experimental correlation and show a peaky behaviour: the jet has undergone atomization and the jet is in dispersed-phase. Case DX15 shows still a smooth curve until further downstream, while DX10 shows a peakier behaviour which is due to a faster disintegration of the jet (it will be demonstrated in $\S$\ref{subsec:ch8_BIMER_DC_topology} that the obtained dense core lengths are smaller for DX10 than for DX15). The presence of droplets in the dispersed phase region is highly intermitent, which leads to low values of the mean levelset function in this region and to the axial limits in the trajectories found in the figures: no more gradient points are found at $x_c / d_\mathrm{inj}$ for DX15 and at $x_c / d_\mathrm{inj} > 4$ for DX10.
+
+
+\begin{figure}[ht]
+\centering
+   \includegraphics[scale=0.3]{./part3_applications/figures_ch8_resolved/trajectories_BIMER}
+   \caption[BIMER trajectories]{BIMER trajectories. The experimental correlation from Eq. (\ref{eq:jicf_trajectory_becker}) \citepColor[becker_breakup_2002] is plotted for comparison}
+\label{fig:BIMER_trajectories}
+\end{figure}
+
+
 \section{Perturbation effect ot jet dense core}
 \label{ch8:sec_BIMER_DC_characterization}
 
@@ -410,10 +445,8 @@ As in any liquid JICF, the BIMER configuration also creates a perturbation effec
 \label{fig:BIMER_jet_air_interaction_up_and_skeleton}
 \end{figure}
 
-\clearpage
-
-
 \subsection{Dense core topology characterization}
+\label{subsec:ch8_BIMER_DC_topology}
 
 In order to characterize the dense core topology, the methodology detailed in $\S$\ref{subsec:ch5_jet_dense_core_extraction} is applied. As explained, the dense core is represented by its breakup point coordinates $\left( x_b, z_b \right)$ and its width $w$. The temporal evolution of such coordinates for the simulations performed is shown in Figure \ref{fig:BIMER_xb_zb_w_evolution}. All temporal signals display a sawtooth shape as in the case of the classical JICF signals from Figure 
 \ref{fig:JICF_xb_zb_w_evolution}, with periodic behaviour of the signals which is associated to the frequencies of ligament stripping. The width signals show a periodic oscillations which in some cases reach a value $w/d_\mathrm{inj} < 1$ (i.e. dense core thinner than the injection diameter), which corresponds to the time instants where the column flattens as shown, for instance, in the snapshots of column breakup in Figure \ref{fig:BIMER_breakup_topology}. The signal $x_b$ from case DX10 displays at some points a value $x_b < 0$, which indicates that the dense core breakup point has been detected upstream the injection location as shown, for instance, in Figure \ref{fig:BIMER_jet_air_interaction_up_and_skeleton}.
@@ -461,8 +494,6 @@ The evolution of mean quantities for all magnitudes are shown in Figure \ref{fig
    \caption{Evolution of mean geometric parameters of BIMER dense core}
 \label{fig:BIMER_DC_mean_parameters_convergence}
 \end{figure}
-
-\clearpage
 
 \begin{figure}[ht]
 \flushleft
@@ -535,90 +566,121 @@ DX15 & 2340 & 1550 & 0.59 & 0.45 \\
 \subsection{Turbulent structures in the gaseous field}
 \label{subsec:ch8_turbulent_structures_BIMER}
 
-The disturbance effect of the BIMER dense core towards the gaseous phase is analyzed in this section. In first place, the gaseous streamlines are shown together with the liquid jet in Figure \ref{fig:streamlines_BIMER_from_dump}. 
-
-Compared to Figure \ref{fig:streamlines_UG100_DX20_from_dump}, 
-
-Relevant planes to analyze the gaseous phase are shown in Figure \ref{fig:BIMER_sps_with_gaseous_planes}.
+The disturbance effect of the BIMER dense core towards the gaseous phase is analyzed in this section. Figure \ref{fig:streamlines_BIMER_from_dump} illustrates this perturbation phenomenon through the mean 3D streamlines around the jet, which shows that characteristical turbulent structures  observed in liquid JICFs, such as horseshoe vortices and recirculation zone behind the liquid column, are found. Both of these features were observed both experimentally and in the JICF simulations of Chapter \ref{ch5:jicf_resolved_simulations}. When compared to those, the recirculation zone in BIMER is be located closer to the wall and with a smaller extension. The perturbation effect on the gaseous phase is further analyzed by looking at the planes shown in Figure \ref{fig:BIMER_sps_with_gaseous_planes}. 
 
 \begin{figure}[h!]
-	\centering	\includeinkscape[inkscapelatex=false,scale=0.6]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/streamlines_UG100_DX20_from_dump}
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.5]{./part3_applications/figures_ch8_resolved/turbulent_structures/streamlines_BIMER}
 	\vspace*{-0.5in}
-	\caption{Streamlines in BIMER, case ??}
+	\caption{Streamlines in BIMER, case DX10}
 	% NOTA: figura de pilotage 2021_02_04
 		\label{fig:streamlines_BIMER_from_dump}
 \end{figure}
 
+
 \begin{figure}[h!]
-	\centering	\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/jicf_sps_with_gaseous_planes}
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.8]{./part3_applications/figures_ch8_resolved/turbulent_structures/BIMER_sps_with_gaseous_planes}
 	\caption{Jet from BIMER case DX10 showing planes to study the gaseous phase}
 	\label{fig:BIMER_sps_with_gaseous_planes}
 \end{figure}
 
-Mean axial velocity and flow streamlines in planes perpendicular to the crossflow $x_c/d_\mathrm{inj} =$ \textbf{XX} are shown in Figure \textbf{XX}. Looking at the streamlines, one of the first observations is that the classical CVP pairs typically observed in JICF configurations, visualized in the JICF configuration of DLR in Figure \ref{fig:JICF_turbulent_structures_planes_x}, are not present in BIMER. A possible explanation of missing CVPs in due to the lack of jet deflection towards the axial direction, which was notorious in the classical JICF (see for instance Figure \ref{fig:JICF_establishment_UG100_lateral}) but which is not very pronounced in BIMER, as shown in Figure \ref{fig:BIMER_jet_establishment}. \citeColor[broadwell_structure_1984] argued that the strength of the CVPs is dependent on the momentum transferred to the crossflow by the jet; later, \citeColor[karagozian_analytical_1986] confirmed this statement while also showing that this momentum transfer is not relevant until the jet has been deflected by the crossflow. Since in the present results the BIMER liquid jet does not deflect to a large excent towards the crossflow direction, this hypothesis might explain the absence of CVPs found in the simulations.
+The mean axial velocity fields at plane $y_c = 0$ are shown in Figure \ref{fig:BIMER_turbulent_structures_plane_y0}. The mean liquid region is denoted by the grey area: this region deviates in the fine case to a lower extent than in the coarse one, as also observed in the instantaneous snapshots of Figure \ref{fig:BIMER_jet_establishment}, which leads then to an earlier breakup point as demonstrated by the shorter dense core lengths from Table \ref{tab:BIMER_L_DC_values}. Regarding the gaseous field, the perturbation effect of the dense core is clearly noticed by the decelerations created by the crossflow. A region with negative velocity is found attached to the wall right upstream the dense core for both resolutions, corresponding to the horseshoe vortex as also visualized in Figure \ref{fig:streamlines_BIMER_from_dump}. Recirculation regions are also observed in the leeward side, being however different in each case: DX10 displays a small vertical region with small thickness in the axial direction, probably not converged with the physical time simulated, while DX15 displays a larger recirculation bubble more inclined along the liquid column due to the jet's deviation  and with larger width than the first case. In both cases, however, the recirculation bubbles present small thicknesses in relation to the injection diameter with respect to the recirculation bubbles obtained  for the non-swirled in Figure \ref{fig:JICF_sps_lines_y0_along_x_ux_mean}. This might be attributed to a lower momentum flux ratio in the BIMER case with respect to the previous JICF: $q = 2$ for the former with respect to $q = 6$ for the latter. A lower $q$ supposses a lower penetration, with might lower down the location of the recirculation region and reduce its strength similar to the flow behind bluff bodies \citepColor[asami_improvement_2021]. The recirculation zone is also affected by the geometry of the body, which in the case of liquid jets in crossflow is complex, unsteady and differs among both jets simulated (see the instantaneous topologies in Figure \ref{fig:jet_air_interaction_up_and_skeleton} right and \ref{fig:BIMER_jet_air_interaction_up_and_skeleton} right). Previous studies about such parametrical influences on JICF recirculation zones have not been performed to the knowledge of the author, and are not ellucidated in this thesis. 
 
-\hl{OJO:} para ver vortices en planos iso-x, mirar articulos Denev-Froelich et swirl-jicf-2011.
+ %The the recirculation region is also affected by the gas Reynolds number $Re_g$, which for the case of BIMER, $Re_g \sim \mathcal{O} \left( 10^4 \right)$, is lower than for the case of the JICF from Chapter \ref{ch5:jicf_resolved_simulations}, where $Re_g \sim \mathcal{O} \left( 10^6 \right)$: lower $Re_g$ reduces the length and strengh of recirculation zones behind obstacles ()
 
-\clearpage
+\vspace*{-0.5in}
+
 
 \begin{figure}[ht]
 \centering
-   \includeinkscape[inkscapelatex=false,scale=0.2]{./part3_applications/figures_ch8_resolved/turbulent_structures/planes_y_ux_mean}
-
-\caption[Mean axial velocity at plane $y = 0$ mm]{Mean axial velocity at plane $y = 0$ mm. Black lines with arrows are in-plane mean streamlines; the white solid line indicates the contour $\overline{u} = 0$ which delimites the recirculation bubble. The grey area  indicates the mean liquid region, identifed as $\overline{\psi} > 0.5$}
+   \includeinkscape[inkscapelatex=false,scale=0.25]{./part3_applications/figures_ch8_resolved/turbulent_structures/planes_y_ux_mean}
+%\vspace{-0.5in}
+\caption[Mean axial velocity at plane $y = 0$ mm]{Mean axial velocity at plane $y = 0$ mm. Black lines with arrows are in-plane mean streamlines; the white solid line indicates the contour $\overline{u} = 0$ which delimites the recirculation bubble. The grey area indicates the mean liquid region, identifed as $\overline{\psi} > 0.5$}
 \label{fig:BIMER_turbulent_structures_plane_y0}
 \end{figure}
 
+
+The mean axial velocity profiles along the lines $z_c = 0.3, 1.5$ mm are plotted in Figure \ref{fig:BIMER_sps_lines_y0_along_x_ux_mean}. The dashed black line shows the mean profile for the single-phase simulation without liquid (i.e. undisturbed gaseous phase due to the present of the jet dense core). Near the wall ($z_c = 0.3$ mm), the perturbance effect is strong and the difference with respect to the single-phase case is high. A region with negative axial velocity is observed at the near field region, which corresponds to the recirculation bubble seen in Figure \ref{fig:BIMER_turbulent_structures_plane_y0}. The difference with respect to the single-phase decreases further downstream but the gaseous field of the two-phase simulations does not reach the same tendency again, showing low-velocity oscillations with $x_c$ that are maintained further downstream. Further from the wall ($z_c = 1.5$ mm), the disturbance is also close to the jet but the velocity field relaxes quickly and reaches the same tendency of the single-phase simulation further downstream, at $x_c \sim 11$ mm. For all cases, both resolved atomization simulations recover the same trends in the perturbed fields with quantitative differences observed due to the different jets resolved: the amplitude of the variations with $x_c$ is in general stronger for case DX10. Figure \ref{fig:BIMER_sps_lines_y0_along_z_ux_mean} plots then the velocity fields along the vertical coordinate $z_c$ represented in Figure \ref{fig:BIMER_turbulent_structures_plane_y0}, showing that differences with respect to a pure gaseous simulation are higher in the near-wall region but get closer further upstream, with again differences among resolutions. These differences get lower further dowstream at $x_c = 40$ mm, but still being of the order of $20~\mathrm{m~s}^{-1}$ which could greatly affect affect the secondary atomization of the droplets in the dispersed-phase simulations if the gaseous perturbations is not properly perturbed. It is worth to note that the sampling planes range from $x_c = 1.5$ to $3$ mm (see Figure \ref{fig:BIMER_local_FoR_and_sampling_planes}), therefore droplets sampled are located within this highly perturbed region. Lagrangian particles injected in the dispersed-phase simulations should ideally \textsl{see} a highly perturbed gaseous field right after injection, which is not actually possible since such a complex gaseous field cannot be accurately retrieved with ALM (\hl{see Chapter} \ref{ch9:BIMER_lagrangian}).
+
+\clearpage
 
 
 \begin{figure}[ht]
 \flushleft
 \begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.24]{./part3_applications/figures_ch8_resolved/turbulent_structures/line_y0_along_x_zlow}
+	\flushleft
+   \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/turbulent_structures/line_y0_along_x_zlow}
    %\caption{}
    %\label{} 
 \end{subfigure}
 \hspace{0.4in}
 \begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.24]{./part3_applications/figures_ch8_resolved/turbulent_structures/line_y0_along_x_zhigh}
+	\flushleft
+   \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/turbulent_structures/line_y0_along_x_zhigh}
    %\caption{}
    %\label{}
 \end{subfigure}
-\caption{Mean axial velocity evolution along axial coordinate at locations \textbf{XX:??} $z = 1.6, 4$ mm in plane $y = 0$ (lines of Figure \textbf{XX:??})}
+\caption{Mean axial velocity evolution along axial coordinate at locations $z_c = 0.3, 1.5$ mm at plane $y_c = 0$ (lines of Figure \ref{fig:BIMER_turbulent_structures_plane_y0})}
 \label{fig:BIMER_sps_lines_y0_along_x_ux_mean}
 \end{figure}
-
-\clearpage
 
 
 \begin{figure}[ht]
 \centering
    \includegraphics[scale=0.24]{./part3_applications/figures_ch8_resolved/turbulent_structures/lines_y0_along_z_ux_mean}
-\caption{Mean axial velocity evolution along vertical coordinate at \textbf{XX:??} $x = 1, 2.5, 5, 10, 15$ mm locations of plane $y = 0$ (lines of Figure \textbf{XX:??})}
+\caption{Mean axial velocity evolution along vertical coordinate at $x_c = 1, 2, 4$ mm locations of plane $y = 0$ (lines of Figure \ref{fig:BIMER_turbulent_structures_plane_y0})}
 \label{fig:BIMER_sps_lines_y0_along_z_ux_mean}
 \end{figure}
+
+
+Planes perpendicular to crossflow $x_c = 1.5, 3$ mm are shown in Figure \ref{fig:BIMER_turbulent_structures_planes_x}. The disturbance effect is clearly seen by the low velocity region at both sides of plane $y_c = 0$. This region is symmetric at plane $x_c = 1.5$ mm for case DX15 but not for the other figures depicted, which show an inclination of the deceleration region towards direction $y_c < 0$. Asymmetry is attributed to the swirl of the jet, which does not create a symmetric velocity field with respect to plane $y_c = 0$.  This behaviour has been observed in other swirled JICF \citemColor[denev_large_2009,terzis_swirl_2011], while tradicitional configurations without swirl always present symmetric gaseous structures (see for instance Figure \ref{fig:JICF_turbulent_structures_planes_x}). Another particular in this configuration is related to the vortical structures, which are not captured in all cases and, when present, are asymmetric with respect to plane $y_c = 0$. Case DX10 at $x_c = 1.5$ mm shows two different vortices that constitute the counter-rotating vortex pair (CVP) as also observed in Figure \ref{fig:JICF_turbulent_structures_planes_x}. Further downstream at $x_c = 3$ mm the vortex located at $y_c > 0$ has reached the wall and dissipated, while the one at $y_c < 0$ has moved further away from the centerline, resulting in just one vortex. For case DX15, at $z_c = 1.5$ mm only one vertex at $y_c < 0$ is captured while further downstream no vortices are observed. Similar asymmetric vortical structures and their evolution over the axial coordinate $x_c$ have been observed in previous studies of liquids jet in crossflow where swirl is imposed in the liquid nozzle \citemColor[denev_large_2009,terzis_swirl_2011], which have shown larger asymmetries when the swirl number is increased at low values below 1 (the swirl number in the BIMER configuration is $S_w \sim 1$). Unfortunately, vortical structures in such planes on highly-swirled JICF or configurations where swirl is imposed to the gaseous phase are not available to the knowledge of the author, so a comparison in similar comparisons cannot be performed.
+
+\clearpage 
+
+% Looking at the streamlines, one of the first observations is that the classical CVP pairs typically observed in JICF configurations, visualized in the JICF configuration of DLR in Figure \ref{fig:JICF_turbulent_structures_planes_x}, are not present in BIMER. A possible explanation of missing CVPs in due to the lack of jet deflection towards the axial direction, which was notorious in the classical JICF (see for instance Figure \ref{fig:JICF_establishment_UG100_lateral}) but which is not very pronounced in BIMER, as shown in Figure \ref{fig:BIMER_jet_establishment}. \citeColor[broadwell_structure_1984] argued that the strength of the CVPs is dependent on the momentum transferred to the crossflow by the jet; later, \citeColor[karagozian_analytical_1986] confirmed this statement while also showing that this momentum transfer is not relevant until the jet has been deflected by the crossflow. Since in the present results the BIMER liquid jet does not deflect to a large excent towards the crossflow direction, this hypothesis might explain the absence of CVPs found in the simulations.
+
+
+%\vspace*{1in}
 
 \begin{figure}[ht]
 \centering
    \includeinkscape[inkscapelatex=false,scale=0.30]{./part3_applications/figures_ch8_resolved/turbulent_structures/planes_x_ux_mean}
-\caption[Mean axial velocity at planes $x = 5, 10$ mm]{Mean axial velocity at planes $x = 5, 10$ mm. Black lines with arrows are in-plane mean streamlines}
+\caption[Mean axial velocity at planes $x_c/d_\mathrm{inj} = 5, 10$]{Mean axial velocity at planes $x_c/d_\mathrm{inj} = 5, 10$, showing in-plane mean streamlines. The vertical, white line corresponds to plane $y_c = 0$}
 %{Mean axial velocity at planes $x = 5, 10$ mm. Black lines with arrows are in-plane mean streamlines. Instantaneous jets for each case are shown in transparent blue.}
 \label{fig:BIMER_turbulent_structures_planes_x}
 \end{figure}
 
-\clearpage
+Figure \ref{fig:BIMER_sps_lines_iso-x_along_y_ux_mean} shows the quantitative evolution of mean axial velocity along the lines plotted in Figure \ref{fig:BIMER_turbulent_structures_planes_x}. The presence of the liquid jet creates a deceleration region in the gaseous phase at the central region and acceleration of the gas further away. The disturbance is stronger closer to the jet nozzle ($x_c = 1.5$ mm) and weaker further away ($x_c = 3$ mm), where the lines with and without liquid get closer. Asymmetry is also observed as the lowest velocities: while in a traditional jet the largest deceleration is located at the centerline (see for instance Figure \ref{fig:JICF_sps_lines_iso-x_along_y_ux_mean}), in BIMER this peak is observed close to it but shifted to the region $y_c < 0$, and moves further away when the axial distance increases, similarly to cases studied in swirled liquids JICF \citepColor[denev_large_2009]. Furthermore, as $y_c$ decreases below $0$ it is seen that the velocities seem to reach a stable velocity which is closer to the single-phase simulation for case DX10, while for $y_c > 0$ the gaseous velocities continue decreasing as $y_c$ increases. This is due to the location of the injection point within the multi-staged, the gaseous flow velocity decreases with axial direction due to the presence of the channels walls (Figure \ref{fig:BIMER_Umean_profile_with_jet} left).
+
+
+%It could be thought that the location of the crossflow local coordinate system $\left( x_c, y_c, z_c \right)^T$ depicted in Figure \ref{fig:BIMER_local_FoR_and_sampling_planes} has been wrongly chosen, so that another reference frame would place the deceleration peaks at $y_c = 0$. Effectively, 
+
+.
+
+
 
 \begin{figure}[ht]
 \centering
-   \includeinkscape[inkscapelatex=false,scale=0.22]{./part3_applications/figures_ch8_resolved/turbulent_structures/planes_z_ux_mean}
+\begin{subfigure}[b]{1.0\textwidth}
+	\centering
+   \includegraphics[scale=0.24]{./part3_applications/figures_ch8_resolved/turbulent_structures/lines_iso_x_along_y_plane_x01p5mm}
+   \includegraphics[scale=0.24]{./part3_applications/figures_ch8_resolved/turbulent_structures/lines_iso_x_along_y_plane_x03mm}
+   %\vspace*{-0.1in}
+\end{subfigure}
+   \caption[{Mean axial velocity evolution along lateral coordinate at $z_c$ lines of Figure \ref{fig:BIMER_turbulent_structures_planes_z}}]{Mean axial velocity evolution along lateral coordinate at $z_c$ lines of Figure \ref{fig:BIMER_turbulent_structures_planes_z}. Dotted circles englobe gaseous vortical structures}
+\label{fig:BIMER_sps_lines_iso-x_along_y_ux_mean}
+\end{figure}
+
+Finally, the gaseous fields at planes perpendicular to the vertical direction $z_c$ are displayed in Figure \ref{fig:BIMER_turbulent_structures_planes_z}. The recirculation bubble is observed close to the wall $z_c = 0.15$ mm for both cases, and further away ($z = 0.6$ mm) for case DX15 only, while case DX10 at $z = 0.6$ mm shows a high deceleration of the flow which does not reach recirculation. The deceleration fields are symmetric with respect to $y_c = 0$ closer to the wall but asymmetric further away from it: near-wall the freestream velocity is smaller in absolute value since it is within the boundary layer, hence the swirl effect is weaked and the gaseous field is less deviation, resulting in symmetry. Further away from the wall, the freestream is larger and the swirl effects are stronger, hence creating asymmetry. Similar observations have been obtained experimentally in gaseous jets in crossflow where swirl has been imposed to the gaseous phase \citepColor[panda_structure_2015].
+
+
+
+\begin{figure}[ht]
+\centering
+   \includeinkscape[inkscapelatex=false,scale=0.18]{./part3_applications/figures_ch8_resolved/turbulent_structures/planes_z_ux_mean}
 \caption[Mean axial velocity at planes $z = 0.2, 0.8, 16$ mm]{Mean axial velocity at planes $z = 0.2, 0.8, 16$. Black lines with arrows are in-plane mean streamlines. ; the white solid line indicates the contour $\overline{u} = 0$ which delimites the recirculation bubble. The grey area  indicates the mean liquid region, identifed as $\overline{\psi} > 0.5$. The black-dotted circle indicates the location of the injection nozzle}
 \label{fig:BIMER_turbulent_structures_planes_z}
 \end{figure}
 
-
-\clearpage
 
 
 \section{Direct measurement of liquid fluxes}
@@ -626,7 +688,6 @@ Mean axial velocity and flow streamlines in planes perpendicular to the crossflo
 
 Resolved liquid fluxes are obtained in  interior boundaries (IBs) defined at the same location as the sampling planes from Figure \ref{fig:BIMER_local_FoR_and_sampling_planes}. The procedure followed to obtaine these fluxes was described in $\S$\ref{subsec:ch5_interior_boundaries}. Filming planes are not quantified in this case, since these fluxes are not used by the SLI models and it was shown ($\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}) that not all the mass losses in the planes perpendicular to the crossflow direction were due to liquid filming, but also to liquid structures reaching a characteristic size of the order of the mesh resolution.
 
-In first place, the instantaneous flux for simulation DX10 are shown in Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_BIMER}. In the same way as in the classical JICF (Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX10}), the instantaneous fluxes show high oscillations around the injected flow rate due to the intermittent behaviour of the JICF: at certain instants there are cluster of droplets produced by the column breakup mechanism (see $\S$\ref{ch8:subsec_BIMER_breakup_topology}) crossing the sampling planes together, which yield instantaneous flux values larger than the injected $Q_l$ (flux overshoots); while at other instants there are only a few droplets being convected.
 
 
 
@@ -638,39 +699,45 @@ In first place, the instantaneous flux for simulation DX10 are shown in Figure \
 \label{fig:IB_liquid_flow_rate_inst_evolution_BIMER}
 \end{figure}
 
+\clearpage
+
+In first place, the instantaneous flux for simulation DX10 are shown in Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_BIMER} for two sampling planes. In the same way as in the classical JICF (Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_UG100_DX10}), the instantaneous fluxes show high oscillations around the injected flow rate due to the intermittent behaviour of the JICF: at certain instants there are cluster of droplets produced by the column breakup mechanism (see $\S$\ref{ch8:subsec_BIMER_breakup_topology}) crossing the sampling planes together, which yield instantaneous flux values larger than the injected $Q_l$ (flux overshoots); while at other instants there are only a few droplets being convected.
+
+
 The evolution of the mean ($\overline{Q}_l$) and RMS ($Q_\mathrm{l,\mathrm{RMS}}$) flow rates through the IBS for all simulations is shown in Figure \ref{fig:IB_mean_RMS_Ql_evolution}. Mean fluxes (Figure \ref{fig:IB_mean_RMS_Ql_evolution} left) show oscillations at the early instants and a later stabilization to converged values. Case DX15 is converged while case DX10 shows still oscillations at the last sampling times due to the flux overshoots around $t^\prime \sim 4.2$ shown in Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_BIMER}. Such overshoots are also reflected in the step increase in the RMS evolution (Figure \ref{fig:IB_mean_RMS_Ql_evolution} right) for the same case. %\hl{The coarses case DX15 shows the mean flux at the location $x_c/d_\mathrm{inj} = 0.33$, which is the closest location to the injector, to be larger than the injected mass flow rate: this is due to liquid flow recirculation at this location, since the resolution is coarse and the liquid structures emanating from the dense core stay attached to it... This recirculation has not been observed for the other two resolutions, which indicates that the interface resolution $\Delta x_\mathrm{min} = 15~\mu $m is not enough to resolve BIMER}.
 
-In all simulations, there is a decrease in the mass flux with increasing axial distance $x_c$ as it was also observed in the JICF simulations of Chapter \ref{ch5:jicf_resolved_simulations}. The final mean values of the fluxes, displayed in the bar chart of Figure \ref{fig:BIMER_IB_bargraph_mean}, reflect this trend of mass flux reduction in a more visual way. The RMS values are also shown in the same graph by the vertical bars: these ones have large magnitudes, of the order of the mass flow rates obtained (see Figure \ref{fig:IB_mean_RMS_Ql_evolution}b), which indicate the high variance in the instantaneous mass flow rates crossing the sampling planes. Even so, the mean fluxes show a good evolution with values close to the injected flow rates, with reductions along the axial distance due to filming and vanishing liquid structures when reaching a size of the order of the mesh resolution, as it was demonstrated in the resolved simualtions of the JICF test case from Chapter \ref{ch5:jicf_resolved_simulations}.
-
-\begin{figure}[ht]
-\centering
-   \includegraphics[width=0.48\textwidth]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/evolution_mean_Q_iso_x}
-   \includegraphics[width=0.48\textwidth]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/evolution_RMS_Q_iso_x}
-   \caption{Mean (\textsl{left}) and RMS (\textsl{right}) $Q_l$ evolution in IBs perpendicular to crossflow.}
-\label{fig:IB_mean_RMS_Ql_evolution}
-\end{figure}
+In all simulations, there is a decrease in the mass flux with increasing axial distance $x_c$ as it was also observed in the JICF simulations of Chapter \ref{ch5:jicf_resolved_simulations}. The final mean values of the fluxes, displayed in the bar chart of Figure \ref{fig:BIMER_IB_bargraph_mean}, reflect this trend of mass flux reduction in a more visual way. The RMS values are also shown in the same graph by the vertical bars: these ones have large magnitudes, of the order of the mass flow rates obtained (see Figure \ref{fig:IB_mean_RMS_Ql_evolution}b), which indicate the high variance in the instantaneous mass flow rates crossing the sampling planes. Regarding fluxes decreases with axial distance, it is seen that the losses among consecutive samploing planes are larger for the coarse case DX15 than for the fine one DX10, since in the former the resolution limit is more restrictive and there are more droplets disappearing than in the latter. Even so, the mean fluxes show a good evolution with values close to the injected flow rates, with reductions along the axial distance due to filming and vanishing liquid structures when reaching a size of the order of the mesh resolution, as it was demonstrated in the resolved simualtions of the JICF test case from Chapter \ref{ch5:jicf_resolved_simulations}.
 
 %\begin{figure}[ht]
 %\centering
-%\begin{subfigure}[b]{0.9\textwidth}
-%	\centering
-%   \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/evolution_mean_Q_iso_x}
-%   \vspace*{-0.15in}
-%   \caption{Mean $Q_l$ evolution in IBs perpendicular to crossflow.}
-%   %\label{} 
-%\end{subfigure}
-%\vskip\baselineskip
-%\begin{subfigure}[b]{0.9\textwidth}
-%	\centering
-%   \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/evolution_RMS_Q_iso_x}
-%   \vspace*{-0.15in}
-%   \caption{RMS $Q_l$ evolution in IBs perpendicular to crossflow.}
-%   %\label{}
-%\end{subfigure}
-%
-%\caption{Time evolution of mean and RMS values of $Q_l$ in BIMER IBs}
+%   \includegraphics[width=0.48\textwidth]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/evolution_mean_Q_iso_x}
+%   \includegraphics[width=0.48\textwidth]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/evolution_RMS_Q_iso_x}
+%   \caption{Mean (\textsl{left}) and RMS (\textsl{right}) $Q_l$ evolution in IBs perpendicular to crossflow.}
 %\label{fig:IB_mean_RMS_Ql_evolution}
 %\end{figure}
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.9\textwidth}
+	\centering
+   \includegraphics[scale=0.3]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/evolution_mean_Q_iso_x}
+   \vspace*{-0.15in}
+   %\caption{Mean $Q_l$ evolution in IBs perpendicular to crossflow.}
+   %\label{} 
+\end{subfigure}
+\vskip\baselineskip
+\begin{subfigure}[b]{0.9\textwidth}
+	\centering
+   \includegraphics[scale=0.3]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/evolution_RMS_Q_iso_x}
+   \vspace*{-0.15in}
+   %\caption{RMS $Q_l$ evolution in IBs perpendicular to crossflow.}
+   %\label{}
+\end{subfigure}
+\caption{Time evolution of mean (\textsl{top}) and RMS (\textsl{bottom}) fluxes in BIMER IBs}
+\label{fig:IB_mean_RMS_Ql_evolution}
+\end{figure}
+
+\clearpage
 
 
 
@@ -681,9 +748,6 @@ In all simulations, there is a decrease in the mass flux with increasing axial d
 \caption{Mean flow rates from IBs perpendicular to crossflow in BIMER}
 \label{fig:BIMER_IB_bargraph_mean}
 \end{figure}
-
-
-\clearpage
 
 
 \section{Spray characterization}
@@ -724,21 +788,55 @@ DX15 & 3.81 & 6.78 & 2.64 &  4.69 \\
 \end{table}
 
 
+%\begin{table}[!h]
+%\centering
+%\caption{Number of droplets sampled in BIMER simulations: total amount ($N_\mathrm{dr}$) and total amount per accumulation time $N_\mathrm{dr}/t_\mathrm{acc}$}
+%\begin{tabular}{cccccc}
+%\thickhline
+%\multirow{2}{*}{ \textbf{Case}}  & \multicolumn{2}{c}{$N_\mathrm{dr}$} & & \multicolumn{2}{c}{$N_\mathrm{dr}/t_\mathrm{acc}~[\mathrm{ms}^{-1}]$} \\
+%\cline{2-3} \cline{4-6}
+%& $x/d_\mathrm{inj} = 5$ & $x/d_\mathrm{inj} = 3.33$ &  & $x/d_\mathrm{inj} = 5$ & $x/d_\mathrm{inj} = 3.33$  \\
+%\thickhline 
+%DX10  & 6214 & 5674 & & 6463 & 5901 \\
+%DX15  & 6854 & 6112 & & 2598 & 2316 \\
+%\thickhline
+%\end{tabular}
+%\label{tab:BIMER_SLI_Ndr_accumulated}
+%\end{table}
+
+%\begin{table}[!h]
+%\centering
+%\caption{Number of droplets sampled in BIMER simulations: total amount ($N_\mathrm{dr}$) and total amount per accumulation time $N_\mathrm{dr}/t_\mathrm{acc}$}
+%\begin{tabular}{cccccccccc}
+%\thickhline
+%\multirow{2}{*}{ \textbf{Case}}  & \multicolumn{4}{c}{$N_\mathrm{dr}$} & & \multicolumn{4}{c}{$N_\mathrm{dr}/t_\mathrm{acc}~[\mathrm{ms}^{-1}]$} \\
+%\cline{2-5} \cline{7-10}
+%& $x/d_\mathrm{inj} = 5$ & $6.67$ & $8.33$ & $10$ &  & $5$ & $6.67$ & $8.33$ & $10$  \\
+%\thickhline 
+%DX10  & 6214 & 5674 & 5183 & 4701 & & 6463 & 5901 & 5390 & 4889  \\
+%DX15  & 6854 & 6112 & 5077 & 3945 &  & 2598 & 2316 & 1924 & 1495  \\
+%\thickhline
+%\end{tabular}
+%\label{tab:BIMER_SLI_Ndr_accumulated}
+%\end{table}
+
 \begin{table}[!h]
 \centering
 \caption{Number of droplets sampled in BIMER simulations: total amount ($N_\mathrm{dr}$) and total amount per accumulation time $N_\mathrm{dr}/t_\mathrm{acc}$}
-\begin{tabular}{cccccc}
+\begin{tabular}{cccccccccc}
 \thickhline
-\multirow{2}{*}{ \textbf{Case}}  & \multicolumn{2}{c}{$N_\mathrm{dr}$} & & \multicolumn{2}{c}{$N_\mathrm{dr}/t_\mathrm{acc}~[\mathrm{ms}^{-1}]$} \\
-\cline{2-3} \cline{4-6}
-& $x/d_\mathrm{inj} = 5$ & $x/d_\mathrm{inj} = 3.33$ &  & $x/d_\mathrm{inj} = 5$ & $x/d_\mathrm{inj} = 3.33$  \\
+\multirow{2}{*}{ \textbf{Case}}  & \multicolumn{4}{c}{$N_\mathrm{dr}$} & & \multicolumn{4}{c}{$N_\mathrm{dr}/t_\mathrm{acc}~[\mathrm{ms}^{-1}]$} \\
+\cline{2-5} \cline{7-10}
+& $x_c = 1.5~\mathrm{mm}$ & $2~\mathrm{mm}$ & $2.5~\mathrm{mm}$ & $3~\mathrm{mm}$ &  & $x_c = 1.5~\mathrm{mm}$ & $2~\mathrm{mm}$ & $2.5~\mathrm{mm}$ & $3~\mathrm{mm}$   \\
 \thickhline 
-DX10  & 6214 & 5674 & & 6463 & 5901 \\
-DX15  & 6854 & 6112 & & 2598 & 2316 \\
+DX10  & 6214 & 5674 & 5183 & 4701 & & 6463 & 5901 & 5390 & 4889  \\
+DX15  & 6854 & 6112 & 5077 & 3945 &  & 2598 & 2316 & 1924 & 1495  \\
 \thickhline
 \end{tabular}
 \label{tab:BIMER_SLI_Ndr_accumulated}
 \end{table}
+
+
 
 Establishment of the global spray in terms of flux $Q_l$ and $SMD$ is shown in Figure \ref{fig:ch8_spray_char_establishment}.  Flux evolution in all planes show similar trends as the IBs flow rates from Figure \ref{fig:BIMER_IB_bargraph_mean}, including a decrease in mean fluxes with axial distance due to liquid structures reaching the mesh resolution and disappearing. The evolution of SMD shows good convergence for all cases for the times simulated. The evolution of other mean quantities which are of interest for SLI are shown in Appendix \ref{app:BIMER_SLI_convergence}.
 
@@ -782,7 +880,6 @@ d_\mathrm{cr} = \frac{\sigma We_\mathrm{cr}}{\rho_g u_r^2} = 64 ~\mu m
 
 where ...
 
-\clearpage
 
 \begin{figure}[ht]
 \centering
@@ -795,21 +892,46 @@ where ...
 
 
 
+%\begin{figure}[ht]
+%\centering
+%\begin{subfigure}[b]{0.9\textwidth}
+%	\centering
+%   \includegraphics[scale=0.30]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD05p00_histograms}
+%   \includegraphics[scale=0.30]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD06p67_histograms}
+%	\caption{Case DX10}
+%\end{subfigure}
+%
+%\vskip\baselineskip
+%
+%\begin{subfigure}[b]{0.9\textwidth}
+%	\centering
+%   \includegraphics[scale=0.30]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD05p00_histograms}
+%   \includegraphics[scale=0.30]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD06p67_histograms}
+%	\caption{Case DX15}
+%\end{subfigure}
+%
+%   \caption{Droplets size ($f_0$) and volume ($f_3$) histograms for all BIMER cases}
+%\label{fig:ch8_jicf_size_volume_histograms_all}
+%\end{figure}
+
+
 \begin{figure}[ht]
-\centering
-\begin{subfigure}[b]{0.9\textwidth}
-	\centering
-   \includegraphics[scale=0.30]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD05p00_histograms}
-   \includegraphics[scale=0.30]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD06p67_histograms}
+\flushleft
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD05p00_histograms}
+   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD06p67_histograms}
+   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD08p33_histograms}
 	\caption{Case DX10}
 \end{subfigure}
 
 \vskip\baselineskip
 
-\begin{subfigure}[b]{0.9\textwidth}
-	\centering
-   \includegraphics[scale=0.30]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD05p00_histograms}
-   \includegraphics[scale=0.30]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD06p67_histograms}
+\begin{subfigure}[b]{1.1\textwidth}
+	\flushleft
+   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD05p00_histograms}
+   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD06p67_histograms}
+   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD08p33_histograms}
 	\caption{Case DX15}
 \end{subfigure}
 
@@ -841,47 +963,7 @@ where ...
 \label{fig:ch8_jicf_liquid_mean_velocities_with_x}
 \end{figure}
 
-% Volume-weighted velocities: see pilotage 04/06/2021
 
-
-\begin{figure}[ht]
-\centering
-\begin{subfigure}[b]{0.3\textwidth}
-	\centering
-	\hspace*{-0.2in}
-   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatterplots_colorbar_z.png}
-\end{subfigure}
-\begin{subfigure}[b]{0.3\textwidth}
-	\centering
-	\hspace*{0.36in}
-   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatterplots_colorbar_y.png}
-\end{subfigure}
-\begin{subfigure}[b]{0.3\textwidth}
-	\centering
-	\hspace*{0.7in}
-   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatterplots_colorbar_z.png}
-\end{subfigure}
-
-   \vskip\baselineskip
-   
-   \vspace*{-0.2in}
-\begin{subfigure}[b]{0.3\textwidth}
-	\flushleft
-   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatter_ux_D.png}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.3\textwidth}
-	\flushleft
-   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatter_uy_D.png}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.3\textwidth}
-	\flushleft
-   \includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/velocities/scatter_uz_D.png}
-\end{subfigure}
-   \caption[Scatterplots velocities - diameters for case UG100\_DX10 at plane $x = 10$ mm]{Scatterplots velocities - diameters for case UG100\_DX10 at plane $x = 10$ mm. The axial velocity is non-dimensionalized with the bulk gaseous velocity, while the lateral and vertical ones have been non-dimensionalized  with the bulk liquid velocity}
-\label{fig:jicf_global_scatterplots}
-\end{figure}
 
 
 
