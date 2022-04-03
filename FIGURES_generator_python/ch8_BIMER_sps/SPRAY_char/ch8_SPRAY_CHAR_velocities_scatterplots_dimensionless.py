@@ -85,7 +85,7 @@ marker_size_   = 200*FFIG
 color_markers_ = 'black'
 line_umean_format = 'k'
 line_umean_vw_format = '--k' 
-x_lim_ = [0,250]
+x_lim_ = [0,75]
 
 
 #%% Plots 

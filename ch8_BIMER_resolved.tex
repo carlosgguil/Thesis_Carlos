@@ -358,7 +358,7 @@ Classification of the BIMER operating point considered in the breakup map of Fig
 
 \subsection{Jet establishment}
 
-Esbalishment of the liquid jet in the BIMER configuration is monitored by quantifying the evolution of the number of mesh elements and the liquid volume inside the domain calculated from Eq. (\ref{eq:liquid_volume_from_levelset_definition}). Time has been non-dimensionalized with the timescale $\tau_{\mathrm{dr}_{x_c/=2}}$ as given in Table \ref{tab:BIMER_SPS_characteristic_droplet_sampling_times}:
+Esbalishment of the liquid jet in the BIMER configuration is monitored by quantifying the evolution of the number of mesh elements and the liquid volume inside the domain calculated from Eq. (\ref{eq:liquid_volume_from_levelset_definition}). Time has been non-dimensionalized with the timescale $\tau_{\mathrm{dr}_{x_c/=3}}$ as given in Table \ref{tab:BIMER_SPS_characteristic_droplet_sampling_times}:
 
 %\begin{equation}
 %\label{eq:t_prime_BIMER_with_tau_drx10}
@@ -372,7 +372,7 @@ Esbalishment of the liquid jet in the BIMER configuration is monitored by quanti
 
 \begin{equation}
 \label{eq:t_prime_BIMER_with_tau_drx10}
-t^{\prime} = t / \tau_{\mathrm{dr}_{x_c/=2}}
+t^{\prime} = t / \tau_{\mathrm{dr}_{x_c/=3}}
 \end{equation}
 
 
@@ -744,7 +744,7 @@ In all simulations, there is a decrease in the mass flux with increasing axial d
 
 \begin{figure}[ht]
 \centering
-   \includegraphics[scale=0.3]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/bar_graph_isox_IBs}
+   \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/bar_graph_isox_IBs}
 \caption{Mean flow rates from IBs perpendicular to crossflow in BIMER}
 \label{fig:BIMER_IB_bargraph_mean}
 \end{figure}
@@ -872,13 +872,20 @@ The final fluxes obtained through lagrangian tracking are compared to their equi
 \subsection{Granulometry}
 \label{ch8:subsec_spray_char_granulo}
 
-The final SMDs obtained after the accumulation times indicated in Table \ref{fig:ch8_spray_char_establishment} are shown in Figure \ref{fig:ch8_spray_char_SMD_final}. The SMD has a clear dependency on the resolution: reducing the interface cell size $\Delta x_\mathrm{min}$ from 15 to 10 $\mu$m, a factor of 1.5, reduces the SMD from $\sim$ 50 to $\sim$ 35 $\mu$m, which is a reduction of the same order. SMD decreases with axial distance for both simulations. This variation is larger for DX15, where SMD decreases from 53 to 50 $\mu$m, than in DX10, where the reduction if from 36 to 35 $\mu$m. The variations are very low for both cases, indicating that either 1) the mesh resolution limit is reached or 2) atomization is complete and the smallest droplets can be captured with the interface resolutions employed. To assess both hypothesis it is of interest to look at the droplets size histograms in Figure \ref{fig:ch8_jicf_size_volume_histograms_all}.  The size and volume distributions are shown, as well as relevant sizes and the lognormal distributions (Eq. \ref{eq:ch5_f0_lognormal_distr_expression}) where the parameters have been obtained either by fit or through the correlations given by Eq. (\ref{eq:lefevbre_lognormal_fit_expressions}). The histograms from the coarse case DX15 show a clear lognormal distribution which is well fit by the blue curve. The smallest droplets sampled have a diameter $\sim 30~\mu$m, which corresponds to $2~\Delta x_\mathrm{min}$. This means that the smallest droplets in the simulation are resolved with 2 mesh cells: in general, the number of cells to properly resolved a droplet is a subject of discussion, but authors agree generally that it is comprised between 2 \citepColor[herrmann_detailed_2009] and 5 \citepColor[fuster_simulation_2009]. Therefore, in the case DX15 where smallest droplets are 2 $\Delta x_\mathrm{min} = 30~\mu$m the smallest droplets simulated are therefore limited by the grid, meaning that a finer resolution than the one employed is needed to resolve the smallest physical droplets that would exist in experiments (unfortunately, there are no experimental data available to compare). When refining the mesh from $\Delta x_\mathrm{min} = 15$ to 10 $\mu$m the histograms show that, actually, the smallest droplets obtained collapse also at around $\Delta x_\mathrm{min} = 30~\mu$m, which in this case corresponds to $3 \Delta x_\mathrm{min}$. Smaller diameters are not sampled: surface breakup could actually produce droplets of the order of the size resolution, but these liquid structures would disappear shortly after being generated as shown in Figure \ref{fig:BIMER_breakup_topology} (these small droplets would not greatly affect the SMD calculation due to their low volume). As a consequence, the histogram from DX10 presents a shape similar to the a lognormal distribution but which would miss the smallest diameters which are those vanishing. Furthermore, the fact that neither the SMD nor the droplet size distribution change greatly from $x_c/d_\mathrm{inj} = 5$ to $6.67$ for DX10 indicates a low level of atomization among planes. Actually, the sampling planes were chosen at the studied locations since they were outside the influence of the dense core and primary atomization region, while the second ...
+The final SMDs obtained are shown in Figure \ref{fig:ch8_spray_char_SMD_final}. The SMD has a clear dependency on the resolution: reducing the interface cell size $\Delta x_\mathrm{min}$ from 15 to 10 $\mu$m (1.5 factor) reduces the SMD from $\sim$ 50 to $\sim$ 35 $\mu$m, which is a reduction of the same order. SMD decreases with axial distance for both simulations. This variation is larger for DX15, where SMD decreases from 53 to 50 $\mu$m, than in DX10, where the reduction if from 36 to 35 $\mu$m. The variations are very low for both cases, indicating that either 1) the mesh resolution limit is reached or 2) atomization is complete and the smallest droplets can be captured with the interface resolutions employed. To assess both hypothesis it is of interest to look at the droplets size histograms in Figure \ref{fig:ch8_jicf_size_volume_histograms_all}.  The size and volume distributions are shown, as well as relevant sizes and the lognormal distributions (Eq. \ref{eq:ch5_f0_lognormal_distr_expression}) where the parameters have been obtained either by fit or through the correlations given by Eq. (\ref{eq:lefevbre_lognormal_fit_expressions}). The histograms from the coarse case DX15 show a clear lognormal distribution which is well fit by the blue curve. The smallest droplets sampled have a diameter $\sim 30~\mu$m, which corresponds to $2\Delta x_\mathrm{min}$. This means that the smallest droplets in the simulation are resolved with 2 mesh cells: in general, the number of cells to properly resolved a droplet is a subject of discussion, but authors agree generally that it is comprised between 2 \citepColor[herrmann_detailed_2009] and 5 \citepColor[fuster_simulation_2009]. Therefore, in the case DX15 where smallest droplets are $2\Delta x_\mathrm{min} = 30~\mu$m the smallest droplets simulated are limited by the grid, meaning that a finer resolution would be needed to resolve the smallest physical droplets that would exist in the actual configuration (unfortunately, there are no experimental data available to compare). When refining the mesh from $\Delta x_\mathrm{min} = 15$ to 10 $\mu$m the histograms show that, actually, the smallest droplets obtained collapse also at around $\Delta x_\mathrm{min} = 30~\mu$m, which in this case corresponds to $3 \Delta x_\mathrm{min}$. Since this minimum size is identical the one obtained at case DX15, it is suggested that the atomization process is complete at this stage, and that the smallest SMD obtained in the fine simulation is due to the smaller size of liquid structures resulting from column breakup due to the different breakup topology in both simulations. In fact, a critical diameter below which secondary atomization would not occur can be approximated by inverting Eq. (\ref{eq:We_secondary_atomization_definition}) and considering $We_\mathrm{cr} = 6$:
 
 \begin{equation}
-d_\mathrm{cr} = \frac{\sigma We_\mathrm{cr}}{\rho_g u_r^2} = 64 ~\mu m
+d_\mathrm{cr} = \frac{2 \sigma We_\mathrm{cr}}{\rho_g \left( u_l - u_g \right)^2} = 128 ~\mu m
 \end{equation}
 
-where ...
+where the velocities are taken from Table \ref{tab:bimer_sps_operating_point}. As observed, the critical diameter is much larger than the droplets sizes obtained from both simulations: most droplets produced by primary breakup in the BIMER configuration are below the critical diameter and do not undergo further secondary atomization. This is actually confirmed by the convergence of SMD with axial distance shown in Figure \ref{fig:ch8_spray_char_SMD_final} and by the histograms from Figure \ref{fig:ch8_jicf_size_volume_histograms_all}, which do not change significanly further downstream than $x_c = 2$ mm. Hence, atomization is completed in the simulations performed at this axial location. 
+
+%This analysis does not consider variation in $u_rel$ due to local effects, since both gaseous and liquid local velocities can greatly vary in space, which can consequently reduce the local $d_\mathrm{cr}$ allowing for secondary atomization. 
+
+
+%Smaller diameters are not sampled: surface breakup could actually produce droplets of the order of the size resolution, but these liquid structures would disappear shortly after being generated as shown in Figure \ref{fig:BIMER_breakup_topology} (also, these small droplets would not greatly affect the SMD calculation due to their low volume). As a consequence, the histogram from DX10 presents a shape similar to the a lognormal distribution but which would miss the smallest diameters which are those vanishing. Furthermore, the fact that neither the SMD nor the droplet size distribution change greatly from $x_c/d_\mathrm{inj} = 5$ to $6.67$ for DX10 indicates a low level of atomization among planes. Actually, the sampling planes were chosen at the studied locations since they were outside the influence of the dense core and primary atomization region, while the second ...
+
+
 
 
 \begin{figure}[ht]
@@ -890,6 +897,15 @@ where ...
    \label{fig:ch8_spray_char_SMD_final}
 \end{figure}
 
+
+
+
+
+\subsection{Liquid velocities}
+
+Mean spray velocities, arithmetic and volume weighted, in axial and vertical directions are shown in Figure \ref{fig:ch8_jicf_liquid_mean_velocities_with_x}. As observed, establishment in axial velocity is reached at $x = 2~\mathrm{mm}$, while the vertical velocities are stable from the first sampling plane. The mean axial velocities do not stabilize at the bulk velocity $u_g = 568~\mathrm{m~s}^{-1}$ since the gaseous field is perturbed due to the presence of the crossflow for the whole range of sampling planes axil locations, as shown in Figure \ref{fig:BIMER_sps_lines_y0_along_x_ux_mean}.   Due to these disturbances, the gaseous field is heterogeneous in space as shown in $\S$\ref{subsec:ch8_turbulent_structures_BIMER} and droplets relax towards values which are different from those found upstream the jet, resulting in mean velocities lower than $u_g$. Regarding mean vertical velocities, these are stabilized in values which are different than $0$, indicating that the spray continues to open vertically with increasing axial distance rather than reach a constant penetration height. This is also attributed to the jet perturbation, since gas streamlines are diverted downstream the jet vertically as displayed in Figure \ref{fig:BIMER_turbulent_structures_plane_y0}. This figure also shows that the vertical component of streamlines for case DX10 is larger than their equivalent in case DX15, which results in larger mean vertical velocities for case DX10 as confirmed by Figure \ref{fig:ch8_jicf_liquid_mean_velocities_with_x}.
+
+\clearpage
 
 
 %\begin{figure}[ht]
@@ -915,13 +931,54 @@ where ...
 %\end{figure}
 
 
+%\begin{figure}[ht]
+%\flushleft
+%\begin{subfigure}[b]{1.1\textwidth}
+%	\flushleft
+%   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD05p00_histograms}
+%   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD06p67_histograms}
+%   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD08p33_histograms}
+%	\caption{Case DX10}
+%\end{subfigure}
+%
+%\vskip\baselineskip
+%
+%\begin{subfigure}[b]{1.1\textwidth}
+%	\flushleft
+%   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD05p00_histograms}
+%   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD06p67_histograms}
+%   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD08p33_histograms}
+%	\caption{Case DX15}
+%\end{subfigure}
+%
+%   \caption{Droplets size ($f_0$) and volume ($f_3$) histograms for all BIMER cases}
+%\label{fig:ch8_jicf_size_volume_histograms_all}
+%\end{figure}
+
 \begin{figure}[ht]
 \flushleft
+%\begin{subfigure}[b]{1.1\textwidth}
+%	\flushleft
+%   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX07_xD05p00_histograms}
+%   \hspace*{-0.15in}
+%   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX07_xD06p67_histograms}
+%   \hspace*{-0.15in}
+%   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX07_xD08p33_histograms}
+%   \hspace*{-0.15in}
+%   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX07_xD10p00_histograms}
+%	\caption{Case DX07}
+%\end{subfigure}
+%
+%\vskip\baselineskip
 \begin{subfigure}[b]{1.1\textwidth}
 	\flushleft
    \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD05p00_histograms}
+   \hspace*{-0.15in}
    \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD06p67_histograms}
+   \hspace*{-0.15in}
    \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD08p33_histograms}
+   \hspace*{-0.15in}
+   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX10_xD10p00_histograms}
 	\caption{Case DX10}
 \end{subfigure}
 
@@ -930,8 +987,12 @@ where ...
 \begin{subfigure}[b]{1.1\textwidth}
 	\flushleft
    \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD05p00_histograms}
+   \hspace*{-0.15in}
    \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD06p67_histograms}
+   \hspace*{-0.15in}
    \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD08p33_histograms}
+   \hspace*{-0.15in}
+   \includegraphics[scale=0.28]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/histograms_size_volume/DX15_xD10p00_histograms}
 	\caption{Case DX15}
 \end{subfigure}
 
@@ -939,37 +1000,32 @@ where ...
 \label{fig:ch8_jicf_size_volume_histograms_all}
 \end{figure}
 
-\clearpage
-
-
-
-\subsection{Liquid velocities}
-
-
-
 \begin{figure}[ht]
 \flushleft
-\begin{subfigure}[b]{1.1\textwidth}
+\begin{subfigure}[b]{1.0\textwidth}
 	\flushleft
    \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/velocities/ux_mean}
-   %\hfill
-   \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/velocities/uy_mean}
+   %\hspace*{0.2in}
+   %\includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/velocities/uy_mean}
+   \hspace*{0.2in}
    %\hfill
    \includegraphics[scale=0.25]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/velocities/uz_mean}
-	\caption{Mean velocities in axial, lateral and vertical crossflow directios}
 \end{subfigure}
 
-   \caption[Sampled mean liquid velocities for all cases]{Mean liquid velocities for all cases. Solid lines indicate arithmetic average velocities, while dashed ones indicate volume-weighted average velocities.}
+   \caption[Sampled mean liquid velocities for all cases]{Mean velocities in axial, lateral and vertical crossflow directions. Solid lines indicate arithmetic average velocities, while dashed ones indicate volume-weighted average velocities.}
 \label{fig:ch8_jicf_liquid_mean_velocities_with_x}
 \end{figure}
 
 
-
+\vspace*{-0.20in}
 
 
 \subsection{Deformation of liquid structures}
 \label{subsec:ch8_def_liquid_structures}
 
+Figure \ref{fig:ch8_jicf_liquid_mean_deformation_with_x_condensed} shows evolution of volume-weighted averages of deformation parameters for all cases. Stablishment with axial distance is obtained at $x_c = 2$ mm, as for the other previous magnitudes discussed. Considering the sphericity criteria to be for droplets presenting $\beta > 0.5, \alpha < 2$, it is seen that mean values are stablished outside the sphericity range. A view at the $\alpha-\beta$ scatterplots in Figure \ref{fig:ch8_jicf_global_scatterplots_deformation} shows that most droplets are located outside this sphericity region (enclosed by the thick black lines): the percentages of spherical droplets is 5 and 13 $\%$ for DX15 and DX10 respectively at plane $x = 2$ mm . Such percentage does not vary considerable further downstream, indicating that transported droplets are mostly deformed. 
+
+\clearpage
 
 \begin{figure}[ht]
 \centering
@@ -996,18 +1052,80 @@ where ...
 	\hspace*{0.35in}
    \includegraphics[scale=0.5]{./part3_applications/figures_ch8_resolved/SPRAY_characterization/deformation/scatterplots_colorbar_D_with_blank_space.png}
 \end{subfigure}
-   \caption[Scatterplots of deformation parameters $\alpha$ - $\beta$ for cases DX10, DX15 at plane $x_c/d_\mathrm{inj} = 6.67$ ]{Scatterplots of deformation parameters $\alpha$ - $\beta$ for cases DX10, DX15 at plane $x_c/d_\mathrm{inj} = 6.67$. Droplets are coloured and scaled by their equivalent diameter}
+   \caption[Scatterplots of deformation parameters $\alpha$ - $\beta$ for cases DX10, DX15 at plane $x_c = 2$ mm ]{Scatterplots of deformation parameters $\alpha$ - $\beta$ for cases DX10, DX15 at plane $x_c = 2$ mm. Droplets are coloured and scaled by their equivalent diameter. Thick, black lines enclose the region where droplets are spherical according to the criteria defined in the text}
 \label{fig:ch8_jicf_global_scatterplots_deformation}
 \end{figure}
+
+
 
 
 \section{Smart Lagrangian Injectors}
 \label{sec:ch8_learning_SLI_in_BIMER}
 
+
+
 \input{ch8_SLI_all_cases}
 
-\section{Computational performances}
+\clearpage
 
+\section{Performances and cost}
+
+
+\subsection{Computational performances}
+
+RCT defined in Eq. (\ref{eq:RCT_definition}). Total contribution to RCTs by Eq. (\ref{eq:RCT_contributions}). CPU time defined by Eq. (\ref{eq:t_CPU_definition}).
+
+\begin{table}[!h]
+\centering
+\caption{Computational cores, mesh cells and total number of droplets present at the domain for BIMER simulations at $t^* = 4.7$}
+\begin{tabular}{cccc}
+\thickhline
+\textbf{Case} &  $N_\mathrm{cores}$ & $N_\mathrm{cells}$ ($\cdot 10^6$) & $N_\mathrm{drops}$\\
+\thickhline 
+DX10 & 768  & 110 & 963 \\ % restart_01.o, iter 6975
+DX15 & 384 & 43 & 150  \\ % restart_01.o, iter 4210
+\thickhline
+\end{tabular}
+\label{tab:BIMER_Ncores_Ncells_Ndrops}
+\end{table}
+
+
+\begin{table}[!h]
+\centering
+\caption{Computational performances from BIMER simulations at $t^* = 4.7$}
+\begin{tabular}{cccccc}
+\thickhline
+\textbf{Case} &  $\mathrm{RCT}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{ACLS}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{AMR}~[\mu \mathrm{s}]$ & $\mathrm{RCT}_\mathrm{NS}~[\mu \mathrm{s}]$ & $t_\mathrm{CPU} / t^*  ~ [\mathrm{h}]$\\
+\thickhline 
+DX10 & 313.9 & 108.9 & 160.9 & 44.1 &  3.25 \\ % t_cpu/t_phys: ??
+DX15 & 198.4 & 95.9 & 67.8 & 34.7 &  5.97 \\% t_cpu/t_phys: ??
+\thickhline
+\end{tabular}
+\label{tab:BIMER_computational_performances}
+\end{table}
+
+
+
+\subsection{Computational costs}
+
+\begin{figure}[ht]
+	\flushleft
+\begin{subfigure}[b]{0.45\textwidth}
+	\flushleft
+	\includegraphics[scale=0.22]{./part3_applications/figures_ch8_resolved/SLI_cost_for_convergence/cost_all_simulations}
+	\caption{Computational CPU cost}
+   \label{fig:BIMER_costs_bar_graphs_costs_absolute}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.45\textwidth}
+	\flushleft
+   \includegraphics[scale=0.22]{./part3_applications/figures_ch8_resolved/SLI_cost_for_convergence/cost_savings_simulations}
+	\caption{Cost savings in SLI development}
+   \label{fig:BIMER_costs_bar_graphs_cost_savints}
+\end{subfigure}
+   \caption{Computational costs of BIMER resolved atomization}
+\label{fig:ch8_sli_cost_bar_graphs}
+\end{figure}
 
 
 

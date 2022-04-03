@@ -34,11 +34,13 @@ plt.rcParams['lines.markersize'] =  40*FFIG #6*FFIG
 plt.rcParams['legend.framealpha'] = 1.0
 plt.rcParams['legend.loc']      = 'upper right'
 plt.rcParams['text.usetex'] = True
-figsize_ = (FFIG*16,FFIG*12)
+#figsize_ = (FFIG*16,FFIG*12)
+figsize_ = (FFIG*24,FFIG*16)
 
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part3_applications/figures_ch8_resolved/SPRAY_characterization/velocities/'
 
 #%% Load sprays
+
 
 
 # Parameters of simulations
@@ -47,11 +49,13 @@ params_simulation = {'RHO_L': 750, 'MU_L': 1.36e-3, 'U_L'  : 2.6,
                      'SIGMA': 25e-3,
                      'D_inj': 0.3e-3}
     
+sampling_planes = ['xD_05p00','xD_06p67',
+                   'xD_08p33','xD_10p00']
 
 # Load sprays
-_, sp2, sp3 = load_all_BIMER_global_sprays(params_simulation)
+_, sp2, sp3 = load_all_BIMER_global_sprays(params_simulation, sampling_planes = sampling_planes)
 
-sprays_list_all = [sp2[1:], sp3[1:]]
+sprays_list_all = [sp2, sp3]
 
 #%% Parameters
 
@@ -61,7 +65,7 @@ linewidth_separating_line = 15*FFIG
 linewidth_Ql = 6*FFIG
 
 # axis labels
-x_label_  = r'$x_c/d_\mathrm{inj}$' #r'$t~[\mathrm{ms}]$'
+x_label_ = r'$x_c ~\left[ \mathrm{mm} \right]$'
 y_label_ux_mean = r'$\overline{u}_c~[\mathrm{m}~\mathrm{s}^{-1}]$'
 y_label_ux_rms  = r'$u_{c,\mathrm{RMS}}~[\mathrm{m}~\mathrm{s}^{-1}]$'
 y_label_uy_mean = r'$\overline{v}_c~[\mathrm{m}~\mathrm{s}^{-1}]$'
@@ -80,10 +84,16 @@ label_xD06p67 = r'$x_c/d_\mathrm{inj} = 6.67$'
 labels_ = [label_xD05p00, label_xD06p67]
 
 # x coordinates
-xD = [5,6.67]
-x_lim = (4.8,6.8)
-#x_ticks = [5,6.67]
-x_ticks = [5, 5.5, 6, 6.5, 7]
+xD = np.array([5,6.67,8.33,10])
+xD = xD*0.3
+x_lim = (1.4,3.1)
+#x_ticks = [5, 5.5, 6, 6.5, 7]
+x_ticks = [1.5,2,2.5,3]
+
+#u lims
+u_lim_mean = (10,25)
+v_lim_mean = (-2,0)
+w_lim_mean = (0,4)
 
 
 #%% Get dimensionless time and velocities evolution
@@ -137,14 +147,15 @@ for i in range(len(sprays_list_all)):
 plt.figure(figsize=figsize_)
 i = 0
 ax  = plt.gca()
-ax.plot(xD, ux_mean_cases[i], '-ok', label=labels_OP[i])
-ax.plot(xD, ux_mean_vw_cases[i], '--ok')
-i = 1
 ax.plot(xD, ux_mean_cases[i], '-ob', label=labels_OP[i])
 ax.plot(xD, ux_mean_vw_cases[i], '--ob')
+i = 1
+ax.plot(xD, ux_mean_cases[i], '-ok', label=labels_OP[i])
+ax.plot(xD, ux_mean_vw_cases[i], '--ok')
 ax.set_xlim(x_lim)
 ax.set_xticks(x_ticks)
 ax.set_xlabel(x_label_)
+ax.set_ylim(u_lim_mean)
 ax.set_ylabel(y_label_ux_mean)
 ax.grid()
 #ax.legend(loc='best',ncol=1)
@@ -157,12 +168,12 @@ plt.close()
 plt.figure(figsize=figsize_)
 i = 0
 ax  = plt.gca()
-ax.plot(xD, ux_rms_cases[i], '-ok', label=labels_OP[i])
-ax.plot(xD, ux_rms_vw_cases[i], '--ok')
-i = 1
-ax  = plt.gca()
 ax.plot(xD, ux_rms_cases[i], '-ob', label=labels_OP[i])
 ax.plot(xD, ux_rms_vw_cases[i], '--ob')
+i = 1
+ax  = plt.gca()
+ax.plot(xD, ux_rms_cases[i], '-ok', label=labels_OP[i])
+ax.plot(xD, ux_rms_vw_cases[i], '--ok')
 ax.set_xlim(x_lim)
 ax.set_xticks(x_ticks)
 ax.set_xlabel(x_label_)
@@ -173,18 +184,23 @@ plt.savefig(folder_manuscript+'ux_rms.pdf')
 plt.show()
 plt.close()
 
+
+
+
+
 # u mean y
 plt.figure(figsize=figsize_)
 i = 0
 ax  = plt.gca()
-ax.plot(xD, uy_mean_cases[i], '-ok', label=labels_OP[i])
-ax.plot(xD, uy_mean_vw_cases[i], '--ok')
-i = 1
 ax.plot(xD, uy_mean_cases[i], '-ob', label=labels_OP[i])
 ax.plot(xD, uy_mean_vw_cases[i], '--ob')
+i = 1
+ax.plot(xD, uy_mean_cases[i], '-ok', label=labels_OP[i])
+ax.plot(xD, uy_mean_vw_cases[i], '--ok')
 ax.set_xlim(x_lim)
 ax.set_xticks(x_ticks)
 ax.set_xlabel(x_label_)
+ax.set_ylim(v_lim_mean)
 ax.set_ylabel(y_label_uy_mean)
 ax.grid()
 plt.tight_layout(pad=0)
@@ -196,12 +212,12 @@ plt.close()
 plt.figure(figsize=figsize_)
 i = 0
 ax  = plt.gca()
-ax.plot(xD, uy_rms_cases[i], '-ok', label=labels_OP[i])
-ax.plot(xD, uy_rms_vw_cases[i], '--ok')
-i = 1
-ax  = plt.gca()
 ax.plot(xD, uy_rms_cases[i], '-ob', label=labels_OP[i])
 ax.plot(xD, uy_rms_vw_cases[i], '--ob')
+i = 1
+ax  = plt.gca()
+ax.plot(xD, uy_rms_cases[i], '-ok', label=labels_OP[i])
+ax.plot(xD, uy_rms_vw_cases[i], '--ok')
 ax.set_xlim(x_lim)
 ax.set_xticks(x_ticks)
 ax.set_xlabel(x_label_)
@@ -220,15 +236,16 @@ plt.close()
 plt.figure(figsize=figsize_)
 i = 0
 ax  = plt.gca()
-ax.plot(xD, uz_mean_cases[i], '-ok', label=labels_OP[i])
-ax.plot(xD, uz_mean_vw_cases[i], '--ok')
-i = 1
-ax  = plt.gca()
 ax.plot(xD, uz_mean_cases[i], '-ob', label=labels_OP[i])
 ax.plot(xD, uz_mean_vw_cases[i], '--ob')
+i = 1
+ax  = plt.gca()
+ax.plot(xD, uz_mean_cases[i], '-ok', label=labels_OP[i])
+ax.plot(xD, uz_mean_vw_cases[i], '--ok')
 ax.set_xlim(x_lim)
 ax.set_xticks(x_ticks)
 ax.set_xlabel(x_label_)
+ax.set_ylim(w_lim_mean)
 ax.set_ylabel(y_label_uz_mean)
 ax.grid()
 ax.legend(loc='best',ncol=1)
@@ -241,12 +258,12 @@ plt.close()
 plt.figure(figsize=figsize_)
 i = 0
 ax  = plt.gca()
-ax.plot(xD, uz_rms_cases[i], '-ok', label=labels_OP[i])
-ax.plot(xD, uz_rms_vw_cases[i], '--ok')
-i = 1
-ax  = plt.gca()
 ax.plot(xD, uz_rms_cases[i], '-ob', label=labels_OP[i])
 ax.plot(xD, uz_rms_vw_cases[i], '--ob')
+i = 1
+ax  = plt.gca()
+ax.plot(xD, uz_rms_cases[i], '-ok', label=labels_OP[i])
+ax.plot(xD, uz_rms_vw_cases[i], '--ok')
 ax.set_xlim(x_lim)
 ax.set_xticks(x_ticks)
 ax.set_xlabel(x_label_)

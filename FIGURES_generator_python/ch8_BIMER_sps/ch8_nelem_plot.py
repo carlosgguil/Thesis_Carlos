@@ -36,17 +36,20 @@ x_label_ = r'$t^{\prime}$'
 y_label_ = '$N_\mathrm{elements} ~(10^6$)'
 
 
-ticks_tp_label = np.linspace(0,6,7)
+ticks_tp_label = np.linspace(0,7,8)
 ticks_Nel_label = [50,75,100,125]
 
 
 
-# Times correspond to x_c/d_inj = 6.67 #10
-tau_dr_DX15  = 562e-3 #633e-3
-tau_dr_DX10  = 354e-3 #428e-3
-tau_dr_DX07p5 = 359e-3 #434e-3
+# Times correspond to x_c/d_inj = 6.67 #2 mm
+tau_dr_DX15  = 562e-3 
+tau_dr_DX10  = 354e-3 
+tau_dr_DX07p5 = 359e-3 
 
 
+# Times correspond to x_c/d_inj = 10 #3 mm
+tau_dr_DX15  = 582e-3 
+tau_dr_DX10  = 398e-3 
 
 
 #%% Read files

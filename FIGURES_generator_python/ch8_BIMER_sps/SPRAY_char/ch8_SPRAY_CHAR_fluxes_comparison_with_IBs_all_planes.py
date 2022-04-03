@@ -103,10 +103,16 @@ Q_inj = params_simulation['Q_inj']*SCALE_FACTOR #3.6700294207081691E-006*SCALE_F
 
 # IBs
 label_Ql_injected = r'$Q_l ~\mathrm{injected}$'
+'''
 label_xD05p00 = r'$x_c/d_\mathrm{inj} = 5.00$'
 label_xD06p67 = r'$x_c/d_\mathrm{inj} = 6.67$'
 label_xD08p33 = r'$x_c/d_\mathrm{inj} = 8.33$'
 label_xD10p00 = r'$x_c/d_\mathrm{inj} = 10$'
+'''
+label_xD05p00 = r'$x_c = 1.5~\mathrm{mm}$'
+label_xD06p67 = r'$x_c = 2~\mathrm{mm}$'
+label_xD08p33 = r'$x_c = 2.5~\mathrm{mm}$'
+label_xD10p00 = r'$x_c = 3~\mathrm{mm}$'
 
 # For bar graphs
 barWidth = 0.25

@@ -48,11 +48,14 @@ params_simulation = {'RHO_L': 750, 'MU_L': 1.36e-3, 'U_L'  : 2.6,
                      'SIGMA': 25e-3,
                      'D_inj': 0.3e-3}
     
+sampling_planes = ['xD_05p00','xD_06p67',
+                   'xD_08p33','xD_10p00']
 
 # Load sprays
-sp1, sp2, sp3 = load_all_BIMER_global_sprays(params_simulation)
+_, sp2, sp3 = load_all_BIMER_global_sprays(params_simulation, sampling_planes = sampling_planes)
 
-sprays_list_all = [sp1, sp2, sp3]
+sprays_list_all = [sp2, sp3]
+
 
 #%% Parameters
 
@@ -62,7 +65,8 @@ linewidth_separating_line = 15*FFIG
 linewidth_Ql = 6*FFIG
 
 # axis labels
-x_label_  = r'$x_c/d_\mathrm{inj}$' #r'$t~[\mathrm{ms}]$'
+#x_label_  = r'$x_c/d_\mathrm{inj}$' #r'$t~[\mathrm{ms}]$'
+x_label_ = r'$x_c ~\left[ \mathrm{mm} \right]$'
 y_label_alpha_mean = r'$\overline{\alpha}_\mathrm{VW}$'
 y_label_alpha_rms  = r'$\alpha_\mathrm{RMS}$'
 y_label_beta_mean = r'$\overline{\beta}_\mathrm{VW}$'
@@ -74,7 +78,7 @@ y_label_alpha_beta_mean = r'$\overline{\alpha}_\mathrm{VW}, \overline{\beta}_\ma
 label_DX15  = r'$\mathrm{DX}15$'
 label_DX10  = r'$\mathrm{DX}10$'
 label_DX07 = r'$\mathrm{DX}07$'
-labels_OP = [label_DX07, label_DX10 , label_DX15]
+labels_OP = [label_DX10 , label_DX15]
 
 
 
@@ -83,7 +87,7 @@ label_xD05p00 = r'$x_c/d_\mathrm{inj} = 5.00$'
 label_xD06p67 = r'$x_c/d_\mathrm{inj} = 6.67$'
 labels_ = [label_xD03p33, label_xD05p00, label_xD06p67]
 # x coordinates
-xD = [3.33,5,6.67]
+xD = np.array([5,6.67,8.33,10])*0.3
 
 
 #%% Get dimensionless time and velocities evolution
@@ -148,22 +152,16 @@ beta_mean_to_plot  = beta_mean_vw_cases
 # 
 plt.figure(figsize=figsize_double)
 #plt.title(r'$u_g = 75~\mathrm{m}~\mathrm{s}^{-1}$',pad=40*FFIG)
-'''
 i = 0
 ax  = plt.gca()
-ax.plot(xD[1:], alpha_mean_to_plot[i][1:], '-or', label=labels_OP[i])
-ax.plot(xD[1:], beta_mean_to_plot[i][1:], '-or')
-'''
+ax.plot(xD, alpha_mean_to_plot[i], '-ob', label=labels_OP[i])
+ax.plot(xD, beta_mean_to_plot[i], '-ob')
 i = 1
 ax  = plt.gca()
-ax.plot(xD[1:], alpha_mean_to_plot[i][1:], '-ok', label=labels_OP[i])
-ax.plot(xD[1:], beta_mean_to_plot[i][1:], '-ok')
-i = 2
-ax  = plt.gca()
-ax.plot(xD[1:], alpha_mean_to_plot[i][1:], '-ob', label=labels_OP[i])
-ax.plot(xD[1:], beta_mean_to_plot[i][1:], '-ob')
+ax.plot(xD, alpha_mean_to_plot[i], '-ok', label=labels_OP[i])
+ax.plot(xD, beta_mean_to_plot[i], '-ok')
 ax.plot([0,100],[1]*2,'--k')
-ax.set_xlim(4.8,7)
+ax.set_xlim(1.4,3.1)
 #ax.set_xticks([5,10,15])
 ax.set_xlabel(x_label_)
 ax.set_ylabel(y_label_alpha_beta_mean)

@@ -71,15 +71,23 @@ label_DX10  = r'$\mathrm{DX}10$'
 labels_title = [label_DX15 , label_DX10]
 
 
-label_xD05p00 = r'$x_c/d_\mathrm{inj} = 5.00$'
-label_xD06p67 = r'$x_c/d_\mathrm{inj} = 6.67$'
-label_xD08p33 = r'$x_c/d_\mathrm{inj} = 8.33$'
-label_xD10p00 = r'$x_c/d_\mathrm{inj} = 10$'
+#label_xD05p00 = r'$x_c/d_\mathrm{inj} = 5.00$'
+#label_xD06p67 = r'$x_c/d_\mathrm{inj} = 6.67$'
+#label_xD08p33 = r'$x_c/d_\mathrm{inj} = 8.33$'
+#label_xD10p00 = r'$x_c/d_\mathrm{inj} = 10$'
+label_xD05p00 = r'$x_c = 1.5~\mathrm{mm}$'
+label_xD06p67 = r'$x_c = 2~\mathrm{mm}$'
+label_xD08p33 = r'$x_c = 2.5~\mathrm{mm}$'
+label_xD10p00 = r'$x_c = 3~\mathrm{mm}$'
+
 labels_ = [label_xD05p00, label_xD06p67, label_xD08p33, label_xD10p00]
 
 # Characteristic times to non-dimensionalize
-tau_dr_DX15 = 0.562
-tau_dr_DX10 = 0.354
+#tau_dr_DX15 = 0.562
+#tau_dr_DX10 = 0.354
+
+tau_dr_DX15  = 582e-3 
+tau_dr_DX10  = 398e-3 
 
 tau_values = [tau_dr_DX15 , tau_dr_DX10]
 
@@ -97,8 +105,11 @@ tp_0_DX15 = 1.1693/tau_dr_DX15
 
     
 # define maximum values for t' (obtained from ch8_nelem_plot.py)
-tp_max_DX15 = 6.775423875670118 # diff of 1*tp
-tp_max_DX10 = 4.88789371578306 
+#tp_max_DX15 = 6.775423875670118 # diff of 1*tp
+#tp_max_DX10 = 4.88789371578306 
+
+tp_max_DX15 = 6.542591440080081
+tp_max_DX10 = 4.347523556249256
 
 tp_0_cases = [tp_0_DX15, tp_0_DX10]
 tp_max_cases =  [tp_max_DX15, tp_max_DX10]
@@ -168,7 +179,7 @@ ax2.plot(tp_cases[i][j], SMD_cases[i][j], 'g', label=labels_[j])
 ax.plot([0,100],[0]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
 x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
-x_ticks_ = [2,3,4,5,6,7]
+x_ticks_ = [2,3,4,5,6]
 ax.set_xlim(x_lim_)
 ax2.set_xlim(x_lim_)
 ax.set_xticks(x_ticks_)
@@ -229,7 +240,7 @@ ax2.plot(tp_cases[i][j], SMD_cases[i][j], 'g', label=labels_[j])
 ax.plot([0,100],[0]*2,format_separating_line,linewidth=linewidth_separating_line)
 ax.set_xlabel(x_label_time)
 x_lim_ = tp_cases[i][0][0]-0.05,tp_cases[i][0][-1]+0.05
-x_ticks_ = [2,3,4,5]
+x_ticks_ = [2,3,4]
 ax.set_xlim(x_lim_)
 ax2.set_xlim(x_lim_)
 ax.set_xticks(x_ticks_)

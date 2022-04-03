@@ -53,8 +53,6 @@ sprays_list_UG100_DX20_NT = sp5
 
 sprays_list_all = [sp1, sp2, sp3, sp4, sp5]
 
-# load grids
-grids_list = 
 
 #%% Get SMD
 SMD_cases = []

@@ -43,12 +43,15 @@ SCALE_FACTOR = 1e9
 d_inj = 0.45E-3
 Q_inj = 185.3 
 
-# Times correspond to x_c/d_inj = 6.67 #10
-tau_dr_DX15  = 562e-3 #633e-3
-tau_dr_DX10  = 354e-3 #428e-3
-tau_dr_DX07p5 = 359e-3 #434e-3
 
+# Characteristic times correspond to x_c/d_inj = 6.67 #2 mm
+#tau_dr_DX15  = 562e-3 
+#tau_dr_DX10  = 354e-3 
+tau_dr_DX07p5 = 359e-3 
 
+# Times correspond to x_c/d_inj = 10 #3 mm
+tau_dr_DX15  = 582e-3 
+tau_dr_DX10  = 398e-3 
 
 # Define labels and tags
 x_label_time   = r'$t^{\prime}$' #r'$t~[\mathrm{ms}]$'
@@ -99,9 +102,13 @@ tp_0_DX15 = 1.1693/tau_dr_DX15
 
 
 # define maximum values for t' (obtained from ch8_nelem_plot.py)
-tp_max_DX15 = 6.775423875670118 # diff of 1*tp
-tp_max_DX10 = 4.88789371578306 
+#tp_max_DX15 = 6.775423875670118 # diff of 1*tp
+#tp_max_DX10 = 4.88789371578306 
 tp_max_DX07 = 3.9651507666425956 
+
+tp_max_DX15 = 6.542591440080081
+tp_max_DX10 = 4.347523556249256
+
 
 
 # define t_min and ticks of mean, RMS evolution graphs
@@ -310,9 +317,9 @@ plt.plot([t_min, t_max], [Q_inj]*2, '--k', label=label_Ql_injected)
 plt.xlabel(x_label_time)
 plt.ylabel(y_label_Ql_inst)
 plt.xlim(t_min-0.05,t_max+0.05)
-plt.xticks([2,3,4,5])
+plt.xticks([2,3,4])
 plt.ylim(0,600)
-plt.legend(loc='best',fontsize=60*FFIG,ncol=2)
+plt.legend(loc='best',fontsize=70*FFIG,ncol=2)
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'inst_Q_iso_x_DX10.pdf')

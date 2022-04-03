@@ -149,6 +149,8 @@ beta_UG100_DX10  = beta
 # scatterplot alpha-beta coloured by diameter
 plt.figure(figsize=figsize_)
 #plt.scatter(spray.diam.values, spray.uy, facecolors='none', s=marker_size_, color=color_markers_) 
+plt.plot([1,alpha_th],[beta_th]*2,'k',linewidth=15*FFIG)
+plt.plot([alpha_th]*2,[beta_th,1],'k',linewidth=15*FFIG)
 plt.scatter(alpha, beta, c = diameters, facecolors='none', s=diameters, cmap=cm.seismic,
             vmin = diam_min, vmax = diam_max)
 plt.xlabel(y_label_alpha)
@@ -186,6 +188,8 @@ beta_UG100_DX20  = beta
 # scatterplot alpha-beta coloured by diameter
 plt.figure(figsize=figsize_2)
 #plt.scatter(spray.diam.values, spray.uy, facecolors='none', s=marker_size_, color=color_markers_) 
+plt.plot([1,alpha_th],[beta_th]*2,'k',linewidth=15*FFIG)
+plt.plot([alpha_th]*2,[beta_th,1],'k',linewidth=15*FFIG)
 plt.scatter(alpha, beta, c = diameters, facecolors='none', s=diameters, cmap=cm.seismic,
             vmin = diam_min, vmax = diam_max)
 plt.xlabel(y_label_alpha)

@@ -65,10 +65,11 @@ label_DX07 = r'$\mathrm{DX}07$'
 labels_ = [label_DX15 , label_DX10,label_DX07]
 
 # axis labels
-x_label_x = r'$x_c/d_\mathrm{inj}$'
+x_label_x = r'$x_c ~\left[ \mathrm{mm} \right]$'
 y_label_SMD   = r'$\mathrm{SMD}~[\mu \mathrm{m}]$'
 
-xD = [5,6.67, 8.33, 10]
+xD = np.array([5,6.67, 8.33, 10])
+xD = xD*0.3
 
 
 
@@ -80,9 +81,10 @@ i = 1; plt.plot(xD, SMD_cases[i], '^-b',label=labels_[i])
 plt.xlabel(x_label_x)
 plt.ylabel(y_label_SMD )
 plt.legend(loc='best')
-plt.xticks([5, 6, 7, 8, 9, 10])
+#plt.xticks([5, 6, 7, 8, 9, 10])
+plt.xticks([1.5, 2, 2.5, 3])
 #plt.yticks([35, 40, 45, 50, 55])
-plt.ylim(20,60)
+plt.ylim(16,60)
 plt.grid()
 plt.tight_layout()
 plt.savefig(folder_manuscript+'SMD_values.pdf')

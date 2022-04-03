@@ -60,10 +60,17 @@ label_UG100_DX10 = r'$\mathrm{UG100}\_\mathrm{DX10}$'
 
 save_labels = ['DX07',  'DX10', 'DX15']
 
-# Characteristic times to non-dimensionalize
-tau_dr_DX07p5 = 0.359
-tau_dr_DX10 = 0.354
-tau_dr_DX15 = 0.562
+
+
+# Characteristic times correspond to x_c/d_inj = 6.67 #2 mm
+tau_dr_DX15  = 562e-3 
+tau_dr_DX10  = 354e-3 
+tau_dr_DX07p5 = 359e-3 
+
+
+# Times correspond to x_c/d_inj = 10 #3 mm
+tau_dr_DX15  = 582e-3 
+tau_dr_DX10  = 398e-3 
 
 
 tau_char = [tau_dr_DX07p5 , tau_dr_DX10, tau_dr_DX15]
@@ -100,15 +107,15 @@ x_lim_frequency = (0,30)
 
 # tp_ticks
 tp_ticks_DX07 = [2,3]
-tp_ticks_DX10 = [2,3,4,5]
+tp_ticks_DX10 = [2,3,4]
 tp_ticks_DX15 = [2,3,4,5,6,7]
 tp_ticks = [tp_ticks_DX07,
             tp_ticks_DX10,
             tp_ticks_DX15]
 # tp_lims
-tp_lims_DX07 = (2,3)
-tp_lims_DX10 = (2,5)
-tp_lims_DX15 = (2,7)
+tp_lims_DX07 = (1.9,3)
+tp_lims_DX10 = (1.9,4.5)
+tp_lims_DX15 = (1.9,7)
 tp_lims = [tp_lims_DX07,
            tp_lims_DX10,
            tp_lims_DX15]
@@ -130,9 +137,12 @@ tp_0_DX15 = 1.1693/tau_dr_DX15
 
 
 # define maximum values for t' (obtained from ch8_nelem_plot.py)
-tp_max_DX15 = 6.775423875670118 # diff of 1*tp
-tp_max_DX10 = 4.88789371578306 
+#tp_max_DX15 = 6.775423875670118 # diff of 1*tp
+#tp_max_DX10 = 4.88789371578306 
 tp_max_DX07 = 3.9651507666425956 
+
+tp_max_DX15 = 6.542591440080081
+tp_max_DX10 = 4.347523556249256
 
 
 # define t_min and ticks of mean, RMS evolution graphs

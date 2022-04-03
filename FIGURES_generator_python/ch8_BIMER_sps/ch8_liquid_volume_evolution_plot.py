@@ -38,10 +38,16 @@ y_label_ = r'$V_l ~[\mathrm{mm}^3$]'
 ticks_tp_label = np.linspace(0,7,8)
 ticks_Vl_label = [0.6,0.65,0.7,0.75,0.8]
 
-# Times correspond to x_c/d_inj = 6.67 #10
-tau_dr_DX15  = 562e-3 #633e-3
-tau_dr_DX10  = 354e-3 #428e-3
-tau_dr_DX07p5 = 359e-3 #434e-3
+
+# Times correspond to x_c/d_inj = 6.67 #2 mm
+tau_dr_DX15  = 562e-3 
+tau_dr_DX10  = 354e-3 
+tau_dr_DX07p5 = 359e-3 
+
+
+# Times correspond to x_c/d_inj = 10 #3 mm
+tau_dr_DX15  = 582e-3 
+tau_dr_DX10  = 398e-3 
 
 
 #%% Read files

@@ -3060,7 +3060,7 @@ are shown in Figure \ref{fig:jicf_liquid_mean_deformation_with_x_condensed} Thes
 \label{fig:jicf_liquid_mean_deformation_with_x_condensed}
 \end{figure}
 
-The scatterplots $\alpha - \beta$ for cases UG100\_DX10 and UG100\_DX20 are shown in Figure \ref{fig:jicf_global_scatterplots_deformation}. Droplets are coloured and scaled according to their diameter. The general trend is that smaller droplets present high values of $\beta$ and low values of $\alpha$, meaning that they are closer to a spherical shape sincde perfect sphericity is given for $\alpha = \beta= 1$. Larger droplets get further away from these values. In general, droplets for the coarse case present lower sphericity than the fine one, since droplets are larger in this case due to limitations of mesh resolution and there are less droplets produced by the surface breakup phenomenon, which are small and less deformed than liquid structures produced by column breakup. The sphericity content in the sample sprays by calculating the percentage of droplets with respect to the total amount that are spherical according to the criterion previously introduced: $\beta > 0.5$, $\alpha < \alpha_{th}$ where $\alpha_{th} = 2$ for this study. This yields amounts of $35~\%$ and $15~\%$ spherical droplets for the fine and coarse cases respectively, confirming hence that the fine resolution resolved better atomization and produces more spherical droplets. Such a sphericity criterion is useful to determine injection criteria with SLI on mesh resolution and injection location, since a lower sphericity content can suppose that liquid ligaments or blobs have been sampled and considered in the SLI as spherical droplets. It is also useful to couple the resolved simulations with lagrangian transport of droplets through a conversion of spherical droplets to lagrangian particles \citeColor[janodet_numerical_2022]. However, the deformation criteria here introduced might not be fine enough to characterize the sphericity of sprays, needing the introduction of more accurate definitions that would include more information on the topology of the liquid entity \citepColor[cheron_droplets_2019]. 
+The scatterplots $\alpha - \beta$ for cases UG100\_DX10 and UG100\_DX20 are shown in Figure \ref{fig:jicf_global_scatterplots_deformation}. Droplets are coloured and scaled according to their diameter. The general trend is that smaller droplets present high values of $\beta$ and low values of $\alpha$, meaning that they are closer to a spherical shape sincde perfect sphericity is given for $\alpha = \beta= 1$. Larger droplets get further away from these values. In general, droplets for the coarse case present lower sphericity than the fine one, since droplets are larger in this case due to limitations of mesh resolution and there are less droplets produced by the surface breakup phenomenon, which are small and less deformed than liquid structures produced by column breakup. The sphericity content in the sample sprays by calculating the percentage of droplets with respect to the total amount that are spherical according to the criterion previously introduced: $\beta > 0.5$, $\alpha < \alpha_{th}$ where $\alpha_{th} = 2$ for this study. This yields amounts of $35~\%$ and $15~\%$ spherical droplets for the fine and coarse cases respectively (corresponding to the region enclosed by the black thick lines in Figure \ref{fig:jicf_global_scatterplots_deformation}), confirming hence that the fine resolution resolved better atomization and produces more spherical droplets. Such a sphericity criterion is useful to determine injection criteria with SLI on mesh resolution and injection location, since a lower sphericity content can suppose that liquid ligaments or blobs have been sampled and considered in the SLI as spherical droplets. It is also useful to couple the resolved simulations with lagrangian transport of droplets through a conversion of spherical droplets to lagrangian particles \citeColor[janodet_numerical_2022]. However, the deformation criteria here introduced might not be fine enough to characterize the sphericity of sprays, needing the introduction of more accurate definitions that would include more information on the topology of the liquid entity \citepColor[cheron_droplets_2019]. 
 
 \begin{figure}[ht]
 \centering
@@ -3079,7 +3079,7 @@ The scatterplots $\alpha - \beta$ for cases UG100\_DX10 and UG100\_DX20 are show
 	\hspace*{0.35in}
    \includegraphics[scale=0.4]{./part2_developments/figures_ch5_resolved_JICF/SPRAY_characterization/deformation/scatterplots_colorbar_D_with_blank_space.png}
 \end{subfigure}
-   \caption[Scatterplots of deformation parameters $\alpha$ - $\beta$ for cases UG100\_DX10, UG100\_DX20 at plane $x = 10$ mm]{Scatterplots of deformation parameters $\alpha$ - $\beta$ for cases UG100\_DX10, UG100\_DX20 at plane $x = 10$ mm. Droplets are coloured and scaled by their equivalent diameter}
+   \caption[Scatterplots of deformation parameters $\alpha$ - $\beta$ for cases UG100\_DX10, UG100\_DX20 at plane $x = 10$ mm]{Scatterplots of deformation parameters $\alpha$ - $\beta$ for cases UG100\_DX10, UG100\_DX20 at plane $x = 10$ mm. Droplets are coloured and scaled by their equivalent diameter. Thick, black lines enclose the region where droplets are spherical according to the criteria defined in the text}
 \label{fig:jicf_global_scatterplots_deformation}
 \end{figure}
 
@@ -3108,12 +3108,14 @@ JICF simulations studied in this chapter have used an ACLS/AMR methodology to so
 In order to assess the computational performances of the performed simulations, a Reduced Computational Time (RCT) can be defined as \citepColor[janodet_massively_2022]:
 
 \begin{equation}
+\label{eq:RCT_definition}
 \mathrm{RCT} = \frac{\mathrm{WCT} ~ N_\mathrm{cores}}{N_\mathrm{iter}~N_\mathrm{cv}}
 \end{equation}
 
 where WCT is the Wall Clock Time, $N_\mathrm{cores}$ the number of cores used by the computations, $N_\mathrm{iter}$ the number of temporal iterations performed, and $N_\mathrm{cv}$ the total number of node-based control volumes in the computational domain. RCT, which is expressed in time units, can therefore be used to compare the cost of the different simulations performed independently of the number of cores, iterations and elements they use. The RCT is calculated for each computational routine of the computational methodology ACLS/AMR, then the different RCTs are added to yield the total RCT of the simulations. These contributions are:
 
 \begin{equation}
+\label{eq:RCT_contributions}
 \mathrm{RCT} = \mathrm{RCT}_\mathrm{ACLS} + \mathrm{RCT}_\mathrm{AMR} + \mathrm{RCT}_\mathrm{NS}
 \end{equation}
 
@@ -3122,6 +3124,7 @@ Where the subindex ACLS indicates the contribution of the ACLS methodology witho
 Additionally, another metric that can be used to evaluate the cost of simulations is the CPU time $t_\mathrm{CPU}$, computed as follows:
 
 \begin{equation}
+\label{eq:t_CPU_definition}
 t_\mathrm{CPU} = \mathrm{WCT} ~ N_\mathrm{cores}
 \end{equation}
 
