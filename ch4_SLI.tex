@@ -303,6 +303,7 @@ At each time step $t_i$ of the accumulation process, the spray will be formed by
 The main issue now is to determine quantitatively when the spray is converged. For this purpose, the histograms are compared in pairs at subsequent time instants, $t_i$ and $t_{i-1}$, as shown in Figure \ref{fig:spray_convergence_description_accumulation_and_MSE_comparison} right. The same number and width of droplets classes are used in both histograms. The difference between both histograms is then measured by means of a Mean Squared Error (MSE) function defined as:
 
 \begin{equation}
+\label{eq:MSE_definition}
 MSE^{t_i} = \frac{1}{N} \sum_{n=1}^N \left( f_n^{t_{i-1}} - f_n^{t_i}  \right)^2
 \end{equation}
 

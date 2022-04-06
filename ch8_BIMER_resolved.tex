@@ -6,7 +6,7 @@
 
 The multipoint burner BIMER was introduced in Chapter \ref{ch7:bimer_test_bench_and_aero}, where a study of the aerodynamic flow field for the operating conditions of interest was performed. Two operating points were simulated: the one tested by \citeColor[providakis_etude_2013] for which experimental data on the aerodynamic field was available, which was used for validating the simulations performed with YALES2; and the one tested by \citeColor[renaud_high-speed_2015] which provides experimental data on the non-reactive spray state. 
 
-In this chapter, resolved simulations of the atomization process through one injector of the BIMER take-off stage, as done in Chapter \ref{ch5:jicf_resolved_simulations} for the academic JICF test case, are performed. The numerical setup and liquid injection operating point are described in $\S$\ref{sec:ch8_BIMER_computational_setup} and $\S$\ref{sec:ch8_BIMER_operating_condition} respectively. Then, the inlet velocity profiles from the aerodynamic computations which are relevant for jet breakup and droplet transport are shown in $\S$\ref{sec:ch8_BIMER_initial_conditions}. Results from resolved atomization simulations performed for \textbf{XX} interface mesh resolutions are shown in $\S$\textbf{XX}. Finally, injectors learnt and built from such simulations are discussed in $\S$\ref{sec:ch8_learning_SLI_in_BIMER}. These injectors are later used to initialise spray simulations at BIMER in Chapter \ref{ch9:BIMER_lagrangian}.
+In this chapter, resolved simulations of the atomization process through one injector of the BIMER take-off stage, as done in Chapter \ref{ch5:jicf_resolved_simulations} for the academic JICF test case, are performed. The numerical setup and liquid injection operating point are described in $\S$\ref{sec:ch8_BIMER_computational_setup} and $\S$\ref{sec:ch8_BIMER_operating_condition} respectively. Two different interface cell sizes are simulated for the same operating condition, hence a total of two simulations are performed. Evolution of the liquid jet, topology of the breakup process and jet establishment in terms of liquid mass and number of elements within the domain are discussed in $\S$\ref{sec:ch8_BIMER_jet_evolution}. Then, the tools and methodologies developed in $\S$\ref{sec:ch5_JICF_tools_and_methodologies} for the previous JICF configuration are applied to BIMER. The dense core of the liquid jet, including its topology, estimated total force and the turbulent structures created as a consequence of its perturbation are analyzed in $\S$\ref{ch8:sec_BIMER_DC_characterization}. The resolved mass flow rates are studied with the IBs methodology in $\S$\ref{sec:ch8_BIMER_IBs}. Finally, the global spray is studied in several sampling planes is analyzed in $\S$\ref{sec:ch8_BIMER_spray_char}, while the local spray which conforms the SLI for two sampling planes are discussed in $\S$\ref{sec:ch8_learning_SLI_in_BIMER}. These injectors are later used to initialise spray simulations at BIMER in Chapter \ref{ch9:BIMER_lagrangian}. This BIMER chapter closes with a few words on the computational performances and cost of these simulations in $\S$\ref{sec:ch8_BIMER_performances_cost}.
 
 
 
@@ -276,6 +276,7 @@ BIMER\_DX15 & 511 & 562 & 569 & 582 \\
 
 
 \section{Jet evolution}
+\label{sec:ch8_BIMER_jet_evolution}
 
 The jet evolution at the early instants of the injection process is shown in Figure \ref{fig:BIMER_jet_establishment}. Snapshots are shown for values of dimensionless time $t^*$ defined by Eq. (\ref{eq:t_dimensionless_with_tau_in}), in which the physical time is expressed in relation to the timescale $\tau_\mathrm{in}$ from Table \ref{tab:BIMER_SPS_characteristic times}. As in the simulations from Chapter \ref{ch5:jicf_resolved_simulations}, this timescale has been chosen since is the same for all simulations and the jets depicted represent therefore equivalent instants.
 
@@ -1069,11 +1070,14 @@ Figure \ref{fig:ch8_jicf_liquid_mean_deformation_with_x_condensed} shows evoluti
 \clearpage
 
 \section{Performances and cost}
+\label{sec:ch8_BIMER_performances_cost}
 
 
 \subsection{Computational performances}
 
-RCT defined in Eq. (\ref{eq:RCT_definition}). Total contribution to RCTs by Eq. (\ref{eq:RCT_contributions}). CPU time defined by Eq. (\ref{eq:t_CPU_definition}).
+The performances of both BIMER computations are assessed in this section. For a proper comparision, all computational magnitudes are evaluated at a time instant $t^* = 4.7$ corresponding to early injection before droplets reach the axial distance at which liquid is artificially removed, and after the jet has started to develop, hence allowing for a comparison among cases. Table \ref{tab:BIMER_Ncores_Ncells_Ndrops} shows the numbers of cores, cells and droplets present at this time. The fine simulation needs twice the number of cores to run optimally the computation at this time instant (the number of cells is 2.5 larger for the fine case, hence needing the number of cores to evolve of the same order for parallellization purposes). The number of drops in the fine simulation is 6 times larger than in the coarse one, same ratio as between the fine and coarse simulations of Chapter \ref{ch5:jicf_resolved_simulations}. This illustrated again the effect that reducing the interface size on the atomization: even though the absolute computational cost per time-step is larger, more droplets are resolved which helps to converge SLIs faster as illustrated in the convergence maps of $\S$\ref{sec:ch8_learning_SLI_in_BIMER}. 
+
+
 
 \begin{table}[!h]
 \centering
@@ -1088,6 +1092,9 @@ DX15 & 384 & 43 & 150  \\ % restart_01.o, iter 4210
 \end{tabular}
 \label{tab:BIMER_Ncores_Ncells_Ndrops}
 \end{table}
+
+The performances for the BIMER simulations at $t^* = 4.7$ are evaluated through the RCT in Table \ref{tab:BIMER_computational_performances}. The RCT is calculated according to Eq. (\ref{eq:RCT_definition}). Results show that the computational time spent in the ACLS and NS routines is identical in both simulations, while the actual differences are found for the AMR routine: halving the interface cell size increases the RCT contribution of the AMR by a similar order due to the larger quantity of liquid cells present which need to be refined. Consequently, the total RCT is larger for the fine resolution than for the coarse one. %The CPU time per dimensionless time $t^*$ also shows a larger value for the fine simulation than for the coarse one, with a factor $2$ difference: 
+
 
 
 \begin{table}[!h]
@@ -1108,6 +1115,12 @@ DX15 & 198.4 & 95.9 & 67.8 & 34.7 &  5.97 \\% t_cpu/t_phys: ??
 
 \subsection{Computational costs}
 
+The final computational cost of the simulation measured by the total CPU time invested is shown in Figure \ref{fig:BIMER_costs_bar_graphs_costs_absolute}: A total of $7 \cdot 10^5$ hours have spent in case DX10, while an amount of $4.5 \cdot 10^5$ hours were used for the resolution DX15. As the latter simulation has run for longer physical time, the ratio of CPU vs physical time simulated is much lower for this one: $1.2 \cdot 10^5$ versus $4.5 \cdot 10^5$ CPU hours per milisecond. In spite of this increase in cost with a finer mesh resolution (which is no surprise, since it is well known that using finer cell sizes implies larger computational expenses), a more converged SLI has been obtained with the fine resolution for a lower physical time simulated as shown in the figures from $\S$\ref{sec:ch8_learning_SLI_in_BIMER}. The SLI strategy allows therefore to obtain converged injectors with a lower physical time simulated: the cost savings of the simulation, which are estimated as the difference between the estimated time that resolution DX10 would take to reach the same time simulated for DX15 which respect the actual CPU time that DX10 takes, are shown in Figure \ref{fig:ch8_sli_cost_bar_graphs_savings}: $7 \cdot 10^5$ versus $15.4 \cdot 10^5$ CPU hours, which supposes a difference of $8.4 \cdot 10^5$ CPU hours (more than double the actual cost). A more in-depth discussion is given in $\S$\ref{subsec:ch5_JICF_computational_costs}. 
+
+%BIMER computations are however less expensive that the JICF from Chapter{ch5:jicf_resolved_simulations} when comparing with the computational costs of Figure \ref{fig:SLI_cost_convergence_all}.
+
+\clearpage
+
 \begin{figure}[ht]
 	\flushleft
 \begin{subfigure}[b]{0.45\textwidth}
@@ -1124,10 +1137,15 @@ DX15 & 198.4 & 95.9 & 67.8 & 34.7 &  5.97 \\% t_cpu/t_phys: ??
    \label{fig:BIMER_costs_bar_graphs_cost_savints}
 \end{subfigure}
    \caption{Computational costs of BIMER resolved atomization}
-\label{fig:ch8_sli_cost_bar_graphs}
+\label{fig:ch8_sli_cost_bar_graphs_savings}
 \end{figure}
 
 
 
 
 \section{Conclusion}
+
+This chapter has presented resolved simulations of the injection and atomization processes in the academic multipoint configuration BIMER. The numerical setup, which was presented and studied for single-phase conditions in Chapter \ref{ch7:bimer_test_bench_and_aero}, was extended to include for liquid atomization being injected through a single point of the multipoint injector. Due to symmetry in BIMER's take-off stage and to the multipoint holes being far enough separated from each other, avoiding interactions among liquid jets, simulating injection in a single injection point was enough to study to characterize the atomization process and build an SLI. One operating condition with two different interface cell sizes was simulated. Analysis of the breakup process showed that both column and surface breakup behaviours are present in BIMER as in a classical liquid JICF. On the other hand, it was also observed that 1) the jet presents also a rotational component which is though to occur due to the swirl component of the air and 2) instabilities causing breakup are very different to the ones from canonical cases: in BIMER, these are generated at the nozzle exit and propagate in both the jet-streamwise and azimuthal directions, while in a classical configuration these instabilities evolve only in the former one. 
+
+To provide quantitative data on this case, the diagnostic tools from $\S$\ref{sec:ch5_tools_jicf_trajectories} were also applied to BIMER. For all magnitudes studied, there are significant differents among resolutions: lower interface cell sizes need to be tested to identify if mesh independency has been achieved with the finest resolution employed or not. Analysis of the jet trajectories and comparison with respect to an experimental correlation (from a classical JICF configuration) have shown a good behaviour near-field but an underestimation further downstream: the BIMER jet undergoes prompt atomization and atomized droplets are quickly dragged towards the air direction. An analysis of the BIMER dense core has shown that the dense core topology for this case is very different than the classical JICF (in relation to the injection diameter): the mean breakup point location is shorter and its mean width is smaller, almost of the order of the injection diameter. Analysis of the turbulent gaseous structures has also shown that the jet has a perturbation effect which is still notices several diameters downstream the jet. The vortical structures, identified as the CVP in the planes perpendicular to the crossflow direction, have been found (when they were actually present) not to be symmetric with respect to the \textsl{symmetry} axis $y_c = 0$: this is an effect of the swirl, and has also been observed in previous experimental and numerical studies. Analysis of the liquid flow rates with IBs at planes perpendicular to crossflow direction yield identical conclusions as in the other JICF studied in this thesis: flow rates close to the injected one near the injector, and a progressive reduction as the plane moves further downstream due to the small droplets reaching sizes of the order of  $\Delta x_\mathrm{min}$ and disappearing due to the impossibility of the mesh to transport them. Characterization of the spray has shown: 1) good agreement in terms of fluxes with respect to IBs, 2) lower secondary atomization in BIMER, with convergence in both SMD and histograms at location $x_c = 2 mm$, 3) different histogram shapes with resolution, with the ones from case DX15 showing a lognormal shape while the finer ones from DX10 display also a similar trend but with droplets collapsing at $d \sim 30~\mu$m. All global spray parameters, including mean velocity and deformations, are converged at $x_c = 2 mm$ for BIMER, while such convergence with crossflow distance could not be achieved in the JICF from Chapter \ref{ch5:jicf_resolved_simulations}. The SLI structures analyzed showed similar spray spatially-distribuuted structures as in classical liquid JICF, including circular flux structure and deceleration in the axial crossflow velocity due to the dense core perturbation. A different behaviour was obtained for the lateral velocity, since in BIMER was found not to be symmetric with respect to axis $y_c = 0$ but asymmetric due to the swirl component of the gas, which drags droplets along its direction. The convergence maps showed that converged local injectors (probes) were obtained for both resolutions, with a larger number being obtained for the fine resolution. From these results and an analysis of the computational costs it is concluded that, for the purpose of SLI building, performing resolved atomization simulations with a finer interface is more convenient since 1) finer cell sizes provide more reliable results, 2) more converged injectors are obtained, and 3) less physical time simulated is needed which, yet the total computational expenses being more for a finer resolution, they are not as costful as expected a priori and, eventually, both computations remain in a similar order of CPU costs.
+

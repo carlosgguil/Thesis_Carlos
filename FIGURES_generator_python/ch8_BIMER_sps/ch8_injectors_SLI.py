@@ -18,9 +18,9 @@ from sli_functions import load_all_BIMER_global_sprays, load_all_BIMER_grids, pl
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part3_applications/figures_ch8_resolved/injectors_SLI/'
 folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/'
 
-plt.rcParams['xtick.labelsize'] = 80*FFIG #40*FFIG
-plt.rcParams['ytick.labelsize'] = 80*FFIG#40*FFIG
-plt.rcParams['axes.labelsize']  = 70*FFIG #40*FFIG
+plt.rcParams['xtick.labelsize'] = 120*FFIG #40*FFIG
+plt.rcParams['ytick.labelsize'] = 120*FFIG#40*FFIG
+plt.rcParams['axes.labelsize']  = 100*FFIG #40*FFIG
 plt.rcParams['axes.labelpad']   = 30*FFIG
 plt.rcParams['axes.titlesize']  = 70*FFIG
 plt.rcParams['legend.fontsize'] = 70*FFIG  #30*FFIG
@@ -46,9 +46,51 @@ ylabel_ = 'z$_c$ [mm]'
 cases = [['dx10_xD05p00', 'dx10_xD06p67'],
          ['dx15_xD05p00', 'dx15_xD06p67']]
 
+
+#%% limits and ticks
+
 # plot limits
-plot_bounds = [[(-2.5,2.5),(0,3)],
-               [(-2,2),(0,3)]]
+plot_bounds = [[(-2.5,2.5),(0,3.2)],
+               [(-2.5,2.5),(0,3.2)]]
+
+# u ticks and levels
+u_ticks = [np.linspace(10,34,6),
+           np.linspace(15,41,6)]
+
+u_levels = [np.linspace(10,34,11),
+            np.linspace(15,41,11)]
+
+# v ticks and levels
+v_ticks = [np.linspace(-15,9,7),
+           np.linspace(-17,11,6)]
+
+v_levels = [np.linspace(-15,9,13),
+            np.linspace(-17,11,12)]
+
+
+# w ticks and levels
+w_ticks = [np.linspace(-2,12,6),
+           np.linspace(-6,14,6)]
+
+w_levels = [np.linspace(-2,12,12),
+            np.linspace(-6,14,12)]
+
+
+# SMD ticks and levels
+SMD_ticks = [[28,32,36,40],
+             [36,42,48,54,60,66]]
+
+SMD_levels = [np.linspace(28,40.9,10),
+              np.linspace(36,66,10)]
+
+# flux ticks and levels
+flux_ticks = [np.linspace(0,6.8,6),
+              np.linspace(0,9.4,6)]
+
+flux_levels = [np.linspace(0,6.8,12),
+               np.linspace(0,9.4,12)]
+
+
 
 #%% Load sprays and grids
 
@@ -85,13 +127,13 @@ for i in range(len(grids_list)):
         
         #if i != 4:# or j != 0:
         #    continue
-        
+
         
         # save tags
         case = cases[i][j]
         # grid
         parent_grid = grids_list[i][j]
-        
+
         
         #dy = np.diff(parent_grid.bounds[0])[0]
         #dz = np.diff(parent_grid.bounds[1])[0]
@@ -104,7 +146,7 @@ for i in range(len(grids_list)):
         #%% Plot u mean
         
         
-        map_values = parent_grid.map_ux_mean
+        map_values = parent_grid.map_ucx_mean
         fig_title  = '$\overline{u}_c$ at '# +plane_name
         bar_label  = '$\overline{u}_c$ [m s$^{-1}$]'
         
@@ -128,11 +170,13 @@ for i in range(len(grids_list)):
             extend_ = 'neither'
         
         levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+        levels_map = u_levels[i]
         contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
                               levels = levels_map, colors= 'k', linewidths = 2*FFIG)
         plt.contourf(parent_grid.yy_center, parent_grid.zz_center, map_values,
                      levels = levels_map, cmap = cmap_ , extend=extend_)
-        cbar = plt.colorbar(format=format_)
+        cbar = plt.colorbar(format=format_,
+                            ticks = u_ticks[i])
         cbar.set_label(bar_label)
         #plt.title(title)
         plt.xlabel(xlabel_)
@@ -145,10 +189,12 @@ for i in range(len(grids_list)):
         plt.show()
         plt.close()
         
+        
+        
         #%% Plot u RMS
         
         
-        map_values = parent_grid.map_ux_rms
+        map_values = parent_grid.map_ucx_rms
         fig_title  = '$u_{c,\mathrm{RMS}}$ at '# +plane_name
         bar_label  = '$u_{c,\mathrm{RMS}}$ [m s$^{-1}$]'
         
@@ -193,7 +239,7 @@ for i in range(len(grids_list)):
         #%% Plot v mean
         
         
-        map_values = parent_grid.map_uy_mean
+        map_values = parent_grid.map_ucy_mean
         fig_title  = '$\overline{v}_c$ at '# +plane_name
         bar_label  = '$\overline{v}_c$ [m s$^{-1}$]'
         
@@ -217,11 +263,13 @@ for i in range(len(grids_list)):
             extend_ = 'neither'
         
         levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+        levels_map = v_levels[i]
         contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
                               levels = levels_map, colors= 'k', linewidths = 2*FFIG)
         plt.contourf(parent_grid.yy_center, parent_grid.zz_center, map_values,
                      levels = levels_map, cmap = cmap_ , extend=extend_)
-        cbar = plt.colorbar(format=format_)
+        cbar = plt.colorbar(format=format_,
+                            ticks = v_ticks[i])
         cbar.set_label(bar_label)
         #plt.title(title)
         plt.xlabel(xlabel_)
@@ -234,10 +282,12 @@ for i in range(len(grids_list)):
         plt.show()
         plt.close()
         
+        
+        
         #%% Plot v RMS
         
         
-        map_values = parent_grid.map_uy_rms
+        map_values = parent_grid.map_ucy_rms
         fig_title  = '$v_{c,\mathrm{RMS}}$ at '# +plane_name
         bar_label  = '$v_{c,\mathrm{RMS}}$ [m s$^{-1}$]'
         
@@ -279,12 +329,12 @@ for i in range(len(grids_list)):
         plt.show()
         plt.close()
         
-        
+
         
         #%% Plot w mean
         
         
-        map_values = parent_grid.map_uz_mean
+        map_values = parent_grid.map_ucz_mean
         fig_title  = '$\overline{w}_c$ at '# +plane_name
         bar_label  = '$\overline{w}_c$ [m s$^{-1}$]'
         
@@ -308,11 +358,13 @@ for i in range(len(grids_list)):
             extend_ = 'neither'
         
         levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+        levels_map = w_levels[i]
         contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
                               levels = levels_map, colors= 'k', linewidths = 2*FFIG)
         plt.contourf(parent_grid.yy_center, parent_grid.zz_center, map_values,
                      levels = levels_map, cmap = cmap_ , extend=extend_)
-        cbar = plt.colorbar(format=format_)
+        cbar = plt.colorbar(format=format_,
+                            ticks = w_ticks[i])
         cbar.set_label(bar_label)
         #plt.title(title)
         plt.xlabel(xlabel_)
@@ -325,10 +377,12 @@ for i in range(len(grids_list)):
         plt.show()
         plt.close()
         
+        
+        
         #%% Plot w RMS
         
         
-        map_values = parent_grid.map_uz_rms
+        map_values = parent_grid.map_ucz_rms
         fig_title  = '$w_{c,\mathrm{RMS}}$ at '# +plane_name
         bar_label  = '$w_{c,\mathrm{RMS}}$ [m s$^{-1}$]'
         
@@ -369,8 +423,7 @@ for i in range(len(grids_list)):
         plt.show()
         plt.close()
         
-        
-        
+
         
         #%% Plot SMD
         
@@ -396,13 +449,20 @@ for i in range(len(grids_list)):
             min_level = np.nanmin(map_values.data)
             max_level = np.nanmax(map_values.data)
             extend_ = 'neither'
+        # to extend maximum value
         
-        levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+        if i == 1:
+            print('YUUP')
+            extend_ = 'max'
+        
+        levels_map = [max_level*k/(N_LEVELS-1) + min_level*(1-k/(N_LEVELS-1)) for k in range(N_LEVELS)]
+        levels_map = SMD_levels[i]
         contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
                               levels = levels_map, colors= 'k', linewidths = 2*FFIG)
         plt.contourf(parent_grid.yy_center, parent_grid.zz_center, map_values,
                      levels = levels_map, cmap = cmap_ , extend=extend_)
-        cbar = plt.colorbar(format=format_)
+        cbar = plt.colorbar(format=format_,
+                            ticks=SMD_ticks[i])
         cbar.set_label(bar_label)
         #plt.title(title)
         plt.xlabel(xlabel_)
@@ -443,12 +503,14 @@ for i in range(len(grids_list)):
             max_level = np.nanmax(map_values.data)
             extend_ = 'neither'
         
-        levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+        #levels_map = [max_level*k/(N_LEVELS-1) + min_level*(1-k/(N_LEVELS-1)) for k in range(N_LEVELS)]
+        levels_map = flux_levels[i]
         contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
                               levels = levels_map, colors= 'k', linewidths = 2*FFIG)
         plt.contourf(parent_grid.yy_center, parent_grid.zz_center, map_values,
                      levels = levels_map, cmap = cmap_ , extend=extend_)
-        cbar = plt.colorbar(format=format_)
+        cbar = plt.colorbar(format=format_,
+                            ticks=flux_ticks[i])
         cbar.set_label(bar_label)
         #plt.title(title)
         plt.xlabel(xlabel_)
@@ -466,7 +528,7 @@ for i in range(len(grids_list)):
         
         
              
-
+        
         
         #%% Plot Convergence
         
@@ -499,3 +561,4 @@ for i in range(len(grids_list)):
         plt.close()
         
 
+        

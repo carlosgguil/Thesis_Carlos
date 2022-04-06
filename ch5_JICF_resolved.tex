@@ -243,6 +243,7 @@ Density ratio & $r$ & - & 110 & 110 \\
 %\section{YALES2 code (??)}
 
 \section{Tools and methodologies}
+\label{sec:ch5_JICF_tools_and_methodologies}
 
 %\subsection{Spray sampling in resolved simulations}
 
@@ -3228,6 +3229,7 @@ UG100\_DX20\_NT & 444.0 & 105.0 & 295.0 & 44.0 & 342  \\ % t_cpu/t_phys: 17,700
 
 
 \subsection{Computational costs}
+\label{subsec:ch5_JICF_computational_costs}
 
 While the RCTs provides a measure of the computational time comparable among cases for a given time instant, it is also necessary to state the total cost of the simulations performed. Figure \ref{fig:SLI_cost_convergence_all} shows the computational cost in CPU hours ($t_\mathrm{CPU}$) and the ratio between CPU hours and physical time simulated ($t_\mathrm{CPU}/t_\mathrm{ph}$). The graph shows that, in absolute terms, the quantity of CPU hours is much larger for the fine resolution simulations than for the coarse one due to the higher cost of the simulations (demonstrated in Figure \ref{tab:jicf_computational_performances}). The simulations for the high Weber operating point are more expensive than the low Weber one, specially for the fine resolutions. This is also reflected in the ratio $t_\mathrm{CPU}/t_\mathrm{ph}$: simulating one milisecond for case UG100\_DX10 would cost twice more than for case UG75\_DX10 due to the larger velocities involved in the former. The computational timestep is governed by the CFL condition (the CFL number has been set equal in all simulations), yielding lower values for case UG100\_DX10 due to the higher velocities found. Furthermore, this case also generates more droplets than the low Weber one for identical resolution due to a more aggressive breakup, yielding more mesh elements due to the larger specific surface of the fuel (see Figure \ref{fig:JICF_nelem_increase_t_0_to_2}) which requires more $N_\mathrm{cores}$ to perform the simulations. The result of these two contributions (lower timestep and more number of cores required) is the increase in computational cost by a factor of 2.
 
@@ -3237,6 +3239,8 @@ While the RCTs provides a measure of the computational time comparable among cas
    \caption{Cost of the JICF simulations in CPU time and CPU per physical times simulated}
    \label{fig:SLI_cost_convergence_all}
 \end{figure}
+
+
 
 Figure \ref{fig:SLI_cost_convergence_all} also shows the larger cost of the fine resolutions with respect to the coarse one. For the high Weber case, for instance, the ratio $t_\mathrm{CPU}/t_\mathrm{ph}$ among resolutions differs by a factor 30. This difference is due to the two contributions previously discussed: the increase in the number of elements and the lower timestep $\Delta t$ calculated through the CFL condition. In effect, reducing $\Delta x_\mathrm{min}$ by 2 will also reduce $\Delta t$ by the same ratio, since both are directly proportional. Furthermore, the fine simulations show higher maximum instantaneous velocities in the gaseous phase at the high turbulent regions such as the vicinity of the column instabilities (not captured in the coarse cases) due to more pronounced curvatures that accelerate the gas: this also contributes to reduce the $\Delta t$ estimated from the CFL, since it is inversely proportional to the maximum liquid velocity in the computation. Hence, lower timesteps and a larger number of elements that require more computational cores increase massively the cost of the simulations in terms of $t_\mathrm{CPU}/t_\mathrm{ph}$.
 
