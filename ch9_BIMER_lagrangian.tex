@@ -14,101 +14,110 @@ In first place, the computational setup is explained in $\S$\ref{ch9:sec_computa
 \section{Computational setup}
 \label{ch9:sec_computations_setup}
 
-For performing dispersed phase simulations, the operating point defined in Table \ref{tab:liquid_operating_point_Renaud} is simulated. The staging factor is $\alpha = 15$, meaning that $15 \%$ of the total liquid flow rate is injected through the pilot stage and the remaining liquid through the multipoint. For total flow rate of $\dot{m}_l = 1.64 g s^{-1}$, the multipoint stage injects a total $\dot{m}_{l,takeoff} = 1.39 g s^{-1}$ (hence $0.139 g s^{-1}$ per injector), and a value of $\dot{m}_{l,pilot} = 0.25 g s^{-1}$ is introduced through the pilot stage.
+
+For performing dispersed phase simulations, the operating point defined in Table \ref{tab:liquid_operating_point_Renaud} is simulated. The staging factor is $\alpha = 15$, meaning that $15 \%$ of the total liquid flow rate is injected through the pilot stage and the remaining liquid through the multipoint. For total flow rate of $\dot{m}_l = 1.64$ g s$^{-1}$, the takeoff stage injects a mass flow rate of $\dot{m}_{l,t}$ = 1.39 g s$^{-1}$ (hence $0.139$ g s$^{-1}$, corresponding to $Q_l = 185.3$ mm$^3$s$^{-1}$,  per injector), and a mass flow rate of $\dot{m}_{l,p} = 0.25$ g s$^{-1}$ is introduced through the pilot stage. The global equivalence ratio of this operating point is $\phi_g = 0.6$.
+
+\subsubsection*{Evaporation}
+
+Due to the high gas ambient temperature inside BIMER combustion chamber, evaporation of lagrangian droplets should be considered. In this case ...
+
+%\begin{table}[!h]
+%\centering
+%\caption{Operating point to perform gaseous and two-phase simulations tested by \citeColor[renaud_high-speed_2015]}
+%\begin{tabular}{|c|c|c|c|}
+%\hline
+%\multicolumn{4}{|c|}{\textbf{Air properties}} \\
+%\hline
+%$\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}$]  & $\mu_g$ [Pa s]  \\
+%\hline
+%43.1 & 433 & 0.816382 & $2.3911 \cdot 10^{-5}$ \\
+%\hline
+%\hline
+%\multicolumn{4}{|c|}{\textbf{Liquid properties}} \\
+%\hline
+%$\dot{m}_l$ [g s$^{-1}$] & $\rho_l$ [kg m$^{-3}]$   & $\mu_l$ [Pa s]   & $\sigma$ [N m$^{-1}$]   \\
+%\hline
+%1.64 & 750 & $1.36 \cdot 10^{-3}$ & $25.35 \cdot 10^{-3}$ \\
+%\hline
+%\hline
+%\multicolumn{4}{|c|}{\textbf{Burner staging}} \\
+%\hline
+%$\alpha$ [$\%$] &  $\dot{m}_{l,p}$ [g s$^{-1}$] & $\dot{m}_{l,t}$ [g s$^{-1}$] & $\phi_g$ [-]\\
+%\hline
+%15 & 0.25 & 1.39 & 0.6 \\
+%\hline
+%\end{tabular}
+%\label{tab:liquid_operating_point_Renaud}
+%\end{table}
+
+\clearpage
+
 
 \begin{table}[!h]
 \centering
 \caption{Operating point to perform gaseous and two-phase simulations tested by \citeColor[renaud_high-speed_2015]}
-\begin{tabular}{|c|c|c|c|}
-\hline
-\multicolumn{4}{|c|}{\textbf{Air properties}} \\
-\hline
+\begin{tabular}{cccc}
+\thickhline
+\multicolumn{4}{c}{\textbf{Air properties}} \\
+\thickhline
 $\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}$]  & $\mu_g$ [Pa s]  \\
 \hline
-43.1 & 433 & 0.816382 & $2.3911 \cdot 10^{-5}$ \\
-\hline
-\hline
-\multicolumn{4}{|c|}{\textbf{Liquid properties}} \\
+43.1 & 433 & 0.816382 & $2.3911 \cdot 10^{-5}$ \\[0.075in]
+%%\bottomrule
+%\\[0.1in]
+%%\vspace*{0.1in}
+\thickhline
+\multicolumn{4}{c}{\textbf{Liquid properties}} \\
 \hline
 $\dot{m}_l$ [g s$^{-1}$] & $\rho_l$ [kg m$^{-3}]$   & $\mu_l$ [Pa s]   & $\sigma$ [N m$^{-1}$]   \\
 \hline
-1.64 & 750 & $1.36 \cdot 10^{-3}$ & $25.35 \cdot 10^{-3}$ \\
+1.64 & 750 & $1.36 \cdot 10^{-3}$ & $25 \cdot 10^{-3}$ \\[0.075in] %25.35 
+\thickhline
+\multicolumn{4}{c}{\textbf{Burner staging}} \\
 \hline
+$\alpha$ [$\%$] &  $\dot{m}_{l,p}$ [g s$^{-1}$] & $\dot{m}_{l,t}$ [g s$^{-1}$] & $\phi_g$ [-]\\
 \hline
-\multicolumn{4}{|c|}{\textbf{Burner staging}} \\
-\hline
-$\alpha$ [$\%$] & $\dot{m}_{l,pilot}$ & $\dot{m}_{l,takeoff}$ & \\
-\hline
-15 & 0.25 & 1.39 & \\
-\hline
+15 & 0.25 & 1.39 & 0.6 \\
 \end{tabular}
 \label{tab:liquid_operating_point_Renaud}
 \end{table}
 
+%\begin{table}[!h]
+%\centering
+%\caption{Operating point to perform gaseous and two-phase simulations tested by \citeColor[renaud_high-speed_2015]}
+%\begin{tabular}{cccc}
+%\thickhline
+%\multicolumn{4}{c}{\textbf{Air properties}} \\
+%\thickhline
+%$\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}$]  & $\mu_g$ [Pa s]  \\
+%\hline
+%43.1 & 433 & 0.816382 & $2.3911 \cdot 10^{-5}$ \\
+%\end{tabular} \\
+%\medskip
+%\begin{tabular}{cccc}
+%\thickhline
+%\multicolumn{4}{c}{\textbf{Liquid properties}} \\
+%\hline
+%$\dot{m}_l$ [g s$^{-1}$] & $\rho_l$ [kg m$^{-3}]$   & $\mu_l$ [Pa s]   & $\sigma$ [N m$^{-1}$]   \\
+%\hline
+%1.64 & 750 & $1.36 \cdot 10^{-3}$ & $25.35 \cdot 10^{-3}$ \\
+%\end{tabular} \\
+%\medskip
+%\begin{tabular}{cccc}
+%\thickhline
+%\multicolumn{4}{c}{\textbf{Burner staging}} \\
+%\hline
+%$\alpha$ [$\%$] &  $\dot{m}_{l,p}$ [g s$^{-1}$] & $\dot{m}_{l,t}$ [g s$^{-1}$] & $\phi_g$ [-]\\
+%\hline
+%15 & 0.25 & 1.39 & 0.6 \\
+%\hline
+%\end{tabular}
+%\label{tab:liquid_operating_point_Renaud}
+%\end{table}
 
-\subsection{Multipoint stage injection}
-
-For the multipoint stage, the injectors obtained in Chapter \ref{ch:bimer_resolved_atomization} ($\S$ \textbf{Section??}) are used. These injectors were, however, obtained from the simulations of one single injector. In order to initialise the rest of multipoint injection holes (for a total of 10 in BIMER, see Figure \textbf{Figure??}), new numerical injectors need to be defined in each hole by making a revolution of the available ones. This revolution is possible due to the radial of BIMER in terms of injectors location (which are equally spaced to a distance of 25 mm from the center with a radial difference of 36 $\degree$) and the multipoint vane locations: each injection hole is located at the same location between two vanes, hence seeing the same incoming air (see Figure \textbf{Figure??})).
-
-Each injector will deliver a mass flow rate of $\dot{m}_{l,takeoff} = 0.139 g s^{-1}$, equivalent to a flow rate of $Q_l = 185.3 mm^3 s^{-1}$.
 
 
-\subsection{Pilot stage injection}
 
-Since pilot stage has not been simulated with the injection models developed in this thesis, another methodology must be employed. Given that the pilot of BIMER injects fuel following a hollow cone configuration, the LISA model will be used \citepColor[guedot_developpement_2015]. 
-
-The input parameters for the LISA model to inject a hollow cone spray are summarized in Table \ref{tab:LISA_model_parameters}. They intend to replicate the pilot injection by \citeColor[renaud_high-speed_2015]. For the angle, an initial value of 30 $\degree$ is chosen (Stefano first guess), it can be iterated as we keep on refining the simulations. For the rayon, I have no idea what to do.
-
-For the injection diameter, the following correlation used by Lefebvre for pressure-swirl sprays is used:
-
-\begin{equation}
-SMD = 2.25 \left( \sigma \dot{m}_f \mu_l \right)^{0.25} \rho_g^{-0.25}  \Delta P^{-0.5}
-\end{equation}
-
-where $\Delta P$ is the pressure drop in the pilot nozzle. According to \citeColor[renaud_high-speed_2015], (p. 24, or 46 PDF), pilot liquid is injected at $2.7 MPa$ to the chamber at atmospheric pressure. By taking this pressure drop, and using the values given in Table \ref{tab:liquid_operating_point_Renaud}, this correlation provides a SMD of $15 \mu m$ (\textbf{CHECK THIS}).
-
-\subsubsection*{LISA model for injection}
-
-For performing pilot injection, the LISA model available in YALES2 is used \citepColor[guedot_developpement_2015]. 
-
-\begin{equation}
-X = \frac{A_a}{A_0} = \left( \frac{R_a}{R_0} \right)^2 \frac{\sin^2 \gamma_s}{1 + \cos^2 \gamma_s}
-\end{equation}
-
-where $R_a$ is the minimum injection radius, $R_0$ the maximum, and $\gamma_s$ is the mean injection angle. The inputs to the model are $\gamma_s$ and $R_0$, so from the previous equation $X$ can be obtained and the radius $R_a$ can be solved:
-
-\begin{equation}
-R_a^2 = R_0^2 X
-\end{equation}
-
-The axial velocity imposed to the particles $u_x$ is obtained through the following expression:
-
-\begin{equation}
-u_x = \frac{\dot{m}}{\rho_l \pi \left( R_0^2 - R_a^2 \right)} = \frac{\dot{m}}{\rho_l \pi R_0^2 \left( 1 - X^2 \right)} 
-\end{equation}
-
-\textbf{OJO}: in Renaud's application case ($\dot{m} = 0.25 ~ g/s$, see Table \ref{tab:LISA_model_parameters}), taking $R_0 = 0.125 ~mm$ gives an axial velocity of $u_x = 7.9 ~ m/s$. This created an almost-point injection, as it can be seen in the simulations. If we take $R_0 = 1.5 ~mm$ (the radius of the hollow cone patch), droplets are injected along all the hollow cone patch. However, the axial velocity imposed is $u_x = 0.05 ~m/s$. So we'll go towards the large radius.
-
-\begin{table}[!h]
-\centering
-\caption{LISA model setup for pilot injection}
-\begin{tabular}{|c|c|}
-\hline
-\textbf{Parameter} & \textbf{Value} \\
-\hline
-Mass flow rate $\dot{m} [g s^{-1}]$ & 0.25 \\
-\hline
-Injector radius $R_0 [mm]$ & 0.125 \\
-\hline
-Mean angle $\overline{\theta} [\degree]$ & 40 \\
-\hline
-\end{tabular}
-\label{tab:LISA_model_parameters}
-\end{table}
-
-\subsection{Evaporation}
-
-Due to the high gas ambient temperature inside the BIMER combustion chamber (433 K, see Table \ref{tab:liquid_operating_point_Renaud}), evaporation of lagrangian droplets should be considered. In this case 
 
 \section{Experimental results from literature}
 \label{ch9:sec_expe_results_LGS_BIMER}
@@ -141,20 +150,122 @@ The BIMER operating point tested in this chapter to test the SLI methodology has
 \label{fig:maps_BIMER_renaud_expe_results}
 \end{figure}
 
-\section{Model flowchart applied to BIMER}
-\label{sec:ch9_BIMER_SLI_flowchart}
+%\section{Model flowchart applied to BIMER}
+%\label{sec:ch9_BIMER_SLI_flowchart}
 
-\section{Boundary condition for phases}
-\label{sec:ch9_BIMER_BCs_for_phases}
-
-\subsection{Gaseous phase}
-
-\subsection{Liquid phase: lagrangian injector definition}
-
-In order to initialise the liquid phase, an SLI is created from the resolved simulations of BIMER for case DX07 at the sampling plane $x/d_\mathrm{inj} = 3.33$. Following the results from the lagrangian simulations of Chapter \ref{ch6:jicf_lgs_simulations}, the injectors are obtained through convergence-driven discretization; the injection velocities are defined with a gaussian $r$ law; and the mean and RMS velocities are volume-weighted; and the secondary atomization model chosen is the Gorokhovski model with constants $K_1 = $ \hl{\textbf{XX}}, $K_2 = $ \hl{\textbf{XX}}. The resulting injectors are shown in Figure \\hl{\textbf{XX}}.
+\section{Boundary condition for liquid phase}
+\label{sec:ch9_BIMER_BCs_for_liquid_phase}
 
 
-\subsection{Dispersed phase simulations}
+\subsection{Multipoint stage injection}
+
+For the multipoint stage, the SLI obtained from the resolved atomization simulations in Chapter \ref{ch8:bimer_resolved_atomization} are used. Since the objective of this simulation is to prove that SLI can be used to initialise dispersed-phase computations in a full multipoint injector, only the SLI obtained from the fine simulation with $\Delta x_\mathrm{min} = 10~\mu$m at the location $x_c = 2$ mm is used. This injector is chosen since 1) it has been obtained with the finest interface resolution simulated and 2) it has been obtained at an axial location along the crossflow direction $x_c$ where all the global spray mean magnitudes (SMD, velocities, deformation parameters) are converged with axial distance (see $\S$ \ref{sec:ch8_BIMER_spray_char}). This SLI is shown in Figure \ref{fig:injectors_sli_BIMER_DX10_xD06p67}: these maps, \hl{with(out) convergence-driven discretization}, are injected as shown in the dispersed phase simulation. The flux spatial distribution in the SLI is scaled so that the total mass flow rate injected in one multipoint hole is equal to the actual mass flow rate injected in the experimental configuration. Injected velocities are \hl{volume-weighted/artimethci mean} and RMS following a gaussian $r$ velocity law. The secondary atomization model chosen is the Gorokhovski model with constants $K_1 = ?$, $K_2 = $. These injection parameters are summarized in Table  \ref{tab:BIMER_SLI_fixed_model_parameters}.
+
+
+\begin{table}[!h]
+\centering
+\caption{Fixed SLI model parameters for dispersed-phase simulations of the take-off stage in BIMER}
+\begin{tabular}{cccccc}
+\thickhline
+ \multirow{2}{*}{ \begin{tabular}{c} \textbf{Resolved} \\ \textbf{simulation} \end{tabular}}    &  \multirow{2}{*}{  \begin{tabular}{c} $x_{c,\mathrm{inj}}$  \\ $\left[ \mathrm{mm} \right]$ \end{tabular}} &   \multirow{2}{*}{ \begin{tabular}{c} $\textbf{r}$ \\ \textbf{law} \end{tabular}} & \multirow{2}{*}{ \begin{tabular}{c} \textbf{Atomization} \\ \textbf{model} \end{tabular}} &    \multirow{2}{*}{ $K_1$} & \multirow{2}{*}{ $K_2$}\\
+ & & & & &  \\
+\thickhline
+DX10 & 2 & Gaussian & Goro  & ? & ? \\
+\thickhline
+\end{tabular}
+\label{tab:BIMER_SLI_fixed_model_parameters}
+\end{table}
+
+
+For performing injection in the 10 multipoint holes, the SLI from the single liquid injector simulated are replicated in the remaining liquid injectors. For it, the injectors location are translated and the vectorial magnitudes (crossflow normal direction, velocities) are rotated so that the crossflow local direction stays identical in all multipoint holes. Each single injector will deliver a mass flow rate of $\dot{m}_{l,t} = 0.139$ g s$^{-1}$ (equivalent to a flow rate of $Q_l = 185.3$ mm$^3$ s$^{-1}$), hence making a total liquid flux injected of $\dot{m}_{l,t} = 1.39$ g s$^{-1}$ for the take-off phase as indicated in Table \ref{tab:liquid_operating_point_Renaud}. A schematic view of three injectors through which lagrangian droplets will be injected can be seen in Figure \ref{fig:BIMER_multipoint_injection_planes_view}.
+
+%These injectors were, however, obtained from the simulations of one single injector. In order to initialise the rest of multipoint injection holes (for a total of 10 in BIMER, see Figure \textbf{Figure??}), new numerical injectors need to be defined in each hole by making a revolution of the available ones. This revolution is possible due to the radial of BIMER in terms of injectors location (which are equally spaced to a distance of 25 mm from the center with a radial difference of 36 $\degree$) and the multipoint vane locations: each injection hole is located at the same location between two vanes, hence seeing the same incoming air (see Figure \textbf{Figure??}).
+
+\begin{figure}[h!]
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.5]{./part3_applications/figures_ch9_lagrangian/multipoint_injection_planes_view}
+	\caption{View of BIMER take-off stage showing three different injection locations}	\label{fig:BIMER_multipoint_injection_planes_view}
+\end{figure}
+
+
+
+
+
+\subsection{Pilot stage injection}
+
+The operating point simulated injects fuel through both a take-off stage (which has been modelled with the SLI) and a pilot stage. Since pilot stage has not been simulated with the methodology developed in this thesis, another approach must be employed. Given that the pilot of BIMER injects fuel following a hollow cone configuration, the LISA model introduced in $\S$\ref{subsec:ch3_hollow_cone_spray} will be used \citepColor[guedot_developpement_2015].   The input parameters for the LISA model to inject a hollow cone spray are summarized in Table \ref{tab:LISA_model_parameters}. For the mean angle $\theta_s$, a value of 30 $\degree$ is taken \citepColor[renaud_high-speed_2015], while the inner radius of the injector $R_0$ is provided by \citeColor[cheneau_etude_2019]. Regarding the injection diameter, previous studies using lagrangian approaches on the same configuration have introduced directly droplets size distributions extracted from experimental data \citepColor[mesquita_large_2018]. In this case, since for the operating condition simulated there is not experimental size distributions available, droplets injected will have a constant diameter given by the following experimental correlation \citepColor[lefebvre_atomization_2017]:
+
+\begin{equation}
+SMD = 2.25 \left( \sigma \dot{m}_f \mu_l \right)^{0.25} \rho_g^{-0.25}  \Delta P^{-0.5}
+\end{equation}
+
+where $\Delta P = 2.6$ MPa is the pressure drop in the pilot nozzle \citeColor[renaud_high-speed_2015]. Applying the previous correlation with the magnitudes given in Table \ref{tab:liquid_operating_point_Renaud} results in a diameter $SMD = 80~\mu$m imposed to the pilot cones particles. Such particles will later break due to the action of the secondary atomization model. The breakup model is constant in all the simulations and therefore is identical for both the take-off and pilot stages, hence the Gorokhovski model with the constants defined in Table \ref{tab:BIMER_SLI_fixed_model_parameters} is applied to the pilot droplets. 
+
+ %this correlation provides a SMD of $15 \mu m$ (\textbf{CHECK THIS}).
+
+% dP value is tiven in Renaud p. 24, or 46 PDF
+
+\begin{table}[!h]
+\centering
+\caption{LISA model setup for pilot injection}
+\begin{tabular}{ccc}
+\thickhline
+\textbf{Parameter} & \textbf{Units} &  \textbf{Value} \\
+\thickhline
+Mass flow rate $\dot{m}$ & g s$^{-1}$ & 0.25 \\
+%\hline
+Injector radius $R_0$ & mm & 0.125 \\
+%\hline
+Mean angle $\overline{\theta}_s$ & $\degree$ & 30 ~ \hl{(40?)} \\
+SMD & $\mu$m & 15 \\
+\thickhline
+\end{tabular}
+\label{tab:LISA_model_parameters}
+\end{table}
+
+\subsubsection*{LISA model for injection (REMOVE WHEN SIMUS READY)}
+
+For performing pilot injection, the LISA model available in YALES2 is used \citepColor[guedot_developpement_2015]. 
+
+\begin{equation}
+X = \frac{A_a}{A_0} = \left( \frac{R_a}{R_0} \right)^2 \frac{\sin^2 \gamma_s}{1 + \cos^2 \gamma_s}
+\end{equation}
+
+where $R_a$ is the minimum injection radius, $R_0$ the maximum, and $\gamma_s$ is the mean injection angle. The inputs to the model are $\gamma_s$ and $R_0$, so from the previous equation $X$ can be obtained and the radius $R_a$ can be solved:
+
+\begin{equation}
+R_a^2 = R_0^2 X
+\end{equation}
+
+The axial velocity imposed to the particles $u_x$ is obtained through the following expression:
+
+\begin{equation}
+u_x = \frac{\dot{m}}{\rho_l \pi \left( R_0^2 - R_a^2 \right)} = \frac{\dot{m}}{\rho_l \pi R_0^2 \left( 1 - X^2 \right)} 
+\end{equation}
+
+\textbf{OJO}: in Renaud's application case ($\dot{m} = 0.25 ~ g/s$, see Table \ref{tab:LISA_model_parameters}), taking $R_0 = 0.125 ~mm$ gives an axial velocity of $u_x = 7.9 ~ m/s$. This created an almost-point injection, as it can be seen in the simulations. If we take $R_0 = 1.5 ~mm$ (the radius of the hollow cone patch), droplets are injected along all the hollow cone patch. However, the axial velocity imposed is $u_x = 0.05 ~m/s$. So we'll go towards the large radius.
+
+%\begin{table}[!h]
+%\centering
+%\caption{LISA model setup for pilot injection}
+%\begin{tabular}{|c|c|}
+%\hline
+%\textbf{Parameter} & \textbf{Value} \\
+%\hline
+%Mass flow rate $\dot{m} [g s^{-1}]$ & 0.25 \\
+%\hline
+%Injector radius $R_0 [mm]$ & 0.125 \\
+%\hline
+%Mean angle $\overline{\theta} [\degree]$ & 40 \\
+%\hline
+%\end{tabular}
+%\label{tab:LISA_model_parameters}
+%\end{table}
+
+
+
+
+\section{Boundary condition for gaseous phase}
+\label{sec:ch9_BIMER_BCs_for_gaseous_phase}
 
 \subsection{Effect of dense core perturbation}
 
