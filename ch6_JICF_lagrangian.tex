@@ -192,7 +192,8 @@ The experimental results previously shown, obtained by \citeColor[becker_breakup
 
 The objective here is to estimate possible errors in the experimental measurements of \ref{fig:integrated_results_Becker_expe_results} to obtain confidence intervals for validation of numerical results. As mentioned in the previous paragraph, this study gives a mean uncertainty of 20 $\%$ in the fluxes but does not provide data on the diameters. For the same test bench but with different atomizers and operating conditions, \citeColor[brandt_experimental_1998] reports 7 $\%$ and 14 $\%$ of errors for the droplets diameters and fluxes, respectively, while \citeColor[becker_experimental_2004] give SMD uncertainties of $\sim 5 \%$. Even though the PDA setup is identical in the three studies, the provided errors differ among each other, which might be due to the operating conditions, the atomizer or modifications in the optical setup (indeed, \citeColor[doublet_effet_2019] showed through a error propagation analysis that the uncertainties in the diameters were actually spetially sensitive to the elevation angle of the PDA detectors rather than to other parameters). Therefore, in order to estimate the uncertainty of the diameters in the the experimental setup of \citeColor[becker_breakup_2002], it will be assumed that the relation between the dropsizes and fluxes errors is similar as in the study performed in the same testbench (and in similar operating conditions) by \citeColor[brandt_experimental_1998]: errors between fluxes and diameters differ by a factor of 2, which in case of \citeColor[becker_breakup_2002] yields diameter uncertainties of 10 $\%$ since their mean uncertainty for the fluxes is of 20 $\%$. It is important to keep in mind that this estimated error in droplets size is only approximative and could greatly vary in the actual experiments. \\ %Generally, as shown by the previous literature review,  errors in PDA measurements on droplets sizes are not often reported and characteristic 
 
-Since \citeColor[becker_breakup_2002] give values on the flux uncertainties and their experimental data are available, it is possible to estimate the fluxes obtained from the experiments. The flux map ax $x = 80$ mm for the high Weber operating condition together with the grid composed of the probes through which the spray has been sampled is shown in Figure \ref{tab:previous_numerical_studies_on_jicf_dlr_values}a. Square probes with 2 mm sides are placed as shown in the figure. Each probe contains a volume flux value $q_l$ which is stored atn the center of the probe to plot the maps (\hl{as done in the SLI injectors of Figures \textbf{XX}}). The grid is then composed of $N_y = 11$ probes in the lateral direction and $N_z = 9$ in the vertical one. Given an arbitrary probe located at a position $\left( j,k \right)$ (where $j$ is the probe index in the lateral direction $y$ and $k$ in the vertical one $z$) with surface $S_\mathrm{j,j}$, the absolute liquid flux through this probe can be calculated by applying Eq. (\ref{eq:ch4_volume_flux_definition}) to the probe volume flux $q_{l{j,k}}$:
+Since \citeColor[becker_breakup_2002] give values on the flux uncertainties and their experimental data are available, it is possible to estimate the fluxes obtained from the experiments. The flux map ax $x = 80$ mm for the high Weber operating condition together with the grid composed of the probes through which the spray has been sampled is shown in Figure \ref{fig:maps_previous_numerical_results}a. Square probes with 2 mm sides are placed as shown in the figure. Each probe contains a volume flux value $q_l$ which is stored at the center of the probe to plot the maps (as done in the SLI injectors of Figures 
+\ref{fig:injectors_sli_uG75_dx10_x05} to \ref{fig:injectors_sli_uG100_dx20_x10_NT}). The grid is then composed of $N_y = 11$ probes in the lateral direction and $N_z = 9$ in the vertical one. Given an arbitrary probe located at a position $\left( j,k \right)$ (where $j$ is the probe index in the lateral direction $y$ and $k$ in the vertical one $z$) with surface $S_\mathrm{j,j}$, the absolute liquid flux through this probe can be calculated by applying Eq. (\ref{eq:ch4_volume_flux_definition}) to the probe volume flux $q_{l{j,k}}$:
 
 \begin{equation}
 Q_{l_{j,k}} = q_{l_{j,k}} S_{j,k}
@@ -383,11 +384,11 @@ The final actuator point $x_b$, $z_b$ and $c_L$ are obtained from the mean value
 \thickhline
 \textbf{Parameter} & \textbf{Units} & \textbf{Initial} &  \textbf{Final} \\
 \thickhline
-$x_b$ & mm & & \\
-$z_b$ & mm & & \\
-$c_0$ & mm & 0.45 & 0.45 \\
-$c_L$ & mm & & \\
-$| \textbf{F}_\mathrm{DC} |$ & N &  & \\
+$x_b$ & mm & 2.46 & 1.5 \\
+$z_b$ & mm & 3.07 & 3 \\
+%$c_0$ & mm & 0.45 & 0.45 \\
+%$c_L$ & mm & & \\
+$| \textbf{F}_\mathrm{DC} |$ & N & 0.095 & 0.24 \\
 %$\Delta p$ & Pa &  & \\
 \thickhline
 \end{tabular}
@@ -407,6 +408,7 @@ A quantitative assessment of the actuator blockage effect can be performed by lo
 
 
 \subsection{Prescription of gaseous inlet from resolved simulations }
+\label{subsec:ch6_jicf_lgs_gaseous_inlet_prescription}
 
 
 \subsubsection{Methodology}

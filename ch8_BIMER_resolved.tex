@@ -204,10 +204,10 @@ Characteristic times can be defined for the liquid phase in BIMER in the same wa
 
 \begin{table}[!h]
 \centering
-\caption{Characteristic physical timescales [$\mu$s] in BIMER simulations}
+\caption{Characteristic physical timescales in BIMER simulations}
 \begin{tabular}{ccc}
 \thickhline
-\textbf{Time scale} & \textbf{Expression} & \textbf{BIMER} \\
+\textbf{Time scale} & \textbf{Expression} & $\tau$ [$\mu$s] \\
 \thickhline
 Inertia & $\tau_\mathrm{in} = \frac{d_\mathrm{inj}}{u_l}$ & 115.38 \\
 Aerodynamic breakup  &  $\tau_\mathrm{ab} =  \frac{d_\mathrm{inj}}{u_g - u_l} \sqrt{\frac{\rho_l}{\rho_g}} $ & 256.30 \\
@@ -217,6 +217,7 @@ Capillary & $\tau_\mathrm{cap} = \sqrt{\frac{\rho_l d_\mathrm{inj}^3}{8 \sigma}}
 \end{tabular}
 \label{tab:BIMER_SPS_characteristic times}
 \end{table} 
+
 
 As shown in the previous table, the lower timescale is found for the inertia processes and hence those are governing breakup. Yet, all timescales are of the same order of magnitude, as opposed to the timescales of the DLR JICF summarized in Figure \ref{tab:jicf_characteristic times} where the fastest timescale (inertia) was around $100$ times smaller than the slowest (capillary). For the BIMER operating point studied, the inertia timescale is only $3$ times smaller than the capillary one, which is not even the slowest (in this case, it corresponds to the non-aerodynamic breakup timescale). The fact that the timescales in this case are closer to each other agree with the location of the BIMER operating point in the breakup diagram of Figure \ref{fig:location_BIMER_op_in_breakup_map} \citepColor[pilch_use_1987]. Besides the physical timescales, the droplets arrival times to the sampling planes depicted in Figure \ref{fig:BIMER_local_FoR_and_sampling_planes}. These ones are summarized in Table \ref{tab:BIMER_SPS_characteristic_droplet_sampling_times}. 
 
