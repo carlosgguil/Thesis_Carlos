@@ -1,4 +1,4 @@
-\chapter{Dispersed phase simulation in BIMER}
+\chapter{Dispersed phase simulations in BIMER}
 	\label{ch9:BIMER_lagrangian}
 
 \section{Introduction}
@@ -19,7 +19,7 @@ For performing dispersed phase simulations, the operating point defined in Table
 
 \subsubsection*{Evaporation}
 
-Due to the high gas ambient temperature inside BIMER combustion chamber, evaporation of lagrangian droplets should be considered. In this case ...
+Due to the high gas ambient temperature inside BIMER combustion chamber ($T_g = 433$ K while $T_l = 293$ K, see Table \ref{tab:liquid_operating_point_Renaud}), evaporation of lagrangian droplets should be considered. For assessing this influence, the evaporation model of \citeColor[spalding_combustion_1954] is used in one simulation, which is compared to two other simulations where mass and heat transfer are not taken into account. Details on the hypothesis and implementation of this evaporation model in YALES2 can be found in \citeColor[domingo-alvarez_high-pressure_2019].
 
 %\begin{table}[!h]
 %\centering
@@ -69,9 +69,9 @@ $\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}$]  & $\mu_g$ [Pa s] 
 \thickhline
 \multicolumn{4}{c}{\textbf{Liquid properties}} \\
 \hline
-$\dot{m}_l$ [g s$^{-1}$] & $\rho_l$ [kg m$^{-3}]$   & $\mu_l$ [Pa s]   & $\sigma$ [N m$^{-1}$]   \\
+$\sigma$ [N m$^{-1}$] & $T_l$ [K] & $\rho_l$ [kg m$^{-3}]$   & $\mu_l$ [Pa s]    \\
 \hline
-1.64 & 750 & $1.36 \cdot 10^{-3}$ & $25 \cdot 10^{-3}$ \\[0.075in] %25.35 
+$25 \cdot 10^{-3}$ & 293 & 750 & $1.36 \cdot 10^{-3}$   \\[0.075in] %25.35 
 \thickhline
 \multicolumn{4}{c}{\textbf{Burner staging}} \\
 \hline
@@ -82,6 +82,44 @@ $\alpha$ [$\%$] &  $\dot{m}_{l,pilot}$ [g s$^{-1}$] & $\dot{m}_{l,takeoff}$ [g s
 \end{tabular}
 \label{tab:liquid_operating_point_Renaud}
 \end{table}
+
+
+%\begin{table}[!h]
+%\centering
+%\caption{Operating point to perform gaseous and two-phase simulations tested by \citeColor[renaud_high-speed_2015]}
+%\begin{tabular}{cccc}
+%\thickhline
+%\multicolumn{4}{c}{\textbf{Air properties}} \\
+%\hline
+%$\dot{m}_g$ [g s$^{-1}$] & $T_g$ [K] & $\rho_g$ [kg m$^{-3}$]  & $\mu_g$ [Pa s]  \\
+%\hline
+%43.1 & 433 & 0.82 & $2.4 \cdot 10^{-5}$ \\[0.075in] %0.816382 & $2.3911 \cdot 10^{-5}$ \\[0.075in]
+%%%\bottomrule
+%%\\[0.1in]
+%%%\vspace*{0.1in}
+%\thickhline
+%\multicolumn{5}{c}{\textbf{Liquid properties}} \\
+%\hline
+%$\dot{m}_l$ [g s$^{-1}$] & $\rho_l$ [kg m$^{-3}]$   & $\mu_l$ [Pa s]   & $\sigma$ [N m$^{-1}$]  \\
+%\hline
+%1.64 & 750 & $1.36 \cdot 10^{-3}$ & $25 \cdot 10^{-3}$ \\[0.075in] %25.35 
+%\thickhline
+%\multicolumn{4}{c}{\textbf{Burner staging}} \\
+%\hline
+%$\alpha$ [$\%$] &  $\dot{m}_{l,pilot}$ [g s$^{-1}$] & $\dot{m}_{l,takeoff}$ [g s$^{-1}$] & $\phi_g$ [-]\\
+%\hline
+%15 & 0.25 & 1.39 & 0.6 \\
+%\thickhline
+%\end{tabular}
+%\label{tab:liquid_operating_point_Renaud}
+%\end{table}
+
+
+
+
+
+
+
 
 %\begin{table}[!h]
 %\centering
@@ -123,36 +161,54 @@ $\alpha$ [$\%$] &  $\dot{m}_{l,pilot}$ [g s$^{-1}$] & $\dot{m}_{l,takeoff}$ [g s
 \section{Experimental results from literature}
 \label{ch9:sec_expe_results_LGS_BIMER}
 
-The BIMER operating point tested in this chapter to test the SLI methodology has been chosen since it presents non-reactive experimental results that can be used for validation. These ones, shown in the PhD thesis of \citeColor[renaud_high-speed_2015], consist of the qualitative maps of SMD, axial and vertical velocities shown in Figure \ref{fig:maps_BIMER_renaud_expe_results}. Qualitative experimental results on non-reactive conditions are not available from literature, and hence a qualitative validation is not possible to this date.
+The BIMER operating point tested in this chapter to test the SLI methodology has been chosen since it presents non-reactive experimental results that can be used for validation. These ones, shown in the PhD thesis of \citeColor[renaud_high-speed_2015], consist of the qualitative maps of SMD and axial velocity shown in Figure \ref{fig:maps_BIMER_renaud_expe_results}. Qualitative experimental results on non-reactive conditions are not available from literature, and hence a qualitative validation is not possible to this date.
+
+%\begin{figure}[h!]
+%\flushleft
+%\begin{subfigure}[b]{0.3\textwidth}
+%	\centering
+%   \includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/expe_maps/SMD_map.png}
+%   %\caption{Low Weber number operating point.}
+%   %\label{} 
+%\end{subfigure}
+%\hspace*{0.1in}
+%\begin{subfigure}[b]{0.3\textwidth}
+%	\centering
+%   \includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/expe_maps/u_axial_map.png}
+%   %\caption{Low Weber number operating point.}
+%   %\label{} 
+%\end{subfigure}
+%\hspace*{0.1in}
+%\begin{subfigure}[b]{0.3\textwidth}
+%	\centering
+%   \includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/expe_maps/u_vertical_map.png}
+%   %\caption{Low Weber number operating point.}
+%   %\label{} 
+%\end{subfigure}
+%\caption{Experimental maps for for $SMD$, axial velocity $u$ and vertical velocity $v$ from \citeColor[renaud_high-speed_2015]}
+%\label{fig:maps_BIMER_renaud_expe_results}
+%\end{figure}
+
 
 \begin{figure}[h!]
 \flushleft
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/expe_maps/SMD_map.png}
    %\caption{Low Weber number operating point.}
    %\label{} 
 \end{subfigure}
 \hspace*{0.1in}
-\begin{subfigure}[b]{0.3\textwidth}
+\begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/expe_maps/u_axial_map.png}
    %\caption{Low Weber number operating point.}
    %\label{} 
 \end{subfigure}
-\hspace*{0.1in}
-\begin{subfigure}[b]{0.3\textwidth}
-	\centering
-   \includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/expe_maps/u_vertical_map.png}
-   %\caption{Low Weber number operating point.}
-   %\label{} 
-\end{subfigure}
-\caption{Experimental maps for for $SMD$, axial velocity $u$ and vertical velocity $v$ from \citeColor[renaud_high-speed_2015]}
+\caption{Experimental maps for for $SMD$ and axial velocity $u$ from \citeColor[renaud_high-speed_2015]}
 \label{fig:maps_BIMER_renaud_expe_results}
 \end{figure}
 
-%\section{Model flowchart applied to BIMER}
-%\label{sec:ch9_BIMER_SLI_flowchart}
 
 \section{Boundary condition for liquid phase}
 \label{sec:ch9_BIMER_BCs_for_liquid_phase}
@@ -162,31 +218,45 @@ The BIMER operating point tested in this chapter to test the SLI methodology has
 
 For the multipoint stage, the SLI obtained from the resolved atomization simulations in Chapter \ref{ch8:bimer_resolved_atomization} are used. Since the objective of this simulation is to prove that SLI can be used to initialise dispersed-phase computations in a full multipoint injector, only the SLI obtained from the fine simulation with $\Delta x_\mathrm{min} = 10~\mu$m at the location $x_c = 2$ mm is used. This injector is chosen since 1) it has been obtained with the finest interface resolution simulated and 2) it has been obtained at an axial location along the crossflow direction $x_c$ where all the global spray mean magnitudes (SMD, velocities, deformation parameters) are converged with axial distance (see $\S$\ref{sec:ch8_BIMER_spray_char}). This SLI is shown in Figure \ref{fig:injectors_sli_BIMER_DX10_xD06p67}: these maps, \hl{with(out) convergence-driven discretization}, are injected as shown in the dispersed phase simulation. The flux spatial distribution in the SLI is scaled so that the total mass flow rate injected in one multipoint hole is equal to the actual mass flow rate injected in the experimental configuration. Injected velocities are \hl{volume-weighted/artimethci mean} and RMS following a gaussian $r$ velocity law. The secondary atomization model chosen is the Gorokhovski model with constants $K_1 = $\textbf{XX?}, $K_2 = $\textbf{XX?}. These injection parameters are summarized in Table  \ref{tab:BIMER_SLI_fixed_model_parameters}.
 
-
 \begin{table}[!h]
 \centering
 \caption{Fixed SLI model parameters for dispersed-phase simulations of the take-off stage in BIMER}
-\begin{tabular}{cccccc}
+\begin{tabular}{ccc}
 \thickhline
- \multirow{2}{*}{ \begin{tabular}{c} \textbf{Resolved} \\ \textbf{simulation} \end{tabular}}    &  \multirow{2}{*}{  \begin{tabular}{c} $x_{c,\mathrm{inj}}$  \\ $\left[ \mathrm{mm} \right]$ \end{tabular}} &   \multirow{2}{*}{ \begin{tabular}{c} $\textbf{r}$ \\ \textbf{law} \end{tabular}} & \multirow{2}{*}{ \begin{tabular}{c} \textbf{Atomization} \\ \textbf{model} \end{tabular}} &    \multirow{2}{*}{ $K_1$} & \multirow{2}{*}{ $K_2$}\\
- & & & & &  \\
+ \multirow{2}{*}{ \begin{tabular}{c} \textbf{Resolved} \\ \textbf{simulation} \end{tabular}}    &  \multirow{2}{*}{  \begin{tabular}{c} $x_{c,\mathrm{inj}}$  \\ $\left[ \mathrm{mm} \right]$ \end{tabular}} &   \multirow{2}{*}{ \begin{tabular}{c} $\textbf{r}$ \\ \textbf{law} \end{tabular}} \\
+ & &  \\
 \thickhline
-DX10 & 2 & Gaussian & Goro  & ? & ? \\
+DX10 & 2 & Gaussian  \\
 \thickhline
 \end{tabular}
 \label{tab:BIMER_SLI_fixed_model_parameters}
 \end{table}
 
 
-For performing injection in the 10 multipoint holes, the SLI from the single liquid injector simulated are replicated in the remaining liquid injectors. For it, the injectors location are translated and the vectorial magnitudes (crossflow normal direction, velocities) are rotated so that the crossflow local direction stays identical in all multipoint holes. Each single injector will deliver a mass flow rate of $\dot{m}_{l,t} = 0.139$ g s$^{-1}$ (equivalent to a flow rate of $Q_l = 185.3$ mm$^3$ s$^{-1}$), hence making a total liquid flux injected of $\dot{m}_{l,t} = 1.39$ g s$^{-1}$ for the take-off phase as indicated in Table \ref{tab:liquid_operating_point_Renaud}. A schematic view of three injectors through which lagrangian droplets will be injected can be seen in Figure \ref{fig:BIMER_multipoint_injection_planes_view}.
+%\begin{table}[!h]
+%\centering
+%\caption{Fixed SLI model parameters for dispersed-phase simulations of the take-off stage in BIMER}
+%\begin{tabular}{cccccc}
+%\thickhline
+% \multirow{2}{*}{ \begin{tabular}{c} \textbf{Resolved} \\ \textbf{simulation} \end{tabular}}    &  \multirow{2}{*}{  \begin{tabular}{c} $x_{c,\mathrm{inj}}$  \\ $\left[ \mathrm{mm} \right]$ \end{tabular}} &   \multirow{2}{*}{ \begin{tabular}{c} $\textbf{r}$ \\ \textbf{law} \end{tabular}} & \multirow{2}{*}{ \begin{tabular}{c} \textbf{Atomization} \\ \textbf{model} \end{tabular}} &    \multirow{2}{*}{ $K_1$} & \multirow{2}{*}{ $K_2$}\\
+% & & & & &  \\
+%\thickhline
+%DX10 & 2 & Gaussian & Goro  & ? & ? \\
+%\thickhline
+%\end{tabular}
+%\label{tab:BIMER_SLI_fixed_model_parameters}
+%\end{table}
+
+
+For performing injection in the 10 multipoint holes, the SLI from the single liquid injector simulated are replicated in the remaining liquid injectors. For it, the injectors location are translated and the vectorial magnitudes (crossflow normal direction, velocities) are rotated so that the crossflow local direction stays identical in all multipoint holes. Each single injector will deliver a mass flow rate of $\dot{m}_{l,t} = 0.139$ g s$^{-1}$ (equivalent to a flow rate of $Q_l = 185.3$ mm$^3$ s$^{-1}$), hence making a total liquid flux injected of $\dot{m}_{l,t} = 1.39$ g s$^{-1}$ for the take-off phase as indicated in Table \ref{tab:liquid_operating_point_Renaud}. A schematic view of injectors through which lagrangian droplets are injected can be seen in Figure \ref{fig:BIMER_LGS_spray_establishment}.
 
 %These injectors were, however, obtained from the simulations of one single injector. In order to initialise the rest of multipoint injection holes (for a total of 10 in BIMER, see Figure \textbf{Figure??}), new numerical injectors need to be defined in each hole by making a revolution of the available ones. This revolution is possible due to the radial of BIMER in terms of injectors location (which are equally spaced to a distance of 25 mm from the center with a radial difference of 36 $\degree$) and the multipoint vane locations: each injection hole is located at the same location between two vanes, hence seeing the same incoming air (see Figure \textbf{Figure??}).
 
-\begin{figure}[h!]
-	\centering	\includeinkscape[inkscapelatex=false,scale=0.5]{./part3_applications/figures_ch9_lagrangian/multipoint_injection_planes_view}
-	\caption{View of BIMER take-off stage showing three different injection locations}	\label{fig:BIMER_multipoint_injection_planes_view}
-\end{figure}
-
+%\begin{figure}[h!]
+%	\centering	\includeinkscape[inkscapelatex=false,scale=0.5]{./part3_applications/figures_ch9_lagrangian/multipoint_injection_planes_view}
+%	\caption{View of BIMER take-off stage showing three different injection locations}	\label{fig:BIMER_multipoint_injection_planes_view}
+%\end{figure}
+%
 
 
 
@@ -222,45 +292,6 @@ SMD & $\mu$m & 15 \\
 \end{tabular}
 \label{tab:LISA_model_parameters}
 \end{table}
-
-\subsubsection*{LISA model for injection (REMOVE WHEN SIMUS READY)}
-
-For performing pilot injection, the LISA model available in YALES2 is used \citepColor[guedot_developpement_2015]. 
-
-\begin{equation}
-X = \frac{A_a}{A_0} = \left( \frac{R_a}{R_0} \right)^2 = \frac{\sin^2 \gamma_s}{1 + \cos^2 \gamma_s}
-\end{equation}
-
-where $R_a$ is the minimum injection radius, $R_0$ the maximum, and $\gamma_s$ is the mean injection angle. The inputs to the model are $\gamma_s$ and $R_0$, so from the previous equation $X$ can be obtained and the radius $R_a$ can be solved:
-
-\begin{equation}
-R_a^2 = R_0^2 X
-\end{equation}
-
-The axial velocity imposed to the particles $u_x$ is obtained through the following expression:
-
-\begin{equation}
-u_x = \frac{\dot{m}}{\rho_l \pi \left( R_0^2 - R_a^2 \right)} = \frac{\dot{m}}{\rho_l \pi R_0^2 \left( 1 - X^2 \right)} 
-\end{equation}
-
-\textbf{OJO}: in Renaud's application case ($\dot{m} = 0.25 ~ g/s$, see Table \ref{tab:LISA_model_parameters}), taking $R_0 = 0.125 ~mm$ gives an axial velocity of $u_x = 7.9 ~ m/s$. This created an almost-point injection, as it can be seen in the simulations. If we take $R_0 = 1.5 ~mm$ (the radius of the hollow cone patch), droplets are injected along all the hollow cone patch. However, the axial velocity imposed is $u_x = 0.05 ~m/s$. So we'll go towards the large radius.
-
-%\begin{table}[!h]
-%\centering
-%\caption{LISA model setup for pilot injection}
-%\begin{tabular}{|c|c|}
-%\hline
-%\textbf{Parameter} & \textbf{Value} \\
-%\hline
-%Mass flow rate $\dot{m} [g s^{-1}]$ & 0.25 \\
-%\hline
-%Injector radius $R_0 [mm]$ & 0.125 \\
-%\hline
-%Mean angle $\overline{\theta} [\degree]$ & 40 \\
-%\hline
-%\end{tabular}
-%\label{tab:LISA_model_parameters}
-%\end{table}
 
 
 
@@ -344,17 +375,40 @@ Evap & 1.48 & 2.25 \\ % restart_01, it. 295
 
 
 
-\subsection{Spray flow field}
+\subsection{Lagrangian field establishment}
+
+The three simulations summarized in Table \ref{tab:BIMER_dispersed_phase_simulations_performed} are performed with identical liquid dispersed-phase injection boundary conditions and with their corresponding boundary conditions for the gaseous phase. In all cases, liquid has been injected into a established single-phase gaseous solution which was previously run for $2 \tau_\mathrm{conv}$, being $\tau_\mathrm{conv} = 37.6$ ms the convection time scale described in Chapter \ref{ch7:bimer_test_bench_and_aero}. Running for such time corresponds to $\sim 8 \tau_{swirl}$, which ensures a established gaseous field within the injector for simulations with ALM and without it. For the simulation where evaporation is taken into account, the full domain is preheated to $T_g = 433$ K as done experimentally.
+
+The establishment of the dispersed-phase liquid field is shown in Figure for the Baseline case. Droplets are scaled by 10 times their diameter for visualization purposes. Equivalent behaviour for the lagrangian spray establishment in the rest of the simulations are obtained, and hence are not shown here. As shown by the snapshots, droplets are being injected through all the SLI located at the vicinity of each multi-point hole and through the pilot stage. Droplets delivered through the take-off stage have different sizes due to the poly-disperse nature of SLI, which injects droplets from 20 to 40 $\mu$m of diameter (see Figure \ref{fig:injectors_sli_BIMER_DX10_xD06p67}),,while pilot stage introduces a mono-disperse spray with a imposed size of 15 $\mu$m. \\
+
+To compare the three solutions, we choose the time instants t = 10 ms.
+
+\clearpage
+
+\begin{figure}[h!]
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.5]{./part3_applications/figures_ch9_lagrangian/LGS_establishment_baseline_case}
+	\caption{Several instants of liquid fuel injection through both pilot and take-off stages for baseline case}	\label{fig:BIMER_LGS_spray_establishment}
+\end{figure}
+
+
+\clearpage
+
+\begin{figure}[h!]
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.5]{./part3_applications/figures_ch9_lagrangian/LGS_comparison_case}
+	\caption[Instantaneous views with a established spray for the three simulations performed]{Instantaneous views with a established spray for the three simulations performed. In the first row the full lagrangian field is shown, while the second row displays the spray contained within a slab of 1 mm thickness centered at the center of the injector. The third and fourth rows show the droplets from the pilot and take-off stages respectively, contained in the 1 mm thick slab.}	\label{fig:BIMER_LGS_spray_establishment}
+\end{figure}
+
+\clearpage
+
 
 \subsection{Qualitative results and experimental comparison}
 
-\clearpage
 
 \begin{figure}[h!]
 \centering
 \begin{subfigure}[b]{1.0\textwidth}
 	\centering 
-	\includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/simus_expe_validation/subplots_maps_SMD.png}
+	\includegraphics[scale=0.8]{./part3_applications/figures_ch9_lagrangian/simus_expe_validation/subplots_maps_SMD.png}
    \caption{SMD maps}
    %\label{fig:validation_qualitative_u_mean} 
 \end{subfigure}
@@ -365,22 +419,85 @@ Evap & 1.48 & 2.25 \\ % restart_01, it. 295
 	\centering
 	\includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/simus_expe_validation/subplots_maps_axial_velocity.png}
    \caption{Mean axial velocity maps}
-   %\label{fig:validation_qualitative_u_rms}
+\end{subfigure}
+%
+%\vspace*{0.1in}
+%
+%\begin{subfigure}[b]{1.0\textwidth}
+%	\centering
+%	\includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/simus_expe_validation/subplots_maps_vertical_velocity.png}
+%   \caption{Mean vertical velocity maps}
+%   %\label{fig:validation_qualitative_v_mean} 
+%\end{subfigure}
+\caption[Qualitative experimental validation]{Qualitative experimental validation in the region enclosed in Figure \textbf{XX?}. SMD, mean and vertical velocity fields velocity from experiments by \citeColor[renaud_high-speed_2015] and the three simulations performed}
+\label{fig:validation_BIMER_lgs}
+\end{figure}
+
+\clearpage
+
+
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[b]{1.0\textwidth}
+	\centering 
+	\includegraphics[scale=0.3]{./part3_applications/figures_ch9_lagrangian/simus_pilot_takeoff_comparison/baseline_SMD.png}
+\hspace*{0.1in}
+   \includegraphics[scale=0.3]{./part3_applications/figures_ch9_lagrangian/simus_pilot_takeoff_comparison/baseline_u_axial.png}
+   \caption{Baseline case}
+   %\label{fig:validation_qualitative_u_mean} 
 \end{subfigure}
 
 \vspace*{0.1in}
 
 \begin{subfigure}[b]{1.0\textwidth}
 	\centering
-	\includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/simus_expe_validation/subplots_maps_vertical_velocity.png}
-   \caption{Mean vertical velocity maps}
-   %\label{fig:validation_qualitative_v_mean} 
+	\includegraphics[scale=0.3]{./part3_applications/figures_ch9_lagrangian/simus_pilot_takeoff_comparison/ALM_SMD.png}
+\hspace*{0.1in}
+   \includegraphics[scale=0.3]{./part3_applications/figures_ch9_lagrangian/simus_pilot_takeoff_comparison/ALM_u_axial.png}
+   \caption{ALM case}
 \end{subfigure}
-\caption[Qualitative experimental validation]{Qualitative experimental validation in the region enclosed in Figure \textbf{XX?}. SMD, mean and vertical velocity fields velocity from experiments by \citeColor[renaud_high-speed_2015] and the three simulations performed}
-\label{fig:validation_BIMER_lgs}
+
+\vspace*{0.1in}
+
+\begin{subfigure}[b]{1.0\textwidth}
+	\centering
+	\includegraphics[scale=0.3]{./part3_applications/figures_ch9_lagrangian/simus_pilot_takeoff_comparison/evap_SMD.png}
+\hspace*{0.1in}
+   \includegraphics[scale=0.3]{./part3_applications/figures_ch9_lagrangian/simus_pilot_takeoff_comparison/evap_u_axial.png}
+   \caption{Evap case}
+\end{subfigure}
+\caption[Comparison of pilot and take-off stages to the resulting
+spray ]{Comparison of pilot and take-off stages to the resulting
+spray in the experimental validation region outlined in Figure \ref{fig:BIMER_LGS_spray_establishment}}
+\label{fig:comparison_pilot_takeoff_maps_BIMER_lgs}
 \end{figure}
 
 \clearpage
+
+\begin{table}[!h]
+\centering
+\caption{SMDs obtained compared to experimental one}
+\begin{tabular}{cccc}
+\thickhline
+\textbf{Case} & $SMD$ [$\mu$m] & $SMD_\mathrm{pilot}$ [$\mu$m] & $SMD_\mathrm{takeoff}$ [$\mu$m]   \\
+\thickhline
+Experiments & 16.58 & - & - \\
+Baseline & 21.41 & 15.00 & 35.81 \\
+ALM & 20.00 & 15.00 & 35.71 \\
+Evap & 17.53 & 9.41 & 32.67 \\ 
+\thickhline
+\end{tabular}
+\label{tab:BIMER_dispersed_phase_characteristic_times}
+\end{table}
+
+\begin{figure}[ht]
+   \centering
+   \includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/droplets_histograms}
+   \caption{Cost savings in SLI development by refining grid resolution}
+   \label{fig:LGS_BIMER_droplets_histograms}
+\end{figure}
+
 
 \section{Computational performances}
 
@@ -395,111 +512,5 @@ model. For the gaseous phase, the ALM methodology has been applied to model the 
 \hl{Results have shown ....}
 
 Further work is required in order to accurately match the experimental results. Nevertheless, this chapter has shown the capability of SLI to initialise the spray in dispersed-phase simulations from more realistic, industrial-type multi-staged burners, and its ability to add multiphysical phenomena such as evaporation. Next steps include adding a flame kernel to ignite the reactive gas-fuel mixture and simulate combustion.
-
-
-\clearpage
-
-\section{Extrapolation of injectors to rest of multipoint holes}
-
-The 
-
-\subsection{Injectors geometry}
-
-\begin{equation}
-\boldsymbol{x}_0 =  \begin{pmatrix} - 38.5 ~\mathrm{mm} \\ r \cos \alpha_0 \\ r \sin \alpha_0 \end{pmatrix}
-\end{equation}
-
-\begin{equation}
-\boldsymbol{x}_i =  \begin{pmatrix} - 38.5 ~\mathrm{mm} \\ r \cos \alpha_i \\ r \sin \alpha_i \end{pmatrix}
-\end{equation}
-
-
-\subsection{General procedure}
-
-\begin{enumerate}
-
-	\item Obtain parameters for SLI of injector 0 (baseline parameters):
-	
-	\begin{equation}
-	\alpha_0  ~~ ; ~~ \boldsymbol{n}_0 ~~ ; ~~ \theta_0 = 90 - \alpha_0 - atan \left( \frac{n_y}{n_z} \right) ~~ ; 
-	\end{equation}
-
-	\item Get parameters for SLI of injector $i$ from baseline:
-	
-	\begin{equation}
-	\alpha_i = \alpha_0 - i \Delta \alpha 
-	\end{equation}
-	
-	\begin{equation}
-	\boldsymbol{n}_i = 
-	\end{equation}
-	
-	\begin{equation}
-	\theta_1 = \theta_0
-	\end{equation}
-	
-
-\end{enumerate}
-
-\subsection{Definition of coordinate systems and operations}
-
-The global coordinate system is:
-
-\begin{equation}
-\boldsymbol{x} =  \begin{pmatrix} x \\ y \\ z \end{pmatrix}
-\end{equation}
-
-The local (crossflow) coordinate system is:
-
-\begin{equation}
-\boldsymbol{x}^{cr} = \begin{pmatrix} x^c \\ y^c \\ z^c \end{pmatrix}
-\end{equation}
-
-with the following equivalences between local and global systems :
-
-\begin{equation}
-\boldsymbol{x}^c = \boldsymbol{n}  ~~~~ ; ~~~~ \boldsymbol{z}^c = \boldsymbol{x}  ~~~~ ; ~~~~ \boldsymbol{y}^c =  \boldsymbol{z}^c \times \boldsymbol{x}^c
-\end{equation}
-
-where the rotation matrix being:
-
-\begin{equation}
-\boldsymbol{R} = \begin{pmatrix} \boldsymbol{x}^{c^T} \\ \boldsymbol{y}^{c^T} \\ \boldsymbol{z}^{c^T} \end{pmatrix}
-\end{equation}
-
-More elegantly expresses:
-
-\begin{equation}
-\boldsymbol{R} = \begin{pmatrix} x^c_x & x^c_y & x^c_z \\ y^c_x & y^c_y & y^c_z \\ z^c_x & z^c_y & z^c_z \end{pmatrix}
-\end{equation}
-
-%\begin{equation}
-%\boldsymbol{x} =  \begin{pmatrix} 1 & 2 & -3 \\ 4 & 0 & 1 \end{pmatrix}
-%\end{equation}
-
-
-Transformation for droplet locations is translation + rotation
-
-\begin{equation}
-\boldsymbol{x}^c_\mathrm{dr} = \boldsymbol{R} \left( \boldsymbol{x}_\mathrm{dr} -  \boldsymbol{x}_0 \right)
-\end{equation}
-
-For droplet velocities, transformation is only rotation:
-
-\begin{equation}
-\boldsymbol{u}^c_\mathrm{dr} = \boldsymbol{R} \boldsymbol{u}_\mathrm{dr}
-\end{equation}
-
-Inverse transform then:
-
-\begin{equation}
-\boldsymbol{x}_\mathrm{inj} = \boldsymbol{x}_0 + \boldsymbol{R}^{-1} \boldsymbol{x}_\mathrm{inj}^c
-\end{equation}
-
-\begin{equation}
-\boldsymbol{u}_\mathrm{inj} = \boldsymbol{R}^{-1} \boldsymbol{u}_\mathrm{inj}^c
-\end{equation}
-
-\section{Towards reactive simulations}
 
 

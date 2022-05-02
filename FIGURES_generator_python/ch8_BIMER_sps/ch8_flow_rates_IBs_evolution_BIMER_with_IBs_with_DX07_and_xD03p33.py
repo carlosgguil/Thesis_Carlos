@@ -298,7 +298,7 @@ plt.ylim(0,600)
 plt.legend(loc='best',fontsize=60*FFIG,ncol=2)
 plt.grid()
 plt.tight_layout()
-plt.savefig(folder_manuscript+'inst_Q_iso_x_DX10.pdf')
+#plt.savefig(folder_manuscript+'inst_Q_iso_x_DX10.pdf')
 plt.show()
 plt.close()
 
@@ -383,7 +383,7 @@ for ax in axs.flat:
 #plt.ylabel([0,2000,4000,6000,8000])
 plt.ylim(0,300)
 plt.tight_layout()
-plt.savefig(folder_manuscript+'evolution_mean_Q_iso_x.pdf')
+#plt.savefig(folder_manuscript+'evolution_mean_Q_iso_x.pdf')
 plt.show()
 plt.close
 
@@ -436,7 +436,7 @@ for ax in axs.flat:
 #plt.ylabel([0,2000,4000,6000,8000])
 plt.ylim(0,250)
 plt.tight_layout()
-plt.savefig(folder_manuscript+'evolution_RMS_Q_iso_x.pdf')
+#plt.savefig(folder_manuscript+'evolution_RMS_Q_iso_x.pdf')
 plt.show()
 plt.close
 
@@ -474,7 +474,7 @@ plt.ylabel(y_label_Ql_mean_perp)
 plt.xticks([r for r in range(len(cases))], cases)
 plt.legend(loc='upper left', ncol=2)
 plt.tight_layout()
-plt.savefig(folder_manuscript+'bar_graph_isox_IBs.pdf')
+#plt.savefig(folder_manuscript+'bar_graph_isox_IBs.pdf')
 plt.show()
 plt.close()
 

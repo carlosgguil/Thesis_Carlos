@@ -8,6 +8,7 @@ Created on Fri Feb 19 17:38:38 2021
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+import pickle
 from matplotlib import gridspec
 
 # Change size of figures 
@@ -34,8 +35,9 @@ plt.rcParams['text.usetex'] = True
 
 
 
-folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part3_applications/figures_ch9_lagrangian/simus_expe_validation/'
+folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part3_applications/figures_ch9_lagrangian/simus_expe_validation_temp/'
 folder_expe = 'C:/Users/Carlos Garcia/Desktop/Ongoing/BIMER/postprocessing/donnees_expe_Renaud/image_processing_with_matlab/csv_output_files/'
+folder_simus = 'C:/Users/Carlos Garcia/Desktop/Ongoing/BIMER/LGS_simus/data_droplets_BIMER_LGS/'
 
 # Maps N levels
 N_LEVELS = 51
@@ -68,6 +70,9 @@ label_u_vertical = r'$v~[\mathrm{m~s}^{-1}]$'
 titles = [r'$\mathrm{Expe}$',r'$\mathrm{Baseline}$', 
           r'$\mathrm{ALM}$', r'$\mathrm{Evap}$']
 
+# simus folder
+cases_simus = ['baseline_no_ALM_no_evap','with_ALM_no_evap','no_ALM_with_evap']
+
 gs = gridspec.GridSpec(1, 5, width_ratios=[1, 1, 1, 1, 0.25])
 
 
@@ -75,6 +80,7 @@ gs = gridspec.GridSpec(1, 5, width_ratios=[1, 1, 1, 1, 0.25])
 labelpad_ = 0
 labelpad_SMD = 25
 w_space_subplots = 0.5
+
 
 
 
@@ -135,7 +141,65 @@ levels_map_SMD = np.linspace(9,34,51)
 levels_map_u_axial = np.linspace(-23,53,77)
 levels_map_u_vertical = np.linspace(-17,17,34)
 
+
+#%% read numerical maps
+
+xx_all_cases = [xx_values_SMD]
+yy_all_cases = [yy_values_SMD]
+SMD_to_plot_all_cases = [data_SMD]
+u_to_plot_all_cases = [data_u_axial]
+v_to_plot_all_cases = [data_u_vertical]
+w_to_plot_all_cases = [[]]
+
+for k in range(len(cases_simus)):
+    folder = folder_simus + cases_simus[k]
+
+    with open(folder+'./pickle_map_data_no_grid', 'rb') as f:
+        dict_spray = pickle.load(f)
+        xx = dict_spray['xx']
+        yy = dict_spray['yy']
+        SMD_to_plot = dict_spray['SMD_to_plot']
+        u_to_plot = dict_spray['u_to_plot']
+        v_to_plot = dict_spray['v_to_plot']
+        w_to_plot = dict_spray['w_to_plot']
+        u_VW_to_plot = dict_spray['u_VW_to_plot']
+        v_VW_to_plot = dict_spray['v_VW_to_plot']
+        w_VW_to_plot = dict_spray['w_VW_to_plot']
+    
+    xx_all_cases.append(xx)
+    yy_all_cases.append(yy)
+    SMD_to_plot_all_cases.append(SMD_to_plot)
+    u_to_plot_all_cases.append(u_to_plot)
+    v_to_plot_all_cases.append(v_to_plot)
+    w_to_plot_all_cases.append(w_to_plot)
+    '''
+    u_to_plot_all_cases.append(u_VW_to_plot)
+    v_to_plot_all_cases.append(v_VW_to_plot)
+    w_to_plot_all_cases.append(w_VW_to_plot)
+    '''
+        
+
+#%% plot global SMDs
+
+
+print(' ---------- Global SMDs --------')
+for n in range(len(SMD_to_plot_all_cases)):
+    SMD_n = SMD_to_plot_all_cases[n]
+    
+    SMD = 0; count = 0
+    for i in range(len(SMD_n)):
+        for j in range(len(SMD_n[i])):
+            SMD_ij = SMD_n[i][j]
+            if not np.isnan(SMD_ij):
+                SMD += SMD_ij
+                count += 1
+    SMD = SMD/count
+    print('   Case'+titles[n]+f' SMD = {SMD}')
+
 #%% Plot individual expe maps
+
+
+
 
 i = 0
 
@@ -201,30 +265,31 @@ ax4 = plt.subplot(gs[3])
 ax5 = plt.subplot(gs[4])
 
 
+
 # expe
 i = 0
-ax1.pcolor(xx_values_SMD, yy_values_SMD, data_SMD,
+ax1.pcolor(xx_all_cases[i], yy_all_cases[i], SMD_to_plot_all_cases[i],
            vmin = levels_map_SMD[0], vmax = levels_map_SMD[-1], cmap = 'jet')
 #ax1.set_xlabel(x_label_)
 ax1.set_title(titles[i], pad=pad_title_maps)
 
 # baseline case
 i = 1
-ax2.pcolor(xx_values_SMD, yy_values_SMD, data_SMD,
+ax2.pcolor(xx_all_cases[i], yy_all_cases[i], SMD_to_plot_all_cases[i],
            vmin = levels_map_SMD[0], vmax = levels_map_SMD[-1], cmap = 'jet')
 #ax2.set_xlabel(x_label_)
 ax2.set_title(titles[i], pad=pad_title_maps)
 
 # ALM
 i = 2
-ax3.pcolor(xx_values_SMD, yy_values_SMD, data_SMD,
+ax3.pcolor(xx_all_cases[i], yy_all_cases[i], SMD_to_plot_all_cases[i],
            vmin = levels_map_SMD[0], vmax = levels_map_SMD[-1], cmap = 'jet')
 #ax3.set_xlabel(x_label_)
 ax3.set_title(titles[i], pad=pad_title_maps)
 
 # evap
 i = 3
-im = ax4.pcolor(xx_values_SMD, yy_values_SMD, data_SMD,
+im = ax4.pcolor(xx_all_cases[i], yy_all_cases[i], SMD_to_plot_all_cases[i],
            vmin = levels_map_SMD[0], vmax = levels_map_SMD[-1], cmap = 'jet')
 #ax4.set_xlabel(x_label_)
 ax4.set_title(titles[i], pad=pad_title_maps)
@@ -234,7 +299,7 @@ ax4.set_title(titles[i], pad=pad_title_maps)
 cax = ax5
 #cax = fig.add_axes([1.0, 0.150, 0.05, 0.75])
 cbar = plt.colorbar(im, cax=cax, orientation='vertical')
-plt.colorbar(im, cax = cax, format = '$%d$',ticks=levels_map_SMD[::10])
+plt.colorbar(im, cax = cax, format = '$%d$',ticks=[10,15,20,25,30])
 cbar.set_label(label_SMD, labelpad=labelpad_SMD,fontsize=60*FFIG)
 
 
@@ -257,7 +322,6 @@ plt.show()
 plt.close()
 
 
-
 #%% subplots axial velocity
 
 
@@ -274,28 +338,28 @@ ax5 = plt.subplot(gs[4])
 
 # expe
 i = 0
-ax1.pcolor(xx_values_u_axial, yy_values_u_axial, data_u_axial,
+ax1.pcolor(xx_values_u_axial, yy_values_u_axial, u_to_plot_all_cases[i],
            vmin = levels_map_u_axial[0], vmax = levels_map_u_axial[-1], cmap = 'jet')
 #ax1.set_xlabel(x_label_)
 ax1.set_title(titles[i], pad=pad_title_maps)
 
 # baseline case
 i = 1
-ax2.pcolor(xx_values_u_axial, yy_values_u_axial, data_u_axial,
+ax2.pcolor(xx_all_cases[i], yy_all_cases[i], u_to_plot_all_cases[i],
            vmin = levels_map_u_axial[0], vmax = levels_map_u_axial[-1], cmap = 'jet')
 #ax2.set_xlabel(x_label_)
 ax2.set_title(titles[i], pad=pad_title_maps)
 
 # ALM
 i = 2
-ax3.pcolor(xx_values_u_axial, yy_values_u_axial, data_u_axial,
+ax3.pcolor(xx_all_cases[i], yy_all_cases[i], u_to_plot_all_cases[i],
            vmin = levels_map_u_axial[0], vmax = levels_map_u_axial[-1], cmap = 'jet')
 #ax3.set_xlabel(x_label_)
 ax3.set_title(titles[i], pad=pad_title_maps)
 
 # evap
 i = 3
-im = ax4.pcolor(xx_values_u_axial, yy_values_u_axial, data_u_axial,
+im = ax4.pcolor(xx_all_cases[i], yy_all_cases[i], u_to_plot_all_cases[i],
            vmin = levels_map_u_axial[0], vmax = levels_map_u_axial[-1], cmap = 'jet')
 #ax4.set_xlabel(x_label_)
 ax4.set_title(titles[i], pad=pad_title_maps)
@@ -350,30 +414,32 @@ ax4 = plt.subplot(gs[3])
 ax5 = plt.subplot(gs[4])
 
 
+
+
 # expe
 i = 0
-ax1.pcolor(xx_values_u_vertical, yy_values_u_vertical, data_u_vertical,
+ax1.pcolor(xx_values_u_vertical, yy_values_u_vertical, v_to_plot_all_cases[i],
            vmin = levels_map_u_vertical[0], vmax = levels_map_u_vertical[-1], cmap = 'jet')
 #ax1.set_xlabel(x_label_)
 ax1.set_title(titles[i], pad=pad_title_maps)
 
 # baseline case
 i = 1
-ax2.pcolor(xx_values_u_vertical, yy_values_u_vertical, data_u_vertical,
+ax2.pcolor(xx_all_cases[i], yy_all_cases[i], v_to_plot_all_cases[i],
            vmin = levels_map_u_vertical[0], vmax = levels_map_u_vertical[-1], cmap = 'jet')
 #ax2.set_xlabel(x_label_)
 ax2.set_title(titles[i], pad=pad_title_maps)
 
 # ALM
 i = 2
-ax3.pcolor(xx_values_u_vertical, yy_values_u_vertical, data_u_vertical,
+ax3.pcolor(xx_all_cases[i], yy_all_cases[i], v_to_plot_all_cases[i],
            vmin = levels_map_u_vertical[0], vmax = levels_map_u_vertical[-1], cmap = 'jet')
 #ax3.set_xlabel(x_label_)
 ax3.set_title(titles[i], pad=pad_title_maps)
 
 # evap
 i = 3
-im = ax4.pcolor(xx_values_u_vertical, yy_values_u_vertical, data_u_vertical,
+im = ax4.pcolor(xx_all_cases[i], yy_all_cases[i], v_to_plot_all_cases[i],
            vmin = levels_map_u_vertical[0], vmax = levels_map_u_vertical[-1], cmap = 'jet')
 #ax4.set_xlabel(x_label_)
 ax4.set_title(titles[i], pad=pad_title_maps)

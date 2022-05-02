@@ -128,17 +128,19 @@ dpi_ = 120
 plt.figure(figsize=(figsize_))
 plt.pcolor(xx_values_SMD, yy_values_SMD, data_SMD, 
                    vmin = levels_map_SMD[0], vmax = levels_map_SMD[-1], cmap = 'jet')
-plt.colorbar(format = '$%d$',ticks=levels_map_SMD[::10])
+plt.colorbar(format = '$%d$',ticks=[10,15,20,25,30])
 plt.title(label_SMD, pad=pad_title_maps)
 plt.xlabel(x_label_)
 plt.ylabel(y_label_)
+#plt.xlim(10,15)
+#plt.ylim(-22,-18)
 #plt.tight_layout()
-plt.savefig(folder_manuscript+'SMD_map.pdf',bbox_inches='tight')
+#plt.savefig(folder_manuscript+'SMD_map.pdf',bbox_inches='tight')
 plt.savefig(folder_manuscript+'SMD_map.png',bbox_inches='tight',dpi=dpi_)
 plt.show()
 plt.close()
 
-
+#%%
 
 # u axial
 plt.figure(figsize=(figsize_))
@@ -149,8 +151,8 @@ plt.title(label_u_axial, pad=pad_title_maps)
 plt.xlabel(x_label_)
 plt.ylabel(y_label_)
 #plt.tight_layout()
-plt.savefig(folder_manuscript+'u_axial_map.pdf',bbox_inches='tight')
-plt.savefig(folder_manuscript+'u_axial_map.png',bbox_inches='tight',dpi=dpi_)
+#plt.savefig(folder_manuscript+'u_axial_map.pdf',bbox_inches='tight')
+#plt.savefig(folder_manuscript+'u_axial_map.png',bbox_inches='tight',dpi=dpi_)
 plt.show()
 plt.close()
 
@@ -163,8 +165,19 @@ plt.title(label_u_vertical, pad=pad_title_maps)
 plt.xlabel(x_label_)
 plt.ylabel(y_label_)
 #plt.tight_layout()
-plt.savefig(folder_manuscript+'u_vertical_map.pdf',bbox_inches='tight')
-plt.savefig(folder_manuscript+'u_vertical_map.png',bbox_inches='tight',dpi=dpi_)
+#plt.savefig(folder_manuscript+'u_vertical_map.pdf',bbox_inches='tight')
+#plt.savefig(folder_manuscript+'u_vertical_map.png',bbox_inches='tight',dpi=dpi_)
 plt.show()
 plt.close()
 
+
+#%% Get SMD
+SMD = 0; count = 0
+for i in range(len(data_SMD)):
+    for j in range(len(data_SMD[i])):
+        SMD_ij = data_SMD[i][j]
+        if not np.isnan(SMD_ij):
+            SMD += SMD_ij
+            count += 1
+SMD = SMD/count
+print(f' Global SMD is {SMD}')
