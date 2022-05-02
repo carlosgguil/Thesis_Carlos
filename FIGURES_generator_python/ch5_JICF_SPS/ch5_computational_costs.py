@@ -13,6 +13,7 @@ import sys
 
 
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/SLI_cost_for_convergence/'
+#folder_manuscript='C:/Users/carlo/OneDrive/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/SLI_cost_for_convergence/'
 folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/IBs/'
 sys.path.append(folder)
 
