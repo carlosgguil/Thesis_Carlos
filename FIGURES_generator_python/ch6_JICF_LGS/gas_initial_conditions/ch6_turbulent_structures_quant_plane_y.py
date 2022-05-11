@@ -60,8 +60,8 @@ folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/turbulence_state_u_mean_rm
 #%%  cases and labels
 
 cases = [folder + 'SPS_UG100_DX10/',
-         folder + '/noALM/',
-         folder + 'ALM_flatBL_inclined_force_z_negative_original/',
+         folder + 'no_ALM/',
+         folder + 'DEPRECATED_LGS/ALM_final/',
          folder + 'custom_inlet_UG100_DX10_withRMS/']
 
 label_u_ax  = r'$\overline{u} ~[\mathrm{m}~\mathrm{s}^{-1}$]'
@@ -115,8 +115,7 @@ for i in range(len(cases)):
     
     # y plane
     case_i_folder = cases[i]+'probes_turb_gas_planeY/'
-    
-        
+            
     #----- x lines
     line_x01 = case_i_folder+'/line_planeY_x01mm_U_MEAN.dat'
     line_x02p5 = case_i_folder+'/line_planeY_x02p5mm_U_MEAN.dat'
@@ -249,7 +248,7 @@ plt.ylabel(label_u_ax)
 plt.grid()
 plt.legend(loc='best')
 plt.tight_layout()
-plt.savefig(folder_manuscript+'line_y0_along_x_z02.pdf')
+plt.savefig(folder_manuscript+'ALM_line_y0_along_x_z02.pdf')
 plt.show()
 plt.close()
 
@@ -273,53 +272,11 @@ plt.ylabel(label_u_ax)
 plt.grid()
 #plt.legend(loc='best')
 plt.tight_layout()
-plt.savefig(folder_manuscript+'line_y0_along_x_z05.pdf')
-plt.show()
-plt.close()
-
-# UG75_DX20
-i = 2
-plt.figure(figsize=figsize_u_vs_x)
-plt.title(labels_cases[i])
-j = 1; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'k',label=labels_z_planes[j])
-j = 2; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'b',label=labels_z_planes[j])
-j = 5; plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],'r',label=labels_z_planes[j])
-#plt.xticks([4,6,8,10,12])
-#plt.yticks([4,6,8,10,12])
-plt.xlim(0,20)
-#plt.ylim(3.5,12)
-plt.xlabel(label_x_ax)
-plt.ylabel(label_u_ax)
-#plt.legend(bbox_to_anchor=(1.0, 1.0))
-plt.grid()
-plt.legend(loc='best')
-plt.tight_layout()
-#plt.savefig(folder_manuscript+'map_xb_zb.pdf')
+plt.savefig(folder_manuscript+'ALM_line_y0_along_x_z05.pdf')
 plt.show()
 plt.close()
 
 
-#%% Plot all to check
-
-# UG75_DX20
-i = 1
-plt.figure(figsize=figsize_u_vs_x)
-plt.title(labels_cases[i])
-for j in range(len(labels_z_planes)):
-   plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],label=labels_z_planes[j])
-#plt.xticks([4,6,8,10,12])
-#plt.yticks([4,6,8,10,12])
-plt.xlim(0,20)
-#plt.ylim(3.5,12)
-plt.xlabel(label_x_ax)
-plt.ylabel(label_u_ax)
-#plt.legend(bbox_to_anchor=(1.0, 1.0))
-plt.grid()
-plt.legend(loc='best')
-plt.tight_layout()
-#plt.savefig(folder_manuscript+'map_xb_zb.pdf')
-plt.show()
-plt.close()
 
 
 #%% Plots u vs z
@@ -402,6 +359,6 @@ for ax in axs.flat[1:]:
 #plt.ylabel([0,2,4,6,8, 10])
 plt.ylim(0,10)
 plt.tight_layout()
-plt.savefig(folder_manuscript+'lines_y0_along_z_ux_mean.pdf')
+#plt.savefig(folder_manuscript+'ALM_lines_y0_along_z_ux_mean.pdf')
 plt.show()
-plt.close
+plt.close()

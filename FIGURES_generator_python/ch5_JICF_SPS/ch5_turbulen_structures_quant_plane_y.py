@@ -349,10 +349,19 @@ figsize_several_in_a_row = (FFIG*50,FFIG*20)
 
 u_to_plot = u_mean_values_x_lines
 
+'''
 fig = plt.figure(figsize=figsize_several_in_a_row)
 gs = fig.add_gridspec(1, 5, wspace=0)
 axs = gs.subplots(sharex=False, sharey=True)
 (ax1, ax2, ax3, ax4, ax5) = gs.subplots(sharey='row')
+'''
+
+fig = plt.figure(figsize=figsize_several_in_a_row)
+ax1 = plt.subplot(151)
+ax2 = plt.subplot(152, sharey = ax1)
+ax3 = plt.subplot(153, sharey = ax1)
+ax4 = plt.subplot(154, sharey = ax1)
+ax5 = plt.subplot(155, sharey = ax1)
 
 # x = 1 mm
 j = 0
@@ -398,6 +407,26 @@ for i in range(len(cases)):
 ax5.set_title(labels_x_planes[j])
 #ax5.xaxis.set_ticks(np.array([0,1,2,3])+2)
 
+
+ax1.set(ylabel = label_z_ax)
+for ax in [ax1,ax2,ax3]:
+    ax.label_outer()
+    ax.set(xlabel=label_u_ax)
+    ax.set_xlim(-30,130)
+    ax.xaxis.set_ticks([0,50,100])
+    #ax.grid()
+    #ax.grid()
+#plt.ylabel([0,2000,4000,6000,8000])
+#plt.ylabel([0,2,4,6,8, 10])
+plt.ylim(0,10)
+#ax2.yaxis.set_ticks([])
+plt.tight_layout()
+plt.subplots_adjust(wspace=0.0)
+plt.savefig(folder_manuscript+'lines_y0_along_z_ux_mean.pdf')
+plt.show()
+plt.close()
+
+'''
 axs.flat[0].set(ylabel = label_z_ax)
 for ax in axs.flat:
     ax.label_outer()
@@ -414,3 +443,4 @@ plt.tight_layout()
 plt.savefig(folder_manuscript+'lines_y0_along_z_ux_mean.pdf')
 plt.show()
 plt.close
+'''

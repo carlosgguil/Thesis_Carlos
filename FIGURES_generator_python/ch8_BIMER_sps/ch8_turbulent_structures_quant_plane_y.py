@@ -554,7 +554,7 @@ plt.tight_layout()
 plt.subplots_adjust(wspace=0.0)
 plt.savefig(folder_manuscript+'lines_y0_along_z_ux_mean.pdf')
 plt.show()
-plt.close
+plt.close()
 
 '''
 fig = plt.figure(figsize=figsize_several_in_a_row)

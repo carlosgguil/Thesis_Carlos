@@ -106,22 +106,29 @@ Experiments results from PDA measurements can be found in the articles \citeColo
 %\end{figure}
 
 
+%\begin{figure}[h!]
+%\flushleft
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\flushleft
+%   \includegraphics[scale=0.185]{./part2_developments/figures_ch6_lagrangian_JICF/expe_results/maps_UG75}
+%   \caption{Low Weber number operating point.}
+%   %\label{} 
+%\end{subfigure}
+%\hspace{0.3in}
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/expe_results/maps_UG100}
+%   \caption{High Weber number operating point.}
+%   %\label{} 
+%\end{subfigure}
+%\caption{SMD and volume flux maps obtained experimentally by \citeColor[becker_breakup_2002] at a location $x = 80$ mm downstream the liquid injector.}
+%\label{fig:maps_Becker_expe_results}
+%\end{figure}
+
 \begin{figure}[h!]
-\flushleft
-\begin{subfigure}[b]{0.45\textwidth}
-	\flushleft
-   \includegraphics[scale=0.185]{./part2_developments/figures_ch6_lagrangian_JICF/expe_results/maps_UG75}
-   \caption{Low Weber number operating point.}
-   %\label{} 
-\end{subfigure}
-\hspace{0.3in}
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
+\centering
    \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/expe_results/maps_UG100}
-   \caption{High Weber number operating point.}
-   %\label{} 
-\end{subfigure}
-\caption{SMD and volume flux maps obtained experimentally by \citeColor[becker_breakup_2002] at a location $x = 80$ mm downstream the liquid injector.}
+\caption{SMD and volume flux maps for the high Weber case obtained experimentally by \citeColor[becker_breakup_2002] at a location $x = 80$ mm downstream the liquid injector}
 \label{fig:maps_Becker_expe_results}
 \end{figure}
 
@@ -221,6 +228,7 @@ which, as shown, gives a value of $4062 ~ \mathrm{mm}^3~\mathrm{s}^{-1}$. The in
 %\include{ch6_literature_on_PDA}
 
 \section{Previous numerical studies}
+\label{ch6:previous_numerical_studies}
 
 Prior to this work, several authors have performed dispersed-phase simulations on the experimental configuration of \citeColor[rachner_modelling_2002]. All cases simulated the high Weber operating point from Table \ref{tab:jicf_operating_conditions}. \citeColor[rachner_modelling_2002] simulated the jet in steady crossflow by considering the early liquid as a cylinder deflected by the airflow, which exchanges momentum with a modified drag coefficient, sheds mass and produces droplets whose properties are given from experimental correlations. Later on, \citeColor[eckel_semi-empirical_2016] extended this model to account for shear breakup of ellipsoids and flattened liquid jets (to account for more realistic JICF dense core effects) in both steady and unsteady crossflows, by using semi-empirical correlations. Independently of these studies, \citeColor[jaegle_large_2009] and \citeColor[senoner_simulation_2010] also developed models with this configuration: the former injected a developed spray at the liquid nozzle while accounting for a modified drag law in the near-nozzle region to mimic the liquid column momentum exchange, and the later injected big blobs at the nozzle but accounting for secondary atomization. All these models (except for
 \citeColor[rachner_modelling_2002] since it was more recently improved by \citeColor[eckel_semi-empirical_2016]) are summarized in the diagram of Figure \ref{ch3:subsec_lagrangian_liquid_JICF} and detailed in $\S$\ref{fig:state_art_injection}.
@@ -373,39 +381,113 @@ Prior to liquid injection, it is necessary to establish an initial solution for 
 
 %\subsection{Setup of actuator model}
 
-The model parameters for ALM were described in Table \ref{tab:alm_parameters}. For the two operating points simulated, the corresponding input parameters are summarized in Table \ref{tab:jicf_lgs_ALM_parameters}. These parameters are 
+An actuator representing the dense core can be defined for performing the dispersed-phase simulations by using results from the resolved atomization simulations as input parameters to ALM, whose control variables were summarized in Table \ref{tab:alm_parameters}. An example of an actuator representing the dense core in gaseous simulations can be seen in Figure \ref{fig:u_inst_SPS_and_ALM}. As observed, it is graphically represented as a cylinder with the initial point located in the injection nozzle exit and final point in the breakup location of the resolved dense core estimated from the resolved simulations. The actuator points (not shown in the figure) are located uniformly along the central line of the cylinder. The discrete forces applied to each point are then mollified in the neighbouring cells in order to avoid flow singularities.
 
-The final actuator point $x_b$, $z_b$ and $c_L$ are obtained from the mean values of Figure \ref{fig:dense_core_mean_parameters_scatterplots} for the fine simulations (note that $c_L$ is equivalent to the resolved dense core width $w$); $c_0$ is equal to the injector diameter; $N_p$ has been set to 20 as default, but it has been checked not to have an effect on the results; and the force $\textbf{F}_\mathrm{DC}$ is obtained as explained in $\S$\ref{ch5:subsec_defining_pressure_differences}.
+
+\begin{figure}[h!]
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.6]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/u_inst_SPS_and_ALM}
+	\caption[Perturbation effect towards the gaseous phase visualized through the instantaneous velocity magnitude in the plane $y = 0$]{Perturbation effect towards the gaseous phase visualized through the instantaneous velocity magnitude in the plane $y = 0$. The snapshots correspond to the resolved simulation UG100\_DX10 (\textsl{left}) and to a gaseous simulation with the optimal actuator (\textsl{right})}	
+	\label{fig:u_inst_SPS_and_ALM}
+\end{figure}
+
+
+In order to assess the ALM, the results from the high Weber operating point for the fine case (UG100\_DX10) are used: the actuator point coordinates $x_b$, $z_b$ are obtained from the mean values of Figure \ref{fig:dense_core_mean_parameters_scatterplots}, while the force $\textbf{F}_\mathrm{DC}$ is taken from Table \ref{tab:dense_core_pressures_and_force_parameters}. These values, summarized in Table \ref{tab:jicf_lgs_ALM_parameters}, represent an \textbf{Initial} actuator. As it will be shown, it is found that the disturbance effect created by this actuator was not optimal to represent the disturbance effect of the dense core. Thus, the ALM control variables were tuned until finding an actuator which was found to better match the perturbed gaseous field: this one is summarized as the \textbf{optimal} actuator from Table \ref{tab:jicf_lgs_ALM_parameters}. Furthermore, a third actuator was tested to illustrate the effect of further increasing the imposed net dense core force: this one is defined as the \textbf{modified} actuator in the corresponding table. In this section, only the gaseous fields disturbed by the defined actuators are analyzed. The effect of such influences in the lagrangian liquid field is reported later in $\S$\ref{sec:SLI_LGS_gaseous_phase_effect}.
+
 
 \begin{table}[!h]
 \centering
 \caption{Parameters of an actuator representing the dense core for the high Weber case}
-\begin{tabular}{cccc}
+\begin{tabular}{ccccc}
 \thickhline
-\textbf{Parameter} & \textbf{Units} & \textbf{Initial} &  \textbf{Final} \\
+\textbf{Parameter} & \textbf{Units} & \textbf{Initial} &  \textbf{Optimal} & \textbf{Modified} \\
 \thickhline
-$x_b$ & mm & 2.46 & 1.5 \\
-$z_b$ & mm & 3.07 & 3 \\
+$x_b$ & mm & 2.46 & 1.5 & 1.5 \\
+$z_b$ & mm & 3.07 & 3.0 & 3.0 \\
 %$c_0$ & mm & 0.45 & 0.45 \\
 %$c_L$ & mm & & \\
-$| \textbf{F}_\mathrm{DC} |$ & N & 0.095 & 0.24 \\
+$| \textbf{F}_\mathrm{DC} |$ & N & 0.095 & 0.24 & 0.3 \\
 %$\Delta p$ & Pa &  & \\
 \thickhline
 \end{tabular}
 \label{tab:jicf_lgs_ALM_parameters}
 \end{table}
 
-An example of an actuator representing the dense core in gaseous simulations \hl{can be seen in Figure }. As observed, it is graphically represented as a cylinder with the initial point located in the injection nozzle exit and final point in the breakup location of the resolved dense core estimated from the resolved simulations. The actuator points (not shown in the figure) are located uniformly along the central line of the cylinder. The discrete forces applied to each point are then mollified in the neighbouring cells in order to avoid flow singularities.
+% Initial: L = 3.934 mm, L/2 = 1.967 mm, theta = 38.71
+% Final: L = 3.354 mm, L/2 = 1.677 mm, theta = 26.565
 
-\subsubsection{Comparison between resolved and ALM gaseous fields}
+In first place, the mean axial velocity fields in the symmetry plane $y = 0$ are shown in Figure \ref{fig:ALM_gas_fields_plane_Y}. The resolved case UG100\_DX10 is also displayed for comparison.  As observed, the initial actuator obtained by using the input values from the resolved atomization simulations creates only a slight perturbation downstream the cylinder location, but cannot properly retrieve the recirculation and deceleration regions which were captured by the resolved simulation. Changing the input parameters helps to better capture the perturbation effect: the optimal parameter enhances flow deceleration as visualized by the darker blue region, while the modified actuator creates a more intense perturbance which can also capture a recirculation bubble behind the cylinder as in the resolved atomization simulation. At a first glance, it might seem that the augmented actuator represents better the resolved perturbed field since it recovers the recirculation bubble; nevertheless, the optimal actuator can better retrieve the gaseous flow field further downstream as it is later demonstrated. In general, the optimization of the actuator is based on better matching the flow field in the region where droplets are injected, i.e. for $x > 5$ or 10 mm, as the gaseous field will affect the momentum exchange between phases and the secondary atomization of droplets.
 
-The perturbed gaseous fields created by the presence of the dense core in the \hl{resolved simulations were discussed in $\S$}\ref{ch5:subsec_turbulent_structures_in_gaseous_field}. In the same fashion, equivalent postprocessings can be performed for the gaseous flow field 
+\begin{figure}[h!]	
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.225]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/ALM_planes_y}
+	\caption{Mean axial velocity field at plane $y = 0$ for resolved case UG100\_DX10 and the three actuators tested. The grey cylinder represents the actuator, i.e. the location where body forces are applied}
+	%\caption{Mean axial velocity field at plane $y = 0$ for resolved case UG100\_DX10 (\textsl{top left}), gaseous solutions without dense core perturbation (\textsl{top right}), with initial ALM (\textsl{bottom left}) and with optimal ALM (\textsl{bottom right})}
+	\label{fig:ALM_gas_fields_plane_Y}
+\end{figure}
 
-A quantitative assessment of the actuator blockage effect can be performed by looking at the mean velocity distribution along the lines \textbf{XX} shown in Figure \ref{XX}. Equivalent data was obtained for the resolved simulations in \hl{\textbf{$\S$XX}}, which is also shown in the same Figure for comparison ... \\
+A qualitative analysis of the ALM effect in the $y = 0$ plane can be done by looking at the velocity along the lines represented in Figure \ref{fig:ALM_gas_fields_plane_Y}. The velocity along the lines perpendicular to the $z$ axis is shown in Figure \ref{fig:JICF_ICS_ALM_lines_y0_along_x_ux_mean},while the lines perpendicular to the $x$ axis are shown in Figure \ref{fig:JICF_ALM_lines_iso-x_along_y_ux_mean}. The velocity profile for the unperturbed case is also plotted for comparison.
 
+For location $z = 1.6 mm$, The best match seems to be given for 
 
-\subsubsection{Parametric study on actuator model}
+ and 
 
+\clearpage
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/ALM_line_y0_along_x_z01p6}
+   %\caption{}
+   %\label{} 
+\end{subfigure}
+\hspace{0.4in}
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/ALM_line_y0_along_x_z04p0}
+   %\caption{}
+   %\label{}
+\end{subfigure}
+\caption{Mean axial velocity evolution in ALM and resolved simulations along axial coordinate at locations $z = 1.6, 4$ mm in plane $y = 0$ (lines of Figure \ref{fig:ALM_gas_fields_plane_Y})}
+\label{fig:JICF_ICS_ALM_lines_y0_along_x_ux_mean}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+   \includegraphics[scale=0.26]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/ALM_lines_y0_along_z_ux_mean}
+\caption{Mean axial velocity evolution in ALM and resolved simulations along vertical coordinate at $x = 2.5, 5, 10$ mm locations of plane $y = 0$ (lines of Figure \ref{fig:ALM_gas_fields_plane_Y})}
+\label{fig:JICF_ICS_ALM_lines_y0_along_z_ux_mean}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[h!]	
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.20]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/ALM_planes_x}
+	\caption{Mean axial velocity field at planes $x = 5, 10$ mm for resolved case UG100\_DX10 and gaseous cases with and without ALM}
+	\label{fig:ALM_gas_fields_plane_x}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{1.0\textwidth}
+	\centering
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/ALM_line_x05_z01p6_ux_mean_along_y}
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/ALM_line_x05_z05p0_ux_mean_along_y}
+   \vspace*{-0.1in}
+	\caption{Plane $x = 5$ mm}
+\end{subfigure}
+\vskip\baselineskip
+\begin{subfigure}[b]{1.0\textwidth}
+	\centering
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/ALM_line_x10_z01p6_ux_mean_along_y}
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/ALM_line_x10_z05p0_ux_mean_along_y}
+   \vspace*{-0.1in}
+	\caption{Plane $x = 10$ mm}
+\end{subfigure}
+   \caption{Mean axial velocity evolution along lateral coordinate in ALM and resolved simulations at $z$ lines of Figure \ref{fig:ALM_gas_fields_plane_x}}
+\label{fig:JICF_ALM_lines_iso-x_along_y_ux_mean}
+\end{figure}
 
 \subsection{Prescription of gaseous inlet from resolved simulations }
 \label{subsec:ch6_jicf_lgs_gaseous_inlet_prescription}
@@ -431,6 +513,8 @@ where $\overline{\textbf{u}} \left( \textbf{x} \right)$ and $\textbf{u}_\mathrm{
 
 The mesh employed for performing simulations with the prescribed inlet is shown in Figure \ref{fig:mesh_reduced_inlet}. The mesh, which contains $12 \cdot 10^6$ elements, has been refined up to a location $x = 40$ mm downstream the inlet to a mesh size $\Delta x = 0.3$ mm, while from $x = 40$ mm up to $x = 100$ mm, the mesh size has been set to $\Delta x = 0.5$ mm as in the mesh of Figure \ref{fig:jicf_dlr_mesh_LGS}. The finer cell size of $\Delta x = 0.3$ mm has been selected  with the objective of better capturing the turbulent structures created by the inhomogeneous gaseous velocity profile injected. Nevertheless, \hl{as it will be shown later}, this cell size is not resolved enough to capture those: in the resolved simulations of Chapter \ref{ch5:jicf_resolved_simulations}, the cell size in the gaseous field around the liquid regions was of the order of the interface cell sizes ($20, 10~\mu$m) created by the ALM method, while such resolutions cannot be imposed into this reduced domain as the mesh size greatly increases and yields computations considerably expensive. Furthermore, a too fine mesh would create large volume fractions which are not in accordance with the application of lagrangian methods to simulate dispersed multiphase flows, which are applicable to small volume fractions \citepColor[murrone_numerical_2011].
 
+\clearpage
+
 \begin{figure}[h!]	
 	\centering	
 	\includeinkscape[inkscapelatex=false,scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/mesh_reduced_inlet}
@@ -444,50 +528,245 @@ The mesh employed for performing simulations with the prescribed inlet is shown 
 
 The injected profiles, shown in the maps of Figure \ref{fig:custom_inlet_methodology}, have been obtained from the location $x = 3$ mm downstream the liquid injector in the resolved atomization simulations. Other plane locations have been tested without observing significant differences in the velocity profiles in the dispersed-phase simulations. In fact, the range of the possible planes to retrieve gaseous data for prescribing inlet BCs is narrow: upstream $x = 3$ mm the jet dense core is present and mean gaseous profiles would contain velocities corresponding to the liquid phase, while further downstream the lagrangian spray is injected in the dispersed-phase simulations (the earliest injection location is $x = 5$ mm). Hence, the only reported case here corresponds to the location $x = 3$ mm. Since the computational domain is reduced with respect to the full computational configuration used for the ALM, the axial coordinates are shifted 3 mm and the experimental validation plane, located at 80 mm downstream the liquid injection nozzle in the test bench, corresponds to the location $x = 77$ mm as depicted in Figure \ref{fig:mesh_reduced_inlet}. Hereafter, however, all axial coordinates reported will be expressed in the absolute reference frame of the experimental test bench for easening comparison with the ALM dispersed-phase simulations.
 
+\begin{figure}[h!]	
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.30]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_inlet_planes_y}
+	\caption{Mean axial velocity field at plane $y = 0$ for resolved case UG100\_DX10 and custom gaseous inlet}	\label{fig:custom_gas_fields_plane_Y}
+\end{figure}
 
-
-\subsection{Comparison between ALM and prescribed gas profiles}
-
-Planes y in Figure \ref{fig:JICF_lgs_gaseous_conditions_comparison_plane_y}. Planes x in Figure \ref{fig:JICF_lgs_gaseous_conditions_comparison_planes_x}. 
+\begin{figure}[h!]	
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.30]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_inlet_planes_x}
+	\caption{Mean axial velocity field at planes $x = 5, 10$ mm for resolved case UG100\_DX10 and custom gaseous inlet}
+	\label{fig:custom_gas_fields_plane_x}
+\end{figure}
 
 \begin{figure}[ht]
 \centering
-   \includeinkscape[inkscapelatex=false,scale=0.22]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/planes_y_ux_mean}
-\caption[Mean axial velocity at plane $y = 0$ mm.]{Mean axial velocity at plane $y = 0$ mm. Black lines with arrows are in-plane mean streamlines; the white solid line indicates the contour $\overline{u} = 0$ which delimites the recirculation bubble. The grey area  indicates the mean liquid region, identifed as $\overline{\psi} > 0.5$}
-\label{fig:JICF_lgs_gaseous_conditions_comparison_plane_y}
+\begin{subfigure}[b]{1.0\textwidth}
+	\centering
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_line_x05_z01p6_ux_mean_along_y}
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_line_x05_z05p0_ux_mean_along_y}
+   \vspace*{-0.1in}
+	\caption{Plane $x = 5$ mm}
+\end{subfigure}
+\vskip\baselineskip
+\begin{subfigure}[b]{1.0\textwidth}
+	\centering
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_line_x10_z01p6_ux_mean_along_y}
+   \includegraphics[scale=0.24]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_line_x10_z05p0_ux_mean_along_y}
+   \vspace*{-0.1in}
+	\caption{Plane $x = 10$ mm}
+\end{subfigure}
+   \caption{Mean axial velocity evolution along lateral coordinate at $z$ lines of Figure \ref{fig:custom_gas_fields_plane_x}}
+\label{fig:JICF_custom_lines_iso-x_along_y_ux_mean}
 \end{figure}
 
+%\begin{figure}[ht]
+%\centering
+%   \includeinkscape[inkscapelatex=false,scale=0.22]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/planes_y_ux_mean}
+%\caption[Mean axial velocity at plane $y = 0$ mm.]{Mean axial velocity at plane $y = 0$ mm. Black lines with arrows are in-plane mean streamlines; the white solid line indicates the contour $\overline{u} = 0$ which delimites the recirculation bubble. The grey area  indicates the mean liquid region, identifed as $\overline{\psi} > 0.5$}
+%\label{fig:JICF_lgs_gaseous_conditions_comparison_plane_y}
+%\end{figure}
+%
+%
+%\begin{figure}[ht]
+%\centering
+%   \includeinkscape[inkscapelatex=false,scale=0.18]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/planes_x_ux_mean}
+%\caption[Mean axial velocity at planes $x = 5, 10$ mm]{Mean axial velocity at planes $x = 5, 10$ mm. Black lines with arrows are in-plane mean streamlines.}
+%\label{fig:JICF_lgs_gaseous_conditions_comparison_planes_x}
+%\end{figure}
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_line_y0_along_x_z01p6}
+   %\caption{}
+   %\label{} 
+\end{subfigure}
+\hspace{0.4in}
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.25]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_line_y0_along_x_z04p0}
+   %\caption{}
+   %\label{}
+\end{subfigure}
+\caption{Mean axial velocity evolution along axial coordinate at locations $z = 1.6, 4$ mm in plane $y = 0$}
+\label{fig:JICF_ICS_custom_lines_y0_along_x_ux_mean}
+\end{figure}
 
 \begin{figure}[ht]
 \centering
-   \includeinkscape[inkscapelatex=false,scale=0.22]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/planes_x_ux_mean}
-\caption[Mean axial velocity at planes $x = 5, 10$ mm]{Mean axial velocity at planes $x = 5, 10$ mm. Black lines with arrows are in-plane mean streamlines.}
-\label{fig:JICF_lgs_gaseous_conditions_comparison_planes_x}
+   \includegraphics[scale=0.26]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_lines_y0_along_z_ux_mean}
+\caption{Mean axial velocity evolution along vertical coordinate at $x = 2.5, 5, 10$ mm locations of plane $y = 0$ (lines of Figure \ref{fig:custom_gas_fields_plane_x}) }
+\label{fig:JICF_ICS_custom_lines_y0_along_z_ux_mean}
 \end{figure}
-
 \clearpage
 
-\section{Dispersed phase simulations}
+\section{Procedure for setting dispersed-phase simulations}
 
 In Chapter \ref{ch5:jicf_resolved_simulations}, the five resolved atomization simulations from Table \ref{fig:location_JICF_ops_in_breakup_map} were performed and analyzed. These ones tested two mesh interface mesh resolutions ($\Delta x_\mathrm{min} = 20, 10~\mu$m), two operating points ($We_g = 830, 1470$) and the influence of turbulence injection in one simulation for the coarse resolution, high $We_g$ case. Results shown a high dependency of the trajectories ($\S$\ref{subsec:ch5_jet_trajectories_results}) and jet topologies ($\S$\ref{sec:ch5_jet_evolution}) on the resolution, which led later to different spray characteristics ($\S$\ref{sec:ch5_sec_spray_characterization}) and resulting injectors ($\S$\ref{sec:ch5_learning_SLI}). Therefore, it is of interest to test such effects in the disperse-phase simulations by initializing these computations with the different injectors obtained.
 
-Figure \ref{fig:dispersed_phase_sli_parameters} shows the different models involved in the dispersed phase simulations with their control parameters: they are split into the possible influences on the gas and liquid phases, as well as the secondary breakup which is considered as an interaction between both (even though it acts on the liquid phase, it needs the gas velocity for calculating the relative velocity in order to estimate liquid brekaup).
+Figure \ref{fig:dispersed_phase_sli_parameters} shows the different models involved in the dispersed phase simulations with their control parameters: they are split into the possible influences on the gas and liquid phases, as well as the secondary breakup which is considered as an interaction between both (even though it acts on the liquid phase, it needs the gas velocity for calculating the relative velocity in order to estimate liquid breakup). In this section, all the parameters from the SLI model in the JICF case are analyzed: a baseline configuration is chosen, which was found to be the most optimal one yielding the best match to the experimental results, and then each SLI parameter is modified individually. The baseline configuration consists of the following parameters:
+
+\begin{itemize}
+
+	\item The \textbf{gaseous phase} is provided by the \textbf{custom inlet} methodology. This one was found to better match the aerodynamic field from the resolved computation and produces a lagrangian spray closer to the experimental results, as demonstrated in $\S$\ref{sec:SLI_LGS_gaseous_phase_effect}.
+	
+	\item \textbf{Secondary atomization model} is taken to be the Gorokhovski model with calibrated constants $K_1 = 0.05$, $K_2$ = 1. Calibration of the secondary model is reported in $\S$\ref{{subsec:second_atom_goro_calibration}}.
+	
+	\item \textbf{SLI} corresponds to the discretized spray obtained from the high Weber case at the finest resolution, UG100\_DX10, at location $x = 5$ mm. This case is chosen as the baseline one since 1) the operating point been previously studied by other authors and hence the results reported here can be easily compared ($\S$\ref{ch6:previous_numerical_studies}), 2) the finer interface cell size in the resolved simulation provides a better resolution of the sprays, and 3) the location closer to the injection point deviates less with respect to the experimental trajectory than the sampled spray further downstream (see Figure \ref{fig:JICF_trajectories_validation}). The effect of other operating conditions, resolved interface resolutions and injection locations is studied in $\S$\ref{subsec:SLI_LGS_resolution_and_injection_location},.
+	
+	\item \textbf{Spray velocities}: mean injection velocities are fixed to volume-weighted ones, while the $r$ law for RMS components is set to gaussian. Such parameters are analyzed in $\S$\ref{subsec:SLI_LGS_velocity_effects}.
+	
+	\item \textbf{Droplets sizes} prescribed are randomly sampled from a lognormal distribution fitting the histogram in each individual probe. 
+	
+	\item The \textbf{operating condition} is also change by performing a dispersed-phase simulation for the low Weber case with the corresponding SLI obtained. These results are reported in $\S$\hl{XX}.
+
+\end{itemize}
 
 
 
 \begin{figure}[h!]	
-	\centering	\includeinkscape[inkscapelatex=false,scale=0.3]{./part2_developments/figures_ch6_lagrangian_JICF/chart_input_parameters_LGS}
-	\caption{Parameters tested}
-	\label{fig:dispersed_phase_sli_parameters}
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/chart_input_parameters_LGS}
+	\caption{Schematic of parameters involved in SLI simulations and their interactions}	\label{fig:dispersed_phase_sli_parameters}
+\end{figure}
+
+With the objective of testing all the parameters involved in the lagrangian computations, a design of experiments process is followed in which each variable is changed in a one-at-a-time basis. The study of dispersed-phase simulations in then divided into three parts, which are enclosed by the dashed-colored lines in Figure  \ref{fig:dispersed_phase_sli_parameters}:
+
+\begin{enumerate}
+
+	\item The \textbf{gas phase} effect is analyzed by injecting lagrangian droplets with the baseline injectors in the gaseous fields previously analyzed in $\S$\ref{sec:ch6_BC_gaseous_phase}. The results are discussed in $\S$\ref{sec:SLI_LGS_gaseous_phase_effect}. In this section, the establishment of the liquid phase and time needed to convergence of mean parameters are also  included.
+	
+	\item The \textbf{secondary atomization models} are analyzed in $\S$\ref{sec:SLI_LGS_secondary_breakup_models}. This section is divided into two parts: a first one in which the free constants of the Gorokhovski model are tuned, and a second one in which the three available. models are compared.
+	
+	\item Finally, the effects of the \textbf{liquid phase} parameters from SLI and operating conditions are reported in $\S$\ref{sec:effect_of_SLI_variables}. Besides the already introduced parameters, a last variable which consists of a spatial delay in which secondary atomization is not activated $\Delta x_\mathrm{atom}$ is also discussed.
+
+\end{enumerate}
+
+
+\section{Influence of gas phase}
+\label{sec:SLI_LGS_gaseous_phase_effect}
+
+\subsection{Jet establishment}
+
+
+
+\subsection{Dispersed phase simulations}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/SMD_vs_x_gaseous_BCs_comparison}
+\caption[Evolution of SMD along axial location $x$ for the different gaseous boundary conditions tested]{Evolution of SMD along axial location $x$ for the different gaseous boundary conditions tested. The SMD at $x = 5$ and $10$ mm for the resolved atomization case UG100\_DX10 is also added for comparison}
+\label{fig:SMD_vs_x_param_gaseous_BCs}
+\end{figure}
+
+\subsection{Vertical trajectories of lagrangian sprays}
+
+\subsection{Frequential analysis}
+
+
+
+
+\section{Influence of secondary atomization model}
+\label{sec:SLI_LGS_secondary_breakup_models}
+
+To consider the secondary breakup of lagrangian droplets in dispersed-phase simulations, three atomization models are available ($\S$\ref{sec:ch4_secondary_atomization_modeling}): TAB, ETAB and Gorokhovski. All these models estimate breakup according to the Weber based on the relative velocity, which is the known parameter to control secondary atomization. Then, the exact instant of breakup and the size and number of children droplets are calculated differently by each model. The TAB and ETAB models belong to the same family and provide fixed values for the parameters controlling the model, while the Gorokhovski's stochastic model presents two constants ($K_1, K_2$) that are to be calibrated by the user. Therefore, first in this section firstly the Gorokhovski's stochastic model is calibrated in order to better match the experimental results, as it has been previously done in other works using the same model \citemColor[apte_les_2003,senoner_simulation_2010].  Then, the best configuration obtained is compared to the results from the TAB and ETAB models. It is found that these models provide good results in terms of flux distribution but that greatly underestimate the droplets sizes after atomization, while in the Gorokhovski model the two control variables can be tuner in order to get a better tradeoff between the droplets sizes and fluxes distribution.
+
+\subsection{Calibration of Gorokhovski model}
+\label{subsec:second_atom_goro_calibration}
+
+The Gorokhovski stochatic model, described in $\S$\ref{subsec:ch4_goro_model}, presents two free constants $K_1$ and $K_2$ in Eq. (\ref{eq:gorokhovski_epsilon_parameters_definition}) which can be tuned for each particular case and which affect the size of the children droplets produced.  The constant $K_1$ affects the mean value of the generated children particles a breakup event, while $K_2$ controls the deviation from this mean \citepColor[senoner_simulation_2010]. The tested values for these constants are summarized in Table \ref{tab:lgs_DoE_goro_constants}. Three values for $K_1$ and three for $K_2$ have been tested, making a total of 9 simulations performed. 
+
+%\begin{table}[!h]
+%\centering
+%\caption{Design of experiments to assess the influence of constants $K_1,K_2$ from Gorokhovski stochastic model}
+%\begin{tabular}{ccc}
+%\thickhline
+%\textbf{Case} & $K_1$ & $K_2$  \\
+%\thickhline
+%G11 & \multirow{3}{*}{ 0.05} & 0.1 \\
+%G12 &  & 0.5 \\
+%G13 & 1.0 \\
+%\hline
+%G11 & \multirow{3}{*}{ 0.1} & 0.1 \\
+%G12 &  & 0.5 \\
+%G13 & 1.0 \\
+%\hline
+%G11 & \multirow{3}{*}{ 0.2} & 0.1 \\
+%G12 &  & 0.5 \\
+%G13 & 1.0 \\
+%\thickhline
+%\end{tabular}
+%\label{tab:lgs_DoE_goro_constants}
+%\end{table}
+
+
+\begin{table}[!h]
+\centering
+\caption{Design of experiments to assess the influence of constants $K_1,K_2$ from Gorokhovski stochastic model}
+\begin{tabular}{cccccccccc}
+\thickhline
+%\textbf{Case} & & & & & & & &  & \\
+%\thickhline
+%$K_1$ & \multicolumn{3}{c}{0.05} & \multicolumn{3}{c}{0.1} & \multicolumn{3}{c}{0.2} \\  
+$K_1$ & 0.05 & 0.05 & 0.05 & 0.1 & 0.1 & 0.1 & 0.2 & 0.2 & 0.2 \\  
+$K_2$ & 0.1 & 0.5 & 1.0 & 0.1 & 0.5 & 1.0 & 0.1 & 0.5 & 1.0 \\
+\thickhline
+\end{tabular}
+\label{tab:lgs_DoE_goro_constants}
+\end{table}
+
+In first place, the effect of the constant $K_1$ is assessed by varying it with a fixed valued $K_2 = 1.0$. 
+
+
+In first place, the value of the constant $K_2$ is assessed by fixing the  value of the other constant to $K_1 = 0.1$. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/SMD_vs_x_apte_calibration_comparison}
+\caption[Evolution of SMD along axial location $x$ for several values of the Gorokhovski atomization model]{Evolution of SMD along axial location $x$ for several values of constants $K_1$, $K_2$ of the Gorokhovski atomization model. The SMD at $x = 5$ and $10$ mm for the resolved atomization case UG100\_DX10 is also added for comparison}
+\label{fig:SMD_vs_x_param_breakup_model}
 \end{figure}
 
 
-\subsection{Effect of gaseous boundary conditions}
+\subsection{Assessment of breakup models}
 
-\subsection{Calibration of stochastic atomization model}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{./part2_developments/figures_ch6_lagrangian_JICF/params_breakup_model/SMD_vs_x_breakup_models_comparison}
+\caption[Evolution of SMD along axial location $x$ for the three atomization models]{Evolution of SMD along axial location $x$ for the three atomization models. The SMD at $x = 5$ and $10$ mm for the resolved atomization case UG100\_DX10 is also added for comparison}
+\label{fig:SMD_vs_x_param_breakup_model}
+\end{figure}
 
-\subsection{SLI sensitivity analysis}
+\section{Influence of SLI variables}
+\label{sec:effect_of_SLI_variables}
 
+\subsection{Level-set resolution and injection location}
+\label{subsec:SLI_LGS_resolution_and_injection_location}
+
+\subsection{Spray velocities}
+\label{subsec:SLI_LGS_velocity_effects}
+
+\subsubsection*{Arithmetic vs volume-weighted mean veloticies}
+
+\subsubsection*{RMS mean velocities}
+
+
+\subsection{Delay in secondary atomization}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{./part2_developments/figures_ch6_lagrangian_JICF/params_dx_atom/SMD_vs_dx_atom}
+\caption{Evolution of SMD at location $x = 80$ mm with parameter $\Delta x_\mathrm{atom}$ }
+\label{fig:SMD_vs_dx_atom}
+\end{figure}
+
+
+\section{Additional analyses}
+
+\subsection{Relative velocity dx atom}
+
+\subsection{Frequential analyses}
 
 
 

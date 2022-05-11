@@ -24,11 +24,11 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="2.0460068"
-     inkscape:cx="486.55752"
-     inkscape:cy="336.9979"
-     inkscape:window-width="3200"
-     inkscape:window-height="1721"
+     inkscape:zoom="0.5115017"
+     inkscape:cx="507.32969"
+     inkscape:cy="573.80063"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
@@ -160,7 +160,7 @@
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#0000ff;stroke-width:0.465;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Lend-6)"
-       d="M -16.319506,115.179 C 6.9575438,141.04239 6.9575438,141.04239 6.9575438,141.04239"
+       d="m -40.094136,115.91053 c 23.27705,25.86339 23.27705,25.86339 23.27705,25.86339"
        id="path2550-9" />
     <path
        style="fill:none;stroke:#0000ff;stroke-width:0.7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.8,0.7;stroke-opacity:1;stroke-dashoffset:0"
@@ -172,89 +172,89 @@
        id="path1501-0-6" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:7.76111px;line-height:1.05;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="19.174362"
-       y="13.951164"
+       style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.05;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="7.8356929"
+       y="13.585401"
        id="text3487"><tspan
          sodipodi:role="line"
          id="tspan3485"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
-         x="19.174362"
-         y="13.951164">x = 40 mm</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
+         x="7.8356929"
+         y="13.585401">x = 40 mm</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:7.76111px;line-height:1.05;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="96.561432"
-       y="13.518603"
+       style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.05;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="92.172272"
+       y="13.15284"
        id="text3487-2"><tspan
          sodipodi:role="line"
          id="tspan3485-1"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
-         x="96.561432"
-         y="13.518603">x = 77 mm</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
+         x="92.172272"
+         y="13.15284">80 mm</tspan></text>
     <path
        style="fill:none;stroke:#0000ff;stroke-width:0.7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.8, 0.7;stroke-dashoffset:0;stroke-opacity:1"
        d="m 168.48994,113.52679 c 0,-97.207525 0,-97.207525 0,-97.207525"
        id="path1501-0-6-4" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:7.76111px;line-height:1.05;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="151.90909"
-       y="13.518602"
+       style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.05;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="151.54332"
+       y="13.884366"
        id="text3487-2-8"><tspan
          sodipodi:role="line"
          id="tspan3485-1-3"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
-         x="151.90909"
-         y="13.518602">x = 100 mm</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;stroke-width:0.264583"
+         x="151.54332"
+         y="13.884366">100 mm</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:7.76111px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-77.966423"
-       y="66.879044"
+       style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-86.378983"
+       y="60.2953"
        id="text14102"><tspan
          sodipodi:role="line"
          id="tspan14100"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:serif;-inkscape-font-specification:serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         x="-77.966423"
-         y="66.879044">Gaseous </tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="-86.378983"
+         y="60.2953">Gaseous </tspan><tspan
          sodipodi:role="line"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:serif;-inkscape-font-specification:serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         x="-77.966423"
-         y="76.772202"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="-86.378983"
+         y="74.685371"
          id="tspan14140">inlet</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:7.76111px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="288.31161"
-       y="71.739899"
+       style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="292.44977"
+       y="68.119026"
        id="text14102-1"><tspan
          sodipodi:role="line"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:serif;-inkscape-font-specification:serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         x="288.31161"
-         y="71.739899"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="292.44977"
+         y="68.119026"
          id="tspan14140-2">Outlet</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:7.76111px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="10.675075"
-       y="224.6223"
+       style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="39.570393"
+       y="137.93634"
        id="text14102-2"><tspan
          sodipodi:role="line"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:serif;-inkscape-font-specification:serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         x="10.675075"
-         y="224.6223"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="39.570393"
+         y="137.93634"
          id="tspan14140-20">Δx = 0.3 mm</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:7.76111px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        x="191.31139"
-       y="225.51743"
+       y="140.68552"
        id="text14102-2-3"><tspan
          sodipodi:role="line"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:serif;-inkscape-font-specification:serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
          x="191.31139"
-         y="225.51743"
+         y="140.68552"
          id="tspan14140-20-1">Δx = 0.5 mm</tspan></text>
   </g>
 </svg>
