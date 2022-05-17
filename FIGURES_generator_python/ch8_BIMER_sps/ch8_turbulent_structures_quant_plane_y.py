@@ -12,6 +12,7 @@ import numpy as np
 import pandas as pd
 from scipy import fft
 from scipy.fftpack import fftfreq
+import scipy.signal as signal
 
 # for subplot
 from matplotlib.patches import Rectangle
@@ -226,6 +227,19 @@ for i in range(1,len(labels_cases)):
             if xij_to_plot[n] < x_min_gas_j1[i-1]:
                 uij_to_plot = np.nan
     '''
+    
+    if labels_cases[i] == r'$\mathrm{No~jet}$':
+        # filter velocity signal
+        
+        # First, design the Buterworth filter
+        N  = 2    # Filter order
+        Wn = 0.1 # Cutoff frequency
+        B, A = signal.butter(N, Wn, output='ba')
+
+        # Second, apply the filter
+        uij_to_plot = signal.filtfilt(B,A, uij_to_plot)
+
+    
     plt.plot(xij_to_plot,uij_to_plot,format_cases[i], label=labels_cases[i])
 plt.yticks(y_ticks_u_vs_x)
 plt.xlim(x_lim_u_vs_x)
@@ -287,6 +301,18 @@ for i in range(1,len(labels_cases)):
         for n in range(len(xij_to_plot)):
             if xij_to_plot[n] < x_min_gas_j1[i-1]:
                 uij_to_plot[n] = np.nan
+    
+    
+    if labels_cases[i] == r'$\mathrm{No~jet}$':
+        # filter velocity signal
+        
+        # First, design the Buterworth filter
+        N  = 2    # Filter order
+        Wn = 0.1 # Cutoff frequency
+        B, A = signal.butter(N, Wn, output='ba')
+
+        # Second, apply the filter
+        uij_to_plot = signal.filtfilt(B,A, uij_to_plot)
     
     ax1.plot(xij_to_plot,uij_to_plot,format_cases[i], label=labels_cases[i])
 

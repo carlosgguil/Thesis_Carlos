@@ -179,7 +179,7 @@ With respect to the profiles integrated over $z$ (Figure \ref{fig:integrated_res
 
 \begin{table}[!h]
 \centering
-\caption{SMDs at $x = 80$ mm obtained from experiments }
+\caption{Experimental SMDs at $x = 80$ mm  }
 \begin{tabular}{cc}
 \thickhline
 Operating point & $SMD~\left[ \mu \mathrm{m}\right]$  \\
@@ -194,6 +194,7 @@ High Weber & 35.2 \\
 
 %\section{Sources of uncertainty in PDA measurements}
 \section{Uncertainty in experimental data}
+\label{sec:jicf_dlr_experimental_uncertainty}
 
 The experimental results previously shown, obtained by \citeColor[becker_breakup_2002], were obtained through PDA measurements. PDA is one of the most popular experimental techniques to characterize sprays, since it is non-intrusive and provies information on droplets size and velocities which can then be used to also estimate fluxes. It is not, however, exempt of errors, since it is built on the assumption that droplets are spherical and it is well known that PDA measurements yield considerable erros on droplets sizes and fluxes \citepColor[tropea_optical_2011]. Several sources of error have been identified in the past. \citeColor[bachalo_method_1980] explained that optics play a paramount role: the optical setup can lead to detection errors produced by phenomena associated to the misalignment of dual-beam reflected and refracted rays (Gaussian beam Effect) or to the well-known slit effect, which is cause a truncation on the measurement volume through a slit placed so that the droplet volumes to measure can be defined \citepColor[doublet_effet_2019]. Not associated to the actual setup, modifications in the refractive indices of droplets could affect the scattering and yield important errors in particle sizes, specially relevant in multicomponent fuels such as kerosene. The role of the droplet non-sphericity was discussed, stating that PDA is prone to size overestimation when particles are deformed or oscillate in a preferential direction, as also discussed by \citeColor[damaschke_optical_1998]. \citeColor[dullenkopf_comparative_1998] performed PDA measurements on two injectors, a pressure-swirl and an airblast atomizer, and quantified the errors in mass flux by comparing with the results obtained from a patternator. They identified three main sources of error in the flux estimation: the size measurement (which is powered to 3 to calculate the flux, hence increasing exponentially the flux errors), the number count of droplets and the reference area used for measurements (the smaller the area the better, since it can also avoid counting droplets twice). They found that the flux errors on the pressure swirl fluxes were of the order of 10 $\%$, while in the airblast configurations these increased up to 30 $\%$, and also showed that the SMDs could vary up to 30 $\%$ depending on the PDA system used. \citeColor[brandt_experimental_1998] tested an airblast configuration and discussed several possible sources of error in sizes, highlighting the contribution of alignment uncertainties in the setup ($\sim 1~\%$) the change in refractive indices due to heating ($\sim 3.5~\%$) and to deformation of the sampled particles, since accelerated droplets at high velocity environments will be elliptical rather than spherical and the droplets sizes would be overestimated, propagating later the error to the fluxes calculations (this would explain the larger errors found by \citeColor[dullenkopf_comparative_1998] in their airblast atomizer with respect to the pressure-swirl one). In total, uncertainty on dropsizes was quantified to be of 7 $\%$ while the error on fluxes added up to 10 $\%$ if the particles concentration was not too high. It is worth to remark that the test bench of \citeColor[brandt_experimental_1998] is the same one that \citeColor[becker_breakup_2002] used later at DLR to test the liquid kerosene JICF dealt in this theses (even though the atomizer and the operating conditions are different, the PDA systems and optical configurations are equivalent). The experiments from \citeColor[becker_breakup_2002] do not actually provide data on the dropsize uncertainties, but do discuss the errors on mass fluxes and report mean deviations of 20 $\%$ and maximum of 37 $\%$. A posterior study on this configuration was done by \citeColor[becker_experimental_2004], who tested a swirled injector and reported errors on the SMD of $\sim 5 \%$ (no data on fluxes) attributed to optical misalignment and hardware setting. \citeColor[tropea_optical_2011] makes a review on experimental methods involving optical techniques to characterize disperse multiphase flows, and states that PDA measurements often show uncertainted in flux measurements from $20~\%$ up to several hundrers, while errors in particle size often range, in ideal conditions, from 10 to 30 $\%$. 
 
@@ -209,6 +210,7 @@ Q_{l_{j,k}} = q_{l_{j,k}} S_{j,k}
 Then, the total liquid flow rate from the map can be calcuated by adding all the absolute fluxes from each probe:
 
 \begin{equation}
+\label{eq:ch6_Ql_total_estimation_from_flux_profiles}
 Q_{l} = \sum_{j=1}^{N_y} \sum_{k=1}^{N_z} Q_{l_{j,k}} = \sum_{j=1}^{N_y} \sum_{k=1}^{N_z} q_{l_{j,k}} S_{j,k} = 4062 ~ \mathrm{mm}^3~\mathrm{s}^{-1}
 \end{equation}
 
@@ -397,15 +399,15 @@ In order to assess the ALM, the results from the high Weber operating point for 
 \begin{table}[!h]
 \centering
 \caption{Parameters of an actuator representing the dense core for the high Weber case}
-\begin{tabular}{ccccc}
+\begin{tabular}{cccccc}
 \thickhline
-\textbf{Parameter} & \textbf{Units} & \textbf{Initial} &  \textbf{Optimal} & \textbf{Modified} \\
+\textbf{Parameter} & \textbf{Units} &  \textbf{ALM Initial} & \textbf{ALM tilted} &  \textbf{ALM optimal} & \textbf{ALM forced} \\
 \thickhline
-$x_b$ & mm & 2.46 & 1.5 & 1.5 \\
-$z_b$ & mm & 3.07 & 3.0 & 3.0 \\
+$x_b$ & mm & 2.46 & 1.5 & 1.5 & 1.5 \\
+$z_b$ & mm & 3.07 & 3.0 & 3.0 & 3.0 \\
 %$c_0$ & mm & 0.45 & 0.45 \\
 %$c_L$ & mm & & \\
-$| \textbf{F}_\mathrm{DC} |$ & N & 0.095 & 0.24 & 0.3 \\
+$| \textbf{F}_\mathrm{DC} |$ & N & 0.095 & 0.095 & 0.25 & 0.30 \\
 %$\Delta p$ & Pa &  & \\
 \thickhline
 \end{tabular}
@@ -429,8 +431,6 @@ A qualitative analysis of the ALM effect in the $y = 0$ plane can be done by loo
 For location $z = 1.6 mm$, The best match seems to be given for 
 
  and 
-
-\clearpage
 
 \begin{figure}[ht]
 \flushleft
@@ -534,7 +534,7 @@ The injected profiles, shown in the maps of Figure \ref{fig:custom_inlet_methodo
 \end{figure}
 
 \begin{figure}[h!]	
-	\centering	\includeinkscape[inkscapelatex=false,scale=0.30]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_inlet_planes_x}
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.25]{./part2_developments/figures_ch6_lagrangian_JICF/gas_field_initial_conditions/custom_inlet_planes_x}
 	\caption{Mean axial velocity field at planes $x = 5, 10$ mm for resolved case UG100\_DX10 and custom gaseous inlet}
 	\label{fig:custom_gas_fields_plane_x}
 \end{figure}
@@ -631,6 +631,8 @@ Figure \ref{fig:dispersed_phase_sli_parameters} shows the different models invol
 	\caption{Schematic of parameters involved in SLI simulations and their interactions}	\label{fig:dispersed_phase_sli_parameters}
 \end{figure}
 
+
+
 With the objective of testing all the parameters involved in the lagrangian computations, a design of experiments process is followed in which each variable is changed in a one-at-a-time basis. The study of dispersed-phase simulations in then divided into three parts, which are enclosed by the dashed-colored lines in Figure  \ref{fig:dispersed_phase_sli_parameters}:
 
 \begin{enumerate}
@@ -644,14 +646,99 @@ With the objective of testing all the parameters involved in the lagrangian comp
 \end{enumerate}
 
 
+
+
 \section{Influence of gas phase}
 \label{sec:SLI_LGS_gaseous_phase_effect}
 
-\subsection{Jet establishment}
+\subsection{Lagrangian jet establishment}
+
+The establishment of the dispersed phase for cases ALM optimal and the prescribed inlet are shown in Figure \ref{fig:JICF_LGS_spray_establishment}. In both cases  the injection and experimental validation planes, $x = 5$ and $x = 80$ mm respetively, are shown, as well as the liquid injection region enclosed by the black outline in the injection plane. For the case with ALM, the actuator is represented by the denoted cylinder. The prescribed inlet simulation includes as well an instantaneous view of the resolved liquid jet from case UG100\_DX10 solely for visualization among resolved and lagrangian jets: resolved liquid is not actualy present in the dispersed-phase computations. The time instants are expressed in a dimensionless form with respect to the inertial timescale according to Eq. (\ref{eq:t_dimensionless_with_tau_in}).
+
+In both simulations, lagrangian droplets are injected in the denoted liquid injection region (which represents the spatial bounds of the SLI from Figure \ref{fig:injectors_sli_uG100_dx10_x05}) which are then convected downstream. Right after injection, the particles have a diameter of the order of the SMD from Figure \ref{fig:injectors_sli_uG100_dx10_x05} and a finite vertical component velocity which is lower at the bottom of the injection plane and larger at its tope. As a consequence of this vertical velocity component, the jet's vertical trajectory continues to increase with axial distance. Shortly after injection, droplets are quickly atomized into smaller particles due to the action of the secondary breakup model. The liquid-gas relative velocity is large in all simulations, hence the breakup model estimates the atomization events to occur soon after injection and the size of the droplets is reduced very fast with axial distance. The atomization region has been found to extend up to \hl{10 mm downstream the injection} location, as quantified later in $\S$\ref{subsec:jicf_lgs_sed_gas_phase_influence_spray_analysis}. Downstream this location the dispersed spray is fully atomized and droplets are only convected. As a consequence of such a fast breakup, the smaller droplets generated have a lower relaxation time and are quickly dragged by the gaseous crossflow, increasing their axial velocity and reducing their vertical one, hence stopping penetrating in the vertical direction. 
+
+Figure \ref{fig:JICF_LGS_spray_establishment} shows the secondary atomization of a single lagrangian droplet in case ALM initial. The displayed domain in each figure corresponds to the region enclosed by the red rectangle in Figure \ref{fig:JICF_LGS_spray_establishment}. Then, further zoomed views enclosed in blue show the droplets generated from the original droplet detected at the firstly displayed time instant. The original droplet at $t^* = 22.40$, with a diameter of 93 $\mu$m, breaks into several droplets of smaller size at $t^* = 23.02$ whose total volume contains the same mass as the original droplet. These children droplets have different sizes as a consequence of the statistical sampling from the cumulative distribution Eq. (\ref{eq:gorokhovski_T_CDF}). Particles are then convected and undergo a further breakup event at $t^* = 24.26$, producing a larger number of smaller children droplets, where the smallest diameter produced was 13 $\mu$m. This sequence of subsequent atomization events is referred as the breakup cascade mechanism \citepColor[tanner_simulation_1998]. In the particular snapshots shown, the original droplet prior to breakup at $t^* = 22.4$ is located at $x = 5.5$ mm (i.e. 0.5 mm further downstream the injection location), while the droplets at the last instant $t^* = 24.26$ are located at $x \sim 9$ mm. This indicates that the breakup cascade occurs soon after the injection process and gets completed shortly afterwards: in this particular case, the breakup cascade occurs within a region $\Delta x = 3.5$ mm in a timespan of $\Delta t^* = 1.86$, which corresponds to a physical timespan of $\Delta t = 0.036$ ms. 
+
+\clearpage
+
+
+\begin{figure}[h!]
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch6_lagrangian_JICF/jet_establishment/JICF_LGS_establishment}
+	\caption[Lagrangian jet establishment in the JICF simulation performed for the ALM optimal and prescribed inlet gaseous phases]{Lagrangian jet establishment in the JICF simulation performed for the ALM optimal and prescribed inlet gaseous phases. The former denotes the actuator region by the cylinder sketch, while the latter displays the liquid jet from the resolved computation only for visual comparison, since this jet is not actually present in the dispersed-phase comptutation. The region enclosed by the blue rectangle at instant $t^* = 21.78$ for case ALM initial is augmented in Figure \ref{fig:JICF_LGS_breakup_cascade_in_ALM_figure} to illustrate the breakup sequence of a single lagrangian droplet. Each sphere represents a parcel containing three droplets with the displayed diameter. Each sphere is scaled by 3 times its diameter for better visualization}
+	\label{fig:JICF_LGS_spray_establishment}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[h!]
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch6_lagrangian_JICF/jet_establishment/JICF_LGS_breakup_cascade_in_ALM}
+	\caption[Visualization of the breakup cascade from a single lagrangian droplet in case ALM initial illustrating the breakup cascade]{Visualization of the breakup cascade from a single lagrangian droplet in case ALM initial illustrating the breakup cascade. Displayed domain at each instant corresponds to the region enclosed in red at Figure \ref{fig:JICF_LGS_spray_establishment}}
+	\label{fig:JICF_LGS_breakup_cascade_in_ALM_figure}
+\end{figure}
+
+\subsection{Analysis of lagrangian spray}
+\label{subsec:jicf_lgs_sed_gas_phase_influence_spray_analysis}
+
+\subsubsection*{Spray establishment}
+
+The resulting dispersed-phase sprays can be analyzed by tracking lagrangially the droplets when they cross planes perpendicular to the gaseous crossflow in the same way as performed in the resolved atomization simulations. The difference with respect to the latter is that each lagrangian droplet is identified with a unique tag that allows to detect if a lagrangian droplet has been previously sampled or not.  In this way, particles that might be tracked more than once with the detection algorithm are only accounted in the first time instant detected, hence avoiding repeated droplets when processing the spray. The only case in which this fails is if the atomization models triggers a breakup event when a parent droplet is crossing a sampling plane, since children droplets are given a new tag that fails in the detection of \textsl{repeated droplets} in such case.
+
+Sprays have been sampled in planes perpendicular to the crossflow direction separated by a distance $\Delta x = 1$ mm from the injection location $x = 5$ mm up to the experimental sampling plane $x = 80$ mm, both shown in Figure \ref{fig:JICF_LGS_spray_establishment}. In order to study established sprays, the time that the first droplet takes to reach the experimental sampling plane $x = 80$ mm, hereafter referred as $\tau_\mathrm{dr_{x=80}}$, has been firstly obtained. Then, simulations have been run for a time $t \sim 2 \tau_\mathrm{dr_{x=80}}$ (establishment time) without lagrangian droplets tracking, and then tracking has been activated and statistics have started to be calculated. The times $\tau_\mathrm{dr_{x=80}}$ for the gaseous simulations performed are summarized in Table \ref{tab:jicf_LGS_t_prime_accumulation}, which are very close among all cases simulated. The convergence of the global spray has then be assessed by monitoring the SMD and the flux $Q_l$ with respect to time, which is expressed in a dimensionless form with respect to $\tau_\mathrm{dr_{x=80}}$ as:
+
+\begin{equation}
+\label{eq:t_prime_with_tau_drx80}
+t^{\prime} = \frac{t}{\tau_\mathrm{dr_{x=80}}}
+\end{equation}
+
+Figure \ref{fig:LGS_QL_and_SMD_convergence_with_time} shows the evolution of liquid flux and SMD with time.\hl{As seen ...}.
 
 
 
-\subsection{Dispersed phase simulations}
+
+\begin{table}[!h]
+\centering
+\caption{Droplets arrival time to $x = 80$ mm, total physical $t_\mathrm{ph}$ and accumulation times $t_\mathrm{acc}$, absolute and dimensionless with Eq. (\ref{eq:t_prime_with_tau_drx80}), for lagrangian JICF simulations}
+\begin{tabular}{cccccc}
+\thickhline
+\textbf{Case} & $\tau_\mathrm{dr_{x=80}}$ & $t_\mathrm{ph}~[\mathrm{ms}]$ &  $t_\mathrm{ph}^{\prime}$ & $t_\mathrm{acc}~[\mathrm{ms}]$  & $t_\mathrm{acc}^{\prime}$  \\
+\hline
+Prescribed inlet & 0.7017 &  &  &  & \\
+No ALM & 0.6936 &  &  &  & \\
+ALM initial & 0.6959 & &  &  & \\
+ALM modified (F = 0.1) & 0.6829 &  &  &  &  \\
+ALM optimal (F = 0.24) & 0.6843 &  &  &  &  \\
+ALM modified (F = 0.30) & 0.6812 &  &  &  &  \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_LGS_t_prime_accumulation}
+\end{table}
+
+\clearpage
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.36]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/convergence_Ql}
+   %\caption{}
+   %\label{} 
+\end{subfigure}
+\hspace{0.4in}
+\begin{subfigure}[b]{0.45\textwidth}
+	\centering
+   \includegraphics[scale=0.36]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/convergence_SMD}
+   %\caption{}
+   %\label{}
+\end{subfigure}
+\caption{Convergence of spray liquid flux (\textsl{left}) and SMD (\textsl{right}) with time at plane $x = 80$ mm}
+\label{fig:LGS_QL_and_SMD_convergence_with_time}
+\end{figure}
+
+\subsection*{Spatial evolution of spray}
+
+Prior to compare the numerical results with the experimental data at $x = 80$ mm, it is interesting to see the extent at which the spray is atomized or not, since the $SMD$ graph from Figure \ref{fig:LGS_QL_and_SMD_convergence_with_time} shows low values compared to the injected $SMD$ of \hl{XX}. For this purpose, the evolution of $SMD$ with axial distance from the injection location until the experimental plane is plotted in Figure \ref{fig:SMD_vs_x_param_gaseous_BCs}. The $SMD$ from the resolved simulation UG100\_DX10 and the experimental one with the uncertainty estimated in $\S$\ref{sec:jicf_dlr_experimental_uncertainty} are also shown for comparison. As observed, the $SMD$ drops drastically shortly after injection and reaches a stable position at $x \sim 15$ mm, then it stays constant for the prescribed inlet case and it keeps decreasing linearly with $x$ for the ALM cases. The abrupt decrease in diameter at early axial locations is exponential and shows a similar shape for all cases;  however, the decaying rate and the final $SMD$ at which the dispersed-phase stabilizes depends on the case. In general, the prescribed inlet provides the largest $SMD$ while the ALM cases result in lower values due to a worse replication of the resolved gaseous phase, thus mispredicting the relative velocity for the lagrangian droplets and affecting breakup. At $x = 10$ mm the deviation with the resolved case is large: \hl{XX} vs \hl{XX} for the prescribed inlet, which supposes a difference of \hl{XX} $\%$ (however, it is worth to remind that the resolved atomization simulation might not be fine enough to resolve the smallest liquid scales that would be actually present as discussed in $\S$\ref{ch5:subsec_spray_char_granulo}, hence limiting the smallest droplets that can be obtained with the resolution employed). Further downtream at $x= 80$ mm, the numerical diameters obtained are of the order of the experimental $SMD$ of 31 $\mu$m, but yet they underestimate this value. 
+
+\clearpage
 
 \begin{figure}[h!]
 \centering
@@ -660,11 +747,155 @@ With the objective of testing all the parameters involved in the lagrangian comp
 \label{fig:SMD_vs_x_param_gaseous_BCs}
 \end{figure}
 
-\subsection{Vertical trajectories of lagrangian sprays}
+
+\subsubsection*{Experimental comparison}
+
+For validating the numerical simulations, the sprays from those are processed at $x = 80$ mm and compared with the available experimental data at this location. In first place, the $SMD$ and volume flux $q_l$ maps are shown in Figure \ref{fig:maps_LGS_JICF_gaseous_influence}. The experimental maps from Figure \ref{fig:maps_Becker_expe_results} are also displayed: the SMD scale has been changed in order to allow for a visual comparison with the simulation results. 
+
+
+
+Eqs. (\ref{eq:integrated_results_Becker_expe_results}) have been applied to the simulations performed in order to obtain spatial-averaged contours of flux and SMD. The numerical results are compared to the experimental ones from Figure \ref{fig:integrated_results_Becker_expe_results} for the high Weber case.
+
+In order to 
+
+In first place, the evolution of the SMD
+
+
+
+\clearpage
+
+%\subsection{Vertical trajectories of lagrangian sprays}
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+%	\hspace*{-0.35in}
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/expe_flux}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.25in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/prescribed_flux}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.00in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/no_ALM_flux}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.00in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/ALM_initial_flux}
+   %\label{} 
+\end{subfigure}
+
+\vspace*{-0.25in}
+
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+%	\hspace*{-0.35in}
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/expe_SMD}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.25in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/prescribed_SMD}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.00in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/no_ALM_SMD}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.00in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/ALM_initial_SMD}
+   %\label{} 
+\end{subfigure}
+
+\vskip\baselineskip
+
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+%	\hspace*{-0.35in}
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/expe_flux}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.25in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/ALM_FDC_0p24_flux}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.00in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/ALM_FDC_0p24_flux}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.00in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/ALM_FDC_0p30_flux}
+   %\label{} 
+\end{subfigure}
+
+\vspace*{-0.25in}
+
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+%	\hspace*{-0.35in}
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/expe_SMD}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.25in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/ALM_FDC_0p24_SMD}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.00in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/ALM_FDC_0p24_SMD}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.00in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/maps/ALM_FDC_0p30_SMD}
+   %\label{} 
+\end{subfigure}
+
+\caption{Flux and SMD maps for numerical simulations comparing the effect of gaseous phase modelling with the experimental results}
+\label{fig:maps_LGS_JICF_gaseous_influence}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
 
 \subsection{Frequential analysis}
-
-
 
 
 \section{Influence of secondary atomization model}
@@ -762,11 +993,8 @@ In first place, the value of the constant $K_2$ is assessed by fixing the  value
 \end{figure}
 
 
-\section{Additional analyses}
+\section{Conclusions}
 
-\subsection{Relative velocity dx atom}
-
-\subsection{Frequential analyses}
 
 
 

@@ -69,13 +69,15 @@ cases = [folder + 'SPS_UG100_DX10/',
 cases_SPS = [folder + 'SPS_UG100_DX10/']
 cases_ICS = [folder_ALM + 'no_ALM_no_droplets/',
              folder_ALM + 'ALM_initial_no_droplets/',
+             folder_ALM + 'FDC_0p10_no_droplets/',
              folder_ALM + 'FDC_0p24_no_droplets/',
              folder_ALM + 'FDC_0p30_no_droplets/']
 cases_LGS = [folder_ALM + 'no_ALM_with_droplets/',
              folder_ALM + 'ALM_initial_with_droplets/',
+             folder_ALM + 'FDC_0p10_with_droplets/',
              folder_ALM + 'FDC_0p24_with_droplets/',
              folder_ALM + 'FDC_0p30_with_droplets/']
-
+cases_LGS = cases_ICS
 
 label_u_ax  = r'$\overline{u} ~[\mathrm{m}~\mathrm{s}^{-1}$]'
 label_x_ax   = '$x ~[\mathrm{mm}]$'
@@ -84,8 +86,9 @@ label_z_ax   = '$z ~[\mathrm{mm}]$'
 labels_cases_SPS = [r'$\mathrm{UG100\_DX10}$' ]
 labels_cases_ICS = [r'$\mathrm{No~pert.}$',
                     r'$\mathrm{ALM~baseline}$' , 
+                    r'$\mathrm{ALM~tilted}$' , 
                     r'$\mathrm{ALM~optimal}$', 
-                    r'$\mathrm{ALM~modified}$']
+                    r'$\mathrm{ALM~forced}$']
 
 
 labels_x_planes = [r'$x = 2.5~\mathrm{mm}$',  
@@ -105,8 +108,8 @@ labels_z_planes = [r'$z = 0.2~\mathrm{mm}$',
                    r'$z = 6,\mathrm{mm}$'] 
 
 formats_dat = ['k']
-formats_ICS = ['b', 'r', 'y','g']
-formats_LGS = ['--b', '--r', '--y','g']
+formats_ICS = ['--k','b', 'r', 'y','g']
+formats_LGS = formats_ICS #['--b', '--r', '--y','g']
 
 
 
