@@ -84,8 +84,8 @@ labels_cases_ICS = [r'$\mathrm{No~pert.}$',
                     r'$\mathrm{ALM~optimal}$']
                     #r'$\mathrm{ALM~modified}$']
 formats_dat = ['k','b']                    
-formats_ICS = ['r', 'y']
-formats_LGS = ['--r', '--y']
+formats_ICS = ['--k', 'r']
+formats_LGS = formats_ICS
 
 '''
 # test actuator forces
@@ -318,6 +318,13 @@ B, A = signal.butter(N, Wn, output='ba')
 
 # Second, apply the filter
 u_filtered = signal.filtfilt(B,A, u_to_filter)
+
+# ojo: modificar velocidad cerca de x=3mm 
+MODIFY_U_PRESCR_CERCA_INJ = True
+if MODIFY_U_PRESCR_CERCA_INJ:
+    u_filtered[0] = 10.5
+    u_filtered[1] = 13
+    u_filtered[2] = 15
 plt.plot(x_values_z_lines[i][j],u_filtered,formats_dat[i], label=labels_cases_dat[i])
 
 
@@ -332,6 +339,8 @@ plt.xticks(x_ticks_u_vs_x)
 plt.yticks(y_ticks_u_vs_x)
 plt.xlim(x_lim_u_vs_x)
 plt.ylim(y_lim_u_vs_x)
+#plt.xlim((3,3.5))
+#plt.ylim((9,20))
 plt.xlabel(label_x_ax)
 plt.ylabel(label_u_ax)
 #plt.legend(bbox_to_anchor=(1.0, 1.0))

@@ -78,11 +78,18 @@ folder_k1_0p05_k2_1p0 = folder + '/k1_0p05_k2_1p0/store_variables/'
 folder_k1_0p10_k2_1p0 = folder + '/k1_0p10_k2_1p0/store_variables/'
 folder_k1_0p20_k2_1p0 = folder + '/k1_0p20_k2_1p0/store_variables/'
 
-formats = {'k1_0p05_k2_0p1':'-ok', 'k1_0p05_k2_0p5':'-^b', 'k1_0p05_k2_1p0':'-*r',
-          'k1_0p10_k2_1p0':'--*g', 'k1_0p20_k2_1p0':'--*y'}
-#formats = {'k1_0p05_k2_0p1':'-k', 'k1_0p05_k2_0p5':'-b', 'k1_0p05_k2_1p0':'-r',
-#          'k1_0p10_k2_1p0':'--g', 'k1_0p20_k2_1p0':'--y'}
-
+formats = {'k1_0p05_k2_0p1':'-ok', 
+           'k1_0p05_k2_0p5':'-^b', 
+           'k1_0p05_k2_1p0':'-*r',
+           'k1_0p10_k2_1p0':'--*g', 
+           'k1_0p20_k2_1p0':'--*y'}
+'''
+formats = {'k1_0p05_k2_0p1':'-k', 
+           'k1_0p05_k2_0p5':'-b', 
+           'k1_0p05_k2_1p0':'-r',
+          'k1_0p10_k2_1p0':'--g', 
+          'k1_0p20_k2_1p0':'--y'}
+'''
 
 SMD_to_read = 'SMD' # 'SMD', 'SMD_FW'
 

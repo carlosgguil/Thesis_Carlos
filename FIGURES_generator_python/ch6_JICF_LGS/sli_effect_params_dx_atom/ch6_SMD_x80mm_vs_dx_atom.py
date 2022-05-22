@@ -37,7 +37,7 @@ plt.rcParams['lines.linewidth']  = 7*FFIG
 plt.rcParams['lines.markersize'] = 20*FFIG #20*FFIG
 plt.rcParams['legend.loc']       = 'best'
 plt.rcParams['text.usetex'] = True
-figsize_ = (FFIG*18,FFIG*13)
+figsize_ = (FFIG*22,FFIG*13)
 
 label_x   = r'$x~[\mathrm{mm}]$'
 label_y   = r'$y~[\mathrm{mm}]$'
@@ -165,7 +165,7 @@ plt.plot(dx_values,SMD_values, '-ok', label=r'$\mathrm{Simulations}$')
 #plt.clabel(contour, colors='k', fmt='%d', fontsize=40)
 plt.xlabel(label_dx) 
 plt.ylabel(label_SMD) 
-plt.legend(loc='best')
+plt.legend(loc='upper left')
 plt.grid()
 plt.tight_layout()
 #plt.axis('off')

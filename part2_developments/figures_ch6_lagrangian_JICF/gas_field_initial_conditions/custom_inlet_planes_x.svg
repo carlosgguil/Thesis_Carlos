@@ -24,9 +24,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.36168631"
-     inkscape:cx="864.00837"
-     inkscape:cy="1488.8592"
+     inkscape:zoom="0.18084316"
+     inkscape:cx="605.49707"
+     inkscape:cy="1213.759"
      inkscape:window-width="1920"
      inkscape:window-height="1001"
      inkscape:window-x="-9"
@@ -227,14 +227,14 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-50.517773"
+       x="-71.208481"
        y="448.06821"
        id="text3411-6-4"><tspan
          sodipodi:role="line"
          id="tspan3409-0-8"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
-         x="-50.517773"
-         y="448.06821">CUSTOM INLET</tspan></text>
+         x="-71.208481"
+         y="448.06821">PRESCRIBED INLET</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -347,17 +347,6 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="238.24762"
-       y="445.89938"
-       id="text3411-6-4-0"><tspan
-         sodipodi:role="line"
-         id="tspan3409-0-8-5"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
-         x="238.24762"
-         y="445.89938">CUSTOM INLET</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
        x="340.16446"
        y="445.90659"
        id="text3411-7-7-8-0"><tspan
@@ -366,5 +355,16 @@
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
          x="340.16446"
          y="445.90659">UG100_DX10</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:11.2889px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="215.18143"
+       y="445.94263"
+       id="text3411-6-4-9"><tspan
+         sodipodi:role="line"
+         id="tspan3409-0-8-2"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:11.2889px;font-family:serif;-inkscape-font-specification:'serif Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+         x="215.18143"
+         y="445.94263">PRESCRIBED INLET</tspan></text>
   </g>
 </svg>

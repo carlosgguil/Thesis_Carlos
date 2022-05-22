@@ -51,7 +51,7 @@ T     = 1.5E-6
 figsize_ = (FFIG*26,FFIG*16)
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part3_applications/figures_ch9_lagrangian/gas_field_initial_conditions/'
 folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/BIMER/turbulence_state_u_mean/'
-
+folder_ALM = folder + 'data_ALM/'
 
 
 #%%  cases and labels
@@ -60,6 +60,17 @@ cases = [folder + 'DX07p5_lines/',
          folder + 'DX10p0_lines/',
          folder + 'DX15p0_lines/',
          folder + 'lines_u_mean_ics/']
+
+'''
+cases_ALM = [folder_ALM + 'data_with_ALM_no_droplets_FDC_0p0030_DX10/',
+             folder_ALM + 'data_with_ALM_no_droplets_FDC_0p0060_DX10/']
+labels_ALM = ['$\mathrm{ALM}$', '$\mathrm{ALM,~F~incr.}$']
+format_ALM = ['--y','g']
+'''
+cases_ALM = [folder_ALM + 'data_with_ALM_no_droplets_FDC_0p0030_DX10/']
+labels_ALM = ['$\mathrm{ALM}$']
+format_ALM_low = ['--k']
+format_ALM_high = ['--b']
 
 label_u_ax  = r'$\overline{u} ~[\mathrm{m}~\mathrm{s}^{-1}$]'
 label_x_ax   = '$x_c ~[\mathrm{mm}]$'
@@ -168,7 +179,31 @@ for i in range(len(cases)):
             w_mean_values[i][j][k] = df['U_MEAN_2'].values
             
             
-            
+#%% Get data ICS
+
+y_x1p5_z0p3mm_ALM = []; u_x1p5_z0p3mm_ALM = []
+y_x1p5_z1p5mm_ALM = []; u_x1p5_z1p5mm_ALM = []
+y_x3p0_z0p3mm_ALM = []; u_x3p0_z0p3mm_ALM = []
+y_x3p0_z1p5mm_ALM = []; u_x3p0_z1p5mm_ALM = []
+for i in range(len(cases_ALM)):
+    case_i = cases_ALM[i]
+    
+    df_x1p5_z0p3mm = pd.read_csv(case_i+'x1p5_z0p3mm.csv')
+    y_x1p5_z0p3mm_ALM.append(df_x1p5_z0p3mm['Points_1'].values*1e3)
+    u_x1p5_z0p3mm_ALM.append(df_x1p5_z0p3mm['U_0'].values)
+    
+    df_x1p5_z1p5mm = pd.read_csv(case_i+'x1p5_z1p5mm.csv')
+    y_x1p5_z1p5mm_ALM.append(df_x1p5_z1p5mm['Points_1'].values*1e3)
+    u_x1p5_z1p5mm_ALM.append(df_x1p5_z1p5mm['U_0'].values)
+    
+    df_x3p0_z0p3mm = pd.read_csv(case_i+'x3p0_z0p3mm.csv')
+    y_x3p0_z0p3mm_ALM.append(df_x3p0_z0p3mm['Points_1'].values*1e3)
+    u_x3p0_z0p3mm_ALM.append(df_x3p0_z0p3mm['U_0'].values)
+    
+    df_x3p0_z1p5mm = pd.read_csv(case_i+'x3p0_z1p5mm.csv')
+    y_x3p0_z1p5mm_ALM.append(df_x3p0_z1p5mm['Points_1'].values*1e3)
+    u_x3p0_z1p5mm_ALM.append(df_x3p0_z1p5mm['U_0'].values)
+        
 
 
 
@@ -189,6 +224,10 @@ i = 1 # DX10 z_low
 plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX10_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
 i = 3 # ics z_high
 plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_ics_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
+for ii in range(len(cases_ALM)):
+    print(ii)
+    plt.plot(y_x1p5_z0p3mm_ALM[ii], u_x1p5_z0p3mm_ALM[ii], format_ALM_low[ii], label=labels_ALM[ii])
+    plt.plot(y_x1p5_z1p5mm_ALM[ii], u_x1p5_z1p5mm_ALM[ii], format_ALM_high[ii], label=labels_ALM[ii])
 plt.xlabel(label_y_ax)
 plt.ylabel(label_u_ax)
 plt.xlim(y_coord_lim)
@@ -213,10 +252,16 @@ i = 1  # DX10 z low
 plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_DX10_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
 i =  3  # ics z_low
 plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_ics_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
+# ALM low
+for ii in range(len(cases_ALM)):
+    plt.plot(y_x3p0_z0p3mm_ALM[ii], u_x3p0_z0p3mm_ALM[ii], format_ALM_low[ii], label=labels_ALM[ii]+f', {labels_z_planes[k_low]}')
 i = 1 # DX10 z_low
 plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX10_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
 i = 3 # ics z_high
 plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_ics_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
+# ALM high
+for ii in range(len(cases_ALM)):
+    plt.plot(y_x3p0_z1p5mm_ALM[ii], u_x3p0_z1p5mm_ALM[ii], format_ALM_high[ii], label=labels_ALM[ii]+f', {labels_z_planes[k_high]}')
 plt.xlabel(label_y_ax)
 plt.ylabel(label_u_ax)
 plt.xlim(y_coord_lim)

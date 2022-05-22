@@ -101,11 +101,9 @@ labels_z_planes = [r'$z = 0.2~\mathrm{mm}$',
                    r'$z = 5~\mathrm{mm}$', 
                    r'$z = 6,\mathrm{mm}$'] 
 
-formats_dat = ['k','r']
-formats_ICS = ['b', 'y']
-formats_LGS = ['--b', '--y']
-
-
+formats_dat = ['k','b']                    
+formats_ICS = ['--k', 'r']
+formats_LGS = formats_ICS
 
 
 '''
@@ -238,6 +236,7 @@ for i in range(len(cases_dat)):
 
 lines_at_x05 = ['planex05_z01p6.csv', 'planex05_z05p0.csv']
 lines_at_x10 = ['planex10_z01p6.csv', 'planex10_z05p0.csv']
+
 
 y_values_x05_lines_ICS = [[] for i in range(len(cases_ICS))]
 y_values_x05_lines_LGS = [[] for i in range(len(cases_ICS))]
@@ -615,9 +614,9 @@ ax1.plot(y_values[i][j][k],u_filtered,formats_dat[i], label=labels_cases_dat[i])
 # ICS/LGS
 k = 1
 for i in range(len(cases_ICS)):
-    ax1.plot(y_values_x05_lines_ICS[i][k],u_values_x05_lines_ICS[i][k],
+    ax1.plot(y_values_x10_lines_ICS[i][k],u_values_x10_lines_ICS[i][k],
              formats_ICS[i], label=labels_cases_ICS[i])
-    ax1.plot(y_values_x05_lines_LGS[i][k],u_values_x05_lines_LGS[i][k],
+    ax1.plot(y_values_x10_lines_LGS[i][k],u_values_x10_lines_LGS[i][k],
              formats_LGS[i])
 ax1.set_xlabel(label_y_ax)
 ax1.set_ylabel(label_u_ax)
@@ -650,9 +649,9 @@ i = 1; ax2.plot(y_values[i][j][k],u_filtered,formats_dat[i], label=labels_cases_
 # ICS/LGS
 k = 1
 for i in range(len(cases_ICS)):
-    ax2.plot(y_values_x05_lines_ICS[i][k],u_values_x05_lines_ICS[i][k],
+    ax2.plot(y_values_x10_lines_ICS[i][k],u_values_x10_lines_ICS[i][k],
              formats_ICS[i], label=labels_cases_ICS[i])
-    ax2.plot(y_values_x05_lines_LGS[i][k],u_values_x05_lines_LGS[i][k],
+    ax2.plot(y_values_x10_lines_LGS[i][k],u_values_x10_lines_LGS[i][k],
              formats_LGS[i])
 
 
@@ -674,6 +673,6 @@ ax2.grid(which='minor',linestyle='--')
 #ax2.set_yticks(np.arange(0,2,0.4))
 #ax2.set_xticklabels(ax2.get_xticks(), backgroundcolor='w')
 plt.tight_layout()
-plt.savefig(folder_manuscript+'custom_line_x05_z05p0_ux_mean_along_y.pdf')
+plt.savefig(folder_manuscript+'custom_line_x10_z05p0_ux_mean_along_y.pdf')
 plt.show()
 plt.close()

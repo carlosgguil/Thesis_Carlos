@@ -1,0 +1,62 @@
+\documentclass[twoside]{report}
+
+
+% Load the packagesl
+\include{packages_load}
+
+
+% Greek letters inkscape:
+% http://kestrel.nmt.edu/~raymond/software/howtos/greekscape.xhtml
+
+% Headers and footers
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+
+\pagestyle{fancy}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RE]{}
+\fancyhead[LO]{}
+%\fancyhead[RO]{Guides and tutorials}
+\fancyfoot[CE,CO]{\thepage}
+
+
+
+% volume fraction reference in document:
+% \ref{eq:vol_frac_definition}
+
+\begin{document}
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_quadtrees/profiles/flux_along_z}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.5in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_quadtrees/profiles/SMD_along_z}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.1in}
+\begin{subfigure}[b]{0.4\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_quadtrees/profiles/flux_along_y}\\
+   \vspace{-0.16in}
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_quadtrees/profiles/SMD_along_y}
+   %\label{} 
+\end{subfigure}
+
+\caption{Integrated profiles of flux and SMD maps for numerical simulations comparing the effect of convergence-driven discretization with quadtrees with the experimental results}
+\label{fig:profiles_LGS_JICF_quadtrees}
+\end{figure}
+
+
+
+
+
+
+
+\end{document}

@@ -62,7 +62,7 @@ T     = 1.5E-6
 figsize_ = (FFIG*26,FFIG*16)
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part3_applications/figures_ch9_lagrangian/gas_field_initial_conditions/'
 folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/BIMER/turbulence_state_u_mean/'
-
+folder_ALM = folder + 'data_ALM/'
 
 
 #%%  cases and labels
@@ -70,6 +70,11 @@ folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/BIMER/turbulence_state_u_mean/'
 cases = [folder + 'DX07p5_lines/',
          folder + 'DX10p0_lines/',
          folder + 'lines_u_mean_ics/']
+
+cases_ALM = [folder_ALM + 'data_with_ALM_no_droplets_FDC_0p0030_DX10/',
+             folder_ALM + 'data_with_ALM_no_droplets_FDC_0p0060_DX10/']
+labels_ALM = ['$\mathrm{ALM}$', '$\mathrm{ALM,~F~incr.}$']
+format_ALM = ['--k','b']
 
 label_u_ax  = r'$\overline{u}_c ~[\mathrm{m}~\mathrm{s}^{-1}$]'
 label_x_ax   =  '$x_c ~[\mathrm{mm}]$' #'$x_c/d_\mathrm{inj}$'
@@ -126,7 +131,7 @@ x_ticks_u_vs_z =  [0,20,40,60]
 
 
 
-#%% get data
+#%% get data SPS
 
 # Define arrays
 z_values_x_lines      = [ [] for m in range(len(cases)) ]
@@ -200,6 +205,40 @@ for i in range(len(cases)):
         w_mean_values_z_lines[i][j] = df['U_MEAN_2'].values
     
 
+#%% Get data ICS
+
+
+z_y0_x1p0mm_ALM = []  ; u_y0_x1p0mm_ALM = []
+z_y0_x2p0mm_ALM = []  ; u_y0_x2p0mm_ALM = []
+z_y0_x4p0mm_ALM = []  ; u_y0_x4p0mm_ALM = []
+x_y0_z0p3mm_ALM = []  ; u_y0_z0p3mm_ALM = []
+x_y0_z1p5mm_ALM = []  ; u_y0_z1p5mm_ALM = []
+for i in range(len(cases_ALM)):
+    case_i = cases_ALM[i]
+    
+
+    
+    df_y0_x1p0mm_ALM = pd.read_csv(case_i+'y0_x1p0mm.csv')
+    z_y0_x1p0mm_ALM.append(df_y0_x1p0mm_ALM['Points_2'].values*1e3)
+    u_y0_x1p0mm_ALM.append(df_y0_x1p0mm_ALM['U_0'].values)
+    
+    df_y0_x2p0mm_ALM = pd.read_csv(case_i+'y0_x2p0mm.csv')
+    z_y0_x2p0mm_ALM.append(df_y0_x2p0mm_ALM['Points_2'].values*1e3)
+    u_y0_x2p0mm_ALM.append(df_y0_x2p0mm_ALM['U_0'].values)
+    
+    df_y0_x4p0mm_ALM = pd.read_csv(case_i+'y0_x4p0mm.csv')
+    z_y0_x4p0mm_ALM.append(df_y0_x4p0mm_ALM['Points_2'].values*1e3)
+    u_y0_x4p0mm_ALM.append(df_y0_x4p0mm_ALM['U_0'].values)
+    
+    df_y0_z0p3mm_ALM = pd.read_csv(case_i+'y0_z0p3mm.csv')
+    x_y0_z0p3mm_ALM.append(df_y0_z0p3mm_ALM['Points_0'].values*1e3)
+    u_y0_z0p3mm_ALM.append(df_y0_z0p3mm_ALM['U_0'].values)
+    
+    df_y0_z1p5mm_ALM = pd.read_csv(case_i+'y0_z1p5mm.csv')
+    x_y0_z1p5mm_ALM.append(df_y0_z1p5mm_ALM['Points_0'].values*1e3)
+    u_y0_z1p5mm_ALM.append(df_y0_z1p5mm_ALM['U_0'].values)
+
+
 #%% Plots u vs x
 u_to_plot = u_mean_values_z_lines
 
@@ -240,15 +279,21 @@ for i in range(1,len(labels_cases)):
 
     
     plt.plot(xij_to_plot,uij_to_plot,format_cases[i], label=labels_cases[i])
+    
+
+for i in range(len(cases_ALM)):
+    plt.plot(x_y0_z0p3mm_ALM[i],u_y0_z0p3mm_ALM[i], format_ALM[i], label=labels_ALM[i])
+    
 plt.yticks(y_ticks_u_vs_x)
 plt.xlim(x_lim_u_vs_x)
 plt.xticks(x_ticks_u_vs_x)
-plt.ylim(y_lim_u_vs_x)
+#plt.ylim(y_lim_u_vs_x)
+plt.ylim((-20,60))
 plt.xlabel(label_x_ax)
 plt.ylabel(label_u_ax)
 #plt.legend(bbox_to_anchor=(1.0, 1.0))
 plt.grid()
-plt.legend(loc='lower right')
+#plt.legend(loc='lower right')
 plt.tight_layout()
 plt.savefig(folder_manuscript+'line_y0_along_x_zlow.pdf')
 plt.show()
@@ -263,6 +308,8 @@ plt.title(labels_z_planes[j])
 plt.plot(x_lim_u_vs_x,(0,0),color='grey',zorder=-1,linewidth=8*FFIG)
 for i in range(1,len(labels_cases)):
     plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],format_cases[i], label=labels_cases[i])
+for i in range(len(cases_ALM)):
+    plt.plot(x_y0_z1p5mm_ALM[i],u_y0_z1p5mm_ALM[i], format_ALM[i], label=labels_ALM[i])
 plt.xlim(x_lim_u_vs_x)
 plt.xticks(x_ticks_u_vs_x)
 plt.ylim(y_lim_u_vs_x)
@@ -271,14 +318,14 @@ plt.xlabel(label_x_ax)
 plt.ylabel(label_u_ax)
 #plt.legend(bbox_to_anchor=(1.0, 1.0))
 plt.grid()
-#plt.legend(loc='best')
+plt.legend(loc='best')
 plt.tight_layout()
 plt.savefig(folder_manuscript+'line_y0_along_x_zhigh.pdf')
 plt.show()
 plt.close()
 
 #%% Plot with subplot
-
+u_to_plot = u_mean_values_z_lines
 # Minimum x coordinate with PHI_MEAN < 0.5 for cases z = 1.5 mm (z/D = 5),
 # DX15 and DX10 
 x_min_gas_j1 = np.array([0.15,0.18])#/d_inj
@@ -295,11 +342,12 @@ plt.plot(x_lim_u_vs_x,(0,0),color='grey',zorder=-1,linewidth=6*FFIG)
 for i in range(1,len(labels_cases)):
     xij_to_plot = x_values_z_lines[i][j]
     uij_to_plot = u_to_plot[i][j]
-    
+    '''
     if j == 1 and ((i == 1) or (i == 2)):
         for n in range(len(xij_to_plot)):
             if xij_to_plot[n] < x_min_gas_j1[i-1]:
                 uij_to_plot[n] = np.nan
+    '''
     
     
     if labels_cases[i] == r'$\mathrm{No~jet}$':
@@ -314,17 +362,19 @@ for i in range(1,len(labels_cases)):
         uij_to_plot = signal.filtfilt(B,A, uij_to_plot)
     
     ax1.plot(xij_to_plot,uij_to_plot,format_cases[i], label=labels_cases[i])
-
+for i in range(len(cases_ALM)):
+    ax1.plot(x_y0_z0p3mm_ALM[i],u_y0_z0p3mm_ALM[i], format_ALM[i], label=labels_ALM[i])
 # characteristics main plot
 ax1.set_xlabel(label_x_ax)
 ax1.set_ylabel(label_u_ax)
 ax1.set_xlim(x_lim_u_vs_x)
 ax1.set_xticks(x_ticks_u_vs_x)
 ax1.set_ylim(y_lim_u_vs_x)
-ax1.legend(loc='best')
+#ax1.legend(loc='best')
 ax1.grid(which='major',linestyle='-')
 #ax1.grid(which='minor',linestyle='--')
 
+'''
 # Create a set of inset Axes: these should fill the bounding box allocated to
 # them.
 ax2 = plt.axes([0,0,1,1])
@@ -341,11 +391,6 @@ ax2.plot(x_lim_u_vs_x,(0,0),color='grey',zorder=-1,linewidth=6*FFIG)
 for i in range(1,len(labels_cases)):
     xij_to_plot = x_values_z_lines[i][j]
     uij_to_plot = u_to_plot[i][j]
-    
-    if j == 1 and ((i == 1) or (i == 2)):
-        for n in range(len(xij_to_plot)):
-            if xij_to_plot[n] < x_min_gas_j1[i-1]:
-                uij_to_plot[n] = np.nan
     
     ax2.plot(xij_to_plot,uij_to_plot,format_cases[i], label=labels_cases[i])
 
@@ -368,7 +413,7 @@ h_rect = ax2.get_ylim()[1] - ax2.get_ylim()[0]
 rect = Rectangle((ax2.get_xlim()[0]-0.3,ax2.get_ylim()[0]),w_rect,h_rect, 
                  linewidth=1,edgecolor='k',facecolor='none',zorder = 2)
 ax1.add_patch(rect)
-
+'''
 
 # Some ad hoc tweaks.
 #ax1.set_ylim(y_lim_)
@@ -400,26 +445,36 @@ ax3 = plt.subplot(133, sharey = ax1)
 j = 1
 for i in range(1,len(labels_cases)):
     ax1.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_cases[i], label=labels_cases[i])
+for i in range(len(cases_ALM)):
+    ax1.plot(u_y0_x1p0mm_ALM[i],z_y0_x1p0mm_ALM[i], format_ALM[i], label=labels_ALM[i])
 #ax1.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax1.set_title(labels_x_planes[j])
 #ax1.yaxis.set_ticks([0,2,4,6,8, 10])
 ax1.yaxis.set_ticks([0,1,2,3,4,5])
 ax1.yaxis.set_ticks([0,1,2,3,4,5])
 
-# x = 2.5 mm
+# x = 2 mm
 j = 2
 for i in range(1,len(labels_cases)):
     ax2.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_cases[i], label=labels_cases[i])
+for i in range(len(cases_ALM)):
+    ax2.plot(u_y0_x2p0mm_ALM[i],z_y0_x2p0mm_ALM[i], format_ALM[i], label=labels_ALM[i])
 #ax2.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax2.set_title(labels_x_planes[j])
 #ax2.xaxis.set_ticks(np.array([0,1,2,3])+2)
 #ax2.yaxis.set_ticks([0,50,100,150,200,250,300])
 ax2.legend(loc='best',fontsize=80*FFIG)
 
-# x = 5 mm
+
+
+
+
+# x = 4 mm
 j = 3
 for i in range(1,len(labels_cases)):
     ax3.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_cases[i], label=labels_cases[i])
+for i in range(len(cases_ALM)):
+    ax3.plot(u_y0_x1p0mm_ALM[i],z_y0_x4p0mm_ALM[i], format_ALM[i], label=labels_ALM[i])
 #ax3.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax3.set_title(labels_x_planes[j])
 #ax3.xaxis.set_ticks(np.array([0,1,2,3])+2)

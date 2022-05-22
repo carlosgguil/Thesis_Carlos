@@ -80,7 +80,7 @@ label_z_ax   = '$z ~[\mathrm{mm}]$'
 
 labels_cases_SPS = [r'$\mathrm{UG100\_DX10}$' ]
 labels_cases_ICS = [r'$\mathrm{No~pert.}$',
-                    r'$\mathrm{ALM~baseline}$' , 
+                    r'$\mathrm{ALM~initial}$' , 
                     r'$\mathrm{ALM~tilted}$' , 
                     r'$\mathrm{ALM~optimal}$', 
                     r'$\mathrm{ALM~forced}$']
