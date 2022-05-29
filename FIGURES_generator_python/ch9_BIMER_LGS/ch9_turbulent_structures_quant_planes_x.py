@@ -12,6 +12,8 @@ import numpy as np
 import pandas as pd
 from scipy import fft
 from scipy.fftpack import fftfreq
+import scipy.signal as signal
+
 
 
 FFIG = 0.5
@@ -101,8 +103,9 @@ labels_z_planes = [r'$z_c = 0.15~\mathrm{mm}$',
 
 y_coord_lim = (-2,2)
 y_coord_ticks = [-2,-1,0,1,2]
-u_lim = (0,60)#(30,120)
-u_ticks = [0,20,40, 60]
+u_lim = (-25,70)#(30,120)
+
+u_ticks = [-20,0,20,40, 60]
 
 #y_ticks_u_vs_x = [-20, 0, 20, 40, 60, 80, 100, 120]
 
@@ -209,7 +212,6 @@ for i in range(len(cases_ALM)):
 
 #%% Plots 
 
-
 u_to_plot = u_mean_values
 
 
@@ -220,14 +222,43 @@ i = 1  # DX10 z low
 plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_DX10_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
 i =  3  # ics z_low
 plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_ics_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
+# ALM low
+for ii in range(len(cases_ALM)):
+    
+    u_ii_ALM_plot_z0p3mm = u_x1p5_z0p3mm_ALM[ii]
+
+    
+    # First, design the Buterworth filter
+    N  = 2    # Filter order
+    Wn = 0.01 # Cutoff frequency
+    B, A = signal.butter(N, Wn, output='ba')
+
+    # Second, apply the filter
+    u_ii_ALM_plot_z0p3mm = signal.filtfilt(B,A, u_ii_ALM_plot_z0p3mm)
+    
+    plt.plot(y_x1p5_z0p3mm_ALM[ii], u_ii_ALM_plot_z0p3mm, format_ALM_low[ii], label=labels_ALM[ii])
+
+
+
 i = 1 # DX10 z_low
 plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX10_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
 i = 3 # ics z_high
 plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_ics_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
+# ALM high
 for ii in range(len(cases_ALM)):
-    print(ii)
-    plt.plot(y_x1p5_z0p3mm_ALM[ii], u_x1p5_z0p3mm_ALM[ii], format_ALM_low[ii], label=labels_ALM[ii])
-    plt.plot(y_x1p5_z1p5mm_ALM[ii], u_x1p5_z1p5mm_ALM[ii], format_ALM_high[ii], label=labels_ALM[ii])
+    
+    u_ii_ALM_plot_z1p5mm = u_x1p5_z1p5mm_ALM[ii]
+
+    
+    # First, design the Buterworth filter
+    N  = 2    # Filter order
+    Wn = 0.01 # Cutoff frequency
+    B, A = signal.butter(N, Wn, output='ba')
+
+    # Second, apply the filter
+    u_ii_ALM_plot_z1p5mm = signal.filtfilt(B,A, u_ii_ALM_plot_z1p5mm)
+    
+    plt.plot(y_x1p5_z1p5mm_ALM[ii], u_ii_ALM_plot_z1p5mm, format_ALM_high[ii], label=labels_ALM[ii])
 plt.xlabel(label_y_ax)
 plt.ylabel(label_u_ax)
 plt.xlim(y_coord_lim)
@@ -235,7 +266,7 @@ plt.ylim(u_lim)
 plt.xticks(y_coord_ticks)
 plt.yticks(u_ticks)
 plt.grid()
-#plt.legend(loc='best',ncol=2)
+plt.legend(loc='best',ncol=2)
 plt.tight_layout()
 plt.savefig(folder_manuscript+'lines_iso_x_along_y_plane_x01p5mm.pdf')
 plt.show()
@@ -254,14 +285,38 @@ i =  3  # ics z_low
 plt.plot(y_values[i][j][k_low],u_to_plot[i][j][k_low],label_ics_low, label=f'{labels_cases[i]}, {labels_z_planes[k_low]}')
 # ALM low
 for ii in range(len(cases_ALM)):
-    plt.plot(y_x3p0_z0p3mm_ALM[ii], u_x3p0_z0p3mm_ALM[ii], format_ALM_low[ii], label=labels_ALM[ii]+f', {labels_z_planes[k_low]}')
+    
+    u_ii_ALM_plot_z0p3mm = u_x3p0_z0p3mm_ALM[ii]
+
+    
+    # First, design the Buterworth filter
+    N  = 2    # Filter order
+    Wn = 0.01 # Cutoff frequency
+    B, A = signal.butter(N, Wn, output='ba')
+
+    # Second, apply the filter
+    u_ii_ALM_plot_z0p3mm = signal.filtfilt(B,A, u_ii_ALM_plot_z0p3mm)
+    
+    plt.plot(y_x3p0_z0p3mm_ALM[ii], u_ii_ALM_plot_z0p3mm, format_ALM_low[ii], label=labels_ALM[ii]+f', {labels_z_planes[k_low]}')
 i = 1 # DX10 z_low
 plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_DX10_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
 i = 3 # ics z_high
 plt.plot(y_values[i][j][k_high],u_to_plot[i][j][k_high],label_ics_high, label=f'{labels_cases[i]}, {labels_z_planes[k_high]}')
 # ALM high
 for ii in range(len(cases_ALM)):
-    plt.plot(y_x3p0_z1p5mm_ALM[ii], u_x3p0_z1p5mm_ALM[ii], format_ALM_high[ii], label=labels_ALM[ii]+f', {labels_z_planes[k_high]}')
+    
+    u_ii_ALM_plot_z1p5mm = u_x3p0_z1p5mm_ALM[ii]
+
+    
+    # First, design the Buterworth filter
+    N  = 2    # Filter order
+    Wn = 0.01 # Cutoff frequency
+    B, A = signal.butter(N, Wn, output='ba')
+
+    # Second, apply the filter
+    u_ii_ALM_plot_z1p5mm = signal.filtfilt(B,A, u_ii_ALM_plot_z1p5mm)
+    
+    plt.plot(y_x3p0_z1p5mm_ALM[ii], u_ii_ALM_plot_z1p5mm, format_ALM_high[ii], label=labels_ALM[ii]+f', {labels_z_planes[k_high]}')
 plt.xlabel(label_y_ax)
 plt.ylabel(label_u_ax)
 plt.xlim(y_coord_lim)
@@ -269,7 +324,7 @@ plt.ylim(u_lim)
 plt.xticks(y_coord_ticks)
 plt.yticks(u_ticks)
 plt.grid()
-plt.legend(loc='best',ncol=2)
+#plt.legend(loc='best',ncol=2)
 plt.tight_layout()
 plt.savefig(folder_manuscript+'lines_iso_x_along_y_plane_x03mm.pdf')
 plt.show()

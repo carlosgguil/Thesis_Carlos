@@ -38,7 +38,7 @@ plt.rcParams['axes.labelpad']    = 30*FFIG
 plt.rcParams['axes.titlesize']   = 50*FFIG
 plt.rcParams['legend.fontsize']  = 35*FFIG
 plt.rcParams['lines.linewidth']  = 7*FFIG
-plt.rcParams['lines.markersize'] = 40*FFIG #20*FFIG
+plt.rcParams['lines.markersize'] = 30*FFIG #20*FFIG
 plt.rcParams['legend.loc']       = 'best'
 plt.rcParams['text.usetex'] = True
 figsize_ = (FFIG*18,FFIG*13)
@@ -83,25 +83,32 @@ formats = {'k1_0p05_k2_0p1':'-ok',
            'k1_0p05_k2_1p0':'-*r',
            'k1_0p10_k2_1p0':'--*g', 
            'k1_0p20_k2_1p0':'--*y'}
-'''
-formats = {'k1_0p05_k2_0p1':'-k', 
-           'k1_0p05_k2_0p5':'-b', 
-           'k1_0p05_k2_1p0':'-r',
+
+formats = {'k1_0p05_k2_0p1':'-b', 
+           'k1_0p05_k2_0p5':'-r', 
+           'k1_0p05_k2_1p0':'-k',
           'k1_0p10_k2_1p0':'--g', 
           'k1_0p20_k2_1p0':'--y'}
-'''
-
-SMD_to_read = 'SMD' # 'SMD', 'SMD_FW'
-
-SMD_from_SPS = 75
 
 
-
-label_k1_0p05_k2_0p1 = r'$K_1 = 0.05, ~K_2 = 0.1$'
+label_k1_0p05_k2_0p1 = r'$K_1 = 0.05, ~K_2 = 0.25$'
 label_k1_0p05_k2_0p5 = r'$K_1 = 0.05, ~K_2 = 0.5$'
 label_k1_0p05_k2_1p0 = r'$K_1 = 0.05, ~K_2 = 1.0$'
 label_k1_0p10_k2_1p0 = r'$K_1 = 0.10, ~K_2 = 1.0$'
 label_k1_0p20_k2_1p0 = r'$K_1 = 0.20, ~K_2 = 1.0$'
+
+SMD_to_read = 'SMD_FW' # 'SMD', 'SMD_FW'
+
+#SPS
+format_SPS = '--^k'
+label_SPS = r'$\mathrm{UG}100\_\mathrm{DX}10$'
+SMD_from_SPS = 80.2
+
+x_SPS     = [5, 10]
+SMD_SPS_x = [SMD_from_SPS, 79.9]
+
+
+
 
 #%% Experimental data and simulation parameters (do not touch)
 folder_expe = 'C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/DLR_data/'
@@ -200,10 +207,22 @@ SMD_k1_0p20_k2_1p0 = df_SMD_evol_k1_0p20_k2_1p0[SMD_to_read].values
 SMD_k1_0p20_k2_1p0 = np.insert(SMD_k1_0p20_k2_1p0,0,SMD_from_SPS)
 
 
+# for plotting diameters
+cases_all = ['k1_0p05_k2_0p1',
+             'k1_0p05_k2_0p5',
+             'k1_0p05_k2_1p0',
+             'k1_0p10_k2_1p0',
+             'k1_0p20_k2_1p0',]
+SMDs_all = [SMD_k1_0p05_k2_0p1[-1], 
+            SMD_k1_0p05_k2_0p5[-1],
+            SMD_k1_0p05_k2_1p0[-1],
+            SMD_k1_0p10_k2_1p0[-1],
+            SMD_k1_0p20_k2_1p0[-1]]
+
+
 
 #%% plot
-
-figsize_SMD_evol_along_x = (FFIG*28,FFIG*13)
+figsize_SMD_evol_along_x = (FFIG*30,FFIG*12)
 
 x_ticks_SMD_evol = np.arange(5,85,5)
 y_ticks_SMD_evol = np.arange(0,81,10)
@@ -216,7 +235,7 @@ fig, ax1 = plt.subplots(figsize=figsize_SMD_evol_along_x)
 ax1.scatter(80,SMD_expe,color='black',marker='s',label=r'$\mathrm{Expe}$')
 ax1.errorbar(80, SMD_expe, yerr=SMD_expe*error_SMD, color='black', fmt='s',
              linewidth=width_error_lines,capsize=caps_error_lines)
-'''
+
 ax1.plot(x_k1_0p05_k2_0p1,SMD_k1_0p05_k2_0p1, 
          formats['k1_0p05_k2_0p1'], label=label_k1_0p05_k2_0p1)
 ax1.plot(x_k1_0p05_k2_0p5,SMD_k1_0p05_k2_0p5, 
@@ -227,16 +246,12 @@ ax1.plot(x_k1_0p10_k2_1p0,SMD_k1_0p10_k2_1p0,
          formats['k1_0p10_k2_1p0'], label=label_k1_0p10_k2_1p0)
 ax1.plot(x_k1_0p20_k2_1p0,SMD_k1_0p20_k2_1p0, 
          formats['k1_0p20_k2_1p0'], label=label_k1_0p20_k2_1p0)
-'''
-ax1.plot(x_k1_0p10_k2_1p0,SMD_k1_0p10_k2_1p0, 
-         formats['k1_0p10_k2_1p0'], label=label_k1_0p10_k2_1p0)
-ax1.plot(x_k1_0p20_k2_1p0,SMD_k1_0p20_k2_1p0, 
-         formats['k1_0p20_k2_1p0'], label=label_k1_0p20_k2_1p0)
+ax1.plot(x_SPS, SMD_SPS_x, format_SPS, label=label_SPS)
 # characteristics main plot
 ax1.set_xlabel(label_x)
 ax1.set_ylabel(label_SMD)
-ax1.set_xlim(4.8,83)
-ax1.set_ylim(00,80)
+ax1.set_xlim(4,83)
+ax1.set_ylim(00,85)
 ax1.set_xticks(x_ticks_SMD_evol)
 ax1.set_yticks(y_ticks_SMD_evol)
 #ax1.legend(loc='best',ncol=2)
@@ -249,7 +264,7 @@ ax1.grid()
 # them.
 ax2 = plt.axes([0,0,1,1])
 # Manually set the position and relative size of the inset axes within ax1
-ip = InsetPosition(ax1, [0.25,0.40,0.6,0.5])
+ip = InsetPosition(ax1, [0.55,0.40,0.3,0.5])
 ax2.set_axes_locator(ip)
 # Mark the region corresponding to the inset axes on ax1 and draw lines
 # in grey linking the two axes.
@@ -274,8 +289,8 @@ ax2.plot(x_k1_0p20_k2_1p0,SMD_k1_0p20_k2_1p0,
 
 
 # characteristics embedded plot
-ax2.set_xlim((78,82))
-ax2.set_ylim((9,36))
+ax2.set_xlim((79,81))
+ax2.set_ylim((15,36))
 #ax2.set_ylim((liquid_volume_UG100_DX20[index_1],liquid_volume_UG100_DX20[index_2]))
 labelsize_embedded_plot = 40*FFIG
 ax2.xaxis.set_tick_params(labelsize=labelsize_embedded_plot)
@@ -302,3 +317,11 @@ plt.savefig(folder_manuscript+'SMD_vs_x_apte_calibration_comparison.pdf')
 plt.show()
 plt.close()
 
+
+#%% Plot SMDs and deviations with experiments
+for i in range(len(cases_all)):
+    case_i = cases_all[i]
+    SMD_i = SMDs_all[i]
+    
+    eps_SMD = (SMD_i - SMD_expe)/SMD_expe*100
+    print(f'  Case {case_i}: SMD = {SMD_i:.3f}, error: {eps_SMD:.3f}')

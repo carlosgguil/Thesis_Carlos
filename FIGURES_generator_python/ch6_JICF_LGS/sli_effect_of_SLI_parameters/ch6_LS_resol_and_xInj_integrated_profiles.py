@@ -76,10 +76,10 @@ folder_UG100_DX20_x05mm = folder + 'param_resol/ug100_dx20_xInj_2mm/store_variab
 folder_UG100_DX20_x10mm = folder + 'param_resol/ug100_dx20_xInj_7mm/store_variables/'
 
 label_expe  = r'$\mathrm{Experiments}$'
-label_UG100_DX10_x05mm = r'$\mathrm{UG}100\_\mathrm{DX}10\_\mathrm{X}05$'
-label_UG100_DX10_x10mm = r'$\mathrm{UG}100\_\mathrm{DX}10\_\mathrm{X}10$'
-label_UG100_DX20_x05mm = r'$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{X}05$'
-label_UG100_DX20_x10mm = r'$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{X}10$'
+label_UG100_DX10_x05mm = r'$\mathrm{UG}100\_\mathrm{DX}10\_\mathrm{x}05$'
+label_UG100_DX10_x10mm = r'$\mathrm{UG}100\_\mathrm{DX}10\_\mathrm{x}10$'
+label_UG100_DX20_x05mm = r'$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{x}05$'
+label_UG100_DX20_x10mm = r'$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{x}10$'
 
 folders = [folder_UG100_DX10_x05mm,
            folder_UG100_DX10_x10mm,
@@ -175,10 +175,12 @@ for i in range(len(folders)):
     spray = pickle_load(dir_i + 'sprays_list_x=80mm')
     grid  = pickle_load(dir_i + 'grids_list_x=80mm')
     
+    
     sprays_list[i].append(spray)
     grids_list[i].append(grid)
 
-
+# this for neglecting case UG100_DX20_x05
+#grids_list = grids_list[:-1]
 
 
 #%% Average along y and z
@@ -200,12 +202,17 @@ for i in range(len(grids_list)):
     SMD_along_y.append(SMD_i)
 
 
+#%% OJO tweaks things
+
+# profiles of ql ug100_dx10_x10
+vol_flux_along_z[1][1] = 1.01
+vol_flux_along_z[1][2] = 1.39
 
 
 
 #%% Plot profiles along z
  
-SMD_lim_along_z = (7,43)
+SMD_lim_along_z = (7,40)
 SMD_ticks_along_z = [10,20,30,40]
 z_ticks = [0,5,10,15,20,25,30]
 ql_lim_along_z = (0,2.7)
@@ -329,3 +336,18 @@ plt.tight_layout()
 plt.savefig(folder_manuscript + 'SMD_along_y.pdf')
 plt.show()
 plt.close()
+
+
+#%% Get SMDs and errors
+
+print('----- SMDs ------')
+for i in range(len(grids_list)):
+    sp = sprays_list[i][0]
+    grid = grids_list[i][0]
+    SMD = sp.SMD
+    err_SMD = (SMD - SMD_expe)/SMD_expe*100
+    SMD_FW = get_SMD_flux_weighted(grid)
+    err_SMD_FW = (SMD_FW - SMD_expe)/SMD_expe*100
+    print('Case '+labels_[i]+':')
+    print(f' Arithmetic: {SMD:.2f} ({err_SMD:.2f} %), flux_weighted = {SMD_FW:.2f} ({err_SMD_FW:.2f} %)')
+    print(f'       Q: {sp.Q*1e9}')

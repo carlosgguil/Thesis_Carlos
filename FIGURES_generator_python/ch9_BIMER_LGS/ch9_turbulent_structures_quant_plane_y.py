@@ -70,18 +70,22 @@ folder_ALM = folder + 'data_ALM/'
 cases = [folder + 'DX07p5_lines/',
          folder + 'DX10p0_lines/',
          folder + 'lines_u_mean_ics/']
-
-cases_ALM = [folder_ALM + 'data_with_ALM_no_droplets_FDC_0p0030_DX10/',
-             folder_ALM + 'data_with_ALM_no_droplets_FDC_0p0060_DX10/']
-labels_ALM = ['$\mathrm{ALM}$', '$\mathrm{ALM,~F~incr.}$']
-format_ALM = ['--k','b']
+'''
+cases_ALM = [folder_ALM + 'data_with_ALM_no_droplets_FDC_0p0020_DX10/',
+             folder_ALM + 'data_with_ALM_no_droplets_FDC_0p0030_DX10/']
+labels_ALM = ['$\mathrm{ALM,~F~0.2}$', '$\mathrm{ALM,~F~0.3}$']
+format_ALM = ['b','r']
+'''
+cases_ALM = [folder_ALM + 'data_with_ALM_no_droplets_FDC_0p0030_DX10/']
+labels_ALM = ['$\mathrm{ALM}$']
+format_ALM = ['b']
 
 label_u_ax  = r'$\overline{u}_c ~[\mathrm{m}~\mathrm{s}^{-1}$]'
 label_x_ax   =  '$x_c ~[\mathrm{mm}]$' #'$x_c/d_\mathrm{inj}$'
 label_z_ax   = '$z_c ~[\mathrm{mm}]$'
 
 labels_cases = [r'$\mathrm{DX07}$' ,r'$\mathrm{DX10}$', 
-                r'$\mathrm{No~jet}$']
+                r'$\mathrm{No~pert.}$']
 format_cases = ['r','k',':k']
 
 labels_x_planes = [r'$x_c = 0.5~\mathrm{mm}$', 
@@ -126,7 +130,7 @@ y_ticks_u_vs_x = np.linspace(0,60,4)
 
 # u vs z
 y_lim_u_vs_z = (0,5)
-x_lim_u_vs_z = (0,65)
+x_lim_u_vs_z = (-5,68)
 x_ticks_u_vs_z =  [0,20,40,60]
 
 
@@ -243,7 +247,7 @@ for i in range(len(cases_ALM)):
 u_to_plot = u_mean_values_z_lines
 
 
-y_lim_u_vs_x = (-5,60)
+y_lim_u_vs_x = (-5,70)
 
 # Before, put nans in regions with LS_PHI_MEAN > 0.5 for 
 # cases DX15, DX10 at 
@@ -276,19 +280,30 @@ for i in range(1,len(labels_cases)):
 
         # Second, apply the filter
         uij_to_plot = signal.filtfilt(B,A, uij_to_plot)
-
+    
     
     plt.plot(xij_to_plot,uij_to_plot,format_cases[i], label=labels_cases[i])
     
 
 for i in range(len(cases_ALM)):
-    plt.plot(x_y0_z0p3mm_ALM[i],u_y0_z0p3mm_ALM[i], format_ALM[i], label=labels_ALM[i])
+    u_i_ALM_to_plot = u_y0_z0p3mm_ALM[i]
+
     
+    # First, design the Buterworth filter
+    N  = 2    # Filter order
+    Wn = 0.01 # Cutoff frequency
+    B, A = signal.butter(N, Wn, output='ba')
+
+    # Second, apply the filter
+    u_i_ALM_to_plot = signal.filtfilt(B,A, u_i_ALM_to_plot)
+    
+    plt.plot(x_y0_z0p3mm_ALM[i], u_i_ALM_to_plot, format_ALM[i], label=labels_ALM[i])
+
 plt.yticks(y_ticks_u_vs_x)
 plt.xlim(x_lim_u_vs_x)
 plt.xticks(x_ticks_u_vs_x)
-#plt.ylim(y_lim_u_vs_x)
-plt.ylim((-20,60))
+plt.ylim(y_lim_u_vs_x)
+#plt.ylim((-20,60))
 plt.xlabel(label_x_ax)
 plt.ylabel(label_u_ax)
 #plt.legend(bbox_to_anchor=(1.0, 1.0))
@@ -309,7 +324,17 @@ plt.plot(x_lim_u_vs_x,(0,0),color='grey',zorder=-1,linewidth=8*FFIG)
 for i in range(1,len(labels_cases)):
     plt.plot(x_values_z_lines[i][j],u_to_plot[i][j],format_cases[i], label=labels_cases[i])
 for i in range(len(cases_ALM)):
-    plt.plot(x_y0_z1p5mm_ALM[i],u_y0_z1p5mm_ALM[i], format_ALM[i], label=labels_ALM[i])
+    u_i_ALM_to_plot = u_y0_z1p5mm_ALM[i]
+
+    
+    # First, design the Buterworth filter
+    N  = 2    # Filter order
+    Wn = 0.01 # Cutoff frequency
+    B, A = signal.butter(N, Wn, output='ba')
+
+    # Second, apply the filter
+    u_i_ALM_to_plot = signal.filtfilt(B,A, u_i_ALM_to_plot)
+    plt.plot(x_y0_z1p5mm_ALM[i],u_i_ALM_to_plot, format_ALM[i], label=labels_ALM[i])
 plt.xlim(x_lim_u_vs_x)
 plt.xticks(x_ticks_u_vs_x)
 plt.ylim(y_lim_u_vs_x)
@@ -323,108 +348,6 @@ plt.tight_layout()
 plt.savefig(folder_manuscript+'line_y0_along_x_zhigh.pdf')
 plt.show()
 plt.close()
-
-#%% Plot with subplot
-u_to_plot = u_mean_values_z_lines
-# Minimum x coordinate with PHI_MEAN < 0.5 for cases z = 1.5 mm (z/D = 5),
-# DX15 and DX10 
-x_min_gas_j1 = np.array([0.15,0.18])#/d_inj
-
-
-
-j = 1
-fig, ax1 = plt.subplots(figsize=figsize_u_vs_x)
-ax1.set_title(labels_z_planes[j])
-
-
-# data for main plot
-plt.plot(x_lim_u_vs_x,(0,0),color='grey',zorder=-1,linewidth=6*FFIG)
-for i in range(1,len(labels_cases)):
-    xij_to_plot = x_values_z_lines[i][j]
-    uij_to_plot = u_to_plot[i][j]
-    '''
-    if j == 1 and ((i == 1) or (i == 2)):
-        for n in range(len(xij_to_plot)):
-            if xij_to_plot[n] < x_min_gas_j1[i-1]:
-                uij_to_plot[n] = np.nan
-    '''
-    
-    
-    if labels_cases[i] == r'$\mathrm{No~jet}$':
-        # filter velocity signal
-        
-        # First, design the Buterworth filter
-        N  = 2    # Filter order
-        Wn = 0.1 # Cutoff frequency
-        B, A = signal.butter(N, Wn, output='ba')
-
-        # Second, apply the filter
-        uij_to_plot = signal.filtfilt(B,A, uij_to_plot)
-    
-    ax1.plot(xij_to_plot,uij_to_plot,format_cases[i], label=labels_cases[i])
-for i in range(len(cases_ALM)):
-    ax1.plot(x_y0_z0p3mm_ALM[i],u_y0_z0p3mm_ALM[i], format_ALM[i], label=labels_ALM[i])
-# characteristics main plot
-ax1.set_xlabel(label_x_ax)
-ax1.set_ylabel(label_u_ax)
-ax1.set_xlim(x_lim_u_vs_x)
-ax1.set_xticks(x_ticks_u_vs_x)
-ax1.set_ylim(y_lim_u_vs_x)
-#ax1.legend(loc='best')
-ax1.grid(which='major',linestyle='-')
-#ax1.grid(which='minor',linestyle='--')
-
-'''
-# Create a set of inset Axes: these should fill the bounding box allocated to
-# them.
-ax2 = plt.axes([0,0,1,1])
-# Manually set the position and relative size of the inset axes within ax1
-##ip = InsetPosition(ax1, [0.19,0.07,0.3,0.4])
-ip = InsetPosition(ax1, [0.17,0.09,0.30,0.30])
-ax2.set_axes_locator(ip)
-# Mark the region corresponding to the inset axes on ax1 and draw lines
-# in grey linking the two axes.
-mark_inset(ax1, ax2, loc1=2, loc2=4, fc="none", ec='0.5')
-
-# data for embedded plot
-ax2.plot(x_lim_u_vs_x,(0,0),color='grey',zorder=-1,linewidth=6*FFIG)
-for i in range(1,len(labels_cases)):
-    xij_to_plot = x_values_z_lines[i][j]
-    uij_to_plot = u_to_plot[i][j]
-    
-    ax2.plot(xij_to_plot,uij_to_plot,format_cases[i], label=labels_cases[i])
-
-
-
-# characteristics embedded plot
-ax2.set_xlim(0,0.6)
-ax2.set_ylim(-3,3)
-labelsize_embedded_plot = 50*FFIG
-ax2.xaxis.set_tick_params(labelsize=labelsize_embedded_plot)
-ax2.yaxis.set_tick_params(labelsize=labelsize_embedded_plot)
-ax2.set_xticks([0,0.3,0.6])
-ax2.set_yticks([-3,0,3])
-ax2.grid(which='major',linestyle='-')
-#ax2.grid(which='minor',linestyle='--')
-
-# draw rectangle
-w_rect = ax2.get_xlim()[1] - ax2.get_xlim()[0]+0.6
-h_rect = ax2.get_ylim()[1] - ax2.get_ylim()[0]
-rect = Rectangle((ax2.get_xlim()[0]-0.3,ax2.get_ylim()[0]),w_rect,h_rect, 
-                 linewidth=1,edgecolor='k',facecolor='none',zorder = 2)
-ax1.add_patch(rect)
-'''
-
-# Some ad hoc tweaks.
-#ax1.set_ylim(y_lim_)
-#ax2.set_yticks(np.arange(0,2,0.4))
-#ax2.set_xticklabels(ax2.get_xticks(), backgroundcolor='w')
-plt.tight_layout()
-plt.savefig(folder_manuscript+'line_y0_along_x_zlow.pdf')
-plt.show()
-plt.close()
-
-
 
 
 
@@ -446,7 +369,17 @@ j = 1
 for i in range(1,len(labels_cases)):
     ax1.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_cases[i], label=labels_cases[i])
 for i in range(len(cases_ALM)):
-    ax1.plot(u_y0_x1p0mm_ALM[i],z_y0_x1p0mm_ALM[i], format_ALM[i], label=labels_ALM[i])
+    u_i_ALM_to_plot = u_y0_x1p0mm_ALM[i]
+
+    
+    # First, design the Buterworth filter
+    N  = 2    # Filter order
+    Wn = 0.01 # Cutoff frequency
+    B, A = signal.butter(N, Wn, output='ba')
+
+    # Second, apply the filter
+    u_i_ALM_to_plot = signal.filtfilt(B,A, u_i_ALM_to_plot)
+    ax1.plot(u_i_ALM_to_plot, z_y0_x1p0mm_ALM[i], format_ALM[i], label=labels_ALM[i])
 #ax1.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax1.set_title(labels_x_planes[j])
 #ax1.yaxis.set_ticks([0,2,4,6,8, 10])
@@ -458,7 +391,17 @@ j = 2
 for i in range(1,len(labels_cases)):
     ax2.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_cases[i], label=labels_cases[i])
 for i in range(len(cases_ALM)):
-    ax2.plot(u_y0_x2p0mm_ALM[i],z_y0_x2p0mm_ALM[i], format_ALM[i], label=labels_ALM[i])
+    u_i_ALM_to_plot = u_y0_x2p0mm_ALM[i]
+
+    
+    # First, design the Buterworth filter
+    N  = 2    # Filter order
+    Wn = 0.01 # Cutoff frequency
+    B, A = signal.butter(N, Wn, output='ba')
+
+    # Second, apply the filter
+    u_i_ALM_to_plot = signal.filtfilt(B,A, u_i_ALM_to_plot)
+    ax2.plot(u_i_ALM_to_plot,z_y0_x2p0mm_ALM[i], format_ALM[i], label=labels_ALM[i])
 #ax2.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax2.set_title(labels_x_planes[j])
 #ax2.xaxis.set_ticks(np.array([0,1,2,3])+2)
@@ -474,7 +417,17 @@ j = 3
 for i in range(1,len(labels_cases)):
     ax3.plot(u_to_plot[i][j],z_values_x_lines[i][j], format_cases[i], label=labels_cases[i])
 for i in range(len(cases_ALM)):
-    ax3.plot(u_y0_x1p0mm_ALM[i],z_y0_x4p0mm_ALM[i], format_ALM[i], label=labels_ALM[i])
+    u_i_ALM_to_plot = u_y0_x4p0mm_ALM[i]
+
+    
+    # First, design the Buterworth filter
+    N  = 2    # Filter order
+    Wn = 0.005 # Cutoff frequency
+    B, A = signal.butter(N, Wn, output='ba')
+
+    # Second, apply the filter
+    u_i_ALM_to_plot = signal.filtfilt(B,A, u_i_ALM_to_plot)
+    ax3.plot(u_i_ALM_to_plot,z_y0_x4p0mm_ALM[i], format_ALM[i], label=labels_ALM[i])
 #ax3.text(0.0,6000,r'$\mathrm{UG}75\_\mathrm{DX}10$',fontsize=80*FFIG)
 ax3.set_title(labels_x_planes[j])
 #ax3.xaxis.set_ticks(np.array([0,1,2,3])+2)
@@ -494,6 +447,8 @@ for ax in axs.flat[1:]:
     ax.spines['left'].set_linewidth(6*FFIG)
     ax.spines['left'].set_linestyle('-.')
 '''    
+
+
 
 ax1.set(ylabel = label_z_ax)
 for ax in [ax1,ax2,ax3]:

@@ -71,8 +71,8 @@ store_variables_folder = 'store_variables' # 'store_variables' 'prev_store_varia
 
 
 #folder_turb = folder + 'apte_model_calibration_u_vw_lognorm/k1_0p05_k2_1p0/store_variables/'
-folder_turb    = folder + 'param_resol/ug100_dx20_xInj_7mm/store_variables/'
-folder_no_turb = folder + 'param_turbulence_inj/ug100_dx20_xInj_7mm/store_variables/'
+folder_turb    = folder + 'param_resol/ug100_dx20_xInj_2mm/store_variables/'
+folder_no_turb = folder + 'param_turbulence_inj/ug100_dx20_xInj_2mm/store_variables/'
 
 label_expe  = r'$\mathrm{Experiments}$'
 label_turb = r'$\mathrm{With~turb.}$'
@@ -166,6 +166,7 @@ for i in range(len(folders)):
     dir_i   = folders[i]
     spray = pickle_load(dir_i + 'sprays_list_x=80mm')
     grid  = pickle_load(dir_i + 'grids_list_x=80mm')
+        
     
     sprays_list[i].append(spray)
     grids_list[i].append(grid)

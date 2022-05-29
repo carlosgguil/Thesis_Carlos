@@ -88,9 +88,9 @@ formats = {'dx00':'-k', 'dx04':'-b', 'dx08':'-r',
 
 
 
-SMD_to_read = 'SMD' # 'SMD', 'SMD_FW'
+SMD_to_read = 'SMD_FW' # 'SMD', 'SMD_FW'
 
-SMD_from_SPS = 75
+SMD_from_SPS = 80.2
 
 #%% Experimental data and simulation parameters (do not touch)
 folder_expe = 'C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/DLR_data/'
@@ -180,26 +180,31 @@ x_dx_04 = df_SMD_evol_dx_04['x'].values
 x_dx_04 = np.insert(x_dx_04,0,5)
 SMD_dx_04 = df_SMD_evol_dx_04[SMD_to_read].values
 SMD_dx_04 = np.insert(SMD_dx_04,0,SMD_from_SPS)
+SMD_dx_04[:5] = SMD_from_SPS
 
 x_dx_08 = df_SMD_evol_dx_08['x'].values
 x_dx_08 = np.insert(x_dx_08,0,5)
 SMD_dx_08 = df_SMD_evol_dx_08[SMD_to_read].values
 SMD_dx_08 = np.insert(SMD_dx_08,0,SMD_from_SPS)
+SMD_dx_08[:6] = SMD_from_SPS
 
 x_dx_12 = df_SMD_evol_dx_12['x'].values
 x_dx_12 = np.insert(x_dx_12,0,5)
 SMD_dx_12 = df_SMD_evol_dx_12[SMD_to_read].values
 SMD_dx_12 = np.insert(SMD_dx_12,0,SMD_from_SPS)
+SMD_dx_12[:8] = SMD_from_SPS
 
 x_dx_16 = df_SMD_evol_dx_16['x'].values
 x_dx_16 = np.insert(x_dx_16,0,5)
 SMD_dx_16 = df_SMD_evol_dx_16[SMD_to_read].values
 SMD_dx_16 = np.insert(SMD_dx_16,0,SMD_from_SPS)
+SMD_dx_16[:11] = SMD_from_SPS
 
 x_dx_20 = df_SMD_evol_dx_20['x'].values
 x_dx_20 = np.insert(x_dx_20,0,5)
 SMD_dx_20 = df_SMD_evol_dx_20[SMD_to_read].values
 SMD_dx_20 = np.insert(SMD_dx_20,0,SMD_from_SPS)
+SMD_dx_20[:11] = SMD_from_SPS
 
 
 
@@ -266,7 +271,7 @@ ax1.errorbar(80, SMD_expe, yerr=SMD_expe*error_SMD, color='black', fmt='s',
 ax1.set_xlabel(label_x)
 ax1.set_ylabel(label_SMD)
 ax1.set_xlim(4.8,83)
-ax1.set_ylim(00,80)
+ax1.set_ylim(00,82)
 ax1.set_xticks(x_ticks_SMD_evol)
 ax1.set_yticks(y_ticks_SMD_evol)
 #ax1.legend(loc='best',ncol=2)

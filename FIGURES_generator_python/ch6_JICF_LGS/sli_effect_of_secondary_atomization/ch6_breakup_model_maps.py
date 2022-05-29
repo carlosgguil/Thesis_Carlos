@@ -61,7 +61,7 @@ y_lim = (-12.5,12.5)
 
 # for maps
 flux_levels_ = np.linspace(0,6.5,14)
-SMD_levels_ = np.linspace(14,40,15)
+SMD_levels_ = np.linspace(10,40,15)
 
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch6_lagrangian_JICF/params_breakup_model/maps/'
 folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/LGS_sprays_LAST'

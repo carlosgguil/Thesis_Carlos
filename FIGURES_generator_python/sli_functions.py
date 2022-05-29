@@ -160,7 +160,7 @@ def load_all_BIMER_grids(sprays_list, parent_dir = None, save_dir = 'store_varia
 def load_all_SPS_grids(sprays_list, parent_dir = None, save_dir = 'store_variables'):   
     
     if parent_dir is None:
-        parent_dir = "C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/"
+        parent_dir = "C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/SPS_sprays"
     
 
     grids_list = get_discrete_spray(True, sprays_list, None, None, None,

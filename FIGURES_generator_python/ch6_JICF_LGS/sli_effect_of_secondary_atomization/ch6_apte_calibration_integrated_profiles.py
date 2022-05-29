@@ -38,7 +38,7 @@ plt.rcParams['axes.labelpad']    = 30*FFIG
 plt.rcParams['axes.titlesize']   = 80*FFIG
 plt.rcParams['legend.fontsize']  = 40*FFIG
 plt.rcParams['lines.linewidth']  = 7*FFIG
-plt.rcParams['lines.markersize'] = 20*FFIG #20*FFIG
+plt.rcParams['lines.markersize'] = 30*FFIG #20*FFIG
 plt.rcParams['legend.loc']       = 'best'
 plt.rcParams['text.usetex'] = True
 
@@ -76,7 +76,7 @@ folder_k1_0p10_k2_1p0 = folder + '/k1_0p10_k2_1p0/store_variables/'
 folder_k1_0p20_k2_1p0 = folder + '/k1_0p20_k2_1p0/store_variables/'
 
 label_expe  = r'$\mathrm{Experiments}$'
-label_k1_0p05_k2_0p1 = r'$K_1 = 0.05, ~K_2 = 0.1$'
+label_k1_0p05_k2_0p1 = r'$K_1 = 0.05, ~K_2 = 0.25$'
 label_k1_0p05_k2_0p5 = r'$K_1 = 0.05, ~K_2 = 0.5$'
 label_k1_0p05_k2_1p0 = r'$K_1 = 0.05, ~K_2 = 1.0$'
 label_k1_0p10_k2_1p0 = r'$K_1 = 0.10, ~K_2 = 1.0$'
@@ -100,21 +100,22 @@ labels_ = [label_k1_0p05_k2_0p1,
           label_k1_0p10_k2_1p0,
           label_k1_0p20_k2_1p0]
 
+'''
 formats_ = {'k1_0p05_k2_0p1':'-ok', 
            'k1_0p05_k2_0p5':'-^b', 
            'k1_0p05_k2_1p0':'-*r',
            'k1_0p10_k2_1p0':'--*g', 
            'k1_0p20_k2_1p0':'--*y'}
 '''
-formats_ = {'k1_0p05_k2_0p1':'-k', 
-           'k1_0p05_k2_0p5':'-b', 
-           'k1_0p05_k2_1p0':'-r',
+
+formats_ = {'k1_0p05_k2_0p1':'-b', 
+           'k1_0p05_k2_0p5':'-r', 
+           'k1_0p05_k2_1p0':'-k',
           'k1_0p10_k2_1p0':'--g', 
           'k1_0p20_k2_1p0':'--y'}
-'''
 
 color_expe = 'black'
-linewidth_expe = 10*FFIG
+linewidth_expe = 12*FFIG
 format_expe = '-s'
 
 #%% Experimental data and simulation parameters (do not touch)

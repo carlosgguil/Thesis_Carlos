@@ -282,9 +282,10 @@ where $\mu$, $\sigma$ are respectively the mean and variance of the gaussian pro
 
 The main disadvantage of the FIM-UR model is the inability to prescribe the mean angle $\theta_s$ in certain cases. To solvent this issue, \citeColor[guedot_developpement_2015] proposed the Liquid Injection for Swirled Atomizers (LISA) model. This methodology, described in Figure \ref{fig:LISA_methodology}, follows the same baseline as FIM-UR, but proposes some modifications to keep the mean spray angle constant.
 
-The model inputs are the liquid mass flow rate $\dot{m}_l$, the spray mean angle $\theta_s$ and the atomizer exit radius $R_0$. The principles are identical to FIM-UR: droplets have no radial velocity at injection, and the axial velocity is obtained from mass conservation with the injected flow rate. Hence, both are calculated respectively with Equations (\ref{eq:ch3_FIMUR_velocities_at_x0}a) and (\ref{eq:ch3_FIMUR_velocities_at_x0}b). The tangential velocity imposed is calculated according to the derivations of \citeColor[guedot_developpement_2015]:
+The model inputs are the liquid mass flow rate $\dot{m}_l$, the spray mean angle $\theta_s$ and the atomizer exit radius $R_0$. The principles are identical to FIM-UR: droplets have no radial velocity at injection, and the axial velocity is obtained from mass conservation with the injected flow rate. Hence, both are calculated respectively with Equations (\ref{eq:ch3_FIMUR_velocities_at_x0}a) and (\ref{eq:ch3_FIMUR_velocities_at_x0}b). The tangential (or azimuthal) velocity imposed is calculated according to the derivations of \citeColor[guedot_developpement_2015]:
 
 \begin{equation}
+\label{eq:LISA_model_u_theta}
 u_\theta \left( r \right) = u_z  \frac{r}{R_S^0} \tan \sigma_s
 \end{equation}
 

@@ -35,7 +35,7 @@ plt.rcParams['text.usetex'] = True
 
 
 
-folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch6_lagrangian_JICF/expe_results/'
+folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch6_lagrangian_JICF/expe_results_TEST/'
 folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/DLR_data/'
 
 figsize_ = (FFIG*24,FFIG*16)

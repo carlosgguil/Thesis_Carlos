@@ -91,7 +91,7 @@ folders = [folder_k1_0p05_k2_0p1,
            folder_k1_0p20_k2_1p0]
 
 label_expe  = r'$\mathrm{Experiments}$'
-label_k1_0p05_k2_0p1 = r'$K_1 = 0.05, ~K_2 = 0.1$'
+label_k1_0p05_k2_0p1 = r'$K_1 = 0.05, ~K_2 = 0.25$'
 label_k1_0p05_k2_0p5 = r'$K_1 = 0.05, ~K_2 = 0.5$'
 label_k1_0p05_k2_1p0 = r'$K_1 = 0.05, ~K_2 = 1.0$'
 label_k1_0p10_k2_1p0 = r'$K_1 = 0.10, ~K_2 = 1.0$'

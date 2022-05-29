@@ -1,0 +1,93 @@
+\documentclass[twoside]{report}
+
+
+% Load the packagesl
+\include{packages_load}
+
+
+% Greek letters inkscape:
+% http://kestrel.nmt.edu/~raymond/software/howtos/greekscape.xhtml
+
+% Headers and footers
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+
+\pagestyle{fancy}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RE]{}
+\fancyhead[LO]{}
+%\fancyhead[RO]{Guides and tutorials}
+\fancyfoot[CE,CO]{\thepage}
+
+
+
+% volume fraction reference in document:
+% \ref{eq:vol_frac_definition}
+
+\begin{document}
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+	\hspace*{-0.45in}
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_SMD_map}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.075in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_ux_mean_map}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.45in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_uy_mean_map}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.35in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_uz_mean_map}
+   %\label{} 
+\end{subfigure}
+
+\vspace*{-0.20in}
+
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+	\hspace*{-0.45in}
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_volume_flux_map}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.075in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_ux_RMS_map}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.45in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_uy_RMS_map}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.35in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_uz_RMS_map}
+   %\label{} 
+\end{subfigure}
+
+\caption{SLI for case UG100\_DX10 at $x_\mathrm{inj} = 5$ mm showing SMD, flux, mean and RMS velocity maps}
+\label{fig:maps_SLI_with_RMS}
+\end{figure}
+
+
+
+
+
+\end{document}

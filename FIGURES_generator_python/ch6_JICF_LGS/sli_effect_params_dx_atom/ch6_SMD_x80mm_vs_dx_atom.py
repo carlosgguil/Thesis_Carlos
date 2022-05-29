@@ -126,8 +126,8 @@ SMD_expe = 31
 var_SMD_expe = 0.24 # in %
 
 # Apte simulation data
-SMD_dx00    = 20
-SMD_FW_dx00 = 20
+SMD_dx00    = 19.44
+SMD_FW_dx00 = 19.44
 
 #%% get SMD evol and data to plot
 

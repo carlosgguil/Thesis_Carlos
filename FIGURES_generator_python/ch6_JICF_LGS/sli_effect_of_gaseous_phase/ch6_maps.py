@@ -53,7 +53,7 @@ label_ql  = r'$q_l$ [$\mathrm{cm}^3/\mathrm{cm}^2\mathrm{s}$]'
 label_SMD = r'$SMD$ [$\mu\mathrm{m}$]'
 
 
-SAVEFIG = False
+SAVEFIG = True
 
 
 SMD_lim_along_z = (10,40)
@@ -76,6 +76,7 @@ store_variables_folder = 'store_variables' # 'store_variables' 'prev_store_varia
 folder_APTE = folder + '/apte_model_calibration_u_vw_lognorm/k1_0p05_k2_1p0/store_variables/'
 folder_full_no_ALM  = folder + '/FULL_domain/LGS_no_ALM/'+store_variables_folder+'/'
 folder_full_ALM_initial = folder + '/FULL_domain/LGS_ALM_initial/'+store_variables_folder+'/'
+folder_full_FDC_0p10 = folder + '/FULL_domain/LGS_ALM_FDC_0p10/'+store_variables_folder+'/'
 folder_full_FDC_0p24 = folder + '/FULL_domain/LGS_ALM_FDC_0p24/'+store_variables_folder+'/'
 folder_full_FDC_0p30 = folder + '/FULL_domain/LGS_ALM_FDC_0p30/'+store_variables_folder+'/'
 
@@ -92,17 +93,20 @@ label_full_ALM_FDC_0p30 = r'$\mathrm{ALM~forced}$'
 folders = [folder_APTE,
            folder_full_no_ALM,
            folder_full_ALM_initial,
+           folder_full_FDC_0p10,
            folder_full_FDC_0p24,
            folder_full_FDC_0p30]
 cases = ['prescribed',
          'no_ALM',
          'ALM_initial',
+         'ALM_FDC_0p10',
          'ALM_FDC_0p24',
          'ALM_FDC_0p30']
 
 labels = [label_APTE,
           label_full_no_ALM,
           label_full_ALM_initial,
+          label_full_ALM_FDC_0p10,
           label_full_ALM_FDC_0p24,
           label_full_ALM_FDC_0p30]
 
