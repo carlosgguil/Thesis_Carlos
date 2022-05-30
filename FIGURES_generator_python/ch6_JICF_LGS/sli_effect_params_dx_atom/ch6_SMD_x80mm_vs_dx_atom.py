@@ -123,7 +123,7 @@ caps_error_lines  = 15*FFIG
 
 # Expe data
 SMD_expe = 31
-var_SMD_expe = 0.24 # in %
+var_SMD_expe = 0.14 # in %
 
 # Apte simulation data
 SMD_dx00    = 19.44

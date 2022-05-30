@@ -30,8 +30,7 @@ plt.rcParams['legend.loc']      = 'lower right'
 plt.rcParams['legend.framealpha']      = 1.0
 plt.rcParams['text.usetex'] = True
 plt.rcParams['font.family'] = 'serif'
-
-
+plt.rcParams['figure.autolayout'] = True
 
 # Default values
 cbar_ticks = None
@@ -44,10 +43,10 @@ ylabel_ = 'z [mm]'
 
 
 # tags for saving
-cases = ['uG100_dx10_x05']
+cases = ['uG100_dx10_x05', 'uG100_dx10_x05_quadtrees']
 
 # plot limits
-plot_bounds = [[(-5,5),(0,7.5)]]
+plot_bounds = [[(-5,5),(0,8.2)]]
 
 #%% Load sprays and grids
 
@@ -70,7 +69,7 @@ params_simulation_UG75['Q_inj'] = np.pi/4*params_simulation_UG75['D_inj']**2*par
 spray_UG100_DX10 = pickle_load(folder+'sps_dx=10m/store_variables_SLI_manuscript/sprays_list_x=05mm')
 grid_UG100_DX10  = pickle_load(folder+'sps_dx=10m/store_variables_SLI_manuscript/grids_list_x=05mm')
 
-
+grid_UG100_DX10_quadtrees   = pickle_load(folder+'sps_dx=10m/store_variables_quadtrees/grids_list_x=05mm')
 
 '''
 sp1, sp2, sp3, sp4, sp5 = load_all_SPS_global_sprays(params_simulation_UG75, params_simulation_UG100,
@@ -80,7 +79,7 @@ sprays_list = [sp1, sp2, sp3, sp4, sp5]
 # load grids
 grids_list = load_all_SPS_grids(sprays_list, save_dir = 'store_variables_SLI_manuscript')
 '''
-grids_list = [grid_UG100_DX10]
+grids_list = [grid_UG100_DX10, grid_UG100_DX10_quadtrees]
 
 pad_title_maps = -120
 
@@ -88,7 +87,7 @@ pad_title_maps = -120
 
 for i in range(len(grids_list)):
     
-    plot_limits = plot_bounds[i]
+    plot_limits = plot_bounds[0]
     parent_grid = grids_list[i]
     case = cases[i]
     
@@ -100,31 +99,35 @@ for i in range(len(grids_list)):
     cmap_      = 'binary' #'binary, 'Greys'
 
         
-#%% Plot u mean
+#%% Plot u mean and u_vw
         
         
-    map_values = parent_grid.map_ux_mean
+    map_values_arith = parent_grid.map_ux_mean
+    map_values_vw = parent_grid.map_ux_mean_vw
+    
+    min_level_arith = np.nanmin(map_values_arith.data)
+    min_level_vw    = np.nanmin(map_values_vw.data)
+    max_level_arith = np.nanmax(map_values_arith.data)
+    max_level_vw    = np.nanmax(map_values_vw.data)
+    extend_ = 'neither'
+    
+    min_level = min(min_level_vw,min_level_arith)
+    max_level = max(max_level_vw,max_level_arith)
+    
+    
+    
+    # quadtrees low limit
+    if case == 'uG100_dx10_x05_quadtrees':
+        max_level = 82
+    
+
+    
+    # arithmetic 
+    map_values = parent_grid.map_ux_mean   
     fig_title  = '$\overline{u}$ at '# +plane_name
     bar_label  = '$\overline{u}$ [m s$^{-1}$]'
     
-    
-    plt.figure(figsize=(AR*FFIG*15,FFIG*15))
-    if variable_limits:
-        min_level = variable_limits[0]
-        max_level = variable_limits[1]
-        condition_min_level = min_level > np.nanmin(map_values.data)
-        condition_max_level = max_level < np.nanmax(map_values.data)
-        extend_ = 'neither'
-        if condition_min_level:
-            extend_ = 'min'
-        if condition_max_level:
-            extend_ = 'max'
-        if ((condition_min_level) and (condition_max_level)):
-            extend_ = 'both'
-    else:
-        min_level = np.nanmin(map_values.data)
-        max_level = np.nanmax(map_values.data)
-        extend_ = 'neither'
+    plt.figure(figsize=(1.02*AR*FFIG*15,FFIG*15))
     
     levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
     contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
@@ -145,31 +148,57 @@ for i in range(len(grids_list)):
     plt.show()
     plt.close()
     
+    
+    # VW
+    map_values = parent_grid.map_ux_mean_vw
+    fig_title  = '$u_\mathrm{VW}$ at '# +plane_name
+    bar_label  = '$u_\mathrm{VW}$ [m s$^{-1}$]'
+    
+    plt.figure(figsize=(AR*FFIG*15,FFIG*15))
+    
+    levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+    contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
+                          levels = levels_map, colors= 'k', linewidths = 2*FFIG)
+    plt.contourf(parent_grid.yy_center, parent_grid.zz_center, map_values,
+                 levels = levels_map, cmap = cmap_ , extend=extend_)
+    cbar = plt.colorbar(format=format_, 
+                        orientation="vertical")
+    #cbar.set_label(bar_label)
+    plt.title(bar_label)
+    plt.xlabel(xlabel_)
+    plt.ylabel(ylabel_)
+    if plot_limits:
+        plt.xlim(plot_limits[0][0], plot_limits[0][1])
+        plt.ylim(plot_limits[1][0], plot_limits[1][1])
+    plt.tight_layout()
+    plt.savefig(folder_manuscript+case+'_ux_mean_vw_map.pdf')
+    plt.show()
+    plt.close()
+    
     #%% Plot u RMS
     
     
+    map_values_arith = parent_grid.map_ux_rms
+    map_values_vw = parent_grid.map_ux_rms_vw
+    
+    min_level_arith = np.nanmin(map_values_arith.data)
+    min_level_vw    = np.nanmin(map_values_vw.data)
+    max_level_arith = np.nanmax(map_values_arith.data)
+    max_level_vw    = np.nanmax(map_values_vw.data)
+    extend_ = 'neither'
+    
+    min_level = min(min_level_vw,min_level_arith)
+    max_level = max(max_level_vw,max_level_arith)
+    
+    
+    
+    # arithmetic 
     map_values = parent_grid.map_ux_rms
     fig_title  = '$u_\mathrm{RMS}$ at '# +plane_name
     bar_label  = '$u_\mathrm{RMS}$ [m s$^{-1}$]'
     
     
     plt.figure(figsize=(AR*FFIG*15,FFIG*15))
-    if variable_limits:
-        min_level = variable_limits[0]
-        max_level = variable_limits[1]
-        condition_min_level = min_level > np.nanmin(map_values.data)
-        condition_max_level = max_level < np.nanmax(map_values.data)
-        extend_ = 'neither'
-        if condition_min_level:
-            extend_ = 'min'
-        if condition_max_level:
-            extend_ = 'max'
-        if ((condition_min_level) and (condition_max_level)):
-            extend_ = 'both'
-    else:
-        min_level = np.nanmin(map_values.data)
-        max_level = np.nanmax(map_values.data)
-        extend_ = 'neither'
     
     levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
     contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
@@ -188,32 +217,57 @@ for i in range(len(grids_list)):
     plt.savefig(folder_manuscript+case+'_ux_RMS_map.pdf')
     plt.show()
     plt.close()
+    
+    
+    # VW 
+    map_values = parent_grid.map_ux_rms
+    fig_title  = '$u_\mathrm{RMS,VW}$ at '# +plane_name
+    bar_label  = '$u_\mathrm{RMS,VW}$ [m s$^{-1}$]'
+    
+    
+    plt.figure(figsize=(AR*FFIG*15,FFIG*15))
+    
+    levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+    contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
+                          levels = levels_map, colors= 'k', linewidths = 2*FFIG)
+    plt.contourf(parent_grid.yy_center, parent_grid.zz_center, map_values,
+                 levels = levels_map, cmap = cmap_ , extend=extend_)
+    cbar = plt.colorbar(format=format_)
+    #cbar.set_label(bar_label)
+    plt.title(bar_label)
+    plt.xlabel(xlabel_)
+    plt.ylabel(ylabel_)
+    if plot_limits:
+        plt.xlim(plot_limits[0][0], plot_limits[0][1])
+        plt.ylim(plot_limits[1][0], plot_limits[1][1])
+    plt.tight_layout()
+    plt.savefig(folder_manuscript+case+'_ux_RMS_vw_map.pdf')
+    plt.show()
+    plt.close()
         
     #%% Plot v mean
     
+            
+    map_values_arith = parent_grid.map_uy_mean
+    map_values_vw = parent_grid.map_uy_mean_vw
     
+    min_level_arith = np.nanmin(map_values_arith.data)
+    min_level_vw    = np.nanmin(map_values_vw.data)
+    max_level_arith = np.nanmax(map_values_arith.data)
+    max_level_vw    = np.nanmax(map_values_vw.data)
+    extend_ = 'neither'
+    
+    min_level = min(min_level_vw,min_level_arith)
+    max_level = max(max_level_vw,max_level_arith)
+    
+    
+    # Arithmetic
     map_values = parent_grid.map_uy_mean
     fig_title  = '$\overline{v}$ at '# +plane_name
     bar_label  = '$\overline{v}$ [m s$^{-1}$]'
     
     
     plt.figure(figsize=(AR*FFIG*15,FFIG*15))
-    if variable_limits:
-        min_level = variable_limits[0]
-        max_level = variable_limits[1]
-        condition_min_level = min_level > np.nanmin(map_values.data)
-        condition_max_level = max_level < np.nanmax(map_values.data)
-        extend_ = 'neither'
-        if condition_min_level:
-            extend_ = 'min'
-        if condition_max_level:
-            extend_ = 'max'
-        if ((condition_min_level) and (condition_max_level)):
-            extend_ = 'both'
-    else:
-        min_level = np.nanmin(map_values.data)
-        max_level = np.nanmax(map_values.data)
-        extend_ = 'neither'
     
     levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
     contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
@@ -233,9 +287,49 @@ for i in range(len(grids_list)):
     plt.show()
     plt.close()
     
+    
+    # VW
+    map_values = parent_grid.map_uy_mean_vw
+    fig_title  = '$v_\mathrm{VW}$ at '# +plane_name
+    bar_label  = '$v_\mathrm{VW}$ [m s$^{-1}$]'
+    
+    
+    plt.figure(figsize=(AR*FFIG*15,FFIG*15))
+    
+    levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+    contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
+                          levels = levels_map, colors= 'k', linewidths = 2*FFIG)
+    plt.contourf(parent_grid.yy_center, parent_grid.zz_center, map_values,
+                 levels = levels_map, cmap = cmap_ , extend=extend_)
+    cbar = plt.colorbar(format=format_)
+    #cbar.set_label(bar_label)
+    plt.title(bar_label)
+    plt.xlabel(xlabel_)
+    plt.ylabel(ylabel_)
+    if plot_limits:
+        plt.xlim(plot_limits[0][0], plot_limits[0][1])
+        plt.ylim(plot_limits[1][0], plot_limits[1][1])
+    plt.tight_layout()
+    plt.savefig(folder_manuscript+case+'_uy_mean_vw_map.pdf' )
+    plt.show()
+    plt.close()
+    
     #%% Plot v RMS
     
+    map_values_arith = parent_grid.map_uy_rms
+    map_values_vw = parent_grid.map_uy_rms_vw
     
+    min_level_arith = np.nanmin(map_values_arith.data)
+    min_level_vw    = np.nanmin(map_values_vw.data)
+    max_level_arith = np.nanmax(map_values_arith.data)
+    max_level_vw    = np.nanmax(map_values_vw.data)
+    extend_ = 'neither'
+    
+    min_level = min(min_level_vw,min_level_arith)
+    max_level = max(max_level_vw,max_level_arith)
+    
+    
+    # Arithmetic
     map_values = parent_grid.map_uy_rms
     fig_title  = '$v_\mathrm{RMS}$ at '# +plane_name
     bar_label  = '$v_\mathrm{RMS}$ [m s$^{-1}$]'
@@ -243,23 +337,7 @@ for i in range(len(grids_list)):
     
     
     plt.figure(figsize=(AR*FFIG*15,FFIG*15))
-    if variable_limits:
-        min_level = variable_limits[0]
-        max_level = variable_limits[1]
-        condition_min_level = min_level > np.nanmin(map_values.data)
-        condition_max_level = max_level < np.nanmax(map_values.data)
-        extend_ = 'neither'
-        if condition_min_level:
-            extend_ = 'min'
-        if condition_max_level:
-            extend_ = 'max'
-        if ((condition_min_level) and (condition_max_level)):
-            extend_ = 'both'
-    else:
-        min_level = np.nanmin(map_values.data)
-        max_level = np.nanmax(map_values.data)
-        extend_ = 'neither'
-    
+   
     levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
     contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
                           levels = levels_map, colors= 'k', linewidths = 2*FFIG)
@@ -279,32 +357,58 @@ for i in range(len(grids_list)):
     plt.close()
     
     
+    # VW
+    map_values = parent_grid.map_uy_rms_vw
+    fig_title  = '$v_\mathrm{RMS,VW}$ at '# +plane_name
+    bar_label  = '$v_\mathrm{RMS,VW}$ [m s$^{-1}$]'
+    
+    
+    
+    plt.figure(figsize=(AR*FFIG*15,FFIG*15))
+   
+    levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+    contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
+                          levels = levels_map, colors= 'k', linewidths = 2*FFIG)
+    plt.contourf(parent_grid.yy_center, parent_grid.zz_center, map_values,
+                 levels = levels_map, cmap = cmap_ , extend=extend_)
+    cbar = plt.colorbar(format=format_)
+    #cbar.set_label(bar_label)
+    plt.title(bar_label)
+    plt.xlabel(xlabel_)
+    plt.ylabel(ylabel_)
+    if plot_limits:
+        plt.xlim(plot_limits[0][0], plot_limits[0][1])
+        plt.ylim(plot_limits[1][0], plot_limits[1][1])
+    plt.tight_layout()
+    plt.savefig(folder_manuscript+case+'_uy_RMS_vw_map.pdf' )
+    plt.show()
+    plt.close()
+    
+    
     
     #%% Plot w mean
     
+            
+    map_values_arith = parent_grid.map_uz_mean
+    map_values_vw = parent_grid.map_uz_mean_vw
     
+    min_level_arith = np.nanmin(map_values_arith.data)
+    min_level_vw    = np.nanmin(map_values_vw.data)
+    max_level_arith = np.nanmax(map_values_arith.data)
+    max_level_vw    = np.nanmax(map_values_vw.data)
+    extend_ = 'neither'
+    
+    min_level = min(min_level_vw,min_level_arith)
+    max_level = max(max_level_vw,max_level_arith)
+    
+    
+    # Arithmetic
     map_values = parent_grid.map_uz_mean
     fig_title  = '$\overline{w}$ at '# +plane_name
     bar_label  = '$\overline{w}$ [m s$^{-1}$]'
     
     
     plt.figure(figsize=(AR*FFIG*15,FFIG*15))
-    if variable_limits:
-        min_level = variable_limits[0]
-        max_level = variable_limits[1]
-        condition_min_level = min_level > np.nanmin(map_values.data)
-        condition_max_level = max_level < np.nanmax(map_values.data)
-        extend_ = 'neither'
-        if condition_min_level:
-            extend_ = 'min'
-        if condition_max_level:
-            extend_ = 'max'
-        if ((condition_min_level) and (condition_max_level)):
-            extend_ = 'both'
-    else:
-        min_level = np.nanmin(map_values.data)
-        max_level = np.nanmax(map_values.data)
-        extend_ = 'neither'
     
     levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
     contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
@@ -324,31 +428,14 @@ for i in range(len(grids_list)):
     plt.show()
     plt.close()
     
-    #%% Plot w RMS
     
-    
-    map_values = parent_grid.map_uz_rms
-    fig_title  = '$w_\mathrm{RMS}$ at '# +plane_name
-    bar_label  = '$w_\mathrm{RMS}$ [m s$^{-1}$]'
+    # VW
+    map_values = parent_grid.map_uz_mean_vw
+    fig_title  = '$w_\mathrm{VW}$ at '# +plane_name
+    bar_label  = '$w_\mathrm{VW}$ [m s$^{-1}$]'
     
     
     plt.figure(figsize=(AR*FFIG*15,FFIG*15))
-    if variable_limits:
-        min_level = variable_limits[0]
-        max_level = variable_limits[1]
-        condition_min_level = min_level > np.nanmin(map_values.data)
-        condition_max_level = max_level < np.nanmax(map_values.data)
-        extend_ = 'neither'
-        if condition_min_level:
-            extend_ = 'min'
-        if condition_max_level:
-            extend_ = 'max'
-        if ((condition_min_level) and (condition_max_level)):
-            extend_ = 'both'
-    else:
-        min_level = np.nanmin(map_values.data)
-        max_level = np.nanmax(map_values.data)
-        extend_ = 'neither'
     
     levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
     contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
@@ -364,7 +451,78 @@ for i in range(len(grids_list)):
         plt.xlim(plot_limits[0][0], plot_limits[0][1])
         plt.ylim(plot_limits[1][0], plot_limits[1][1])
     plt.tight_layout()
+    plt.savefig(folder_manuscript+case+'_uz_mean_vw_map.pdf' )
+    plt.show()
+    plt.close()
+    
+    
+    #%% Plot w RMS
+    
+    
+    
+    
+            
+    map_values_arith = parent_grid.map_uz_rms
+    map_values_vw = parent_grid.map_uz_rms_vw
+    
+    min_level_arith = np.nanmin(map_values_arith.data)
+    min_level_vw    = np.nanmin(map_values_vw.data)
+    max_level_arith = np.nanmax(map_values_arith.data)
+    max_level_vw    = np.nanmax(map_values_vw.data)
+    extend_ = 'neither'
+    
+    min_level = min(min_level_vw,min_level_arith)
+    max_level = max(max_level_vw,max_level_arith)
+    
+    
+    # Arithmetic
+    map_values = parent_grid.map_uz_rms
+    fig_title  = '$w_\mathrm{RMS}$ at '# +plane_name
+    bar_label  = '$w_\mathrm{RMS}$ [m s$^{-1}$]'
+    
+    
+    plt.figure(figsize=(AR*FFIG*15,FFIG*15))    
+    levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+    contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
+                          levels = levels_map, colors= 'k', linewidths = 2*FFIG)
+    plt.contourf(parent_grid.yy_center, parent_grid.zz_center, map_values,
+                 levels = levels_map, cmap = cmap_ , extend=extend_)
+    cbar = plt.colorbar(format=format_)
+    #cbar.set_label(bar_label)
+    plt.title(bar_label)
+    plt.xlabel(xlabel_)
+    plt.ylabel(ylabel_)
+    if plot_limits:
+        plt.xlim(plot_limits[0][0], plot_limits[0][1])
+        plt.ylim(plot_limits[1][0], plot_limits[1][1])
+    plt.tight_layout()
     plt.savefig(folder_manuscript+case+'_uz_RMS_map.pdf' )
+    plt.show()
+    plt.close()
+    
+    
+    # Arithmetic
+    map_values = parent_grid.map_uz_rms_vw
+    fig_title  = '$w_\mathrm{RMS,VW}$ at '# +plane_name
+    bar_label  = '$w_\mathrm{RMS,VW}$ [m s$^{-1}$]'
+    
+    
+    plt.figure(figsize=(AR*FFIG*15,FFIG*15))    
+    levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
+    contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
+                          levels = levels_map, colors= 'k', linewidths = 2*FFIG)
+    plt.contourf(parent_grid.yy_center, parent_grid.zz_center, map_values,
+                 levels = levels_map, cmap = cmap_ , extend=extend_)
+    cbar = plt.colorbar(format=format_)
+    #cbar.set_label(bar_label)
+    plt.title(bar_label)
+    plt.xlabel(xlabel_)
+    plt.ylabel(ylabel_)
+    if plot_limits:
+        plt.xlim(plot_limits[0][0], plot_limits[0][1])
+        plt.ylim(plot_limits[1][0], plot_limits[1][1])
+    plt.tight_layout()
+    plt.savefig(folder_manuscript+case+'_uz_RMS_vw_map.pdf' )
     plt.show()
     plt.close()
             
@@ -395,6 +553,10 @@ for i in range(len(grids_list)):
         min_level = np.nanmin(map_values.data)
         max_level = np.nanmax(map_values.data)
         extend_ = 'neither'
+    
+    # quadtrees low limit
+    if case == 'uG100_dx10_x05_quadtrees':
+        min_level = 33
     
     levels_map = [max_level*i/(N_LEVELS-1) + min_level*(1-i/(N_LEVELS-1)) for i in range(N_LEVELS)]
     contour = plt.contour(parent_grid.yy_center, parent_grid.zz_center, map_values, 
@@ -455,9 +617,12 @@ for i in range(len(grids_list)):
     if plot_limits:
         plt.xlim(plot_limits[0][0], plot_limits[0][1])
         plt.ylim(plot_limits[1][0], plot_limits[1][1])
-    plot_grid(parent_grid, ADD_TO_FIGURE = True)
+    if case == 'uG100_dx10_x05_quadtrees':
+        plot_grid(parent_grid, ADD_TO_FIGURE = True,  PLOT_QUADTREES = True)
+    else:
+        plot_grid(parent_grid, ADD_TO_FIGURE = True)
     plt.tight_layout()
-    plt.savefig(folder_manuscript+case+'_volume_flux_map.pdf' )
+    plt.savefig(folder_manuscript+case+'_volume_flux_map.pdf' , bbox_inches="tight")
     plt.show()
     plt.close()
     
@@ -485,13 +650,16 @@ for i in range(len(grids_list)):
     cbar.set_ticks([])
     cbar.set_label(bar_label)
     #cbar.ax.set_xticklabels(['Converged', 'Not converged'])  # horizontal colorbar
-    #plt.title(title)
+    plt.title(r'$\mathrm{Convergence}$')
     plt.xlabel(xlabel_)
     plt.ylabel(ylabel_)
     if plot_limits:
         plt.xlim(plot_limits[0][0], plot_limits[0][1])
         plt.ylim(plot_limits[1][0], plot_limits[1][1])
-    plot_grid(parent_grid, ADD_TO_FIGURE = True)
+    if case == 'uG100_dx10_x05_quadtrees':
+        plot_grid(parent_grid, ADD_TO_FIGURE = True,  PLOT_QUADTREES = True)
+    else:
+        plot_grid(parent_grid, ADD_TO_FIGURE = True)
     plt.tight_layout()
     plt.savefig(folder_manuscript+case+'_convergence_map.pdf' )
     plt.show()

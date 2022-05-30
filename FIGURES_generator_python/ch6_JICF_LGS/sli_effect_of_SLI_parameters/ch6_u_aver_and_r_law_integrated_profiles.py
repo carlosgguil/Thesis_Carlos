@@ -336,3 +336,19 @@ plt.tight_layout()
 plt.savefig(folder_manuscript + 'SMD_along_y.pdf')
 plt.show()
 plt.close()
+
+
+
+#%% Get SMDs and errors
+
+print('----- SMDs ------')
+for i in range(len(grids_list)):
+    sp = sprays_list[i][0]
+    grid = grids_list[i][0]
+    SMD = sp.SMD
+    err_SMD = (SMD - SMD_expe)/SMD_expe*100
+    SMD_FW = get_SMD_flux_weighted(grid)
+    err_SMD_FW = (SMD_FW - SMD_expe)/SMD_expe*100
+    print('Case '+labels_[i]+':')
+    print(f' Arithmetic: {SMD:.2f} ({err_SMD:.2f} %), flux_weighted = {SMD_FW:.2f} ({err_SMD_FW:.2f} %)')
+    print(f'       Q: {sp.Q*1e9}')
