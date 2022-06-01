@@ -141,8 +141,10 @@ print('--------- BOUNDS ------------')
 
 
 for i in range(len(cases)):
+    '''
     if i < 1 or i > 1:
         continue
+    '''
     
     case = cases[i]
     
