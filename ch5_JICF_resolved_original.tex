@@ -1,5 +1,4 @@
 \chapter{Resolved atomization simulations of liquid jet in crossflow}
-
 \label{ch5:jicf_resolved_simulations}
 
 %Describe here all our simulations done with JICF, what we have achieved with them, etc.
@@ -48,7 +47,8 @@
 
 The previous chapter has detailed the theory of the proposed models to build lagrangian injectors for initialising dispersed phase simulations, named Smart Lagrangian Injectors (SLI). These models, nowadays in its earliest state of maturity, are aimed at being generic and applicable to a broad range of operating conditions and injector configurations. To show its capabilities, they have been developed in their first stage with resolved simulations of liquid jet in crossflow (JICF) configuration. This chapter details these simulations, performed with the software YALES2 \citepColor[moureau_design_2011]. % \textbf{https://reader.elsevier.com/reader/sd/pii/S1631072110002111?token=9137B6903478D4E8E427F5D8218DFC3EB42446DB034970B14BA9DE87AA7E80D130124A7EF8D8608D21D5D465CCE05A4F&originRegion=eu-west-1&originCreation=20210524114835}
 
-\hl{This should be shorter!! Make at the end}
+The fundamentals and the physics of non-reactive JICF have been introduced in $\S$\ref{sec:ch1_fuel_injection_technology}. This chapter shows the results, analysis and injectors obtained from a kerosene JICF simulation replicating the experimental facility tested by \citeColor[becker_breakup_2002]. This configuration is used for validating the models. Section \ref{sec:ch5_experimental_bench} displays the experimental test bench, whose numerical setup and operating conditions chosen for numerical computations are detailed in $\S$\ref{sec:computational_setup}. The operating conditions of the simulations performed are then detailed in $\S$\ref{sec:JICF_SPS_OPs_detailed} , and methodologies to postprocess relevant data from these ones are described in $\S$\ref{sec:ch5_JICF_tools_and_methodologies}. Then, the establishment of aerodynamic field for initializing the liquid computations is detailed in $\S$\ref{sec:ch5_initial_conditions}, in which a mesh convergence study for turbulent transport is performed. Some definitions for liquid characteristic times are then reported in $\S$\ref{sec:ch5_liquid_characteristic_times}. Then, results for the resolved atomization simulations are analyzed, for which two operating conditions are simulated with two interface cell sizes: a coarse ($\Delta x_\mathrm{min} = 20~\mu$m) and a fine one ($\Delta x_\mathrm{min} = 10~\mu$m). In first place the evolution and establishment of the jet are given in $\S$\ref{sec:ch5_jet_evolution}. It is observed that the fine resolution captures liquid instabilities in the windward side of the jet while the coarse one does not: the gaseous and liquid fields are then analyzed, finding difference in both among resolutions, but without clearly elucidating the root of exempt instabilities in the coarse case. Resolution of instabilities affects then jet parameters such as its vertical trajectory, which is discussed in $\S$\ref{subsec:ch5_jet_trajectories_results}: it is highly dependent on the interface resolution, while showing in any case a good match to the experimental correlations closer to the injection nozzle. Another important characteristic of a liquid JICF is the disturbances it creates in the gaseous field, which affect droplet transport and breakup further downstream: these disturbance effects are analyzed in $\S$\ref{subsec:ch5_dense_core_in_ACLS_simus}, showing that they are indeed strong and that the resolved simulations can accurately capture the vortical features of the disturbed flow field. Resolved simulations were also found to lose mass downstream the injection nozzle as droplets are transported, and hence the evolution of flow rates along the channel are analyzed in $\S$\ref{sec:ch5_direct_measurement_fluxes_IB} with a methodology that can properly measure the resolved liquid fluxes. The characteristics of global sprays composed of droplets accumulated in planes perpendicular to the crossflow are reported in $\S$\ref{sec:ch5_sec_spray_characterization} for all simulations performed. These accumulated sprays are then spatially discretized to observed the spatial distribution of the liquid field in $\S$\ref{sec:ch5_learning_SLI}: these discrete sprays are indeed the SLI injectors used for prescribing lagrangian droplets in dispersed phase simulations. Finally, some words on computational performances and costs are given in $\S$\ref{subsec:ch5_computational_performances}.
+
 
 \section{Experimental test case}
 	\label{sec:ch5_experimental_bench}
@@ -56,8 +56,6 @@ The previous chapter has detailed the theory of the proposed models to build lag
 The experimental configuration tested by \citeColor[becker_breakup_2002] is shown in Figure \ref{fig:experiment_JICF_DLR}. The test rig at the left. Liquid kerosene is injected through the atomizer ports to a quartz glass duct of rectangular cross section $25$x$40$ mm$^2$. The duct inlet is located at $120$ mm upstream the injection port. The boundary layer thickness developing along the bottom of the duct has been measured experimentally just upstream the atomizer, being between $4$ and $5$ mm. The lateral walls allow for optical access from the atomizer port until a location at 100 mm downstream. Air is introduced through two separate channels, a main one and a supplementary one. The main airflow is injected at the inlet of the quartz duct, while the supplementary one passes around it. Both airflows merge at the end of the duct and leave the domain through a common exit acting as a sonic throttle. The velocity inside the quartz can then be tuned by varying the size of the nozzle and the supplementary air flow rate. In the experiments performed, the range of air velocities goes from $u_g = 50$ to 100 m/s and the range of pressure from $p$ = 1.5 to 15 bar, hence allowing the study high-pressure conditions. The air temperature is maintained to $T_g = 290$ K. The fuel tested was kerosene Jet A-1 with density $\rho_l = 795$ kg m$^{-3}$ and surface tension $\sigma = 22 \cdot 10^{-3}$ N m$^{-1}$.
 
 The liquid injection nozzle can be seen in Figure \ref{fig:experiment_JICF_DLR} right. It consists of a plain jet nozzle of $d_\mathrm{inj} =  0.45$ mm diameter and $L/d_\mathrm{inj}$ ratio of 1.56 with sharp edges. The average discharge coefficient for the mass flow rates of interest in the experimental studies is $0.6$. More details on the test rig can be found in \citeColor[brandt_experimental_1997].
-
-\clearpage
 
 \begin{figure}[h!]
 	\centering
@@ -67,6 +65,13 @@ The liquid injection nozzle can be seen in Figure \ref{fig:experiment_JICF_DLR} 
 \end{figure}
 
 
+A correlation for the trajectory of the jet was obtained experimentally by analysing optically its penetration for the several operating conditions tested. It corresponds to the trajectory of the jet's windward side, and gives a relation between the vertical location $z$ with respect to the axial coordinate $z$ as a function of the nozzle diameter $d_\mathrm{inj}$ and the momentum ratio $q$ defined by Eq. (\ref{eq:q_and_We_JICF_parameters}): % The rorrelation has a standard deviation of 0.81.
+
+\begin{equation}
+    \label{eq:jicf_trajectory_becker}
+    \frac{z}{d_\mathrm{inj}} = 1.57 \mathrm{q}^{0.36} \ln \left( 1 + 3.81 \frac{x}{d_\mathrm{inj}} \right)
+\end{equation}
+
 
 
 \section{Computational setup}
@@ -74,7 +79,7 @@ The liquid injection nozzle can be seen in Figure \ref{fig:experiment_JICF_DLR} 
 
 %\subsection*{Numerical domain and baseline mesh}
 
-Figure \ref{fig:numerical_setup_maquette_JICF_DLR} shows the computational domain developed to replicate the simulations of the test bench shown in Figure \ref{fig:experiment_JICF_DLR}. The duct is modelled as a plenum consisting of a box with dimensions 25x40x270 mm$^3$. The hydraulic diameter of the duct cross section, which is used to calculate the gas Reynolds number, is $D_h = 30.8$ mm. A magnified view of the nozzle is also shown, with diameter $0.45$ mm and straight section length of 0.7 mm prior to injection to keep $L/D = 1.56$ as in the experiments. The boundary conditions are also indicated. The plenum walls use a wall law of logarithmic type except closer to the domain pressure outlet, which have been set to slip walls to avoid backflow. The nozzle walls are rigid walls. For the liquid inlet, a Poiseuille profile has been specified, while in the gaseous inlet a mean velocity profile has been set in order to recover the boundary layer thickness of between 4 and 5 mm upstream the injection nozzle as described in the experiments (see Appendix \ref{app:JICF_BL_setup} for details). Due to the high Reynolds number at the gaseous inlet (see Table \ref{tab:jicf_operating_conditions}), synthetic turbulence is added in the liquid inlet (more details provided in $\S$\ref{sec:ch5_initial_conditions}).
+Figure \ref{fig:numerical_setup_maquette_JICF_DLR} shows the computational domain developed to replicate the simulations of the test bench shown in Figure \ref{fig:experiment_JICF_DLR}. The duct is modelled as a plenum consisting of a box of dimensions 25x40x270 mm$^3$. The hydraulic diameter of the duct cross section, which is used to calculate the gas Reynolds number, is $D_h = 30.8$ mm. A magnified view of the nozzle is also shown, with diameter $0.45$ mm and straight section length of 0.7 mm prior to injection to keep $L/D = 1.56$ as in the experiments. The boundary conditions are also indicated. The plenum walls use a wall law of logarithmic type except closer to the domain pressure outlet, which have been set to slip walls to avoid backflow. The nozzle walls are rigid walls. For the liquid inlet, a Poiseuille profile has been specified, while in the gaseous inlet a mean velocity profile has been set in order to recover the boundary layer thickness of between 4 and 5 mm upstream the injection nozzle as described in the experiments (see Appendix \ref{app:JICF_BL_setup} for details). Due to the high Reynolds number at the gaseous inlet (see Table \ref{tab:jicf_operating_conditions}), synthetic turbulence is added in the liquid inlet (more details provided in $\S$\ref{sec:ch5_initial_conditions}).
 
 \begin{figure}[ht]
      \centering
@@ -85,25 +90,13 @@ Figure \ref{fig:numerical_setup_maquette_JICF_DLR} shows the computational domai
 
 %Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane at $y = 0$ is displayed. It is composed of 66 million tetrahedral cells. The baseline cell size in the channel upstream liquid injection is 0.5 mm, while the cells located in the downstream region have an average size of 3 mm. The element size at the near-field region is 0.7 mm, and within the discharge section of the liquid nozzle it is refined to to $20~\mu m$. The justification of this mesh is done at $\S$\ref{sec:ch5_initial_conditions}, where a mesh independence study of the gaseous field is carried out. This mesh is used at the beginning of all the simulations performed, but then it change dynamically in each simulation as more liquid is introduced in the domain due to the AMR routine that refines the mesh at the liquid-gas interface ($\S$\ref{sec:YALES2}). Simulations are performed with the ACLS methodology describe in $\S$\ref{subsec:ch2_ACLS}.
 
-Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane at $y = 0$ is displayed. It is composed of 66 million tetrahedral cells. The baseline cell size in the channel upstream liquid injection is 0.5 mm, while the cells located in the downstream region have an average size of 3 mm. The element size within the discharge section of the liquid nozzle is refined to $20~\mu$m. The justification for this mesh choice is done at $\S$\ref{sec:ch5_initial_conditions}, where a mesh independence study of the gaseous field is carried out. This mesh is used at the beginning of all the simulations performed, but then it change dynamically throughout the simulation as more liquid is introduced in the domain due to the AMR routine that refines the mesh at the liquid-gas interface. Simulations are performed with the ACLS methodology describe in $\S$\ref{subsec:ch2_ACLS}. Liquid is allowed to penetrate up to a certain $x$ location downstream the injector: at this location, a sponge layer is added to remove liquid artificially for restricting the region inside the plenum containing liquid and hence limiting the cost of the resolved simulations. The location of the sponge layers is detailed in the next section.
+Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane at $y = 0$ is displayed. It is composed of 66 million tetrahedral cells. The baseline cell size in the channel upstream liquid injection is 0.5 mm, while the cells located in the downstream region have an average size of 3 mm. The element size within the discharge section of the liquid nozzle it is refined to to $20~\mu$m. The justification for this mesh choice is done at $\S$\ref{sec:ch5_initial_conditions}, where a mesh independence study of the gaseous field is carried out. This mesh is used at the beginning of all the simulations performed, but then it change dynamically throughout the simulation as more liquid is introduced in the domain due to the AMR routine that refines the mesh at the liquid-gas interface. Simulations are performed with the ACLS methodology describe in $\S$\ref{subsec:ch2_ACLS}. Liquid is allowed to penetrate up to a certain $x$ location downstream the injector: at this location, a sponge layer is added to remove liquid artificially for restricting the region inside the plenum containing liquid and hence limiting the cost of the resolved simulations. The location of the sponge layers is detailed in the next section.
 
 \begin{figure}[h!]
-	\centering	\includeinkscape[inkscapelatex=false,scale=0.65]{./part2_developments/figures_ch5_resolved_JICF/jicf_mesh/jicf_mesh}
+	\centering
+	\includeinkscape[inkscapelatex=false,scale=0.65]{./part2_developments/figures_ch5_resolved_JICF/jicf_mesh/jicf_mesh}
 	\caption[Baseline JICF mesh, showing magnified views of the near-field and nozzle regions.]{Baseline JICF mesh, showing magnified views of the near-field and nozzle regions. The red rectangle is the region where meshes are shown in the mesh convergence study of $\S$\ref{sec:ch5_initial_conditions}}
 	\label{fig:jicf_dlr_mesh}
-\end{figure}
-
-For gathering droplets and constructing injectors for dispersed-phase simulations, sampling planes are defined perpendicular to the crossflow direction. These planes are defined at locations $x$ = 5, 10, 15 mm downstream from the injection nozzle, as sketched in Figure \ref{fig:jicf_interior_boundaries_surface_measurements}. Apart from sampling planes, regions can also be defined parallel to the bottom wall are to quantify the liquid flow rate that impinges the channel wall,
-known as filming: $x$ < 5, 10, 15 mm. Each combination of sampling and filming plane will conform
-the outlet surfaces of a control volume enclosing the whole liquid jet (no outlet surfaces are located upstream
-the injection point as there is no liquid flowing in this direction).
-
-\begin{figure}[ht]
-     \centering
-     \includeinkscape[inkscapelatex=false,scale=0.4]{./part2_developments/figures_ch5_resolved_JICF/sampling_planes_with_IBs}
-     \caption{Snapshot of a JICF simulation showing the droplets sampling planes (in grey) and the different filming regions.}
-	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
-      \label{fig:jicf_interior_boundaries_surface_measurements}
 \end{figure}
 
 
@@ -111,7 +104,7 @@ the injection point as there is no liquid flowing in this direction).
 \section{Operating conditions}
 \label{sec:JICF_SPS_OPs_detailed}
 
-Two operating conditions tested experimentally in \citeColor[becker_breakup_2002] have been simulated. Both of them have the same momentum ration $q = 6$ but differ in the Weber number: $We_g = 830$ (low Weber) and $We_g = 1470$ (high Weber), calculated with Eq. (\ref{eq:ch1_intro_Re_and_We_general_definitions}). According to the values of $q$ and $We_g$, the former condition corresponds to surface breakup dominating regime while the latter is located at the dividing line between column and surface breakup. Figure \ref{fig:location_JICF_ops_in_breakup_map} shows the location of both operating points in the breakup map of \citeColor[wu_breakup_1997]. The physical magnitudes and dimensionless numbers of both operating points are shown in Table \ref{tab:jicf_operating_conditions}. Apart from the values $q$ and $We_g$, the dimensionless numbers in  Eq. (\ref{eq:dimensionless_numbers_jicf}) are also calculated: the liquid and gaseous Reynolds numbers $Re_l$ and $Re_g$ respectively, Ohnesorge number $Oh$, aerodynamic Weber $We_\mathrm{aero}$, relative Weber $We_\mathrm{rel}$ and density ratio $r$. These numbers have been added since they are defined in several experimental studies \citemColor[wu_breakup_1997,becker_breakup_2002,ragucci_trajectory_2007] to characterize the operating points tested. 
+Two operating conditions tested experimentally in \citeColor[becker_breakup_2002] have been simulated. Both of them have the same momentum ration $q = 6$ but differ in the Weber number: $We_g = 830$ (low Weber) and $We_g = 1470$ (high Weber), calculated with Eq. (\ref{eq:ch1_intro_Re_and_We_general_definitions}). According to the values of $q$ and $We_g$, the former condition corresponds to surface breakup dominating regime while the latter is located at the dividing line between column and surface breakup. Figure \ref{fig:location_JICF_ops_in_breakup_map} shows the location of both operating points in the breakup map of \citeColor[wu_breakup_1997]. The physical magnitudes and dimensionless numbers of both operating points are shown in Table \ref{tab:jicf_operating_conditions}. Apart from the values $q$ and $We_g$, the dimensionless numbers in  Eq. (\ref{eq:dimensionless_numbers_jicf}) are also calculated: the liquid and gaseous Reynolds numbers $Re_g$ and $Re_g$ respectively, Ohnesorge number $Oh$, aerodynamic Weber $We_\mathrm{aero}$, relative Weber $We_\mathrm{rel}$ and density ratio $r$. These numbers have been added since they are defined in several experimental studies \citemColor[wu_breakup_1997,becker_breakup_2002,ragucci_trajectory_2007] to characterize the operating points tested. 
 
 Computations are performed with the ACLS methodology combined with the AMR routine described in $\S$\ref{subsec:ch2_ACLS}. For each operating condition, two interface cell sizes have been simulated: $\Delta x_\mathrm{min} = 20 ~\mu$m (coarse case) and $\Delta x_\mathrm{min} = 10 ~\mu$m (fine case). The levelset band around the interface, which denotes the region where the cell size is $\Delta x_\mathrm{min}$, has been set to 12 cells ($N_p = 12$ from Figure \ref{fig:AMR_strategy}). The nomenclature for each simulation, which is used hereafter in this document, is introduced in Table \ref{tab:jicf_resolved_simulations_performed}: cases indicate the operating point by its gaseous velocity UG, the level-set resolution DX, and an additional simulation with no synthetic turbulence (NT) injected has been performed.  The coarse cases locate the sponge layer to remove liquid at a downstream distance of $x = 16$ mm, while the fine ones place it at $x = 11$ mm. In such ways, droplets can be sampled up to planes $x = 15$ and $10$ mm respectively. The number of steps for the reinitialization equation (\ref{eq:acls_reinit_2017}) is set to $N_\mathrm{reinit} = 6$. This parameter has shown to affect mass conservation in the JICF simulations; its effect and the choice of this value are discussed in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}.
 
@@ -244,8 +237,6 @@ Density ratio & $r$ & - & 110 & 110 \\
 	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
       \label{fig:location_JICF_ops_in_breakup_map}
 \end{figure}
-
-
 
 
 
@@ -440,7 +431,7 @@ Q_{l,\mathrm{IB}} = \sum_{e=1}^{N_e} Q_{l,e} = \sum_{e=1}^{N_e} \frac{1}{N_\math
      \includeinkscape[inkscapelatex=false,scale=0.4]{./part2_developments/figures_ch5_resolved_JICF/sampling_planes_with_IBs}
      \caption{Snapshot of a JICF simulation showing the sampling planes (in grey) and the different filming regions.}
 	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
-      \label{fig:XXjicf_interior_boundaries_surface_measurements}
+      \label{fig:jicf_interior_boundaries_surface_measurements}
 \end{figure}
 
 \begin{figure}[ht]
@@ -529,7 +520,7 @@ The DC is then characterized by its breakup point coordinates ($x_b, z_b$) and i
 \section{Obtention of initial conditions}
 \label{sec:ch5_initial_conditions}
 
-Prior to liquid injection, a gaseous field must be initialised in the computations. The objective is to obtain an established velocity profile that reproduces correctly the mean profile with a boundary layer thickness $\delta$ as observed in the experiments, which is reported to be between $4$ and $5$ mm \citepColor[becker_breakup_2002]. For this purpose, a mean profile is injected at the gaseous inlet shown in Figure \ref{fig:numerical_setup_maquette_JICF_DLR} formed by the combination of a boundary layer and a flat outer profile. The details on this mean profile are given in Appendix \ref{app:JICF_BL_setup}. Furthermore, the gaseous flow is turbulent, as shown by the high gaseous Reynolds number ($>> 10^4$) in the operating points studied (see Table \ref{tab:jicf_operating_conditions}). Therefore, synthetic turbulence is also injected at the gaseous inlet, hence a random fluctuating velocity component is added to the mean profile. The calculation and effect of synthetic turbulence and the resulting initial solutions are discussed in the following lines.
+Prior to liquid injection, a gaseous field must be initialised in the computations. The objective is to obtain an established velocity profile that reproduces correctly the mean profile with a boundary layer thickness $\delta$ as observed in the experiments, which is reported to be between $4$ and $5$ mm \citepColor[becker_breakup_2002]. For this purpose, a mean profile is injected at the gaseous inlet shown in Figure \ref{fig:numerical_setup_maquette_JICF_DLR} formed by the combination of a boundary layer and a flat outer profile. The details on this mean profile are given in Appendix \ref{app:JICF_BL_setup}. Furthermore, the gaseous flow is turbulent as shown by the high gaseous Reynolds number ($>> 10^4$) in the operating points studied (see Table \ref{tab:jicf_operating_conditions}). Therefore, synthetic turbulence is also injected at the gaseous inlet, hence a random fluctuating velocity component is added to the mean profile. The calculation and effect of synthetic turbulence and the resulting initial solutions are discussed in the following lines.
 
 
 \subsection{Inflow conditions: injection of synthetic turbulence}
@@ -540,9 +531,9 @@ Prior to liquid injection, a gaseous field must be initialised in the computatio
 % https://www.cfd-online.com/Wiki/Turbulence_intensity
 % https://www.simscale.com/forum/t/defining-turbulent-boundary-conditions/80895
 
-Prescription of inlet velocity profiles should take into account the contribution of large energy-containing eddies. For this purpose, fluctuations can be added to the mean profiles by specifying either their energy spectrum or their characteristic length scales and their magnitude. These fluctuating components can be obtained by several means. One of the first methods developed consisted of using periodic boundary conditions to reintroduce the outlet velocity field at the inlet in DNS simulations of channels \citemColor[spalart_direct_1988,liu_interaction_1996]. Such methods rely either on the presence of self-similarity in the channels, which does not always occur, or on adding a forcing term at the outlet to reconvert the boundary layer thickness to its value upstream for reintroducing it into the inlet. To circumvent these issues, the recycling method was proposed by \citeColor[lund_generation_1998]. This technique consists of obtaining the turbulent data at several planes downstream the inlet, compare the velocity fields and correct the inlet conditions accordingly to match the desired data. Recycling methods have been extended and can be divided in weak and strong methods. Other families of techniques include the generation of synthetic turbulence by for superposition of sinusoidal waves \citemColor[kraichnan_diffusion_1970,batten_interfacing_2004] or by moments' determination \citepColor[pamies_generation_2009]. A review of these and other turbulence generation methodologies can be found in \citeColor[wu_inflow_2017].
+Prescription of inlet velocity profiles should take into account the contribution of large energy-containing eddies. For this, fluctuations can be added to the mean profiles by specifying either their energy spectrum or their characteristic length scales with their magnitude. These fluctuating components can be obtained by several means. One of the first methods developed consisted of using periodic boundary conditions to reintroduce the outlet velocity field at the inlet in DNS simulations of channels \citemColor[spalart_direct_1988,liu_interaction_1996]. Such methods rely on the presence of self-similarity in the channels, which does not always occur, or adding a forcing term at the channel outlet that would reconvert the boundary layer thickness to its value upstream for reintroducing into the inlet. To circumvent these issues, the recycling method was proposed by \citeColor[lund_generation_1998]. This technique consists of obtaining the turbulent data at several planes downstream the inlet, compare the velocity fields and correct the inlet conditions accordingly to match the desired data. Recycling methods have been extended and can be divided in weak and strong methods. Other families of techniques include the generation of synthetic turbulence by for superposition of sinusoidal waves \citemColor[kraichnan_diffusion_1970,batten_interfacing_2004] or by moments' determination \citepColor[pamies_generation_2009]. A review of these and other turbulence generation methodologies can be found in \citeColor[wu_inflow_2017].
 
-In this work, homogeneous synthetic turbulence is injected through the inlet by specifying the integral length scale of the flow $L_T$ and the fluctuating velocity components $u'$. Since experimental data on the fluctuating field for the configuration of \citepColor[becker_breakup_2002] is not available, both magnitudes are estimated with the following formulas \citepColor[ansys_ansys_2018]:
+In YALES2, prescription of turbulent fluctuations in the velocity boundary conditions requires two parameters: the integral length scale of the flow $L_T$ and the fluctuating velocity components $u'$. Since experimental data on the fluctuating field for the configuration of \citepColor[becker_breakup_2002] is not available, both magnitudes are estimated with the following formulas \citepColor[ansys_ansys_2018]:
 % [1] ANSYS, Inc. (2018), "ANSYS Fluent User's Guide, Release 19.0", Equation (6.68). 
 
 \begin{equation}
@@ -566,7 +557,7 @@ With the inlet velocity specified with a mean profile and turbulence fluctuation
 \tau_\mathrm{ft} = \frac{L}{u_g}
 \end{equation}
 
-where $L = 120$ mm is the distance from the gaseous inlet to the liquid injector (see Figure \ref{fig:numerical_setup_maquette_JICF_DLR}). This quantity represents the time that a gas particle takes, in average, to reach the liquid injector location from the inlet of the domain. Flow-through times for each operating point are shown in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}.
+where $L = 120$ mm is the distance from the gaseous inlet to the liquid injector (see Figure \ref{fig:numerical_setup_maquette_JICF_DLR}). This quantity represents the time that a gas particle takes, in average, to reach the liquid injector location from the inlet of the domani. Flow-through times for each operating point are shown in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}.
 
 \begin{table}[!h]
 \centering
@@ -631,7 +622,7 @@ Very fine & 0.3 & 94,192,955 & 17,155,591 \\
 \end{figure}
 
 
-A total of four simulations have been performed: one simulation per mesh with the imposed turbulent fluctuations at the inlet, and one without injecting synthetic turbulence for the resolution $\Delta x_\mathrm{ups} = 0.5$ mm. For flow establishment, the simulations are firstly run for a total physical time of 6 times the flow-through time, i.e. 7.2 ms. From this stage on, statistics are collected. To check the convergence of the simulations, the mean axial velocity $u$ and mean Turbulent Kinetic Energy (TKE) have been integrated along a vertical line upstream the injection point in the middle plane of the domain, shown in Figure \ref{fig:ics_mesh_independency_study_up_fields} right. These line-integrated magnitudes can be defined as follows:
+A total of four simulations have been performed: one simulation per each mesh with the imposed turbulent fluctuations at the inlet, and one without injecting synthetic turbulence for the resolution $\Delta x_\mathrm{ups} = 0.5$ mm. For flow establishment, the simulations are firstly run for a total physical time of 6 times the flow-through time, i.e. 7.2 ms. From this stage on, statistics are collected. To check the convergence of the simulations, the mean axial velocity $u$ and mean Turbulent Kinetic Energy (TKE) have been integrated along a vertical line upstream the injection point in the middle plane of the domain, shown in Figure \ref{fig:ics_mesh_independency_study_up_fields} right. These line-integrated magnitudes can be defined as follows:
 
 \begin{subequations}
 \label{eq:line_averaged_u_and_TKE}
@@ -804,7 +795,7 @@ Axial velocity fluctuations and associated frequencies at the sampling probes fo
 
 
 
-A final verification on the mesh capability to transport turbulent energy is done by calculating the Turbulent Kinetic Energy (TKE) at the probes A and B for simulation where turbulence is transported. TKE is defined as follows:
+A final verification on the mesh capability to transport turbulent is done by calculating the Turbulent Kinetic Energy (TKE) at the probes A and B for simulation where turbulence is transported. TKE is defined as follows:
 
 \begin{equation}
 TKE = \frac{1}{2} \left( \overline{u'^2} + \overline{v'^2} + \overline{w'^2} \right)
@@ -847,7 +838,7 @@ Eventually, the profiles of mean axial velocity $\overline{u}$ and TKE are plott
 \label{fig:ics_mesh_independency_study_mean_profiles} 
 \end{figure}
 
-From these results, the simulation with the mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm is chosen as initial solution for performing the two-phase simulations. This mesh size allows for a proper turbulent transport (frequencies and energy content) with a moderate cost: Table \ref{tab:jicf_mesh_independence_gaseous_study} shows that decreasing resolution from 0.5 to 0.3 mm adds up to 28 million more elements. The turbulent content in the inner part of the turbulent layer is not properly resolved, which could have an effect on the jet atomization and has not been checked in this work. It, however, does not have an effect on the trajectory, as it is shown later in $\S$\ref{subsec:ch5_jet_trajectories_results}. A local refinement in the boundary layer (inflation layer) could help to converge the TKE profiles, but would greatly increase the cost of the simulations due to the length of the domain upstream the liquid injector and to the small cell size required to capture accurately the Kolmogorov scales.
+From these results, the simulation with the mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm is chosen as initial solution for performing the two-phase simulations. This mesh size allows for a proper turbulent transport (frequencies and energy content) with a moderable cost: Table \ref{tab:jicf_mesh_independence_gaseous_study} shows that decreasing resolution from 0.5 to 0.3 mm adds up to 28 million more elements. The turbulent content in the inner part of the turbulent layer is not properly resolved, which could have an effect on the jet atomization and has not been checked in this work. It, however, does not have an effect on the trajectory, as it is shown later in $\S$\ref{subsec:ch5_jet_trajectories_results}. A local refinement in the boundary layer (inflation layer) could help to converge the TKE profiles, but would greatly increase the cost of the simulations due to the length of the domain upstream the liquid injector and to the small cell size required to capture accurately the Kolmogorov scales.
 
 
 
@@ -939,7 +930,7 @@ From these results, the simulation with the mesh resolution $\Delta x_\mathrm{up
 
 \subsection{Initial conditions for low Weber operating point}
 
-Initial conditions are also obtained for the operating point at lower Weber number ($We_g = 830$) with the mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm. For establishment of the gaseous phase, the simulation has been run for 40 times the flow-through time from Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}. This time, which has been checked to profiled converged solutions, has been chosen from the results obtained with the operating point at high We, as shown in Figure \ref{fig:mesh_convergence_line_averages}. Converged profiles for mean axial velocity and $TKE$ are shown in Figure \ref{fig:ics_mean_profiles_op2}, where the profiles for the high We operating point are also shown for comparison. As expected, both $\overline{u}$ and $TKE$ values are lower along the $z$ coordinates for the lower We operating point, consistent with the lower bulk values of $u_\infty$ and $u'$ imposed at the gaseous inletfor this case.
+Initial conditions have also obtained for the operating point at lower Weber number ($We_g = 830$) with the mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm. For establishment of the gaseous phase, the simulation has been run for 40 times the flow-through time from Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}. This time, which has been checked to profiled converged solutions, has been chosen from the results obtained with the operating point at high We, as shown in Figure \ref{fig:mesh_convergence_line_averages}. Converged profiles for mean axial velocity and $TKE$ are shown in Figure \ref{fig:ics_mean_profiles_op2}, where the profiles for the high We operating point are also shown for comparison. As expected, both $\overline{u}$ and $TKE$ values are lower along the $z$ coordinates for the lower We point, consistent with the lower bulk values of $u_\infty$ and $u'$ imposed at the gaseous inletfor this case.
 
 \clearpage
 
@@ -976,33 +967,121 @@ Initial conditions are also obtained for the operating point at lower Weber numb
 %\end{figure}
 %
 
-\clearpage
-
-\section{Detailed analysis of resolved  simulations}
-
-\hl{Make nice intro here!}
-
-\subsection{Jet evolution}
-\label{subsec:ch5_jet_evolution}
 
 
+\section{Definition of liquid characteristic times}
+\label{sec:ch5_liquid_characteristic_times}
+
+In the previous section, convergence of statistics in gaseous simulations were monitored in time with respect to a characteristic time name flow-through ($\tau_\mathrm{ft}$). Characteristic times are useful since they represent appropriate temporal scales of the physical processes involved in a given problem. The fastest physical mechanisms, given by the smallest characteristic times, will be ones governing each particular case. Also, evolution of statistical quantities can then be monitored by comparing the running times of the simulations with the characteristic times relevant to the magnitudes of interest. 
+
+In the same fashion as in the gaseous simulations, characteristic times can be defined for the liquid phase. Firstly, several physical times can be mathematically defined for the liquid phase from the physical characteristics of the flow:
+
+\begin{itemize}
+
+	\item Characteristic time related to the \textbf{ inertia of the liquid phase}, $\tau_\mathrm{in}$. This timescale is used in literature to express the establishment of liquid jets in crossflow \citepColor[herrmann_impact_2011].
+
+	\item Characteristic time of \textbf{breakup processes}. Reference times relating to liquid breakup were firstly introduced by \citeColor[ranger_aerodynamics_1968] to provide an order of magnitude of droplet disintegration in high-velocity gaseous flows. It was later applied to liquid jets in crossflow by \citeColor[fuller_effects_2000], who distinguished two breakup times: an \textbf{aerodynamic breakup timescale} $\tau_\mathrm{ab}$ as defined in \citeColor[ranger_aerodynamics_1968] for droplets since the breakup mechanisms for droplets and jets are similar when aerodynamic forces are significant; and a \textbf{non-aerodynamic timescale} $\tau_\mathrm{nb}$ which is representative of the breakup process when aerodynamic forces are weak.
+	
+	\item \textbf{Capillary timescale} $\tau_\mathrm{cap}$ \citepColor[eggers_physics_2008].
+	
+%	\item \textbf{Viscous timescale} $\tau_\mathrm{visc}$ \citepColor[mckinley_dimensionless_2005].
+	
+
+
+\end{itemize}
+
+\begin{table}[!h]
+\centering
+\caption{Characteristic physical timescales [$\mu$s] in JICF simulations}
+\begin{tabular}{cccc}
+\thickhline
+\textbf{Time scale} & \textbf{Expression} & \textbf{Low Weber} & \textbf{High Weber} \\
+\thickhline
+Inertia & $\tau_\mathrm{in} = \frac{d_\mathrm{inj}}{u_l}$ & 25.72 & 19.29 \\
+Aerodynamic breakup  &  $\tau_\mathrm{ab} =  \frac{d_\mathrm{inj}}{u_g - u_l} \sqrt{\frac{\rho_l}{\rho_g}} $ & 82.17 & 61.63 \\
+Non-aerodynamic breakup  &  $\tau_\mathrm{nb} = \frac{d_\mathrm{inj}}{u_l} We_l^{1/3} $ &  439.16 & 339.00 \\
+Capillary & $\tau_\mathrm{cap} = \sqrt{\frac{\rho_l d_\mathrm{inj}^3}{8 \sigma}}$ & 1814.64 & 1814.64 \\
+%Viscous & $\tau_\mathrm{visc} = \frac{\mu_l d_\mathrm{inj}}{\sigma}$ & & \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_characteristic times}
+\end{table}
+
+
+These characteristic times are defined and calculated for each simulation in Table \ref{tab:jicf_characteristic times}. As observed, all timescales are lower for the high Weber operating point due to the higher velocities involved in this case (except for the capillary one, which does not depend on the flow conditions). The capillary timescale is larger than the other ones due to the strong aerodynamic conditions found in both operating points: capillary events are slow and do not contribute to the jet development and breakup, which are governed by inertia. Regarding breakup timescales, aerodynamic breakup is faster relative to non-aerodynamic in both cases, indicating that aerodynamic effect prevails: effectively, the main primary atomization mechanism governing both operating points is surface breakup, as indicated in Figure \ref{fig:location_JICF_ops_in_breakup_map}. In this work, the only reference time that will be further used is the inertia timescale $\tau_\mathrm{in}$ to express the jet establishment in a dimensionless timescale and allow a qualitative comparison of both operating points. 
+
+Secondly, characteristic times can also be obtained directly from the simulations performed. These ones cannot be directly estimated through expressions, but are obtained by postprocessing results of interest in the simulations. They are useful for expressing the evolution and convergence of statistical quantities studied. Contrarily to the first set of timescales defined previously, which are obtained through physical and empirical expressions, these timescales are obtained from the computations and are therefore dependent on both the operating point and the mesh resolution. The timescales obtained from the simulations, shown in Table \ref{tab:jicf_characteristic_droplet_sampling_times}, are: 
+
+\begin{itemize}
+
+	\item  Characteristic times of the \textbf{ligaments stripping from the dense core} in resolved simulations, $\tau_\mathrm{str}$. The description of this timescale is done in $\S$\ref{subsec:ch5_dense_core_in_ACLS_simus}.
+	
+	\item \textbf{Characteristic droplet arrival times} to the sampling planes in the simulations. They are obtained as the elapsed time from the initialisation of the two-phase simulation to the arrival of the first droplet to each sampling plane. As several sampling planes are defined in each simulation (see for example Figure \ref{fig:jicf_interior_boundaries_surface_measurements}), several sampling timescales are obtained.  The justification for the choice of sampling planes is done in $\S$\ref{sec:ch5_direct_measurement_fluxes_IB}.
+
+
+\end{itemize}
+
+
+
+
+\begin{table}[!h]
+\centering
+\caption{Characteristic times from JICF simulations [$\mu$s]: ligaments stripping times $\tau_\mathrm{str}$ and droplet arrival times to sampling planes $\tau_\mathrm{dr_x}$ }
+\begin{tabular}{ccccc}
+\thickhline
+\multirow{2}{*}{ \textbf{Case}} & \multirow{2}{*}{ $\tau_\mathrm{str}$} &  \multicolumn{3}{c}{$\tau_\mathrm{dr_x}$} \\
+\cline{3-5}
+ & & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
+\thickhline 
+UG75\_DX10  & 625 & 192.7 & 295.2 & -  \\
+UG75\_DX20  & 1389 & 234.7 & 355.8 & 456.7 \\
+UG100\_DX10 & 422 & 143.7 & 218.7 & - \\
+UG100\_DX20 & 1887 & 176.8 & 258.4 & 362.8 \\
+UG100\_DX20\_NT & 746 & 167.9 & 260.2 & - \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_characteristic_droplet_sampling_times}
+\end{table}
+
+%\begin{table}[!h]
+%\centering
+%\caption{Characteristic droplet arrival times to sampling planes $\tau_\mathrm{dr_x}$ [$\mu$s] in JICF simulations}
+%\begin{tabular}{ccccc}
+%\thickhline
+%\textbf{Case} & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
+%\thickhline 
+%UG75\_DX10  & 192.7 & 295.2 & -  \\
+%UG75\_DX20  & 234.7 & 355.8 & 456.7 \\
+%UG100\_DX10 & 143.7 & 218.7 & - \\
+%UG100\_DX20 & 176.8 & 258.4 & 362.8 \\
+%UG100\_DX20\_NT & 167.9 & 260.2 & - \\
+%\thickhline
+%\end{tabular}
+%\label{tab:jicf_characteristic_droplet_sampling_times}
+%\end{table}
+
+
+
+%\section{Results}
+%\label{sec:results_JICF_resolved}
+
+\section{Jet evolution}
+\label{sec:ch5_jet_evolution}
 
 
 %\subsection{Flow establishment}
 %\label{subsec:ch5_JICF_flow_establishment}
 
-Figures \ref{fig:JICF_establishment_UG100_lateral} to \ref{fig:JICF_establishment_UG75_top} shows the evolution of the jet for all the simulations in three different view: lateral, front and top. The left column shows the thicker resolution, while the right column shows the finer one. The interface is represented by the iso-value $\psi = 0.5$. The snapshots correspond to the same time instants in all cases, which are expressed in dimensionless units with respect to the liquid inertia timescale $\tau_\mathrm{in}$:
+Figures \ref{fig:JICF_establishment_UG100_lateral} to \ref{fig:JICF_establishment_UG75_top} shows the evolution of the jet for all the simulations in three different view: lateral, front and top. The left column shows the thicker resolution, while the right column shows the finer one. The interface is represented by the iso-value $\psi = 0.5$. The snapshots are represented for the same time instants in all cases, which are expressed in dimensionless units with respect to the characteristic liquid inertia timescale introduced in Table \ref{tab:jicf_characteristic times}:
 
 \begin{equation}
 \label{eq:t_dimensionless_with_tau_in}
 t^* = \frac{t}{\tau_\mathrm{in}}
 \end{equation}
 
-with $\tau_\mathrm{in} = d_\mathrm{inj}/u_l$. This timescale is widely used in literature to express the establishment of liquid jets in crossflow \citepColor[herrmann_impact_2011]. Applying this formula to each operating condition results in values of $\tau_\mathrm{in} = $ 25.72 and 19.29 $\mu$s for the low and high Weber cases, respectively. Since the values for $\tau_\mathrm{in}$ are different for both operating points, the absolute times from injection are not the same for each condition. However, due to the different injection velocities in each case, the introduction of the timescale $t^*$ allows for a proper comparison among jets from different operating conditions.
+Note that $\tau_\mathrm{in}$ is, due to its definition, higher for the low-We operating point than for the high-We one. Therefore, the absolute times from injection are not the same for both operating points: for the same time instant $t^*$, the low-We point represents a more advanced physical time than the high-We case. This allows to compare the jets at equivalent times: since the low-We operating point involves lower gas and liquid velocities, the jet has advanced in a lesser extent than the high-We case for the same absolute time instant. Therefore, expressing a dimensionless time with respect to a reference time that takes into account the difference in velocity between both cases (in this case, the one of the liquid phase) allows for a more representative comparison of both jets.
 
-%for the same time instant $t^*$, the low-We point represents a more advanced physical time than the high-We case. This allows to compare the jets at equivalent times among operating conditions, since they differ in the characteris: since the low-We operating point involves lower gas and liquid velocities, the jet has advanced in a lesser extent than the high-We case for the same absolute time instant. Therefore, expressing a dimensionless time with respect to a reference time that takes into account the difference in velocity between both cases (in this case, the one of the liquid phase) allows for a more representative comparison of both jets.
-
-The lateral view of the jets show that the jet leaves the nozzle in the vertical direction and then bends towards the crossflow. For both operating points and both resolutions, droplets are stripped off the sides of the liquid column shortly after injection (surface breakup) and are convected downstream the crossflow direction. The finer resolution shows more droplets generated by surface breakup than the coarse one. Further downstream, the jet is deformed due to the crossflow impact and momentum exchange, leading to the breakup of the liquid column into big ligaments (column breakup). It is also noticeable in the instantaneous snapshots of Figures \ref{fig:JICF_establishment_UG100_lateral} and \ref{fig:JICF_establishment_UG75_lateral} that the jet vertical trajectory differs with resolution: fine simulations penetrate further vertically than the coarse ones. This is due to the resolution of instabilities, since the ligaments generated in the fine simulation contain more inertia and therefore will travel further than the ones generated in the coarse mesh. The resulting trajectories are quantifed and compared later in $\S$\ref{subsec:ch5_jet_trajectories_results}, confirming these observations from the qualitative figures. It is also worth to mention that resulting trajectories are not dependent on the operating point simulations (for identical mesh resolutions), which is in line with the experimental observations (see Table \ref{tab:correlations_experimental_JICF}) since the momentum flux ratio $q = 6$ is identical for both simulations and trajectories are believed to be solely dependent on this factor.
+The lateral view of the jets show that the jet leaves the nozzle in the vertical direction and then bends towards the crossflow. For both operating points both resolutions, droplets are stripped off the sides of the liquid column shortly after injection (surface breakup) and are convected downstream the crossflow direction. Surface breakup is present for both resolutions, the fine case showing more droplets generated by this mechanisms than the coarse one. Further downstream, the jet is deformed due to the crossflow impact and momentum exchange, leading to the breakup of the liquid column into big ligaments (column breakup). It is also noticeable in the instantaneous snapshots of Figures \ref{fig:JICF_establishment_UG100_lateral} and \ref{fig:JICF_establishment_UG75_lateral} that the jet vertical trajectory differs with resolution: fine simulations penetrate further vertically than the coarse ones. This is due to the resolution of instabilities, since the ligaments generated in the fine simulation contain more inertia and therefore will travel further than the ones generated in the coarse mesh. The resulting trajectories are quantifed and compared later in $\S$ \ref{subsec:ch5_jet_trajectories_results}, confirming these observations from the qualitative figures. It is also worth to mention that resulting trajectories are not dependent on the operating point simulations (when compared at same mesh resolutions), which is in line with the experimental observations (see Table \ref{tab:correlations_experimental_JICF}) since the momentum flux ratio $q = 6$ is identical for both simulations and trajectories are believed to be solely dependent on this factor.
 
 Front views of the jets are shown in Figures \ref{fig:JICF_establishment_UG100_front}, \ref{fig:JICF_establishment_UG75_front} for each operating point, while the top views are seen in \ref{fig:JICF_establishment_UG100_top}, \ref{fig:JICF_establishment_UG75_top}. The front views show clearly the windward instabilities in the fine case, which extend along all the width of the liquid column. These ones are generated right at the vicinity of the injector, observed through the corrugations at these region which are developed and amplified further downstrea. The top views show the lateral opening of the jet along the crossflow direction: the fine jets show a wider dense core than the coarse ones (a quantitative analysis on the dense core topology is later provided in$\S$\ref{subsec:ch5_dense_core_in_ACLS_simus}), and the subsequent spray formed after atomization presents also a larger span in the lateral direction for the former than for the latter.
 
@@ -1068,9 +1147,55 @@ Front views of the jets are shown in Figures \ref{fig:JICF_establishment_UG100_f
 
 \clearpage
 
-\subsubsection*{Liquid establishment}
 
-At the early instants of the injection process, the quantity of liquid in the domain increases with time. Then, the jet reaches the axial location where liquid is suppressed to avoid transporting droplets further downstream and hence reducing computational resources (sponge layer): from this time instant onwards, the liquid quantity in the domain remains at a constant value, and the jet is considered to be established. Since dynamic mesh adaptation is used to locate the smallest mesh elements in the liquid-gas interface (as explained in $\S$\ref{subsec:ch2_ACLS}), the mesh size increases with time as the interface surface within the domain is larger. An example of different meshes produced by each interface resolution is shown in Figure \ref{fig:JICF_w_mesh}. The physical time instant is the same for both simulations, corresponding to early injection. A cut of the mesh in the plane $y = 0$ is depicted, which shows how the regions where there is liquid contain much more elements than those which do not. The fine jet also shows liquid droplets further downstream that are not generated in the coarse one, hence there are refined spatial regions in the former that are not observed in the later.
+\subsection{Breakup topology}
+\label{subsec:ch5_breakup_topology}
+
+As mentioned before, both surface and column breakup are present, which are the most common atomization mechanisms present in liquid JICF configurations (see $\S$\ref{sec:ch1_fuel_injection_technology} for a literature review on the topic). The \textbf{surface breakup} phenomenon is illustrated in Figure \ref{fig:jicf_surface_breakup_ug75_dx10}, which shows the jet from the case UG75\_DX10. Two views are shown at the sides of jet sides: region A shows a zoomed-in view closer to the liquid injector, while region B shows surface breakup taking place further downstream. Closer to the injector (region A), surface breakup is caused by lateral instabilities developed as a consequence of the strong shear force exerted by the incoming air, which forms corrugations in the surface \citepColor[behzad_surface_2016]. Droplets generated droplets in this region do not undergo further breakup since they are very small (see the green and red ellipses, which follow the droplets generated from the corrugations) and, often, of the order of mesh resolution: most of these droplets will disappear when the levelset function is transported in the simulations. This issue is discussed later in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}. Further downstream (region B), the jet is more deformed and surface breakup generates ligaments that separate from the main core and then undergo an classical atomization process: enclosed in red, the formation process of a ligament and its breakup into three smaller, different ligaments is depicted. As shown, this process forms liquid structures which are not spherical and can undergo further atomization, even though this one still occurs close to the jet dense core and the formed structures will be in equilibrium with the ambient gas shortly afterwards.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.175]{./part2_developments/figures_ch5_resolved_JICF/JICF_breakup/surface_breakup}
+\caption{Surface breakup observed in case UG75\_DX10}
+% Soluciones:
+% parte arriba: sol26_15,_21, sol27_03,06
+% parte abajo: sol26_15,_18,_21,_24
+\label{fig:jicf_surface_breakup_ug75_dx10}
+\end{figure}
+
+\textbf{Column breakup} is depicted in Figure \ref{fig:jicf_column_breakup_ug100}, where cases UG100\_DX20 and UG100\_DX10 are shown. Jets are colored by vertical velocity $w$. This atomization mechanism is mainly caused by the instabilities developed in the windward side of the jet, which are highly dependent on the mesh resolution employed: simulations with the coarse resolution of $\Delta x_\mathrm{min} = 20$ $\mu$m do not show instabilites until the column is highly deformed far from the injector. On the contrary, the fine resolution $\Delta x_\mathrm{min} = 10$ $\mu$m resolves windward instabilities closer to the injector: these ones are propagated downstream the jet leading to its breakup. Hypothesis on the resolution of instabilites are discussed later in $\S$\ref{subsec:ch5_instabilities_presence}. Such instabilities are not captured in the coarse case; nevertheless, these ones develop instabilities further downstream, when the jet is deformed, and also undergo column breakup. In the fine case, instabilities are formed at the outlet of the liquid nozzle and amplified along the liquid column. Further downstream, they form sheets which are pushed by the air. The red ellipse encloses one of these sheets and follows it with time until it breaks: the sheet starts to separate from the dense core in its central region and forms tiny ligaments than break into small droplets while keeping an annular ligament with high velocity attached to the dense core by its edges. This ligament eventually separates and breaks into smaller ligaments that will continue to undergo atomization further downstream. The coarse simulation shows no instabilities at the beginning of the column, but similar topology of the produced ligaments. Ligaments from the fine simulation have a higher vertical velocity than in the coarse one. As a consequence, the liquid structures in the fine case will penetrate further, which will affect the sprays sampled further downstream. The mean trajectories from the jets, which are discussed in $\S$\ref{subsec:ch5_jet_trajectories_results}, will also reveal the difference in jet penetration with resolution. 
+
+
+
+\clearpage
+
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.07]{./part2_developments/figures_ch5_resolved_JICF/JICF_breakup/column_breakup}
+\caption{Column breakup phenomenon in cases UG100\_DX10, UG100\_DX20}
+% Soluciones:
+% dx10: sol22_03, sol23_04, sol27_00,_08, sol28_06, sol29_07
+% dx20: sol09_05,_21,_37,_53,_69,_85
+\label{fig:jicf_column_breakup_ug100}
+\end{figure}
+
+
+
+
+%\subsection{Breakup topology 2}
+%%Two atomization mechanisms, introduced in $\S$\ref{sec:ch1_fuel_injection_technology}, are present for both operating conditions.
+%
+%The lateral view of the jets show that the jet leaves the nozzle in the vertical direction and then bends towards the crossflow. For both operating points and both resolutions, droplets are stripped of the sides of the liquid column shortly after injection (\textbf{surface breakup}). Such droplets are small and do not undergo further breakup, being convected further downstream along the crossflow direction. Nevertheless, some of these droplets might reach a size of the order of the mesh resolution and disappear when transporting the levelset function, being a source of mass loss in the domain and affecting the flow rates of the sampled planes (a detailed analysis is presented in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}).  Apart from surface breakup, the jet is deformed due to the crossflow impact and momentum exchange, leading to the breakup of the liquid column into big ligaments (\textbf{column breakup}). These liquid structures will continue to break into smaller ones until spherical droplets are formed: hereafter, droplets could continue to break into smaller ones during the secondary atomization process. Column breakup is mainly caused by the instabilities developed in the windward side of the jet, which are highly dependent on the mesh resolution employed: simulations with the coarse resolution of $\Delta x_\mathrm{min} = 20$ $\mu$m do not show instabilites until the column is highly deformed far from the injector, probably due to the recirculating air behind the jet which pushes and accelerates the liquid leading to its breakup (Rayleigh-Taylor mechanism). On the contrary, the fine resolution $\Delta x_\mathrm{min} = 10$ $\mu$m resolves windward instabilities closer to the injector: these ones are propagated downstream the jet leading to its breakup. \hl{Such waves are better resolved probably due to a better resolution of the velocity field around the jet which increases the shear force right at the vicinity of the injector, leading to instabilities formed through a Kelvin-Helmholtz mechanisms} (hypothesis on the resolution of instabilites are discussed later in $\S$\ref{subsec:ch5_instabilities_presence}). Such instabilities are not captured in the coarse case; however, as in this simulation, the instabilities are further amplified downstream the injection point through the push-up effect of the air.  As consequence of the difference in the generated instabilities, the topology of the resulting ligaments is also dependent on the resolution: ligaments from the coarse simulations are large and elongated, which \hl{undergo further breakup due to Rayleight-Plateau mechanisms (\textbf{SHOW THIS}), while the ligaments ejected from the fine simulations contain more inertia and break faster into smaller droplets}. Such differents in breakup will led to different sprays further downstream that will affect the injectors obtained through the SLI methodology to performed dispersed-phase simulations. 
+%
+%It is also noticeable in the instantaneous snapshots of Figures \ref{fig:JICF_establishment_UG100_lateral} and \ref{fig:JICF_establishment_UG75_lateral}) a difference in the vertical trajectories of the jet's windward side with the resolution: the fine simulations penetrate further vertically than the fine ones. This is due to the resolution of instabilities, since the ligaments generated in the fine simulation contain more inertia and therefore will travel further than the ones generated in the coarse mesh. The resulting trajectories are quantifed and compared later in $\S$ \ref{subsec:ch5_jet_trajectories_results}, confirming these observations from the qualitative figures. It is also worth to mention that resulting trajectories are not dependent on the operating point simulations (when compared at same mesh resolutions), which is in line with the experimental observations (see Table Table \ref{tab:correlations_experimental_JICF}) since the momentum flux ratio $q = 6$ is identical for both simulations and trajectories are believed to be solely dependent on this factor.
+%
+%Front views of the jets are shown in Figures \ref{fig:JICF_establishment_UG100_front} \ref{fig:JICF_establishment_UG75_front} for each operating point, while the top views are seen in \ref{fig:JICF_establishment_UG100_top} and \ref{fig:JICF_establishment_UG75_top}. The front views show clearly the windward instabilities in the fine case, which extend along all the width of the liquid column. These ones are generated right at the vicinity of the injector, observed through the corrugations at these region which are developed and amplified further downstrea. The top views show the opening of the jet along the crossflow direction: the jet dense core is wider in the fine simulations than in the coarse ones (which is prove later in $\S$\ref{subsec:ch5_dense_core_in_ACLS_simus}), and the resulting spray has also a longer span in the former than in the later.
+
+
+
+\subsection{Jet establishment}
+
+At the early instants of the injection process, the quantity of liquid in the domain increases with time until the jet is established. Since dynamic mesh adaptation is used to locate the smallest mesh elements in the liquid-gas interface (as explained in $\S$\ref{subsec:ch2_ACLS}), the mesh size increases with time as the interface surface within the domain is larger. Figure \ref{fig:JICF_w_mesh} shows an early instant of injection for both resolutions of the high Weber operating point with turbulence injection, cases UG100\_DX20 and UG100\_DX10. The physical time instant is the same for both simulations. A cut of the mesh in the plane $y = 0$ is also observed, which shows how the regions where there is liquid contain much more elements than those which do not. The fine jet also shows liquid droplets further downstream that are not generated in the coarse one, hence there are refined spatial regions in the former that are not observed in the later.
 
 
 
@@ -1081,37 +1206,19 @@ At the early instants of the injection process, the quantity of liquid in the do
    %\includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/JICF_nelem_evolution/JICF_w_mesh}
 \includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch5_resolved_JICF/JICF_nelem_evolution/JICF_w_mesh}
    %\label{} 
-\caption[Lateral view of meshes and interface contours near the injector at instant $t^{*}$ = 16 for the high Weber operating condition.]{Lateral view of meshes and interface contours near the injector at instant $t^{*}$ = 16 for the high Weber operating condition. \textsl{Left}: simulation UG100\_DX20. \textsl{Right}: simulation UG100\_DX10. Zoomed-in views of the rectangles are given in Figure \ref{fig:JICF_instabilities_lambda}.}
+\caption[Lateral view of meshes and interface contours near the injector at instant $t^{*}$ = 15 for the high Weber operating condition.]{Lateral view of meshes and interface contours near the injector at instant $t^{*}$ = 16 for the high Weber operating condition. Zoomed-in views of the rectangles are shown in Figure \ref{fig:JICF_instabilities_lambda}.}
 \label{fig:JICF_w_mesh}
 \end{figure}
 
-To illustrate a qualitative evolution with time of different quantities, the dimensionless time $t^{\prime} $ is used:
+To illustrate a qualitative evolution with time of different magnitudes, the dimensionless time $t^{\prime} $ is used:
 
 \begin{equation}
 \label{eq:t_prime_with_tau_drx10}
 t^{\prime} = \frac{t}{\tau_\mathrm{dr_{x=10}}}
 \end{equation}
 
-where $\tau_\mathrm{dr_{x=10}}$ is the arrival time of the first droplet to the sampling plane at $x = 10$ mm depicted in Figure \ref{fig:jicf_interior_boundaries_surface_measurements}. The plane $x = 10$ mm has been chosen because it is the last plane where liquid is sampled before being artificially removed in the fine simulations with $\Delta x_\mathrm{min} = 10 ~\mu$m, and is a sampling plane common to all simulations performed. Table \ref{tab:jicf_characteristic_droplet_sampling_times} shows the droplets arrival times to the different sampling planes in all simulations. 
+where $\tau_\mathrm{dr_{x=10}}$ is the arrival time of the first droplet to the sampling plane at $x = 10$ mm, shown in Table \ref{tab:jicf_characteristic_droplet_sampling_times}. The plane $x = 10$ mm has been chosen because it is the last plane where liquid is sampled before being artificially removed in the fine simulations with $\Delta x_\mathrm{min} = 10 ~\mu$m. For the coarse resolution $20 ~\mu$m, liquid is removed after $x = 15$ mm except for the case without turbulence (UG100\_DX20\_NT), for which liquid is also removed at $x = 10$ mm. Yet, dimensionless time is expressed with respect to the time corresponding to plane $x = 10$ mm since it is the plane further downstream which is common to all simulations. 
 
-\begin{table}[!h]
-\centering
-\caption{Droplet arrival times to sampling planes $\tau_\mathrm{dr_x}$ from JICF simulations [$\mu$s]}
-\begin{tabular}{cccc}
-\thickhline
-\multirow{2}{*}{ \textbf{Case}} &  \multicolumn{3}{c}{$\tau_\mathrm{dr_x}$} \\
-\cline{2-4}
- & $x = 5$ mm & $x = 10$ mm & $x = 15$ mm  \\
-\thickhline 
-UG75\_DX10  & 192.7 & 295.2 & -  \\
-UG75\_DX20  & 234.7 & 355.8 & 456.7 \\
-UG100\_DX10 & 143.7 & 218.7 & - \\
-UG100\_DX20 & 176.8 & 258.4 & 362.8 \\
-UG100\_DX20\_NT & 167.9 & 260.2 & - \\
-\thickhline
-\end{tabular}
-\label{tab:jicf_characteristic_droplet_sampling_times}
-\end{table}
 In order to check the jet establishment in the domain, firstly the evolution of liquid volume with time is monitorded. This quantity can be obtained by integrating the level-set function $\psi$ in all the domain at each time instant:
 
 \begin{equation}
@@ -1120,7 +1227,7 @@ V_l \left ( t \right) = \int_{\Omega} \psi \left( \textbf{x}, t \right) d\textbf
 \end{equation}
 
 The evolution of $V_l$ for each simulation is shown in 
-Figure \ref{fig:JICF_liquid_volume_increase}. The volume increases linearly at the first instants in all cases, since the injected liquid flow rate is constant. As indicated in Table \ref{tab:jicf_operating_conditions}, flow rates are different for each operating point: nevertheless, the zoomed-in view shows that the slope of the $t^{\prime}$-$V_l$ is identical among resolutions, but differs among operating points. This is due to the timescales used to define $t^{\prime}$ from the physical time $t$: for identical operating condition, the first droplet to reach the sampling plane $x = 10$ mm arrives earlier in the fine case than in the coarse one. For identical resolutions, the droplets will reach the sampling plane earlier in the high Weber point than in the low one: as a consequence, the scaling balances out and the curves are overlapped in the linear region. Shortly after $t^{\prime} = 1$ (times when the first droplet reach plane $x = 10$ mm), the simulations for which liquid is suppressed after this axial location stabilize towards a constant liquid volume (with variations due to the amount droplets being suppresed, which changes at each time instant). Case UG100\_DX20\_NT reaches convergence in liquid volume quantity, while cases UG75\_DX10 and UG100\_DX10 (fine resolution simulations) are on the verge of this liquid stabilizing value, showing that they have reached a steady state. They have not run longer due to their high computational cost (details provided in $\S$\ref{subsec:ch5_computational_performances}). Simulations for which liquid is suppressed further downstream at $x = 15$ mm (UG75\_DX20, UG100\_DX20) achieve a stabilized liquid volume larger than the other cases, and reach this establishment at a later time.
+Figure \ref{fig:JICF_liquid_volume_increase}. The volume increases linearly at the first instants in all cases, since the injected liquid flow rate is constants. As indicated in Table \ref{tab:jicf_operating_conditions}, flow rates are different for each operating point: nevertheless, the zoomed-in view shows that the slope of the $t^{\prime}$-$V_l$ is identical among resolutions, but differs among operating points. This is due to the timescales used to define $t^{\prime}$ from the physical time $t$: for identical operating condition, the first droplet to reach the sampling plane $x = 10$ mm arrives earlier in the fine case than in the coarse one. For identical resolutions, the droplets will reach the sampling plane earlier in the high Weber point than in the low one: as a consequence, the scaling balances out and the curves are overlapped in the linear region. Shortly after $t^{\prime} = 1$ (times when the first droplet reach plane $x = 10$ mm), the simulations for which liquid is suppressed after this axial location stabilize towards a constant liquid volume (with variations due to the amount droplets being suppresed, which changes at each time instant). Case UG100\_DX20\_NT shows a converged value of the volume, while cases UG75\_DX10 and UG100\_DX10 (fine resolution simulations) are at the verge of this liquid stabilizing value, showing that they have reached a steady state. They have not run longer due to their high computational cost (details on computational costs are provided in $\S$\ref{subsec:ch5_computational_performances}). Simulations for which liquid is suppressed further downstream at $x = 15$ mm (UG75\_DX20, UG100\_DX20) show a larger converged value of liquid volume which is achieved later in time than the other ones.
 
 
 \begin{figure}[ht]
@@ -1132,11 +1239,7 @@ Figure \ref{fig:JICF_liquid_volume_increase}. The volume increases linearly at t
 \label{fig:JICF_liquid_volume_increase}
 \end{figure}
 
-The evolution of mesh size with time, given by the number of mesh elements ($N_\mathrm{elements}$), is shown in Figure \ref{fig:JICF_nelem_increase} for all simulations. For the fine simulations, the final number of elements is larger than in the coarse ones despite liquid being suppressed further upstream. The contrast is notorious, differing by one order of magnitude: for instance, in the high Weber simulations the simulation UG100\_DX20 contains 346$\cdot 10^6$ elements while case UG100\_DX10 ends at 1815$\cdot 10^6$ elements. By looking at Figure \ref{fig:JICF_nelem_increase}a, one can see that the number of elements increases slowly at the beginning and then rises exponentially (linearly in the semi-logarithmic plot) until there’s enough liquid in the domain and steady-state is reached. The first slow increase, which last for a short time, is associated to the increase of liquid volume due to jet injection prior to its fragmentation; the exponential increase is then associated to the creation of ligaments and droplets due to the atomization process, as the liquid-gas specific surface increases and therefore more elements are generated by the ARM process. Figure \ref{fig:JICF_nelem_increase_t_0_to_2} reveals the transition from the slow increase to the exponential rise in $N_\mathrm{elements}$ to occur at $t \sim 0.3$ for the fine simulations and at $t \sim 0.5$ for the coarse ones, which agrees with the earlier atomization observed in the fine cases (see for instance Figure \ref{fig:JICF_establishment_UG100_lateral}).
-
-
-
-The dashed line in Figures \ref{fig:JICF_nelem_increase_all_t} and  \ref{fig:JICF_nelem_increase_t_0_to_2} corresponds  to $t^{\prime} = 1$, which is the instant at which the sampling plane $x = 10$ mm detects the first droplet in each simulation. Figure \ref{fig:JICF_nelem_increase_t_0_to_2} shows that this instant is located in the exponential region. Previously, there is no liquid being artificially removed in the simulations, so the curves increase monotonically (except for some minor decreases due to small droplets that reach the size of mesh resolution and disappear due to the unability of being further propagated in the simulations, which is discussed in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}). After this point, the number of elements continues to increase exponentially up to $t^{\prime} \sim 1.5$ when the slope starts to decrease and, finally, the number of elements  stabilizes. Right after $t^{\prime} \sim 1.5$ there is a considerable amount of liquid droplets reaching the articifial sponge layer and being removed. Nevertheless, at this stage there are more droplets being generated in the near-nozzle region due to the disturbance effect of the liquid dense core to the air, which creates gaseous turbulence that helps to atomize ligaments ejected from the dense core. This explains the monotonic increase in the number of elements for $t^{\prime} > 1$ prior to its establishment around a constant value, which depends on each simulation. The only noticeable difference at $t^{\prime} = 1$ is for the simulation UG75$\_$DX10, which shows an abrupt reduction. Two reasons might explain this decrease. First, there is not only one droplet, but several ones reaching the last sampling plane, hence these droplets are all simultaneously removed from the simulation. Since the mean diameter of the droplets generated in a liquid JICF is larger when the air dynamic pressure is lower \citepColor[becker_breakup_2002], which is the case for the low Weber operating point, the droplets generated in this case are in general larger than for the high Weber case (this is later shown in $\S$\ref{sec:ch5_sec_spray_characterization}), so all these droplets contain more elements than one single droplet from the case UG75\_DX10 and the removed amount liquid is larger. The second hypothesis is that, at this time instant, several liquid structures with size comparable to the mesh resolution limit disappear simultaneously when transported to the next timestep (details on droplets reaching the mesh resolution are given in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}), causing an overall decrease in the number of elements. The combination of both could also occur, which combined would induce a larger decrease in the number of elements than if every single one acts separately.
+The evolution of the number of mesh elements ($N_\mathrm{elements}$) with time in all simulations is shown in Figure \ref{fig:JICF_nelem_increase}. It is shown that, despite liquid being suppressed upstream in the fine resolution, the final number of elements is larger, differing by one order of magnitude: for instance, in the high Weber simulations the simulation UG100\_DX20 contains 346$\cdot 10^6$ elements while case UG100\_DX10 ends at 1815$\cdot 10^6$ elements. By looking at Figure \ref{fig:JICF_nelem_increase}a, one can see that the number of elements increases slowly at the beginning and then rises exponentially (linearly in the semi-logarithmic plot) until there’s enough liquid in the domain and steady-state is reached. The dashed line in Figures \ref{fig:JICF_nelem_increase_all_t} and  \ref{fig:JICF_nelem_increase_t_0_to_2} corresponds  to $t^{\prime} = 1$, which is the instant at which the sampling plane $x = 10$ mm detects the first droplet in each simulation. Figure \ref{fig:JICF_nelem_increase_t_0_to_2} shows that this instant is located in the linear region. Previously, there is no liquid being artificially removed in the simulations, so the curves increase monotonically (except for some minor decreases due to small droplets that reach the size of mesh resolution and disappear due to the unability of being further propagated in the simulations, which is discussed in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}). After this point, the number of elements continues to increase exponentially up to $t^{\prime} \sim 1.5$ when the slope starts to decrease and, finally, the number of elements  stabilizes. Right after $t^{\prime} \sim 1.5$ there are many liquid droplets reaching the articifial sponge layer and being removed. Nevertheless, at this stage there are more droplets being generated in the near-nozzle region due to the disturbance effect of the liquid dense core to the air, which creates gaseous turbulence that helps to atomize ligaments ejected from the dense core. This explains the monotonic increase in the number of elements for $t^{\prime} > 1$ until an instant from which the number of elements remains constant, which depends on each simulation. The only noticeable difference at $t^{\prime} = 1$ is for the simulation UG75$\_$DX10, which shows a considerable decrease. Two reasons might explain this decrease. First, there is not only one droplet, but several ones reaching the last sampling plane, hence these droplets are all removed at the same time from the simulation. Since the mean diameter of the droplets generated in a liquid JICF is larger when the air dynamic pressure is lower \citepColor[becker_breakup_2002], which is the case for the low Weber operating point, the droplets generated in this case are in general lower than for the high Weber case (this is later shown in $\S$\ref{sec:ch5_sec_spray_characterization}, so all these droplets contain more elements than one single droplet from the case UG75\_DX10 and the removed amount liquid is larger, hence the abrupt decrease in the number of mesh elements. The second explanation could be that at this time instant there are several droplets in the whole domain of the simulation (i.e. from the injection nozzle to the sponge layer location) which disappear at the same time, causing an overall decrease in the number of elements. The combination of both could also occur, which combined would suppose a larger decrease in the number of elements than if every single one acts separately.
 
 %Figure \ref{fig:JICF_nelem_increase_t_0_to_0p5} shows the evolution of number of elements in the black rectangle of Figure \ref{fig:JICF_nelem_increase_t_0_to_2}, which correspond to the early instants of injection. It is seen that for $t^{\prime} \in [0, 0.3]$ the increase in mesh size is slow, but yet the simulations with fine resolutions start to generate more elements than the coarse ones. In this regions, there is no significant difference between operating points. For $t^{\prime} > [0, 0.3]$ the curves start to further differ due to the beginning of atomization: generation of ligaments due to column breakup and of droplets due to surface breakup increase greatly the amount of liquid-gas interface, hence pronouncing the differences in number of mesh elements between resolutions. At this point the effect of the operating points can be noticed: the high Weber case presents a slighly larger number of elements than the low Weber case for both resolutions, as expected since for the former case the aerodynamic forces are stronger and the number of generated droplets is larger (verified in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band})).
 %
@@ -1187,35 +1290,17 @@ The dashed line in Figures \ref{fig:JICF_nelem_increase_all_t} and  \ref{fig:JIC
 %   \caption{Zoomed-in view in blue rectangle of Figure \ref{fig:JICF_nelem_increase_t_0_to_2}}
 %   \label{fig:JICF_nelem_increase_t_0p5_to_0p7}
 %\end{subfigure}
-   \caption[Evolution of mesh size with time in JICF simulations]{Evolution of mesh size with time in JICF simulations. The dashed, black vertical line corresponds to $t^\prime = 1$, time instant when the first droplet reaches the sampling plane $x = 10$ mm.}
+   \caption[Evolution of number of mesh elements with time in JICF simulations]{Evolution of number of mesh elements with time in JICF simulations. The dashed, black vertical line corresponds to $t^\prime = 1$, time instant when the first droplet reaches the sampling plane $x = 10$ mm.}
 \label{fig:JICF_nelem_increase}
 \end{figure}
 
-\subsection{Breakup topology}
-\label{subsubsec:ch5_breakup_topology}
 
-In a liquid JICF, the most common primary atomization mechanisms are column and surface breakup (see $\S$\ref{sec:ch1_fuel_injection_technology} for a literature review on the topic). Both mechanisms are also identified in the resolved simulations performed. The \textbf{surface breakup} phenomenon is illustrated in Figure \ref{fig:jicf_surface_breakup_ug75_dx10}. Two regions are analyzed at the side of the jet: region A shows a zoomed-in view closer to the liquid injector, while region B details surface breakup taking place further downstream. Closer to the injector (region A), surface breakup is caused by lateral instabilities developed as a consequence of the strong shear force exerted by the incoming air, which forms corrugations at the surface \citepColor[behzad_surface_2016]. Droplets generated in this region do not undergo further breakup since they are very small (see the green and red ellipses, which follow the droplets generated from the corrugations) and, often, of the order of mesh resolution: most of these droplets will disappear when the levelset function is transported in the simulations. This issue is discussed later in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}. Further downstream (region B), the jet is more deformed and surface breakup generates ligaments that separate from the main core and then undergo classical atomization: enclosed in red, the formation process of a ligament and its breakup into three smaller, different ligaments is depicted. As shown, this process forms liquid structures which are not spherical and can undergo further atomization, even though this one still occurs close to the jet dense core and the formed structures will be in equilibrium with the ambient gas shortly afterwards.
+\subsection{Resolution of instabilities}
+\label{subsec:ch5_instabilities_presence}
 
-\clearpage
+As Figures \ref{fig:JICF_establishment_UG100_lateral} to \ref{fig:JICF_establishment_UG75_top} show, surface instabilities are present in the jet's windward side for the fine resolution but not for the coarse one. Previous works on resolved simulations of liquid-gas interfaces in injectors have also shown a dependency of the instabilities with the mesh resolution, such as the compound nozzle of \citeColor[cousin_primary_2012]. In this section, some possible causes of the development of windward instabilities are investigated and discussed. Three main hypothesis are thought to play a role in the formation of instabilities:
 
-\begin{figure}[ht]
-\centering
-\includegraphics[scale=0.175]{./part2_developments/figures_ch5_resolved_JICF/JICF_breakup/surface_breakup}
-\caption{Surface breakup observed in case UG75\_DX10}
-% Soluciones:
-% parte arriba: sol26_15,_21, sol27_03,06
-% parte abajo: sol26_15,_18,_21,_24
-\label{fig:jicf_surface_breakup_ug75_dx10}
-\end{figure}
-
-\textbf{Column breakup} is depicted in Figure \ref{fig:jicf_column_breakup_ug100}, where cases UG100\_DX20 and UG100\_DX10 are shown. Jets are colored by vertical velocity $w$. This atomization mechanism is mainly caused by the instabilities developed in the windward side of the jet, which are highly dependent on the mesh resolution employed: simulations with the coarse resolution of $\Delta x_\mathrm{min} = 20$ $\mu$m do not show instabilites until the column is highly deformed far from the injector. On the contrary, the fine resolution $\Delta x_\mathrm{min} = 10$ $\mu$m resolves windward instabilities closer to the injector: these ones are propagated downstream the jet leading to its breakup. Coarse simulations do not show instabilities close to the injector, but eventually develop interfacial waves further downstream leading also to column breakup. In the fine case, instabilities are formed at the outlet of the liquid nozzle and amplified along the liquid column. Further downstream, they form sheets which are pushed by the air. The red ellipse encloses one of these sheets and follows it with time until it breaks: the sheet starts to separate from the dense core in its central region and forms tiny ligaments that break into small droplets while keeping an annular ligament with high velocity attached to the dense core by its edges. This ligament eventually separates and breaks into smaller ligaments that will continue to undergo atomization further downstream. The coarse simulation shows no instabilities at the beginning of the column, but similar topology of the produced ligaments. Ligaments from the fine simulation have a higher vertical velocity than in the coarse one. As a consequence, the liquid structures in the fine case will penetrate further, which will affect the sprays sampled further downstream. The mean trajectories from the jets, which are discussed in $\S$\ref{subsec:ch5_jet_trajectories_results}, will also reveal the difference in jet penetration with resolution. 
-
-\subsubsection*{Resolution of instabilities}
-%\label{subsec:ch5_instabilities_presence}
-
-As aforementioned, surface instabilities are present in the jet's windward side for the fine resolution but not for the coarse one. This can be clearly observed by looking at Figures \ref{fig:JICF_establishment_UG100_lateral} to \ref{fig:JICF_establishment_UG75_top}. Previous works on resolved simulations of liquid-gas interfaces in injectors have also shown a dependency of the instabilities with the mesh resolution, such as the compound nozzle of \citeColor[cousin_primary_2012]. In this section, some possible causes of the development of windward instabilities are investigated and discussed. Three main hypothesis are thought to play a role in the formation of instabilities:
-
-\begin{enumerate}
+\begin{itemize}
 
 	\item The smallest wavelengths are of the order of the mesh resolution and can be resolved by the fine mesh, but not with the coarse one.
 	
@@ -1223,23 +1308,11 @@ As aforementioned, surface instabilities are present in the jet's windward side 
 	
 	\item The \textbf{gaseous field} outside the nozzle is affected by the interface resolution, causing instabilities for the fine case but not for the coarse one.
 
-\end{enumerate}
-
+\end{itemize}
 
 \clearpage
 
-\begin{figure}[ht]
-\centering
-\includegraphics[scale=0.07]{./part2_developments/figures_ch5_resolved_JICF/JICF_breakup/column_breakup}
-\caption{Column breakup phenomenon in cases UG100\_DX10, UG100\_DX20}
-% Soluciones:
-% dx10: sol22_03, sol23_04, sol27_00,_08, sol28_06, sol29_07
-% dx20: sol09_05,_21,_37,_53,_69,_85
-\label{fig:jicf_column_breakup_ug100}
-\end{figure}
-
-
-\subsubsection*{CONT HERE 1) Size of smallest wavelengths}
+\subsubsection*{Size of smallest wavelengths}
 
 
 The first hypothesis to be tested for clarifying why the coarse mesh does not show these liquid disturbances is that this resolution ($\Delta x_\mathrm{min} = 20~\mu$m) is not fine enough to capture the wavelenghts. To assess this, instantaneous views of the mesh and liquid-gas interface in the plane $y = 0$ mm are shown in Figure \ref{fig:JICF_instabilities_lambda}. The spatial domain shown corresponds to the white rectangles of Figure \ref{fig:JICF_w_mesh}. The instability in the coarse mesh is shown downstream the jet since it is where waves start appearing, while the fine resolution shows the first instabilities evolving in the vicinity of the injector. In both cases, instabilities are present in the windward size of the jet, being $\lambda$ the size of the shortests wavelengths (i.e. the first instability being developed). Measuring this wavelength for the coarse resolution $\Delta x_\mathrm{min} = 20~\mu$m yields a value of $\lambda \approx 400 ~ \mu$m , which yields a ratio $\lambda / \Delta x_\mathrm{min} = 20$. In the case of the fine resolution $\Delta x_\mathrm{min} = 10~\mu$m, the measured instability is $\lambda \approx 160 ~ \mu$m, corresponding to $\lambda / \Delta x_\mathrm{min} = 16$.  According to \citeColor[pairetti_mesh_2020], waves can be resolved with at least 4 mesh elements, i.e.  $\lambda / \Delta x_\mathrm{min} = 4$, so the instabilities are properly resolved in both cases. If actually the fine resolution gives the right instabilities of size $\lambda \approx 160 ~ \mu$m, this wavelength would correspond in the coarse mesh to a ratio $\lambda / \Delta x_\mathrm{min} = 8$, which could still be resolved. Therefore, the coarse mesh is thin enough to capture the instabilities, and the first hypothesis does not hold true.
@@ -1253,7 +1326,7 @@ The first hypothesis to be tested for clarifying why the coarse mesh does not sh
 \label{fig:JICF_instabilities_lambda}
 \end{figure}
 
-\subsubsection*{2) Liquid turbulence in nozzle}
+\subsubsection*{Liquid turbulence in nozzle}
 
 From previous studies, it is believed that the formation of instabilities in injectors is caused by the turbulence within the injection nozzle. This applies to two-phase problems involving liquid injectors \citepColor[wu_effects_1994,xiao_les_2014]
 as well as in single-phase, mixing problems where one gaseous species is injected into a plenum containing a different gas, such as in gaseous jets in crossflow \citepColor[kelso_experimental_1996,karagozian_jet_2014]. \citeColor[wu_effects_1994] studied experimentally a round liquid jet in which they suppressed the boundary layer at the injector exit, finding that interface instabilities are reduced in such case. They concluded then that "\textsl{boundary layer effects, such as vorticity or variations of mean velocities from viscous effects, play a dominant role in primary breakup} (sic)".
@@ -1343,7 +1416,7 @@ The profiles of mean vertical velocity $\overline{w}$, $TKE$ and mean vorticity 
 \end{figure}
 
 
-\subsubsection*{3) Gaseous field perturbed by the jet}
+\subsubsection*{Gaseous field perturbed by the jet}
 
 
 %\textbf{Ver tambien refs: 2013-Xiao, 2020-zhou, 2017-zhanng}
@@ -1396,7 +1469,7 @@ From the analysis performed in this section, it can be stated that refining the 
 
 
 
-\subsection{Jet trajectories}
+\section{Jet trajectories}
 \label{subsec:ch5_jet_trajectories_results}
 
 Characteristics of liquid JICF were introduced in $\S$\ref{sec:ch1_fuel_injection_technology}. Among those, the trajectory of the jet is found to be one of the most studied ones. JICF trajectoy is of paramount importance since it provides the vertical penetration of the jet and, therefore, the areas downstream injection that could possibly have presence of fuel. Design of systems involving JICF configurations often take into account the penetration, estimated either from experiments or simulations, as a relevant parameter for combustor sizing.
@@ -1406,8 +1479,7 @@ Jet trajectories are usually obtained for the windward side of the jet, since th
 In this work, the jet trajectories are determined for all the simulations performed. The configuration of \citeColor[becker_breakup_2002] provides the following experimental correlation, which will be used for simulations validation:
 
 \begin{equation}
-    \label{eq:jicf_trajectory_becker}
-    \frac{z}{d_\mathrm{inj}} = 1.57 \mathrm{q}^{0.36} \ln \left( 1 + 3.81 \frac{x}{d_\mathrm{inj}} \right)
+1.57 \mathrm{q}^{0.36} \ln \left( 1 + 3.81 \frac{x}{d_\mathrm{inj}} \right)
 \end{equation}
 
 which is valid for $1 < q < 12$, $90 < We_\mathrm{ae} < 2120$ and $x/d_\mathrm{inj} < 22$. The values for $d_\mathrm{inj}$ and $q$ are given
@@ -1435,13 +1507,8 @@ The error $\varepsilon_i$ is then obtained and plotted for all the abscissa valu
 
 The jet establishment discussed in $\S$\ref{sec:ch5_jet_evolution} showed that the jet is not developed at the early instants of injection. At these stages, the quantity of liquid inside the domain is low and the gaseous field at the vicinity of the injector is not perturbed by the jet along the region where instabilities are developed and the jet starts to atomize. Hence, the jet penetration at the early instants might not be representative of the trajectory followed afterwards, and so trajectories are obtained after a certain establishment time which here is taken as $\sim 2 \tau_{\mathrm{dr}_{x=10}}$. All gaseous and liquid fields statistics (velocity, pressure, $\psi$, etc. mean and RMS values) are reinitialised after this establishment time, hence the trajectories based on the mean $\psi$ field do not consider this prompt transient. Instantaneous trajectories averaged for obtaining mean trajectories based on them are also taken after this time.
 
-\subsubsection{Processing methodology}
 
-\hl{Put methodo here!}
-
-\subsubsection{Results}
-
-\subsubsection*{CONT HERE Comparison of obtention methods}
+\subsection{Comparison of obtention methods}
 
 Four methods to obtain trajectories from resolved simulations were proposed in $\S$\ref{sec:ch5_tools_jicf_trajectories}. These methods are summarized in Table \ref{tab:jicf_tools_trajectories_obtention}. The trajectories obtained with each method for the case UG100\_DX20 are shown in Figure \ref{fig:JICF_trajectories_and_L2_comparison}a. The evolution of the $L_2$ errors are displayed in Figure \ref{fig:JICF_trajectories_and_L2_comparison}b. Trajectories show two different tendencies when using the two families of methods: based on instantaneous trajectories and on the mean $\psi$ field. In the vicinity of the injector all trajectories follow the same tendency up to $x/d_\mathrm{inj} \sim 1$. After this point, mean $\psi$ trajectories keep on following the experimental correlation and mean instantaneous ones are located below. The former ones show noise due to numerical dissipation in the $\psi$ field, while the later show a smoother shape since they are obtained by interpolating instantaneous trajectories and averaging them with time. Further downstream, instantaneous-averaged trajectories overpass the ones obtained from the mean $\psi$ ones. The different trends shown by the trajectorices from both methodologies are due to their underlying definitions: instantaneous-averaged trajectories intend only to retrieve the outer contour of the jet by sweeping the $z$ axis and identifying the points with $\psi = 0.5$ at the middle plane $y = 0$, while the mean-based methods take the $\overline{\psi}$ field defined in all the domain and then obtain the trajectories at the middle plane. The $\overline{\psi}$ field is diffused as opposed to the $\psi = 0.5$ contour retrieved by the instantaneous methods, so the trajectories obtained as $\max \left( \nabla_z | \overline{\psi} | \right)$ and $\overline{\psi} = 0.01$ are located in the regions where $\overline{\psi}$ is close to $0$ (i.e. where the mean presence of liquid is low). Consequently, the trajectories generated penetrate further away than the instantaneous averaged ones in the near-injector region where the liquid is coherent, while they show the opposed tendency downstream after atomization has taken place and dispersed droplets are present.
 
@@ -1481,7 +1548,7 @@ The evolution of the $L_2$ norm calculated with Eq. (\ref{eq:L2_JICF}) is shown 
 %The evolution of the $L_2$ norm for all four methods is shown in Figure \ref{fig:JICF_trajectories_and_L2_comparison}b. Establishment of the curves is observed in all cases for $t^{\prime} > 5$ (\hl{\textbf{OJO: comprobar norma L2 de metodo MEAN\_GRAD !!!}}). This indicates that the trajectories are overall converged at this stage. More fluctuations are observed in the $\overline{\psi}$ methods than in the instantaneous-averaged ones. The monotonic and non-monotonic curves show a smooth development with time, and both follow the same tendency except for a threshold in the $L_2$ norm caused by the downstream difference in the trajectories at Figure \ref{fig:JICF_trajectories_and_L2_comparison}a. The lowest error is obtained with the $\overline{\psi} = 0.01$ contour.
 
 
-\subsubsection*{Experimental validation}
+\subsection{Experimental validation}
 
 For validating the trajectories in all simulations from Table \ref{tab:jicf_resolved_simulations_performed}, the method MEAN\_GRAD is retrieved due to its similary with the methodology followed by \citeColor[becker_breakup_2002] to obtain the experimental correlation. Results are shown in Figure \ref{fig:JICF_trajectories_validation} for both operating points, including the case for the high $We$ number without synthetic turbulence injection. The evolution of the $L_2$ norm displayed has been obtained for the range $0 < x/d_\mathrm{inj} < 10$.
 
@@ -1594,7 +1661,7 @@ Finally, the relative error along the trajectory $\varepsilon$ is displayed in F
 
 \clearpage
 
-\section{CONT HERE Perturbation effect of jet dense core}
+\section{Perturbation effect of jet dense core}
 \label{subsec:ch5_dense_core_in_ACLS_simus}
 
 Resolved simulations are characterized by the presence of the liquid dense core, which perturbs the incoming air and creates turbulence downstream the injector. To illustrate this disturbance, the instantaneous axial fluctuations $u'$ and the jet interface are plotted in the middle plane y = 0 in Figure \ref{fig:jet_air_interaction_up_and_skeleton} left. The dense core creates turbulence downstream the injection point, as shown by the high fluctuations in velocity. Such perturbations can have a great impact on spray dispersion once atomization has taken place, therefore modelling this perturbance effect as accurate as possible is paramount for performing dispersed-phase simulations presented in Chapter \ref{ch6:jicf_lgs_simulations}, where the dense core is neglected and a developed spray is injected. At the same time, the incoming crossflow deviates the jet and deforms its cross-section from a circular shape with diameter equal to the injector size to a kidney-shaped cross-section, as illustrated in Figure \ref{fig:jet_air_interaction_up_and_skeleton} right. This change in cross-section is associated to an increase in the drag force exerted by the air to the jet along the liquid column \citepColor[mashayek_jet_2006].
@@ -2518,16 +2585,14 @@ Comparing operating conditions, the fluxes for the high Weber point are larger t
 
 \clearpage
 
-\section{Construction of SLI from droplet data}
-
-\subsection{Spray characterization}
-\label{subsec:ch5_sec_spray_characterization}
+\section{Spray characterization}
+\label{sec:ch5_sec_spray_characterization}
 
 %\subsubsection{Sampling procedure for droplets}
 
 The previous sections have shown analysis of the JICF simulations for the gaseous phase and for the liquid phase obtained through postprocessing and inspection of magnitudes based on the level-set field $\psi$ $\Psi$. This section presents a characterization of the global spray (i.e. prior to the spatial classification shown in Figure \ref{fig:SLI_graphic_description}, which is the object of $\S$\ref{sec:ch5_learning_SLI}) obtained from these simulations through lagrangian tracking of the liquid structures sampled as described in $\S$\ref{subsec:SLI_spray_sampling}. The sampling planes perpendicular to crossflow are those already discussed for each simulations, corresponding to the planes showning the droplets arrival times in Table \ref{tab:jicf_characteristic_droplet_sampling_times} or the flux maps from IBs from Figure \ref{fig:ibs_spatial_distributions}.
 
-\subsubsection*{Establishment of mean sprays}
+\subsection{Establishment of mean sprays}
 
 Droplets are tracked lagrangially as they cross the sampling planes, and are accumulated with time in order to get a mean-converged spray. Firstly, an establishment time of $t^{\prime} \sim 2$ for each case is left before droplets start to be accumulated in order to retrieve a representative spray of a established jet, as it was done in the rest of this chapter's sections to obtain mean values. Droplets are then accumulated for the accumulation times shown in Table \ref{tab:jicf_SLI_t_prime_accumulation}. The total physical times simulated $t_\mathrm{ph} \sim t_\mathrm{acc} + 2 \tau_\mathrm{dr_{x=10}}$ are also stated.Both the absolute physical time and the dimensionless time calculated through Eq. (\ref{eq:t_prime_with_tau_drx10}) are shown. From the absolute time, it can be seen the huge differences among coarse and fine simulations: the former are cheaper and can run with a larger timestep than the latter ones, therefore reaching a further physical time. For the low Weber case, the physical time reached by the coarse simulations goes 10 times further in physical time than the fine one, while the fine Weber case shows a factor of 15 among resolutions. If, on the other hand, the dimensionless times are considered, the ratio of simulated times among resolutions reduce to 8.6 and 12.9 for the low and high Weber cases respectively. This is caused by the differences in the timescale $\tau_\mathrm{dr}$ between resolutions, as these values are lower for the fine simulations (see Table \ref{tab:jicf_characteristic_droplet_sampling_times}). When taking about the convergence of injectors, the timescale $t^{\prime}$ is the one to consider since it related the droplet arrival time to the sampling planes. On the other hand, when discussing physical characteristic among simulations it is more convenient to use either the absolute physical time of the dimensionless time defined by the relation to the liquid inertia timescale, Eq. (\ref{eq:t_dimensionless_with_tau_in}).
 
@@ -2658,7 +2723,7 @@ Apart from the SMD and mean flux, the spray is also characterized by its mean an
 \end{figure}
 
 
-\subsubsection*{Liquid fluxes: lagrangian versus resolved}
+\subsection{Liquid fluxes: lagrangian versus resolved}
 \label{subsec:ch5_sli_fluxes_vs_IBs}
 
 The establishment of lagrangian liquid fluxes was depicted in Figure \ref{fig:ch5_spray_char_establishment}. In order to verify the effectivity of SLI in terms of liquid mass conservation, the liquid fluxes obtained from lagrangian tracking (i.e. the $Q_l$ values at the last accumulation time instant of Figure \ref{fig:ch5_spray_char_establishment}) are compared to their equivalent obtained through interior boundaries, which are the resolved liquid fluxes obtained in the planes perpendicular to the crossflow shown in Figure \ref{fig:IB_bargraph_perp}. Results are shown in the bar graph of Figure \ref{fig:fluxes_bargraph_IBs_vs_LGS} for all cases except for the simulation without turbulence, which has not been quantified with the IBs. As observed, there is a good agreement between the resolved and lagrangian tracked mass flow rates. To explain the observed discrepancies, it is necessary to consider that droplets are defined by their center of mass location/velocity and volume, and they are lagrangially tracked when the center of mass crosses the sampling plane. To estimate when the center of mass crosses the sampling plane, the location is projected forward in time with the sampled velocity and the simulation timestep. Droplets are then considered as point particles modelled through only their location and velocity, their volume being neglected. In reality, resolved liquid structures exchange momentum with the gaseous phase through drag, which changes their velocity with time. This can lead to droplets being sampled twice (specially large ones, as their higher inertia creates more momentum exchange and the point-particle approximation overestimates the real velocity of the droplet), which would explain the flux increases, or to droplets not being sampled at all (such as smaller droplets which are not perturbed by the dense core and relax faster towards the gaseous phase, accelerating with time and making the lagrangian projection to underestimate their actual velocity), causing the mass decreases with respect to IBs. A possible solution would be to include a tag field for the liquid structures which is transported in time, although the convection of such field is hindered by the stochastic nature of primary atomization which makes it extremely difficult to predict the breakup time and number of droplets produced. Nevertheless, despite this main inconvenient the lagrangian tracking algorithm provides accurate values for fluxes plus also statistics on velocities and droplet volumes (which actually IBs cannot provide), making it a suitable tool to retrieve the spray characteristics. %It is also shown later ($\S$\hl{\textbf{XX}}) that when the lagrangan spray is spatially discretized, the fluxes maps also match quite closely the spatially discrete fluxes obtained through IBs.
@@ -2674,8 +2739,8 @@ The establishment of lagrangian liquid fluxes was depicted in Figure \ref{fig:ch
 \end{figure}
 
 
-\subsubsection*{Granulometry}
-\label{ch5:subsubsec_spray_char_granulo}
+\subsection{Granulometry}
+\label{ch5:subsec_spray_char_granulo}
 
 From the equivalent diameters, information on the droplets sizes can be obtained through either statistical distributions or mean diameters, such as the SMD defined by Eq. (\ref{eq:ch4_SMD_definition}) and whose evolution with time for the sampled sprays was represented in Figure \ref{fig:ch5_spray_char_establishment}. In first place, the final SMDs obtained in all simulations are grouped in the graph of Figure \ref{fig:ch5_spray_char_SMD_final}. The first noticeable observation is a high sensitivity of the SMD with the resolution, which shows a difference of factor 2: this is expected since the resolutions differ by the same amount. There is also a difference among operating points: in general, the SMDs for the low Weber cases are higher than the ones for the high Weber one, which is expected since high kinetic energy of the gas and fluid phases in the latter foster atomization, generating more and smaller droplets. There are, however, two exceptions: at $x = 10$ mm for the fine resolution, and at $x = 15$ mm for the coarse one. In the former (fine resolutions), both cases present the same SMD at $x = 10$ mm while differ at $x = 5$ mm: in fact, UG75\_DX10 shows a reduction in SMD with axial distance (expected behaviour due to atomization) while UG100\_DX10 provides the same SMD (unexpected behaviour). Two reasons could explain the constant SMD for UG100\_DX10: 1) due to the higher kinetic energies in the gas and liquid phases, atomization is already completed at $x = 5$ mm, or 2) small droplets disappearing in UG100\_DX10 when reaching the mesh resolution would not be considered in the calculation of the SMD, making it larger than its true value in the real spray. This is also the most probable explanation for the almost constant SMDs between $x = 10$ and 15 mm in the coarse simulations.
 
@@ -2848,7 +2913,7 @@ As observed in the graphs, both curves show similar shapes in all cases but show
 %
 %\end{itemize}
 
-\subsubsection*{Liquid velocities}
+\subsection{Liquid velocities}
 
 Final mean liquid velocities in axial and vertical directions for all simulations are shown in Figure \ref{fig:jicf_liquid_mean_velocities_with_x}. Lateral mean velocities are not displayed since they are in all cases close to 0 (see Appendix \ref{app:SLI_convergence}), which is explained by the fact that the opening of the jet is equal in both positive and negative lateral directions (a qualitative view of this fact is given by the top views of the jets in Figures \ref{fig:JICF_establishment_UG100_top} and \ref{fig:JICF_establishment_UG75_top}). Two different mean velocities are shown in the graph of Figure \ref{fig:jicf_liquid_mean_velocities_with_x}: the arithmetic mean velocities calculated with Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_definition}), given by the solid lines, and the volume-weighted velocities calculated from Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_VW_definition}) represented by the dashed lines.
 
@@ -2951,8 +3016,8 @@ To finish the analysis of velocities, the scatterplots of velocities against dro
 
 
 
-\subsubsection*{Deformation of liquid structures}
-\label{subsubsec:def_liquid_structures}
+\subsection{Deformation of liquid structures}
+\label{subsec:def_liquid_structures}
 
 Apart from the equivalent diameters and velocities, the sampled droplets in the resolved simulations are also characterized by their deformation parameters $\alpha$ and $\beta$ as defined in Eq. (\ref{eq:ch4_deformation_parameters_alpha_beta_calculation}). These magnitudes provide a quantification of the deviation of the liquid entity with respect to a perfect sphere. A perfect sphere would be defined by $\alpha = \beta = 1$, while deformed droplets would present $\alpha > 1$ and $\beta < 1$. Note that the values $\alpha < 1$ and $\beta > 1$ are not possible due to the inherent definitions of both magnitudes.
 
@@ -3026,24 +3091,24 @@ The scatterplots $\alpha - \beta$ for cases UG100\_DX10 and UG100\_DX20 are show
 %\vspace*{-2in}
 
 
-\subsubsection{Summary on spray characterization}
+\subsection{Summary on spray characterization}
 
 This section has show the study of the global spray sampled from the resolved atomization simulations. In first place, the convergence of sprays from mean fluxes and SMDs has been verified for all computations. Mass conservation from the lagrangian tracking methodology has been compared to the resolved methodology of interior boundaries, showing a good agreement. The analysis on droplets sizes has shown that SMD decreases with axial distance and with resolution: for a fixed resolution, SMDs decrease with $x$ but not to a big extent, while for a fixed location reducing the resolution $\Delta x_\mathrm{min}$ by a factor $2$ reduces the mean diameter by a same amount. The histograms have shown that all cases display a number distribution close to a lognormal shape, which can be modelled with parameters $\overline{D}_{ng}$ and $s_g$. This analysis on the granulometry is useful to choose the location injection and resolution of the SLI according to the size distributions: closer to the injector large droplets will be injected, while further downstream they will be smaller due to a more complete atomization. The mean velocities in the sprays have shown how the differences between arithmetic mean and volume-weighted velocities: the latter show a more consistent physical behaviour expected in a JICF in which axial velocities are accelerated and vertical ones deccelerated with axial distance. Mean liquid velocities are useful to get an idea on the relative velocities that will be seen by the droplets after injection in dispersed-phase simulations, since secondary breakup determines breakup on the lagrangian droplets according to a criterion based on a Weber number based on the relative velocity. Finally, a short analysis on the mean volume-weighted deformation parameters has shown how the deformation varies with resolution (the finer the resolution, the more resolved and spherical droplets are) and axial distance (further from the injector, more complete atomization and more spherical sprays are found). The deformation criteria discussed are useful to get an idea of the degree of sphericity of the droplets that will be injected in the dispersed-phase simulations. From all the data analyzed, every magnitude except for the deformation will be used by the SLI to get a discretized spray and perform injection. The deformation criteria could be used in further works to account for modified momentum exchange laws in the earlies instant of the dispersed-phase computations \citepColor[bagheri_drag_2016].
 
 \clearpage
 
-\subsection{Smart Lagrangian injectors}
+\section{Smart Lagrangian injectors}
 \label{sec:ch5_learning_SLI}
 
 \input{ch5_SLI_all_cases}
 
 
-\subsection{Performances and cost}
+\section{Performances and cost}
 \label{subsec:ch5_computational_performances}
 
 JICF simulations studied in this chapter have used an ACLS/AMR methodology to solved the liquid phase. As demonstrated, this methodology has the capability to resolve the atomization dynamics by transporting a levelset function without making any assumptions on the dispersed phase. Their main drawback is their cost, since such simulations are computationally expensive and therefore limited in terms of mesh resolution (which with the AMR strategy can be greatly improved with respect to a strategy without mesh adaptation), applicability and multiphysics coupling. In this section, the computational performances and costs of the simulations is reported. 
 
-\subsubsection*{Computational performances}
+\subsection{Computational performances}
 
 In order to assess the computational performances of the performed simulations, a Reduced Computational Time (RCT) can be defined as \citepColor[janodet_massively_2022]:
 
@@ -3167,7 +3232,7 @@ UG100\_DX20\_NT & 444.0 & 105.0 & 295.0 & 44.0 & 342  \\ % t_cpu/t_phys: 17,700
 
 
 
-\subsubsection*{Computational costs}
+\subsection{Computational costs}
 \label{subsec:ch5_JICF_computational_costs}
 
 While the RCTs provides a measure of the computational time comparable among cases for a given time instant, it is also necessary to state the total cost of the simulations performed. Figure \ref{fig:SLI_cost_convergence_all} shows the computational cost in CPU hours ($t_\mathrm{CPU}$) and the ratio between CPU hours and physical time simulated ($t_\mathrm{CPU}/t_\mathrm{ph}$). The graph shows that, in absolute terms, the quantity of CPU hours is much larger for the fine resolution simulations than for the coarse one due to the higher cost of the simulations (demonstrated in Figure \ref{tab:jicf_computational_performances}). The simulations for the high Weber operating point are more expensive than the low Weber one, specially for the fine resolutions. This is also reflected in the ratio $t_\mathrm{CPU}/t_\mathrm{ph}$: simulating one milisecond for case UG100\_DX10 would cost twice more than for case UG75\_DX10 due to the larger velocities involved in the former. The computational timestep is governed by the CFL condition (the CFL number has been set equal in all simulations), yielding lower values for case UG100\_DX10 due to the higher velocities found. Furthermore, this case also generates more droplets than the low Weber one for identical resolution due to a more aggressive breakup, yielding more mesh elements due to the larger specific surface of the fuel (see Figure \ref{fig:JICF_nelem_increase_t_0_to_2}) which requires more $N_\mathrm{cores}$ to perform the simulations. The result of these two contributions (lower timestep and more number of cores required) is the increase in computational cost by a factor of 2.
