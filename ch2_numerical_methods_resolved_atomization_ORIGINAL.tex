@@ -3,8 +3,9 @@
 
 \section{Introduction}
 
+%\textbf{MAKE LINK WITH FINAL PART OF INTRODUCTION WHEN IT IS DONE}
 
-Resolution of two-phase flows requires a suitable description for each phase and a careful treatment of the liquid-gas interface. From a numerical point of view, the multi-scale nature of atomization makes it impossible to use the same methods for resolving atomization accurately and for transporting efficiently a developed spray composed of small droplets, since the characteristic length scales differ by several orders of magnitude. These different characteristic lengths combine with their different associated time scales \citepColor[sanchez_role_2015], which combined make the cost of simulations to increase non-linearly with resolution. Consequently, different numerical methodologies must be chosen according to the targeted problem. Furthermore, if multi-physical phenomena, such as evaporation or combustion, are present, the range of possible models to be applied becomes even narrower.
+Resolution of two-phase flows requires a suitable description of each phase and a careful treatment of the liquid-gas interface. From a numerical point of view, the multi-scale nature of atomization makes it impossible to use the same methods for resolving atomization accurately and for transporting efficiently a developed spray composed of small droplets, since the characteristic length scales differ by several orders of magnitude. Consequently, different numerical methodologies must be chosen according to the targeted problem. Furthermore, if multi-physical phenomena, such as evaporation or combustion, are present, the range of possible models to be applied becomes even narrower.
 
 \begin{figure}[h!]	
 	\centering
@@ -26,15 +27,20 @@ The first step for choosing a proper methodology is to identify the type of regi
 
 \item \textbf{Separate phase} flows, also known as dense regime, present a clear definition of the interface and both liquid and gaseous phases can be easily identified (Figure \ref{fig:TPF_droplets_example} left). In such cases, the liquid volume fraction is large and the liquid structures are larger, or at least of the same order, than the cell size, so the atomization dynamics can be captured by the mesh. Within engines, separate phase is found during primary breakup, as shown by the blue regions of Fig. \ref{fig:atomization_regimes_herrmann}. Numerical methods devoted to resolve separate phase regimes are tackled in this chapter ($\S$\ref{sec:ch2_eulerian_approaches_dense_regime}). Generally, these methods are restricted to non-reactive problems and the multi-physics coupling with evaporation and combustion is not yet possible, being currently an emerging research topic \citepColor[luo_level_2019].
 
-\clearpage
-
 \item \textbf{Dispersed phase} regime is found when the liquid volume fraction is small and the liquid structures cannot be capture by the main grid. The liquid phase is composed by individual liquid particles (usually called droplets) whose high number and small size hinders the tracking of the interface (Figure \ref{fig:TPF_droplets_example} right). Droplets are surrounded by the gaseous phase, also called \textbf{carrier phase}. A developed spray produced as a consequence of secondary atomization is an example of dispersed phase systems, illustrated by the intermediate and dilute regimes of Figure \ref{fig:atomization_regimes_herrmann}. The same numerical methods used for the separate phase regime cannot be applied, since the characteristic scales are much smaller and the grid resolution required yields the computations unaffordable due to their high cost. Numerical formalisms targeting dispersed phase flows are discussed in Chapter \ref{ch3:disperse_phase_methods}. These methods do not resolve the atomization dynamics, but present the possibility to integrate evaporation and combustion.
 
 \end{itemize}
 
+A thorough classification of existing numerical methods for two-phase flows is shown in Figure \ref{fig:classification_numerical_methods_mirjalili}. Models aiming at solving disperse-phase flows use often a two-fluid formulation, since the description of each phase is done with separate equations. On the other hand, methods addressing separate phases are based on a one-fluid formulation, since basically the same governing equations are solved but distinguishing between phases via their different physical properties. This requires a specific treatment of the interface and the jump conditions in pressure due to surface tension, which each method handles differently. 
 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=1.0]{./part1_numerical_approaches/figures_ch2/classification_numerical_methods_mirjalili}
+	\caption[Numerical methods to simulate two-phase flows.]{Numerical methods to simulate two-phase flows. Ellipses denote interface-capturing methods. Sharp-interface methods are denoted by a white background, while the grey one indicates diffuse-interface methods. Source: \citeColor[mirjalili_interface-capturing_2017]}
+	\label{fig:classification_numerical_methods_mirjalili}
+\end{figure}
 	
-This chapter gives an overview on the state-of-the-art in numerical methods applicable to resolve separate phase regimes. Section \ref{sec:ch2_governing_equations} introduces the governing equations of non-reactive two phase flows, starting from the Reynolds Transport Theorem and applying it to obtain mass and momentum conservation laws. Then, Section \ref{sec:ch2_eulerian_approaches_dense_regime} presents an overview of existing numerical methodologies for separate phases and reviews a few of them: diffuse interface, front-tracking, Volume of Fluid (VOF), and Accurate Conservative Level-Set coupled with Ghost-Fluid Method (ACLS/GFM). The last one is the methodology used in this thesis for performing resolved simulation atomizations in Chapters 5 and 8.%\ref{ch5:jicf_resolved_simulations} and \ref{ch8:bimer_resolved_atomization}.
+This chapter gives an overview on the state-of-the-art in numerical methods applicable to resolve separate phase regimes. Section \ref{sec:ch2_governing_equations} introduces the governing equations of non-reactive two phase flows, beginning by introducing the Reynolds Transport Theorem and applying it to obtain mass and momentum conservation laws. Section \ref{sec:ch2_eulerian_approaches_dense_regime} presents the numerical methodologies reviewed: diffuse interface, front-tracking, Volume of Fluid (VOF), and Accurate Conservative Level-Set coupled with Ghost-Fluid Method (ACLS/GMF). The last one is the methodology used in this thesis for performing resolved simulation atomizations in Chapters 5 and 8.%\ref{ch5:jicf_resolved_simulations} and \ref{ch8:bimer_resolved_atomization}.
 
 
 %Figure \ref{fig:classification_numerical_methods_mirjalili} depicts another classification of methods for two-phase flows according to how they see the interface: \textbf{sharp interface} (white background boxes) and \textbf{diffuse interface} (grey background). The former, as their name indicates, identify the interface as a diffused spatial region where both phases coexists. Diffuse-interface methods are succinctly presented in $\S{subsec:ch2_DI_methods}$. Sharp interface methods, some of which are presented in later sections, see the interface as an infinitely-thin front moving at a certain speed. Hence, the interface is located at a given value of a scalar function which is advected by the fluid. 
@@ -77,7 +83,7 @@ The latter equation can also be seen as another expression for the RTT particula
 
 This formulation relates the lagrangian formulation of a system (left hand side, corresponding to the control mass) with the eulerian formulation (right hand side, corresponding to the control volume). 
 
-In most of the problems, all the control volumes selected for performing balances are fixed in space, so their boundaries do not move. Consequently, $\boldsymbol{u_c} = 0$ and hence Eq. (\ref{eq:reynolds_transport_theorem_general_controlVolume}) becomes $\frac{d}{dt} \int_{\scriptsize{\Omega}} \phi dV =  \int_{\scriptsize{\Omega}} \partial \phi/\partial t ~ dV$.
+In most of the problems, all the control volumes selected for performing balances are fixed in space, so their boundaries not move. Consequently, $\boldsymbol{u_c} = 0$ and hence Eq. (\ref{eq:reynolds_transport_theorem_general_controlVolume}) becomes $\frac{d}{dt} \int_{\scriptsize{\Omega}} \phi dV =  \int_{\scriptsize{\Omega}} \partial \phi/\partial t ~ dV$.
 
 \subsubsection*{Application to two-phase flows}
 	\label{subsec:RTT_applied_to_TPS_with_interface}
@@ -190,26 +196,13 @@ Hereafter, the weak form of mass conservation will be addressed for its applicat
 
 \subsubsection*{Global mass conservation in two-phase flows}
 
-When two phases are present, mass conservation can be obtained by substituting $\phi = \rho$ into Eq. (\ref{eq:RTT_general_bothPhases}):
+A global expression for mass conservation can be obtained by substituting $\phi = \rho$ into Eq. (\ref{eq:RTT_general_bothPhases}):
 
 \begin{equation}
-\label{eq:mass_conservation_2phases_global_general}
 \frac{d}{dt} \int_{\Omega_m} \rho dV =   \int_{\Omega}  \frac{\partial \rho}{\partial t}  dV + \int_{\partial \Omega} \rho \boldsymbol{u} \cdot \boldsymbol{n} dS + \int_\mathsmaller{\Gamma} \left( \rho_\mathrm{l} - \rho_\mathrm{g} \right) \left( \boldsymbol{u}_{\scriptsize{\Gamma}} \cdot \boldsymbol{n}_{\scriptsize{\Gamma}} \right) dS
 \end{equation}
 
-which is a general expression for all two-phase flows in a continuum regime. In this equation, the left hand side represents a sink term which would be finite if mass transfer takes place. For the purposes of this thesis, however, the following hypothesis are followed:
-
-\begin{enumerate}
-
-	\item Mass transfer at the interface is neglected.
-	
-	\item Heat transfer at the interface is neglected.
-	
-	\item Fluids are incompressible.
-
-\end{enumerate}
-
-Assumptions 1 and 2 hold since those phenomena are out of the scope of study of this work, and their implementation with resolved atomization methods is challenging \citepColor[boniou_numerical_2022]. Hypothesis 3 (incompressibility) holds since the operating conditions studied are low Mach and reactive phenomena (combustion) are not approached in this thesis. Therefore, the sink term from Eq. (\ref{eq:mass_conservation_2phases_global_general}) is null and the expression becomes:
+In conditions where mass exchange takes place, such as the reactive environment within combustion chambers, high temperature might produce evaporation of the liquid phase into gaseous phase. In such cases, the left hand side term of the former equation would be a sink term different to zero. For non-reactive applications, where mass exchange does not take place, this term is zero:
 
 \begin{equation}
 \int_{\Omega}  \frac{\partial \rho}{\partial t}  dV + \int_{\partial \Omega} \rho \boldsymbol{u} \cdot \boldsymbol{n} dS + \int_\mathsmaller{\Gamma} \left( \rho_\mathrm{l} - \rho_\mathrm{g} \right) \left( \boldsymbol{u}_{\scriptsize{\Gamma}} \cdot \boldsymbol{n}_{\scriptsize{\Gamma}}\right) dS = 0
@@ -272,44 +265,26 @@ These equations present two components: a transient term and a surface term. The
 }
 \end{equation}
 
-As the normal vector is pointing outwards the control volume, the dot product will be positive in surfaces where both vectors have the same direction, and negative otherwise. Hence, the mass flow rate will be positive in outlets and negative in inlets.
+An inspection of this equation reveals a dot product between the velocity vector and the normal vector to the surface. As the normal vector is pointing outwards the control volume, the dot product will be positive in surfaces where both vectors have the same direction, and negative otherwise. Hence, the mass flow rate will be positive in outlets and negative in inlets.
 
 If the transient term in (\ref{eq:mass_conservation_general_bothPhases_showingIntegrals}), which is a source term, is denoted as $\dot{\Omega}_m$, then the mass conservation for separated phases can be written as follows:
 
-%\begin{subequations}
-%\begin{align}
-%\dot{\Omega}_{m_\mathrm{g}} + \sum_i \dot{m}_{g_i} &= 0  \\
-%\dot{\Omega}_{m_\mathrm{l}} + \sum_j \dot{m}_{l_j} &= 0 
-%\end{align}
-%\end{subequations}
-
-%Considering that inlet fluxes are negative and outlet fluxes are positive, the equations can be rearranged:
-
-%\begin{subequations}
-%\label{eq:mass_conservation_general_bothPhases_transient}
-%\begin{empheq}[box=\fbox]{align}
-%\dot{\Omega}_{m_\mathrm{g}} &= \sum_{i_\mathrm{in}} \dot{m}_{g_i} - \sum_{i_\mathrm{out}} \dot{m}_{g_i}  \\
-%\dot{\Omega}_{m_\mathrm{l}} &= \sum_{j_\mathrm{in}} \dot{m}_{l_j} - \sum_{j_\mathrm{out}} \dot{m}_{l_j}
-%\end{empheq}
-%\end{subequations}
-
 \begin{subequations}
-\label{eq:mass_conservation_general_bothPhases_transient}
 \begin{align}
-\dot{\Omega}_{m_\mathrm{g}} &= \sum_{i_\mathrm{in}} \dot{m}_{g_i} - \sum_{i_\mathrm{out}} \dot{m}_{g_i}  \\
-\dot{\Omega}_{m_\mathrm{l}} &= \sum_{j_\mathrm{in}} \dot{m}_{l_j} - \sum_{j_\mathrm{out}} \dot{m}_{l_j}
+\dot{\Omega}_{m_\mathrm{g}} + \sum_i \dot{m}_{g_i} &= 0  \\
+\dot{\Omega}_{m_\mathrm{l}} + \sum_j \dot{m}_{l_j} &= 0 
 \end{align}
 \end{subequations}
 
-where into inlet and outlet fluxes are distinguished. Taking again into consideration the hypotheses of no mass transfer and incompressibility, the source terms vanish and the mass conservation equations for each phase turn into:
+Considering that inlet fluxes are negative and outlet fluxes are positive, the equations can be rearranged:
 
 \begin{subequations}
+\label{eq:mass_conservation_general_bothPhases_transient}
 \begin{empheq}[box=\fbox]{align}
-\sum_{i_\mathrm{in}} \dot{m}_{g_i} &=  \sum_{i_\mathrm{out}} \dot{m}_{g_i}  \\
-\sum_{j_\mathrm{in}} \dot{m}_{l_j} &=  \sum_{j_\mathrm{out}} \dot{m}_{l_j}
+\dot{\Omega}_{m_\mathrm{g}} &= \sum_{i_\mathrm{in}} \dot{m}_{g_i} - \sum_{i_\mathrm{out}} \dot{m}_{g_i}  \\
+\dot{\Omega}_{m_\mathrm{l}} &= \sum_{j_\mathrm{in}} \dot{m}_{l_j} - \sum_{j_\mathrm{out}} \dot{m}_{l_j}
 \end{empheq}
 \end{subequations}
-
 
 \subsection{Momentum conservation}
 
@@ -439,23 +414,7 @@ The right-hand side includes all the contributions from surface and body forces 
 \section{Eulerian approaches for dense regime}
 \label{sec:ch2_eulerian_approaches_dense_regime}
 
-Previously, the governing laws for fluid dynamics have been stated in their weak and strong forms. They have been extended to two-phase flows by introducing the volume fraction into the equations and by distinguishing between phases. It has been proved that surface tension introduces a discontinuity in the momentum equation, something the numerical methods have to deal with. This section presents several interface-capturing methods represented in Fig. \ref{fig:classification_numerical_methods_mirjalili} widely used to solve two-phase flow systems. A thorough classification of existing numerical methods for two-phase flows is shown in Figure \ref{fig:classification_numerical_methods_mirjalili}  where the methods discussed in this section are enclosed in red. Models aiming at solving disperse-phase flows use often a two-fluid formulation, since the description of each phase is done with separate equations. On the other hand, methods addressing separate phases are based on a one-fluid formulation, since basically the same governing equations are solved but distinguishing between phases via their different physical properties. This requires a specific treatment of the interface and the jump conditions in pressure due to surface tension, which each method handles differently. 
-
-
-
-%\begin{figure}[h!]
-%	\centering
-%	\includegraphics[scale=1.0]{./part1_numerical_approaches/figures_ch2/classification_numerical_methods_mirjalili_PNG}
-%	\caption[Numerical methods to simulate two-phase flows.]{Numerical methods to simulate two-phase flows. Ellipses denote interface-capturing methods. Sharp-interface methods are denoted by a white background, while the grey one indicates diffuse-interface methods. Source: \citeColor[mirjalili_interface-capturing_2017]}	\label{fig:classification_numerical_methods_mirjalili}
-%\end{figure}
-
-\begin{figure}[h!]
-	\centering
-\includeinkscape[inkscapelatex=false,scale=0.75]{./part1_numerical_approaches/figures_ch2/classification_numerical_methods_mirjalili}
-	\caption[Numerical methods to simulate two-phase flows.]{Numerical methods to simulate two-phase flows. Ellipses denote interface-capturing methods. Sharp-interface methods are denoted by a white background, while the grey one indicates diffuse-interface methods. Source: \citeColor[mirjalili_interface-capturing_2017]}	\label{fig:classification_numerical_methods_mirjalili}
-\end{figure}
-
-
+Previously, the governing laws for fluid dynamics have been stated in their weak and strong forms. They have been extended to two-phase flows by introducing the volume fraction into the equations and by distinguishing between phases. It has been proved that surface tension introduces a discontinuity in the momentum equation, something the numerical methods have to deal with. This section presents several interface-capturing methods represented in Fig. \ref{fig:classification_numerical_methods_mirjalili} widely used to solve two-phase flow systems. 
 
 
 \subsection{Diffuse interface methods}
@@ -465,7 +424,7 @@ Diffuse interface comprises a family of numerical methods in which the interface
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.45]{./part1_numerical_approaches/figures_ch2/DI_vs_VOF_Mirjalili}
+	\includegraphics[scale=0.35]{./part1_numerical_approaches/figures_ch2/DI_vs_VOF_Mirjalili}
 	\caption[Comparison of a droplet solved in a 20x20 grid by a diffuse interface method  and a sharp-interface VOF method]{Comparison of a droplet solved in a 20x20 grid by a diffuse interface method (\textit{left}) and a sharp-interface VOF method (\textit{right}). Source: \citeColor[mirjalili_comparison_2019]}
 	\label{fig:DI_vs_VOF}
 \end{figure}
