@@ -24,9 +24,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.0230034"
-     inkscape:cx="467.74038"
-     inkscape:cy="204.78915"
+     inkscape:zoom="0.72337264"
+     inkscape:cx="449.97555"
+     inkscape:cy="183.16977"
      inkscape:window-width="1920"
      inkscape:window-height="1001"
      inkscape:window-x="-9"
@@ -1016,15 +1016,15 @@
        transform="translate(-501.95689,58.392848)" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;fill:#803300;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
-       x="145.62195"
-       y="76.745842"
+       style="font-style:normal;font-weight:normal;font-size:8.46667px;line-height:1.25;font-family:sans-serif;fill:#803300;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+       x="146.13922"
+       y="77.263107"
        id="text4878-37"><tspan
          sodipodi:role="line"
          id="tspan4876-3"
-         style="font-size:5.64444px;fill:#000000;fill-opacity:1;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
-         x="145.62195"
-         y="76.745842">z=-0.35 mm</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:serif;-inkscape-font-specification:serif;fill:#000000;fill-opacity:1;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         x="146.13922"
+         y="77.263107">z = -0.35 mm</tspan></text>
     <image
        width="243.16139"
        height="89.147354"
@@ -1151,15 +1151,15 @@
        id="path3571-5" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:5.64444px;line-height:1.25;font-family:sans-serif;fill:#803300;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
-       x="146.67609"
-       y="47.690002"
+       style="font-style:normal;font-weight:normal;font-size:8.46667px;line-height:1.25;font-family:sans-serif;fill:#803300;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+       x="146.41745"
+       y="48.983173"
        id="text4878"><tspan
          sodipodi:role="line"
          id="tspan4876"
-         style="font-size:5.64444px;fill:#000000;fill-opacity:1;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
-         x="146.67609"
-         y="47.690002">z=0 mm</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:serif;-inkscape-font-specification:serif;fill:#000000;fill-opacity:1;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
+         x="146.41745"
+         y="48.983173">z = 0 mm</tspan></text>
     <path
        style="fill:none;stroke:#8e8e8e;stroke-width:0.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
        d="m 124.33282,11.900772 h 18.28817"
