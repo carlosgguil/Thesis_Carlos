@@ -5,6 +5,12 @@
 
 The previous chapter presented numerical methodologies applicable to separate two-phase flows. Such methods are useful for solving problems where the dynamics of atomization need to be accurately resolved. Nonetheless, these are not suitable to tackle dispersed phase problems due to the high computational costs involved in resolving and transporting a spray composed of many droplets. Furthermore, resolved atomization methods are often not able to efficiently solve for multiphysics phenomena relevant in combuation systems such as evaporation, being an ongoing research line nowadays \citepColor[boniou_numerical_2022]. Therefore, dispersed-phase regimes need a different representation of the liquid phase so that: 1) the spray can be transported with acceptable computational costs and 2) more complex physics relevant to reactive problems can be included, such as evaporation and combustion.
 
+In this chapter, numerical strategies to simulate dispersed phase flows are reviewed. Section \ref{sec:ch3_numerical_approaches_dispersed_phase} summarizes some of the available formalisms that can be chosen for solving a dispersed phase problem, with special emphasis on the lagrangian point-particle approach which is employed in this thesis. Then, section \ref{sec:ch3_state_art_lagrangian_injection} presents the state of the art on lagrangian methods to simulate fuel injection in MSFI systems, which is the starting point of this work.
+
+\section{Numerical approaches to model dispersed phase flows}
+\label{sec:ch3_numerical_approaches_dispersed_phase}
+
+
 The spray generated in the dispersed phase regime is mainly distinguished from liquid in the separate regime by the following features (represented in Figure \ref{fig:atomization_regimes_herrmann}):
 
 \begin{itemize}
@@ -32,13 +38,8 @@ A classification of numerical methods to simulate dispersed phase flows based on
 	\label{fig:balachandar_numerical_methods_representation}
 \end{figure}
 
-In this chapter, numerical strategies to simulate dispersed phase flows are reviewed. Section \ref{sec:ch3_numerical_approaches_dispersed_phase} summarizes some of the available formalisms that can be chosen for solving a dispersed phase problem, with special emphasis on the lagrangian point-particle approach which is employed in this thesis. Then, section \ref{sec:ch3_state_art_lagrangian_injection} presents the state of the art on lagrangian methods to simulate fuel injection in MSFI systems, which is the starting point of the works presented in this thesis.
-
-\section{Numerical approaches to model dispersed phase flows}
-\label{sec:ch3_numerical_approaches_dispersed_phase}
-
-
 %The different dispersed phase methodologies aim at resolving Eq. (\ref{eq:WBE_spray_representation}), either by approximating this equation to obtain the function $f$ or by making point-particles assumptions, as shown in Figure \ref{fig:balachandar_numerical_methods_representation}. This chapter makes a review of some of these strategies, with special emphasis on the lagrangian point-particle approach which is employed in this thesis.
+
 
 \subsection{Statistical methods}
 \label{subsec:ch3_statistical_methods}
@@ -57,7 +58,7 @@ where $N_d$ is the number of droplets in the spray, and $\textbf{x}_p$, $\textbf
 \frac{\partial f}{\partial t} + \nabla_{\textbf{x}_p} \left( \textbf{u}_p f \right) + \nabla_{\textbf{u}_p} \left( \textbf{F}_p f \right) + \frac{\partial E_{S_p} f}{\partial S_p} + \frac{\partial E_{T_p} f}{\partial T_p}
 \end{equation}
 
-where $\textbf{x}_p$, $\textbf{u}_p$, $S_p$ and $T_p$ are each individual particle's position, velocity, surface and temperature, respectively; $\textbf{F}_p$ is the force acting on the particle, and $E_S$ and $E_T$ are respectively the exchange terms due to mass (evaporation rate) and energy (heat transfer). Statistical approaches aim at determining the function $f$ by solving/approximating Eq. (\ref{eq:WBE_spray_representation}). Stochastic methods to solve for the dispersed phase include the stochastic lagrangian approach of \citeColor[dukowicz_particle-fluid_1980], eulerian methods considering a monodisperse \citepColor[drew_theory_1999] or a polydisperse spray \citepColor[laurent_multi-fluid_2001], and quadrature methods. These methods are out of the scope of the present work and hence are not discussed here.
+where $\textbf{x}_p$, $\textbf{u}_p$, $S_p$ and $T_p$ are each individual particle's position, velocity, surface and temperature, respectively; $\textbf{F}_p$ is the force acting on the particle, and $E_{S_p}$ and $E_{T_p}$ are respectively the exchange terms due to mass (evaporation rate) and energy (heat transfer). Statistical approaches aim at determining the function $f$ by solving/approximating Eq. (\ref{eq:WBE_spray_representation}). Stochastic methods to solve for the dispersed phase include the stochastic lagrangian approach of \citeColor[dukowicz_particle-fluid_1980], eulerian methods considering a monodisperse \citepColor[drew_theory_1999] or a polydisperse spray \citepColor[laurent_multi-fluid_2001], and quadrature methods. These methods are out of the scope of the present work and hence are not discussed here.
 
 
 
@@ -177,7 +178,7 @@ where $T_\mathrm{g}$ is the gas temperature, $h_p$ is the film coefficient of th
 \section{Stage of the art in injection models for MSFI systems}
 \label{sec:ch3_state_art_lagrangian_injection}
 
-Several numerical formalisms for modeling the dispersed phase in two-phase flows have been introduced in the previous section. The choice of formalism will depend on the characteristics of the problem to solve. In this work, the lagrangian representation presented in $\S$\ref{sec:ch3_EL_formalisms} is used to model the dispersed phase due to its low computational cost and its applicability to account for polydispersity of the spray.%, which is of particular interest to develop realistic lagrangian injectors as stated in $\S$\ref{sec:ch1_objective_thesis_outline}.
+Several numerical formalisms for modeling the dispersed phase in two-phase flows have been introduced in the previous section. In this work, the lagrangian representation presented in $\S$\ref{sec:ch3_EL_formalisms} is used to model the dispersed phase due to its low computational cost and its applicability to account for polydispersity of the spray.%, which is of particular interest to develop realistic lagrangian injectors as stated in $\S$\ref{sec:ch1_objective_thesis_outline}.
 
 In all dispersed-phase simulations, the first step is to introduce the lagrangian droplets in the domain with their proper boundary conditions. This is achieved by means of \textbf{lagrangian injection models}, which is the main interest of the present work. The fact of using a lagrangian approach for representing the particles has the advantage of allowing the injection of a polydisperse spray from the beginning of the simulation, something which is not possible with other dispersed formalisms such as the eulerian ones. This is of particular interest for performing injection in realistic systems, such as in MSFI configurations presented in $\S$\ref{sec:ch1_fuel_injection_technology}. 
 
@@ -211,7 +212,7 @@ In the last place, a category called \textbf{reference spray learning} is presen
 
 \begin{figure}[h!]	
 	\centering
-	\includeinkscape[inkscapelatex=true,scale=0.75]{./part1_numerical_approaches/figures_ch3/state_art_lagrangian}
+	\includeinkscape[inkscapelatex=true,scale=0.70]{./part1_numerical_approaches/figures_ch3/state_art_lagrangian}
 	\caption{Classification proposed for the state of the art in lagrangian injection modeling.}
 	\label{fig:state_art_injection}
 \end{figure}
@@ -219,7 +220,20 @@ In the last place, a category called \textbf{reference spray learning} is presen
 \subsection{Hollow cone spray}
 \label{subsec:ch3_hollow_cone_spray}
 
-Pressure-swirl atomizers for delivering fuel through the pilot stage in multi-staged injectors will create a hollow cone spray. These type of nozzles are widely used and have been extensively studied both experimentally and numerically. Several models exist in literature for modeling the fuel injection in pressure-swirl with lagrangian formalisms. In this section two models are presented: the FIM-UR methodology developed by \citepColor[sanjose_fuel_2011], and the LISA model presented in \citeColor[guedot_developpement_2015].
+Pressure-swirl atomizers for delivering fuel through the pilot stage in multi-staged injectors will create a hollow cone spray. An example of pressure-swirl injector is shown in Figure \ref{fig:hollow_cone_view}: liquid is injected inside the nozzle with a rotational component (swirl), that will eventually create a hollow cone when the fuel leaves the nozzle. These type of nozzles are widely used and have been extensively studied both experimentally and numerically. Several models exist in literature for modeling the fuel injection in pressure-swirl with lagrangian formalisms. In this section two models are presented: the FIM-UR methodology developed by \citepColor[sanjose_fuel_2011], and the LISA model presented in \citeColor[guedot_developpement_2015].
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./part1_numerical_approaches/figures_ch3/pressure-swirl-atomizer-wei}
+       \centering
+    \caption[Pressure-swirl atomizer]{Pressure-swirl atomizer.  \textsl{Left}: schematical view. \textsl{Right}: experimental snapshot with key hollow-cone spray features. Source: \citeColor[wei_improved_2014].}
+    \label{fig:hollow_cone_view}
+\end{figure}
+
+
+
+
+
 
 
 \subsubsection*{FIM-UR model}
@@ -292,7 +306,7 @@ u_\theta \left( r \right) = u_z  \frac{r}{R_S^0} \tan \sigma_s
 
 \begin{figure}[ht]
     \centering
-    \includeinkscape[inkscapelatex=true,scale=0.85]{./part1_numerical_approaches/figures_ch3/LISA_model}
+    \includeinkscape[inkscapelatex=true,scale=0.75]{./part1_numerical_approaches/figures_ch3/LISA_model}
     %\includegraphics[width=0.8\textwidth]{./part1_numerical_approaches/figures_ch3/LISA}
        \centering
     \caption{LISA model for injection in pressure-swirl atomizers. Source: \citeColor[guedot_developpement_2015].}
@@ -305,11 +319,11 @@ u_\theta \left( r \right) = u_z  \frac{r}{R_S^0} \tan \sigma_s
 
 In MSFI, at certain operating conditions the liquid injected through the pilot or take-off stages can impinge the walls of the atomizer forming an airblast spray, see Figure \ref{fig:multipoint_injector_snecma}. Airblast sprays have been extensively studied \citemColor[lefebvre_airblast_1980, gepperth_pre-filming_2010] and used in industrial burners, found in atomizers of type plain jet or prefilmers \citepColor[lefebvre_atomization_2017].
 
-Regarding numerical approaches to simulate airblast sprays, a phenomenological model was derived by \citeColor[chaussonnet_new_2016] called PAMELA (Primary Atomization Model for prEfilming airbLAst injectors). This model uses results obtained in the KIT-ITS airblast experiment by \citeColor[gepperth_pre-filming_2010] for predicting initial conditions for droplets sizes and velocities. Correlations and laws for droplets sizes are derived by observing the breakup mechanisms found in airblast spray, shown in Figure \ref{fig:airblast_breakup_mechanism_chaussonnet}. This thesis does not address airblast atomization and hence the PAMELA model is no longer discussed here, the interested reader is referred to \citeColor[chaussonnet_modeling_2014] and \citeColor[chaussonnet_new_2016] for more details.
+Regarding numerical approaches to simulate airblast sprays, a phenomenological model was derived by \citeColor[chaussonnet_new_2016] called PAMELA (Primary Atomization Model for prEfilming airbLAst injectors). This model uses results obtained in the KIT-ITS airblast experiment by \citeColor[gepperth_pre-filming_2010] for predicting initial conditions for droplets sizes and velocities. Correlations and laws for droplets sizes are derived by observing the breakup mechanisms found in airblast spray, shown in Figure \ref{fig:airblast_breakup_mechanism_chaussonnet}. This thesis does not address airblast atomization and hence the PAMELA model is no longer discussed here: the interested reader is referred to \citeColor[chaussonnet_modeling_2014] and \citeColor[chaussonnet_new_2016] for more details. 
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.8\textwidth]{./part1_numerical_approaches/figures_ch3/airblast_breakup_mechanism_chaussonnet}
+    \includegraphics[width=0.9\textwidth]{./part1_numerical_approaches/figures_ch3/airblast_breakup_mechanism_chaussonnet}
        \centering
     \caption[Breakup mechanism in an airblast prefilmer spray]{Breakup mechanism in an airblast prefilmer spray. Source: \citeColor[chaussonnet_new_2016].}
     \label{fig:airblast_breakup_mechanism_chaussonnet}
@@ -321,9 +335,7 @@ Regarding numerical approaches to simulate airblast sprays, a phenomenological m
 \subsection{Liquid jet in crossflow}
 \label{ch3:subsec_lagrangian_liquid_JICF}
 
-Several numerical approaches have been used to study liquid jet in crossflow injection, whose phenomenology has been introduced in $\S$\ref{sec:ch1_fuel_injection_technology}. Some works \citemColor[herrmann_detailed_2009,pai_role_2009,behzad_surface_2016,li_detailed_2018] have been devoted to resolved simulations of the atomization process, performed with the methodologies introduced in Chapter \ref{ch2:numerical_methods_resolved_atomization}. Such studies are useful to get insight on the dynamics and the underlying physical phenomena governing breakup, as well as to obtain information on the size and velocity distributions of droplets generated. However, these methods are computationally expensive and become unfeasible for simulating realistic gas turbines and coupling other physics such as evaporation and combustion. To solvent this issue, numerical models based on dispersed phase computations can be used. The rest of this chapter makes a review of such methodologies.
-
-Figure \ref{fig:jaegle_jicf_modeling_approaches} shows four possible modeling approaches for performing simulations of liquid jet in crossflow. The approach (a) is the direct simulation of the jet (resolved atomization) mentioned in the last paragraph. The other three englobe several ways of tackling JICF simulations from a lagrangian perspective, where droplets are injected. All the categories from Figure \ref{fig:jaegle_jicf_modeling_approaches} take into account, one way or another, the liquid column (dense core) and hence its influence on the gaseous phase. The methods presented in this section are classified accordingly to the depicted lagrangian approaches, and are shown in chronological order.
+Several numerical approaches have been used to study liquid jet in crossflow injection, whose phenomenology has been introduced in $\S$\ref{sec:ch1_fuel_injection_technology}. Figure \ref{fig:jaegle_jicf_modeling_approaches} shows four different modeling approaches.  Case (a) is the direct simulation of the jet (resolved atomization) performed with the methodologies introduced in Chapter \ref{ch2:numerical_methods_resolved_atomization}; which has been used in several works  \citemColor[herrmann_detailed_2009,pai_role_2009,behzad_surface_2016,li_detailed_2018] have been devoted to resolved simulations of the atomization process. The other three approaches englobe several ways of tackling JICF simulations from a lagrangian perspective, where droplets are injected. All the categories from Figure \ref{fig:jaegle_jicf_modeling_approaches} take into account, one way or another, the liquid column (dense core) and hence its influence on the gaseous phase. This section reviews seven different past works to tackle liquid JICF from a lagrangian perspective. These works, which are all classified in Figure \ref{fig:state_art_injection}, are explained in chronological order.
 
 \begin{figure}[ht]
     \centering
