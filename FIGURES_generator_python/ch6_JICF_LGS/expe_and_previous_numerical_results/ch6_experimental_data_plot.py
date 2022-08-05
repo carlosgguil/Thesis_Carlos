@@ -6,11 +6,14 @@ Created on Mon Jul  1 10:04:13 2019
 @author: Carlos G. GUILLAMON
 """
 
-from functions_expe_comparison import get_SMD_from_integrated_profile
+import sys
+sys.path.append('C:/Users/Carlos Garcia/Documents/GitHub/spr_post')
+
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import numpy as np
 import pandas as pd
+from functions_expe_comparison import get_SMD_from_integrated_profile
 
 # Change size of figures 
 FFIG = 0.5
@@ -35,7 +38,7 @@ plt.rcParams['text.usetex'] = True
 
 
 
-folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch6_lagrangian_JICF/expe_results_TEST/'
+folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch6_lagrangian_JICF/expe_results/'
 folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/DLR_data/'
 
 figsize_ = (FFIG*24,FFIG*16)
@@ -272,9 +275,47 @@ ax2.set_yticks([15,20,25,30,35,40,45])
 ax2.tick_params(axis='y', colors='blue',pad=20)
 ax2.yaxis.label.set_color('blue')
 plt.tight_layout()
+#plt.savefig(folder_manuscript+'integrated_fluxes_along_y.pdf')
+plt.show()
+plt.close()
+
+
+
+
+
+
+# Integrated with y (switched axis)
+fig = plt.figure(figsize=(FFIG*24,FFIG*20))
+ax = fig.add_subplot(111)
+lns1 = ax.plot(flux_z_int_values_all[0],z_int_values_all[0],'-ok',label=r'$\mathrm{UG100},~q_l$')
+lns2 = ax.plot(flux_z_int_values_all[1],z_int_values_all[1],'--ok',label=r'$\mathrm{UG75},~q_l$')
+ax2 = ax.twiny()
+lns3 = ax2.plot(SMD_z_int_values_all[0],z_int_values_all[0],'-^b',label=r'$\mathrm{UG100},~SMD$')
+lns4 = ax2.plot(SMD_z_int_values_all[1],z_int_values_all[1],'--^b',label=r'$\mathrm{UG75},~SMD$')
+lns = lns1+lns2+lns3+lns4
+labs = [l.get_label() for l in lns]
+ax.legend(lns, labs, loc='upper left', ncol=2)
+#ax.legend(loc='upper left')
+ax.grid()
+ax.set_ylabel(z_label_)
+ax.set_ylim((0,20))
+ax.set_yticks([0,5,10,15,20])
+ax.set_xlabel(label_flux_aver)
+ax2.set_xlabel(label_SMD_aver)
+ax.set_xlim((0,5))
+ax.set_xticks(np.linspace(0,ax.get_xlim()[1], int(ax.get_xlim()[1]/1)+1 ))
+ax2.set_xlim((15,45))
+ax2.set_xticks([15,20,25,30,35,40,45])
+ax2.tick_params(axis='x', colors='blue',pad=20)
+ax2.xaxis.label.set_color('blue')
+plt.tight_layout()
 plt.savefig(folder_manuscript+'integrated_fluxes_along_y.pdf')
 plt.show()
 plt.close()
+
+
+
+#%%
 
 
 # Integrated with z

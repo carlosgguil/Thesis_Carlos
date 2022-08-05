@@ -3,7 +3,7 @@
 
 \section{Introduction}
 
-Part II has been devoted to the development of models for lagrangian injection. The modeling methodology has been detailed in Chapter \ref{ch4:sli_development}. The models have been constructed from resolved atomization simulations of a liquid jet in crossflow. Then, the built models have been applied to perform dispersed phase simulations of the same configuration. The next chapters show the application of the models to a swirled MSFI burner more representative of industrial systems. The same rationale as in Part II is followed: models for lagrangian injection are built from resolved atomization simulations of one multipoint injector hole (Chapter \ref{ch8:bimer_resolved_atomization}), and then applied to initialise dispersed phase simulations of the full take-off stage (Chapter \ref{ch9:BIMER_lagrangian}). 
+Part II has been devoted to the development of models for lagrangian injection. The modeling methodology has been detailed in Chapter \ref{ch4:sli_development}. Firstly, lagrangian injectors have been constructed from resolved atomization simulations of a liquid jet in crossflow. Then, the built models have been applied to perform dispersed phase simulations of the same configuration. The next chapters show the application of the models to a swirled MSFI burner more representative of industrial systems. The same rationale as in Part II is followed: models for lagrangian injection are built from resolved atomization simulations of one multipoint injector hole (Chapter \ref{ch8:bimer_resolved_atomization}), and then applied to dispersed phase simulations of the full take-off stage (Chapter \ref{ch9:BIMER_lagrangian}). 
 
 Prior to the application of the models, this chapter introduces the experimental test bench and the numerical setup replicating this geometry. Non-reactive simulations of the aerodynamic flow field without liquid injection are reported and validated with experiments. Two experimental operating points are simulated: one studied in the thesis of \citeColor[providakis_etude_2013] for validating the numerical simulations, and another one studied by \citeColor[renaud_high-speed_2015] that settles the gaseous field and initial conditions for performing the two-phase flow studies from Chapters \ref{ch8:bimer_resolved_atomization} and \ref{ch9:BIMER_lagrangian}.
 
@@ -97,7 +97,7 @@ Application  & 43.1 & 433 & 0.82 & $2.39 \cdot 10^{-5}$ & 1 & \citeColor[renaud_
 
 \subsection{Computational geometry}
 
-The computational configuration of the BIMER test bench is shown in Figure \ref{fig:BIMER_geometry_full_domain}. Air is introduced into the plenum through a cylindrical nozzle. The MSFI burner is located at the end of the plenum. A diffusor connects the burner to the combustion chamber. At the end of the chamber, a region representing the atmosphere is located with a coflow of air at low speed ($5$ m/s). 
+The computational configuration of the BIMER test bench is shown in Figure \ref{fig:BIMER_geometry_full_domain}. Air is introduced into the plenum through a cylindrical nozzle. The MSFI burner is located at the end of the plenum. This burner is connected to the combustion chamber with a diffusor. A region representing the atmosphere with a coflow of air at low speed ($5$ m/s) is located at the end of the chamber.
 
 \begin{figure}[h!]
 	\centering
@@ -106,7 +106,7 @@ The computational configuration of the BIMER test bench is shown in Figure \ref{
 	\label{fig:BIMER_geometry_full_domain}
 \end{figure}
 
-Figure \ref{fig:BIMER_geometry_flower_details} gives a detailed view of the MSFI burner. Both the take-off and pilot stages are represented as in the experimental geometry, with the fuel injectors and the gaseous swirlers. Fuel feeding lines and other experimental features have not been modeled due to their geometrical complexity \citepColor[cheneau_etude_2019]. The flower, whose main function is to fix the burner to the test rig, has been included in the computational domain since it influences the incoming gaseous flow field.
+Figure \ref{fig:BIMER_geometry_flower_details} gives a detailed view of the MSFI burner. Both the take-off and pilot stages are represented as in the experimental geometry, with the fuel injectors and the gaseous swirlers. Fuel feeding lines and other experimental features have not been modeled due to their geometrical complexity \citepColor[cheneau_etude_2019]. The flower, whose main function is to attach the burner to the test rig, has been included in the computational domain since it influences the incoming gaseous flow field.
 
 \begin{figure}[h!]
 	\centering
@@ -137,6 +137,25 @@ Fine & 37,835,617 & 9,738,371 & 5.04\\ % $\Delta t = 0.5$ [$\mu$s]
 %Figure \ref{fig:BIMER_meshes} provides a view of both meshes, with zoomed-in views of the injector where both meshes are refined. At the plenum, the baseline cell size is $\Delta x = 3$ mm for both meshes. Then, for the coarse mesh the injector region is refined overall with $\Delta x = 1.7$ mm. Further downstream, along the combustion chamber the cell size evolves gradually from $\Delta x = 3$ mm at the exit of the injector until $\Delta x = 8$ mm at the inlet of the atmospheric region. The injector walls are not refined in this case. For the fine mesh, on the contrary, the injector overall mesh size is $\Delta x = 0.5$ mm. The walls of the pilot and take-off have been refined to $\Delta x = 0.25$ mm. At the exit of the injector, a conic region has been placed with a baseline size of $\Delta x = 1$ mm. Further downstream the combustion chamber, the cell size evolves from this value until $\Delta x = 8$ mm at the inlet of the atmospheric region as in the coarse mesh.
 
 Figure \ref{fig:BIMER_meshes} provides a view of both grids, with zoomed-in views of the injector where more elements are placed. At the plenum, the baseline cell size is $\Delta x = 3$ mm. Then, the injector region is refined overall with $\Delta x = 0.5$ mm for both meshes. In the coarse mesh, the cell size in the combustion chamber  evolves gradually from $\Delta x = 3$ mm at the exit of the injector until $\Delta x = 8$ mm at the inlet of the atmospheric region. The injector walls are not refined in this case. For the fine mesh, on the contrary, the walls of the pilot and take-off have been refined to $\Delta x = 0.25$ mm. At the exit of the injector, a conic region has been placed with a baseline size of $\Delta x = 1$ mm. Downstream the combustion chamber, the cell size evolves from $\Delta x = 1$ mm to $\Delta x = 8$ mm at the inlet of the atmospheric region as in the coarse mesh. Simulations are run using an LES approach where a dynamic Smagorinsky filter is used to model the subgrid turbulent scales \citepColor[germano_dynamic_1991].
+
+\subsection{Simulated cases}
+
+In total, three simulations have been performed: two for the validation operating condition, one with each mesh from Table \ref{tab:BIMER_meshes_gaseous}, and one for the application operating point with the fine mesh. The nomenclature for \ref{tab:BIMER_gas_simus_nomenclature}.
+
+\begin{table}[!h]
+\centering
+\caption{Nomenclature for simulations reported in this chapter}
+\begin{tabular}{ccc}
+\thickhline
+Mesh   & Operating condition & Name \\
+\hline
+Coarse & Validation & VAL\_COAR  \\
+Fine & Validation & VAL\_FINE  \\
+Fine & Application & APP\_FINE  \\
+\thickhline
+\end{tabular}
+\label{tab:BIMER_gas_simus_nomenclature}
+\end{table}
 
 \newpage
 
@@ -170,7 +189,7 @@ Swirled flows are characterized by a high rotational flow measured by the azimut
 S_w = \frac{G_\theta}{R_\mathrm{ext} G_x} = \frac{1}{R_\mathrm{ext}} \frac{\int_0^{R_\mathrm{ext}} \rho u u_\theta r^2 dr}{\int_0^{R_\mathrm{ext}} \rho u^2 r dr}
 \end{equation}
 
-where $R_\mathrm{ext}$ is the outer radius of injection. For $S_w$ values over a given critical value, usually 0.6 \citepColor[syred_combustion_1974], a phenomenon known as vortex breakdown appears. Vortex breakdown is manifested by the appearance of the recirculation zones and instabilities in the aerodynamic field and in the flame dynamics. A common hydrodynamic instability, present in most swirled burners, is the Precessing Vortex Core (PVC). In the operating points from Table \ref{tab:gaseous_operating_points_BIMER}, the values of $S_w$ are around unity \citemColor[providakis_etude_2013,renaud_high-speed_2015], which are higher than the threshold $S_w > 0.6$. Hence, in both operating conditions the mentioned phenomena are present. The recirculation regions are shown and discussed for both the validation ($\S$\ref{sec:ch7_BIMER_validation_point}) and application points ($\S$\ref{ch7:BIMER_application_point}), while the PVC instability is shown only for the latter.
+where $R_\mathrm{ext}$ is the outer radius of injection. For swirl numbers over a given critical value, usually 0.6 \citepColor[syred_combustion_1974], a phenomenon known as vortex breakdown appears. The later is characterized by the appearance of the recirculation zones and instabilities in the aerodynamic field and in the flame dynamics. A common hydrodynamic instability, present in most swirled burners, is the Precessing Vortex Core (PVC). In the operating points from Table \ref{tab:gaseous_operating_points_BIMER}, the values of $S_w$ are around unity \citemColor[providakis_etude_2013,renaud_high-speed_2015], which are higher than the threshold $S_w > 0.6$. Hence, in both operating conditions the mentioned phenomena are present. The recirculation regions are shown and discussed for both the validation ($\S$\ref{sec:ch7_BIMER_validation_point}) and application points ($\S$\ref{ch7:BIMER_application_point}), while the PVC instability is shown only for the latter.
 
 \subsection{Characteristic time scales}
 
@@ -220,7 +239,7 @@ Application & 13.3 & 18.0 & 37.6 & 4.4 \\
 \section{Validation of gaseous field}
 \label{sec:ch7_BIMER_validation_point}
 
-The numerical setup introduced previously is firstly validated on the operating point tested experimentally by \citeColor[providakis_etude_2013]. This point was also numerically studied in the work of \citeColor[cheneau_etude_2019] with a mesh of 20.1 million elements and with the software AVBP, developed at CERFACS \citepColor[cerfacs_avbp_2011] and which uses different numerics to the software YALES2. Details on the mesh and parameters used in this study can be found in the reference previously mentioned. Regarding the results obtained in this work, two computations have run with YALES2 (one with each mesh shown in Figure \ref{fig:BIMER_meshes}) for a total physical time of 180 ms. For flow establishment, simulations have run first for a total physical time of 60 ms ($\sim 2 \tau_{conv}$). At the end of this time, statistics have been accumulated for a physical time of 120 ms ($\sim 4 \tau_{conv}$). All the mean values reported in this section have been time-averaged for this duration.
+The numerical setup introduced previously is firstly validated on the operating point tested experimentally by \citeColor[providakis_etude_2013]. This point was also numerically studied in the work of \citeColor[cheneau_etude_2019] with a mesh of 20.1 million elements and with the software AVBP, developed at CERFACS \citepColor[cerfacs_avbp_2011]. Details on the mesh and parameters used in this study can be found in the reference previously mentioned. Regarding the results obtained in this work, two computations have run with YALES2 (one with each mesh shown in Figure \ref{fig:BIMER_meshes}) for a total physical time of 180 ms. For flow establishment, simulations have run first for a total physical time of 60 ms ($\sim 2 \tau_{conv}$). At the end of this time, statistics have been accumulated for a physical time of 120 ms ($\sim 4 \tau_{conv}$). All the mean values reported in this section have been time-averaged for this duration.
 
 In first place, the meshes employed are assessed by plotting the ratio between the mean turbulent viscosity and the laminar viscosity $\overline{\nu}_T / \overline{\nu}$ in the central plane. $\overline{\nu}_T$ is the turbulent viscosity modeled by the LES subgrid model, in this case the dynamic Smagorinsky model \citepColor[germano_dynamic_1991]. A dynamic model has been chosen since it provides values of modelled turbulent viscosity lower than the static ones, hence improving the simulation results in recirculation regions and turbulent boundary layers \citepColor[sayadi_comparative_2010]. The results are shown in Figure \ref{fig:BIMER_NU_ratios}. In both meshes, the ratio is high upstream the multipoint injector and low within it, since both meshes have similar characteristics in these regions (see Figure \ref{fig:BIMER_meshes}) except for the wall refinement in the fine mesh, which has not a big impact on the viscosity ratio in this case. The biggest differences are located downstream the injector: the values of the viscosity ratio are much smaller in the fine mesh than in the coarse one due to the reduction in element size. In both meshes, there is a transition of  $\overline{\nu}_T / \overline{\nu}$ in the central plane. $\overline{\nu}_T$ in the divergent section due to a steep gradient in the cell size, which is more pronounced in the coarse case. In general, the lower values of the viscosity ratio in the fine mesh downstream the injector indicate that the turbulent model contributes to a lesser extent, hence improving the LES quality (making it closer to DNS) in these regions for this resolution.
 
@@ -232,13 +251,13 @@ In first place, the meshes employed are assessed by plotting the ratio between t
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includeinkscape[inkscapelatex=false,scale=0.32]{./part3_applications/figures_ch7_aero/BIMER_nu_ratio/BIMER_nu_ratio_fine}
-   \caption{Fine mesh}
+   \caption{Case VAL\_FINE}
    \label{fig:field_NU_T_NU_mean_fine}
 \end{subfigure}
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includeinkscape[inkscapelatex=false,scale=0.32]{./part3_applications/figures_ch7_aero/BIMER_nu_ratio/BIMER_nu_ratio_coarse}
-   \caption{Coarse mesh}
+   \caption{Case VAL\_COAR}
    \label{fig:field_NU_T_NU_mean_coarse}
 \end{subfigure}
 \caption[Ratio between turbulent mean viscosity and mean viscosity in central plane]{Ratio between turbulent mean viscosity and mean viscosity in central cut of BIMER.}
@@ -252,14 +271,14 @@ The mean axial field for in the middle plane is shown in Figure \ref{fig:BIMER_m
 \begin{subfigure}[b]{0.4\textwidth}
 	\centering
    \includeinkscape[inkscapelatex=false,scale=0.32]{./part3_applications/figures_ch7_aero/BIMER_validation_qualitative_mean_field/field_axial_velocity_mean_fine}
-   \caption{Results obtained with the fine mesh}
+   \caption{Case VAL\_FINE}
    \label{fig:field_axial_velocity_mean_fine}
 \end{subfigure}
 \hspace{0.8in}
 \begin{subfigure}[b]{0.4\textwidth}
 	\centering
    \includeinkscape[inkscapelatex=false,scale=0.32]{./part3_applications/figures_ch7_aero/BIMER_validation_qualitative_mean_field/field_axial_velocity_mean_coarse}
-   \caption{Results obtained with the coarse mesh}
+   \caption{Case VAL\_COAR}
    \label{fig:field_axial_velocity_mean_coarse}
 \end{subfigure}
 \begin{subfigure}[b]{1.0\textwidth}
@@ -292,7 +311,7 @@ The results obtained with both fine and coarse meshes show a good flow topology 
 
 With respect to the axial velocities $u$, the mean maps from Figure \ref{fig:validation_qualitative_velocity_fields}a show that both IRZ and CRZ are well captured. The shear layers between IRZ and CRZ, where the velocity gradients are high, are also resolved. Symmetry with respect to the central axis is observed. For $u_\mathrm{RMS}$ (Figure \ref{fig:validation_qualitative_velocity_fields}b), symmetry with respect to this line is also observed. The RMS values are higher at the IRZ and the shear layers, where high velocity fluctuations are present. In general, RMS values are overestimated in the simulations with respect to the experiments. With respect to the vertical velocities $v$, the mean values from Figure \ref{fig:validation_qualitative_velocity_fields}c far downstream the diffusor match the experiments. Closer, the simulations present two circular pockets of high positive and negative velocities (enclosed by the dashed contours in Figure \ref{fig:validation_qualitative_velocity_fields}c, fine case) that are not present in the experiments. The $v_\mathrm{RMS}$ values of Figure \ref{fig:validation_qualitative_velocity_fields}d do not fully agree with the experiments. The experimental results for the mean velocity, however, do not present symmetry with respect to the central axis, something which is expected in this type of swirled configurations. Overall, all the numerical results obtained with both fine and coarse meshes match closely the numerical results obtained with AVBP by \citeColor[cheneau_etude_2019].
 
-By comparing the results from both fine and coarse meshes, it is observed that both meshes provide values with the same order of magnitude for all velocities. The RMS values obtained with the coarse mesh are lower than for the fine one. Also, it is clearly seen that the fields obtained with the fine mesh are smoother (i.e. present less numerical noise) than the ones with the coarse one. This is attributed to numerical diffusion in the simulations, which is higher for the coarse mesh. The diffusion is more noticeable in the regions with high velocity gradients such as the shear layers of $\overline{u}$ and the velocity pockets of $\overline{v}$, where the numerical noise in the velocity field is visible. 
+By comparing the results from fine and coarse meshes, it is observed that both cases provide values with the same order of magnitude for all velocities. The RMS values obtained with the coarse mesh are lower than for the fine one. Also, it is clearly seen that the fields obtained with the fine mesh are smoother (i.e. present less numerical noise) than the ones with the coarse one. This is attributed to numerical diffusion in the simulations, which is higher for the coarse mesh. The diffusion is more noticeable in the regions with high velocity gradients such as the shear layers of $\overline{u}$ and the velocity pockets of $\overline{v}$, where the numerical noise in the velocity field is visible. 
 
 \vspace{-0.1in}
 \subsection{Quantitative validation}
@@ -422,7 +441,7 @@ Figure \ref{fig:BIMER_application_streamlines} shows the mean axial velocity fie
 \begin{figure}[ht]
 \centering
 \includeinkscape[inkscapelatex=false,scale=0.5]{./part3_applications/figures_ch7_aero/BIMER_application_U/application_streamlines_and_U_mean}
-\caption[Mean axial velocity field with streamlines for the application operating oint]{Mean axial velocity field with streamlines for the application operating of BIMER by \citeColor[renaud_high-speed_2015]. The while line indicates the iso-contour of $\overline{u} = 0$.}
+\caption[Mean axial velocity field with streamlines from case APP\_FINE]{Mean axial velocity field with streamlines from case APP\_FINE. The white line indicates the iso-contour of $\overline{u} = 0$.}
 \label{fig:BIMER_application_streamlines}
 \end{figure}
 
@@ -458,7 +477,7 @@ In all cases, the RMS values are really high closer to the injector and decrease
    \caption{Transversal velocity $w$}
    \label{fig:field_application_transversal_velocity} 
 \end{subfigure}
-\caption[Mean and RMS velocity fields at central plane in BIMER for the application operating point]{Mean and RMS velocity fields at central plane in BIMER for the application operating point by \citeColor[renaud_high-speed_2015].}
+\caption{Mean and RMS velocity fields at central plane from case APP\_FINE}
 \label{fig:field_application}
 \end{figure}
 
@@ -500,7 +519,7 @@ where $\Omega_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} - \fra
    %\caption{Vortical structures shown by iso-surface of Q-criterion}
    \label{fig:BIMER_application_Qcrit}
 \end{subfigure}
-\caption[Turbulent structures in BIMER]{Turbulent structures in BIMER. \textsl{Left}: PVC visualization (blue) by iso-contour of static pressure. \textsl{Right}: Vortical structures (red) shown by iso-surface of Q-criterion}
+\caption[Turbulent structures in BIMER]{Turbulent structures in BIMER from case APP\_FINE. \textsl{Left}: PVC visualization (blue) by iso-contour of static pressure. \textsl{Right}: Vortical structures (red) shown by iso-surface of Q-criterion}
 \label{fig:BIMER_application_turbulent_structures}
 \end{figure}
 
@@ -511,6 +530,6 @@ where $\Omega_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} - \fra
 
 \section{Conclusion}
 
-This chapter has presented non-reactive LES gaseous simulations of the BIMER test bench. In first place, the experimental test rig at EM2C and the operating conditions chosen to perform simulations have been introduced. Two experimental points have been chosen: one studied by \citeColor[providakis_etude_2013] to validate the simulations and numerical setup, since it presents qualitative and quantitative data on the gaseous flow field, and another one tested by \citeColor[renaud_high-speed_2015] which does not show aerodynamic quantities, but for which spray injection and dispersion have been studied and, hence, is used as the test case in the next chapters. Results obtained with YALES2 for the validation case have shown good agreements with experimental data. From this study, a fine mesh of 38 million elements has been chosen as the baseline mesh for simulating the application point. Results for the application point shown a good behaviour of the gaseous flow field for swirling jets with high swirl number, in accordance with the flow topologies and velocity fields from literature in similar cases. Turbulent structures (PVC and vortices visualized through the Q-criterion) have been identified, demonstrating the turbulent characteristics of the operating points simulated. The simulations of the application case are then used as initial solutions to perform the resolved simulations from Chapter \ref{ch8:bimer_resolved_atomization} and the dispersed phase computations from Chapter \ref{ch9:BIMER_lagrangian}.
+This chapter has presented non-reactive LES gaseous simulations of the BIMER test bench. In first place, the experimental test rig at EM2C and the operating conditions chosen to perform simulations have been introduced. Two experimental points have been chosen: one studied by \citeColor[providakis_etude_2013] which presents data on the gaseous flow field, and another one tested by \citeColor[renaud_high-speed_2015] which does not show aerodynamic quantities, but studies the spray injection and dispersion. Firstly, simulations with YALES2 have been validated on the former operating condition. From this study, a fine mesh of 38 million elements has been chosen as the baseline mesh for simulating the second operating condition. Results for this case show a good behaviour of the gaseous flow field for swirling jets with high swirl number, in accordance with the flow topologies and velocity fields from literature in similar cases. Turbulent structures (PVC and vortices visualized through the Q-criterion) have been identified, demonstrating the turbulent characteristics of the operating points simulated. The simulations of the application case are then used as initial solutions to perform the resolved simulations from Chapter \ref{ch8:bimer_resolved_atomization} and the dispersed phase computations from Chapter \ref{ch9:BIMER_lagrangian}.
 
 %

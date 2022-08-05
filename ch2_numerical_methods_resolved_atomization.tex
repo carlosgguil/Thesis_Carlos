@@ -235,7 +235,7 @@ which implicates that the flow velocity normal to the interface must be zero, i.
 \subsubsection*{Mass conservation in separate phases}
 	\label{eq:mass_conservation_separated_phases}
 
-Two-phase flows must ensure mass conservation for each phase. This can be done by applying the RTT as given by Eqs. (\ref{eq:RTT_general_twoEquations}) to the field $\phi = \rho$. However this formulation introduces the need to deal with the liquid-gas interface, which is often changing in time. A more useful formulation can be developed by the strong form given by (\ref{eq:mass_conservation_general_integral}) to each phase separately \citepColor[drew_theory_1999]. For making it properly, it is necessary to introduce before the definition of \textbf{volume fraction} for the phase $k$, $\alpha_k$:
+Two-phase flows must ensure mass conservation for each phase. This can be done by applying the RTT as given by Eqs. (\ref{eq:RTT_general_twoEquations}) to the field $\phi = \rho$. However this formulation introduces the need to deal with the liquid-gas interface, which is often changing in time. A more useful formulation can be developed by the strong form given by (\ref{eq:mass_conservation_general_integral}) to each phase separately \citepColor[drew_theory_1999]. For applying it properly, it is necessary to introduce before the definition of \textbf{volume fraction} for the phase $k$, $\alpha_k$:
 
 \begin{equation}
 \label{eq:vol_frac_definition}
@@ -244,7 +244,7 @@ Two-phase flows must ensure mass conservation for each phase. This can be done b
 
 This magnitude determines the quantity of a given fluid $k$ that is contained inside a volume $V$. By definition, it follows that $\sum_{k=1}^\mathrm{N_{phases}} \alpha_k = 1$. It can be defined for both gas and liquid phases, $\alpha_\mathrm{g}$ and $\alpha_\mathrm{l}$, so then $\alpha_\mathrm{g} + \alpha_\mathrm{l} = 1$.
 
-Once the volume fractions for liquid and gas are defined, the continuity equation (\ref{eq:mass_conservation_general_differential}) can be defined for each phase as follows:
+Once the volume fractions for liquid and gas are introduced, the continuity equation (\ref{eq:mass_conservation_general_differential}) can be defined for each phase as follows:
 
 \begin{subequations}
 \begin{align}
@@ -263,7 +263,7 @@ The integral balance can be obtained by integrating both expressions over a fixe
 \end{align}
 \end{subequations}
 
-These equations present two components: a transient term and a surface term. The transient term has an effect when the mass of any phase is growing inside the control volume, e.g. at the first instants of fuel injection, when the fuel mass is increasing with time. Once a steady-state has been reached, this term becomes $0$. The surface term accounts for the mass fluxes entering or leaving the system through its boundaries. From this term, the \textbf{mass flow rate} $\dot{m}$ of a flux going though an area $A$ can be defined as:
+These equations present two components: a transient term and a surface term. The transient term has an effect when the mass of any phase is changing inside the control volume, e.g. at the first instants of fuel injection, when the fuel mass is increasing with time, or when evaporation takes place. Once a steady-state has been reached, this term becomes $0$. The surface term accounts for the mass fluxes entering or leaving the system through its boundaries. From this term, the \textbf{mass flow rate} $\dot{m}$ of a flux going though an area $A$ can be defined as:
 
 \begin{equation}
 \boxed{
@@ -321,7 +321,7 @@ The momentum conservation equation for a fluid system is obtained by substitutin
 \frac{d}{dt} \int_{\Omega_m} \rho \boldsymbol{u}  dV =  \int_\Omega \frac{\partial \left( \rho \boldsymbol{u} \right) }{\partial t} dV + \int_{\partial \Omega} \rho \boldsymbol{u} \left( \boldsymbol{u} \cdot \boldsymbol{n} \right) dS
 \end{equation}
 
-The left-hand side term represents the ensemble of forces acting in the control mass. These forces can be separated into volume and surface forces. The volume forces will be denoted by $\boldsymbol{b}$; the surface forces include the pressure $p$ and the viscous stress tensor $\overline{\overline{\pmb{\tau}}}$. With this notation, the \textbf{momentum conservation in integral form}, or \textbf{weak form of momentum conservation}, is defined as:
+The left-hand side term represents the ensemble of forces acting in the control mass. These forces can be separated into volume and surface forces. The volume forces will be denoted by $\boldsymbol{b}$; the surface forces include the pressure $p$ and the viscous stress tensor $\overline{\overline{\pmb{\tau}}}$. With this notation, the \textbf{momentum conservation in integral form}, or \textbf{weak form}, is defined as:
 
 \begin{equation}
 \label{eq:momentum_conservation_general_integral}
@@ -369,7 +369,7 @@ The left-hand side term can be expressed in the same way as in Eq. (\ref{eq:mome
 \frac{d}{dt} \int_{\Omega_m} \rho \boldsymbol{u} dV =  \int_{\partial \Omega} \left( - p \overline{\overline{\pmb{I}}} + \overline{\overline{\pmb{\tau}}} \right) \boldsymbol{n} dS + \int_\Omega \boldsymbol{b} dV + \int_{\Gamma} \left[ - \left( p_\mathrm{l} - p_\mathrm{g} \right) \overline{\overline{\pmb{I}}} + \left( \overline{\overline{\pmb{\tau}}}_\mathrm{l} - \overline{\overline{\pmb{\tau}}}_\mathrm{g}  \right) + \overline{\overline{\pmb{\tau}}}_\sigma  \right] \boldsymbol{n} dS
 \end{equation}
 
-In the interface term, a new contribution has been added: surface tension, represented in this equation by the tensor $\overline{\overline{\pmb{\tau}}}_\sigma$. Surface tension only contributes in the interface. These terms can now be introduced in the momentum conservation equation:
+In the interface term, a new contribution has been added: surface tension, represented in this equation by the tensor $\overline{\overline{\pmb{\tau}}}_\sigma$. Surface tension only contributes at the interface. These terms can now be introduced in the momentum conservation equation:
 
 \begin{multline}
  \int_{\Omega}  \frac{\partial \rho \boldsymbol{u} }{\partial t}  dV + \int_{\partial \Omega} \rho \boldsymbol{u} \left( \boldsymbol{u} \cdot \boldsymbol{n} \right) dS + \int_\mathsmaller{\Gamma} \left( \rho_\mathrm{l} \boldsymbol{u}_\mathrm{l} - \rho_\mathrm{g} \boldsymbol{u}_\mathrm{g} \right) \left( \boldsymbol{u}_{\scriptsize{\Gamma}} \cdot \boldsymbol{n}_{\scriptsize{\Gamma}} \right) dS = \\ = \int_{\partial \Omega} \left( - p \overline{\overline{\pmb{I}}} + \overline{\overline{\pmb{\tau}}} \right) \boldsymbol{n} dS + \int_\Omega \boldsymbol{b} dV + \int_{\Gamma} \left( - \left( p_\mathrm{l} - p_\mathrm{g} \right) \overline{\overline{\pmb{I}}} + \left( \overline{\overline{\pmb{\tau}}}_\mathrm{l} - \overline{\overline{\pmb{\tau}}}_\mathrm{g}  \right) + \overline{\overline{\pmb{\tau}}}_\sigma  \right) \boldsymbol{n} dS
@@ -461,7 +461,7 @@ Previously, the governing laws for fluid dynamics have been stated in their weak
 \subsection{Diffuse interface methods}
 \label{subsec:ch2_DI_methods}
 
-Diffuse interface comprises a family of numerical methods in which the interface is not found at a precise spatial location, but is distributed along a transition region where both phases coexist. The volume fraction of gas and liquid phases must add to 1: $\alpha_l + \alpha_g = 1$. Figure \ref{fig:DI_vs_VOF} displays a droplet solved with a diffuse interface method and a sharp interface (VOF, see $\S$\ref{subsec:ch2_VOF}) in the same grid, clearly showing how the interface can be easily defined for the latter but not for the former. %\colorbox{red}{demonstrating clearly how the interface definition is straightforward in the latter but not so easily to track in the former}.
+Diffuse interface comprises a family of numerical methods in which the interface is not found at a precise spatial location, but is distributed along a transition region where both phases coexist. The volume fraction of gas and liquid phases must add up to 1: $\alpha_l + \alpha_g = 1$. Figure \ref{fig:DI_vs_VOF} displays a droplet solved with a diffuse interface method and a sharp interface (VOF, see $\S$\ref{subsec:ch2_VOF}) in the same grid, clearly showing how the interface can be easily defined for the latter but not for the former. %\colorbox{red}{demonstrating clearly how the interface definition is straightforward in the latter but not so easily to track in the former}.
 
 \begin{figure}[h!]
 	\centering
@@ -486,7 +486,7 @@ where $\epsilon$ is a parameter defining the thickness of the interface, $\gamma
 \end{align}
 \end{subequations}
 
-Other available diffuse-interface methods have made use of the aforementioned Cahn-Hilliard and applied it to miscible flows \citepColor[teigen_diffuse-interface_2011] and to compressible two-phase systems \citepColor[shukla_interface_2010]. Diffuse-interface methods find good applicability in particular thermodynamic regimes, such as multicomponent systems at supercritical conditions relevant in rocket engines, where surface tension is non-existent and a proper interface is not present \citemColor[dahms_transition_2013,jofre_transcritical_2021].   Their associated challenges currently addressed by the scientific community are mainly related to deal with the multiscale nature of atomization, since small droplets might diffuse when reaching the grid resolution  \citepColor[saurel_diffuse-interface_2018], and to properly retrieve the thermodynamic properties of fluids around the interface while controlling its thickness \citepColor[nayigizente_unsteady_2021].
+Other available diffuse-interface methods have made use of the aforementioned Cahn-Hilliard and applied it to miscible flows \citepColor[teigen_diffuse-interface_2011] and to compressible two-phase systems \citepColor[shukla_interface_2010]. Diffuse-interface methods find good applicability in particular thermodynamic regimes, like cavitation \citepColor[saurel_diffuse-interface_2018] or multicomponent systems at supercritical conditions relevant in rocket engines, where surface tension is non-existent and a proper interface is not present \citemColor[dahms_transition_2013,jofre_transcritical_2021].   Their associated challenges currently addressed by the scientific community are mainly related to deal with the multiscale nature of atomization, since small droplets might diffuse when reaching the grid resolution  \citepColor[saurel_diffuse-interface_2018], and to properly retrieve the thermodynamic properties of fluids around the interface while controlling its thickness \citepColor[nayigizente_unsteady_2021].
 
 
 
@@ -498,7 +498,7 @@ The front-tracking method is, according to the classification of Figure \ref{fig
 \textbf{u} = \frac{d \textbf{x}}{d t}
 \end{equation}
 
-where the velocity $\textbf{u}$ is obtained by solving the flow field. As lagrangian particles are used, the interface is not solved in the same grid as the liquid and gas fields, see Figure \ref{fig:front_tracking_tryggvason}. This makes this method more of a lagrangian nature than an eulerian one in the sense that the interface is resolved separately from the main grid. Yet, both phases are solved with an eulerian formalism in the same grid; hence, this method is categorized as eulerian since it aims mainly at solving separate-phase problems as indicated in Figure \ref{fig:TPF_droplets_example} left. There are indeed interface-tracking methods dealing with the interface from an eulerian perspective, such as the Marker and Cell (MAC) method \citepColor[mckee_mac_2008].
+where the velocity $\textbf{u}$ is obtained by solving the flow field. As lagrangian particles are used, the interface is not solved on the same grid as the liquid and gas fields, see Figure \ref{fig:front_tracking_tryggvason}. This makes this method more of a lagrangian nature than an eulerian one in the sense that the interface is resolved separately from the main grid. Yet, both phases are solved with an eulerian formalism in the same grid; hence, this method is categorized as eulerian since it mainly aims at solving separate-phase problems as indicated in Figure \ref{fig:TPF_droplets_example} left. There are indeed interface-tracking methods dealing with the interface from an eulerian perspective, such as the Marker and Cell (MAC) method \citepColor[mckee_mac_2008].
 
 \begin{figure}[h!]
 	\centering
@@ -552,7 +552,7 @@ The biggest advantage of VOF is the mass conservation, as it is ensured when sol
 %   https://www.ljll.math.upmc.fr/~hecht/ftp/Mireille-Haddad/A%20conservative%20level%20set%20method%20for%20two%20phase%20flow%20II__Olsson.pdf
 
 
-A well-known class of interface-capturing approaches for two-phase flows are the level set methods. As their own name indicates, these methods identify the interface as a constant value of a scalar level set function. The interface is directly represented and transported using this function, hence its location is always known and no reconstruction needs to be done (as opposed to VOF methods). The level-set method is the formalism used in this thesis for performing resolved atomization simulations, hence it is thoroughly described in the following lines from its fundamentals to the more recent developments by \citeColor[janodet_massively_2022].
+A well-known class of interface-capturing approaches for two-phase flows are the level set methods. As their own name indicates, these methods identify the interface as a constant value of a scalar level set function. The interface is directly represented and transported using this function, hence its location is always known and no reconstruction needs to be done (as opposed to VOF methods). The level-set method is the formalism used in this thesis for performing resolved atomization simulations, hence it is thoroughly described in the following lines from its fundamentals \citepColor[osher_level_2003] to the more recent developments by \citeColor[janodet_massively_2022].
 
 Classical level set methods \citepColor[osher_level_2003] distinguish between liquid and gaseous phases by introducing the smooth, signed-distance function to the interface $\phi(\textbf{x},t)$ :
 
@@ -579,7 +579,7 @@ where $\varepsilon$ defines the profile thickness. The function $\psi$, which is
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\textwidth]{./part1_numerical_approaches/figures_ch2/ACLS_psi_phi_janodet_JCP}
+    \includegraphics[width=0.55\textwidth]{./part1_numerical_approaches/figures_ch2/ACLS_psi_phi_janodet_JCP}
        \centering
     \caption[Representation of distance functions $\phi$ and $\psi$ in the ACLS methodology]{Representation of distance functions $\phi$ and $\psi$ in the ACLS methodology. The signed-distance function $\phi$ has been normalized by $\delta_\psi = 4\varepsilon$ for visualization. Source: \citeColor[janodet_massively_2022]}
     \label{fig:psi_phi_profiles_janodet_2021_JCP}
@@ -607,7 +607,7 @@ where $\tau$ is a pseudo-time and $\textbf{n}$ is the normal vector to the inter
 \end{equation}
 
 
-As indicated in Eq. (\ref{eq:acls_reinit_2008}), the reinitialization process has two terms: diffusion and resharpening. Both of them are necessary to ensure the smoothness of $\psi$. The reinitialization equation is then performed for a given number of iterations $N_\mathrm{reinit}$, which is a user-defined parameter. With the introduction of $\psi$ and the reinitialization equation, mass conservation errors are reduced, since the smoothness of the profile is better preserved \citepColor[olsson_conservative_2007]: hence, this method is referred as conservative level set. Nevertheless, numerical errors might appear during reinitialisation since small oscillations in $\psi$ might induce big variations in $\textbf{n}$. To improve the accuracy, \citeColor[desjardins_accurate_2008] proposed an extension to this conservative methodology in which the interface transport is solved with high order schemes and a fast-marching method is used to reconstruct the signed-distance function $\phi$. This function is then used to compute the interface normals and, with it, the curvature $\kappa$: 
+As indicated in Eq. (\ref{eq:acls_reinit_2008}), the reinitialization process has two terms: diffusion and resharpening. Both of them are necessary to ensure the smoothness of $\psi$. The reinitialization equation is then performed for a given number of iterations $N_\mathrm{reinit}$, which is a user-defined parameter. With the introduction of $\psi$ and the reinitialization equation, mass conservation errors are reduced, since the smoothness of the profile is better preserved \citepColor[olsson_conservative_2007]: hence, this method is referred as conservative level set. Nevertheless, numerical errors might appear during reinitialisation since small oscillations in $\psi$ can induce big variations in $\textbf{n}$. To improve the accuracy, \citeColor[desjardins_accurate_2008] proposed an extension to this conservative methodology in which the interface transport is solved with high order schemes and a fast-marching method is used to reconstruct the signed-distance function $\phi$. Interface normals are then computed from this function, from which the curvature $\kappa$ can then be calculated:
 
 \begin{equation}
 \textbf{n} = \frac{\nabla \phi}{| \nabla \phi |} 
@@ -625,7 +625,7 @@ As indicated in Eq. (\ref{eq:acls_reinit_2008}), the reinitialization process ha
 
 where $\kappa_{\scriptsize{\Gamma}}$ is the interface mean curvature and $\mu$ is the dynamic viscosity. Using this formulation, surface tension forces $\sigma\kappa_{\scriptsize{\Gamma}}$ are embedded in the pressure jump. \\
 
-In this work, the more recent extension to the ACLS method by \citeColor[janodet_massively_2022] is used. This formulation makes use of the reinitialization equation introduced by \citeColor[chiodi_reformulation_2017]:
+In this work, the more recent extension to the ACLS method by \citeColor[janodet_massively_2022] is taken. This formulation solves the reinitialization equation introduced by \citeColor[chiodi_reformulation_2017]:
 
 \begin{equation}
 \label{eq:acls_reinit_2017}
@@ -653,26 +653,45 @@ where $H$ is the Heaviside function.
 
 \subsubsection*{Coupling with dynamic mesh adaptation}
 
-To better resolve the atomization dynamics and save computational resources, the ACLS/GFM method is coupled to an Adaptive Mesh Refinement (AMR) strategy for increasing the mesh resolution at the liquid-gas interface at an affordable cost \citepColor[leparoux_primary_2018]. The AMR methodology, illustrated in Figure \ref{fig:AMR_strategy}, keeps a minimum element size $\Delta x_\mathrm{min}$ at the interface and in its surroundings within a band of width $2 N_p\Delta x_\mathrm{min}$, where $N_p$ is the number of cells with size $\Delta x_\mathrm{min}$ at each size of the interface. The mesh is dynamically refined throughout the computation with an automatic distance-based triggering ensuring that the interface always remains within this region. In its vicinity, the cell size increases linearly with controlled slope until the baseline cell size $\Delta x_\mathrm{init}$. AMR will be used in all the resolved atomization simulations presented in this thesis. Hence, the full methodology used to performed this simulations will be hereafter referred as ACLS/AMR.
+To better resolve the atomization dynamics and save computational resources, the ACLS/GFM method is coupled to an Adaptive Mesh Refinement (AMR) strategy for increasing the mesh resolution at the liquid-gas interface at an affordable cost \citepColor[leparoux_primary_2018]. The AMR methodology, illustrated in Figure \ref{fig:AMR_strategy}, keeps a minimum element size $\Delta x_\mathrm{min}$ at the interface and in its surroundings within a band of width $2 N_p\Delta x_\mathrm{min}$, where $N_p$ is the number of cells with size $\Delta x_\mathrm{min}$ at each size of the interface (usually 6 < $N_p$ < 12). The mesh is dynamically refined throughout the computation with an automatic distance-based triggering ensuring that the interface always remains within this region. In its vicinity, the cell size increases linearly with controlled slope until the baseline cell size $\Delta x_\mathrm{init}$. AMR will be used in all the resolved atomization simulations presented in this thesis. Hence, the full methodology used to performed this simulations will be hereafter referred as ACLS/AMR.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.6\textwidth]{./part1_numerical_approaches/figures_ch2/AMR}
+    \vspace*{-0.1in}
        \centering
-    \caption[Illustration of dynamic mesh adaptation with Adaptive Mesh Refinement]{Illustration of dynamic mesh adaptation with Adaptive Mesh Refinement. Source: \citepColor[leparoux_primary_2018].}
+    \caption[Illustration of dynamic mesh adaptation with AMR]{Illustration of dynamic mesh adaptation with AMR. Source: \citeColor[leparoux_primary_2018].}
     \label{fig:AMR_strategy}
 \end{figure}
 
-As stated by \citeColor[leparoux_primary_2018], ACLS improves mass conservation of liquid by propagating and reinitalizing the interface given by the contour $\psi = 0.5$. If a uniform mesh is used with sufficient resolution to capture the liquid structures, mass conservation is ensured as the level-set profile does not diffuse when it is transported due to the absence of cell size gradients. However, this does not often occur when atomization creates small droplets, as the baseline meshes are not fine enough to capture these small scales. The purpose of AMR is therefore to refine locally and dynamically the mesh in order to place smaller elements as the interface propagates. However, AMR is not triggered at each solver iteration, as this would yield computations very expensive. Instead, mesh adaptation is performed after each $N_\mathrm{iter}^\mathrm{adapt}$ which is calculated according to the following formula:
+\citeColor[leparoux_primary_2018] states that ACLS improves liquid mass conservation by propagating and reinitalizing the interface given by the contour $\psi = 0.5$. If a uniform mesh is used with sufficient resolution to capture liquid structures, mass conservation is ensured as the level-set profile does not diffuse when transported due to lack of cell size gradients. However, this does not often occur when atomization creates small droplets, as the baseline meshes are not fine enough to capture these small scales. The purpose of AMR is therefore to refine locally and dynamically the mesh to place smaller elements around the interface. However, AMR is not triggered at each timestep, as this would yield very expensive computations. Instead, mesh adaptation is automatically triggered throughout the simulation when the interface propagates and gets closer to the edge of the refined region, see Figure \ref{fig:AMR_automatic_triggering}. For this purpose, a protected distance $|\phi_p| = \left( N_p/2 \right) \Delta x_\mathrm{min}$ is defined from the interface (Figure \ref{fig:AMR_automatic_triggering}a), which represents a band called protected region. At each timestep, both the interface and the protected region propagate. At a given time instant, (Figure \ref{fig:AMR_automatic_triggering}b), the edge of the protected region will reach the end of the refined area and enter into the gradient zone: at this moment, AMR is triggered. After the remeshing process, a new mesh is produced (Figure \ref{fig:AMR_automatic_triggering}c), and the simulation keeps running.
 
-\begin{equation}
-\label{eq:ch2_N_iter_adapt_AMR}
-N_\mathrm{iter}^\mathrm{adapt} = \frac{N_p}{CFL} \frac{\Delta t^{CFL}}{\Delta t}
-\end{equation}
 
-where $CFL$ is the Courant-Friedrichs-Levy number, $\Delta t^{CFL}$ is the time-step given by the CFL condition and $\Delta t$ is the time-step governing the computations.  With this definition for $N_\mathrm{iter}^\mathrm{adapt}$, AMR triggers with enough frequency to ensure that interface is not propagated outside a layer of elements with size $\Delta x_\mathrm{min}$. In this way, the contour $\psi = 0.5$ does not encounter gradients in cell size which would cause its diffusion.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./part1_numerical_approaches/figures_ch2/AMR_automatic_triggering_Janodet}
+    \vspace*{-0.2in}
+       \centering
+    \caption[Automatic AMR triggering]{Automatic AMR triggering according to a protected distance $|\phi_p|$. (a) Interface $\Gamma$ after an adaptation process at time $t$. (b) Interface location at a later time $t^\prime > t$, when the protected region edge falls outside refined area. (c) Mesh after mesh refinement at time instant $t^\prime $. Source: \citeColor[janodet_numerical_2022].}
+    \label{fig:AMR_automatic_triggering}
+\end{figure}
 
-Once every $N_\mathrm{iter}^\mathrm{adapt}$ iterations, firstly the interface is advanced and secondly the levelset function is reinitiliazed with Eq. (\ref{eq:acls_reinit_2017}). The levelset band around the interface (the region where cells are refined) is then flagged so that interconnecting pairs of nodes are identified and levelset parameters can be efficiently calculated \citepColor[janodet_massively_2022]. A new mesh is then generated by AMR and the flow fields (velocity, pressure, levelset, etc.) are interpolated into the new grid. Finally, reinitialization of the levelset function is performed again. In this way, a new grid containing the transported flow fields prior to mesh adaptation is generated. In the iterations where AMR does not act, the procedure is identical except for the mesh adaptation step which is not performed. %More details on this methodology can be found in (\textbf{ref:Janodet-2021-JCP}).
+
+%
+%
+%Instead, mesh adaptation is performed after each $N_\mathrm{iter}^\mathrm{adapt}$ which is calculated according to the following formula:
+%
+%\begin{equation}
+%\label{eq:ch2_N_iter_adapt_AMR}
+%N_\mathrm{iter}^\mathrm{adapt} = \frac{N_p}{CFL} \frac{\Delta t^{CFL}}{\Delta t}
+%\end{equation}
+%
+%where $CFL$ is the Courant-Friedrichs-Levy number, $\Delta t^{CFL}$ is the time-step given by the CFL condition and $\Delta t$ is the time-step governing the computations.  With this definition for $N_\mathrm{iter}^\mathrm{adapt}$, AMR triggers with enough frequency to ensure that interface is not propagated outside a layer of elements with size $\Delta x_\mathrm{min}$. In this way, the contour $\psi = 0.5$ does not encounter gradients in cell size which would cause its diffusion.
+%
+%Once every $N_\mathrm{iter}^\mathrm{adapt}$ iterations, firstly the interface is advanced and secondly the levelset function is reinitiliazed with Eq. (\ref{eq:acls_reinit_2017}). The levelset band around the interface (the region where cells are refined) is then flagged so that interconnecting pairs of nodes are identified and levelset parameters can be efficiently calculated \citepColor[janodet_massively_2022]. A new mesh is then generated by AMR and the flow fields (velocity, pressure, levelset, etc.) are interpolated into the new grid. Finally, reinitialization of the levelset function is performed again. In this way, a new grid containing the transported flow fields prior to mesh adaptation is generated. In the iterations where AMR does not act, the procedure is identical except for the mesh adaptation step which is not performed. %More details on this methodology can be found in (\textbf{ref:Janodet-2021-JCP}).
+
+
+
 
 
 %

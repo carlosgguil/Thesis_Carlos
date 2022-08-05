@@ -99,6 +99,7 @@
 	school = {Universit{\textbackslash}'e de Grenoble},
 	author = {Odier, Nicolas},
 	year = {2006},
+	file = {Odier - 2006 - Simulation numerique de jets liquides cisailles pa.pdf:C\:\\Users\\Carlos Garcia\\Zotero\\storage\\EAJF6I4C\\Odier - 2006 - Simulation numerique de jets liquides cisailles pa.pdf:application/pdf},
 }
 
 @article{tryggvason_front-tracking_2001,
@@ -152,6 +153,7 @@
 	year = {2011},
 	note = {Number: 5},
 	pages = {514--529},
+	file = {Sanjose et al. - 2011 - Fuel Injection Model for Euler-Euler and Euler-Lag.pdf:C\:\\Users\\Carlos Garcia\\Zotero\\storage\\CV24W327\\Sanjose et al. - 2011 - Fuel Injection Model for Euler-Euler and Euler-Lag.pdf:application/pdf},
 }
 
 @phdthesis{chaussonnet_modeling_2014,
@@ -1802,4 +1804,34 @@
 	author = {Wei, X. and Yong, H.},
 	year = {2014},
 	pages = {1628--1635},
+}
+
+@article{anez_multi-scale_2019,
+	title = {Multi-scale spray atomization model},
+	abstract = {The purpose of the present article is to present a dynamic multi-scale approach for turbulent liquid jet atomization in dense ﬂow (primary atomization), together with the possibility to recover Interface Capturing Method (ICM) / Direct Numerical Simulation (DNS) features for well resolved liquid-gas interface. A full ICM-DNS approach should give the best comparison with experimental data, but it is not industrially affordable for the time being, therefore models are mandatory. A numerical representation based on full ICM-DNS, for the initial destabilization of the complex turbulent liquid jet, going up to the spray formation, for which well established numerical models can be used, is appealing but has not yet been applied. Indeed such an approach requires the ICM-DNS to be applied up to the formation of each individual droplet. Hence, in many situation models have to be applied to the dense, unresolved and turbulent liquid-gas ﬂow. To achieve this goal, the most important unresolved phenomena to address are, the sub-grid turbulent liquid ﬂux and surface density, in which models based on the so-called Euler-Lagrange Spray Atomization (ELSA) concept, were developed and have been successfully applied to an Engine Combustion Network (ECN) database, in both RANS/LES (Reynolds-Averaged Navier-Stoke/Large Eddy Simulation) context. An innovative coupling between ICM and a complete ELSA approach was tested based on Interface Resolved Quality (IRQ) sensors to determine locally and dynamically whether or not the interface can be well captured. The ultimate aim is to conduct numerical simulations of fuel injection in an industrial scale, for which comprehensive database has been set up. The test case has been chosen for two reasons: (i) previous numerical studies showed, on the same test case, that RANS turbulence model requires a strong modiﬁcation to get appropriate results, hence prompted the use of LES models. And (ii), liquid Reynolds and gas Weber numbers are relatively low, compared with ECN test cases, hence more ﬂow regions are expected to be resolved. Results showed that using a fully resolved interface model in the whole domain, provides results in good agreement with the experiment in the primary atomization region only. Indeed, it effectively captured the surface instabilities and liquid structure detachments. In the far ﬁeld, however, this model becomes rapidly unadapted downward in the dispersed spray region, and the ICM-ELSA model was able instead to treat low volume fractions of atomized liquid, where velocity ﬂuctuations become important.},
+	language = {en},
+	author = {Anez, Javier and Dabonneville, Felix and Duret, Benjamin and Reveillon, J. and Demoulin, Francois-Xavier},
+	year = {2019},
+	pages = {8},
+	file = {Javier et al. - 2019 - Multi-scale spray atomization model.pdf:C\:\\Users\\Carlos Garcia\\Zotero\\storage\\TSYAVK9G\\Javier et al. - 2019 - Multi-scale spray atomization model.pdf:application/pdf},
+}
+
+@article{andreini_development_2016,
+	title = {Development of a turbulent liquid flux model for {Eulerian}-{Eulerian} multiphase flow simulations},
+	number = {81},
+	journal = {International Journal of Multiphase Flow},
+	author = {Andreini, A. and Bianchini, C. and Puggelli, S. and Demoulin, F.-X.},
+	year = {2016},
+	pages = {88--103},
+}
+
+@phdthesis{carmona_modelisation_2021,
+	address = {Toulouse, France},
+	title = {Modélisation des phénomènes diphasiques dans des injecteurs aéronautiques de type {Airblast}},
+	abstract = {The aeronautical sector must reduce its pollutant emissions and its fuel consumption to face the ever more stringent environmental standards. To achieve this goal, lean combustion technologies, allowing a good combustion eﬃciency while limiting nitrogen oxides (NOx) and carbon monoxide (CO) emissions, are being developed. Those new generation combustors are nevertheless more likely to destabilize and the fuel injection system plays a signiﬁcant part in stabilizing the ﬂame, and thus maintaining an eﬃcient combustion process. Because of their ability to oﬀer stable performances for a large range of operating conditions, Airblast injectors have attracted much attention from the engine manufacturers. In such injectors, the fuel is introduced in the combustor as a thin liquid ﬁlm ﬂowing along the injector wall towards the diﬀuser lip, where it is ﬁnally atomized into small droplets. This PhD aimed at numerically studying the physical phenomena involved in Airblast injectors, and at developing the numerical tools allowing their characterization. With that objective, a methodology allowing to perform some direct numerical simulations of academic conﬁgurations has ﬁrst been proposed. It was then applied in two distinct conﬁgurations to the study the liquid ﬁlm dynamics and its atomization process using a Volume Of Fluid method and the NGA incompressible solver. In parallel, a simpler modelling method relying on phenomenological models has been developed in the Lagrangian solver of the compressible code AVBP. This approach allows to predict the atomization dynamics given the ﬂow topology. Our main work consisted in developing and integrating the Automatic-PAMELA (Primary Atomization Model for prEﬁlming airbLAst injectors) model which proposes a local formulation and an automated determination of the PAMELA primary atomization model inputs (Chaussonet, 2016). Once validated on a well characterized experimental conﬁguration, the model was applied to an industrial Airblast injector conﬁguration and allowed us to predict spray characteristics in line with experimentally measured. While very eﬃcient, this approach is valid for a restricted operating range, thus limiting its application to ﬂows where the physical phenomena involved are well known. To address this issue, a two-phase ﬂow numerical method based on a multiﬂuid diﬀuse interface approach has also been developed in AVBP during this PhD. It relies on the combination of a 4-equations multiﬂuid model to describe the ﬂow behavior, and a Noble-Able-Stiﬀened-Gas (NASG) thermodynamic closure able to represent the thermodynamic evolution in both the gaseous and the liquid phase. To avoid numerical diﬀusion of strong gradients at liquid/gas interface while ensuring the numerical stability, a Godunov numerical scheme with a HLLC Riemann solver designed for “node-centered” formulations has been integrated in the AVBP code. It required an important algorithmic work specially to implement a MUSCL reconstruction methodology in a high-performance computing framework, and thus ensuring a global second order accuracy. After some 1D and 2D validations, the method has ﬁnally been used to perform 2D simulations of a gas sheared liquid ﬁlm and of a preﬁlming Airblast atomization process, highlighting its ability to address physical phenomena representative of real Airblast injector conﬁgurations.},
+	language = {fr},
+	school = {INP Toulouse},
+	author = {Carmona, J.},
+	year = {2021},
+	file = {Modélisation des phénomènes diphasiques dans des i.pdf:C\:\\Users\\Carlos Garcia\\Zotero\\storage\\62M7LDZR\\Modélisation des phénomènes diphasiques dans des i.pdf:application/pdf},
 }

@@ -24,12 +24,12 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.4467452"
-     inkscape:cx="59.78938"
-     inkscape:cy="81.907994"
-     inkscape:window-width="3200"
-     inkscape:window-height="1721"
-     inkscape:window-x="-9"
+     inkscape:zoom="0.51150167"
+     inkscape:cx="174.97499"
+     inkscape:cy="-266.8613"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="2391"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1" />
@@ -173,6 +173,35 @@
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
          id="path2686-9" />
     </marker>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath1147-1">
+      <rect
+         style="fill:none;stroke-width:1.10185"
+         id="rect1149-3"
+         width="437.53384"
+         height="376.30875"
+         x="167.18497"
+         y="175.69627" />
+    </clipPath>
+    <clipPath
+       id="clip1-89">
+      <rect
+         x="0"
+         y="0"
+         width="3.74142e+06"
+         height="3.13182e+06"
+         id="rect827-3" />
+    </clipPath>
+    <clipPath
+       id="clip3-1">
+      <rect
+         x="0"
+         y="0"
+         width="3.74142e+06"
+         height="3.12007e+06"
+         id="rect831-0" />
+    </clipPath>
   </defs>
   <g
      inkscape:label="Calque 1"

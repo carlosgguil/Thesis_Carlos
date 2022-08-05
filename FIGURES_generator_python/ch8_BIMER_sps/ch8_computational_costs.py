@@ -46,20 +46,20 @@ y_label_t_CPU = r'$t_\mathrm{CPU}~[\cdot 10^5 ~h]$'
 y_label_t_CPU_over_t_phys =  r'$t_\mathrm{CPU}/t_\mathrm{ph}~[\cdot 10^5 ~h.\mathrm{ms}^{-1}]$'
 
 label_DX10  = r'$\mathrm{DX}10$'
-label_DX20  = r'$\mathrm{DX}20$'
-cases = [label_DX10 , label_DX20]
+label_DX15  = r'$\mathrm{DX}15$'
+cases = [label_DX10 , label_DX15]
 
 
 
-label_DX20_saving = r'$~~~~\mathrm{DX}15$'
+label_DX15_saving = r'$~~~~\mathrm{DX}15$'
 label_DX10_saving = r'$~~~~\mathrm{DX}10$'
 label_DX10_saving_long = r'$~~~~\mathrm{DX}10$'
 
 
-#label_DX20_saving = r'$~~~~\mathrm{DX}15$\\\\ ~~~~~~~~~~ $t_\mathrm{acc} = 2.64~\mathrm{ms} $'
+#label_DX15_saving = r'$~~~~\mathrm{DX}15$\\\\ ~~~~~~~~~~ $t_\mathrm{acc} = 2.64~\mathrm{ms} $'
 #label_DX10_saving = r'$~~~~\mathrm{DX}10$\\\\ ~~~~~~~~~~$t_\mathrm{acc} = 0.96~\mathrm{ms} $'
 #label_DX10_saving_long = r'$~~~~\mathrm{DX}10$\\\\ ~~~~~~~~~~$t_\mathrm{acc} = 2.64~\mathrm{ms} $'
-cases_saving = [label_DX20_saving, label_DX10_saving, label_DX10_saving_long]
+cases_saving = [label_DX15_saving, label_DX10_saving, label_DX10_saving_long]
 
 
 

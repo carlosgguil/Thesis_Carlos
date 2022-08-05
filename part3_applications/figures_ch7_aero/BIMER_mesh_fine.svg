@@ -254,13 +254,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="137.88582"
-     inkscape:cy="-25.75889"
+     inkscape:cx="154.04826"
+     inkscape:cy="347.99755"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1001"
+     inkscape:window-width="2400"
+     inkscape:window-height="1271"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
@@ -350,28 +350,6 @@
        height="63.808201"
        x="118.23096"
        y="36.179649" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
-       x="29.307293"
-       y="83.093559"
-       id="text4387-7"><tspan
-         sodipodi:role="line"
-         id="tspan4385-5"
-         style="stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
-         x="29.307293"
-         y="83.093559" /><tspan
-         sodipodi:role="line"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.46667px;font-family:serif;-inkscape-font-specification:serif;fill:#ff0000;fill-opacity:1;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"
-         x="29.307293"
-         y="96.322685"
-         id="tspan4389-3">Δx = 0.5 mm</tspan></text>
-    <path
-       style="fill:none;fill-opacity:1;stroke:#ff0000;stroke-width:0.6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17542)"
-       d="M 49.205966,88.719788 47.505833,69.604706"
-       id="path4531-0"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-miterlimit:4;stroke-dasharray:none"

@@ -36,6 +36,8 @@ plt.rcParams['legend.framealpha'] = 1.0
 plt.rcParams['legend.loc']      = 'lower right'
 plt.rcParams['lines.markersize'] = 45*FFIG
 plt.rcParams['text.usetex'] = True
+plt.rcParams['ytick.major.size'] = 14*FFIG
+plt.rcParams['ytick.major.width'] = 4*FFIG
 # properties of arrows and cotas
 linewidth_cotas = 5*FFIG
 linewidth_arrow = 5*FFIG
