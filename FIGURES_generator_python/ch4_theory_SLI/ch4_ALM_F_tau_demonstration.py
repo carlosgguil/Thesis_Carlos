@@ -28,6 +28,8 @@ plt.rcParams['font.family'] = 'serif'
 rho = 7.21
 mu  = 1.8162E-5
 
+x = 120e-3
+
 
 dp = 1e4
 
@@ -42,7 +44,7 @@ uG100 = 100
 rf_uG100   = dp/(0.185*rho*uG100**2*np.log10(Rex)**(-2.584))
 
 
-plt.figure(figsize=(FFIG*18,FFIG*13))
+plt.figure(figsize=(FFIG*18,FFIG*10))
 plt.semilogx(Rex,rf_uG75,'--k',label='u$_g$ = 75 m s$^{-1}$')
 plt.semilogx(Rex,rf_uG100,'k',label='u$_g$ = 100 m s$^{-1}$')
 plt.xlabel('Re$_x$')

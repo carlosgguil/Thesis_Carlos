@@ -285,7 +285,7 @@ plt.close()
 
 
 # Integrated with y (switched axis)
-fig = plt.figure(figsize=(FFIG*24,FFIG*20))
+fig = plt.figure(figsize=(FFIG*24,FFIG*18.2))
 ax = fig.add_subplot(111)
 lns1 = ax.plot(flux_z_int_values_all[0],z_int_values_all[0],'-ok',label=r'$\mathrm{UG100},~q_l$')
 lns2 = ax.plot(flux_z_int_values_all[1],z_int_values_all[1],'--ok',label=r'$\mathrm{UG75},~q_l$')
