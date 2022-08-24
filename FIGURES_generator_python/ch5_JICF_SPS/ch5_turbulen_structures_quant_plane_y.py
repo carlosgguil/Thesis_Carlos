@@ -409,7 +409,7 @@ ax5.set_title(labels_x_planes[j])
 
 
 ax1.set(ylabel = label_z_ax)
-for ax in [ax1,ax2,ax3]:
+for ax in [ax1,ax2,ax3,ax4,ax5]:
     ax.label_outer()
     ax.set(xlabel=label_u_ax)
     ax.set_xlim(-30,130)

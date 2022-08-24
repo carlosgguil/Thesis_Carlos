@@ -74,7 +74,7 @@ The liquid injection nozzle can be seen in Figure \ref{fig:experiment_JICF_DLR} 
 
 %\subsection*{Numerical domain and baseline mesh}
 
-Figure \ref{fig:numerical_setup_maquette_JICF_DLR} shows the computational domain developed to replicate the simulations of the test bench shown in Figure \ref{fig:experiment_JICF_DLR}. The duct is modelled as a plenum consisting of a box with dimensions 25x40x270 mm$^3$. The hydraulic diameter of the duct cross section, which is used to calculate the gas Reynolds number, is $D_h = 30.8$ mm. A magnified view of the nozzle is also shown, with diameter $0.45$ mm and straight section length of 0.7 mm prior to injection to keep $L/D = 1.56$ as in the experiments. The boundary conditions are also indicated. The plenum walls use a wall law of logarithmic type except closer to the domain pressure outlet, which have been set to slip walls to avoid backflow. The nozzle walls are rigid walls. For the liquid inlet, a Poiseuille profile has been specified, while in the gaseous inlet a mean velocity profile has been set in order to recover the boundary layer thickness of between 4 and 5 mm upstream the injection nozzle as described in the experiments (see Appendix \ref{app:JICF_BL_setup} for details). Due to the high Reynolds number at the gaseous inlet (see Table \ref{tab:jicf_operating_conditions}), synthetic turbulence is added in the liquid inlet (more details provided in $\S$\ref{sec:ch5_initial_conditions}).
+Figure \ref{fig:numerical_setup_maquette_JICF_DLR} shows the computational domain developed to replicate the simulations of the test bench from \citeColor[becker_breakup_2002]. The plenum is modelled as a box with dimensions 25x40x270 mm$^3$. The hydraulic diameter of the duct cross section, which is used to calculate the gas Reynolds number, is $D_h = 30.8$ mm. A magnified view of the nozzle is also shown, with diameter $0.45$ mm and straight section length of 0.7 mm prior to injection to keep $L/D = 1.56$ as in the experiments. The boundary conditions are also indicated. The plenum walls use a wall law of logarithmic type except closer to the domain pressure outlet, which have been set to slip walls to avoid backflow. The nozzle walls are rigid walls. For the liquid inlet, a Poiseuille profile has been specified, while in the gaseous inlet a mean velocity profile has been set in order to recover the boundary layer thickness of between 4 and 5 mm upstream the injection nozzle as described in the experiments (see Appendix \ref{app:JICF_BL_setup} for details). Due to the high Reynolds number at the gaseous inlet ($Re \sim O \left( 10^6 \right)$, see Table \ref{tab:jicf_operating_conditions}), synthetic turbulence is added in the liquid inlet.
 
 \begin{figure}[ht]
      \centering
@@ -84,11 +84,11 @@ Figure \ref{fig:numerical_setup_maquette_JICF_DLR} shows the computational domai
 \end{figure}
 
 
-Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane at $y = 0$ is displayed. It is composed of 66 million tetrahedral cells. The baseline cell size in the channel upstream liquid injection is 0.5 mm, while the cells located in the downstream region have an average size of 3 mm. The element size within the discharge section of the liquid nozzle is refined to $20~\mu$m. The justification for this mesh choice is done at $\S$\ref{sec:ch5_initial_conditions}, where a mesh independence study of the gaseous field is carried out. This mesh is used at the beginning of all the simulations performed, but then it change dynamically throughout the simulation as more liquid is introduced in the domain due to the AMR routine that refines the mesh at the liquid-gas interface. Simulations are performed with the ACLS methodology describe in $\S$\ref{subsec:ch2_ACLS}. Liquid is allowed to penetrate up to a certain $x$ location downstream the injector: at this location, a sponge layer is added to remove liquid artificially for restricting the region inside the plenum containing liquid and hence limiting the cost of the resolved simulations. The location of the sponge layers is detailed in the next section.
+Figure \ref{fig:jicf_dlr_mesh} shows the baseline mesh, where the symmetry plane $y = 0$ is displayed. It is composed of 66 million tetrahedral cells. The baseline cell size in the channel upstream liquid injection is 0.5 mm, which was chosen after performing a mesh independence study on the gaseous field (results in Appendix \ref{app:gas_initial_cond_JICF}). The cells located in the downstream region have an average size of 3 mm, and the element size within the discharge section of the liquid nozzle is refined to $20~\mu$m. This mesh is used at the beginning of all the simulations performed, which afterwards changes dynamically throughout the simulation as more liquid is introduced in the domain due to the Adaptive Mesh Refinement (AMR) routine. Simulations are performed with the ACLS methodology describe in $\S$\ref{subsec:ch2_ACLS}. Liquid is allowed to penetrate up to a certain $x$ location downstream the injector: at this location, a sponge layer is added to remove liquid artificially for restricting the region inside the plenum containing liquid, thus limiting the cost of the resolved simulations. The location of the sponge layers is detailed in the next section, since it depends on each performed simulation.
 
 \begin{figure}[h!]
 	\centering	\includeinkscape[inkscapelatex=false,scale=0.65]{./part2_developments/figures_ch5_resolved_JICF/jicf_mesh/jicf_mesh}
-	\caption[Baseline JICF mesh, showing magnified views of the near-field and nozzle regions.]{Baseline JICF mesh, showing magnified views of the near-field and nozzle regions. The red rectangle is the region where meshes are shown in the mesh convergence study of $\S$\ref{sec:ch5_initial_conditions}}
+	\caption[Baseline JICF mesh, showing magnified views of the near-field and nozzle regions.]{Baseline JICF mesh, showing magnified views of the near-field and nozzle regions. The red rectangle is the region where meshes are shown in the mesh convergence study of Appendix \ref{app:gas_initial_cond_JICF}}
 	\label{fig:jicf_dlr_mesh}
 \end{figure}
 
@@ -111,6 +111,8 @@ Re_l &= \frac{\rho_l u_l d_\mathrm{inj}}{\mu_l}          &  Re_g &= \frac{\rho_g
 We_\mathrm{aero} &= \frac{\rho_g u_l^2 d_\mathrm{inj}}{\sigma}    &  We_\mathrm{rel} &= \frac{\rho_g \left( u_g - u_l \right)^2 d_\mathrm{inj}}{\sigma}          & r &= \frac{\rho_l}{\rho_g} 
 \end{aligned}
 \end{equation}
+
+\clearpage
 
 
 \begin{table}[!h]
@@ -172,22 +174,7 @@ Density ratio & $r$ & - & 110 & 110 \\
 
 
 
-%\begin{table}[!h]
-%\centering
-%\caption{Nomenclature for resolved atomization simulations}
-%\begin{tabular}{ccc}
-%\thickhline
-%%$\pmb{\Delta} x_\mathrm{min}$ [$\pmb{\mu}$$\textbf{m}])  &  \multicolumn{2}{c}{\textbf{Operating condition}} \\ 
-%$\Delta x_\mathrm{min}$ [$\mu$m]  &  \multicolumn{2}{c}{\textbf{Operating condition}} \\ 
-%\cline{2-3}
-% &  Low $We_g$ &  High $We_g$ \\ 
-%\thickhline
-%\textbf{10} & UG75\_DX10 & UG100\_DX10 \\
-%\textbf{20} & UG75\_DX20 & UG100\_DX20 \\
-%\thickhline
-%\end{tabular}
-%\label{tab:jicf_resolved_simulations_performed}
-%\end{table}
+\clearpage
 
 \begin{table}[!h]
 \centering
@@ -218,438 +205,15 @@ Density ratio & $r$ & - & 110 & 110 \\
 
 
 
+\clearpage
 
-
-\section{Obtention of initial conditions}
+\section{Gaseous initial conditions}
 \label{sec:ch5_initial_conditions}
 
-Prior to liquid injection, a gaseous field must be initialised in the computations. The objective is to obtain an established velocity profile that reproduces correctly the mean profile with a boundary layer thickness $\delta$ as observed in the experiments, which is reported to be between $4$ and $5$ mm \citepColor[becker_breakup_2002]. For this purpose, a mean profile is injected at the gaseous inlet shown in Figure \ref{fig:numerical_setup_maquette_JICF_DLR} formed by the combination of a boundary layer and a flat outer profile. The details on this mean profile are given in Appendix \ref{app:JICF_BL_setup}. Furthermore, the gaseous flow is turbulent, as shown by the high gaseous Reynolds number ($>> 10^4$) in the operating points studied (see Table \ref{tab:jicf_operating_conditions}). Therefore, synthetic turbulence is also injected at the gaseous inlet, hence a random fluctuating velocity component is added to the mean profile. The calculation and effect of synthetic turbulence and the resulting initial solutions are discussed in the following lines.
+Prior to liquid injection, a gaseous field must be initialised in the computations. The objective is to obtain an established velocity profile that reproduces correctly the mean profile with a boundary layer thickness $\delta$ as observed in the experiments, which is reported to be between $4$ and $5$ mm \citepColor[becker_breakup_2002]. For this purpose, a mean profile is injected at the gaseous inlet shown in Figure \ref{fig:numerical_setup_maquette_JICF_DLR} formed by the combination of a boundary layer and a flat outer profile. The details on this mean profile are given in Appendix \ref{app:JICF_BL_setup}. Furthermore, the gaseous flow is turbulent, as shown by the high gaseous Reynolds number ($>> 10^4$) in the operating points studied (see Table \ref{tab:jicf_operating_conditions}). Therefore, synthetic turbulence is also injected at the gaseous inlet, hence a random fluctuating velocity component is added to the mean profile. This turbulence requires then a cell size that allows its transport in the mesh. For this purpose, a mesh independence study was performed, from which a mesh resolution $\Delta x = 0.5$ mm from the gaseous inlet until the liquid injection nozzle is chosen. This element size allows for a proper turbulent transport (frequencies
+and energy content) with a moderable cost. Details on the injection of synthetic turbulence and the mesh independence study are discussed in Appendix \ref{app:gas_initial_cond_JICF}. 
 
-
-\subsection{Injection of synthetic turbulence}
-\label{subsec:ch5_inflow_conditions_synthetic_turbulence}
-
-% References for turbulence injection
-% https://www.cfd-online.com/Wiki/Turbulence_length_scale
-% https://www.cfd-online.com/Wiki/Turbulence_intensity
-% https://www.simscale.com/forum/t/defining-turbulent-boundary-conditions/80895
-
-Prescription of inlet velocity profiles should take into account the contribution of large energy-containing eddies. For this purpose, fluctuations can be added to the mean profiles by specifying either their energy spectrum or their characteristic length scales and their magnitude. These fluctuating components can be obtained by several means. One of the first methods developed consisted of using periodic boundary conditions to reintroduce the outlet velocity field at the inlet in DNS simulations of channels \citemColor[spalart_direct_1988,liu_interaction_1996]. Such methods rely either on the presence of self-similarity in the channels, which does not always occur, or on adding a forcing term at the outlet to reconvert the boundary layer thickness to its value upstream for reintroducing it into the inlet. To circumvent these issues, the recycling method was proposed by \citeColor[lund_generation_1998]. This technique consists of obtaining the turbulent data at several planes downstream the inlet, compare the velocity fields and correct the inlet conditions accordingly to match the desired data. Recycling methods have been extended and can be divided in weak and strong methods. Other families of techniques include the generation of synthetic turbulence by for superposition of sinusoidal waves \citemColor[kraichnan_diffusion_1970,batten_interfacing_2004] or by moments' determination \citepColor[pamies_generation_2009]. A review of these and other turbulence generation methodologies can be found in \citeColor[wu_inflow_2017].
-
-In this work, homogeneous synthetic turbulence is injected through the inlet by specifying the integral length scale of the flow $L_T$ and the fluctuating velocity components $u'$. Since experimental data on the fluctuating field for the configuration of \citepColor[becker_breakup_2002] is not available, both magnitudes are estimated with the following formulas \citepColor[ansys_ansys_2018]:
-% [1] ANSYS, Inc. (2018), "ANSYS Fluent User's Guide, Release 19.0", Equation (6.68). 
-
-\begin{equation}
-u' \approx I u_g  ~~~~ ; ~~~~ L_t \approx 0.07 D_h
-\end{equation}
-
-where $I$ is the turbulent intensity can be obtained from the following correlation:
-
-\begin{equation}
-I = 0.16 Re_g^{-1/8}
-\end{equation}
-
-For each operating point shown in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}, the estimated parameters for specifying turbulent profiles are shown in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}.
-
-
-\subsection*{Characteristic flow-through time}
-
-With the inlet velocity specified with a mean profile and turbulence fluctuations, gaseous simulations can be run to generate initial conditions for the liquid simulations. The initial solution needs to be an established velocity profile where the mean and rms values of velocity components are converged. To get an idea of the flow establishment, the flow-through time in the channel $\tau_\mathrm{ft}$ is defined:
-
-\begin{equation}
-\tau_\mathrm{ft} = \frac{L}{u_g}
-\end{equation}
-
-where $L = 120$ mm is the distance from the gaseous inlet to the liquid injector (see Figure \ref{fig:numerical_setup_maquette_JICF_DLR}). This quantity represents the time that a gas particle takes, in average, to reach the liquid injector location from the inlet of the domain. Flow-through times for each operating point are shown in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}.
-
-\begin{table}[!h]
-\centering
-\caption{Parameters characterising inflow turbulent fields and flow-through time $\tau_\mathrm{ft}$ in JICF simulations}
-\begin{tabular}{ccccc}
-\thickhline
-\textbf{Operating point} &  $L_t$ [mm] &  $I$ [\%] & $u'$ [m s$^{-1}$] & $\tau_\mathrm{ft}$ [ms] \\ %
-\thickhline
-Low Weber & 3 & 2.88 & 2.5 & 1.6 \\
-%\hline
-High Weber & 3 & 2.78 & 3.0 & 1.2  \\
-\thickhline
-\end{tabular}
-\label{tab:jicf_operating_conditions_turbulent_injection_parameters}
-\end{table}
-
-%\begin{table}[!h]
-%\centering
-%\caption{Parameters characterising inflow turbulent fields and flow-through time $\tau_\mathrm{ft}$ in JICF simulations}
-%\begin{tabular}{ccc}
-%\thickhline
-%\textbf{Parameter} &  \textbf{Low Weber} &  \textbf{High Weber} \\ %
-%\thickhline
-%$L_t$ [mm] & 3 & 3 \\
-%%\hline
-%$I$ [\%]& 2.88 & 2.78 \\
-%%\hline
-%$u'$ [m s$^{-1}$] & 2.5 & 3.0 \\
-%%\hline
-%$\tau_\mathrm{ft}$ [ms] & 1.6 & 1.2 \\
-%\thickhline
-%\end{tabular}
-%\label{tab:jicf_operating_conditions_turbulent_injection_parameters}
-%\end{table}
-
-\subsection{Mesh independence study with high Weber operating point}
-
-In first place, a mesh independence study has been performed with single-phase simulations (without fuel injection) to capture correctly the gaseous turbulent features that can affect the liquid field. For this purpose, 3 grids are tested with the high Weber operating condition. The inlet velocity profile includes the mean velocity profile and the turbulence fluctuations as defined in Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}. The meshes differ in the baseline cell size at the region upstream the liquid injection nozzle, which measures $120$ mm (see Figure \ref{fig:numerical_setup_maquette_JICF_DLR}). This is the region of interest for turbulence development, since it is the gaseous field upstream the injection nozzle the one that will affect the liquid jet. Three meshes are used with baseline mesh sizes of values $\Delta x_\mathrm{ups} = 1, ~0.5, ~0.3$ mm, summarized in Table \ref{tab:jicf_mesh_independence_gaseous_study}. The three refinement levels tested in this section are shown in Figure \ref{fig:ics_mesh_independency_study_up_meshes}, where a magnified view of the red rectangle from Figure \ref{fig:jicf_dlr_mesh} is displayed. The mesh elsewhere is not refined and maintained to the values given previously in $\S$\ref{sec:computational_setup}. %The mesh shown in Figure \ref{fig:jicf_dlr_mesh} is the chosen grid with baseline cell size upstream the injector $\Delta x_\mathrm{ups} = 0.5$ mm.
-
-\begin{table}[!h]
-\centering
-\caption{Configurations tested for the mesh independence study}
-\begin{tabular}{cccccc}
-\thickhline
-Mesh & $\Delta x_\mathrm{ups}$ [mm] &  $\#$ elements & $\#$ nodes \\ %& Minimum cell size $\Delta x$ [$\mu$m]\\ %
-\thickhline
-Coarse & 1.0 & 59,664,589 & 10,510,540 \\
-%\hline
-Fine & 0.5 & 66,264,433 & 11,641,585 \\
-%\hline
-Very fine & 0.3 & 94,192,955 & 17,155,591 \\
-\thickhline
-\end{tabular}
-\label{tab:jicf_mesh_independence_gaseous_study}
-\end{table}
-
-\begin{figure}[ht]
-\centering
-\includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mesh_and_up/meshes}
-\caption[Baseline meshes in the region spanning from the inlet to the nozzle injector]{Baseline meshes in the region spanning from the inlet to the nozzle injector. Zoom-in the red rectangle of Figure \ref{fig:jicf_dlr_mesh}. From left to right: $\Delta x_\mathrm{ups} = 1, 0.5, 0.3$ mm.}
-\label{fig:ics_mesh_independency_study_up_meshes}
-\end{figure}
-
-
-A total of four simulations have been performed: one simulation per mesh with the imposed turbulent fluctuations at the inlet, and one without injecting synthetic turbulence for the resolution $\Delta x_\mathrm{ups} = 0.5$ mm. For flow establishment, the simulations are firstly run for a total physical time of 6 times the flow-through time, i.e. 7.2 ms. From this stage on, statistics are collected. To check the convergence of the simulations, the mean axial velocity $u$ and mean Turbulent Kinetic Energy (TKE) have been integrated along a vertical line upstream the injection point in the middle plane of the domain, shown in Figure \ref{fig:ics_mesh_independency_study_up_fields} right. These line-integrated magnitudes can be defined as follows:
-
-%\begin{subequations}
-%\label{eq:line_averaged_u_and_TKE}
-%\begin{empheq}{align}
-%\langle u \rangle &= \frac{1}{h} \int_0^h \overline{u \left( z \right)} dz  \\
-%\langle \mathrm{TKE} \rangle &= \frac{1}{h} \int_0^h \frac{1}{2} \left( \overline{u'\left( z \right)^2} + \overline{v'\left( z \right)^2} + \overline{w'\left( z \right)^2} \right) dz 
-%\end{empheq}
-%\end{subequations}
-
-\begin{equation}
-\label{eq:line_averaged_u_and_TKE}
-\langle u \rangle = \frac{1}{h} \int_0^h \overline{u \left( z \right)} dz  ~~~~ ; ~~~~ \langle \mathrm{TKE} \rangle = \frac{1}{h} \int_0^h \frac{1}{2} \left( \overline{u'\left( z \right)^2} + \overline{v'\left( z \right)^2} + \overline{w'\left( z \right)^2} \right) dz 
-\end{equation}
-
-where $\overline{u \left( z \right)}$ is the time-averaged, or mean, velocity at each $z$ location; $h$ is the line length, which corresponds to the height of the channel; and $u'$, $v'$ and $w'$ are the fluctuating components of the velocity in the $x$, $y$ and $z$ directions respectively. The chosen line is located right before the liquid injector, so velocity and TKE profiles in this section are the ones seen by the liquid jet which affect its deviation. The integrated values for these magnidues are shown in Figure \ref{fig:mesh_convergence_line_averages}. Profiles of both $\langle u \rangle$ and $\langle TKE \rangle$ reach a steady state in all simulations after a simulation time of $30$ times the flow-through time $\tau_\mathrm{fl}$, so statistics are considered to be converged after this value. Therefore, all statistics shown hereafter will refer to statistically-converged results obtained for $t / \tau_\mathrm{fl} > 30$. Regarding the mesh effect (considering turbulence injection), $\langle u \rangle$ shows a change for the coarse mesh $\Delta x_\mathrm{ups} = 1~\mathrm{mm}$ with respect to $\Delta x_\mathrm{ups} = 0.5, 0.3~\mathrm{mm}$, which has the same value, indicating proper mesh convergence for $\langle u \rangle$ at the selected integration line. Surprisingly, $\langle TKE \rangle$ shows the same value for the three mesh resolutions employed: the mesh seems to have no effect in $\langle TKE \rangle$. Regarding the influence of turbulence injection (with $\Delta x_\mathrm{ups} = 0.5~\mathrm{mm}$), both magnitudes show statistically-converged values lower than the case with turbulence. This is coherent with TKE, since it means that injecting turbulent fluctuations at the inlet increase the turbulent state further downstream. However, no explanation is found of why adding turbulence with the selected methodology changes the value of $\langle u \rangle$ (although the deviations with respect to case with turbulence represents is of less than 1 $\%$). Nevertheless, it is to be noted that these line-integrated values are used only to obtain an idea of the time the flows take to establish, and do not represent magnitudes that can be used for a proper assessment of the mesh independence. As it will later be shown, the TKE profiles represented along here-called integration line are very dependent on the mesh resolution employed.
-
- %Each simulation has run for a total time of \textbf{??}, which corresponds to $\textbf{??}$ flow through times. This physical time ensures that the parameters of interest, such as mean and RMS velocities are converged. % To illustrate the flow establishment, we are going to look at the evolution of the mean axial velocity $\langle u \rangle$ and mean Turbulent Kinetic Energy (TKE) averaged along the line shown in Figure \ref{fig:mesh_convergence_line_averages}. At this point,  located right upstream the injection nozzle. 
-
-%\textbf{These integrals can be numerically solved by applying the regla del trapecio as follows (example with TKE):}
-%
-%\begin{equation}
-%\langle TKE \rangle \approx \frac{1}{L} \sum_{i=1}^{N-1} \left( z_{i+1} - z_{i+1} \right) \frac{TKE_{i+1} + TKE_{i+1}}{2}
-%\end{equation}
-
-%In the same fashion, we can perform a surface averaged at the plane:
-%
-%
-%\begin{subequations}
-%\label{eq:plane_averaged_u_and_TKE}
-%\begin{empheq}{align}
-%\langle u \rangle &= \frac{1}{A} \int_{\partial \Omega} u \left( y, z \right) dS  \\
-%\langle \mathrm{TKE} \rangle &= \frac{1}{A} \int_{\partial \Omega}  \frac{1}{2} \left( \overline{u'\left( y, z \right)^2} + \overline{v'\left( y, z \right)^2} + \overline{w'\left( y, z \right)^2} \right) dS
-%\end{empheq}
-%\end{subequations}
-%
-%\textbf{These integrals can be numerically solved by applying the regla del trapecio as follows (example with TKE):}
-%
-%\begin{equation}
-%\langle TKE \rangle \approx \frac{1}{A} \sum_{i=1}^{N-1} TKE_{j,k} \Delta y_j \Delta z_k 
-%\end{equation}
-%
-%\begin{equation}
-%\langle TKE \rangle \approx \frac{1}{A} \sum_{i=1}^{N-1} \frac{TKE_{j-0.5,k-0.5} + TKE_{j+0.5,k-0.5} + TKE_{j-0.5,k+0.5} + TKE_{j+0.5,k+0.5}}{4} \left( y_{k-0.5} - y_{k+0.5} \right) \left( z_{k-0.5} - z_{k+0.5} \right) 
-%\end{equation}
-
-
-
-
-%To illustrate the flow establishment, one can look at the evolution of the volume averaged TKE in the whole domain, defined as follows:
-%
-%\begin{equation}
-%\langle TKE \rangle = \frac{1}{V} \int_\Omega \frac{1}{2} \left( \overline{u'^2} + \overline{v'^2} + \overline{w'^2} \right) dV
-%\end{equation}
-%
-%where $V$ is the volume of the computational domain. Figure \textbf{??} shows the results, where the dimensionless time is expressed with respect to the flow-through time: $t* = t / \tau_\mathrm{ft}$. As shown ...
-%
-%Based on RMS:
-%
-%\begin{equation}
-%\langle TKE \rangle_{RMS} = \frac{1}{V} \int_\Omega \frac{1}{2} \left( u_{RMS} + v_{RMS} + w_{RMS} \right) dV
-%\end{equation}
-
-\begin{figure}[ht]
-\centering
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.125]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_line_averages/U_MEAN.pdf}
-   \vspace*{-0.30in}
-   \caption{Mean axial velocity}
-   %\label{} 
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.125]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_line_averages/TKE.pdf}
-   \vspace*{-0.30in}
-   \caption{Turbulent Kinetic Energy}
-   %\label{}
-\end{subfigure}
-\caption{Convergence of line-integrated mean axial velocity and TKE with mesh resolution}
-\label{fig:mesh_convergence_line_averages}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mesh_and_up/up_field_instantaneous_both}
-\caption[Instantaneous $u'$ fields from gaseous simulation for the high Weber case]{Instantaneous $u'$ fields from gaseous simulation for the high Weber case. The right column shows a zoomed-in view of the dashed rectangle from the left column. Black contours indicate the lines with zero instantaneous fluctuation $u' = 0$. From top to bottom $\Delta x_\mathrm{ups} = 1, 0.5, 0.3$ mm.}
-\label{fig:ics_mesh_independency_study_up_fields}
-\end{figure}
-
-
-
-Instantaneous snapshots of the fluctuating axial component $u'$ in the middle plane are shown in Figure \ref{fig:ics_mesh_independency_study_up_fields}. Adding turbulence at the inlet introduces fluctuations that are transported downstream the domain. When no turbulence is added, fluctuations are not present (the black contours at the inlet are due to small numerical fluctuations of $u'$) except close to the walls, since they are created inside the boundary layer where flow is intrinsically turbulent. It is also observed that the characteristic length of the eddies changes when refining the mesh: for the coarsest mesh ($\Delta x_\mathrm{ups} = 1$ mm), these structures are generally large, while refining the mesh to $\Delta x_\mathrm{ups} = 0.5$ and $0.3$ mm reduced their size. 
-
-%% OJO: Pope criterion
-%
-%To assess the quality of the meshes, it is useful to introduce a criterion for measuring the turbulent resolution. For such purpose, the Pope's criterion $M$ is employed \textbf{ref-pope-criterion}, which is calculated from the ratio between the resolved and sub-grid Turbulent Kinetic Energies,  $\mathrm{TKE}$ and $k_\mathrm{sgs}$ respectively:
-%
-%\begin{equation}
-%M \left( \textbf{x}, t \right) = \frac{k_\mathrm{sgs} \left( \textbf{x}, t \right)}{k_\mathrm{sgs}  \left( \textbf{x}, t \right) + TKE \left( \textbf{x}, t \right)}
-%\end{equation}
-%
-%$M$ represents therefore the ratio between the sub-grid (unresolved) and total TKEs in the domain, and depends on time and space. From its definition it follows that $M = 0$ corresponds to full resolution (i.e. DNS) and $M = 1$ to full modelling (i.e. RANS) of the turbulent flow field. The sub-grid TKE can be obtained from the following expression:
-%
-%
-%\begin{equation}
-%k_\mathrm{sgs} = \left( \frac{\nu_t}{0.18 \Delta x} \right)^2
-%\end{equation}
-%
-%where $\nu_t$ is the turbulent kinematic viscosity as given by the dynamic Smagorinsky model \citepColor[germano_dynamic_1991]. 
-%
-%Figure \ref{fig:ics_mesh_independency_study_POPE_M_fields} shows instantenous fields of Pope's criterion for the four simulations performed. As observed, by reducing the element size more regions with values of $M$ closer to $0$ are present. For $\Delta x = 1$ mm there several zones where $M$ has high values. These ones are overall reduced when reducing the cell size to $0.5$ mm and further to $0.3$ mm. Between these last two cell sizes there are also differences in the $M$ field specially far from the walls. For all cases, the $M$ values close to the walls are higher than in the far-field, indicating that a finer resolution would be needed in the walls to properly capture the turbulent features of the boundary layer. Nevertheless, these ones remain around $M \approx 0.5$ for the meshes with $\Delta x = 0.5$ and $0.3$ mm, indicating enough resolution for LES simulations. Regarding the case without turbulence injection for $\Delta x = 0.5$ mm, the $M$ field shows higher values with respect to the case where turbulence is added, specially closer to the inlet and in the regions outside the boundary layer. 
-
-In order to compare quantitatively the difference between meshes, the signals of $u'$ have been monitored with time at the probes shown by the white crosses in the top of Figure \ref{fig:ics_mesh_independency_study_up_fields}. Two probes are located: one at 50 mm upstream the liquid inlet (x = 70 mm, probe A) and another one 1 mm upstream the liquid injection nozzle (x = 119 mm, probe B), both at a height of 8 mm from the bottom wall. The capability of the meshes to transport the resolved turbulent scales is then verified by comparing the fluctuations and spectra obtained with Fast Fourier Transform (FFT) at both probes in Figure \ref{fig:ics_mesh_independency_study_probes}. Time has been normalised with the flow-through time $\tau_\mathrm{fl}$, and the signals are shown for one passage of $\tau_\mathrm{fl}$ for easiness of visualization. For the coarsest mesh $\Delta x_\mathrm{ups} = 1$ mm (Figure \ref{fig:ics_mesh_independency_study_probes_dx1p0}), the $u'$ signal sampled closer to the nozzle (Probe B) shows similar magnitudes and frequencies to the signal sampled upstream (Probe A). Despite the characteristic peaks at frequencies of 8, 17 and 25 $\mathrm{kHz}$ with decreasing intensity for both probes, low frequencies below 10 $\mathrm{kHz}$ are excited. The spectrum at Probe B shows a higher relative intensity at these low frequencies with a peak at 3 $\mathrm{kHz}$ not observed at probe A. This indicates that for this resolution, turbulent energy is not properly transported to the liquid injector. Furthermore, characteristic frequencies larger than 25 $\mathrm{kHz}$ cannot be captured, which is not the case for the rest of resolutions. When the mesh is refined to $\Delta x_\mathrm{ups} = 0.5$ mm (Figure \ref{fig:ics_mesh_independency_study_probes_dx0p5}), the small dominant frequencies are no longer relevant and dominant frequencies are properly captured, as the match in the peaks of the spectra indicates. In this case, the frequencies 8 and 25 $\mathrm{kHz}$ have larger intensity than 17 $\mathrm{kHz}$. Refining the mesh to $\Delta x_\mathrm{ups} = 0.3$ mm (Figure \ref{fig:ics_mesh_independency_study_probes_dx0p3}) has no longer effect neither in the magnitude of the fluctuations nor in the spectrum. 
-
-The fluctuations and FFT of the simulation performed without turbulence injection for the resolution $\Delta x_\mathrm{ups} = 0.5$ mm are shown Figure \ref{fig:ics_mesh_independency_study_probes_dx0p5_no_turb}. As expected, the magnitude of the fluctuations is lower than in the cases with synthetic turbulence. The spectrum shows that the energy content at low frequencies is high and that no clear dominant frequencies are found. \\
-
-
-
-A final verification on the mesh capability to transport turbulent energy is done by calculating the Turbulent Kinetic Energy (TKE) at the probes A and B for simulation where turbulence is transported. TKE is defined as follows:
-
-\begin{equation}
-\label{eq:TKE_general_defintion}
-TKE = \frac{1}{2} \left( \overline{u'^2} + \overline{v'^2} + \overline{w'^2} \right)
-\end{equation}
-
-\clearpage
-
-\begin{figure}[ht]
-\centering
-\begin{subfigure}[b]{1.0\textwidth}
-	\centering   
-	\includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx1p0.pdf}
-	\includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx1p0.pdf}
-%	\subfloat[\centering]{{\includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx1p0.eps} }}%
-%    \qquad
-%    \subfloat[\centering]{{ \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx1p0.eps} }}%
-   \vspace*{-0.10in}
-   \caption{Mesh $\Delta x_\mathrm{ups} = 1$ mm}
-   \label{fig:ics_mesh_independency_study_probes_dx1p0}
-\end{subfigure}
-
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{1.0\textwidth}
-	\centering
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p5.pdf}
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p5.pdf}
-   \vspace*{-0.10in}
-   \caption{Mesh $\Delta x_\mathrm{ups} = 0.5$ mm}
-   \label{fig:ics_mesh_independency_study_probes_dx0p5}
-\end{subfigure}
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{1.0\textwidth}
-	\centering
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p3.pdf}
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p3.pdf}
-   \vspace*{-0.10in}
-   \caption{{Mesh $\Delta x_\mathrm{ups} = 0.3$ mm}}
-   \label{fig:ics_mesh_independency_study_probes_dx0p3}
-\end{subfigure}
-
-
-\vskip\baselineskip
-
-\begin{subfigure}[b]{1.0\textwidth}
-	\centering
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p5_no_turb.pdf}
-   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p5_no_turb.pdf}
-   \vspace*{-0.10in}
-   \caption{Mesh $\Delta x_\mathrm{ups} = 0.5$ mm without turbulence injection}
-   \label{fig:ics_mesh_independency_study_probes_dx0p5_no_turb}
-\end{subfigure}
-
-\caption[Axial velocity fluctuations and associated frequencies at the sampling probes for the simulations at high Weber number.]{
-Axial velocity fluctuations and associated frequencies at the sampling probes for the simulations at high Weber number. \textsl{Left}: $u'$ fluctuations. \textsl{Right}: spectra of the fluctuations obtained through FFT.}
-\label{fig:ics_mesh_independency_study_probes}
-\end{figure}
-
-
-\clearpage
-
-
-
-Note that, unlike in Eq. (\ref{eq:line_averaged_u_and_TKE}), the TKE is not line-averaged but represents the resolved energy contained in the eddies at the probes location. 
-Figure \ref{fig:TKE_vs_dx_in_probes} gives the results. The coarser mesh with $\Delta x_\mathrm{ups} = 1$ mm provides different values of TKE in both probes with a difference of 34 $\%$: TKE is lost from point A to point B and this mesh cannot transport turbulence properly. Refining to $\Delta x_\mathrm{ups} = 0.5$ mm improves the transport capability of the mesh and both probes show similar values of TKE: 4.17 $J ~ kg^{-1}$ for probe A against 4.14 $J ~ kg^{-1}$ at probe B, making a difference of 0.7 $\%$. Finally, the mesh with $\Delta x_\mathrm{ups} = 0.3$ mm provides values of $4.2$ and $4.19$ $J ~ kg^{-1}$ in probes A and B respectively, yielding a difference of 0.24 $\%$ and making this mesh more suitable for transporting the turbulence. Nevertheless, the mesh with $\Delta x_\mathrm{ups} = 0.5$ mm already yields small errors in the TKE transport while providing TKE values very close to those of the mesh with $\Delta x_\mathrm{ups} = 0.3$ mm: it provides also good turbulent transport capabilities with smaller computational cost than the finest mesh due to its smaller number of elements (see Table \ref{tab:jicf_mesh_independence_gaseous_study}). 
-
-\vspace*{-0.05in}
-
-\begin{figure}[ht]
-	\centering
-	\includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/TKE_vs_dx_in_probes.pdf}
-   \vspace*{-0.15in}
-   \caption{Variation in Turbulent Kinetic Energy in probes A and B with upstream mesh resolution.}
-   \label{fig:TKE_vs_dx_in_probes}
-\end{figure}
-
-\vspace*{-0.05in}
-
-Finally, Figure \ref{fig:ics_mesh_independency_study_mean_profiles} plots the profiles of mean axial velocity $\overline{u}$ and TKE along the vertical line from in Figure \ref{fig:ics_mesh_independency_study_up_fields} right. $\overline{u}$ is properly captured for all meshes, despite slight variations within the boundary layer where it evolves from 0 to the velocity in the outer layer, which is constant and equal in all cases (despite some fluctuations due to numerical noise). The boundary layer thickness (observed in the evolution of both $\overline{u}$ and $TKE$) is around 5 mm, which is consistent with the experimental values reported in \citeColor[becker_breakup_2002]. Part of the liquid jet is comprised within the boundary layer, as illustrated in Figure \ref{fig:Umean_profile_with_jet} where the velocity profile is plotted alongside an instantenous view of a liquid jet. $TKE$ profiles in turbulent cases show that the turbulent energy in the outer layer (z > 5 $mm$) is similar for resolutions $\Delta x_\mathrm{ups} = 0.5$ and $0.3$ mm, but lower for the thicker resolution of 1 mm. Within the boundary layer, however, convergence with resolution is never achieved. Effectively, Kolmogorov length-scales for the studied case, which correspond to the length of the smallest eddies in the boundary layer, are of the order of $\eta \sim 0.5$ $\mu$m (see Appendix \ref{app:turbulent_scales_estimation} for estimations), which cannot be captured with any resolution employed. A proper resolution at this region would require a DNS study, which is nowadays unfeasible for the operating point studied and which justifies the use of LES for these simulations. Nevertheless, the values of TKE for z > 2 mm, including the energy decrease from this point up to the freestream, is converged for the resolution $\Delta x_\mathrm{ups} = 0.5$ mm. 
-
-
-\begin{figure}[ht]
-\centering
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mean_profiles/U_MEAN_profiles.pdf}
-   \vspace*{-0.20in}
-   \caption{Mean axial velocity}
-   %\label{} 
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_mean_profiles/TKE_profiles.pdf}
-   \vspace*{-0.20in}
-   \caption{Turbulent Kinetic Energy}
-   %\label{}
-\end{subfigure}
-\caption{Profiles of $\overline{u}$ and $TKE$ along the line right upstream the injector.}
-\label{fig:ics_mesh_independency_study_mean_profiles} 
-\end{figure}
-
-
-From these results, the simulation with the mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm is chosen as initial solution for performing the two-phase simulations. This mesh size allows for a proper turbulent transport (frequencies and energy content) with a moderate cost: Table \ref{tab:jicf_mesh_independence_gaseous_study} shows that decreasing resolution from 0.5 to 0.3 mm adds up to 28 million more elements. The turbulent content in the inner part of the turbulent layer is not properly resolved, which could have an effect on the jet atomization and has not been checked in this work. It, however, does not have an effect on the trajectory, as it is shown later in $\S$\ref{subsec:ch5_jet_trajectories_results}. A local refinement in the boundary layer (inflation layer) could help to converge the TKE profiles, but would greatly increase the cost of the simulations due to the length of the domain upstream the liquid injector and to the small cell size required to capture accurately the Kolmogorov scales.
-
-
-
-
-
-
-
-%\begin{figure}[ht]
-%\centering
-%\includeinkscape[inkscapelatex=false,scale=0.75]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_POPE/pope_instantaneous_all}
-%\caption[]{Views of Pope criterion}
-%\label{fig:ics_mesh_independency_study_POPE_M_fields}
-%\end{figure}
-
-
-
-
-%\begin{figure}[ht]
-%\centering
-%\begin{subfigure}[b]{0.3\textwidth}
-%	\centering
-%   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx1p0.eps}
-%   %\caption{}
-%   %\label{} 
-%\end{subfigure}
-%\hfill
-%\begin{subfigure}[b]{0.3\textwidth}
-%	\centering
-%   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p5.eps}
-%   %\caption{}
-%   %\label{} 
-%\end{subfigure}
-%\hfill
-%\begin{subfigure}[b]{0.3\textwidth}
-%	\centering
-%   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_dx0p3.eps}
-%   %\caption{}
-%   %\label{} 
-%\end{subfigure}
-%
-%\vskip\baselineskip
-%
-%\begin{subfigure}[b]{0.3\textwidth}
-%	\centering
-%   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx1p0.eps}
-%   \caption{}
-%   %\label{}
-%\end{subfigure}
-%\hfill
-%\begin{subfigure}[b]{0.3\textwidth}
-%	\centering
-%   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p5.eps}
-%   \caption{}
-%   %\label{}
-%\end{subfigure}
-%\hfill
-%\begin{subfigure}[b]{0.3\textwidth}
-%	\centering
-%   \includegraphics[scale=0.20]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_dx0p3.eps}
-%   \caption{}
-%   %\label{}
-%\end{subfigure}
-%
-%\caption[YAP]{Probes}
-%\label{fig:ics_mesh_independency_study_probes}
-%\end{figure}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\begin{figure}[ht]
-\centering
-\includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/Umean_profile_with_jet_in_BL}
-\caption[Instaneous JICF view with mean axial velocity field in symmetry plane $y = 0$]{Instaneous JICF view with mean axial velocity field in symmetry plane $y = 0$. The vectors represent the velocity profile just upstream the injector, showing the boundary layer thickness $\delta = 5$ mm. The velocity profile has been displaced upstream in the picture for a better visualization.}
-% OJO: ficheros generados para el perfil de velocidades estan en Ongoing\ICS_study\u_mean_profiles\cases_probes\mesh_refined_DX0p5_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7
-\label{fig:Umean_profile_with_jet}
-\end{figure}
-
-
-
-\vspace*{-0.2in}
-
-\subsection{Initial conditions for low Weber operating point}
-
-Initial conditions are also obtained for the operating point at lower Weber number ($We_g = 830$) with the mesh resolution $\Delta x_\mathrm{ups} = 0.5$ mm. For establishment of the gaseous phase, the simulation has been run for 40 times the flow-through time from Table \ref{tab:jicf_operating_conditions_turbulent_injection_parameters}. This time, which has been checked to profiled converged solutions, has been chosen from the results obtained with the operating point at high We, as shown in Figure \ref{fig:mesh_convergence_line_averages}. Converged profiles for mean axial velocity and $TKE$ are shown in Figure \ref{fig:ics_mean_profiles_op2}, where the profiles for the high We operating point are also shown for comparison. As expected, both $\overline{u}$ and $TKE$ values are lower along the $z$ coordinates for the lower We operating point, consistent with the lower bulk values of $u_\infty$ and $u'$ imposed at the gaseous inletfor this case.
-
+Figure \ref{fig:ics_mean_profiles_op2} shows the profiles for gaseous mean axial velocity $\overline{u}$ and Turbulent Kinetic Energy (TKE), calculated as $TKE = \left( \overline{u'^2} + \overline{v'^2} + \overline{w'^2} \right) / 2$, for both operating points. As shown, a boundary layer thickness of around 5 mm is captured, reflected in both the $\overline{u}$ and $TKE$ profiles. This agrees with the values reported by \citepColor[becker_breakup_2002]. Part of the liquid jet is immersed within the boundary layer, as illustrated in Figure \ref{fig:Umean_profile_with_jet} where the velocity profile is plotted alongside an instantaneous view of a liquid jet from a resolved simulation. Since the TKE values are large within the boundary layer as shown in Figure \ref{fig:ics_mean_profiles_op2}b, it is probable that turbulence from the boundary layer plays a role in the jet primary breakup.
 
 \begin{figure}[ht]
 \centering
@@ -675,14 +239,15 @@ Initial conditions are also obtained for the operating point at lower Weber numb
 
 
 
-%\begin{figure}[ht]
-%	\centering
-%   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/up_OP2.eps}
-%   \includegraphics[scale=0.28]{./part2_developments/figures_ch5_resolved_JICF/results_ics_mesh_convergence_probes/spectra_linear_scale_OP2.eps}
-%   \caption{Mesh $\Delta x_\mathrm{ups} = 0.5$ mm, low-We operating point}
-%   \label{fig:ics_probes_OP2}
-%\end{figure}
-%
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.2]{./part2_developments/figures_ch5_resolved_JICF/Umean_profile_with_jet_in_BL}
+\caption[Instaneous JICF view with mean axial velocity field in symmetry plane $y = 0$]{Instaneous JICF view with mean axial velocity field in symmetry plane $y = 0$. The vectors represent the velocity profile just upstream the injector, showing the boundary layer thickness $\delta = 5$ mm. The velocity profile has been displaced upstream in the picture for a better visualization.}
+% OJO: ficheros generados para el perfil de velocidades estan en Ongoing\ICS_study\u_mean_profiles\cases_probes\mesh_refined_DX0p5_ics_no_actuator_flat_BL_with_turbulence_L3p00_up2p7
+\label{fig:Umean_profile_with_jet}
+\end{figure}
+
+
 
 \clearpage
 
@@ -844,21 +409,9 @@ The evolution of mesh size with time, given by the number of mesh elements ($N_\
 
 
 
-The dashed line in Figures \ref{fig:JICF_nelem_increase_all_t} and  \ref{fig:JICF_nelem_increase_t_0_to_2} corresponds  to $t^{\prime} = 1$, which is the instant at which the sampling plane $x = 10$ mm detects the first droplet in each simulation. Figure \ref{fig:JICF_nelem_increase_t_0_to_2} shows that this instant is located in the exponential region. Previously, there is no liquid being artificially removed in the simulations, so the curves increase monotonically (except for some minor decreases due to small droplets that reach the size of mesh resolution and disappear due to the unability of being further propagated in the simulations, which is discussed in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}). After this point, the number of elements continues to increase exponentially up to $t^{\prime} \sim 1.5$ when the slope starts to decrease and, finally, the number of elements  stabilizes. Right after $t^{\prime} \sim 1.5$ there is a considerable amount of liquid droplets reaching the articifial sponge layer and being removed. Nevertheless, at this stage there are more droplets being generated in the near-nozzle region due to the disturbance effect of the liquid dense core to the air, which creates gaseous turbulence that helps to atomize ligaments ejected from the dense core. This explains the monotonic increase in the number of elements for $t^{\prime} > 1$ prior to its establishment around a constant value, which depends on each simulation. The only noticeable difference at $t^{\prime} = 1$ is for the simulation UG75$\_$DX10, which shows an abrupt reduction. Two reasons might explain this decrease. First, there is not only one droplet, but several ones reaching the last sampling plane, hence these droplets are all simultaneously removed from the simulation. Since the mean diameter of the droplets generated in a liquid JICF is larger when the air dynamic pressure is lower \citepColor[becker_breakup_2002], which is the case for the low Weber operating point, the droplets generated in this case are in general larger than for the high Weber case (this is later shown in $\S$\ref{sec:ch5_sec_spray_characterization}), so all these droplets contain more elements than one single droplet from the case UG75\_DX10 and the removed amount liquid is larger. The second hypothesis is that, at this time instant, several liquid structures with size comparable to the mesh resolution limit disappear simultaneously when transported to the next timestep (details on droplets reaching the mesh resolution are given in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}), causing an overall decrease in the number of elements. The combination of both could also occur, which combined would induce a larger decrease in the number of elements than if every single one acts separately.
+The dashed line in Figures \ref{fig:JICF_nelem_increase_all_t} and  \ref{fig:JICF_nelem_increase_t_0_to_2} corresponds  to $t^{\prime} = 1$, which is the instant at which the sampling plane $x = 10$ mm detects the first droplet in each simulation. Figure \ref{fig:JICF_nelem_increase_t_0_to_2} shows that this instant is located in the exponential region. Previously, there is no liquid being artificially removed in the simulations, so the curves increase monotonically (except for some minor decreases due to small droplets that reach the size of mesh resolution and disappear due to the unability of being further propagated in the simulations, which is discussed in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band}). After this point, the number of elements continues to increase exponentially up to $t^{\prime} \sim 1.5$ when the slope starts to decrease and, finally, the number of elements  stabilizes. Right after $t^{\prime} \sim 1.5$ there is a considerable amount of liquid droplets reaching the articifial sponge layer and being removed. Nevertheless, at this stage there are more droplets being generated in the near-nozzle region due to the disturbance effect of the liquid dense core to the air, which creates gaseous turbulence that helps to atomize ligaments ejected from the dense core. This explains the monotonic increase in the number of elements for $t^{\prime} > 1$ prior to its establishment around a constant value, which depends on each simulation. The only noticeable difference at $t^{\prime} = 1$ is for the simulation UG75$\_$DX10, which shows an abrupt reduction. Two reasons might explain this decrease. First, there is not only one droplet, but several ones reaching the last sampling plane, hence these droplets are all simultaneously removed from the simulation. Since the mean diameter of the droplets generated in a liquid JICF is larger when the air dynamic pressure is lower \citepColor[becker_breakup_2002], which is the case for the low Weber operating point, the droplets generated in this case are in general larger than for the high Weber case (this is later shown in $\S$\ref{sec:ch5_sec_spray_characterization}), so all these droplets contain more elements than one single droplet from the case UG75\_DX10 and the removed amount liquid is larger. The second hypothesis is that, at this time instant, several liquid structures with size comparable to the mesh resolution limit disappear simultaneously when transported to the next timestep (a discussion on droplets disappearing due to this numerical phenomenon is given in Appendix \ref{app:IBs_mass_conservation_ACLS}
+), causing an overall decrease in the number of elements. The combination of both could also occur, which combined would induce a larger decrease in the number of elements than if every single one acts separately.
 
-%Figure \ref{fig:JICF_nelem_increase_t_0_to_0p5} shows the evolution of number of elements in the black rectangle of Figure \ref{fig:JICF_nelem_increase_t_0_to_2}, which correspond to the early instants of injection. It is seen that for $t^{\prime} \in [0, 0.3]$ the increase in mesh size is slow, but yet the simulations with fine resolutions start to generate more elements than the coarse ones. In this regions, there is no significant difference between operating points. For $t^{\prime} > [0, 0.3]$ the curves start to further differ due to the beginning of atomization: generation of ligaments due to column breakup and of droplets due to surface breakup increase greatly the amount of liquid-gas interface, hence pronouncing the differences in number of mesh elements between resolutions. At this point the effect of the operating points can be noticed: the high Weber case presents a slighly larger number of elements than the low Weber case for both resolutions, as expected since for the former case the aerodynamic forces are stronger and the number of generated droplets is larger (verified in $\S$\ref{subsec:ch5_mass_conservation_ACLS_set_levelset_band})).
-%
-%The exponential region is observed by looking at the blue rectangle from Figure \ref{fig:JICF_nelem_increase_t_0_to_2}, shown in Figure \ref{fig:JICF_nelem_increase_t_0p5_to_0p7}. This is only a portion of the exponential region, but a representative one since no abrupt decreases in the number of elements due to liquid disappearance are observed. In this graph, it can first be observed that the evolution of element number is not literally monotically increasing, but presents a stepped signal. This is due to the dynamic mesh adaptation routine explained in $\S$\ref{subsec:ch2_ACLS}, which modifies the mesh after a given simulation iterations have passed and not at each iteration: therefore, for some iterations of the simulation $N_\mathrm{elements}$ stay constant. The exponential increase in $N_\mathrm{elements}$ in this region, which is depicted as a linear curve in Figure \ref{fig:JICF_nelem_increase_t_0p5_to_0p7} since the $y$ axis is in logarithmic units, can be fit to an expression relating both magnitudes as follows:
-%
-%\begin{equation}
-%N_\mathrm{elements} = n \exp \left( m t^{\prime} \right)
-%\end{equation}
-%
-%where $n$ is the $y$-axis intercept and $m$ is the slope. The intercept will be different in all cases; however, the slopes have been found to be different between resolutions but equal between operating points. Therefore two slopes are calculated: $m_{\Delta x10}$ for the fine resolution and $m_{\Delta x20}$ for the coarse one, displayed by the dash-dotted lines in Figure \ref{fig:JICF_nelem_increase_t_0p5_to_0p7}. These slopes have been found to be $m_{\Delta x10} = 3.15$ and $m_{\Delta x20} = 1.6$. A relation that holds is:
-%
-%\begin{equation}
-%\left( \frac{m_{\Delta x10}}{m_{\Delta x20}} \right)^3 = \exp \left( 2 \right)
-%\end{equation}
 
  
 
@@ -1110,37 +663,9 @@ From the analysis performed in this section, it can be stated that refining the 
 \subsection{Jet trajectories}
 \label{subsec:ch5_jet_trajectories_results}
 
-One of the most important characteristics of a jet in crossflow is its trajectory (see $\S$\ref{sec:ch1_fuel_injection_technology}). This feature determines how far the jet penetrates in the domain and has a paramount effect on the latter evaporation and mixing processes, hence affecting flame dynamics in reactive cases. Experimental studies often provide correlations for the trajectory of the windward side of the jet (see Table \ref{tab:correlations_experimental_JICF}), such as the one from Eq. (\ref{eq:jicf_trajectory_becker}).
+One of the most important characteristics of a jet in crossflow is its trajectory (see $\S$\ref{sec:ch1_fuel_injection_technology}). This feature determines how far the jet penetrates in the domain and has a paramount effect on the latter evaporation and mixing processes, hence affecting flame dynamics in reactive cases. Experimental studies often provide correlations for the trajectory of the windward side of the jet (see Table \ref{tab:correlations_experimental_JICF}). This is the side indicating the furthest vertical location ($z$) containing liquid for each axial location in crossflow direction ($x$). Correlations relating $z$ and $x$ are often specified for a specific operating range ($q$ and $We$ limits) and up to a certain axial location downstream the injection point. 
 
-Jet trajectories are usually obtained for the windward side of the jet, since this is the side indicating the furthest vertical location ($z$) containing liquid for each axial location in crossflow direction ($x$). Experimental studies on JICF configurations often provide correlations for the mean trajectory relating $z$ with $x$. Optical access to the windward side of the jet by using, for example, quartz walls and visualization equipment such as high-speed cameras, makes the jet trajectory an easily accessible characteristic from the experimental point of view. Correlations are often specified for a given range of operating conditions and valid up to a certain axial location downstream the injection point, since further away the presence of droplets resulting from atomization make optical visualization more difficult. For the configuration simulated in this chapter, \citeColor[becker_breakup_2002] provide the following experimental correlation, which will be used for simulations validation:
-
-\begin{equation}
-    \label{eq:jicf_trajectory_becker}
-    \frac{z}{d_\mathrm{inj}} = 1.57 \mathrm{q}^{0.36} \ln \left( 1 + 3.81 \frac{x}{d_\mathrm{inj}} \right)
-\end{equation}
-
-which is valid for $1 < q < 12$, $90 < We_\mathrm{ae} < 2120$ and $x/d_\mathrm{inj} < 22$. The values for $d_\mathrm{inj}$ and $q$ are given
-in Table \ref{tab:jicf_operating_conditions}. The authors also present a standard deviation for the correlation of $\sigma = 0.81$. By plotting this expression together with the trajectories obtained from the simulations, one has a qualitative view of the difference between simulations and experiments. To go further in the analyses, it is aimed to provide a quantitative measure of the differences between the correlation and the experimental results presented hereafter. For this purpose, an error defined as a $L_2$ norm is defined as follows:
-
-\begin{equation}
-\label{eq:L2_JICF}
-    L_2 = \sqrt{\frac{1}{N}   \sum_{i=1}^N \left( \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{num},i} -   \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{exp},i} \right)^2}
-\end{equation}
-
-where $N$ is the number of points along the abscissa $x$ in which the difference between curves is evaluated and i refers to the $i$-th point. The subscript num$,i$ indicates the mean value obtained from simulations for the vertical location at point $i$, while exp$,i$ indicates the equivalent measure from experiments. From this definition it follows that the $L_2$ error is a measure of the deviation from experiments: the lower the $L_2$, the closer the simulation results are to the experimental ones. The $L_2$ error can also be monitored with time to determine the convergence evolution of the trajectories.
-
-Apart from the $L_2$ error, another measure for experimental accuracy can be defined as an error along the trajectory:
-
-
-
-\begin{equation}
-\label{eq:error_along_trajectory}
-\varepsilon_i  =  \frac{ z/d_\mathrm{inj} \Bigr|_{\mathrm{num},i} - z/d_\mathrm{inj} \Bigr|_{\mathrm{exp},i} }{ z/d_\mathrm{inj} \Bigr|_{\mathrm{exp},i} }
-\end{equation}
-
-The error $\varepsilon_i$ is then obtained and plotted for all the abscissa values $x_i$, providing an indicator of the trajectory’s deviation along the crossflow’s axial direction. \\
-
-In the next lines, trajectories for the jets from the resolved simulations are going to be analyzed with the metrics previously described. Four post-processing trajectories for obtaining trajectories are proposed and discussed. Then, these methods are applied to the simulations and their differences are commented, followed then by the results obtained from the simulations.
+In this section, trajectories for the jets from the resolved simulations are going to be analyzed and compared with an experimental correlation. Four post-processing methods for obtaining trajectories are proposed and discussed. Then, these methods are applied to one computation for illustrating their differences. Finally, one method is selected (based on its similarity with the experimental processing methodologies) for comparing the trajectories among simulations.
 
 %Different methods to obtain trajectories from resolved simulations were proposed in $\S$\ref{sec:ch5_tools_jicf_trajectories}. These methods are summarized in Table \ref{tab:jicf_tools_trajectories_obtention}. In this section, firstly  the four methods described are applied to the simulation UG100\_DX20, the trajectories obtained are then compared and discussed. Secondly, the method MEAN\_GRAD is chosen to perform experimental validation with all simulations from Table \ref{tab:jicf_resolved_simulations_performed}. \hl{Finally, a comparison of the $L_2$ errors based on the maximum distance downstream in the trajectory ...}
 
@@ -1296,21 +821,27 @@ Group & Method & Name \\
 
 \subsubsection*{Results}
 
-%The jet establishment discussed in $\S$\ref{subsec:ch5_jet_evolution} showed that the jet is not developed at the early instants of injection. At these stages, the quantity of liquid inside the domain is low and the gaseous field at the vicinity of the injector is not perturbed by the jet along the region where instabilities are developed and the jet starts to atomize. Hence, the jet penetration at the early instants might not be representative of the trajectory followed afterwards, and so trajectories are obtained after a certain establishment time which here is taken as $\sim 2 \tau_{\mathrm{dr}_{x=10}}$. All gaseous and liquid fields statistics (velocity, pressure, $\psi$, etc. mean and RMS values) are reinitialised after this establishment time, hence the trajectories based on the mean $\psi$ field do not consider this prompt transient. Instantaneous trajectories averaged for obtaining mean trajectories based on them are also taken after this time.
+The trajectories obtained from the computations will be compared to the experimental correlation obtained by \citeColor[becker_breakup_2002], given by the following expression.:
 
-In first place, the four methodologies are compared by applying them to simulation UG100\_DX20, since this is the most advanced one as shown in Figure \ref{fig:JICF_liquid_volume_increase}. The resulting trajectories are shown in Figure \ref{fig:JICF_trajectories_and_L2_comparison}a, while the time evolution of $L_2$ errors calculated with Eq. (\ref{eq:L2_JICF}) is displayed in Figure \ref{fig:JICF_trajectories_and_L2_comparison}b. In the vicinity of the injector all trajectories follow the same tendency up to $x/d_\mathrm{inj} \sim 1$. After this point, two different tendencies are observed: mean $\psi$ trajectories keep on following the experimental correlation, while instantaneous ones are located below. The former ones are noisy due to numerical dissipation in the $\psi$ field, while the latter present a smoother shape since they are obtained by interpolating instantaneous trajectories and averaging them with time. Further downstream, instantaneous-averaged trajectories overpass the ones obtained from the mean $\psi$ ones. The different trends shown by the trajectorices from both methodologies are due to their underlying definitions: instantaneous-averaged trajectories intend only to retrieve the outer contour of the jet, while the mean-based methods take the $\overline{\psi}$ field defined in all the domain and then obtain the trajectories at the middle plane. The $\overline{\psi}$ field is diffused as opposed to the $\psi = 0.5$ contour retrieved by the instantaneous methods, so the trajectories obtained as $\max \left( \nabla_z | \overline{\psi} | \right)$ and $\overline{\psi} = 0.01$ are located in the regions where $\overline{\psi}$ is close to $0$ (i.e. where the mean presence of liquid is low). Consequently, the trajectories generated penetrate further away than the instantaneous averaged ones in the near-injector region where the liquid is coherent, while they show the opposed tendency downstream after atomization has taken place and dispersed droplets are present.
+\begin{equation}
+    \label{eq:jicf_trajectory_becker}
+    \frac{z}{d_\mathrm{inj}} = 1.57 \mathrm{q}^{0.36} \ln \left( 1 + 3.81 \frac{x}{d_\mathrm{inj}} \right)
+\end{equation}
+
+which is valid for $1 < q < 12$, $90 < We_\mathrm{ae} < 2120$ and $x/d_\mathrm{inj} < 22$. For the simulations studied, $d_\mathrm{inj} = 0.45$ mm and $q = 6$. The authors also present a standard deviation for the correlation of $\sigma = 0.81$. Numerical trajectories can be plotted together with Eq. (\ref{eq:jicf_trajectory_becker}) to provide a qualitative comparison of the computations. For further insight, a quantitative measure for the difference between simulations and experiments can be introduced through a $L_2$ norm:
+
+\begin{equation}
+\label{eq:L2_JICF}
+    L_2 = \sqrt{\frac{1}{N}   \sum_{i=1}^N \left( \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{num},i} -   \frac{z}{d_\mathrm{inj}} \Bigr|_{\mathrm{exp},i} \right)^2}
+\end{equation}
+
+where $N$ is the number of points along the abscissa $x$ in which the difference between curves is evaluated and i refers to the $i$-th point. The subscript num$,i$ indicates the mean value obtained from simulations for the vertical location at point $i$, while exp$,i$ indicates the equivalent measure from experiments. From this definition it follows that the $L_2$ error is a measure of the deviation from experiments: the lower the $L_2$, the closer the simulation results are to the experimental ones. The $L_2$ error can also be monitored with time to determine the convergence evolution of the trajectories. \\
 
 
+In first place, the four methodologies are compared by applying them to simulation UG100\_DX20, since this is the one that has run for longer physical time. The resulting trajectories are shown in Figure \ref{fig:JICF_trajectories_and_L2_comparison}a. In the vicinity of the injector all trajectories follow the same tendency up to $x/d_\mathrm{inj} \sim 1$. After this point, two different tendencies are observed: mean $\psi$ trajectories keep on following the experimental correlation, while instantaneous ones are located below. The former are noisy due to numerical dissipation in the $\psi$ field, while the latter present a smoother shape since they are obtained by interpolating instantaneous trajectories and averaging them with time. The different trends shown by the trajectories from both methodologies are due to their underlying definitions: instantaneous-averaged trajectories intend only to retrieve the outer contour of the jet, while the mean-based methods take the $\overline{\psi}$ field defined in all the domain and then obtain the trajectories at plane $y = 0$. The $\overline{\psi}$ field is diffused as opposed to the $\psi = 0.5$ contour retrieved by the instantaneous methods, so the trajectories obtained as $\max \left( \nabla_z | \overline{\psi} | \right)$ (maximum gradient) and $\overline{\psi} = 0.01$ (contour) are located in the regions where $\overline{\psi}$ is close to $0$ (i.e. where the mean presence of liquid is low). Consequently, trajectories penetrate further away than the instantaneous averaged ones in the near-injector region (coherent liquid) while they show the opposed tendency downstream after atomization has taken place (dispersed phase liquid) \\
 
-Trajectories obtained from the mean $\psi$ field follow the experimental correlation up to $x/d_\mathrm{inj} \sim 4$, at which point the curve obtained with the gradient method is underestimated with respect to the iso-contour of $\overline{\psi} = 0.01$. This might indicate that at this point primary atomization starts to take place and ligaments are being stripped-off the jet. The $\overline{\psi}$ generated downstream due to the presence of firstly ligaments and then droplets makes the chosen contour $\psi = 0.01$ to be further away than the $\max \left( \nabla_z | \overline{\psi} | \right)$ one, since this low value supposes a scarce presence of liquid. Nevertheless, it must be considered that the chosen value for the iso-contour of $\overline{\psi}$ is arbitrary as previously mentioned, and the trajectories obtained downstream (when breakup starts taking place) are very sensitive to this value.
+\clearpage
 
-Regarding trajectories obtained from the instantanous $\psi = 0.5$ contours, both monotonic and non-monotonic follow the same tendency up to $x/d_\mathrm{inj} \sim 10$, then they diverge. This is coherent with the definition of both methods, as the monotonic one neglects liquid structures detected which not follow an increasing trend with $x$ and non-monotonic ones do consider those, as explained in Figures \ref{fig:trajectory_obtention_instantaneous_method_a} and \ref{fig:trajectory_obtention_instantaneous_method_b}. In effect, for $x/d_\mathrm{inj} > 10$ primary atomization has already taken place and a polydisperse spray composed of many droplets is found (dispersed phase). Some droplets found in this region when sweeping along the $z$ axis to detect liquid structures do not belong to the outer trajectory of the jet. Since these droplets are neglected in the monotonic method but considered in the non-monotonic one, the averaging procedure of all interpolated, instantaneous trajectories produces a further penetrating curve for the monotonic procedure than for the non-monotonic one.
-
-The evolution of the $L_2$ norm calculated with Eq. (\ref{eq:L2_JICF}) is shown in Figure \ref{fig:JICF_trajectories_and_L2_comparison}b for all methods. The norm is calculated for two ranges in the $x$ axis: $0 < x/d_\mathrm{inj} < 10$ and $0 < x/d_\mathrm{inj} < 20$. The first case considers the trajectories closer to the injector before a full disperse spray is present, and all $L_2$ norms show convergence. The norms from the instantaneous trajectories show similar values since the trajectories for $x/d_\mathrm{inj} < 10$ are always close. The mean field trajectories show noisier signals with the case MEAN\_CONT yielding the lowest errors. When considering the range $0 < x/d_\mathrm{inj} < 20$, the signals show different behaviours. In the case of the instantaneous trajectories, both show the same tendencies with time and convergence, but with a larger difference in the norm due to the divergence of both curves in the dispersed phase region. The trajectory from method MEAN\_CONT shows also convergence in the norm, but with a larger value than for the range $0 < x/d_\mathrm{inj} < 10$. On the other hand, the signal from method MEAN\_GRAD does not show convergence with time when the dispersed spray region is included. The reason is that the field $\nabla_z | \overline{\psi} |$ shows a very unstable behaviour with time in the dispersed spray as opposed to the field $\overline{\psi}$, leading to the green curve in Figure \ref{fig:JICF_trajectories_and_L2_comparison}b. It is not sure whether this method will yield a converged $L_2$ if the simulation were run longer. 
-
-%Establishment of the curves is observed in all cases for $t^{\prime} > 5$. This indicates that the trajectories are overall converged at this stage. More fluctuations are observed in the $\overline{\psi}$ methods than in the instantaneous-averaged ones. The monotonic and non-monotonic curves show a smooth development with time, and both follow the same tendency except for a threshold in the $L_2$ norm caused by the downstream difference in the trajectories at Figure \ref{fig:JICF_trajectories_and_L2_comparison}a. The lowest error is obtained with the $\overline{\psi} = 0.01$ contour.
-
-%The evolution of the $L_2$ norm for all four methods is shown in Figure \ref{fig:JICF_trajectories_and_L2_comparison}b. Establishment of the curves is observed in all cases for $t^{\prime} > 5$ (\hl{\textbf{OJO: comprobar norma L2 de metodo MEAN\_GRAD !!!}}). This indicates that the trajectories are overall converged at this stage. More fluctuations are observed in the $\overline{\psi}$ methods than in the instantaneous-averaged ones. The monotonic and non-monotonic curves show a smooth development with time, and both follow the same tendency except for a threshold in the $L_2$ norm caused by the downstream difference in the trajectories at Figure \ref{fig:JICF_trajectories_and_L2_comparison}a. The lowest error is obtained with the $\overline{\psi} = 0.01$ contour.
 
 \begin{figure}[ht]
 \flushleft
@@ -1336,80 +867,28 @@ The evolution of the $L_2$ norm calculated with Eq. (\ref{eq:L2_JICF}) is shown 
 \label{fig:JICF_trajectories_and_L2_comparison}
 \end{figure}
 
-For validating experimentally the trajectories from the rest of the simulations, the method MEAN\_GRAD is selected due to its similarity with the methodology followed by \citeColor[becker_breakup_2002] to obtain the experimental correlation. Results are shown in Figure \ref{fig:JICF_trajectories_validation} for both operating points, including the case for the high $We$ number without synthetic turbulence injection. The evolution of the $L_2$ norm displayed has been obtained for the range $0 < x/d_\mathrm{inj} < 10$.
+The evolution of the $L_2$ norm calculated with Eq. (\ref{eq:L2_JICF}) is shown in Figure \ref{fig:JICF_trajectories_and_L2_comparison}b for all methods. The norm is calculated for two ranges in the $x$ axis: $x/d_\mathrm{inj} < 10$ and $x/d_\mathrm{inj} < 20$. The former (reduced range) considers the trajectories closer to the injector before a full disperse spray is present, and all $L_2$ norms show convergence. The norms from the instantaneous trajectories show similar values since the trajectories for $x/d_\mathrm{inj} < 10$ are always close. The mean field trajectories show noisier signals, with the case MEAN\_CONT yielding the lowest errors. When considering the range $x/d_\mathrm{inj} < 20$, the signals show different behaviours. Regarding the instantaneous-averaged trajectories, both show the same tendencies as in the reduced range, but with larger norms due to the divergence of both curves in the dispersed phase region. The trajectory from method MEAN\_CONT shows also convergence in the norm, but with a larger value than for the reduced range. On the other hand, the signal from method MEAN\_GRAD does not show convergence with time when the dispersed spray region is included. The reason is that the field $\nabla_z | \overline{\psi} |$ shows a very unstable behaviour with time in the dispersed spray, as opposed to the field $\overline{\psi}$. It is not sure whether this method will yield a converged $L_2$ if the simulation were run longer. The results from Figure \ref{fig:JICF_trajectories_and_L2_comparison} show the strong influence that the choice of trajectory obtention method can have on the results.  \\
+
+For validating experimentally the trajectories from the rest of the simulations, the method MEAN\_GRAD is selected due to its similarity with the methodology followed by \citeColor[becker_breakup_2002] to obtain the experimental correlation. Results are shown in Figure \ref{fig:JICF_trajectories_validation} for both operating points, including the case for the high $We$ number without synthetic turbulence injection. The evolution of the $L_2$ norm displayed has been obtained for the range $x/d_\mathrm{inj} < 10$. Additionally, an error along the trajectory  $\varepsilon_i$ is also defined to indicate the trajectory’s accuracy along the crossflow’s direction $x$:
+
+\begin{equation}
+\label{eq:error_along_trajectory}
+\varepsilon_i  =  \frac{ z/d_\mathrm{inj} \Bigr|_{\mathrm{num},i} - z/d_\mathrm{inj} \Bigr|_{\mathrm{exp},i} }{ z/d_\mathrm{inj} \Bigr|_{\mathrm{exp},i} }
+\end{equation}
+
+
 
 Trajectories are shown in Figures \ref{fig:JICF_trajectories_validation}a and b for both operating points. The first remarkable events are the dependence on mesh resolution for both operating points, and the differentiation of two regions with axial distance along the trajectories. From the graphs, the regions can be distinguished as follows:
 
 \begin{enumerate}
 
-	\item A first near-injector region in which both resolutions coincide with the experimental correlation, showing no dependence on the mesh resolution. This regions extends up to $x/d_\mathrm{inj} \sim 5$ for low $We$ and to $x/d_\mathrm{inj} \sim 4$ for high $We$. This is the region where the dense core is located and primary atomization starts to take place, hence resulting in good trajectory prediction due to the more coherent structures found.
+	\item A first near-injector region in which both resolutions coincide with the experimental correlation, showing no dependence on the mesh resolution. This regions extends up to $x/d_\mathrm{inj} \sim 5$ for low $We$ and to $x/d_\mathrm{inj} \sim 4$ for high $We$. Here, the dense core is located and primary atomization takes place, resulting in an accurate trajectory prediction.
 	
-	\item After the first region, the trajectories diverge and show different trends: the coarse simulation underestimates the experimental correlation (as observed in Figure \ref{fig:JICF_trajectories_and_L2_comparison} when comparing the different methods), while the fine one  continues within the experiments confidence interval until it surpasses it. This is the region where atomization is forming droplets and a dispersed spray starts to be formed, hence mispredicting the experimental correlations.
+	\item After the near-injector region, trajectories diverge and show different trends: the coarse simulation underestimates the experimental correlation, while the fine one continues within the confidence interval of the experiments until it surpasses it. This is the region where secondary atomization is forming droplets and a dispersed spray starts to be formed, hence mispredicting the experimental correlations.
 
 \end{enumerate}
 
-The reason why coarse simulations underestimate the trajectory further downstream, while the fine ones overestimate it, is the resolutions instabilities in the windward side of the jet (see $\S$\ref{subsubsec:ch5_breakup_topology}).  The presence of instabilities in the fine simulations creates ligaments and droplets with higher vertical velocity that penetrate further away than those generated in the coarse simulations, as demonstrated in Figure \ref{fig:jicf_column_breakup_ug100}. As a consequence, the resulting trajectories in the fine simulations penetrate further than both the coarse ones and the experimental correlation after atomization takes place. 
-
-
-Regarding the effect of injecting turbulence at the gaseous inlet, the red lines of Figure \ref{fig:JICF_trajectories_validation}b show that the mean trajectory is not affected when turbulence is added. The turbulence levels as calculated in $\S$\ref{subsec:ch5_inflow_conditions_synthetic_turbulence} do not have an influence on the formation of instabilities for the case studied. Nevertheless, only the coarse resolution has been simulated without turbulence injection: further studies could include a simulation with a finer resolution in order to determine if the injected turbulence have an effect on the instabilities formed in the windward side of the column.
-
-Figure \ref{fig:JICF_trajectories_validation}c shows the $L_2$ norm evolution. The final values of the errors are summarized in Table \ref{tab:jicf_L2_errors}. The coarse cases show convergence while the fine ones are still fluctuating, yet they seem to stabilize (the simulations should run longer to confirm this). It is worth to recall that the norms are calculated for the range $0 < x/d_\mathrm{inj} < 10$: if calculated for the full displayed range, up to $x/d_\mathrm{inj} < 20$, none of the signals show convergence for the range studied, as explained in the previous section. This demonstrates again the existence in the liquid JICF of two different liquid regimes: one first section which comprises the dense core, where numerical trajectories approach the experimental correlation and where they show good convergence; and a dispersed-phase region where the presence of liquid is intermittent and the trajectories are highly dependent on the mesh resolution. Since the SLI approached introduced in Chapter \ref{ch4:sli_development} needs to sample droplets from a spray, the injectors will need to be located in the dispersed phase region but as close as possible to the dense regime in order to retrieve a spray whose vertical boundaries are more similar to the experimental results. Another reason to locate a SLI sampling plane further upstream will be to better retrieve the injected liquid flow rate from the resolved simulations, as it is later explained in $\S$\ref{sec:ch5_direct_measurement_fluxes_IB}. On the other hand, one disadvantage of an upstream SLI is the fact that the sampled spray is not fully atomized and non-equilibrium, deformed droplets or ligaments might be captured. All these issues will be later discussed in this chapter.
-
-
-
-%Nevertheless, the fluctuations in the norm are mainly due to the changes in the trajectories after atomization starts taking plane, since the dispersed spray creates great variations in the levelset field between consecutive time instants. On the contrary, near the injector the dense core is located and the presence of liquid is constant with time, making the trajectories in this region converge faster. 
-
-
-
-%\begin{table}[!h]
-%\centering
-%\caption{$L_2$ errors for JICF simulations performed.}
-%\begin{tabular}{cc}
-%\thickhline
-%Case &  $L_2$ \\
-%\thickhline 
-%UG75\_DX10 & ? \\
-%UG75\_DX20 & ?  \\
-%UG100\_DX10 & ? \\
-%UG100\_DX20 & ?  \\
-%UG100\_DX20\_NT & ? \\
-%\thickhline
-%\end{tabular}
-%\label{tab:jicf_L2_errors}
-%\end{table}
-
-\begin{table}[!h]
-\centering
-\caption{$L_2$ errors for JICF simulations performed.}
-\begin{tabular}{cccccc}
-\thickhline
-\textbf{Case} &  UG75\_DX10 & UG75\_DX20 & UG100\_DX10 & UG100\_DX20 &  UG100\_DX20\_NT \\
-\hline
-$L_2$ & 0.29 & 1.16 & 0.44 & 1.40 & 1.35 \\
-\thickhline
-\end{tabular}
-\label{tab:jicf_L2_errors}
-\end{table}
-
-
-%\begin{figure}[ht]
-%\centering
-%	\centering
-%   \includegraphics[scale=0.3]{./part2_developments/figures_ch5_resolved_JICF/results_trajectories/L2_evolution_with_xD_UG100_DX10}
-%   \vspace*{-0.15in}
-%   \caption{Evolution of $L_2$ norm in case UG100\_DX10 considering the trajectories up to certain values of $x/d_\mathrm{inj}$}
-%\label{fig:L2_evolution_with_xD_UG100_DX10}
-%\end{figure}
-
-
-Finally, the relative error along the trajectory $\varepsilon$ is displayed in Figure \ref{fig:JICF_trajectories_validation}c. Negative values indicate underestimation with respect to the experimental correlation, while positive ones indicate overestimation. Close to the injection point the errors for the coarse resolutions are large since the denominator of Eq. (\ref{eq:error_along_trajectory}) is small, thus small differences produce high relative deviations. Then, deviations are small in the near injector region and start to increase monotonicall in absolute value further downstream. Errors are as large as 25 $\%$ at the end of the $x$ range: fine simulations present positive erros since they overestimate the experimental correltion, while the coarse ones yield negative ones due to the underestimation. As for the $L_2$ norms, the erros of the fine simulation in the downstream region are not converged and could still change significantly. This graph is useful to get an idea on the error commited in the vertical boundary of the spray when placing an SLI. For instance, if an injector is placed at $x = 5$ mm ($x/d_\mathrm{inj} \sim 11$), an SLI obtained from the fine resolution would yield low errors ($\sim 0~\%$ for UG75\_DX10 and $\sim 10~\%$ for UG100\_DX10), but very high ones for a coarse injector ($\sim - 25~\%$). Placing an injector further downstream would further increase the errors for  any resolutions. These effects will be studied in Chapter \ref{ch6:jicf_lgs_simulations}.
-
-%We can also define a slip velocity:
-%
-%\begin{equation}
-%\overline{\textbf{u}}_{\mathrm{sl}} = \overline{\textbf{u}}_l - \overline{\textbf{u}}_g
-%\end{equation}
-
+\clearpage
 
 
 
@@ -1427,12 +906,13 @@ Finally, the relative error along the trajectory $\varepsilon$ is displayed in F
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_trajectories/methods_expe_validation_trajectories_q6uG100.pdf}
-   \vspace*{-0.25in}
+   \vspace*{-0.30in}
    \caption{High $We$ trajectories}
    %\label{}
 \end{subfigure}
 
 \vskip\baselineskip
+\vspace*{-0.2in}
 
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
@@ -1446,14 +926,46 @@ Finally, the relative error along the trajectory $\varepsilon$ is displayed in F
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
    \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_trajectories/methods_expe_validation_error_with_xD.pdf}
-   \vspace*{-0.25in}
+   \vspace*{-0.30in}
    \caption{Error $\varepsilon$ along trajectory}
    %\label{}
 \end{subfigure}
 
+
 \caption{Trajectories and errors obtained with method MEAN\_GRAD}
 \label{fig:JICF_trajectories_validation}
 \end{figure}
+
+\vspace*{-0.05in}
+
+The reason why coarse simulations underestimate the trajectory further downstream, while the fine ones overestimate it, is the resolution of instabilities in the windward side of the jet (discussed previously in $\S$\ref{subsubsec:ch5_breakup_topology}).  Instabilities in the fine simulations create ligaments and droplets with high vertical velocities that penetrate further away than those generated in the coarse simulations. Consequently, their resulting trajectories penetrate further than the coarse ones and the experimental correlation after breakup occurs. 
+
+
+Regarding the effect of injecting turbulence at the gaseous inlet, the red lines of Figure \ref{fig:JICF_trajectories_validation}b show that the mean trajectory is not affected when turbulence is added. The turbulence levels (as calculated in Appendix \ref{app:gas_initial_cond_JICF}) do not have an influence on the formation of instabilities for the case studied. Nevertheless, only the coarse resolution has been simulated without turbulence injection: further studies could include a simulation with a finer resolution in order to determine if the injected turbulence have an effect on the instabilities formed in the windward side of the column.
+
+Figure \ref{fig:JICF_trajectories_validation}c shows the $L_2$ norm evolution. The coarse cases show convergence while the fine ones are still fluctuating, yet they seem to stabilize (simulations should run longer to confirm this). The final values of the errors are summarized in Table \ref{tab:jicf_L2_errors}, confirming that smaller deviations are obtained for fine resolutions. Finally, the relative error along the trajectory $\varepsilon$ is displayed in Figure \ref{fig:JICF_trajectories_validation}d. Negative values indicate underestimation of the experimental correlation, while positive ones indicate overestimation. In the vicinity of the injection nozzle ($x = 0$), errors are large because the denominator of Eq. (\ref{eq:error_along_trajectory}) is small. Then, deviations are small in the near injector region and start to increase monotonically in absolute value further downstream. Fine simulations present positive erros since they overestimate the experimental correltion, while the coarse ones yield negative ones due to the underestimation. This graph is useful to get an idea on the error commited in the vertical boundary of the spray when placing an SLI. For instance, if an injector is placed at $x = 5$ mm ($x/d_\mathrm{inj} \sim 11$), an SLI obtained from the fine resolution would yield low errors ($\sim 0~\%$ for UG75\_DX10 and $\sim 10~\%$ for UG100\_DX10), but very high ones for a coarse injector ($\sim - 25~\%$). %Placing an injector further downstream would increase the errors for any resolution. These effects will be studied in Chapter \ref{ch6:jicf_lgs_simulations}.
+
+
+
+\begin{table}[!h]
+\centering
+\caption{$L_2$ errors for JICF simulations performed.}
+\vspace*{-0.1in}
+\begin{tabular}{cccccc}
+\thickhline
+\textbf{Case} &  UG75\_DX10 & UG75\_DX20 & UG100\_DX10 & UG100\_DX20 &  UG100\_DX20\_NT \\
+\hline
+$L_2$ & 0.29 & 1.16 & 0.44 & 1.40 & 1.35 \\
+\thickhline
+\end{tabular}
+\label{tab:jicf_L2_errors}
+\end{table}
+
+
+
+
+
+
 
 
 \clearpage
@@ -1464,7 +976,7 @@ Finally, the relative error along the trajectory $\varepsilon$ is displayed in F
 \label{ch5:subsec_turbulent_structures_in_gaseous_field}
 
 
-Resolved simulations are characterized by the presence of the liquid dense core, which perturbs the incoming air and creates turbulence downstream the injector. This perturbation effect is illustrated in Figure \ref{fig:jet_air_interaction_up_and_skeleton}. At the left, the instantaneous axial fluctuations $u'$ and the jet interface in the middle plane y = 0 are plotted. The dense core creates turbulence downstream the injection point, as shown by the high fluctuations in velocity. Such perturbations can have a great impact on spray dispersion once atomization has taken place, therefore modelling this perturbance effect as accurate as possible is paramount for performing dispersed-phase simulations presented in Chapter \ref{ch6:jicf_lgs_simulations}, where the dense core is neglected and a developed spray is injected. A three-dimensional view of the perturbation effect is depicted in Figure \ref{fig:jet_air_interaction_up_and_skeleton} right, where the gaseous streamlines are visualized. Two main turbulent structures appear: a horseshoe vortex formed at the wall right upstream the liquid jet, widely observed in literature dealing with both gaseous and liquid JICF \citemColor[fric_vortical_1994,karagozian_transverse_2010,schlegel_contributions_2011]., and a recirculation zone right downstream the jet. The latter, which is a is characteristic of JICF configurations at high gaseous velocities \citepColor[fontes_improved_2019], might entrap droplets emanating from the ligaments formed during column breakup and affect their trajectory and their subsequent secondary breakup. 
+Resolved simulations capture the liquid dense core, which perturbs the incoming air and creates turbulence downstream the injector. This perturbation effect is illustrated in Figure \ref{fig:jet_air_interaction_up_and_skeleton}. At the left, the instantaneous axial velocity fluctuations $u'$ and the jet interface in the middle plane y = 0 are plotted. The dense core creates turbulence downstream the injection point, as shown by the strong fluctuations. Such perturbations can have a great impact on secondary atomization and spray dispersion once atomization has taken place. Therefore, modelling this perturbance effect as accurate as possible is paramount for later performing dispersed-phase simulations (Chapter \ref{ch6:jicf_lgs_simulations}), where the dense core is a priori neglected and a developed spray is injected. A three-dimensional view of the perturbation effect is depicted in Figure \ref{fig:jet_air_interaction_up_and_skeleton} right, where the gaseous streamlines are visualized. Two main turbulent structures appear: a horseshoe vortex formed at the wall right upstream the liquid jet, widely observed in literature dealing with both gaseous and liquid JICF \citemColor[fric_vortical_1994,karagozian_transverse_2010,schlegel_contributions_2011], and a recirculation zone right downstream the jet. The latter, which is a is characteristic of JICF configurations at high gaseous velocities \citepColor[fontes_improved_2019], might entrap droplets emanating from the ligaments formed during column breakup and affect their trajectory and their subsequent secondary breakup. 
 
 \begin{figure}[ht]
 \flushleft
@@ -1474,24 +986,7 @@ Resolved simulations are characterized by the presence of the liquid dense core,
 \end{figure}
 
 
-
-
-
-
-
-
-
-
-%\begin{figure}[h!]
-%	\centering
-%	\includeinkscape[inkscapelatex=false,scale=0.6]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/streamlines_UG100_DX20_from_dump}
-%	\vspace*{-0.5in}
-%	\caption{Streamlines in JICF simulation, case UG100\_DX20}
-%	% NOTA: figura de pilotage 2021_02_04
-%		\label{fig:streamlines_UG100_DX20_from_dump}
-%\end{figure}
-
-In this section, the turbulent structures created as a consequence of the dense core presence are studied. The results hereafter presented will be used in Chapter \ref{ch6:jicf_lgs_simulations} to compare the disturbance effects in the gaseous field retrieved in the dispersed phase simulations, and hence assess the capability of the perturbance methodologies proposed. The gaseous field is investigated by analyzing the mean axial gaseous velocity field in several planes perpendicular to the axes $x$, $y$ and $z$ are illustrated. Figure \ref{fig:jicf_sps_with_gaseous_planes} shows a view of the jet with the mean velocity fields investigaed in all cases: the symmetry plane $y = 0$ mm, planes perpendicular to the crossflow $x = 5, 10$ mm (which correspond to the planes where spray has been sampled and postprocessed, see Figure \ref{fig:jicf_interior_boundaries_surface_measurements}), and the planes perpendicular to the injection directions $z = 0.2, 0.8, 1.6$ mm. 
+In this section, the turbulent structures created as a consequence of the dense core presence are studied. These results will be used in Chapter \ref{ch6:jicf_lgs_simulations} to compare with the disturbance effects in the gaseous field modelled in the dispersed phase simulations. The gaseous field is investigated by analyzing the mean axial gaseous velocity field $\overline{u}$ in the planes illustrated in Figure \ref{fig:jicf_sps_with_gaseous_planes}. %These planes are: the symmetry plane $y = 0$ mm, planes perpendicular to the crossflow $x = 5, 10$ mm (which correspond to the planes where spray has been sampled and postprocessed, see Figure \ref{fig:jicf_interior_boundaries_surface_measurements}), and the planes perpendicular to the injection directions $z = 0.2, 0.8, 1.6$ mm. 
 
 
 \begin{figure}[h!]
@@ -1504,40 +999,7 @@ In this section, the turbulent structures created as a consequence of the dense 
 \end{figure}
 
 
-
-%In order to further illustrate the turbulent state of the gaseous phase, vortical structures can be illustrated with the Q-criterion defined by \citeColor[jeong_identification_1995]:
-%
-%%\begin{equation}
-%%Q = \frac{1}{2} \left( ||\pmb{\Omega}||^2 - ||\textbf{S}||^2 \right)
-%%\end{equation}
-%
-%
-%\begin{equation}
-%Q = \frac{1}{2} \left( \Omega_{ij} \Omega_{ij} - S_{ij} S_{ij} \right)
-%\end{equation}
-%
-%where $\Omega_{ij}$ and $S_{ij}$ are respectively the symmetric and antisymmetric components of $\nabla \textbf{u}$: 
-%
-%\begin{equation}
-%S_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i} \right) ~~~~ ; ~~~~ \Omega_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} - \frac{\partial u_j}{\partial x_i} \right)
-%\end{equation}
-%
-%
-%%$S_{i,j} = \frac{1}{2} \left( u_{i,j} + u_{j,i} \right)$, $\Omega_{i,j} = \frac{1}{2} \left( u_{i,j} - u_{j,i} \right)$. 
-%
-%$Q$ represents then the local balance between shear strain rate and vorticity magnitude, and vortices can be visualized by iso-values of $Q$. Figure \ref{fig:jicf_sps_q_crit} shows vortical structures visualized for the high Weber cases through the value $Q = 10^{10}$. \hl{As observed ...}
-%
-%
-%
-%\begin{figure}[h!]
-%	\centering
-%	\includeinkscape[inkscapelatex=false,scale=0.6]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/Q_crit}
-%	\caption{Turbulent structures visualized by iso-value Q = $10^{10}$ of the Q-criterion in cases UG100\_DX10 (\textsl{left}) and UG100\_DX20 (\textsl{right}). \textbf{OJO: cambiar color a vortices y anyadir Q para DX10}}
-%	% NOTA: figura de pilotage 2021_05_21
-%	\label{fig:jicf_sps_q_crit}
-%\end{figure}
-
-Mean axial velocity at the symmetry plane $y = 0$ mm for all cases are shown in Figure \ref{fig:JICF_turbulent_structures_plane_y0} (case UG100\_DX20\_NT  is not displayed in this section since its mean fields are identical to those of case UG100\_DX20). The region with mean liquid obtained as $\overline{\psi} > 0.5$ is denoted in grey, hence the displayed velocities correspond only to the mean gaseous region. Streamlines are also shown to indicate the flow direction. In all cases, a recirculation bubble enclosed by the white solid line is retrieved immediately downstream the dense core (visualized in 3D in Figure \ref{fig:streamlines_UG100_DX20_from_dump}). This recirculation region is fully converged for the coarse cases but not for the fine ones. The effect of this bubble is to push the streamlines below and behind it upwards, hence confering the gas a positive vertical velocity downstream the dense core. Upstream the jet, the streamlines are initially oriented towards the axial direction but then bend vertically due to the presence of the dense core. These streamlines are again directed vertically due to the action of the recirculation bubble. In general, velocities are larger for the high Weber operating point except in the recirculation bubble, where mean negative axial velocities show the same values for both conditions.
+Mean axial velocity at the symmetry plane $y = 0$ mm for all cases are shown in Figure \ref{fig:JICF_turbulent_structures_plane_y0} (case UG100\_DX20\_NT  is not displayed in this section since its mean fields are identical to those of case UG100\_DX20). The region with mean liquid obtained as $\overline{\psi} > 0.5$ is denoted in grey, hence the displayed velocities correspond only to the mean gaseous region. Streamlines are also shown to indicate the flow direction. In all cases, a recirculation bubble enclosed by the white solid line is retrieved immediately downstream the dense core. This recirculation region is fully converged for the coarse cases but not for the fine ones. The effect of this bubble is to push the streamlines below and behind it upwards, hence confering the gas a positive vertical velocity downstream the dense core. Upstream the jet, the streamlines are initially oriented towards the axial direction but then bend vertically due to the presence of the dense core. These streamlines are again directed vertically due to the action of the recirculation bubble. In general, velocities are larger for the high Weber operating point except in the recirculation bubble, where mean negative axial velocities show the same values for both conditions.
 
 \begin{figure}[ht]
 \centering
@@ -1547,7 +1009,9 @@ Mean axial velocity at the symmetry plane $y = 0$ mm for all cases are shown in 
 \label{fig:JICF_turbulent_structures_plane_y0}
 \end{figure}
 
-The axial velocities along the lines $z = 1.6, 4$ mm sketched in Figure \ref{fig:JICF_turbulent_structures_plane_y0} are shown in the graphs of Figure \ref{fig:JICF_sps_lines_y0_along_x_ux_mean}. The line $z = 1.6$ mm crosses the recirculation bubble, reflected by the negative values of $\overline{u}$. As seen, all lines are identical from $x = 0$ mm until the end of the recirculation zone, where the high Weber cases reach a freestream velocity higher than the low one (as expected due to the higher bulk gaseous velocity injected). The coarse simulations relax towards the final velocity further downstream faster than the fine ones. This might be due to the fact that the fine simulations are not fully converged yet, so if they were run for longer the recirculation bubble could approach to the coarse one and the lines from Figure \ref{fig:JICF_sps_lines_y0_along_x_ux_mean} would get closer. Another explanation is that the recirculation regions from the fine simulations are not far from converged and show a shorter verttical extension due to the shorted mean dense core (see Figure \ref{fig:dense_core_mean_parameters_scatterplots}),  which perturbs the gaseous field along $z = 1.6$ mm further downstream than the coarse simulations, yielding lower axial velocities for $x < 20$ mm. Regarding the line $z = 40$ mm, this location is further away from the perturbation region of the dense core and the coarse and fine simulations show similar trends, with a decrease in the velocity close to $x = 0$ due to the perturbation of the gaseous field upwards the bubble and a later increase of the velocity.
+The $\overline{u}$ profiles along the dashed lines from Figure \ref{fig:JICF_turbulent_structures_plane_y0} are represented in Figures \ref{fig:JICF_sps_lines_y0_along_x_ux_mean} and  \ref{fig:JICF_sps_lines_y0_along_z_ux_mean}. Both graphs reveal that perturbations are stronger closer to the bottom wall (line $z = 1.6$ mm in Figure \ref{fig:JICF_sps_lines_y0_along_x_ux_mean}  traverses indeed the recirculation bubble, since velocities reach negative values). Figure \ref{fig:JICF_sps_lines_y0_along_x_ux_mean} shows that velocity profiles stabilize several diameters downstream the injection point to lower values than in the corresponding single-phase simulation (no jet, i.e. dotted line in the figures), which is due to momentum exchanged with the liquid. This gas energy transferred to the liquid has been invested in bending and atomizing the jet. Lines from Figure \ref{fig:JICF_sps_lines_y0_along_z_ux_mean} reflect that the recirculation bubble extends up to a location $x = 2.5$ mm, and that this one is actually insensitive to the operating point. This might suggest that the recirculation bubble is not affected by the Weber number and depends only on the $q$ factor, which is identical in both conditions. There is, however, a strong dependent on the interface resolution: profiles crossing the recirculation bubble are not greatly affected by this factor in the regions with the lowest velocities, while the opposite happens outside it, in the deceleration regions. Nevertheless, it is not sure whether the fields from the fine resolutions are fully converged, and hence the profiles depicted might still change if the simulations run for longer time.
+
+
 
 \begin{figure}[ht]
 \flushleft
@@ -1568,7 +1032,9 @@ The axial velocities along the lines $z = 1.6, 4$ mm sketched in Figure \ref{fig
 \label{fig:JICF_sps_lines_y0_along_x_ux_mean}
 \end{figure}
 
-Figure \ref{fig:JICF_sps_lines_y0_along_z_ux_mean} shows the velocity profiles along the lines $x = 1, 2.5, 5, 10$ and $15$ mm represented in Figure \ref{fig:JICF_turbulent_structures_plane_y0}. The profiles at $x = 1$ mm show a similar shape in all cases: a strong increase in the velocity near the wall, then an abrupt decrease as the recirculation region is approached until a negative peak is reached at around $z \sim 2$ mm, then a quick increase until reaching the freestream velocity (which differs on each operating point). From these and the previous observations, the strength of the recirculation bubble seems to be insensitive to the operating point. At $x = 2.5$, strong perturbations are still present near the wall but the profiles differ among resolutions: the fine ones reach the minimum velocity before the coarse ones due to the lower vertical location of the bubble, then all cases relax towards the freestream velocity. At $x = 5$ mm the effect of the perturbation induced by the dense core is still present but loses strength compared to the earlier coordinates. Further downstream, the perturbation gets weaker and the profiles gets closer among resolutions for identical operating points. Still, at $x = 15$ mm the field is still perturbed since the mean velocity profiles differ from a classical boundary layer such as the ones from Figure \ref{fig:ics_mean_profiles_op2}. These disturbances on the gaseous field downstream the dense core, which cause a strong variation on the spatial distribution of mean velocities, might have a strong impact on the secondary atomization of droplets and spray dispersion phenomena.
+
+\clearpage
+
 
 \begin{figure}[ht]
 \flushleft
@@ -1578,18 +1044,17 @@ Figure \ref{fig:JICF_sps_lines_y0_along_z_ux_mean} shows the velocity profiles a
 \end{figure}
 
 
-
-The mean fields at the liquid sampling planes $x = 5, 10$ mm are shown in Figure \ref{fig:JICF_turbulent_structures_planes_x}. The mean fields are symmetrical around the $y = 0$ axis, therefore each picture shows the mean fields for equivalent operating condition and plane location but different resolution to ease visual comparison. The perturbation effect of the dense core is observed by the deceleration around the central plane $y = 0$. Lower velocities are found at $x = 5$ mm than at 10 mm, since the former is closer to the recirculation bubble shown in Figure \ref{fig:JICF_turbulent_structures_plane_y0} where the disturbance effects are stronger. All cases also show vortical structures symmetrical with respect to the $y = 0$ axis, which rotate in counter-clockwise direction for $y > 0$ and in clockwise direction for  $y < 0$. These vortical structures in the gaseous phase, known as counter-rotating vortex pair (CVP), are a typical characteristic of the JICF and are found up to several diameter locations downstream the injection nozzle, having a strong effect on the dispersion of droplets \citepColor[arienti_aerodynamic_2006]. 
+The mean fields at the liquid sampling planes $x = 5, 10$ mm are shown in Figure \ref{fig:JICF_turbulent_structures_planes_x}.  The perturbation effect of the dense core is observed by the deceleration around the central plane $y = 0$. Lower velocities are found at $x = 5$ mm than at 10 mm, since the perturbance effects are stronger further upstream as previously shown in Figure \ref{fig:JICF_sps_lines_y0_along_z_ux_mean}. All cases also show vortical structures symmetrical with respect to the $y = 0$ axis, which rotate in counter-clockwise direction for $y > 0$ and in clockwise direction for  $y < 0$. These vortical structures in the gaseous phase, known as counter-rotating vortex pair (CVP), are a typical characteristic of the JICF and are found up to several diameter locations downstream the injection nozzle, having a strong effect on the dispersion of droplets \citepColor[arienti_aerodynamic_2006]. Figure \ref{fig:JICF_sps_lines_iso-x_along_y_ux_mean} shows the mean velocity profiles along the dashed lines from Figure \ref{fig:JICF_turbulent_structures_planes_x}. All profiles are symmetric with respect to plane $y = 0$ mm. Decelerations are stronger the closer to the wall ($z = 1.6$ mm) and the closer to the injection nozzle ($x = 5$ mm). All profiles show a dependence on the interface resolution, where larger differences are located at the regions with stronger decelerations. %The largest deviations are found at the  location $z = 5$ mm in the plane $x = 10$ mm, where the fine resolution shows lower velocities than the coarse one. This is attributed to disturbances created by the large ligaments shed from the liquid dense core (column breakup phenomenon), since these ones penetrate in the fine cases than in the coarse ones (see, for instance, Figure \ref{fig:jicf_column_breakup_ug100}).
 
 \begin{figure}[ht]
 \centering
    \includeinkscape[inkscapelatex=false,scale=0.24]{./part2_developments/figures_ch5_resolved_JICF/turbulent_structures/planes_x_ux_mean}
-\caption[Mean axial velocity at planes $x = 5, 10$ mm]{Mean axial velocity at planes $x = 5, 10$ mm. Black lines with arrows are in-plane mean streamlines}
-%{Mean axial velocity at planes $x = 5, 10$ mm. Black lines with arrows are in-plane mean streamlines. Instantaneous jets for each case are shown in transparent blue.}
+\caption[Mean axial velocity at planes $x = 5, 10$ mm]{Mean axial velocity at planes $x = 5, 10$ mm. Black lines with arrows are in-plane mean streamlines. Fields are symmetric around the $y = 0$, hence each picture shows the mean fields for equivalent operating condition and plane location but different resolution to ease visual comparison}
 \label{fig:JICF_turbulent_structures_planes_x}
 \end{figure}
 
-The velocity profiles along the lines $z = 1.6, 5$ mm depicted in Figure \ref{fig:JICF_turbulent_structures_planes_x} are shown in Figure \ref{fig:JICF_sps_lines_iso-x_along_y_ux_mean}. At $z = 1.6$ mm, the disturbance effect is specially noticeable by the strong velocity reduction around the central plane $y = 0$, the oscillations in the velocity when moving laterally away due to the presence of the CVPs, and the lower velocities found further away compared to the ones at $z = 5$  mm, which correspond to the bulk gas velocities injected. The central deceleration is stronger at the axial location $x = 5$ mm, since the gaseous field is closer to the recirculation bubble and vortices are stronger. It is also stronger for the fine resolutions due to the smaller size of the recirculation bubbles obtained, which will greatly perturb the gaseous field closer to the wall compared to the coarse resolution (as shown in Figures \ref{fig:JICF_sps_lines_y0_along_x_ux_mean} and \ref{fig:JICF_sps_lines_y0_along_z_ux_mean}).  At $z = 5$ mm, the gaseous field is only slightly perturbed closer to the injector ($x = 5$ mm) and the profiles for both resolutions are similar. Further downstream, at $x = 10$ mm, the velocity deceleration at this vertical location is stronger since the CVPs move vertically with the axial location (see Figure \ref{fig:JICF_turbulent_structures_planes_x}) and the perturbations propagate also upstream. It is also found that the fine resolution shows a larger deceleration  than the coarse one at this location for both operating conditions: this is thought to be due to disturbances in the gaseous flow created by the ligaments shedding from the dense core due to the liquid column process, since these ones penetrate further (see $\S$\ref{subsec:ch5_jet_trajectories_results} and Figure \ref{fig:jicf_column_breakup_ug100}) than those from the coarse mesh. 
+\clearpage
+
 
 \begin{figure}[ht]
 \centering
@@ -1613,9 +1078,14 @@ The velocity profiles along the lines $z = 1.6, 5$ mm depicted in Figure \ref{fi
 \end{figure}
 
 
-Finally, the mean axial velocity at the planes perpendicular to the crossflow injection direction $z$ depicted in Figure \ref{fig:jicf_sps_with_gaseous_planes} is shown in Figure \ref{fig:JICF_turbulent_structures_planes_z}. As for the $x$ planes from Figure \ref{fig:JICF_turbulent_structures_planes_x}, the fields are symmetrical with respect to the line $y = 0$. The mean liquid region defined by $\overline{\psi} > 0.5$ is represented in grey. Close to the wall ($z = 0.2$ mm) the dense core has not yet been deformed by the crossflow and its ross-section is circular. As $z$ increases, the column displaces towards the crossflow direction and its cross-section deforms from a circular shape to a kidney-shape. The flow fields at $z = 0.2$ mm are similar to the flow field past a cylinder at low Reynolds numbers (the freestream gas velocity is lower than further upstream since this location is close to the wall within the boundary layer): the crossflow curves due to the presence of the column and increases its average velocity when passing above/below the cylinder, then reattaches after passing a recirculation region behind the cylinder where counter-rotating vortices are present and streamlines are directed back towards the crossflow direction. \citepColor[white_viscous_2005]. Further away from the wall, at $z = 0.8$ mm, the cross-section is flatter and more similar to a blunt body, creating a strong recirculation region with extends up to two nozzle diameters downstream the column. The topology of the flow fields are similar among operating conditions (despite the lower free-stream velocities for the low Weber case) but differ among resolutions: the fine simulations show the recirculation bubble to be shorter than the coarse ones. This is probably due to non-converged recirculation regions for the fine simulations. Downstream the recirculation region, the flow field is slightly decelerated with respect to the freestream flow. Finally, at $z = 1.6$ mm the liquid cross-section is more deformed that closer to the wall, creating also strong recirculation regions which extend up to several diameters downstream the injection nozzle. At these location the flow field downtream the recirculation bubble is greatly perturbed, as it was shown in the graphs of Figure \ref{fig:JICF_sps_lines_iso-x_along_y_ux_mean}.
+Finally, the mean velocity at the planes perpendicular to the $z$ axis depicted are shown in Figure \ref{fig:JICF_turbulent_structures_planes_z}.  The mean liquid region defined by $\overline{\psi} > 0.5$ is represented in grey. Close to the wall ($z = 0.2$ mm) the dense core has not yet been deformed by the crossflow and its ross-section is circular. As $z$ increases, the column displaces towards the crossflow direction and its cross-section deforms from a circular shape to a kidney-shape. The recirculation region increases its maximum axial location $x$ with increasing vertical distance $z$. This is due to the larger deformations of the dense core, since further from the wall the kidney-shape acts like a blunt body. The topology of the fields is similar among resolutions, yet again is sensitive to the interface cell resolution. All these results show the mean features of the turbulent field induced by the crossflow, and the influence that  interface cell size play into their resolution. 
+
+
+
 
 \clearpage
+
+
 
 \begin{figure}[ht]
 \centering
@@ -1632,7 +1102,7 @@ Finally, the mean axial velocity at the planes perpendicular to the crossflow in
 \subsection{Direct measurement of liquid fluxes}
 \label{subsec:ch5_direct_measurement_fluxes_IB}
 
-Droplet sampling procedure, described in $\S$\ref{subsec:SLI_spray_sampling}, is performed by tracking the center of mass of resolved structures and retrieving droplets when they cross the defined sampling planes by lagrangian projection. With this procedure, some droplets are tracked twice and some others might never be tracked. As a consequence, the sampled spray is not actually the \textsl{true} spray that crosses the sampling surfaces in the simulations, but an approximation to it. Therefore, the obtained spray size distributions and sampled mass flow rates are also affected.
+Droplet sampling procedure is performed by tracking the center of mass of resolved structures and retrieving droplets when they cross the defined sampling planes by lagrangian projection. With this tool, some droplets are tracked twice and some others might never be tracked. As a consequence, the sampled spray is not the actual spray that crosses the sampling surfaces in the simulations, but an approximation to it. Therefore, the obtained spray size distributions and sampled mass flow rates are also affected.
 
 To check the accuracy of the lagrangian projection procedure for tracking droplets, the lagrangian mass flow rates are compared to flow rates measured directly from the resolved simulations. This section describes the procedure to obtain these fluxes and their application to the simulations performed.
 
@@ -1857,7 +1327,7 @@ Figures \ref{fig:IB_bargraph}a and b show that perpendicular fluxes decrease wit
 
 
 
-Results are shown in Figure \ref{fig:delta_Ql_with_x}. The mass loss is low closer to the injector ($x = 5$ mm), with all values below $3~\%$, then losses increase further downstream. The lowest loss is given by case UG100\_DX10, while the largest one corresponds to UG75\_DX10 (although these values are not fully converged as shown by Figure \ref{fig:IB_mean_RMS_Ql_evolution}a and might slightly change if the simulations were run for longer). At the location $x = 15$ mm the relative flow rate loss for the coarse cases is close to $30~\%$: from $x = 10$ to $15$ mm, the mass loss doubles. Indeed, it was found that mass loss is caused by droplets disappearing when reaching a diameter of the order of the cell size (a study is included in Appendix \ref{app:IBs_mass_conservation_ACLS}), which is difficult Then, for $x > 10$ mm the spray is fully disperse and secondary atomization is taking place: droplets generated might reach a small size and vanish. These values of liquid losses show that the location $x = 5$ mm is more suitable for performing lagrangian injection in the dispersed-phase simulations, since the total liquid flow rated injected is closer to the injected one.
+Results are shown in Figure \ref{fig:delta_Ql_with_x}. The mass loss is low closer to the injector ($x = 5$ mm), with all values below $3~\%$, then losses increase further downstream.  At the location $x = 15$ mm the relative flow rate loss for the coarse cases is close to $30~\%$: from $x = 10$ to $15$ mm, the mass loss doubles. Indeed, it was found that mass loss is caused by droplets disappearing when reaching a characteristic size of the order of the interface resolution $\Delta x_\mathrm{min}$, since these cannot be further transported by the mesh (see, for instance, droplets generated by surface breakup in Figure \ref{fig:jicf_surface_breakup_ug75_dx10}). Then, for $x > 10$ mm the spray is fully disperse and secondary atomization is taking place: droplets generated might reach a small size and vanish. These values of liquid losses show that the location $x = 5$ mm is more suitable for performing lagrangian injection in the dispersed-phase simulations, since the total liquid flow rated injected is closer to the injected one. A more thorough study on the numerical sources of droplet disappearance is reported in Appendix \ref{app:IBs_mass_conservation_ACLS}.
 
 \begin{figure}[ht]
 	\centering
@@ -1925,7 +1395,7 @@ Finally, the flow rates obtained for all IBs have been discretized at each times
 \subsection{Computational performances and costs}
 \label{subsec:ch5_computational_performances}
 
-Table \ref{tab:jicf_Ncores_Ncells_Ndrops} shows the numbers of cores, cells and droplets present at $t^* = 12$. At this instant all jets are developed but liquid has not reached yet the axial location where it is artificially removed, hence allowing for a comparison among cases. The number of cores evolves in each run as the number of cells increase due to AMR for keeping a ratio $N_\mathrm{cells} / N_\mathrm{cores}$ between 100,000 and 150,000, which is optimum for parallellization purposes \citepColor[trobec_introduction_2018]. As observed, changing the interface resolution $\Delta x_\mathrm{min}$ for a given operating point multiplies the number of droplets by around 6. A larger quantity of droplets with a finer interface cell size increases greatly the number of elements, of the order of 5 times. Then, the number of cores rises by the same factor in order to keep the ration $N_\mathrm{cores}/N_\mathrm{cells}$ within the optimal range for paralellization. A comparison of operating conditions for the fine mesh resolution shows that the number of droplets and cells are larger for the high Weber number than for the low one, which is coherent since the velocities are larger in the former one and more droplets are expected to be formed by surface breakup. %When looking at the same mesh resolution, however, it is seen that the number of droplets stays generated is the same: this might be due to the surface breakup phenomenon not being sufficiently resolved for these cases. Also, by comparing the cases with and without turbulence (for the high Weber, coarse resolution), it is observed that the case without turbulence contains less droplets and less elements than when turbulence is injected. Therefore, that the addition of synthetic turbulence enhances breakup and produces more droplets. This was also reflected in Table \ref{tab:jicf_SLI_Ndr_accumulated}, which shows that more droplets have been accumulated in the case with turbulence for accumulation time. Further investigating the effect of synthetic turbulence on the quantity of droplets produced through atomization would require to perform a simulation with a fine resolution $\Delta x_\mathrm{min} = 10$, where atomization is better resolved, without turbulence. This has not been done here due to the high cost of the fine simulations and since the study of turbulence injection is not the main purpose of this work.
+Table \ref{tab:jicf_Ncores_Ncells_Ndrops} shows the numbers of cores, cells and droplets present at $t^* = 12$. At this instant all jets are developed but liquid has not reached yet the sponge layer (i.e. the axial location where it is artificially removed), hence allowing for a comparison among cases. The number of cores evolves in each run as the number of cells increase due to AMR for keeping a ratio $N_\mathrm{cells} / N_\mathrm{cores}$ between 100,000 and 150,000, which is optimum for parallellization purposes \citepColor[trobec_introduction_2018]. As observed, changing the interface resolution $\Delta x_\mathrm{min}$ for a given operating point multiplies the number of droplets by 6. A larger quantity of droplets with a finer interface cell size increases substantially the number of elements, of the order of 5 times. Then, the number of cores rises by the same factor in order to keep the ration $N_\mathrm{cores}/N_\mathrm{cells}$ within the optimal range for paralellization. A comparison of operating conditions for the fine mesh resolution shows that the number of droplets and cells are larger for the high Weber number than for the low one, which is coherent since the velocities are larger in the former one and more droplets are expected to be formed by surface breakup. %When looking at the same mesh resolution, however, it is seen that the number of droplets stays generated is the same: this might be due to the surface breakup phenomenon not being sufficiently resolved for these cases. Also, by comparing the cases with and without turbulence (for the high Weber, coarse resolution), it is observed that the case without turbulence contains less droplets and less elements than when turbulence is injected. Therefore, that the addition of synthetic turbulence enhances breakup and produces more droplets. This was also reflected in Table \ref{tab:jicf_SLI_Ndr_accumulated}, which shows that more droplets have been accumulated in the case with turbulence for accumulation time. Further investigating the effect of synthetic turbulence on the quantity of droplets produced through atomization would require to perform a simulation with a fine resolution $\Delta x_\mathrm{min} = 10$, where atomization is better resolved, without turbulence. This has not been done here due to the high cost of the fine simulations and since the study of turbulence injection is not the main purpose of this work.
 
 \begin{table}[!h]
 \centering
@@ -2000,7 +1470,7 @@ Figure \ref{fig:SLI_cost_convergence_all} reports the computational cost in CPU 
 
 \begin{equation}
 \label{eq:ch5_dt_CFL}
-\Delta t \leq \min \left( \frac{\mathrm{CFL} ~   \Delta x }{|\textbf{u}|} \right)
+\Delta t \leq = \left( \frac{\mathrm{CFL} ~   \Delta x }{|\textbf{u}|} \right)
 \end{equation}
 
 	\item A larger number of cells in the fine simulations due to more droplets being resolved.
@@ -2036,11 +1506,11 @@ From these analyses, it can be concluded that  augmenting the resolution twice w
 
 
 
-A relevant characteristic of liquid jets is the dense core (DC) region, which is the coherent liquid volume close to the injection nozzle where atomization starts to take place. The DC is an important feature of primary atomization, and is dependent on the injection nozzle and the operating conditions. In the case of a JICF such as the one studied in this thesis, it can be obtained as the liquid structure containing the largest liquid volume of all the present structures. The DC undergoes instabilities that are presented as Kelvin-Helmholtz or Rayleight-Taylor processes that will cause column breakup. Simultaneously, droplets are being shed along the sides of the DC due to surface breakup. As stated in $\S$\ref{sec:ch1_fuel_injection_technology}, these phenomena are particular of the jet in crossflow and are not present as such in other configurations such as hollow cone and airblast. Nevertheless, these configurations will present their own DC structures and breakup morphologies \citepColor[rezayat_high-speed_2021].
+A relevant characteristic of liquid jets is the dense core (DC) region, which is the coherent liquid volume close to the injection nozzle where atomization starts to take place. The DC is an important feature of primary atomization, and is dependent on the injection nozzle and the operating conditions. In the case of a JICF such as the one studied in this thesis, it can be obtained as the liquid structure containing the largest liquid volume of all the present structures. The DC undergoes instabilities that are presented as Kelvin-Helmholtz or Rayleight-Taylor processes that will cause column breakup. Simultaneously, droplets are being shed along the sides of the DC due to surface breakup. These phenomena are particular of the jet in crossflow and are not present as such in other atomizer configurations. %Nevertheless, other configurations will present their own DC structures and breakup morphologies \citepColor[rezayat_high-speed_2021].
 
-The DC of a JICF is the focus of numerous studies since it creates an important blockage effect in the incoming air that propagates turbulent structures further downstream, affecting atomization and spray dispersion (see $\S$\ref{ch3:subsec_lagrangian_liquid_JICF}). Pioneer JICF experimental studies \citepColor[wu_breakup_1997] focused on obtaining the \textbf{breakup location} of the DC by studying side shadowgraphs from the JICF, obtaining correlations for the \textbf{breakup point}. More recent studies \citepColor[patil_liquid_2021] have tried a better representation of the DC topology by trying to determine also its width and its lateral opening angle. Experimental and numerical studies of the DC topology in liquid JICF are, nevertheless, scarce nowadays, specially at operating conditions where surface breakup predominates (since the visualization of the jet is hindered by a large number of small droplets generated).
+The DC of a JICF is the focus of numerous studies, since it creates an important blockage effect in the incoming air that propagates turbulent structures further downstream, affecting atomization and spray dispersion. Pioneer JICF experimental studies \citepColor[wu_breakup_1997] focused on obtaining the \textbf{breakup location} of the DC by studying side shadowgraphs from the JICF, obtaining correlations for the \textbf{breakup point}. More recent works \citepColor[patil_liquid_2021] have tried a better representation of the DC topology by determining its width and its lateral opening angle. Experimental and numerical studies of the DC topology in liquid JICF are, nevertheless, scarce nowadays, specially at operating conditions where surface breakup predominates (since the visualization of the jet is hindered by a large number of small droplets generated).
 
-In this work, the DC topology is determined and studied from the resolved atomization simulations in order to provide input parameters for the ALM representation of the DC in lagrangian simulations (see $\S$\ref{sec:ch4_dense_core_modelling}). The methodologies followed to process the DC topology and to estimate its net force are explained next, followed then by the results obtained from the simulations.
+In this work, the DC topology is determined and studied from the resolved atomization simulations in order to provide input parameters for the representation of the DC in lagrangian simulations with the Actuator Line Method (ALM). The methodologies proposed to process the DC topology and to estimate its net force are explained next, followed then by the results obtained from the simulations.
 
 
 \subsubsection*{Topology processing methodology}
@@ -2124,11 +1594,11 @@ For estimating the mean pressures, the procedure schematized in Figure \ref{fig:
 
 
 
-In first place, the instantaneous evolution with time of the breakup point coordinates and width are shown in Figure \ref{fig:JICF_xb_zb_w_evolution}. The time has been non-dimensionalized according to Eq. (\ref{eq:t_prime_with_tau_drx10}). All signals display a sawtooth shape that reflects the dynamic behaviour of the dense core: increasing parameters are due to ligaments that start to be formed from the dense core (i.e. the breakup point $x_\mathrm{b}, z_\mathrm{b}$ moves further downstream and upwards, while the width $w$ increases due to the deformation of the dense core cross-section), then they suffer an abrupt decrease when the ligaments are dettached from the jet, and the process repeats once and again.  This periodic behaviour has been observed in several experimental studies for the breakup point coordinates $x_\mathrm{b}, z_\mathrm{b}$ \citepColor[wang_characterization_2011, prakash_liquid_2018], while no signals on the width $w$ evolution have been reported in literature to the knowledge of the author.
+In first place, the time evolution of the breakup point coordinates and width are shown in Figure \ref{fig:JICF_xb_zb_w_evolution}. Time has been non-dimensionalized according to Eq. (\ref{eq:t_prime_with_tau_drx10}). All signals display a sawtooth shape that reflects the dynamic behaviour of the dense core: increasing values correspond to ligaments being formed from the dense core (i.e. the breakup point $x_\mathrm{b}, z_\mathrm{b}$ moves further downstream and upwards, while the width $w$ increases due to the deformation of the dense core cross-section), then they suffer an abrupt decrease when the ligaments are dettached from the jet, and the process repeats once and again.  This periodic behaviour has been observed in several experimental studies  \citepColor[wang_characterization_2011, prakash_liquid_2018].
 
-Each steep decay in the cycles of the sawtooth signals $x_b (t), z_b (t)$ is associated to a ligament which strips from the liquid column. Therefore, their associated frequencies are of the order of the frequencies of ligament stripping (see Table \ref{tab:jicf_ligament_shedding_fs_and_tau_str}). The spectra of signals $x_b (t)$ calculated through FFT are shown in Figure \ref{fig:JICF_DC_FFTs_xb}. The coarse simulations have run for a long physical time and enough sampled points are available in the frequency axis (low $\Delta f$ between consecutive points) to retrieve frequency peaks, while fine simulations have not run long enough and the amount of frequency points is scarce (high $\Delta f$ between consecutive points). Consequently, the frequency peaks present in the fine simulation (located at $f \sim 1~kHz$ for UG100\_DX75 and at $f \sim 2.5~kHz$ for UG100\_DX10) are not accurate enough and might not represent the ligament stripping frequencies, although they give an idea of their order of magnitude. Table \ref{fig:JICF_DC_FFTs_xb} shows the dominant striping frequencies $f_\mathrm{str}$ in each case and their associated times $\tau_\mathrm{str} = 1/f_\mathrm{str}$. The fine cases show higher breakup frequencies, which are due to a shorter breakup length.
+%Each steep decay in the sawtooth signals $x_b (t), z_b (t)$ is associated to a ligament which strips from the liquid column. Therefore, their associated frequencies are of the order of the ligament stripping frequencies. The spectra of signals $x_b (t)$ calculated through FFT are shown in Figure \ref{fig:JICF_DC_FFTs_xb}. The coarse simulations have run for a long physical time and enough sampled points are available in the frequency axis (low $\Delta f$ between consecutive points) to retrieve frequency peaks, while fine simulations have not run long enough and the amount of frequency points is scarce (high $\Delta f$ between consecutive points). Consequently, the frequency peaks present in the fine simulation (located at $f \sim 1~kHz$ for UG100\_DX75 and at $f \sim 2.5~kHz$ for UG100\_DX10) are not accurate enough and might not represent the ligament stripping frequencies, although they give an idea of their order of magnitude. Table \ref{tab:jicf_ligament_shedding_fs_and_tau_str} shows the dominant striping frequencies $f_\mathrm{str}$ in each case and their associated times $\tau_\mathrm{str} = 1/f_\mathrm{str}$. The fine cases show higher breakup frequencies, which are due to a shorter breakup length.
 
-%Regarding the coarse cases, spectra is very noisy in all cases but still the characteristic frequencies can be observed: $f \sim 0.7, 0.5, 1.3 ~kHz$ for cases UG75\_DX20, UG100\_DX20 and UG100\_DX20\_NT respectively. 
+
 
 \begin{figure}[ht]
 \flushleft
@@ -2149,6 +1619,7 @@ Each steep decay in the cycles of the sawtooth signals $x_b (t), z_b (t)$ is ass
 \end{subfigure}
 
 \vskip\baselineskip
+\vspace*{-1in}
 
 \begin{subfigure}[b]{0.45\textwidth}
 	\centering
@@ -2171,43 +1642,43 @@ Each steep decay in the cycles of the sawtooth signals $x_b (t), z_b (t)$ is ass
 \end{figure}
 
 
-\begin{figure}[ht]
-\flushleft
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/FFTs_UG75}
-   \vspace*{-0.25in}
-   \caption{Low Weber cases}
-   \label{fig:JICF_DC_FFT_UG75} 
-\end{subfigure}
-\hspace{0.2in}
-\begin{subfigure}[b]{0.45\textwidth}
-	\centering
-   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/FFTs_UG100}
-   \vspace*{-0.25in}
-   \caption{High Weber cases}
-   \label{fig:JICF_DC_FFT_UG100}
-\end{subfigure}
-   \caption{Spectra of $x_b$ signals}
-\label{fig:JICF_DC_FFTs_xb}
-\end{figure}
+%\begin{figure}[ht]
+%\flushleft
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/FFTs_UG75}
+%   \vspace*{-0.25in}
+%   \caption{Low Weber cases}
+%   \label{fig:JICF_DC_FFT_UG75} 
+%\end{subfigure}
+%\hspace{0.2in}
+%\begin{subfigure}[b]{0.45\textwidth}
+%	\centering
+%   \includegraphics[scale=0.25]{./part2_developments/figures_ch5_resolved_JICF/results_dense_core_modeling/FFTs_UG100}
+%   \vspace*{-0.25in}
+%   \caption{High Weber cases}
+%   \label{fig:JICF_DC_FFT_UG100}
+%\end{subfigure}
+%   \caption{Spectra of $x_b$ signals}
+%\label{fig:JICF_DC_FFTs_xb}
+%\end{figure}
+%
+%\begin{table}[!h]
+%\centering
+%\caption{Dominant frequencies and associated timescales of spectra from Figure \ref{fig:JICF_DC_FFTs_xb}}
+%\begin{tabular}{cccccc}
+%\thickhline
+%\textbf{Case} &  UG75\_DX10 & UG75\_DX20 & UG100\_DX10 & UG100\_DX20 &  UG100\_DX20\_NT \\
+%\hline
+%$f_\mathrm{str}~[kHz]$ & 1.60 & 0.72 & 2.37 & 0.53 & 1.34 \\
+%$\tau_\mathrm{str}~[\mu s]$ & 625 & 1389 & 422 & 1887 & 746 \\
+%\thickhline
+%\end{tabular}
+%\label{tab:jicf_ligament_shedding_fs_and_tau_str}
+%\end{table}
 
-\begin{table}[!h]
-\centering
-\caption{Dominant frequencies and associated timescales of spectra from Figure \ref{fig:JICF_DC_FFTs_xb}}
-\begin{tabular}{cccccc}
-\thickhline
-\textbf{Case} &  UG75\_DX10 & UG75\_DX20 & UG100\_DX10 & UG100\_DX20 &  UG100\_DX20\_NT \\
-\hline
-$f_\mathrm{str}~[kHz]$ & 1.60 & 0.72 & 2.37 & 0.53 & 1.34 \\
-$\tau_\mathrm{str}~[\mu s]$ & 625 & 1389 & 422 & 1887 & 746 \\
-\thickhline
-\end{tabular}
-\label{tab:jicf_ligament_shedding_fs_and_tau_str}
-\end{table}
 
-
-In order to define an actuator in the dispersed phase simulations represening the resolved dense core as accurately as possible, the mean values of the core coordinates and width will be used as input parameters for the model. For this purpose, the mean value of the signals from Figure \ref{fig:JICF_xb_zb_w_evolution} are calculated. The evolution of the mean values with time is shown in Figure \ref{fig:dense_core_mean_parameters_convergence}. As observed, the simulations performed with the coarse interface cell size $\Delta x_\mathrm{min} = 20~\mu m$ are converged for the three parameters $x_\mathrm{b}, z_\mathrm{b}$ and $w$ (except for $z_\mathrm{b}$ in case UG75\_DX20, as this parameter seems the one taking longer time to achieve convergence). The fine resolutions $\Delta x_\mathrm{min} = 10~\mu m$ have not yet achieved full convergence. 
+To define an actuator representing the dense core in dispersed phase simulations, the mean values of the breakup point coordinates and width will be used. Hence, the mean value of the signals from Figure \ref{fig:JICF_xb_zb_w_evolution} are calculated. The evolution of the mean values with time (i.e. convergence with time) is shown in Figure \ref{fig:dense_core_mean_parameters_convergence}. As observed, the simulations performed with the coarse interface cell size $\Delta x_\mathrm{min} = 20~\mu m$ are converged for the three parameters $x_\mathrm{b}, z_\mathrm{b}$ and $w$ (except for $z_\mathrm{b}$ in case UG75\_DX20, as this parameter seems the one taking longer time to achieve convergence). The fine resolutions $\Delta x_\mathrm{min} = 10~\mu m$ have not yet achieved full convergence. 
 
 \begin{figure}[ht]
 \flushleft
@@ -2658,8 +2129,4 @@ The scatterplots $\alpha - \beta$ for cases UG100\_DX10 and UG100\_DX20 are show
 
 \section{Conclusions}
 
-%This chapter has presented resolved simulations of the injection and atomization processes in the academic JICF configuration tested experimentally by \citeColor[becker_breakup_2002]. In first place the experimental test bench has been briefly presented, followed by a thorough description of the numerical setup representing the experiments and the two operating conditions chosen for simulation, which change operating conditions in order to keep the same momentum flux ratio $q$. Methodologies implemented in the simulation to compute the jet penetration, measure resolved liquid fluxes in planes perpendicular to the crossflow and postprocess the JICF breakup points have been then detailed. The study begins by making a mesh independency study of the gaseous phase in the numerical configuration without liquid being present, which has revealed that a mesh with baseline size $\Delta x_\mathrm{ups} = 0.5$ mm can properly capture the turbulent structures injected at the channel. Yet, the boundary layer is not properly resolved in terms of TKE profile, although a good resolution of this layer would require a more refined mesh close to DNS of the gaseous phase which would yield computations unfeasible. The simulations are then presented firstly by showing the jet evolution at several time instants, which show a high dependency of the simulations with the interface mesh resolution: for a coarse mesh $\Delta x_\mathrm{min} = 20~\mu$m surface instabilities are not generated closer to the liquid injector, while the fine mesh $\Delta x_\mathrm{min} = 10~\mu$m develops these instabilities \hl{due to a better resolution of the gaseous field closer upstream the liquid injector} and such surface waves are present, producing a different breakup topology. The establishment of the simulations has been analyzed by monitoring the evolution of liquid volume $V_l$ and number of elements $N_\mathrm{el}$ with respect to time, showing that the coarse resolution simulations are enough converged while the fine ones, which present a larger computational cost, are on the verge of convergence. The jet trajectories are then studied: several postprocessing methods are applied to a single case, and then the method which is closer to the experimental procedure to obtain the trajectories is applied to the rest of the cases. Results reveal a high dependency of the jet trajectory with the interface mesh resolution further from the injector, where primary atomization is complete, which is due to the resolution of the instabilities in the fine case. Then, the dense core has been characterized and mean values for its breakup coordinates and width have been obtained, which will serve later in Chapter \ref{ch6:jicf_lgs_simulations} as parameters to feed the actuator model to initialise dispersed phase simulations. \hl{Next, IBS ...}
-
-This chapter has presented resolved simulations of the injection and atomization processes in the academic JICF configuration tested experimentally by \citeColor[becker_breakup_2002]. In first place the experimental test bench has been briefly presented, followed by a thorough description of the numerical setup representing the experiments and the two operating conditions chosen for simulation, which change flow conditions in order to keep the same momentum flux ratio $q$. Methodologies implemented in the simulation to compute the jet penetration, measure resolved liquid fluxes in planes perpendicular to the crossflow and postprocess the JICF breakup points have been then detailed. The study begins by making a mesh independency study of the gaseous phase in the numerical configuration without liquid being present, which has revealed that a mesh with baseline size $\Delta x_\mathrm{ups} = 0.5$ mm can properly capture the turbulent structures injected at the channel. Yet, the boundary layer is not properly resolved in terms of TKE profile, although a good resolution of this layer would require a more refined mesh close to DNS of the gaseous phase which would yield computations unfeasible. Liquid simulations are then presented firstly by showing the jet evolution at several time instants, which show a high dependency of the simulations with the interface mesh resolution: for a coarse mesh $\Delta x_\mathrm{min} = 20~\mu$m surface instabilities are not generated closer to the liquid injector, while the fine mesh $\Delta x_\mathrm{min} = 10~\mu$m develops these instabilities, affecting the jet vertical penetration and producing a different breakup topology. The establishment of the simulations has been analyzed by monitoring the evolution of liquid volume $V_l$ and number of elements $N_\mathrm{el}$ with respect to time, showing that the coarse resolution simulations are enough converged while the fine ones, which present a larger computational cost, are on the verge of convergence. The jet trajectories are then studied: several postprocessing methods are applied to a single case, and then the method which is closer to the experimental procedure to obtain the trajectories is applied to the rest of the cases. Results reveal a high dependency of the jet trajectory with the interface mesh resolution further from the injector, where primary atomization is complete, which is due to the resolution of the instabilities in the fine case. Then, the dense core has been characterized and mean values for its breakup coordinates and width have been obtained. From these geometric parameters, a mean dense core surface transversal to the crossflow has been calculated which has been used in combination with estimated mean forces to approximate a net force applied to the dense core, which will serve later in Chapter \ref{ch6:jicf_lgs_simulations} as parameters to feed the actuator model to initialise dispersed phase simulations. Next, the disturbance effect in the gaseous flow created by the presence of the dense core has been analyzed, revealing the presence of a recirculation bubble and aerodynamic decceleration downstream the dense core and the appearance of counter-rotating vortices pairs in the planes perpendicular to the crossflow. These structures are believed to have an influence on the subsequent secondary atomization of droplets, and hence the aim of the actuator model will be to reproduce them as closely as possible in dispersed-phase computations. Resolved fluxes in planes perpendicular to the axial and vertical directions (crossflow and filming planes, respectively) have been quantified with the interior boundaries methodology. A decrease in liquid fluxes with increasing distance to the injection point has been observed, which is attributed to two contributions: 1) mass impinging the wall, which is quantified with the filming interior boundaries, and 2) liquid mass destroyed in the simulation when droplets reach a characteristic size of the order of the mesh size, being unable to be further propagated in the simulation. The effect of several numerical parameters on the mass loss has been tested, from which it is suggested that minimal losses are obtained for a higher number of reinitialization steps ($N_\mathrm{reinit} = 6$) and the numerical profile of the levelset function should be kept to $\varepsilon = 6$. The liquid fluxes perpendicular to the crossflow direction have then been discretized in the planes, revealing a circular pattern with the highest flux concentrated at the center as shown by multiple experimental studies on liquid crossflow structures. The vertical location of the maximum fluxes has been found to increase with axial distance from $x =5$ to $10$ mm, which is coherent with the expected increase in penetration, while it stays constant from $x = 10$ to $15$ mm.
-
-The spray structures produced in the crossflow direction, which have been obtained through the lagrangian tracking process, have been analysed in the last part. In first place, the global sprays produced in the crossflow planes have been studied. Establishment of the global sprays has been determined through the temporal evolution of SMD and liquid fluxes, showing convergence in all cases. The mean liquid fluxes have been compared to the resolved ones obtained previously through the interior boundaries, yielding close values among both methods. The droplets sizes have been characterised by 1) their mean values through the SMD, which shows a decrease with axial distance due to atomization, and 2) droplets histograms which show a lognormal shape characteristic of sprays produced in jets in crossflow configurations. Convergence in SMD with axial distance seems to be achieved for all configurations, yet the obtained value is of the order of 3 times larger than the SMD provided by the experimentalists for complete atomization. This indicates that a finer resolution is required to properly resolve for granulometry, which has not been possible to be performed at this state due to the large cost of the simulations performed. Mean velocities have been also analyzed, which show that a correct physical behaviour (i.e. increase in mean axial velocity and decrease in mean vertical velocity with axial distance due to momentum transfer between liquid and gas) is obtained when mean velocities are taken as volume-weighted in the full spray. The mean deformation parameters have also been calculated, showing that the sphericity of the droplets increases with axial distance and with decreasing interface cell size. Still, a fully non-spherical spray is not obtained, which could be achieved either by getting converged sprays sampled further downstream or by increasing the mesh resolution (both solutions which are not yet possible due to the cost increase they suppose in the simulations). In a second step, the global sprays have been spatially discretized to yield liquid structures that conform the SLI to prescribe liquid boundary conditions in dispersed-phase simulations. These structures show a proper spray behaviour: they show a correct ballistic behaviour in which SMD increases with axial distance; a circular flux structure with the maximum values located at the center: a mean axial velocity which shows its highest values at the spray edges at the center and its lowest values at the center due to the decceleration generated by the dense core presence; a lateral velocity which is positive for $y > 0$ and negative for  $y > 0$ reflecting the spray opening in the lateral directions; and a vertical velocity which increases with vertical distance reflecting the increasing penetration of the spray. Furthermore, the convergence maps on the discretizing probes have also been shown, revealing that convergence is achieved in the regions with the highest fluxes and that more converged probes are obtained in the sprays generated with the finest resolutions. This is due to the larger number of droplets generated in the latter: even if the physical accumulation time is lower than for the coarse resolutions, the fine resolutions generate more droplets and are hence prone to produce converged sprays faster. The computational costs show that the fine simulations are, in absolute terms, more costly than the coarse ones. Nevertheless, the fact that they produce a converged spray with less physical time simulated than the coarse cases reveal that SLIs can be obtained from the first ones with a lower cost than a priori would be expected by decreasing the resolution and with more accurate results in terms of spray resolution. 
+This chapter has presented resolved simulations of the injection and atomization processes in the academic JICF configuration tested experimentally by \citeColor[becker_breakup_2002]. \hl{Etc.}
