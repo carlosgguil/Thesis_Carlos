@@ -28,7 +28,9 @@ In the resolved simulations of Chapter \ref{ch5:jicf_resolved_simulations} the l
 
 %Firstly, the computational setup is described, whose only difference with the baseline mesh of the resolved atomization simulations is the mesh size at the center. Then, the available data for experimental validation of the simulations are summarized in $\S$\ref{sec:ch6_experimental_results}. Possible sources and values for the uncertainties of these data are then discussed in $\S$\ref{sec:jicf_dlr_experimental_uncertainty}, and previous numerical works on injection in the same configuration are summarized in $\S$\ref{ch6:previous_numerical_studies}. Then, the boundary conditions the gaseous and liquid phases in dispersed-phase simulations are detailed in $\S$\ref{sec:ch6_BC_gaseous_phase} and $\S$\ref{sec:JICf_LGS_liquid_BCs} respectively. For the former, two possible options are analyzed: the ALM method, which was introduced in Chapter \ref{ch4:sli_development}, and another proposed methodology based on prescribing statistics of the gaseous phase learnt from resolved simulations in a simplified channel. It is shown that the prescribed gas phase can retrieve better the gaseous phase features from the resolved case than the ALM. Then, dispersed-phase simulations are performed by testing the different input parameters to find the best configuration to experimental data. It is found that secondary atomization acts very soon after droplets injection, reducing the particles sizes along the channel first with a fast, exponential decrease and then with a slow, linear reduction. The lagrangian computations are specially sensitive to the gaseous boundary conditions, secondary atomization model, SLI resolution and the mean velocities prescribed. Overall, the tests performed with the high Weber operating point show good spray features but underestimate the global SMD of the spray by a 37 $\%$ in the best of the cases. This deviation is reduced to 20 $\%$ when changing to the low Weber operating point, indicating that the SLI methodology could work better at low speed configurations where either atomization is better resolved by the resolved computations, or the secondary atomization model breaks droplets to a lesser extent. Finally, a delay in the secondary atomization is introduced by unplugging the secondary atomization model and let lagrangian particles convect without breaking, relaxing towards the gaseous field before breakup takes place. As a result, the deviations in droplets sizes are improved, confirming that it is the relative velocity what mostly affects breakup and creates the underestimation for the unaltered configuration, yet the characteristic ballistic behaviour of the spray is also altered
 
-\section{Experimental results for validation}
+\section{State of the art}
+
+\subsection{Experimental results for validation}
 \label{sec:ch6_experimental_results}
 
 The study from \citeColor[becker_breakup_2002] reports experimental results on SMDs and fluxes in a plane perpendicular to the crossflow $x = 80$ mm downstream the liquid injection point. These results, shown in Figure \ref{fig:maps_Becker_expe_results} for the high Weber operating point (see nomenclature from Table \ref{tab:jicf_operating_conditions}), are represented in the form of contour maps.  The volume flux shows a circumferential pattern where the largest flux is located at the center and is reduced radially. The $SMD$ shows a layered profile where the largest droplets are located at the top part of the spray.
@@ -129,7 +131,7 @@ which, as shown, gives a value of $4062 ~ \mathrm{mm}^3~\mathrm{s}^{-1}$. The in
 
 
 
-\section{Previous numerical studies}
+\subsection{Previous numerical studies}
 \label{ch6:previous_numerical_studies}
 
 The experimental configuration of \citeColor[becker_breakup_2002] has been studied through computations by several authors, all of them simulating the high Weber operating point from Table \ref{tab:jicf_operating_conditions}. \citeColor[rachner_modelling_2002] simulated the jet in steady crossflow by considering the early liquid as a cylinder deflected by the airflow, which exchanges momentum with a modified drag coefficient, sheds mass and produces droplets whose properties are given from experimental correlations. Later on, \citeColor[eckel_semi-empirical_2016] extended this model to account for shear breakup of ellipsoids and flattened liquid jets (to account for more realistic JICF dense core effects) in both steady and unsteady crossflows, by using semi-empirical correlations. Independently of these studies, \citeColor[jaegle_large_2009] and \citeColor[senoner_simulation_2010] also developed models with this configuration: the former injected a developed spray at the liquid nozzle while accounting for a modified drag law in the near-nozzle region to mimic the liquid column momentum exchange, and the later injected big blobs at the nozzle but accounting for secondary atomization. All these models (except for
@@ -271,45 +273,21 @@ Reference & $SMD~\left[ \mu \mathrm{m}\right]$  & $Q_l~\left[ \mathrm{mm}^3 s^{-
 
 \clearpage
 
-
-
-\section{Procedure for setting-up dispersed-phase simulations}
-
-In Chapter \ref{ch5:jicf_resolved_simulations}, the five resolved atomization simulations from Table \ref{fig:location_JICF_ops_in_breakup_map} were performed and analyzed. These ones tested two mesh interface mesh resolutions ($\Delta x_\mathrm{min} = 20, 10~\mu$m) and two operating points ($We_g = 830, 1470$). Results shown a high dependency of the trajectories ($\S$\ref{subsec:ch5_jet_trajectories_results}) and jet topologies ($\S$\ref{sec:ch5_jet_evolution}) on the resolution, which later led to different spray characteristics ($\S$\ref{sec:ch5_sec_spray_characterization}) and resulting injectors ($\S$\ref{sec:ch5_learning_SLI}). Therefore, it is of interest to test such effects in the disperse-phase simulations by initializing these computations with the different injectors obtained.
-
-Figure \ref{fig:dispersed_phase_sli_parameters} shows the different models involved in the dispersed phase simulations with their control parameters: they are split into the possible influences on the gas and liquid phases, as well as the secondary breakup which is considered as an interaction between both (even though it acts on the liquid phase, it needs the gas velocity for calculating the relative velocity in order to estimate liquid breakup). In this section, all the parameters from the SLI model in the JICF case are analyzed: a baseline configuration is chosen, which was found to be the most optimal one yielding the best match to the experimental results, and then each SLI parameter is modified individually. The baseline configuration consists of the following parameters:
-
-\begin{itemize}
-
-	\item The \textbf{gaseous phase} is provided by the \textbf{prescribed gaseous inlet} methodology. This one was found to better match the aerodynamic field from the resolved computation and produces a lagrangian spray closer to the experimental results, as demonstrated in $\S$\ref{sec:SLI_LGS_gaseous_phase_effect}.
-	
-	\item \textbf{Secondary atomization model} is taken to be the Gorokhovski model with calibrated constants $K_1 = 0.05$, $K_2$ = 1. Calibration of the secondary model is reported in $\S$\ref{sec:SLI_LGS_secondary_breakup_models}.
-	
-	\item \textbf{SLI} corresponds to the discretized spray obtained from the high Weber case at the finest resolution, UG100\_DX10, at location $x = 5$ mm. This case is chosen as the baseline one since 1) the operating point been previously studied by other authors and hence the results reported here can be easily compared ($\S$\ref{ch6:previous_numerical_studies}), 2) the finer interface cell size in the resolved simulation provides a better resolution of the sprays, and 3) the location closer to the injection point deviates less with respect to the experimental trajectory than the sampled spray further downstream (see Figure \ref{fig:JICF_trajectories_validation}). The effect of other operating conditions, resolved interface resolutions and injection locations is studied in $\S$\ref{subsec:SLI_LGS_resolution_and_injection_location},.
-	
-	\item \textbf{Spray velocities}: mean injection velocities are fixed to volume-weighted ones, while the $r$ law for RMS components is set to gaussian. Other possibilities for these parameters are analyzed in $\S$\ref{subsec:SLI_LGS_velocity_effects}.
-	
-	\item \textbf{Droplet sizes} prescribed are randomly sampled from a lognormal distribution fitting the histogram in each individual probe. 
-	
-	\item The \textbf{operating condition} is also changed by performing a dispersed-phase simulation for the low Weber case with the corresponding SLI obtained. These results are reported in $\S$\ref{subsec:JICF_LGS_params_OP}.
-
-\end{itemize}
-
+\section{Procedure for parametric study of lagrangian simulations}
 
 
 With the objective of testing all the parameters involved in the lagrangian computations, a design of experiments process is followed in which each variable is changed in a one-at-a-time basis. The study of dispersed-phase simulations in then divided into three parts, which are enclosed by the dashed-colored lines in Figure  \ref{fig:dispersed_phase_sli_parameters}:
 
 \begin{enumerate}
 
-	\item The \textbf{gas phase} effect is analyzed by injecting lagrangian droplets with the baseline injectors in the gaseous fields previously analyzed in $\S$\ref{sec:ch6_BC_gaseous_phase}. The results are discussed in $\S$\ref{sec:SLI_LGS_gaseous_phase_effect}. In this section, the establishment of the liquid phase and time needed to convergence of mean parameters are also  included.
+	\item The \textbf{gaseous phase} effect is analyzed in $\S$\ref{sec:SLI_LGS_gaseous_phase_effect}. Firstly, two methodologies to model the perturbation effects created by the dense core are presented analyzed in gaseous simulations: the Actuator Line Method (ALM), whose modelling was detailed in $\S$\ref{sec:ch4_dense_core_modelling}, and another approach named prescribed gaseous inlet. Both methodologies are then tested in dispersed-phase simulations, where liquid is injected with the SLIs obtained from the resolved simulation UG100\_DX10 at $x = 5$ mm.
 	
-	\item The \textbf{secondary atomization models} are analyzed in $\S$\ref{sec:SLI_LGS_secondary_breakup_models}. This section is divided into two parts: a first one in which the free constants of the Gorokhovski model are tuned, and a second one in which the three available. models are compared.
+	\item The different \textbf{secondary atomization models} are analyzed in $\S$\ref{sec:SLI_LGS_secondary_breakup_models}. 
 	
-	\item Finally, the effects of the \textbf{liquid phase} parameters from SLI and operating conditions are reported in $\S$\ref{sec:effect_of_SLI_variables}. Besides the already introduced parameters, a last variable which consists of a spatial delay in which secondary atomization is not activated $\Delta x_\mathrm{atom}$ is also discussed.
+	\item The effects of the \textbf{liquid phase} parameters from SLI and operating conditions are reported in $\S$\ref{sec:effect_of_SLI_variables}. 
 
 \end{enumerate}
 
-\clearpage
 
 \begin{figure}[ht]	
 	\centering	\includeinkscape[inkscapelatex=false,scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/chart_input_parameters_LGS}
@@ -317,6 +295,7 @@ With the objective of testing all the parameters involved in the lagrangian comp
 \end{figure}
 
 \clearpage
+
 
 
 \section{Influence of gaseous phase}
@@ -488,7 +467,7 @@ Another strategy to perturb the gas phase in dispersed-phase computations consis
 \begin{figure}[h!]	
 	\centering	
 	\includeinkscape[inkscapelatex=false,scale=0.25]{./part2_developments/figures_ch6_lagrangian_JICF/mesh_reduced_inlet}
-	\caption{Location of the reduced domain within the resolved atomization computational setup and mesh details}
+	\caption{Location of the reduced domain within the resolved atomization computational setup (in green) and mesh details}
 	\label{fig:mesh_reduced_inlet}
 \end{figure}
 
@@ -591,35 +570,104 @@ It can be concluded that the prescribed inlet captures more accurately than the 
 
 \subsection{Lagrangian jet establishment}
 
-The establishment of the dispersed phase for cases ALM optimal and the prescribed inlet are shown in Figure \ref{fig:JICF_LGS_spray_establishment}. In both cases  the injection and experimental validation planes, $x = 5$ and $x = 80$ mm respetively, are shown, as well as the liquid injection region enclosed by the black outline in the injection plane. For the case with ALM, the actuator is represented by the denoted cylinder. The prescribed inlet simulation includes as well an instantaneous view of the resolved liquid jet from case UG100\_DX10 solely for visualization among resolved and lagrangian jets: resolved liquid is not actualy present in the dispersed-phase computations. The time instants are expressed in a dimensionless form with respect to the inertial timescale according to Eq. (\ref{eq:t_dimensionless_with_tau_in}).
+The previous gaseous fields are now taken as initial solutions to perform dispersed-phase computations. To initialize the SLI, the injectors used correspond to the resolved simulation UG100\_DX10 obtained at $x = 5$ mm are used to prescribed liquid boundary conditions. These are shown in Figure \ref{fig:maps_SLI_with_RMS}. Injected mean velocities are Volume-Weighted (VW) within each sampling probe according to Eq. (\ref{eq:ch4_f_arbitrary_mean_RMS_VW_definition}). The RMS components of the velocities are also considered. The injected velocity $\textbf{u}_\mathrm{inj}$ is the prescribed by the expression $\textbf{u}_\mathrm{inj} = \textbf{u}_\mathrm{VW} + r \textbf{u}_\mathrm{RMS,VW}$, where $r$ is a random number sampled from a Gaussian distribution (more details on velocity prescription are given in $S$\ref{subsec:ch4_injectors_definition}).
 
-In both simulations, lagrangian droplets are injected in the denoted liquid injection region (which represents the spatial bounds of the SLI from Figure \ref{fig:injectors_sli_uG100_dx10_x05}) which are then convected downstream. Right after injection, the particles have a diameter of the order of the SMD from Figure \ref{fig:injectors_sli_uG100_dx10_x05} and a finite vertical component velocity which is lower at the bottom of the injection plane and larger at its tope. As a consequence of this vertical velocity component, the jet's vertical trajectory continues to increase with axial distance. Shortly after injection, droplets are quickly atomized into smaller particles due to the action of the secondary breakup model. The liquid-gas relative velocity is large in all simulations, hence the breakup model estimates the atomization events to occur soon after injection and the size of the droplets is reduced very fast with axial distance. Indeed, the dispersed-phase simulations show a very abrupt decrease in SMD up to a location between $x = 15$ and $20$ mm, depending on the case: further downstream, the SMD in the prescribed gaseous inlet simulations stays constant while the ALM ones continue atomizing droplets at a slow pace. Downstream this location the dispersed spray is fully atomized and droplets are only convected. As a consequence of such a fast breakup, the smaller droplets generated have a lower relaxation time and are quickly dragged by the gaseous crossflow, increasing their axial velocity and reducing their vertical one, hence stopping penetrating in the vertical direction. 
 
-Figure \ref{fig:JICF_LGS_spray_establishment} shows the secondary atomization of a single lagrangian droplet in case ALM initial. The displayed domain in each figure corresponds to the region enclosed by the red rectangle in Figure \ref{fig:JICF_LGS_spray_establishment}. Then, further zoomed views enclosed in blue show the droplets generated from the original droplet detected at the firstly displayed time instant. The original droplet at $t^* = 22.40$, with a diameter of 93 $\mu$m, breaks into several droplets of smaller size at $t^* = 23.02$ whose total volume contains the same mass as the original droplet. These children droplets have different sizes as a consequence of the statistical sampling from the cumulative distribution Eq. (\ref{eq:gorokhovski_T_CDF}). Particles are then convected and undergo a further breakup event at $t^* = 24.26$, producing a larger number of smaller children droplets, where the smallest diameter produced was 13 $\mu$m. This sequence of subsequent atomization events is referred as the breakup cascade mechanism \citepColor[tanner_simulation_1998]. In the particular snapshots shown, the original droplet prior to breakup at $t^* = 22.4$ is located at $x = 5.5$ mm (i.e. 0.5 mm further downstream the injection location), while the droplets at the last instant $t^* = 24.26$ are located at $x \sim 9$ mm. This indicates that the breakup cascade occurs soon after the injection process and gets completed shortly afterwards. For this particular breakup event, the cascade occurs within a region $\Delta x = 3.5$ mm in a timespan of $\Delta t^* = 1.86$, which corresponds to a physical timespan of $\Delta t = 0.036$ ms. 
 
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+	\hspace*{-0.45in}
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_SMD_map}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.075in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_ux_mean_vw_map}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.45in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_uy_mean_vw_map}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.45in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_uz_mean_vw_map}
+   %\label{} 
+\end{subfigure}
+
+\vspace*{-0.20in}
+
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+	\hspace*{-0.45in}
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_volume_flux_map}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.075in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_ux_RMS_vw_map}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.45in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_uy_RMS_vw_map}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.45in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_uz_RMS_vw_map}
+   %\label{} 
+\end{subfigure}
+
+\caption{SLI mean volume-weighted (VW) and RMS velocity maps from case UG100\_DX10 at $x_\mathrm{inj} = 5$ mm }
+\label{fig:maps_SLI_with_RMS}
+\end{figure}
+
+
+The establishment of the dispersed phase for cases ALM optimal and the prescribed inlet are shown in Figure \ref{fig:JICF_LGS_spray_establishment}. In both cases  the injection and experimental validation planes, $x = 5$ and $x = 80$ mm respectively, are shown. The black outline at the first plane denotes the injection region. The prescribed inlet simulation includes as well an instantaneous view of the resolved liquid jet from case UG100\_DX10 solely for visualization among resolved and lagrangian jets: resolved liquid is not actualy present in the dispersed-phase computations. The time instants are expressed in a dimensionless form with respect to the inertial timescale according to Eq. (\ref{eq:t_dimensionless_with_tau_in}).
+
+
+
+
+In both simulations, lagrangian droplets are injected at $x = 5$ mm and then convected downstream. Right after injection, the particles have a finite vertical velocity component which is larger at the spray top than at its bottom.  Consequently, the jet's vertical trajectory continues to increase with axial distance. Shortly after injection, droplets are quickly atomized into smaller particles. The liquid-gas relative velocity is large in all simulations, hence the secondary breakup model triggers atomization soon after injection and the droplets sizes are reduced very fast with axial distance. Indeed, the dispersed-phase simulations show a very abrupt decrease in SMD up to a location between $x = 15$ and $20$ mm, depending on the case. Further downstream, the dispersed spray is fully atomized and droplets are only convected. As a consequence of such a fast breakup, the smaller droplets generated have a lower relaxation time and are quickly dragged by the gaseous crossflow, increasing their axial velocity and reducing their vertical one, hence stopping penetrating in the vertical direction. \clearpage
 
 
 \begin{figure}[h!]
 	\centering	\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch6_lagrangian_JICF/jet_establishment/JICF_LGS_establishment}
-	\caption[Lagrangian jet establishment in the JICF simulation performed for the ALM optimal and prescribed inlet gaseous phases]{Lagrangian jet establishment in the JICF simulation performed for the ALM optimal and prescribed inlet gaseous phases. The former denotes the actuator region by the cylinder sketch, while the latter displays the liquid jet from the resolved computation only for visual comparison, since this jet is not actually present in the dispersed-phase comptutation. The region enclosed by the blue rectangle at instant $t^* = 21.78$ for case ALM initial is augmented in Figure \ref{fig:JICF_LGS_breakup_cascade_in_ALM_figure} to illustrate the breakup sequence of a single lagrangian droplet. Each sphere represents a parcel containing three droplets with the displayed diameter. Each sphere is scaled by 3 times its diameter for better visualization}
+	\caption[Lagrangian jet establishment in the JICF simulation performed for the ALM optimal and prescribed inlet gaseous phases]{Lagrangian jet establishment in the JICF simulation performed for the ALM optimal configuration (\textsl{left}) and prescribed inlet (\textsl{right}) gaseous phases. The latter displays the liquid jet from the resolved computation only for visual comparison (it is not actually present in the dispersed-phase comptutation). The red rectangle at instant $t^* = 21.78$ in case ALM initial is augmented in Figure \ref{fig:JICF_LGS_breakup_cascade_in_ALM_figure}. Each sphere represents a parcel containing three droplets with the displayed diameter. Each sphere is scaled by 3 times its diameter for better visualization}
 	\label{fig:JICF_LGS_spray_establishment}
 \end{figure}
 
 
+
+Figure \ref{fig:JICF_LGS_breakup_cascade_in_ALM_figure} shows the secondary atomization of a single lagrangian dropletl. The displayed domain in each figure corresponds to the region enclosed by the red rectangle in Figure \ref{fig:JICF_LGS_spray_establishment}. The original droplet at $t^* = 22.40$, with a diameter of 93 $\mu$m, breaks into several droplets of smaller size at $t^* = 23.02$ whose total volume contains the same mass as the original droplet (mass is conserved during secondary breakup). These children droplets have different sizes as a consequence of the statistical sampling from the cumulative distribution Eq. (\ref{eq:gorokhovski_T_CDF}). Particles are then convected and undergo another breakup event at $t^* = 24.26$, producing a larger number of smaller children particles, where the smallest droplet's diameter was 13 $\mu$m. This sequence of subsequent atomization events is referred as the breakup cascade mechanism \citepColor[tanner_simulation_1998]. In the particular snapshots shown, the original droplet prior to breakup at $t^* = 22.4$ is located at $x = 5.5$ mm (i.e. 0.5 mm further downstream the injection location), while the droplets at the last instant $t^* = 24.26$ are located at $x \sim 9$ mm. This indicates that the breakup cascade occurs soon after the injection process and gets completed shortly afterwards. For this particular breakup event, the cascade occurs within a region $\Delta x = 3.5$ mm in a timespan of $\Delta t^* = 1.86$, which corresponds to a physical timespan of $\Delta t = 0.036$ ms. 
+
 \begin{figure}[h!]
 	\centering	\includeinkscape[inkscapelatex=false,scale=0.7]{./part2_developments/figures_ch6_lagrangian_JICF/jet_establishment/JICF_LGS_breakup_cascade_in_ALM}
-	\caption[Visualization of the breakup cascade from a single lagrangian droplet in case ALM initial illustrating the breakup cascade]{Visualization of the breakup cascade from a single lagrangian droplet in case ALM initial illustrating the breakup cascade. Displayed domain at each instant corresponds to the region enclosed in red at Figure \ref{fig:JICF_LGS_spray_establishment}}
-	\label{fig:JICF_LGS_breakup_cascade_in_ALM_figure}
+	\caption[Visualization of the breakup cascade from a single lagrangian droplet in case ALM initial illustrating the breakup cascade]{Visualization of the breakup cascade from a single lagrangian droplet in case ALM initial illustrating the breakup cascade. Displayed domain at each instant corresponds to the region enclosed in red at Figure \ref{fig:JICF_LGS_spray_establishment}}	\label{fig:JICF_LGS_breakup_cascade_in_ALM_figure}
 \end{figure}
+
+
+
 
 \subsection{Analysis of lagrangian spray}
 \label{subsec:jicf_lgs_sed_gas_phase_influence_spray_analysis}
 
 \subsubsection*{Spray establishment}
 
-The resulting dispersed-phase sprays can be analyzed by tracking lagrangially the droplets when they cross planes perpendicular to the gaseous crossflow in the same way as performed in the resolved atomization simulations. The difference with respect to the latter is that each lagrangian droplet is identified with a unique tag that allows to detect if a lagrangian droplet has been previously sampled or not.  In this way, particles that might be tracked more than once with the detection algorithm are only accounted in the first time instant detected, hence avoiding repeated droplets when processing the spray. The only case in which this fails is if the atomization models triggers a breakup event when a parent droplet is crossing a sampling plane, since children droplets are given a new tag that fails in the detection of \textsl{repeated droplets} in such case.
+%The resulting dispersed-phase sprays can be analyzed by tracking lagrangially the droplets when they cross planes perpendicular to the gaseous crossflow in the same way as performed in the resolved atomization simulations. The difference with respect to the latter is that each lagrangian droplet is identified with a unique tag that allows to detect if it has been previously sampled or not.  In this way, particles that might be tracked more than once with the detection algorithm are only accounted in the first time instant detected, hence avoiding repeated droplets when processing the spray. The only case in which this fails is if the atomization models triggers a breakup event when a parent droplet is crossing a sampling plane, since children droplets are given a new tag that fails in the detection of \textsl{repeated droplets} in such case.
 
-Sprays have been sampled in planes perpendicular to the crossflow direction separated by a distance $\Delta x = 2$ mm from the injection location $x = 5$ mm up to the experimental sampling plane $x = 80$ mm, both shown in Figure \ref{fig:JICF_LGS_spray_establishment}. In order to study established sprays, the time that the first droplet takes to reach the experimental sampling plane $x = 80$ mm, hereafter referred as $\tau_\mathrm{dr_{x=80}}$, has been firstly obtained. Then, simulations have been run for a time $t \sim 2 \tau_\mathrm{dr_{x=80}}$ (establishment time) without lagrangian droplets tracking, and then tracking has been activated to start accumulating droplets and calculating statistics. The times $\tau_\mathrm{dr_{x=80}}$ for the gaseous simulations performed, as well as the physical and accumulation times, are summarized in Table \ref{tab:jicf_LGS_t_prime_accumulation}. The convergence of the global spray has then be assessed by monitoring the SMD and the flux $Q_l$ with respect to time, which is expressed in a dimensionless form with respect to $\tau_\mathrm{dr_{x=80}}$ as:
+Sprays have been sampled in planes perpendicular to the crossflow direction separated by a distance $\Delta x = 2$ mm from the injection location $x = 5$ mm up to the experimental sampling plane $x = 80$ mm. In order to study established sprays, the time that the first droplet takes to reach the experimental sampling plane $x = 80$ mm, hereafter referred as $\tau_\mathrm{dr_{x=80}}$, has been firstly obtained. Then, simulations have been run for a time $t \sim 2 \tau_\mathrm{dr_{x=80}}$ (establishment time) without lagrangian droplets tracking, and then tracking has been activated to start accumulating droplets and calculating statistics. The times $\tau_\mathrm{dr_{x=80}}$ for the gaseous simulations performed, as well as the physical and accumulation times, are summarized in Table \ref{tab:jicf_LGS_t_prime_accumulation}. The convergence of the global spray has then be assessed by monitoring the SMD and the flux $Q_l$ with respect to time, which is expressed in a dimensionless form with respect to $\tau_\mathrm{dr_{x=80}}$ as:
 
 \begin{equation}
 \label{eq:t_prime_with_tau_drx80}
@@ -646,9 +694,10 @@ ALM forced  & 0.6812 & 2.08 & 3.05 & 0.85 & 1.25 \\
 \label{tab:jicf_LGS_t_prime_accumulation}
 \end{table}
 
-	The evolution of flux and SMD at the plane $x = 80$ mm with time for the simulations are shown in Figure \ref{fig:LGS_QL_and_SMD_convergence_with_time}. The flux shows that all cases tend to wards the injected flow rate, with slight overestimations in some cases possibly due to some lagrangian particles being sampled twice. The SMD profiles show convergence in all cases, but towards different values which in the most extreme cases (prescribed inlet versus ALM forced) differ by a factor of 2. The evolution of SMD along the channel and the dependence of granulometry with the gaseous boundary conditions is analyzed next.
+	The evolution of flux and SMD at the plane $x = 80$ mm with time for the simulations are shown in Figure \ref{fig:LGS_QL_and_SMD_convergence_with_time}. The flux shows that all cases tend to wards the injected flow rate, with slight overestimations in some cases possibly due to some lagrangian particles being sampled twice. The SMD profiles show convergence in all cases, but towards different values which in the most extreme cases (prescribed inlet versus ALM forced) differ by a factor of 2. The evolution of SMD along the channel and the dependence of granulometry with the gaseous boundary conditions is analyzed next. 
 	
 \clearpage
+	
 
 \begin{figure}[ht]
 \flushleft
@@ -673,7 +722,17 @@ ALM forced  & 0.6812 & 2.08 & 3.05 & 0.85 & 1.25 \\
 
 \subsubsection*{Spatial evolution of spray}
 
-As shown in Figures \ref{fig:JICF_LGS_spray_establishment} and \ref{fig:JICF_LGS_breakup_cascade_in_ALM_figure}, secondary atomization acts shortly after droplets are injected by SLI. These droplets are injected at location $x = 5$ mm and are transported along the channel, being sampled at $x = 80$ mm for experimental comparison. The SMDs at this location are of the order of the values shown in Figure \ref{fig:LGS_QL_and_SMD_convergence_with_time}, while the injected droplets obtained from resolved simulation UG100\_DX10 have a global SMD of $80.2~\mu$m (Figure \ref{fig:ch5_spray_char_SMD_final}). This indicates a strong reduction of particles diameters due to secondary atomization. Therefore, it is of interest to see at which extent atomization acts along the channel. For this purpose, the evolution of $SMD$ with axial distance $x$ along the plenum is plotted in Figure \ref{fig:SMD_vs_x_param_gaseous_BCs}. The $SMD$ from the resolved simulation UG100\_DX10 and the experimental one with the uncertainty estimated in $\S$\ref{sec:jicf_dlr_experimental_uncertainty} are also shown for comparison. As observed, the $SMD$ drops drastically shortly after injection up to $x \sim 20$ mm, then it continues decreasing in a linear way up to $x = 80$ mm. The abrupt decrease in diameter at early axial locations is exponential and shows a similar shape for all cases;  however, for the ALM cases, the decaying rate and the final $SMD$ varies. In general, the prescribed inlet provides the largest $SMD$ while the ALM cases result in lower values due to a worse replication of the resolved gaseous phase, thus mispredicting the relative velocity for the lagrangian droplets and affecting breakup. At $x = 10$ mm the deviation with the resolved case is large: 79.9 vs 23.9 $\mu$m for the prescribed inlet, which supposes a difference of 70 $\%$.  However, it is worth to remind that the resolved atomization simulation might not be fine enough to retrieve the smallest liquid scales that would be actually present as discussed in $\S$\ref{ch5:subsec_spray_char_granulo}, hence limiting the smallest droplets that can be resolved.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.45]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/SMD_vs_x_gaseous_BCs_comparison}
+\vspace*{-0.4in}
+\caption[Evolution of SMD along axial location $x$ for the different gaseous boundary conditions tested]{Evolution of SMD along axial location $x$ for the different gaseous boundary conditions tested. The SMD at $x = 5$ and $10$ mm for the resolved atomization case UG100\_DX10 is also added for comparison}
+\label{fig:SMD_vs_x_param_gaseous_BCs}
+\end{figure}
+
+
+Since there is a strong reduction of particles diameters due to secondary atomization, it is of interest to see at which extent atomization acts along the channel. For this purpose, the evolution of $SMD$ with axial distance $x$ along the plenum is plotted in Figure \ref{fig:SMD_vs_x_param_gaseous_BCs}. The $SMD$ from the resolved simulation UG100\_DX10 and the experimental one with its uncertainties are also shown for comparison. As observed, the $SMD$ drops drastically shortly after injection up to $x \sim 20$ mm, then it continues decreasing in a linear way up to $x = 80$ mm. The abrupt decrease in diameter at early axial locations is exponential and shows a similar shape for all cases;  however, for the ALM cases, the decaying rate and the final $SMD$ varies. In general, the prescribed inlet provides the largest $SMD$ while the ALM cases result in lower values due to a worse replication of the resolved gaseous phase, thus mispredicting the relative velocity for the lagrangian droplets and affecting breakup. At $x = 10$ mm the deviation with the resolved case is large: 79.9 vs 23.9 $\mu$m for the prescribed inlet, which supposes a difference of 70 $\%$.  However,  the resolved atomization simulation might not be fine enough to retrieve the smallest liquid scales that would be actually present (as discussed in $\S$\ref{ch5:subsec_spray_char_granulo}), hence limiting the smallest droplets that can be resolved.
+
 
 The linear region, which spans from $x = 20$ to $80$ mm, reduces the mean diameter slowly along the channel after the disminution in the exponenial region. This is specially noticeable for the cases with the full computational domain from the resolved simulation (with and without ALM), while in the prescribed gaseous inlet simulation the variation is so small that is not appreciated in the figure. For quantifying this variation, a decay rate $\lambda$ is calculated as the slope in the $SMD$-$x$ curve from $x =20$ mm to $x = 80$ mm:
 
@@ -683,7 +742,6 @@ The linear region, which spans from $x = 20$ to $80$ mm, reduces the mean diamet
 
 Table \ref{tab:SMD_decay_rates} summarizes the obtained SMDs and decay rates for all cases. The values for $\lambda$ are of the same order for all ALM and the unperturbed cases, while it is more than one order of magnitude lower than for the prescribed gaseous inlet spray. The lower decay rate is associated to a more accurate resolution of the gaseous phase with the prescribed inlet (meaning that it matches better the perturbed field of the resolved atomization simulation), which can be seen for instance in the gaseous profiles of Figure \ref{fig:JICF_ICS_custom_lines_y0_along_x_ux_mean}. The decay rates for the ALM cases show similar orders of magnitude, yet the values also differ and affect the final SMDs obtained: the lowest value (which results in a higher final SMD) corresponds to the optimal case, while the highest decay rate has been obtained for the ALM forced. In general, the lower the decay rate (or in other words, the larger the final SMD), the better, since as observed in Figure \ref{fig:SMD_vs_x_param_gaseous_BCs} the SMDs found in the simulations underestimate the experimental results.
 
-\clearpage 
 
 \begin{table}[!h]
 \centering
@@ -705,12 +763,7 @@ ALM forced & 15.280 & 9.98 & 167 $\cdot 10^{-3}$ \\
 
 
 
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.45]{./part2_developments/figures_ch6_lagrangian_JICF/params_gaseous_initial_conditions/SMD_vs_x_gaseous_BCs_comparison}
-\caption[Evolution of SMD along axial location $x$ for the different gaseous boundary conditions tested]{Evolution of SMD along axial location $x$ for the different gaseous boundary conditions tested. The SMD at $x = 5$ and $10$ mm for the resolved atomization case UG100\_DX10 is also added for comparison}
-\label{fig:SMD_vs_x_param_gaseous_BCs}
-\end{figure}
+
 
 
 \subsubsection*{Experimental comparison}
@@ -722,9 +775,9 @@ The sprays at $x = 80$ mm can be compared with the experimental results reported
 \varepsilon_{SMD} = \frac{SMD_\mathrm{simu} - SMD_\mathrm{expe}}{SMD_\mathrm{expe}}
 \end{equation}
 
-where $SMD_\mathrm{simu}$ and $SMD_\mathrm{expe}$ are the numerical and experimental SMDs at $x = 80$ mm respectively. As already discussed in the previous section, the gaseous prescribed inlet provides the better experimental match, while the ALM forced case provides the largest deviation. Among all actuator cases, the optimal ALM is the one giving the best experimental comparision, yet it is still worse than the prescribed inlet simulation. This demonstrates again the importance of properly retrieving the gaseous phase, since as seen graphically in Figure \ref{fig:SMD_vs_x_param_gaseous_BCs} it has a strong impact in lagrangian particles breakup. In particular, secondary atomization is of high relevance in the case studied since the injected droplets, obtained through resolved atomization simulations, are larger than the experimental SMDs reported further downstream by \citeColor[becker_breakup_2002]. The secondary atomization is then strongly affected by the gaseous boundary conditions, since capturing accurately the velocity fields would allow to better approximating the relative velocities, which are one of the governing parameters of the secondary atomization models since they are related to the Weber number (criterion to decide if atomization occurs or not) by a power of 2.
+where $SMD_\mathrm{simu}$ and $SMD_\mathrm{expe}$ are the numerical and experimental SMDs at $x = 80$ mm respectively. Results show that (as already mentiones in the previous section) the gaseous prescribed inlet provides the better experimental match for global SMD, while the ALM forced case provides the largest deviation. %Among all actuator cases, the optimal ALM is the one giving the best experimental comparision, yet it is still worse than the prescribed inlet simulation. This demonstrates again the importance of properly retrieving the gaseous phase, since as seen graphically in Figure \ref{fig:SMD_vs_x_param_gaseous_BCs} it has a strong impact in lagrangian particles breakup. In particular, secondary atomization is of high relevance in the case studied since the injected droplets, obtained through resolved atomization simulations, are larger than the experimental SMDs reported further downstream by \citeColor[becker_breakup_2002]. The secondary atomization is then strongly affected by the gaseous boundary conditions, since capturing accurately the velocity fields would allow to better approximating the relative velocities, which are one of the governing parameters of the secondary atomization models since they are related to the Weber number (criterion to decide if atomization occurs or not) by a power of 2.
 
-\clearpage
+
 
 \begin{table}[!h]
 \centering
@@ -745,12 +798,12 @@ ALM forced & 9.98 & -67.82 \\
 \label{tab:SMD_deviations_gaseous_inlet}
 \end{table}
 
-The spray at $x = 80$ mm is then discretized to yield the spatial maps of SMD and flux in Figure \ref{fig:maps_LGS_JICF_gaseous_influence}. The experimental maps from Figure \ref{fig:maps_Becker_expe_results} are also displayed: the SMD scale has been changed in order to allow for a visual comparison with the simulation results. These spatial magnitudes can also be integrated in each direction with Eqs. (\ref{eq:integrated_results_Becker_expe_results}) to yield the spatially integrated profiles of Figure \ref{fig:profiles_LGS_JICF_gaseous_influence}.
+The spray at $x = 80$ mm is then discretized to yield the spatial maps of SMD and flux in Figure \ref{fig:maps_LGS_JICF_gaseous_influence}. These spatial magnitudes can also be integrated in each direction with Eqs. (\ref{eq:integrated_results_Becker_expe_results}) to yield the spatially integrated profiles of Figure \ref{fig:profiles_LGS_JICF_gaseous_influence}. The experimental maps and profiles are also displayed for comparison. 
 
-Flux maps show an elliptical pattern which is more elongated along the vertical direction than along the lateral one, while experiments show a circular shape. The simulations show a larger concentration of droplets in the center, which is reflected in higher local maximum fluxes whose vertical location agrees fairly well with the experiments. The prescribed gaseous inlet simulation captures accurately this location, while the ALM ones underestimate it slightly, as it is also reflected in the vertical profiles of Figure \ref{fig:profiles_LGS_JICF_gaseous_influence}. Some maximum local fluxes in the numerical maps are actually larger than the maximum retrieved by the experiments, while indeed the experiments overestimated the total flux with respect to the injected one (see $\S$\ref{sec:jicf_dlr_experimental_uncertainty}): the fact that larger local fluxes are obtained in the computations is due to the more elongated shape of the numerical sprays than in the experiments, which show a more circular pattern and therefore lower local fluxes. The numerical spray vertical boundaries, observed both in the maps and in the vertical flux profiles of Figure \ref{fig:profiles_LGS_JICF_gaseous_influence}, show that these penetrate further than the experiments. Nevertheless, the overestimated upper boundary corresponds to areas with low liquid flux ($q_l < 0.5~\mathrm{cm}^3/\mathrm{cm}^2\mathrm{s}$), which agrees with the location of larger SMDs and indicates that there are few large droplets with a more ballistic behaviour (due to a larger Stokes number) that still have a vertical velocity component and hence travel further away. Indeed, the boundaries for the regions with larger fluxes ($q_l > 0.5~\mathrm{cm}^3/\mathrm{cm}^2\mathrm{s}$) are close to the same experimental boundaries. Similarly, the lateral boundaries show droplets up to the channel walls, although these regions (generally for $|y| > 6$ mm) contain low fluxes. The vertical boundaries where $q_l > 0.5~\mathrm{cm}^3/\mathrm{cm}^2\mathrm{s}$ are located closer to the central plane than in the experiments, yielding the elliptical pattern in the computations. This might be caused by an underestimation of the lateral trajectory in the resolved atomization simulation, although this characteristic of the JICF has not been studied in this work and a definitive statement cannot be done. The flux profiles integrated along the lateral  direction $\left\langle q_l \right\rangle \left( y \right)$ shows good experimental agreement for $y < 0$ but underestimation of flux for $y > 0$, which might indicate that experiments overestimate the flux at this region. In general, it can be said that the dispersed-phase computations retrieve quantitatively the patterns of the flux with similar vertical boundaries although a small quantity of large droplets penetrating further away than in the experiments. Simulations also show vertical locations of the maximum fuel flux close to experiments: the prescribed case can accurately retrieve this location, while the ALM ones generally underestimate it.
+Flux maps show an elliptical pattern elongated along the vertical direction, while experiments show a circular shape. Simulations show a larger concentration of droplets in the center, which is reflected in higher local maximum fluxes whose vertical location agrees fairly well with the experiments. The prescribed gaseous inlet simulation captures accurately this location, while the ALM ones underestimate it slightly, as it is also reflected in the vertical profiles of Figure \ref{fig:profiles_LGS_JICF_gaseous_influence}.  The numerical spray vertical boundaries, observed both in the maps and in the vertical flux profiles of Figure \ref{fig:profiles_LGS_JICF_gaseous_influence}, show that these penetrate further than the experiments. Nevertheless, the overestimated upper boundary corresponds to areas with large SMD and low liquid fluxes ($q_l < 0.5~\mathrm{cm}^3/\mathrm{cm}^2\mathrm{s}$), corresponding then to a few large droplets with a more ballistic behaviour (due to a larger Stokes number) that travel further away in the vertical direction. Indeed, the boundaries for the regions with larger fluxes ($q_l > 0.5~\mathrm{cm}^3/\mathrm{cm}^2\mathrm{s}$) match their experimental equivalent ones. Similarly, lateral boundaries show droplets up to the channel walls, although these regions (generally for $|y| > 6$ mm) contain low fluxes. The vertical boundaries where $q_l > 0.5~\mathrm{cm}^3/\mathrm{cm}^2\mathrm{s}$ are located closer to the central plane than in the experiments, yielding the elliptical pattern in the computations. This might be caused by an underestimation of the lateral trajectory in the resolved atomization simulation, although this characteristic of the JICF has not been addressed in this work and a definitive statement cannot be performed. The flux profiles integrated along the lateral  direction $\left\langle q_l \right\rangle \left( y \right)$ shows good experimental agreement for $y < 0$ but underestimation of flux for $y > 0$, which might indicate that experiments overestimate the flux at this region. In general, it can be said that the dispersed-phase computations retrieve quantitatively the patterns of the flux with similar vertical boundaries, yet there are a small quantity of large droplets penetrating further away than in the experiments. Simulations also show vertical locations of the maximum fuel flux close to experiments: the prescribed case can accurately retrieve this location, while the ALM ones generally underestimate it.
 
 
-The numerical SMD maps show layered profiles characteristic with droplets sizes increasing from the bottom to the top, which is the characteristic ballistic behaviour of JICF sprays. This ballistic profile is also constated by the increasing SMD along $z$ in the profiles from Figure \ref{fig:profiles_LGS_JICF_gaseous_influence}. As also shown by the maps and the profiles, all cases underestimate the experimental values, which agrees with the previous discussions on the global granulometry of the sprays. The maps also reflect in most cases an increase in SMD towards the lateral edges, which is reflected in the SMD increase at the integrated profile $\left\langle SMD \right\rangle \left( y \right)$ in Figure \ref{fig:profiles_LGS_JICF_apte_calibration} right (convex profile). Such behaviour, which is not observed in experiments but was also retrieved numerically by \citeColor[rachner_modelling_2002] (Figure \ref{fig:previous_works_profiles_comparison_with_expe}), are caused by large droplets with large Stokes number that follow their own direction rather than being entrained by the flow, which reach the walls of the plenum and do not undergo further atomization. This lateral increase is clearly noticeable for the prescribed inlet simulation and less pronounced for the ALM ones: as secondary atomization acts faster for those, the larger droplets are quickly disintegrated and smaller droplets are obtained. Actually, the lateral profiles become flatter as the cases underestimate the SMDs, producing even a concave profile in the ALM forced simulation.
+The numerical SMD maps show layered profiles with droplets sizes increasing from the bottom to the top, which is the characteristic ballistic behaviour of JICF sprays. This ballistic profile is also confirmed by the increasing SMD along $z$ in the profiles from Figure \ref{fig:profiles_LGS_JICF_gaseous_influence}. As shown both in the maps and profiles, all cases underestimate the experimental values (which agrees with the previous discussions on the global granulometry of the sprays). Most maps also reveal an increase in SMD towards the lateral edges, which is also reflected at the integrated profile $\left\langle SMD \right\rangle \left( y \right)$ in Figure \ref{fig:profiles_LGS_JICF_gaseous_influence} right (convex profile). Such behaviour, which is not observed in experiments but was also retrieved numerically by \citeColor[rachner_modelling_2002] (Figure \ref{fig:previous_works_profiles_comparison_with_expe}), is caused by large droplets following their own direction rather than being entrained by the flow, which reach the walls of the plenum and do not undergo further atomization. This lateral increase is clearly noticeable for the prescribed inlet simulation and less pronounced for the ALM ones: as secondary atomization acts faster for the latter, the larger droplets are quickly disintegrated and smaller droplets are obtained. Actually, the lateral profiles become flatter as the cases underestimate the SMDs, producing even a concave profile in the ALM forced simulation.
 
 
 
@@ -923,256 +976,14 @@ The analysis from this section has shown that the imposition of accurate boundar
 
 
 
-\section{Influence of modelling secondary atomization}
+\section{Influence of secondary atomization model}
 \label{sec:SLI_LGS_secondary_breakup_models}
 
-To consider the secondary breakup of lagrangian droplets in dispersed-phase simulations, three atomization models are available ($\S$\ref{sec:ch4_secondary_atomization_modeling}): TAB, ETAB and Gorokhovski. All these models estimate breakup according to the Weber based on the relative velocity, which is the known parameter to control secondary atomization. Then, the exact instant of breakup and the size and number of children droplets are calculated differently by each model. The TAB and ETAB models belong to the same family and provide fixed values for the parameters controlling the model, while the Gorokhovski's stochastic model presents two constants that can be calibrated by the user. Therefore, firstly the Gorokhovski's stochastic model is calibrated in order to better match the experimental results.  Then, the best configuration obtained is compared to the results from the TAB and ETAB models. It is found that these models provide good results in terms of flux distribution but that all underestimate the droplets sizes after atomization, while in the Gorokhovski model the two control variables can be tuner in order to get a better tradeoff between the droplets sizes and fluxes distribution.
+To consider the secondary breakup of lagrangian droplets in dispersed-phase simulations, three atomization models are available ($\S$\ref{sec:ch4_secondary_atomization_modeling}): TAB, ETAB and Gorokhovski. All these models estimate breakup according to the Weber based on the relative velocity, which is the known parameter to control secondary atomization. Then, the exact instant of breakup and the size and number of children droplets are calculated differently by each model. The TAB and ETAB models belong to the same family and provide fixed values for the parameters controlling the model, while the Gorokhovski's stochastic model presents two constants ($K_1$, $K_2$) that can be chosen by the user. These constants were calibrated to better match the experimental results: the values  $K_1 = 0.05$, $K_2 = 1.0$ were retrieved since they yield the lowest error in SMD with respect to experiments (results from the calibration analysis are provided in Appendix \ref{app:second_atom_goro_calibration}). In this section, all the three models are compared in three different dispersed-phase simulations. \\
 
-\subsection{Calibration of Gorokhovski model}
-\label{subsec:second_atom_goro_calibration}
-
-The Gorokhovski stochatic model, described in $\S$\ref{subsec:ch4_goro_model}, presents two free constants $K_1$ and $K_2$ in Eq. (\ref{eq:gorokhovski_epsilon_parameters_definition}) which can be tuned for each particular case and which affect the size of the children droplets produced.  $K_1$ affects the mean value of the generated children particles a breakup event, while $K_2$ controls the deviation from this mean \citepColor[senoner_simulation_2010]. The effect of both constants in the sprays have been investigated by selecting a baseline configuration with $K_1 = 0.05$, $K_2 = 1.0$ (such values provided the best experimental comparison obtained in terms of SMD) and varying both constants independently: first $K_1$ is increased to $0.1$ and $0.2$, and then $K_2$ is decreased to 0.5 and 0.25, making a total of five simulations reported. 
-
-%\begin{table}[!h]
-%\centering
-%\caption{Design of experiments to assess the influence of constants $K_1,K_2$ from Gorokhovski stochastic model}
-%\begin{tabular}{ccc}
-%\thickhline
-%\textbf{Case} & $K_1$ & $K_2$  \\
-%\thickhline
-%G11 & \multirow{3}{*}{ 0.05} & 0.1 \\
-%G12 &  & 0.5 \\
-%G13 & 1.0 \\
-%\hline
-%G11 & \multirow{3}{*}{ 0.1} & 0.1 \\
-%G12 &  & 0.5 \\
-%G13 & 1.0 \\
-%\hline
-%G11 & \multirow{3}{*}{ 0.2} & 0.1 \\
-%G12 &  & 0.5 \\
-%G13 & 1.0 \\
-%\thickhline
-%\end{tabular}
-%\label{tab:lgs_DoE_goro_constants}
-%\end{table}
-
-
-%\begin{table}[!h]
-%\centering
-%\caption{Design of experiments to assess the influence of constants $K_1,K_2$ from Gorokhovski stochastic model}
-%\begin{tabular}{cccccccccc}
-%\thickhline
-%%\textbf{Case} & & & & & & & &  & \\
-%%\thickhline
-%%$K_1$ & \multicolumn{3}{c}{0.05} & \multicolumn{3}{c}{0.1} & \multicolumn{3}{c}{0.2} \\  
-%$K_1$ & 0.05 & 0.05 & 0.05 & 0.1 & 0.1 & 0.1 & 0.2 & 0.2 & 0.2 \\  
-%$K_2$ & 0.1 & 0.5 & 1.0 & 0.1 & 0.5 & 1.0 & 0.1 & 0.5 & 1.0 \\
-%\thickhline
-%\end{tabular}
-%\label{tab:lgs_DoE_goro_constants}
-%\end{table}
-
-
-Figure \ref{fig:maps_LGS_JICF_second_atom_apte_calibration} shows the SMD and flux maps at $x = 80$ mm, and the integrated profiles are displayed in Figure \ref{fig:profiles_LGS_JICF_apte_calibration}. The first two rows shows the effect of changing $K_1$, while the last two ones show the equivalent for $K_2$. All cases retrieve correctly the experimental location of the maximum fuel flux, with larger local fluxes found in the simulations, while the integrated profiles show however lower values than the experiments: this is due to the narrower (i.e. more elliptical) flux profiles from the simulations. Increasing $K_1$ creates a larger concentration of droplets, yielding a larger local maximum. Furthermore, increasing $K_1$ decreases the penetration of the spray as shown by the lower vertical boundary in case $K_1 = 0.2, K_1 = 1.0$ with compared to the others. This affects however only to the region with the lowest flux ($q_l < 0.5~\mathrm{cm}^3/\mathrm{cm}^2\mathrm{s}$), which coresponds to the largest SMDs obtained: the top boundary of the region enclosed by $q_l > 0.5~\mathrm{cm}^3/\mathrm{cm}^2\mathrm{s}$ is identical for all cases, agreeing fairly well with the same vertical boundary than the experiments. The integrated flux along the vertical direction $\left\langle q_l \right\rangle \left( z \right)$ reflects also this difference in penetration by the larger flux values for $z > 15$ mm in the computations when compared to experiments.  
-
-With respect to the SMD results, the numerical maps show again layered profiles corresponding to a correct ballistic behaviour of the spray. All profiles of SMD with $y$ show in all cases a convex shape, with increasing SMD at the edges. The numerical sprays also show underestimation of the diameters with respect to the experiments for which the lowest diameters are found for case $K_1 = 0.05, K_2 = 0.25$ and the largest ones are obtained for $K_1 = 0.05, K_2 = 1.0$. Regarding the vertical boundaries, the profiles along $z$ show that increasing $K_2$ increases the vertical penetration while an augmentation of $K_1$ decreases it (as also observed in the maps). Yet, as previously discussed, these changes in vertical boundaries occur for the region with the lowest flux, while the zones with larger concentrations are invariant with the model constants. 
- 
-The influence of the Gorokhovski constants in the evolution of atomization along the channel are shown in Figure \ref{fig:SMD_vs_x_param_breakup_model}. As in the previous case, there is an abrupt exponential decrease in SMD shortly after injection and stabilization towards $x \sim 20$ mm. For all cases, the SMD stays almost constant after this location, indicating that atomization has finished in its majority and there are only very few droplets being further atomized from this point which do not affect significantly the results. This confirms that evolution of secondary atomization is highly dependent on the gaseous phase modelling, and that the Gorokhovski model produces an atomized spray at similar locations for this JICF configuration (it is not the case for the rest of atomization models, which are discussed in the next section). In general, all simulations with the different calibration constants yield close values of SMD at $x = 80$ mm: these are shown in Table \ref{tab:SMD_deviations_turb_inj}, which that the experimental errors on $SMD$ are of the order of $40~\%$. The lowest error is obtained for $K_1 = 0.05, K_2 = 0.1$ ($37.05~\%$) and the largest one for $K_1 = 0.05, K_2 = 1.0$ ($46.45~\%$), indicating that it is the constant $K_2$ the one having a larger influence on the atomization. Since this constant affects the standard deviation of the children droplets produced, a larger $K_2$ produces particles with a wider range of possible diameters. In combination with the stochastic velocity component imposed according to Eq. (\ref{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}), the range of possible Weber numbers for children droplets is wider, resulting then in an atomization cascade that could trigger subsequent breakup events at later time instants, producing again larger droplets. This could also explain the lowest penetration for the case with smallest $K_2$: smaller droplets produced relax faster towards the crossflow direction, losing their vertical velocity component before larger droplets, and therefore being unable to penetrate further in the vertical direction.
-In case such hypothesis were true, the results presented in this chapter could be improved by implementing the sectional approach discussed in $\S$\ref{subsec:SPS_inhomogeneity_sprays} which would prescribe to each droplet a velocity according to its size, hence yielding more realistic the secondary atomization of lagrangian droplets.
-
-\begin{table}[!h]
-\centering
-\caption{SMD values at $x = 80$ mm obtained with different constants in the Gorokhovski secondary atomization model}
-\begin{tabular}{ccc}
-\thickhline
-Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
-\thickhline
-Experiments & 31 & - \\
-$K_1 = 0.05,~K_2 = 0.25$ & 16.60 & -46.45 \\
-$K_1 = 0.05,~K_2 = 0.5$ & 18.74 & -39.55 \\
-$K_1 = 0.05,~K_2 = 1.0$ & 19.52 & -37.03 \\
-$K_1 = 0.10,~K_2 = 1.0$ & 18.57 & -40.11 \\
-$K_1 = 0.20,~K_2 = 1.0$ & 17.58 & -43.28 \\
-\thickhline
-\end{tabular}
-\label{tab:SMD_deviations_turb_inj}
-\end{table}
-
+The SMD maps are displayed in Figure \ref{fig:maps_LGS_JICF_second_atom_models}, and their corresponding integrated profiles in Figure \ref{fig:profiles_LGS_JICF_secondary_atom_model}. Both TAB and ETAB models produce similar circular patterns for the fluxes. Spray from TAB model overpredicts the vertical maximum flux location, also condensing a large part of the spray in this region as shown by the larger local fluxes. The ETAB model, on the other hand, predicts this location accurately and shows a good spatial repartition of the spray. This model also retrieves properly the experimental vertical bounds as reflected both in the map and the integrated profile $\left\langle q_l \right\rangle \left( z \right)$. The SMD maps and profiles show a proper ballistic behaviour for both TAB and ETAB sprays but an underestimation of the diameters, those being specially small for the TAB model. Underprediction of particles sizes by the TAB model is a known downcome of this model \citepColor[tanner_liquid_1997], and solving this issue was the reason why the ETAB model was developed. Indeed, the figures show that the latter model produces larger droplets than the former: the SMDs at $x = 80$ mm, summarized in Table \ref{tab:SMD_deviations_breakup_model}, yield errors of $- 55.07~\%$ and $43.59~\%$ for the TAB and ETAB models respectively. The closest is then obtained for the Gorokhovski model.
 
 \clearpage
-
-
-\begin{figure}[t!]
-\flushleft
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-%	\hspace*{-0.35in}
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/expe_flux}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.27in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/k1_0p05_k2_1p0_flux}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.02in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/k1_0p10_k2_1p0_flux}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.02in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/k1_0p20_k2_1p0_flux}
-   %\label{} 
-\end{subfigure}
-
-\vspace*{-0.25in}
-
-\flushleft
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-%	\hspace*{-0.35in}
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/expe_SMD}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.27in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/k1_0p05_k2_1p0_SMD}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.02in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/k1_0p10_k2_1p0_SMD}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.02in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/k1_0p20_k2_1p0_SMD}
-   %\label{} 
-\end{subfigure}
-
-\vskip\baselineskip
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-%	\hspace*{-0.35in}
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/expe_flux}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.27in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/k1_0p05_k2_0p1_flux}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.02in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/k1_0p05_k2_0p5_flux}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.02in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/k1_0p05_k2_1p0_flux}
-   %\label{} 
-\end{subfigure}
-
-\vspace*{-0.25in}
-
-\flushleft
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-%	\hspace*{-0.35in}
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/expe_SMD}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.27in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/k1_0p05_k2_0p1_SMD}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.02in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/k1_0p05_k2_0p5_SMD}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.02in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.4]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/maps/k1_0p05_k2_1p0_SMD}
-   %\label{} 
-\end{subfigure}
-
-
-\caption{Flux and SMD maps for numerical simulations comparing the effect of calibrating the constants from the Gorokhovski model with the experimental results}
-\label{fig:maps_LGS_JICF_second_atom_apte_calibration}
-\end{figure}
-
-
-
-
-
-
-\clearpage
-
-
-\begin{figure}[t!]
-\flushleft
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/profiles/flux_along_z}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.5in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/profiles/SMD_along_z}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.1in}
-\begin{subfigure}[b]{0.4\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/profiles/flux_along_y}\\
-   \vspace{-0.16in}
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/profiles/SMD_along_y}
-   %\label{} 
-\end{subfigure}
-
-\caption{Integrated profiles of flux and SMD maps for numerical simulations comparing the effect of Gorokhovski's model calibration with the experimental results}
-\label{fig:profiles_LGS_JICF_apte_calibration}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.5]{./part2_developments/figures_ch6_lagrangian_JICF/apte_model_calibration_u_vw_lognorm/SMD_vs_x_apte_calibration_comparison}
-\caption[Evolution of SMD along axial location $x$ for several values of the Gorokhovski atomization model]{Evolution of SMD along axial location $x$ for several values of constants $K_1$, $K_2$ of the Gorokhovski atomization model. The SMD at $x = 5$ and $10$ mm for the resolved atomization case UG100\_DX10 is also added for comparison}
-\label{fig:SMD_vs_x_param_breakup_model}
-\end{figure}
-
-
-
-
-
-
-
-From this analysis, the constants $K_1 = 0.05$, $K_2 = 1.0$ have been chosen for performing the rest of the analysis since they yield the lowest error in SMD with respect to experiments. 
-
-\subsection{Comparison of breakup models}
-
-The TAB and ETAB breakup models are now compared to Gorokhovski's, for which the results with constants constants $K_1 = 0.05$, $K_2 = 1.0$ are shown. Firstly, the SMD and flux maps and profiles are displayed in Figures \ref{fig:maps_LGS_JICF_second_atom_models} and \ref{fig:profiles_LGS_JICF_secondary_atom_model} respectively for all cases. Both TAB and ETAB models show similar circular patterns for the fluxes. Spray from TAB model overpredicts the vertical maximum flux location, also condensing a large part of the spray in this region as shown by the larger local fluxes. The ETAB model, on the other hand, predicts this location accurately and shows a good spatial repartition of the spray, and also shows a good estimation of the spray vertical bounds as reflected both in the map and the integrated profile $\left\langle q_l \right\rangle \left( z \right)$. The SMD maps and profiles show a proper ballistic behaviour for both TAB and ETAB sprays but underestimation of the diameters, being those specially small for the TAB model. Underprediction of particles sizes by the TAB model is a known downcome of this model, and solventing this issue was the reason why the ETAB model was developed. Indeed, the figures show that the latter model produces larger droplets than the former: the SMDs at $x = 80$ mm, summarized in Table \ref{tab:SMD_deviations_turb_inj}, yield errors of $- 55.07~\%$ and $43.59~\%$ for the TAB and ETAB models respectively. The closest is then obtained for the Gorokhovski model with the calibrated constants. 
-
-Evolution of the SMD along the channel is plotted in Figure \ref{fig:SMD_vs_x_param_breakup_model}. The SMD shows also a sharp reduction close to injection, with a faster decay for the TAB than for the ETAB and Gorokhovski models. The models from the TAB family stabilize at $x \sim 15$ mm, earlier than Gorokhovski. From this graph, it is demonstrated that the earliest instants are crucial for the atomization process, since the lowests SMDs are always obtained for the largest decay rates close to injection (also observed in Figure \ref{fig:SMD_vs_x_param_breakup_model}). Such abrupt decay rates very close to injection occur due to large relative velocities, as momentum exchange between the liquid and the gas has not occured yet. Momentum exchange is assessed later in $\S$\ref{sec:LGS_delay_secon_atom} by introducing an artificial delay from injection to the onset of atomization.
-
-In general, it has been observed that the secondary atomization model has a great influence on this process, yet the models tested do not yield particles sizes within the range of experimental uncertainties estimated. The Gorokhovski model calibrated in the previous section has given the best agreement in terms of spray sizes. Nevertheless, these atomization models are general and have not been developed for particular conditions: the high pressure, highly turbulent environment found in the studied case might require atomization models more fitted to these conditions (indeed, both \citeColor[rachner_modelling_2002] and \citeColor[eckel_semi-empirical_2016] employed an ad-hoc atomization model particular for this operating condition). Furthermore, this work has not considered the coalescence of lagrangian droplets, which in reality could produce larger diameters after the atomization process.
-
 
 
 \begin{figure}[t!]
@@ -1236,7 +1047,6 @@ In general, it has been observed that the secondary atomization model has a grea
 \label{fig:maps_LGS_JICF_second_atom_models}
 \end{figure}
 
-\clearpage
 
 \begin{figure}[h!]
 \flushleft
@@ -1266,6 +1076,9 @@ In general, it has been observed that the secondary atomization model has a grea
 
 
 
+
+\clearpage
+
 \begin{table}[!h]
 \centering
 \caption{SMD values at $x = 80$ mm for simulations with the different secondary atomization models}
@@ -1279,29 +1092,43 @@ TAB & 13.93 & -55.07 \\
 ETAB & 17.49 & -43.59 \\
 \thickhline
 \end{tabular}
-\label{tab:SMD_deviations_turb_inj}
+\label{tab:SMD_deviations_breakup_model}
 \end{table}
+
+Evolution of the SMD along the channel is plotted in Figure \ref{fig:SMD_vs_x_param_breakup_model}. The SMD shows also a sharp reduction close to injection, with a faster decay for the TAB than for the ETAB and Gorokhovski models. The models from the TAB family stabilize at $x \sim 15$ mm, earlier than Gorokhovski. From this graph, it is demonstrated that the earliest instants are crucial for the atomization process, since the lowests SMDs are always obtained for the largest decay rates close to injection. Such abrupt decay rates very close to injection occur due to large relative velocities, as momentum exchange between the liquid and the gas has not occured yet. Momentum exchange is assessed later in $\S$\ref{sec:LGS_delay_secon_atom} by introducing an artificial delay from injection to the onset of atomization.
+
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.475]{./part2_developments/figures_ch6_lagrangian_JICF/params_breakup_model/SMD_vs_x_breakup_models_comparison}
+\vspace*{-0.4in}
 \caption[Evolution of SMD along axial location $x$ for the three atomization models]{Evolution of SMD along axial location $x$ for the three atomization models. The SMD at $x = 5$ and $10$ mm for the resolved atomization case UG100\_DX10 is also added for comparison}
 \label{fig:SMD_vs_x_param_breakup_model}
 \end{figure}
 
+In general, it has been observed that the secondary atomization model has a great influence on the resulting lagrangian spray. The Gorokhovski model shows the best agreement in terms of spray sizes. Even so, all models tested do not yield particles sizes within the experimental range.  Nevertheless, these atomization models are general and have not been developed for particular conditions: the high pressure, highly turbulent environment found in the studied case might require atomization models more fitted to these conditions (indeed, both \citeColor[rachner_modelling_2002] and \citeColor[eckel_semi-empirical_2016] employed an ad-hoc atomization model particular for this operating condition). Furthermore, this work has not considered the coalescence of lagrangian droplets, which in reality could produce larger diameters after the atomization process.
+
+
+
+
+
+
+
+
+
 \clearpage
 
-\section{Influence of SLI variables}
+\section{Influence of SLI variables variables}
 \label{sec:effect_of_SLI_variables}
 
-In this section, the sensitivity of the dispersed-phase simulations to the parameters that can be prescribed with SLI is assessed. These parameters are summarized in the corresponding block of Figure \ref{fig:dispersed_phase_sli_parameters}. For performing these simulations, the prescribed gaseous inlet is chosen as boundary condition for the gas phase, and the Gorokhovski model with constants $K_1 = 0.05$, $K_2 = 1.0$ is applied, as justified by the analyses performed in the last sections.
+In this section, the sensitivity of the dispersed-phase simulations to the parameters that can be prescribed with SLI is assessed. These parameters are summarized in the corresponding block of Figure \ref{fig:dispersed_phase_sli_parameters}. For performing these simulations, the prescribed gaseous inlet is chosen as boundary condition for the gas phase, and the Gorokhovski model is applied, as justified by the analyses performed in the last sections.
 
 
 \subsection{Level-set resolution and injection location}
 \label{subsec:SLI_LGS_resolution_and_injection_location}
 
 
-Firstly, the influence of the injection location and the level-set resolution are assessed. For the former one, the SLIs obtained at $x = 10$ mm shown in Figure \ref{fig:injectors_sli_uG100_dx10_x10} are injected in the prescribed inlet which replicates the gaseous field for case UG100\_DX10. For the latter, the SLIs at $x = 5$ and 10 mm  from case UG100\_DX20 (respectively Figures \ref{fig:injectors_sli_uG100_dx20_x05} and \ref{fig:injectors_sli_uG100_dx20_x10}) are plugged into an aerodynamic field obtained by prescribing the gaseous phase statistics from this resolved case as detailed in $\S$\ref{subsec:ch6_jicf_lgs_gaseous_inlet_prescription}. Each case is named as its corresponding resolved atomization simulation plus its injection location: for instance, the baseline case is named UG100\_DX10\_x05 since it uses the SLI from resolved simulation UG100\_DX10 at the location $x = 5$ mm.
+Firstly, the influence of the injection location and the level-set resolution are assessed. For the former one, the SLIs obtained at $x = 10$ mm shown in Figure \ref{fig:injectors_sli_uG100_dx10_x10} are injected in the prescribed inlet which replicates the gaseous field for case UG100\_DX10. For the latter, the SLIs at $x = 5$ and 10 mm  from case UG100\_DX20 (respectively Figures \ref{fig:injectors_sli_uG100_dx20_x05} and \ref{fig:injectors_sli_uG100_dx20_x10}) are plugged into an aerodynamic field obtained by prescribing the gaseous phase statistics from this resolved case. Each case is named as its corresponding resolved atomization simulation plus its injection location: for instance, the baseline case is named UG100\_DX10\_x05 since it uses the SLI from resolved simulation UG100\_DX10 at the location $x = 5$ mm.
 
 
 \begin{figure}[h!]
@@ -1325,26 +1152,35 @@ Firstly, the influence of the injection location and the level-set resolution ar
    \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_resol_and_xInj/profiles/SMD_along_y}
    %\label{} 
 \end{subfigure}
-
+\vspace*{-0.1in}
 \caption{Integrated profiles of flux and SMD maps for numerical simulations comparing the effect of SLIs obtained with different resolutions and at several injection locations with the experimental results}
 \label{fig:profiles_LGS_JICF_resol_and_xInj}
 \end{figure}
 
-Profiles for the integrated SMD and flux are shown in Figure \ref{fig:profiles_LGS_JICF_resol_and_xInj}. The effect of the level-set resolution on the dispersed-phase spray is clearly remarkable: vertical flux profiles shows their maximum flux location in the coarse cases (UG100\_DX20) at a position closer to the wall, which does not agree with the experiments (the fine simulations UG100\_DX10 capture it accurately). This is a consequence of the lower vertical penetration of the resolved jets, as Figure \ref{fig:JICF_trajectories_validation} shows that coarser computations underestimate the experimental trajectory: most droplets are then injected at lower locations than those from the fine SLI. It is interesting to note that the vertical boundaries for the coarse SLIs simulations are similar to the fine ones, even higher for case UG100\_DX20\_x10. This is attributed to large particles being injected in these computations: droplets with the biggest diameters have a larger Stokes number and will travel along the vertical direction for longer than the smaller ones (such as the ones from the fine simulations) until they are atomized and relax towards the crossflow direction. Yet, such droplets are located in very low flux regions and do not represent a large portion of the spray. 
+Profiles for the integrated SMD and flux are shown in Figure \ref{fig:profiles_LGS_JICF_resol_and_xInj}. The effect of the level-set resolution on the dispersed-phase spray is clearly remarkable: vertical flux profiles shows their maximum flux location in the coarse cases (UG100\_DX20) at a position closer to the wall, which does not agree with the experiments (the fine simulations UG100\_DX10 capture it accurately). This is a consequence of the lower vertical penetration from the resolved jets with the coarse resolution (see trajectories in Figure \ref{fig:JICF_trajectories_validation}). The vertical boundaries for the coarse SLIs are similar to the fine ones, and even higher for case UG100\_DX20\_x10. This is attributed to big particles being injected in these computations: droplets with larger diameters will travel along the vertical direction for longer than the smaller ones from the fine simulations until they atomize and relax towards the crossflow direction. Yet, such droplets are located in very low flux regions and do not represent a large portion of the spray. 
 
-Particles are also generally larger for the coarse SLI simulations than for the fine one. The vertical SMD profiles show a more pronounced ballistic behaviour for case UG100\_DX20\_x05, which is caused by larger droplets sampled at the top part of the profile. These droplets, which can be seen in the snapshot of Figure \ref{fig:JICF_dx20_large_droplets}, are very large particles injected at $x = 5$ mm which are convected along the channel without undergoing any atomization. In particular, such droplets were found to be surrounded by a cluster of smaller droplets that might affect the gaseous phase in ensemble, preventing the large droplet from atomizating. These droplets are found at the top part of the spray, affecting the SMD vertical profiles as observed. Furthermore, since these particles are introduced from the beginning of the simulation (or a consequence of a first or second breakup event of a breakup cascade from a larger parent droplet), the SMD evolution along the channel will also be affected by these ones. This is shown in Figure \ref{fig:SMD_vs_x_param_LS_resol_and_xinj}: simulation UG100\_DX20\_x05 shows a decay with very different rates than the rest of the cases. Actually, the computation UG100\_DX20\_x10 does not show over-estimated ballistic profiles, and its the evolution of its SMD along the channel shows a profile such as the ones observed in the previous sections: a clearly exponential decay right after injection, which extends from $x = 10$ (injection point) to $x = 25$ mm, and then a liner decrease with a constant decay rate. This demonstrates that for the coarse case it is better to inject downstream, since the spray from the resolved simulation is better atomized. In terms of global size, the SMDs at $x = 80$ mm summarized in Table \ref{tab:SMD_deviations_turb_inj} show that the coarser simulations produce larger droplets, which approach the experimental results. Nevertheless, this is a consequence of larger droplets being injected, which atomize through a breakup cascade into smaller and smaller particles, and end up reaching equilibrium with the ambient gas at larger diameters than in the fine simulations. The results for the vertical flux profiles from Figure \ref{fig:profiles_LGS_JICF_resol_and_xInj} shows that indeed the coarse simulations do not capture accurately the vertical location of maximum flux, and hence it is better to initiate lagrangian computations with the finer injectors.
+Particles are generally larger for the coarse SLI simulations than for the fine one. The vertical SMD profiles show a more pronounced ballistic behaviour for case UG100\_DX20\_x05, caused by larger droplets sampled at the top part of the spray. These droplets, which can be seen in the snapshot of Figure \ref{fig:JICF_dx20_large_droplets}, are very large particles injected at $x = 5$ mm which are convected along the channel without undergoing atomization. They were found to be surrounded by a cluster of smaller particles that might affect the gaseous phase in ensemble, preventing them from atomizing. Furthermore, since these particles are introduced from the beginning of the simulation, the SMD evolution along the channel will also be affected. This is shown in Figure \ref{fig:SMD_vs_x_param_LS_resol_and_xinj}: simulation UG100\_DX20\_x05 captures a SMD decay with different rates compared to the rest of the cases. On the other hand, computation UG100\_DX20\_x10 does not show over-estimated ballistic profiles, and its SMD evolution along the channel shows a profile such as the ones previously observed: a clear exponential decay right after injection followed by a linear decrease afterwards. This demonstrates that for the coarse case it is better to inject downstream, since the spray from the resolved simulation is better atomized. In terms of global size, the SMDs at $x = 80$ mm summarized in Table \ref{tab:SMD_deviations_turb_inj} show that the coarser simulations produce larger droplets, which approach the experimental results. Nevertheless, this is a consequence of larger droplets being injected, which atomize through a breakup cascade into smaller and smaller particles, and end up reaching equilibrium with the ambient gas at larger diameters than in the fine simulations. The results for the vertical flux profiles from Figure \ref{fig:profiles_LGS_JICF_resol_and_xInj} shows that, indeed, the coarse simulations do not capture accurately the vertical location of maximum flux, and hence it is better to initiate lagrangian computations with the finer injectors.
+
+\begin{figure}[h!]
+	\centering	\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch6_lagrangian_JICF/params_resol_and_xInj/JICF_dx20_large_droplets}
+	\caption{View of the dispersed spray in simulation UG100\_DX20\_x05, showing three regions with large droplets along the channel}
+	\label{fig:JICF_dx20_large_droplets}
+\end{figure}
 
 
 %Larger droplets in the coarse simulations are consequence of the secondary atomization models, as it calculates the size of the children droplets in relation to the parent's diameter (Equation (\ref{eq:r_ch_goro})). These droplets are disintegrated into smaller ones through the cascade behaviour at the same time that they exchange momentum with the gaseous crossflow, reducing their relative velocity until they reach equilibrium with the gas. This equilibrium is reached then at larger diameters than in the fine SLI simulations, \hl{as shown by the spatial evolution of SMD at Figure XX}.
 
+\vspace*{-0.2in}
+
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{./part2_developments/figures_ch6_lagrangian_JICF/params_resol_and_xInj/SMD_vs_x_LS_resol_and_x_inj}
+\vspace*{-0.4in}
 \caption[Evolution of SMD along axial location $x$ with SLIs from two level-set resolutions UG100\_DX10, UG100\_DX20 at two injection locations]{Evolution of SMD along axial location $x$ with SLIs from two level-set resolution at two injection locations $x = 5, 10$ mm. The SMD at $x = 5$ and $10$ mm for the resolved atomizations are also added for comparison}
 \label{fig:SMD_vs_x_param_LS_resol_and_xinj}
 \end{figure}
 
-With respect to injection location, the differences for the SLIs for the coarse simulations have already been discussed, showing greated differences in profiles and SMD evolution along the channel. Regarding the SLIs from the fine simulations, the corresponding dispersed-phase computations do not show relevant dependencies on the injection location: all integrated profiles are similar in shape and in values, and the global SMDs obtained are practically identical. This might suppose that, even if the SLIs for UG100\_DX10 are spatially different in both locations as shown in Figure \ref{fig:injectors_sli_uG100_dx10_x05}, and if the spray has already reached its resolution limit as indicated by the equal SMDs in Figure \ref{fig:ch5_spray_char_SMD_final}, injecting droplets through SLI obtained at different locations would make no difference in the lagrangian spray at $x = 80$ mm. In such case, a resolved simulation could provide a SLI with a cheaper computational cost than the one reported in $\S$\ref{subsec:ch5_JICF_computational_costs}, as the liquid removal sponge layer could be placed further upstream, for instance at $x = 6$ mm than at 11 mm, while retrieving an almost identical lagrangian spray in the dispersed-phase computation. This analysis reaffirms the idea that it is better to build a SLI with finer resolved atomization simulations: not only the particle's granulometry is better resolved than in an equivalent coarser simulation, but also a SLI can be built with a more reduced spatial domain due to a better atomization of the resolved droplets. It would be interesting to continue this study with even finer interface cell sizes in the resolved simulations, which has not been possible in this thesis due to the higher computational costs required. 
+With respect to injection location, the differences for the SLIs for the coarse simulations have already been discussed, showing greater differences in profiles and SMD evolution along the channel. Regarding the SLIs from the fine simulations, the corresponding dispersed-phase computations do not show relevant dependencies on the injection location: all integrated profiles are similar in shape and in values, and the global SMDs obtained are practically identical. This might suppose that injecting droplets through SLIs obtained from the fine resolutions at different locations would make no difference in the lagrangian spray at $x = 80$ mm. In such case, a resolved simulation could provide a SLI with a cheaper computational cost than the one reported in $\S$\ref{subsec:ch5_JICF_computational_costs}, as the liquid removal sponge layer could be placed further upstream, for instance at $x = 6$ mm than at 11 mm, while retrieving an almost identical lagrangian spray in the dispersed-phase computation. This analysis reaffirms the idea that it is better to build a SLI with finer resolved atomization simulations: not only the particle's granulometry is better resolved than in an equivalent coarser simulation, but also a SLI can be built with a more reduced spatial domain due to a better atomization of the resolved droplets. It would be interesting to continue this study with even finer interface cell sizes in the resolved simulations, which has not been possible in this thesis due to the higher computational costs required. 
 
 
 \begin{table}[!h]
@@ -1364,426 +1200,13 @@ UG100\_DX20\_x10 & 21.58 & -30.38 \\
 \label{tab:SMD_deviations_turb_inj}
 \end{table}
 
-\begin{figure}[h!]
-	\centering	\includeinkscape[inkscapelatex=false,scale=0.8]{./part2_developments/figures_ch6_lagrangian_JICF/params_resol_and_xInj/JICF_dx20_large_droplets}
-	\caption{View of the dispersed spray in simulation UG100\_DX20\_x05, showing three regions with large droplets along the channel}
-	\label{fig:JICF_dx20_large_droplets}
-\end{figure}
+
 
 \subsection{Spray velocities}
 \label{subsec:SLI_LGS_velocity_effects}
 
-Prescribed velocities through SLI are investigated here by using different combinations of the parameters in Eq. (\ref{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}). For the previous cases, the mean velocity was volume weighted ($\overline{u}_\mathrm{VW}$) and the $r$ law was Gaussian, injecting then into each SLI probe a stochastic component representing the normal dispersion of the droplet's velocities. Here, the effect of mean velocity is seen by injecting the arithmetic mean velocity ($\overline{u}$) while keeping constant the $r$ law to follow a Gaussian distribution. Then, the effect of RMS is assessed by changing the $r$ law to a uniform distribution and by removing the RMS component of the velocity (zero law), these two modifications performed with volume-weighted mean velocity being injected.
+Prescribed velocities through SLI are investigated here by using different combinations of the parameters in Eq. (\ref{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}). For the previous cases, the mean velocity was volume weighted (VW) and the $r$ law was Gaussian, injecting then into each SLI probe a stochastic component representing the normal dispersion of the droplet's velocities. Here, the effect of mean velocity is seen by injecting the arithmetic mean velocity ($\overline{u}$) while keeping constant the $r$ law to follow a Gaussian distribution. Then, the effect of RMS is assessed by changing the $r$ law to a uniform distribution and by removing the RMS component of the velocity (zero law), these two modifications performed with volume-weighted mean velocity being injected. Figure \ref{fig:maps_SLI_with_arithmetic_mean_and_VW} shows the SLIs from simulation UG100\_DX10 at $x_\mathrm{inj} = 5$ mm with the arithmetic mean and VW velocities for visual comparison. Larger differences are found at the central and top parts of the maps, which are respectively the regions with larger flux and with larger droplets.% The maps for the axial and vertical velocities are the ones showing more differences: in general, the volume-weighted velocities are lower with respect to the arithmetic ones, which will affect secondary atomization since it modifies the relative liquid-gas velocity. For the vertical velocity map, this could also affect the penetration of the spray. The vertical velocity maps do not show significant differences, appart from a wider central region where velocity varies from $-6$ to $4$ m/s. 
 
-Results are shown in Figure \ref{fig:profiles_LGS_JICF_spray_velocities}, where the integrated SMD and flux profiles are plotted. The largest differences are observed for the treatment of the average velocities, since the vertical profiles change drastically when either arithmetic mean or VW averages are considered. By using the arithmetic mean ($\overline{u}$), droplets penetrate further away than with VW. The reason is the larger vertical velocities injected with arithmetic means: as shown in Figure \ref{fig:maps_SLI_with_arithmetic_mean_and_VW}, droplets at the top of the spray are injected with faster vertical velocity, and since these droplets are larger, they travel further along the vertical direction. The imposition a different liquid velocity field might also affects secondary atomization, since as observed in the SMD vertical profile the droplets at the top part of the spray are smaller than at the bottom one, creating then a counter-ballistic behaviour which is not physical in such a JICF configuration. The fluw profile also shows a flatter shape in the center of the spray instead of a peaky one, indicating concentration of droplets in a wide region around the spray center. Therefore, a proper prescription of accurate mean velocities is crucial for dispersed-phase simulations when using SLI. 
-
-Regarding the effect of the $r$ law governing the RMS component of the droplets, the results show that the imposition of one law or another affects the spray penetration: the minimum upper vertical in found for the uniform law, agreeing with the experimental bounds, while the maximum one is obtained for the gaussian one. All cases show a correct ballistic behaviour at the top of the spray, which indicates that the counter-ballistic shape observed for the blue curve is due to the average velocity imposed to the droplets. However, the droplets obtained with the uniform and zero laws are smaller than for the gaussian one. Table \ref{tab:SMD_deviations_spray_velocities}  alo shows that the final SMD obtained is effectively lower for these two cases. The vertical location of maximum flux is properly retrieved for the gaussian and uniform laws, while the zero one shows a flat shape extending from $z = 5$ to 10 mm. This behaviour is again due to a similar concentration of droplets in this area: the zero law removes the RMS component of the droplets, injecting only the mean, therefore limiting the spatial dispersion of droplets. It is therefore recommended to use the gaussian law as the way to prescribe RMS velocities, since in this case the sampled resolved droplets within the probles follow generally this shape as it was demonstrated in Figure \ref{fig:injectors_extra_velocities_interesting}. Other configurations, however, might require other prescribing laws more representative of their actual sprays.
-
-
-\begin{figure}[ht]
-\flushleft
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_spray_velocities/profiles/flux_along_z}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.5in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_spray_velocities/profiles/SMD_along_z}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.1in}
-\begin{subfigure}[b]{0.4\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_spray_velocities/profiles/flux_along_y}\\
-   \vspace{-0.16in}
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_spray_velocities/profiles/SMD_along_y}
-   %\label{} 
-\end{subfigure}
-
-\caption{Integrated profiles of flux and SMD maps for numerical simulations comparing the effect of spray velocities with the experimental results}
-\label{fig:profiles_LGS_JICF_spray_velocities}
-\end{figure}
-
-\begin{table}[!h]
-\centering
-\caption{SMD values at $x = 80$ mm for simulations with different prescribed velocities}
-\begin{tabular}{ccc}
-\thickhline
-Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
-\thickhline
-Experiments & 31 & - \\
-$u_\mathrm{VW},~r~\mathrm{Gauss}$ & 19.52 & -37.29 \\
-$\overline{u},~r~\mathrm{Gauss}$ & 20.44 & -34.05 \\
-$u_\mathrm{VW},~r~\mathrm{uniform}$ & 17.66 & -43.05 \\
-$u_\mathrm{VW},~r~\mathrm{zero}$ & 16.56 & -46.57 \\
-\thickhline
-\end{tabular}
-\label{tab:SMD_deviations_spray_velocities}
-\end{table}
-
-
-\subsection{Droplets diameters}
-
-In general, the diameters injected within each SLI probe $f_0 \left( D \right)$ follow a lognormal law with a mean diameter given by the SMD and a standard deviation as given by $s_g$ from Eq. (\ref{{eq:ch5_f0_lognormal_distr_expression}}). This parameter can be studied by performing a simulation where the prescribed diameters are constant and equal to the SMD within each probe. The results for this simulation are given in Figure \ref{fig:profiles_LGS_JICF_f0}, and the global SMDs are reported in Table \ref{tab:SMD_deviations_f0}. Prescribing droplets with a constant SMD produce a lagrangian spray with lower vertical bounds and with slightly smaller droplets, although in the same order as with the lognormal distrubiton. Overall, no significant differences are found when injecting with one $f_0$ or another. 
-
-\clearpage
-
-\begin{figure}[ht]
-\flushleft
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_f0/profiles/flux_along_z}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.5in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_f0/profiles/SMD_along_z}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.1in}
-\begin{subfigure}[b]{0.4\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_f0/profiles/flux_along_y}\\
-   \vspace{-0.16in}
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_f0/profiles/SMD_along_y}
-   %\label{} 
-\end{subfigure}
-
-\caption{Integrated profiles of flux and SMD maps for numerical simulations comparing the effect of injection diameters $f_0 \left( D \right)$ with the experimental results}
-\label{fig:profiles_LGS_JICF_f0}
-\end{figure}
-
-\begin{table}[!h]
-\centering
-\caption{SMD values at $x = 80$ mm for simulations with different $f_0$ laws}
-\begin{tabular}{ccc}
-\thickhline
-Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
-\thickhline
-Experiments & 31 & - \\
-Lognormal & 19.52 & -37.29 \\
-Constant & 19.32 & -37.68 \\
-\thickhline
-\end{tabular}
-\label{tab:SMD_deviations_f0}
-\end{table}
-
-
-
-
-%\subsection{Turbulence injection}
-%
-%The effect of synthetic turbulence at the inlet is assessed by injecting droplets with the SLI obtained from simulation UG100\_DX20\_NT at $x = 10$ mm (Figure \ref{fig:injectors_sli_uG100_dx20_x10_NT}) in a channel where data from the same simulation is extracted and prescribed at the inlet through Eq. (\ref{eq:prescribed_inlet_u_gas_injection_law}). Results from the dispersed-phase simulation are shown in Figure \ref{fig:profiles_LGS_JICF_turbulence_injection} and Table \ref{tab:SMD_deviations_turb_inj}. By substracting turbulence, the vertical bound of the spray is lower, which indicates that turbulence plays a role in the dispersion of droplets and convects them further away vertically. 
-%
-%
-%secondary atomization is less agressive and the size of the droplets is larger, resulting in SMD profiles closer to experimentas values in both lateral and vertical directions and in a larger global SMD as shown in Table \ref{tab:SMD_deviations_turb_inj}. This influence of turbulence in breakup is expected, since it is known that a larger turbulent content enhances atomization \citepColor[reitz_modeling_1987]. Regarding flux, the vertical profile from Figure \ref{fig:profiles_LGS_JICF_turbulence_injection} shows larger liquid content in the bottom part of the spray and an underestimated vertical location of the maximum flux location. The 
-%
-%\begin{figure}[h!]
-%\flushleft
-%\begin{subfigure}[b]{0.2\textwidth}
-%	\flushleft
-%   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_turb_injection/profiles/flux_along_z}
-%   %\label{} 
-%\end{subfigure}
-%\hspace*{0.5in}
-%\begin{subfigure}[b]{0.2\textwidth}
-%	\flushleft
-%   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_turb_injection/profiles/SMD_along_z}
-%   %\label{} 
-%\end{subfigure}
-%\hspace*{0.1in}
-%\begin{subfigure}[b]{0.4\textwidth}
-%	\flushleft
-%   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_turb_injection/profiles/flux_along_y}\\
-%   \vspace{-0.16in}
-%   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_turb_injection/profiles/SMD_along_y}
-%   %\label{} 
-%\end{subfigure}
-%
-%\caption{Integrated profiles of flux and SMD maps for numerical simulations comparing the effect of injecting synthetic turbulence with the experimental results}
-%\label{fig:profiles_LGS_JICF_turbulence_injection}
-%\end{figure}
-%
-%\begin{table}[!h]
-%\centering
-%\caption{SMD values at $x = 80$ mm for simulations with and without turbulence injection}
-%\begin{tabular}{ccc}
-%\thickhline
-%Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
-%\thickhline
-%Experiments & 31 & - \\
-%With turb. & 21.58 & -30.38 \\
-%Without turb. & 21.94 & -29.22 \\
-%\thickhline
-%\end{tabular}
-%\label{tab:SMD_deviations_turb_inj}
-%\end{table}
-
-
-\subsection{Convergence-driven discretization}
-
-The use of convergence-driven discretization through quadtrees is assessed by performing a simulation with the SLI injectors shown in Figure \ref{fig:maps_SLI_with_quadtrees}. Results for the spatially-integrated profiles of flux and SMD at $x = 80$ mm  are shown in Figure \ref{fig:profiles_LGS_JICF_quadtrees}. As observed, by using this discretization strategy, the vertical penetration of the spray is lower, matching the actual experimental limits. The vertical location of maximum fuel flux also agrees pretty well with experiments. The vertical SMD profile shows a correct ballistic behaviour, yet it shows underestimated values for most of the range. Lateral profiles of SMD and the global SMDs from Table \ref{tab:SMD_deviations_quadtrees} also show this tendency to diameter underestimation. This behaviour seems contradictory, since actually it is expected that a better spatial refinement yields better results. Such reduction in particles sizes with convergence-driven discretization might be be caused by the different velocities imposed, since by looking at Figure \ref{fig:maps_SLI_with_quadtrees} these seem to be the magnitude differing the most with respect to the ad-hoc SLIs (flux and SMD profiles are very alike). The reasons for this behaviour are not yet fully understood. % and are left for future work.
-
-\begin{table}[!h]
-\centering
-\caption{SMD values at $x = 80$ mm for simulations with and without quadtrees}
-\begin{tabular}{ccc}
-\thickhline
-Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
-\thickhline
-Experiments & 31 & - \\
-Without quadtrees & 19.44 & - 37.29 \\
-With quadtrees & 16.60 & -46.44 \\
-\thickhline
-\end{tabular}
-\label{tab:SMD_deviations_quadtrees}
-\end{table}
-
-
-\clearpage
-
-
-
-\begin{figure}[ht]
-\flushleft
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_quadtrees/profiles/flux_along_z}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.5in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_quadtrees/profiles/SMD_along_z}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.1in}
-\begin{subfigure}[b]{0.4\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_quadtrees/profiles/flux_along_y}\\
-   \vspace{-0.16in}
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_quadtrees/profiles/SMD_along_y}
-   %\label{} 
-\end{subfigure}
-
-\caption{Integrated profiles of flux and SMD maps for numerical simulations comparing the effect of convergence-driven discretization with quadtrees with the experimental results}
-\label{fig:profiles_LGS_JICF_quadtrees}
-\end{figure}
-
-
-
-\subsection{Operating condition}
-\label{subsec:JICF_LGS_params_OP}
-
-Finally, the operating condition is tested by injecting the SLIs obtained from case UG75\_DX10 at $x = 5$ mm (Figure \ref{fig:injectors_sli_uG75_dx10_x05}) into a reduced channel with the corresponding gaseous statistics as given by the prescribed gaseous inlet methodology. The spatially integrated profiles of SMD and flux are shown in Figure \ref{fig:profiles_LGS_JICF_OP}. Similar features than for the high Weber operating condition are retrieved: vertical bounds are slightly overestimated, and the SMD profile along axis $z$ follows a ballistir profile. The maximum location of vertical flux is slightly overestimated, even though a flat profile for this location is obtained as in the experiments. The SMD profiles seem to be closer to experiments than the previous simulations for the high Weber case: this is confirmed by checking the global SMD in Table \ref{tab:SMD_deviations_OP}, which shows that it is underestimated by 20.64 $\%$ in the simulation. This supposses an optimistic improvement with respect to the high Weber case, which in the best case yielded an error of -36.64 $\%$. There are two possible reasons why the SMD might be more accurately resolved in the dispersed-phase simulations: 1) the SLIs from the level-set computations of this operatind condition are better resolved, since as the gaseous dynamic pressure is lower the resulting droplets from atomization are larger, and hence can be better captured by the employed mesh, or 2) relative velocities are better approximated in the lagrangian computations for this case due to the a lower velocity gaseous field, hence secondary atomization breaks droplets more smoothly and particles in equilibrium are closer to the experimental values. Given any of these two hypothesis (or both) to be true, this would suppose that actually the SLI methodology could work accurately for operating conditions involving lower gaseous velocities in the flow. 
-
-
-\begin{table}[!h]
-\centering
-\caption{SMD values at $x = 80$ mm for simulations with and without quadtrees}
-\begin{tabular}{ccc}
-\thickhline
-Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
-\thickhline
-Experiments & 35.2 & - \\
-Simulation & 27.93 & -20.64 \\
-\thickhline
-\end{tabular}
-\label{tab:SMD_deviations_OP}
-\end{table}
-
-
-\clearpage
-
-\begin{figure}[ht]
-\flushleft
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_OP/profiles/flux_along_z}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.5in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_OP/profiles/SMD_along_z}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.1in}
-\begin{subfigure}[b]{0.4\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_OP/profiles/flux_along_y}\\
-   \vspace{-0.16in}
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_OP/profiles/SMD_along_y}
-   %\label{} 
-\end{subfigure}
-
-\caption{Integrated profiles of flux and SMD maps for numerical simulation UG75\_DX10 at $x = 5$ mm (low Weber operating condition)}
-\label{fig:profiles_LGS_JICF_OP}
-\end{figure}
-
-
-\section{Artificial delay in secondary breakup}
-\label{sec:LGS_delay_secon_atom}
-
-The previous sections have shown that the resulting sprays can be controlled through the different input parameters. These ones have been tested in several simulations for finding the most optimal configuration for better matching the experimental results. It has been found that this case is given for the secondary atomization model Gorokhovski with a prescribed inlet for the gas phase, and for the injection of liquid droplets with volume-weighted averaged velocities and with a RMS component imposed based on a gaussian distribution. For the high Weber number case, a SMD ballistic profile and a coherent flux distribution were obtained, although the particles sizes produced underestimated the experimental SMD by 37 $\%$. This deviation got reduced to 20 $\%$ for the low Weber point. These underestimations are thought to be caused by the secondary atomization model, which breaks droplets shortly after they are injected into the domain as they are not in equilibrium. The gaseous velocity field has a great influence in the granulometry produced, as it directly affects the particles breakup through the relative liquid-gas velocity. 
-
-\begin{figure}[ht]
-	\centering	\includeinkscape[inkscapelatex=false,scale=1.0]{./part2_developments/figures_ch6_lagrangian_JICF/dx_atom_effect_field/JICF_LGS_dx_atom}
-	\caption{Effect of introducing an atomization delay in space $\Delta x_\mathrm{atom}$ in the lagrangian field}
-	\label{fig:JICF_LGS_dx_atom}
-\end{figure}
-
-\clearpage
-
-
-Since the low sizes obtained are thought to be due to large relative velocities at injection that enhance breakup, this deviation among velocities is going to be reduced by testing a delay in secondary atomization $\Delta x_\mathrm{atom}$. The effect of this new parameter in the flow field can be seen in Figure \ref{fig:JICF_LGS_dx_atom}: it consists of deactivating the secondary atomization model during an axial distance of length $\Delta x_\mathrm{atom}$ after injection. In this way, the liquid particles exchange momentum  with the gas along this spatial region but do not break, accomodating their velocity to the gaseous field. A total of ten extra simulations have been performed, for which $\Delta x_\mathrm{atom}$ has been varied from 2 to 20 mm in steps of 2 mm. Note that case $\Delta x_\mathrm{atom} = 0$ mm corresponds to the simulation previously reported as the baseline case in all parametric studies.
-
-In first place, the evolution of global SMD along the channel is shown in Figure \ref{fig:SMD_vs_x_param_dx_atom}. The effect of the atomization delay is clearly seen by the fact that the SMD stays constant and equal to the injected one within the region in which the breakup model is not activated. Then, once the atomization model is triggered, droplets start to breakup again and the SMD decreases rapidly according to an exponential law as shown previously. Nevertheless, the largest difference is found in the final SMD at which the curves stabilize: this value is found in increase with increasing $\Delta x_\mathrm{atom}$.  The SMDs at the experimental validation location can be better compared in Figure \ref{fig:SMD_vs_dx_atom}, which shows the evolution of SMD at the experimental validation location as a function of $\Delta x_\mathrm{atom}$. This magnitude evolves linearly in the simulations for the range tested, and for $\Delta x_\mathrm{atom} > 12$ mm, the SMD enters within the range of experimental uncertainties at $x = 80$ mm. These graphs show then that leaving a relaxation time for the liquid phase to accommodate to the gas has a positive effect on the global sprays produced, as the relaxation of droplets results later in a less aggressive secondary atomization.
-
-
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.5]{./part2_developments/figures_ch6_lagrangian_JICF/params_dx_atom/SMD_vs_x_dx_atom_comparison}
-\caption{Evolution of SMD along axial location $x$ with parameter $\Delta x_\mathrm{atom}$}
-\label{fig:SMD_vs_x_param_dx_atom}
-\end{figure}
-
-At last, the integrated profiles of flux and SMD at $x = 80$ mm are shown in Figure \ref{fig:profiles_LGS_JICF_dx_aom}. Despite the improvements in the global spray, the inclusion of the secondary atomization delay is detrimental for the spatially distributed sprays. Increasing $\Delta x_\mathrm{atom}$ makes the spray penetrate further, increasing its vertical bound, and flattens the volume flux curve due to the increase in spatial extention. Furthermore, the SMD curves show that this value increases with $\Delta x_\mathrm{atom}$ in the bottom part of the spray (regions with high flux), but do not augment in the same rate for the upper part of the sprays, inverting actually the ballistic behaviour from $\Delta x_\mathrm{atom} = 12$ mm. Overall, this atomization delay shows that when letting droplets relax to the gas they reach equilibrium at larger diameters, since when breakup is triggered the relative liquid-gas velocities are lower.  This proves that it is the relative is the parameter governing the breakup of the droplets through the secondary atomization model: further works should consider improvements in this sense by better retrieving the gaseous flow field and by making a better prescription of the liquid velocities, for which the sectional approaches mentioned in $\S$\ref{subsec:SPS_inhomogeneity_sprays} are suggested. Furthermore, it was proved in the previous chapter that sampled droplets are generally deformed while the lagrangian particles in the dispersed-phase computations assume spherical particles. It is suggested that this non-sphericity is taking into account in the dispersed-phase computations through a modified drag law for droplet transport, which could affect the momentum exchange and hence the secondary atomization through the relative velocities. 
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.5]{./part2_developments/figures_ch6_lagrangian_JICF/params_dx_atom/SMD_vs_dx_atom}
-\caption[SMD at $x = 80$ mm for several values of parameter $\Delta x_\mathrm{atom}$]{SMD at $x = 80$ mm for several values of parameter $\Delta x_\mathrm{atom}$. The grey shaded area indicates the range of experimental SMD uncertainties  }
-\label{fig:SMD_vs_dx_atom}
-\end{figure}
-
-\begin{figure}[h!]
-\flushleft
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_dx_atom/profiles/flux_along_z}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.5in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_dx_atom/profiles/SMD_along_z}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.1in}
-\begin{subfigure}[b]{0.4\textwidth}
-	\flushleft
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_dx_atom/profiles/flux_along_y}\\
-   \vspace{-0.16in}
-   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_dx_atom/profiles/SMD_along_y}
-   %\label{} 
-\end{subfigure}
-
-\caption{Integrated profiles of flux and SMD maps for numerical simulations comparing the effect of $\Delta x_\mathrm{atom}$ with the experimental results}
-\label{fig:profiles_LGS_JICF_dx_aom}
-\end{figure}
-
-
-
-
-
-\clearpage
-
-%\section{Computational costs}
-
-\section{Conclusions}
-
-This chapter has reported and discussed results dispersed-phase computations performed with the SLI models derived from the resolved atomization simulations in Chapter \ref{ch5:jicf_resolved_simulations}. In first place, the computational setup is described: the geometry is a priori fixed to the same one as the baseline used in the resolved computations, the mesh is then refined at the center of the channel in order to better resolved the gaseous phase for droplet transport. Previous experimental data relevant for the cases simulated are then reported: from these available data, the high Weber case is chosen as the main one for study since there is more experimental data reported. Uncertainty of droplets sizes reported is unclear, and hence a little analysis is done by comparing several experimental works using PDA to provide an order for the errors SMDs is done: a 10 $\%$ error in SMD is estimated. 
-
-Prior to the dispersed-phase computations, gaseous boundary conditions for the flow field are computed. In first place, the ALM methodology is tested. The initial input parameters directly obtained from the resolved atomization simulations do not optimize the flow perturbations, hence these parameters are tuned by hand to find a better configuration. Despite improvements in the flow field, it is found that the best ALM case cannot accurately capture the perturbed field of the resolved computations: the ALM model proposed is not sufficient to produce a realistic flow field in dispersed-phase computations. Improvements in this model could go towards the obtention of the ALM parameters through a multivariable optimization procedure; the addition of other geometrical features, such as a combination of actuators; or the inclusion of spectral effects to account for the transient dynamics of the flow, which are not considered by the static ALM proposed. To circumvent the limitations of ALM, another methodology which consists of prescribing gaseous statistics retrieved from the resolved atomization simulations into a reduced computational domain is approached. This one shows a better approximation of the gaseous perturbations than the ALM cases, moreover with reduced computational costs due to a lower number of cells in the mesh employed.
-
-The dispersed-phase computations have then been divided into three main blocks, to test the different parameters of the models according to the diagram from Figure \ref{fig:dispersed_phase_sli_parameters}. In first place, the effect of the gaseous phase is verified by testing the different ALM flow fields against the prescribed gaseous inlet methodology. Resulting lagrangian sprays are found to be very sensitive to the gaseous boundary conditions, yielding particles with very low sizes for the ALM cases, and producing a spray with SMD closer to the experimental one from the prescribed gaseous methodology: therefore, this one is kept for the next studies. Secondly, the secondary atomization models are tested in several simulations. The TAB, ETAB and Gorokhovski models are then specified in different simulations, plus the free models $K_1$ and $K_2$ of the Gorokhovski model are also assessed by testing five combinations of these parameters. It is found that the Gorokhovski model provides a spray with larger droplets than the other two; furthermore, the sensitivity analysis of the Gorokhovski constants show that the vertical boundary of the spray, the vertical location of the maximum fuel flux and the particles sizes can be controlled with those, while always keeping a ballistic behaviour of the spray. Taking the particles sizes as the criterion to specify the parameters, it is recommended to decrease the value of $K_1$ and to increase the value of $K_2$. Finally, the different SLI variables are tested by changing each parameter in a one-by-one basis. The most influencing parameters found were the level-set resolution, the average velocity prescribed and the law for specifying a RMS components in the velocities: it is recommended then to use respectively finer injectors for the resolution, volume-weighted avergge velocities and a gaussian law for RMS dispersion. Simulations comparing the level-set resolution at different injection planes show that using coarse SLIs creates a dependence with the injection location, while using fine ones not: this is caused by an earlier, more complete atomization in the resolved simulations for finer resolutions, indicating that these ones allow sampling droplets further upstream without significantly affecting the results in the dispersed-phase simulations. This could reduce the cost of the resolved computations as less liquid physical domain is needed to resolve the spray, which in combination with the cost savings in terms of physical simulation time with finer level-set resolution ($\S$\ref{subsec:ch5_JICF_computational_costs}) justifies the need for going towards finer resolved liquid interfaces. 
-
-In all the tests performed for the high Weber operating condition, the numerical sprays are found to produce smaller droplets than in the experiments: the best case yields an underestimation of global SMD of $37~\%$, while higher deviations are found for other cases. Changing the operating condition to the low Weber operating point reduces this deviation to $20~\%$, which could indicate that the SLI methodology are more suitable for conditions at lower gaseous Reynolds numbers where secondary atomization is less aggressive or where the perturbed gaseous flow field is easier to model. From the first set of tests performed, it was found that actually secondary atomization is the main mechanisms creating such small droplets, and a disturbed gaseous field not properly modelled will enhance this breakup as it directly influences the relative velocity of the droplets. To finally verify this, an artificial atomization delay $\Delta x_\mathrm{atom}$ is introduced as a spatial distance where the breakup model is unplugged to let droplets exchange momentum with the air and accommodate with the flow field. Increasing $\Delta x_\mathrm{atom}$ has the effect of increasing the particles sizes along the domain, which proves that the misprediction of relative velocities is the cause of the diameter underestimation. However, such increase have also the effect of creating a counter-ballistic behaviour of the spray, which is not physical: hence, including this additional parameter is not the solution to retrieve a physical spray which matches the granulometry. As future work, it is suggested to try a better match of the relative liquid-gas velocities by improving the modelling of the gaseoud field perturbations and to improve prescription of particles liquid velocities, for which the sectional approach described in $\S$\ref{subsec:SPS_inhomogeneity_sprays} is suggested. Furthermore, the inclusion of droplets non-sphericity in dispersed-phase computations through modified drag coefficients might also improve the lagrangian results, since a different momentum exchange would also affect the relative velocities and, consequently, the secondary atomization. To finish, it is also worth to mention that this first version of SLI has neglected additional models such as subgrid dispersion terms for the velocities, which could affect atomization, or coalescence, which if present would actually increase the size of the particles. It would be interesting to assess wheter these additional models, or others, could improve the dispersed-phase sprays.
-
-
-%\textbf{BORRAR A PARTIR DE AQUI}: Firstly, the computational setup is described, whose only difference with the baseline mesh of the resolved atomization simulations is the mesh size at the center. Then, the available data for experimental validation of the simulations are summarized in $\S$\ref{sec:ch6_experimental_results}. Possible sources and values for the uncertainties of these data are then discussed in $\S$\ref{sec:jicf_dlr_experimental_uncertainty}, and previous numerical works on injection in the same configuration are summarized in $\S$\ref{ch6:previous_numerical_studies}. Then, the boundary conditions the gaseous and liquid phases in dispersed-phase simulations are detailed in $\S$\ref{sec:ch6_BC_gaseous_phase} and $\S$\ref{sec:JICf_LGS_liquid_BCs} respectively. For the former, two possible options are analyzed: the ALM method, which was introduced in Chapter \ref{ch4:sli_development}, and another proposed methodology based on prescribing statistics of the gaseous phase learnt from resolved simulations in a simplified channel. It is shown that the prescribed gas phase can retrieve better the gaseous phase features from the resolved case than the ALM. Then, dispersed-phase simulations are performed by testing the different input parameters to find the best configuration to experimental data. It is found that secondary atomization acts very soon after droplets injection, reducing the particles sizes along the channel first with a fast, exponential decrease and then with a slow, linear reduction. The lagrangian computations are specially sensitive to the gaseous boundary conditions, secondary atomization model, SLI resolution and the mean velocities prescribed. Overall, the tests performed with the high Weber operating point show good spray features but underestimate the global SMD of the spray by a 37 $\%$ in the best of the cases. This deviation is reduced to 20 $\%$ when changing to the low Weber operating point, indicating that the SLI methodology could work better at low speed configurations where either atomization is better resolved by the resolved computations, or the secondary atomization model breaks droplets to a lesser extent. Finally, a delay in the secondary atomization is introduced by unplugging the secondary atomization model and let lagrangian particles convect without breaking, relaxing towards the gaseous field before breakup takes place. As a result, the deviations in droplets sizes are improved, confirming that it is the relative velocity what mostly affects breakup and creates the underestimation for the unaltered configuration.
-
-
-\clearpage
-
-
-
-\section{Liquid boundary conditions}
-\label{sec:JICf_LGS_liquid_BCs}
-
-The boundary conditions to inject lagrangian droplets are given by the SLIs obtained from the resolved atomization simulations in the previous chapter, represented by the maps from $\S$\ref{sec:ch5_learning_SLI}: these ones will impose the particles size, velocity and the mass flux within each injection probe from the SLI. In particular, the prescription of droplets velocities needs to be accurately specified since, as discussed in $\S$\ref{subsec:SPS_inhomogeneity_sprays}, the sampled spray show a high dispersion in the velocities. For taking this feature into account, droplets are then injected according to their mean value plus a random component which depends on the RMS of the spray (Eq. \ref{eq:ch4_lagrangian_injection_velocity_with_mean_and_rms}).  All lagrangian simulations reported in this chapter will consider this RMS component, unless otherwise specified. An example of RMS maps for the SLI of case UG100\_DX10 at $x = 5$ mm is shown in Figure \ref{fig:maps_SLI_with_RMS}. As observed, the most noticeable changes correspond to regions 
-
-\begin{figure}[h!]
-\flushleft
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-	\hspace*{-0.45in}
-   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_SMD_map}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.075in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_ux_mean_vw_map}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.45in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_uy_mean_vw_map}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.45in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_uz_mean_vw_map}
-   %\label{} 
-\end{subfigure}
-
-\vspace*{-0.20in}
-
-\flushleft
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-	\hspace*{-0.45in}
-   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_volume_flux_map}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.075in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_ux_RMS_vw_map}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.45in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_uy_RMS_vw_map}
-   %\label{} 
-\end{subfigure}
-\hspace*{0.45in}
-\begin{subfigure}[b]{0.2\textwidth}
-	\flushleft
-   \includegraphics[scale=0.19]{./part2_developments/figures_ch6_lagrangian_JICF/injectors_SLI/uG100_dx10_x05_uz_RMS_vw_map}
-   %\label{} 
-\end{subfigure}
-
-\caption{SLI mean volume-weighted (VW) and RMS velocity maps from case UG100\_DX10 at $x_\mathrm{inj} = 5$ mm }
-\label{fig:maps_SLI_with_RMS}
-\end{figure}
-
-
-As observed in the Figure \ref{fig:maps_SLI_with_RMS}, all velocities specified are volume-weighted (VW) within each probe. Indeed, all lagrangian simulations reported in this chapter will prescribe volume-weighted velocities, unless otherwise specified. It is therefore interesting to show the difference among mean arithmetic and VW velocities, which is done by comparing the maps corresponding to both magnitudes in Figure \ref{fig:maps_SLI_with_arithmetic_mean_and_VW}. As observed, the largest differences are located in the central and top parts of the maps, which are respectively the regions with larger flux and with larger droplets. The maps for the axial and vertical velocities are the ones showing more differences: in general, the volume-weighted velocities are lower with respect to the arithmetic ones, which will affect secondary atomization since it modifies the relative liquid-gas velocity. For the vertical velocity map, this could also affect the penetration of the spray. The vertical velocity maps do not show significant differences, appart from a wider central region where velocity varies from $-6$ to $4$ m/s. 
-
-
-
-
-\clearpage
 
 \begin{figure}[ht]
 \flushleft
@@ -1844,7 +1267,117 @@ As observed in the Figure \ref{fig:maps_SLI_with_RMS}, all velocities specified 
 \label{fig:maps_SLI_with_arithmetic_mean_and_VW}
 \end{figure}
 
-Finally, the effect of obtaining SLIs through the convergence-driven discretization strategy is assessed. For this purpose, the quadtrees refinement strategy presented in $\S$\ref{subsec:SLI_quadtrees_discretization} has been applied to the spray obtained for case UG100\_DX10 at $x_\mathrm{inj} = 5$ mm. Three levels of refinement have been performed. The resulting SLI is shown in Figure \ref{fig:maps_SLI_with_quadtrees}, where the ad-hoc SLI for the same case is also added for comparison. It is directly observed how the convergence-driven discretization acts in order to preserve a fully converged spray in all the spatial domain.
+\clearpage
+
+Results are shown in Figure \ref{fig:profiles_LGS_JICF_spray_velocities}, where the integrated SMD and flux profiles are plotted. The largest differences are observed for the treatment of the average velocities, since the vertical profiles change drastically when either arithmetic mean or VW averages are considered. By prescribing the arithmetic mean, droplets penetrate further away than for VW. The reason is the larger vertical velocities injected with arithmetic means: as shown in Figure \ref{fig:maps_SLI_with_arithmetic_mean_and_VW}, droplets at the top of the spray are injected with faster vertical velocity, and since these droplets are larger, they travel further along the vertical direction. The imposition of a different liquid velocity field also affects secondary atomization, since as observed in the SMD vertical profile from Figure \ref{fig:profiles_LGS_JICF_spray_velocities} the droplets at the top part of the spray are smaller than at the bottom one, creating then a counter-ballistic behaviour which is not physical in such a JICF configuration. The flux profile also shows a flatter shape in the center of the spray instead of a peaky one, indicating concentration of droplets in a wide region around the spray center. Therefore, a proper prescription of accurate mean velocities is crucial for dispersed-phase simulations when using SLI. 
+
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_spray_velocities/profiles/flux_along_z}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.5in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_spray_velocities/profiles/SMD_along_z}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.1in}
+\begin{subfigure}[b]{0.4\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_spray_velocities/profiles/flux_along_y}\\
+   \vspace{-0.16in}
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_spray_velocities/profiles/SMD_along_y}
+   %\label{} 
+\end{subfigure}
+
+\caption{Integrated profiles of flux and SMD maps for numerical simulations comparing the effect of spray velocities with the experimental results}
+\label{fig:profiles_LGS_JICF_spray_velocities}
+\end{figure}
+
+
+Regarding the effect of the $r$ law governing the RMS component, the results show that the imposition of one distribution or another affects the spray penetration: the minimum upper vertical bound is found for the uniform law,  while the maximum one is obtained for the gaussian one. All cases show a correct ballistic behaviour of the spray, which indicates that the counter-ballistic shape observed for the blue curve is due to the average velocity imposed to the droplets. However, the droplets obtained with the uniform and zero laws are smaller than for the gaussian one. Table \ref{tab:SMD_deviations_spray_velocities}  shows that the final SMD obtained is effectively lower for these two cases. The vertical location of maximum flux is properly retrieved by the gaussian and uniform laws, while the zero one shows a flat shape extending from $z = 5$ to 10 mm. This behaviour is again due to a similar concentration of droplets in this area: the zero law removes the RMS component of the droplets, injecting only the mean, hence increasing particle's concentration. It is therefore recommended to use the gaussian law for prescribing RMS velocities. Indeed, the sampled velocities distributions in the resolved simulations showed a normal distribution (see Figure \ref{fig:injectors_extra_velocities_interesting}), hence the Gaussian $r$ law replicates this physical behaviour better than the other distributions. Different configurations, however, might require other prescribing laws more representative of their actual sprays.
+
+\clearpage
+
+
+\begin{table}[!h]
+\centering
+\caption{SMD values at $x = 80$ mm for simulations with different prescribed velocities}
+\begin{tabular}{ccc}
+\thickhline
+Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
+\thickhline
+Experiments & 31 & - \\
+$u_\mathrm{VW},~r~\mathrm{Gauss}$ & 19.52 & -37.29 \\
+$\overline{u},~r~\mathrm{Gauss}$ & 20.44 & -34.05 \\
+$u_\mathrm{VW},~r~\mathrm{uniform}$ & 17.66 & -43.05 \\
+$u_\mathrm{VW},~r~\mathrm{zero}$ & 16.56 & -46.57 \\
+\thickhline
+\end{tabular}
+\label{tab:SMD_deviations_spray_velocities}
+\end{table}
+
+
+\subsection{Droplets diameters}
+
+In all previous cases, the diameters injected within each SLI probe $f_0 \left( D \right)$ follow a lognormal law with a mean diameter given by the SMD and a standard deviation as given by $s_g$ from Eq. (\ref{eq:ch5_f0_lognormal_distr_expression}). This parameter can be studied by performing a simulation where the prescribed diameters are constant and equal to the SMD within each probe. The results for this simulation are given in Figure \ref{fig:profiles_LGS_JICF_f0}, and the global SMDs are reported in Table \ref{tab:SMD_deviations_f0}. Prescribing droplets with a constant SMD produce a lagrangian spray with lower vertical bounds and with slightly smaller droplets. Nevertheless, no significant differences are found when injecting with one $f_0$ or another. 
+
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_f0/profiles/flux_along_z}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.5in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_f0/profiles/SMD_along_z}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.1in}
+\begin{subfigure}[b]{0.4\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_f0/profiles/flux_along_y}\\
+   \vspace{-0.16in}
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_f0/profiles/SMD_along_y}
+   %\label{} 
+\end{subfigure}
+
+\caption{Integrated profiles of flux and SMD maps for numerical simulations comparing the effect of injection diameters $f_0 \left( D \right)$ with the experimental results}
+\label{fig:profiles_LGS_JICF_f0}
+\end{figure}
+
+\begin{table}[!h]
+\centering
+\caption{SMD values at $x = 80$ mm for simulations with different $f_0$ laws}
+\begin{tabular}{ccc}
+\thickhline
+Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
+\thickhline
+Experiments & 31 & - \\
+Lognormal & 19.52 & -37.29 \\
+Constant & 19.32 & -37.68 \\
+\thickhline
+\end{tabular}
+\label{tab:SMD_deviations_f0}
+\end{table}
+
+
+
+
+\clearpage
+
+
+\subsection{Convergence-driven discretization}
+
+
+The effect of SLIs obtained through the convergence-driven discretization procedure (described in $\S$\ref{subsec:SLI_quadtrees_discretization}) is assessed in this section. This strategy has been applied to the spray obtained for case UG100\_DX10 at $x_\mathrm{inj} = 5$ mm. Three levels of refinement have been performed. The resulting SLI is shown in Figure \ref{fig:maps_SLI_with_quadtrees}, where the ad-hoc SLI for the same case is also added for comparison. It is directly observed how the convergence-driven discretization acts in order to preserve a fully converged spray in all the spatial domain.
 
 
 \begin{figure}[h!]
@@ -1906,10 +1439,230 @@ Finally, the effect of obtaining SLIs through the convergence-driven discretizat
 \label{fig:maps_SLI_with_quadtrees}
 \end{figure}
 
+Results for the spatially-integrated profiles of flux and SMD at $x = 80$ mm  are shown in Figure \ref{fig:profiles_LGS_JICF_quadtrees}. As observed, by using this discretization strategy, the vertical penetration of the spray is lower, matching the actual experimental limits. The vertical location of maximum fuel flux also agrees pretty well with experiments. The vertical SMD profile shows a correct ballistic behaviour, yet it yields underestimated values for most of the range. Lateral profiles of SMD and the global SMDs from Table \ref{tab:SMD_deviations_quadtrees} also show this tendency to diameter underestimation. This behaviour seems contradictory, since actually it is expected that a better spatial refinement yields better results. Such reduction in particles sizes with convergence-driven discretization might be be caused by the different velocities imposed, since by looking at Figure \ref{fig:maps_SLI_with_quadtrees} these seem to be the magnitude differing the most with respect to the ad-hoc SLIs (flux and SMD profiles are very alike). The reasons for this behaviour are not yet fully understood.  % and are left for future work.
+
+\begin{table}[!h]
+\centering
+\caption{SMD values at $x = 80$ mm for simulations with and without quadtrees}
+\begin{tabular}{ccc}
+\thickhline
+Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
+\thickhline
+Experiments & 31 & - \\
+Without quadtrees & 19.44 & - 37.29 \\
+With quadtrees & 16.60 & -46.44 \\
+\thickhline
+\end{tabular}
+\label{tab:SMD_deviations_quadtrees}
+\end{table}
+
 
 \clearpage
 
 
 
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_quadtrees/profiles/flux_along_z}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.5in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_quadtrees/profiles/SMD_along_z}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.1in}
+\begin{subfigure}[b]{0.4\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_quadtrees/profiles/flux_along_y}\\
+   \vspace{-0.16in}
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_quadtrees/profiles/SMD_along_y}
+   %\label{} 
+\end{subfigure}
+
+\caption{Integrated profiles of flux and SMD maps for numerical simulations comparing the effect of convergence-driven discretization with quadtrees with the experimental results}
+\label{fig:profiles_LGS_JICF_quadtrees}
+\end{figure}
+
+
+
+\subsection{Operating condition}
+\label{subsec:JICF_LGS_params_OP}
+
+Finally, the influence of the operating condition is tested by injecting the SLIs obtained from case UG75\_DX10 at $x = 5$ mm (Figure \ref{fig:injectors_sli_uG75_dx10_x05}) into a reduced channel with the corresponding gaseous statistics as given by the prescribed gaseous inlet methodology. The spatially integrated profiles of SMD and flux are shown in Figure \ref{fig:profiles_LGS_JICF_OP}. Similar features than for the high Weber operating condition are retrieved: vertical bounds are slightly overestimated, and the SMD profile along axis $z$ follows a ballistic profile. The maximum location of vertical flux is slightly overestimated, even though a flat profile for this location is obtained as in the experiments. The SMD profiles seem to be closer to experiments than the previous simulations for the high Weber case: this is confirmed by checking the global SMD in Table \ref{tab:SMD_deviations_OP}, which shows that it is underestimated by 20.64 $\%$ in the simulation. This improves the results from the high Weber point, which in the best case yielded an error of -36.64 $\%$. There are two possible reasons why the SMD might be more accurately resolved in the dispersed-phase simulations: 1) the SLIs from the level-set computations of this operating condition are better resolved, since as the gaseous dynamic pressure is lower the resulting droplets from atomization are larger, and hence can be better captured by the employed mesh, or 2) relative velocities are better approximated in the lagrangian computations for this case due to the a lower velocity gaseous field, hence secondary atomization breaks droplets more smoothly and particles in equilibrium are closer to the experimental values. Given any of these two hypothesis (or both) to be true, this would suppose that actually the SLI methodology could work more accurately for operating conditions involving lower gaseous velocities in the flow. 
+
+
+\begin{table}[!h]
+\centering
+\caption{SMD values at $x = 80$ mm for simulations with and without quadtrees}
+\begin{tabular}{ccc}
+\thickhline
+Case & $SMD~\left[\mu \mathrm{m} \right]$ & $\varepsilon_{SMD}~\left[\% \right]$ \\
+\thickhline
+Experiments & 35.2 & - \\
+Simulation & 27.93 & -20.64 \\
+\thickhline
+\end{tabular}
+\label{tab:SMD_deviations_OP}
+\end{table}
+
+
+\clearpage
+
+\begin{figure}[ht]
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_OP/profiles/flux_along_z}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.5in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_OP/profiles/SMD_along_z}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.1in}
+\begin{subfigure}[b]{0.4\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_OP/profiles/flux_along_y}\\
+   \vspace{-0.16in}
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_OP/profiles/SMD_along_y}
+   %\label{} 
+\end{subfigure}
+\vspace*{-0.2in}
+\caption{Integrated profiles of flux and SMD maps for numerical simulation UG75\_DX10 at $x = 5$ mm (low Weber operating condition)}
+\label{fig:profiles_LGS_JICF_OP}
+\end{figure}
+
+
+\section{Artificial delay in secondary breakup}
+\label{sec:LGS_delay_secon_atom}
+
+For the high Weber number case, a SMD ballistic profile and a coherent flux distribution were obtained, although the particles sizes produced underestimated the experimental SMD by 37 $\%$. This deviation got reduced to 20 $\%$ for the low Weber point. These underestimations are thought to be caused by the secondary atomization model, which breaks droplets shortly after they are injected into the domain as they are not in equilibrium. The gaseous velocity field has a great influence on the granulometry produced, as it directly affects the particles breakup through the relative liquid-gas velocity. 
+
+\begin{figure}[ht]
+	\centering	\includeinkscape[inkscapelatex=false,scale=1.0]{./part2_developments/figures_ch6_lagrangian_JICF/dx_atom_effect_field/JICF_LGS_dx_atom}
+	\vspace*{-0.2in}
+	\caption{Effect of introducing an atomization delay in space $\Delta x_\mathrm{atom}$ in the lagrangian field}
+	\label{fig:JICF_LGS_dx_atom}
+\end{figure}
+
+
+
+Since the low sizes obtained are attributed to large relative velocities at injection that enhance breakup, this deviation among velocities is going to be reduced by testing a delay in secondary atomization $\Delta x_\mathrm{atom}$. The effect of this new parameter in the flow field can be seen in Figure \ref{fig:JICF_LGS_dx_atom}: it consists of deactivating the secondary atomization model during an axial distance of length $\Delta x_\mathrm{atom}$ after injection. In this way, the liquid particles exchange momentum  with the gas along this spatial region but do not break, accomodating their velocity to the gaseous field. A total of ten extra simulations have been performed, for which $\Delta x_\mathrm{atom}$ has been varied from 2 to 20 mm in steps of 2 mm. Note that case $\Delta x_\mathrm{atom} = 0$ mm corresponds to the simulation previously reported as the baseline case in all parametric studies.
+
+In first place, the evolution of global SMD along the channel is shown in Figure \ref{fig:SMD_vs_x_param_dx_atom}. The effect of the atomization delay is clearly seen: size stays constant and equal to the injected one within the region where the breakup model is not activated. Then, once it is triggered, droplets start to undergo a fast break and SMD decreases exponentially. The value at which curves stabilize is dependent on $\Delta x_\mathrm{atom}$, being directly proportional to it. The SMDs at the experimental validation location can be better compared in Figure \ref{fig:SMD_vs_dx_atom}, which shows their evolution with $\Delta x_\mathrm{atom}$. This magnitude evolves linearly in the simulations for the range tested, and for $\Delta x_\mathrm{atom} > 12$ mm, the SMD enters within the range of experimental uncertainties at $x = 80$ mm. These graphs show then that leaving a relaxation time for the liquid phase to accommodate to the gas has a positive effect on the global sprays produced, as the relaxation of droplets results later in a less aggressive secondary atomization.
+
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{./part2_developments/figures_ch6_lagrangian_JICF/params_dx_atom/SMD_vs_x_dx_atom_comparison}
+\vspace*{-0.4in}
+\caption{Evolution of SMD along axial location $x$ with parameter $\Delta x_\mathrm{atom}$}
+\label{fig:SMD_vs_x_param_dx_atom}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{./part2_developments/figures_ch6_lagrangian_JICF/params_dx_atom/SMD_vs_dx_atom}
+\vspace*{-0.2in}
+\caption[SMD at $x = 80$ mm for several values of parameter $\Delta x_\mathrm{atom}$]{SMD at $x = 80$ mm for several values of parameter $\Delta x_\mathrm{atom}$. The grey shaded area indicates the range of experimental SMD uncertainties  }
+\label{fig:SMD_vs_dx_atom}
+\end{figure}
+
+\clearpage
+
+At last, the integrated profiles of flux and SMD at $x = 80$ mm are shown in Figure \ref{fig:profiles_LGS_JICF_dx_aom}. Despite the improvements in the global SMD, the inclusion of the secondary atomization delay is detrimental for the spatially distributed sprays. Increasing $\Delta x_\mathrm{atom}$ makes the spray penetrate further, increasing its vertical bound, and flattens the volume flux curve. Furthermore, the SMD profiles increase their value with $\Delta x_\mathrm{atom}$ at the bottom part of the spray (regions with high flux), but not at the upper part, actually inverting the ballistic behaviour for $\Delta x_\mathrm{atom} \geq 12$ mm. Overall, this atomization delay shows that when letting droplets relax to the gas before their breakup, they reach equilibrium at larger diameters, since the relative liquid-gas velocities are lower.  This proves that the relative velocity is the parameter governing droplets breakup through the secondary atomization model: further works should consider improvements in this sense by better retrieving the gaseous flow field and by making a better prescription of the liquid velocities, for which the sectional approaches mentioned in $\S$\ref{subsec:SPS_inhomogeneity_sprays} are suggested. Furthermore, it was proved in the previous chapter that sampled droplets are generally deformed while the lagrangian particles in the dispersed-phase computations assume spherical shapes. It is suggested that this non-sphericity should be taken into account in the dispersed-phase computations through a modified drag law for droplet transport, which could affect the momentum exchange and hence the secondary atomization through the relative velocities. 
+
+
+
+\begin{figure}[h!]
+\flushleft
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_dx_atom/profiles/flux_along_z}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.5in}
+\begin{subfigure}[b]{0.2\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_dx_atom/profiles/SMD_along_z}
+   %\label{} 
+\end{subfigure}
+\hspace*{0.1in}
+\begin{subfigure}[b]{0.4\textwidth}
+	\flushleft
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_dx_atom/profiles/flux_along_y}\\
+   \vspace{-0.16in}
+   \includegraphics[scale=0.35]{./part2_developments/figures_ch6_lagrangian_JICF/params_dx_atom/profiles/SMD_along_y}
+   %\label{} 
+\end{subfigure}
+
+\caption{Integrated profiles of flux and SMD maps for numerical simulations comparing the effect of $\Delta x_\mathrm{atom}$ with the experimental results}
+\label{fig:profiles_LGS_JICF_dx_aom}
+\end{figure}
+
+
+
+
+
+\clearpage
+
+%\section{Computational costs}
+
+\section{Conclusions}
+
+This chapter has reported and discussed results dispersed-phase computations performed with the SLI models derived from the resolved atomization simulations in Chapter \ref{ch5:jicf_resolved_simulations}. In first place, the computational setup is described: the geometry is a priori fixed to the same one as the baseline used in the resolved computations, the mesh is then refined at the center of the channel in order to better resolved the gaseous phase for droplet transport. Previous experimental data relevant for the cases simulated are then reported: from these available data, the high Weber case is chosen as the main one for study since there is more experimental data reported. Uncertainty of droplets sizes reported is unclear, and hence a little analysis is done by comparing several experimental works using PDA to provide an order for the errors SMDs is done: a 10 $\%$ error in SMD is estimated. 
+
+Prior to the dispersed-phase computations, gaseous boundary conditions for the flow field are computed. In first place, the ALM methodology is tested. The initial input parameters directly obtained from the resolved atomization simulations do not optimize the flow perturbations, hence these parameters are tuned by hand to find a better configuration. Despite improvements in the flow field, it is found that the best ALM case cannot accurately capture the perturbed field of the resolved computations: the ALM model proposed is not sufficient to produce a realistic flow field in dispersed-phase computations. Improvements in this model could go towards the obtention of the ALM parameters through a multivariable optimization procedure; the addition of other geometrical features, such as a combination of actuators; or the inclusion of spectral effects to account for the transient dynamics of the flow, which are not considered by the static ALM proposed. To circumvent the limitations of ALM, another methodology which consists of prescribing gaseous statistics retrieved from the resolved atomization simulations into a reduced computational domain is approached. This one shows a better approximation of the gaseous perturbations than the ALM cases, moreover with reduced computational costs due to a lower number of cells in the mesh employed.
+
+The dispersed-phase computations have then been divided into three main blocks, to test the different parameters of the models according to the diagram from Figure \ref{fig:dispersed_phase_sli_parameters}. In first place, the effect of the gaseous phase is verified by testing the different ALM flow fields against the prescribed gaseous inlet methodology. Resulting lagrangian sprays are found to be very sensitive to the gaseous boundary conditions, yielding particles with very low sizes for the ALM cases, and producing a spray with SMD closer to the experimental one from the prescribed gaseous methodology: therefore, this one is kept for the next studies. Secondly, the secondary atomization models are tested in several simulations. The TAB, ETAB and Gorokhovski models are then specified in different simulations, plus the free models $K_1$ and $K_2$ of the Gorokhovski model are also assessed by testing five combinations of these parameters. It is found that the Gorokhovski model provides a spray with larger droplets than the other two; furthermore, the sensitivity analysis of the Gorokhovski constants show that the vertical boundary of the spray, the vertical location of the maximum fuel flux and the particles sizes can be controlled with those, while always keeping a ballistic behaviour of the spray. Taking the particles sizes as the criterion to specify the parameters, it is recommended to decrease the value of $K_1$ and to increase the value of $K_2$. Finally, the different SLI variables are tested by changing each parameter in a one-by-one basis. The most influencing parameters found were the level-set resolution, the average velocity prescribed and the law for specifying a RMS components in the velocities: it is recommended then to use respectively finer injectors for the resolution, volume-weighted avergge velocities and a gaussian law for RMS dispersion. Simulations comparing the level-set resolution at different injection planes show that using coarse SLIs creates a dependence with the injection location, while using fine ones not: this is caused by an earlier, more complete atomization in the resolved simulations for finer resolutions, indicating that these ones allow sampling droplets further upstream without significantly affecting the results in the dispersed-phase simulations. This could reduce the cost of the resolved computations as less liquid physical domain is needed to resolve the spray, which in combination with the cost savings in terms of physical simulation time with finer level-set resolution ($\S$\ref{subsec:ch5_JICF_computational_costs}) justifies the need for going towards finer resolved liquid interfaces. 
+
+In all the tests performed for the high Weber operating condition, the numerical sprays are found to produce smaller droplets than in the experiments: the best case yields an underestimation of global SMD of $37~\%$, while higher deviations are found for other cases. Changing the operating condition to the low Weber operating point reduces this deviation to $20~\%$, which could indicate that the SLI methodology are more suitable for conditions at lower gaseous Reynolds numbers where secondary atomization is less aggressive or where the perturbed gaseous flow field is easier to model. From the first set of tests performed, it was found that actually secondary atomization is the main mechanisms creating such small droplets, and a disturbed gaseous field not properly modelled will enhance this breakup as it directly influences the relative velocity of the droplets. To finally verify this, an artificial atomization delay $\Delta x_\mathrm{atom}$ is introduced as a spatial distance where the breakup model is unplugged to let droplets exchange momentum with the air and accommodate with the flow field. Increasing $\Delta x_\mathrm{atom}$ has the effect of increasing the particles sizes along the domain, which proves that the misprediction of relative velocities is the cause of the diameter underestimation. However, such increase have also the effect of creating a counter-ballistic behaviour of the spray, which is not physical: hence, including this additional parameter is not the solution to retrieve a physical spray which matches the granulometry. As future work, it is suggested to try a better match of the relative liquid-gas velocities by improving the modelling of the gaseoud field perturbations and to improve prescription of particles liquid velocities, for which the sectional approach described in $\S$\ref{subsec:SPS_inhomogeneity_sprays} is suggested. Furthermore, the inclusion of droplets non-sphericity in dispersed-phase computations through modified drag coefficients might also improve the lagrangian results, since a different momentum exchange would also affect the relative velocities and, consequently, the secondary atomization. To finish, it is also worth to mention that this first version of SLI has neglected additional models such as subgrid dispersion terms for the velocities, which could affect atomization, or coalescence, which if present would actually increase the size of the particles. It would be interesting to assess wheter these additional models, or others, could improve the dispersed-phase sprays.
+
+
+%\textbf{BORRAR A PARTIR DE AQUI}: Firstly, the computational setup is described, whose only difference with the baseline mesh of the resolved atomization simulations is the mesh size at the center. Then, the available data for experimental validation of the simulations are summarized in $\S$\ref{sec:ch6_experimental_results}. Possible sources and values for the uncertainties of these data are then discussed in $\S$\ref{sec:jicf_dlr_experimental_uncertainty}, and previous numerical works on injection in the same configuration are summarized in $\S$\ref{ch6:previous_numerical_studies}. Then, the boundary conditions the gaseous and liquid phases in dispersed-phase simulations are detailed in $\S$\ref{sec:ch6_BC_gaseous_phase} and $\S$\ref{sec:JICf_LGS_liquid_BCs} respectively. For the former, two possible options are analyzed: the ALM method, which was introduced in Chapter \ref{ch4:sli_development}, and another proposed methodology based on prescribing statistics of the gaseous phase learnt from resolved simulations in a simplified channel. It is shown that the prescribed gas phase can retrieve better the gaseous phase features from the resolved case than the ALM. Then, dispersed-phase simulations are performed by testing the different input parameters to find the best configuration to experimental data. It is found that secondary atomization acts very soon after droplets injection, reducing the particles sizes along the channel first with a fast, exponential decrease and then with a slow, linear reduction. The lagrangian computations are specially sensitive to the gaseous boundary conditions, secondary atomization model, SLI resolution and the mean velocities prescribed. Overall, the tests performed with the high Weber operating point show good spray features but underestimate the global SMD of the spray by a 37 $\%$ in the best of the cases. This deviation is reduced to 20 $\%$ when changing to the low Weber operating point, indicating that the SLI methodology could work better at low speed configurations where either atomization is better resolved by the resolved computations, or the secondary atomization model breaks droplets to a lesser extent. Finally, a delay in the secondary atomization is introduced by unplugging the secondary atomization model and let lagrangian particles convect without breaking, relaxing towards the gaseous field before breakup takes place. As a result, the deviations in droplets sizes are improved, confirming that it is the relative velocity what mostly affects breakup and creates the underestimation for the unaltered configuration.
+
+
+\clearpage
+
+
+
+
+
+
+\section{OJO: ANYADIR EN CONCLUSION}
+
+
+In Chapter \ref{ch5:jicf_resolved_simulations}, the five resolved atomization simulations from Table \ref{fig:location_JICF_ops_in_breakup_map} were performed and analyzed. These ones tested two mesh interface mesh resolutions ($\Delta x_\mathrm{min} = 20, 10~\mu$m) and two operating points ($We_g = 830, 1470$). Results shown a high dependency of the trajectories ($\S$\ref{subsec:ch5_jet_trajectories_results}) and jet topologies ($\S$\ref{sec:ch5_jet_evolution}) on the resolution, which later led to different spray characteristics ($\S$\ref{sec:ch5_sec_spray_characterization}) and resulting injectors ($\S$\ref{sec:ch5_learning_SLI}). Therefore, it is of interest to test such effects in the disperse-phase simulations by initializing these computations with the different injectors obtained.
+
+Figure \ref{fig:dispersed_phase_sli_parameters} shows the different models involved in the dispersed phase simulations with their control parameters: they are split into the possible influences on the gas and liquid phases, as well as the secondary breakup which is considered as an interaction between both (even though it acts on the liquid phase, it needs the gas velocity for calculating the relative velocity in order to estimate liquid breakup). In this section, all the parameters from the SLI model in the JICF case are analyzed: a baseline configuration is chosen, which was found to be the most optimal one yielding the best match to the experimental results, and then each SLI parameter is modified individually. The baseline configuration consists of the following parameters:
+
+\begin{itemize}
+
+	\item The \textbf{gaseous phase} is provided by the \textbf{prescribed gaseous inlet} methodology. This one was found to better match the aerodynamic field from the resolved computation and produces a lagrangian spray closer to the experimental results, as demonstrated in $\S$\ref{sec:SLI_LGS_gaseous_phase_effect}.
+	
+	\item \textbf{Secondary atomization model} is taken to be the Gorokhovski model with calibrated constants $K_1 = 0.05$, $K_2$ = 1. Calibration of the secondary model is reported in $\S$\ref{sec:SLI_LGS_secondary_breakup_models}.
+	
+	\item \textbf{SLI} corresponds to the discretized spray obtained from the high Weber case at the finest resolution, UG100\_DX10, at location $x = 5$ mm. This case is chosen as the baseline one since 1) the operating point been previously studied by other authors and hence the results reported here can be easily compared ($\S$\ref{ch6:previous_numerical_studies}), 2) the finer interface cell size in the resolved simulation provides a better resolution of the sprays, and 3) the location closer to the injection point deviates less with respect to the experimental trajectory than the sampled spray further downstream (see Figure \ref{fig:JICF_trajectories_validation}). The effect of other operating conditions, resolved interface resolutions and injection locations is studied in $\S$\ref{subsec:SLI_LGS_resolution_and_injection_location},.
+	
+	\item \textbf{Spray velocities}: mean injection velocities are fixed to volume-weighted ones, while the $r$ law for RMS components is set to gaussian. Other possibilities for these parameters are analyzed in $\S$\ref{subsec:SLI_LGS_velocity_effects}.
+	
+	\item \textbf{Droplet sizes} prescribed are randomly sampled from a lognormal distribution fitting the histogram in each individual probe. 
+	
+	\item The \textbf{operating condition} is also changed by performing a dispersed-phase simulation for the low Weber case with the corresponding SLI obtained. These results are reported in $\S$\ref{subsec:JICF_LGS_params_OP}.
+
+\end{itemize}
+
+
+
+
+
+\clearpage
 
 

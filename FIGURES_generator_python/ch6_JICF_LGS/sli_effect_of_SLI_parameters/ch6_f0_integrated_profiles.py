@@ -276,8 +276,8 @@ figsize_flux_along_y  = (FFIG*17*factor,FFIG*8*factor)#(FFIG*10,FFIG*15)
 figsize_SMD_along_y  = (FFIG*17*factor,FFIG*10*factor) #(FFIG*8,FFIG*14.7)
 
 
-SMD_lim_along_y = (7,38)
-SMD_ticks_along_y = [10,20,30] #[10,15,20,25,30,35]
+SMD_lim_along_y = (0,38)
+SMD_ticks_along_y = [0,10,20,30] #[10,15,20,25,30,35]
 ql_lim_along_y = (0,3)
 ql_ticks_along_y = [0, 1, 2, 3]#[0,0.5,1,1.5,2,2.5,3]
 y_lim = (-12.5,12.5)
