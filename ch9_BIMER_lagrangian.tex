@@ -215,7 +215,7 @@ SMD & $\mu$m & 15 \\
 \section{Boundary condition for gaseous phase}
 \label{sec:ch9_BIMER_BCs_for_gaseous_phase}
 
-The perturbation effect of the liquid dense core, which is be directly accounted for by the lagrangian droplets, can also be modelled in BIMER. In this case, the direct prescription of a perturbed gaseous inlet in a reduced domain as described in $\S$\ref{subsec:ch6_jicf_lgs_gaseous_inlet_prescription} is not performed due to the complex geometrical features of the swirl injector. Therefore, only the ALM methodology ($\S$\ref{sec:ch4_dense_core_modelling}) is applied for this purpose. In a first step, the input parameters to the model are taken from the results of the resolved atomization simulation DX10: dense core topology from the results shown in Figure \ref{fig:BIMER_DC_mean_parameters_scatterplots} and net force from Table \ref{tab:BIMER_dense_core_pressures_and_force_parameters}.  These parameters are referred as the initial ones in Table \ref{tab:BIMER_lgs_ALM_parameters}. \hl{As for the ALM model applied to the traditional JICF in} $\S$\ref{sec:ch6_BC_gaseous_phase}, these initial parameters do not capture the actual momentum exchange between the gas and the liquid in the resolved simulation, and are hence tuned to find a better match between the turbulent gaseous structures in the resolved and dispersed-phase computations. Indeed, the initial actuator was found to not create any perturbations, yielding a gaseous field identical to the unperturbed case. Therefore, in this section only the results obtained with the final actuator are reported. The parameters used for this model are summarized in Table \ref{tab:BIMER_lgs_ALM_parameters}. 
+The perturbation effect of the liquid dense core, which is be directly accounted for by the lagrangian droplets, can also be modelled in BIMER. In this case, the direct prescription of a perturbed gaseous inlet in a reduced domain as described in $\S$\ref{subsec:ch6_jicf_lgs_gaseous_inlet_prescription} is not performed due to the complex geometrical features of the swirl injector. Therefore, only the ALM methodology ($\S$\ref{sec:ch4_dense_core_modelling}) is applied for this purpose. In a first step, the input parameters to the model are taken from the results of the resolved atomization simulation DX10: dense core topology from the results shown in Figure \ref{fig:BIMER_DC_mean_parameters_scatterplots} and net force from Table \ref{tab:BIMER_dense_core_pressures_and_force_parameters}.  These parameters are referred as the initial ones in Table \ref{tab:BIMER_lgs_ALM_parameters}. As for the ALM model applied to the traditional JICF in $\S$\ref{sec:ch6_BC_gaseous_phase}, these initial parameters do not capture the actual momentum exchange between the gas and the liquid in the resolved simulation, and are hence tuned to find a better match between the turbulent gaseous structures in the resolved and dispersed-phase computations. Indeed, the initial actuator was found to not create any perturbations, yielding a gaseous field identical to the unperturbed case. Therefore, in this section only the results obtained with the final actuator are reported. The parameters used for this model are summarized in Table \ref{tab:BIMER_lgs_ALM_parameters}. 
 
 \begin{table}[!h]
 \centering
@@ -323,7 +323,7 @@ The perturbations induced by ALM discussed previously have only been analyzed fo
 \section{Simulations and results}
 \label{sec:BIMER_LGS_simus_and_results}
 
-Three dispersed-phase simulations are performed for the BIMER configuration. All of them use the same boundary conditions for the liquid phases in the take-off (SLI model) and the pilot (LISA model) stages. They differ in the inclusion of the perturbation effect in the gaseous phase through ALM and the consideration of evaporation. For the simulation with evaporation, the full domain is preheated to $T_g = 433$ K as in the experiments, and droplets are then injected at a temperature $T_l = 293 $ K.  The computations performed are summarized in Table \ref{tab:BIMER_dispersed_phase_simulations_performed}, where a total of three simulations are reported. A baseline simulation is performed without neither ALM nor evaporation. Then, both ALM and evaporation contributions are studied separately in two distinct simulations.
+Three dispersed-phase simulations are performed for the BIMER configuration. All of them use the same boundary conditions for the liquid phases in the take-off (SLI model) and the pilot (LISA model) stages. They differ in the inclusion of the perturbation effect in the gaseous phase through ALM and the consideration of evaporation. For the simulation with evaporation, the full domain is preheated to $T_g = 433$ K as in the experiments, and droplets are then injected at a temperature $T_l = 293 $ K.  The computations performed are summarized in Table \ref{tab:BIMER_dispersed_phase_simulations_performed}, where a total of three simulations are reported. A baseline simulation is performed without neither ALM nor evaporation. Then, both ALM and evaporation contributions are studied separately in two distinct simulations. A simulation with both ALM and evaporation was not performed in this thesis, since the evaporation physics could not be coupled to the ALM methodology due to lack of time. %Hence, the effect of ALM and evaporation altogether have not been assessed in this thesis.
 
 \begin{table}[!h]
 \centering
@@ -339,6 +339,8 @@ Evap & No & Yes \\%\textcolor{blue}{Yes} \\
 \end{tabular}
 \label{tab:BIMER_dispersed_phase_simulations_performed}
 \end{table}
+
+\clearpage
 
 
 \subsubsection*{Characteristic liquid times}
@@ -404,7 +406,7 @@ Particles within a slab of 1 mm thickness centered at plane $z = 0$ are also sho
 
 \subsection{Qualitative results and experimental comparison}
 
-Simulations can be compared with experiments by sampling lagrangian droplets crossing the region outlined in Figure \ref{fig:BIMER_LGS_spray_establishment}, which corresponds to the area from the experimental results shown in Figure \ref{fig:maps_BIMER_renaud_expe_results}. SMD and droplets axial velocities maps are given in Figure \ref{fig:validation_BIMER_lgs}. In general, the computations capture the topology of the fields accurately and show symmetry with respect to axis $y = 0$. The effect of the evaporation is clearly seen by the lower values of SMD found with respect to the other computations, approaching the experimental values qualitatively. Numerical SMD maps show a central region with low sizes produced by the pilot stage, which for the baseline and ALM cases supposes larger sizes than in the experiments. The opposite occurs for the evaporation simulation. The experiments show a pocket of empty droplets with a circular shape with center at ($x = 10 mm, y = 0$) and a radius of $\sim 20$ mm that is not present in the simulations, since these show droplets produced by the hollow cone; and two regions of local high SMDs at $y = \pm 25$ mm that are quantitatively captured by the simulations, even if their size is slightly underestimated and the axial extension of this area is overestimated in the computations. The opening angle of the spray is properly captured by the simulations, although this angle is determined by the presence of the diffuser as Figure \ref{fig:BIMER_LGS_spray_establishment} shows droplets attaching and filming along the diffuser walls. Diameters at the outer part of the spray show larger values than at the center as in the experiments, yet their magnitude is generally overestimated. This outer part, also captured by the experiments, is characterized by a gradient of SMD from lower (green colors) to larger (red colors) values along the vertical direction. The computations predict its beginning closer to the spray center than in the experiments, and overestimate the SMD values at the edges for both the baseline and ALM cases. The evaporation case shows good experimental match for SMD values in this region, except for the outer part at side $y > 0$ (yet this part is symmetrical in the computations, which is expected for a symmetrical swirl case as BIMER, but is asymmetrical in the experiments). 
+Simulations can be compared with experiments by sampling lagrangian droplets crossing the region outlined in Figure \ref{fig:BIMER_LGS_spray_establishment}, which corresponds to the area from the experimental results shown in Figure \ref{fig:maps_BIMER_renaud_expe_results}. SMD and droplets axial velocities maps are given in Figure \ref{fig:validation_BIMER_lgs}. In general, the computations capture the topology of the fields accurately and show symmetry with respect to axis $y = 0$. The effect of the evaporation is clearly seen by the lower values of SMD found with respect to the other computations, approaching the experimental values qualitatively. Numerical SMD maps show a central region with low sizes produced by the pilot stage, which for the baseline and ALM cases supposes larger sizes than in the experiments. The opposite occurs for the evaporation simulation. The experiments show a pocket of empty droplets with a circular shape with center at ($x = 10$ mm,$y = 0$) and a radius of $\sim 20$ mm that is not present in the simulations, since these show droplets produced by the hollow cone; and two regions of local high SMDs at $y = \pm 25$ mm that are quantitatively captured by the simulations, even if their size is slightly underestimated and the axial extension of this area is overestimated in the computations. The opening angle of the spray is properly captured by the simulations, although this angle is determined by the presence of the diffuser as Figure \ref{fig:BIMER_LGS_spray_establishment} shows droplets attaching and filming along the diffuser walls. Diameters at the outer part of the spray show larger values than at the center as in the experiments, yet their magnitude is generally overestimated. This outer part, also captured by the experiments, is characterized by a gradient of SMD from lower (green colors) to larger (red colors) values along the vertical direction. The computations predict its beginning closer to the spray center than in the experiments, and overestimate the SMD values at the edges for both the baseline and ALM cases. The evaporation case shows good experimental match for SMD values in this region, except for the outer part at side $y > 0$ (yet this part is symmetrical in the computations, which is expected for a symmetrical swirl case as BIMER, but is asymmetrical in the experiments). 
 
 
 
@@ -413,6 +415,7 @@ Simulations can be compared with experiments by sampling lagrangian droplets cro
 \begin{subfigure}[b]{1.0\textwidth}
 	\centering 
 	\includegraphics[scale=0.7]{./part3_applications/figures_ch9_lagrangian/simus_expe_validation/subplots_maps_SMD.png}
+\vspace*{-0.1in}
    \caption{SMD maps}
    %\label{fig:validation_qualitative_u_mean} 
 \end{subfigure}
@@ -424,22 +427,14 @@ Simulations can be compared with experiments by sampling lagrangian droplets cro
 	\includegraphics[scale=0.7]{./part3_applications/figures_ch9_lagrangian/simus_expe_validation/subplots_maps_axial_velocity.png}
    \caption{Mean axial velocity maps}
 \end{subfigure}
-%
-%\vspace*{0.1in}
-%
-%\begin{subfigure}[b]{1.0\textwidth}
-%	\centering
-%	\includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/simus_expe_validation/subplots_maps_vertical_velocity.png}
-%   \caption{Mean vertical velocity maps}
-%   %\label{fig:validation_qualitative_v_mean} 
-%\end{subfigure}
+\vspace*{-0.1in}
 \caption[Qualitative experimental validation]{Qualitative experimental validation in the region enclosed in Figure \ref{fig:BIMER_LGS_spray_establishment}. SMD and mean velocity fields from experiments by \citeColor[renaud_high-speed_2015] and the three simulations performed}
 \label{fig:validation_BIMER_lgs}
 \end{figure}
 
 From the analysis of Figure \ref{fig:validation_BIMER_lgs}, it can be generally said that the topology of the lagrangian field in terms of SMD and axial velocity is, despite a few minor features, quite close to the experimental one. It is now of interest to look at the contributions of the droplets from each stage to the sampled sprays, which is done in Figure \ref{fig:comparison_pilot_takeoff_maps_BIMER_lgs}. The spatial distribution of both stages is clear from the figures: the pilot spray extends through all the region with a hollow cone shape, while the take-off spray is concentrated at the edges of this hollow cone. No multipoint droplets are then present at the center of the spatial domain, agreeing with the observations of Figure \ref{fig:BIMER_LGS_spray_established_jets} where the take-off droplets from SLI stick to the outer part of the diffuser, near the walls. Comparing the baseline and ALM cases shows no differences among those, hence confirming that ALM has no influence in the spray entering the chamber in this BIMER's operating condition. 
 
-The contribution of each stage to the full spray can also by elucidated by looking at Figure \ref{fig:comparison_pilot_takeoff_maps_BIMER_lgs}. In all cases, the velocity field from the pilot spray has a very similar topology to the full one, with exceptions at the edges due to the contribution of the take-off stage. However, this influence of the take-off to the velocity is limited. The opposite occurs, on the other hand, for the SMD: the pilot shows low values (constant for the baseline and ALM simulations, varying for the evaporation case) for all the spatial region, while the take-off shows larger ones: hence in the regions where pilot and take-off coexist, the full spray reveals an average size among both. %The fact that the SMD is lower closer to the spray center and higher further away might suppose that the concentration of droplets for each stage changes accordingly: the quantity of take-off droplets is increased with radial distance, while the quantity of pilot one decreases, hence showing this gradient in SMD aforementioned.  
+The contribution of each stage to the full spray can be elucidated in Figure \ref{fig:comparison_pilot_takeoff_maps_BIMER_lgs}. In all cases, the velocity field from the pilot spray has a very similar topology to the full one, with exceptions at the edges due to the contribution of the take-off stage. However, this influence of the take-off to the velocity is limited. The opposite occurs, on the other hand, for the SMD: the pilot shows low values (constant for the baseline and ALM simulations, varying for the evaporation case) for all the spatial region, while the take-off shows larger ones: hence in the regions where pilot and take-off coexist, the full spray reveals an average size among both. %The fact that the SMD is lower closer to the spray center and higher further away might suppose that the concentration of droplets for each stage changes accordingly: the quantity of take-off droplets is increased with radial distance, while the quantity of pilot one decreases, hence showing this gradient in SMD aforementioned.  
 
 
 \begin{figure}[h!]
@@ -449,6 +444,7 @@ The contribution of each stage to the full spray can also by elucidated by looki
 	\includegraphics[scale=0.5]{./part3_applications/figures_ch9_lagrangian/simus_pilot_takeoff_comparison/baseline_SMD.png}
 \hspace*{0.1in}
    \includegraphics[scale=0.5]{./part3_applications/figures_ch9_lagrangian/simus_pilot_takeoff_comparison/baseline_u_axial.png}
+   \vspace*{-0.15in}
    \caption{Baseline case}
    %\label{fig:validation_qualitative_u_mean} 
 \end{subfigure}
@@ -460,6 +456,7 @@ The contribution of each stage to the full spray can also by elucidated by looki
 	\includegraphics[scale=0.5]{./part3_applications/figures_ch9_lagrangian/simus_pilot_takeoff_comparison/ALM_SMD.png}
 \hspace*{0.1in}
    \includegraphics[scale=0.5]{./part3_applications/figures_ch9_lagrangian/simus_pilot_takeoff_comparison/ALM_u_axial.png}
+   \vspace*{-0.15in}
    \caption{ALM case}
 \end{subfigure}
 
@@ -470,19 +467,29 @@ The contribution of each stage to the full spray can also by elucidated by looki
 	\includegraphics[scale=0.5]{./part3_applications/figures_ch9_lagrangian/simus_pilot_takeoff_comparison/evap_SMD.png}
 \hspace*{0.1in}
    \includegraphics[scale=0.5]{./part3_applications/figures_ch9_lagrangian/simus_pilot_takeoff_comparison/evap_u_axial.png}
+   \vspace*{-0.15in}
    \caption{Evap case}
 \end{subfigure}
+   \vspace*{-0.2in}
 \caption[Comparison of pilot and take-off stages to the resulting
 spray ]{Comparison of pilot and take-off stages to the resulting
 spray in the experimental validation region outlined in Figure \ref{fig:BIMER_LGS_spray_establishment}}
 \label{fig:comparison_pilot_takeoff_maps_BIMER_lgs}
 \end{figure}
 
-The calculated global SMD of the droplet contained within the experimental region are summarized in Table \ref{tab:BIMER_dispersed_phase_SMDs}.  The first SMD shown corresponds to the full case (pilot + take-off sprays), while the global SMD for each separate phase in the computations is also reported.  The error with respect to the experiments $\varepsilon_{SMD}$ has been calculated with Eq. (\ref{eq:error_expe_SMD_LGS_simus}), with $SMD_\mathrm{expe} = 16.58~\mu$m. Only the deviation in SMD for the full spray can be quantified, since from the experimental results the SMDs for each separate phase cannot be obtained. The results show that the baseline and ALM cases provide similar values larger than experiments, with errors of the order of 30 $\%$. The SMDs for these cases are practically identical for the full, pilot and take-off sprays. Indeed, the pilot spray for these cases yields the value prescribed for the injected droplets of $15~\mu$m since these droplets do not change their size due to the absence of secondary atomization and evaporation. In combination with the previous analysis, it can then be concluded that, in this BIMER's operating point, the actuator model tested has not a significant influence in the spray, even if it perturbs the gaseous phase around the injection nozzles of the take-off stage. Such lack of influence is due to the inexisting secondary atomization in BIMER, as the results from Chapter \ref{ch6:jicf_lgs_simulations} showed that the ALM had a strong influence on the atomization of droplets in the dispersed-phase. 
+The calculated global SMD of the droplet contained within the experimental region are summarized in Table \ref{tab:BIMER_dispersed_phase_SMDs}.  The first SMD shown corresponds to the full case (pilot + take-off sprays), while the global SMD for each separate phase in the computations is also reported.  The error with respect to the experiments $\varepsilon_{SMD}$ has been calculated with Eq. (\ref{eq:error_expe_SMD_LGS_simus}), with $SMD_\mathrm{expe} = 16.58~\mu$m. Only the deviation in the SMD of the full spray can be quantified, since from the experimental results the SMDs for each separate phase cannot be obtained. The results show that the baseline and ALM cases provide similar values larger than the experiments, with errors of the order of 30 $\%$. The SMDs for these cases are practically identical for the full, pilot and take-off sprays. Indeed, the pilot spray yields the value prescribed for the injected droplets of $15~\mu$m since these droplets do not change their size due to the absence of secondary atomization and evaporation. In combination with the previous analysis, it can then be concluded that, in this BIMER's operating point:
 
-More relevant results are obtained when including evaporation. As Table \ref{tab:BIMER_dispersed_phase_SMDs} shows, addition of evaporation reduces the pilot SMD from 15 to 9.41 $\mu$m, and the corresponding one for the take-off stage from 35.81 to 32.67 $\mu$m. In consequence, the global SMD obtained is 17.53 $\mu$m which supposses an error of $5.73~\%$, showing a very good experimental agreement. However, it can be observed from the SMD maps of Figure \ref{fig:validation_BIMER_lgs} that the evaporation case seems to underestimate the SMD in all the pilot region and overestimate it in the take-off one: then, both effects compensate and the resulting global SMD for the whole spray shows a value in between which agrees with the experimental one. Nevertheless, overall it can be seen that the spray fields look much closer to experiments when including evaporation. Therefore, including evaporation physics into the dispersed-phase simulation contributed to improve the results of the simulations, and demonstrated the need to properly account for heat transfer physics in this configuration relevant to industrial burners.
+\begin{itemize}
+
+	\item The actuator model tested \textbf{has not a significant influence in the spray}, even if it perturbs the gaseous phase around the injection nozzles of the take-off stage.
+	
+	\item Such lack of influence is due to the \textbf{nonexistent secondary atomization}, which was not present whatsoever in any BIMER simulation. As  Chapter \ref{ch6:jicf_lgs_simulations} showed that secondary atomization was strongly affected by ALM, in BIMER this perturbation model has not a relevant effect due to the absence of breakup.
+
+\end{itemize}
 
 
+
+\clearpage
 
 \begin{table}[!h]
 \centering
@@ -501,6 +508,12 @@ Evap & 17.53 & 5.73 & 9.41 & 32.67 \\
 \end{table}
 
 
+
+More relevant results are obtained when including evaporation. As Table \ref{tab:BIMER_dispersed_phase_SMDs} shows, addition of evaporation reduces the pilot SMD from 15 to 9.41 $\mu$m, and the corresponding one for the take-off stage from 35.81 to 32.67 $\mu$m. In consequence, the global SMD obtained is 17.53 $\mu$m which supposses an error of $5.73~\%$, showing a very good experimental agreement. However, it can be observed from the SMD maps of Figure \ref{fig:validation_BIMER_lgs} that the evaporation case seems to underestimate the SMD in all the pilot region and overestimate it in the take-off one: then, both effects compensate and the resulting global SMD for the whole spray shows a value in between which agrees with the experimental one. Nevertheless, overall it can be seen that the spray fields look much closer to experiments when including evaporation. Therefore, including evaporation physics into the dispersed-phase simulation contributed to improve the results of the simulations, and demonstrated the need to properly account for heat transfer physics in this configuration relevant to industrial burners.
+
+
+
+
 The effect of evaporation in both pilot and take-off phases separately can be further analyzed through the droplets histograms from the spray contained within the experimental region, in Figure \ref{fig:LGS_BIMER_droplets_histograms}. The take-off and pilot stages can be directly distinguished by the difference in the range of droplets sizes obtained: the largest pilot droplets have diameters of $15~\mu$m, while the smallest particles produced by the take-off are slightly below $30~\mu$m. The spray for the baseline case shows a single diameter for pilot at $15~\mu$m, and a distribution for the take-off ranging from $\sim 35$m to $\sim 42~\mu$m. Adding evaporation shifts each histogram to the left. The pilot distribution shows then a polydisperse spray negatively skewed, with the largest diameters at $14~\mu$m and the smallest ones close at $1~\mu$m, while the take-off stage moves towards a lognormal-like distribution but without large differences among density values.
 
 
@@ -509,7 +522,7 @@ The effect of evaporation in both pilot and take-off phases separately can be fu
 \begin{figure}[ht]
    \centering
    \includegraphics[scale=0.4]{./part3_applications/figures_ch9_lagrangian/droplets_histograms}
-   \caption{Cost savings in SLI development by refining grid resolution}
+   \caption{Histograms of droplets sizes from Baseline and Evap simulations}
    \label{fig:LGS_BIMER_droplets_histograms}
 \end{figure}
 

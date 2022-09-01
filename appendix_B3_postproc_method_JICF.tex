@@ -305,17 +305,17 @@ Besides the dense core geometry, the net force $|\textbf{F}_\mathrm{DC}|$ needs 
 S_\mathrm{DC} = \frac{\left( d_\mathrm{inj} + \overline{w} \right) L_\mathrm{DC} }{2} 
 \end{equation}
 
+For estimating the mean pressures, the procedure schematized in Figure \ref{fig:extraction_methodology_mean_DC} is followed. First, the mean dense core is extracted from the resolved simulations as an iso-surface of the mean levelset surface: $\overline{\psi} = 0.5$. Then, the gradient vector $\nabla \left( \overline{\psi} \right)$ field is calculated on this surface, which points towards the direction of increasing values: that is, towards the inner part of the dense core, where $\overline{\psi} = 1$ in the areas where there is always liquid. The windward side of the mean dense core is then obtained as the region with a positive normal component of the gradient in the $x$ direction: $\nabla_x \left( \overline{\psi} \right) > 0$. Equivalently, the leeward side is defined by the points where $\nabla_x \left( \overline{\psi} \right) < 0$. Then, the mean pressure at both the windward and leeward sides, $p_\mathrm{windward}$ and $p_\mathrm{leeward}$ respectively, are calculated and taken as inputs to Eq. (\ref{eq:ALM_Fp_calculation_simplified}).
+
+ 
+\clearpage
+
 \begin{figure}[ht]
 \centering
 \includeinkscape[inkscapelatex=false,scale=0.33]{./part2_developments/figures_ch5_resolved_JICF/pressure_obtention_mean_DC/extraction_methodology_mean_DC}
 \caption[Methodology to obtain windward and leeward surfaces of mean dense core from resolved atomization simulations]{Methodology to obtain windward and leeward surfaces of mean dense core from resolved atomization simulations. The displayed dense core corresponds to case UG100\_DX10.}
 \label{fig:extraction_methodology_mean_DC}
 \end{figure}
-
-For estimating the mean pressures, the procedure schematized in Figure \ref{fig:extraction_methodology_mean_DC} is followed. First, the mean dense core is extracted from the resolved simulations as an iso-surface of the mean levelset surface: $\overline{\psi} = 0.5$. Then, the gradient vector $\nabla \left( \overline{\psi} \right)$ field is calculated on this surface, which points towards the direction of increasing values: that is, towards the inner part of the dense core, where $\overline{\psi} = 1$ in the areas where there is always liquid. The windward side of the mean dense core is then obtained as the region with a positive normal component of the gradient in the $x$ direction: $\nabla_x \left( \overline{\psi} \right) > 0$. Equivalently, the leeward side is defined by the points where $\nabla_x \left( \overline{\psi} \right) < 0$. Then, the mean pressure at both the windward and leeward sides, $p_\mathrm{windward}$ and $p_\mathrm{leeward}$ respectively, are calculated and taken as inputs to Eq. (\ref{eq:ALM_Fp_calculation_simplified}).
-
- 
-
 
 %Figure \ref{fig:jicf_DC_p_mean_scatterplots} shows scatterplots of the mean pressures obtained in the wind and leeward sides of the mean dense core projected in the $x-y$ plane. Pressures are positive in the windward side, the highest values being found in the central region close to the injector: here, the liquid column is mainly vertical and slightly deformed from a circular cross-section, hence the pressure exerted by the air is higher than at the top where the column starts deviating towards the crossflow direction (see Figure \ref{fig:extraction_methodology_mean_DC}). In the leeward side, the values are negative and minimum around the injector, while they increase upstream the dense core as its cross-section gets deformed. 
 

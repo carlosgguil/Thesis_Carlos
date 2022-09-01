@@ -80,7 +80,7 @@ t_cpu_saving = np.array([t_cpu[1], t_cpu[0], t_cpu_over_t_phys[0]*t_phys[1] ])
 
 #%% Bar graph(s) for computed hours
 
-plt.figure(figsize=figsize_bar)
+plt.figure(figsize=(FFIG*30,FFIG*15))
 ax = plt.gca()
 ax2 = ax.twinx()
 ax.bar(r1-barWidth/2, t_cpu, width=barWidth, color='black', edgecolor='white', capsize=barWidth*20)

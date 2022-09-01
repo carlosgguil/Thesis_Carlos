@@ -35,8 +35,6 @@ plt.rcParams['legend.framealpha'] = 1.0
 plt.rcParams['legend.loc']      = 'upper right'
 plt.rcParams['text.usetex'] = True
 figsize_ = (FFIG*26,FFIG*16)
-figsize_double = (FFIG*23.5,FFIG*18.5)
-
 
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part3_applications/figures_ch8_resolved/SPRAY_characterization/deformation/'
 
@@ -150,7 +148,7 @@ beta_mean_to_plot  = beta_mean_vw_cases
 
 
 # 
-plt.figure(figsize=figsize_double)
+plt.figure(figsize=(FFIG*23.5,FFIG*15.5))
 #plt.title(r'$u_g = 75~\mathrm{m}~\mathrm{s}^{-1}$',pad=40*FFIG)
 i = 0
 ax  = plt.gca()

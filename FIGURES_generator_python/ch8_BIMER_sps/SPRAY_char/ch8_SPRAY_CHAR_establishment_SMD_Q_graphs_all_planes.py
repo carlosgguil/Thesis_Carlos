@@ -33,7 +33,7 @@ plt.rcParams['lines.linewidth'] =  8*FFIG #6*FFIG
 plt.rcParams['legend.framealpha'] = 1.0
 plt.rcParams['legend.loc']      = 'upper right'
 plt.rcParams['text.usetex'] = True
-figsize_ = (FFIG*25,FFIG*22)
+figsize_ = (FFIG*25,FFIG*18)
 
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part3_applications/figures_ch8_resolved/SPRAY_characterization/establishment_and_fluxes/'
 
