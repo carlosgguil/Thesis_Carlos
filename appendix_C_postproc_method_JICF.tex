@@ -143,41 +143,13 @@ Table \ref{tab:jicf_tools_trajectories_obtention} shows a summary of the four me
 
 
 
-\begin{table}[!h]
-\centering
-\caption{Summary of methods for computing JICF trajectories}
-\begin{tabular}{ccc}
-\thickhline
-Group & Method & Name \\
-\thickhline
-\multirow{2}{*}{Instantaneous} & Non-monotonic & INST\_NM \\
- & Monotonic & INST\_M \\
- \hline
-\multirow{2}{*}{Mean} & Maximum gradient & MEAN\_GRAD \\
- & Iso-contour & MEAN\_CONT \\
-\thickhline
-\end{tabular}
-\label{tab:jicf_tools_trajectories_obtention}
-\end{table}
+
 
 
 
 
 \section{Direct measurement of liquid fluxes}
 \label{app:processing_JICF_IBS}
-
-The first step is to define the spatial regions where liquid rates will be calculated. For comparison with the lagrangian tracking methodology, fluxes will be measured in planes perpendicular to the crossflow direction (hereafter named sampling planes). Figure \ref{fig:jicf_interior_boundaries_surface_measurements}.  shows a schematic view of these planes, equally spaced at a distance of 5 mm: $x = 5, 10$ and $15$ mm. In simulations where liquid is removed at $x = 11$ mm, only the first two planes will be considered (since there is  no liquid flux through the third one). Furthermore, three more planes are defined parallel to the bottom wall to quantify the liquid flow rate that impinging the channel, phenomenon known as filming: $x < 5, 10$ and 15 mm. Therefore, each combination of sampling and filming surfaces will conform the outlet surfaces of a control volume enclosing the whole liquid jet (no outlet surfaces are located upstream the injection point as there is no liquid flowing in this direction, and the inlet surface corresponds to the liquid
-nozzle)
-
-
-
-\begin{figure}[ht]
-     \centering
-     \includeinkscape[inkscapelatex=false,scale=0.4]{./part2_developments/figures_ch5_resolved_JICF/sampling_planes_with_IBs}
-     \caption{Snapshot of a JICF simulation showing the droplets sampling planes (in grey) and the different filming regions}
-	% See: https://stackoverflow.com/questions/35210337/can-i-plot-several-histograms-in-3d/35225919
-      \label{fig:jicf_interior_boundaries_surface_measurements}
-\end{figure}
 
 While for obtaining lagrangian quantities the droplets are tracked through the sampling planes when they cross their axial locations $x$, direct measurement of the fluxes requires the integration of the level-set function $\psi$ in all the mesh elements conforming the plane. Therefore, it is necessary to consider all the mesh elements that intersect with the defined sampling plane for the numerical computation of the fluxes. Figure \ref{fig:jicf_IBs_sketch_calculation} shows an example of a plane perpendicular to the crossflow with all the 3D elements intersecting this plane. This geometrical entity where fluxes are directly integrated will be hereafter referred as \textbf{interior boundary} (IB). 
 
