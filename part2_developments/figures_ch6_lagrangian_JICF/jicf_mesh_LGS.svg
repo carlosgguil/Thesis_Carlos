@@ -139,14 +139,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="380.17857"
-     inkscape:cy="111.96429"
+     inkscape:zoom="1.979899"
+     inkscape:cx="386.13081"
+     inkscape:cy="151.27034"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="3200"
-     inkscape:window-height="1721"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
@@ -199,7 +199,7 @@
        x="54.941093"
        y="19.177673"
        clip-path="url(#clipPath1796)"
-       transform="matrix(1.037182,0,0,1.037182,24.182894,-15.578273)" />
+       transform="matrix(1.037182,0,0,1.037182,35.074127,-11.769682)" />
     <rect
        style="fill:none;stroke:#ff0000;stroke-width:0.365;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect1840"
@@ -208,9 +208,10 @@
        x="88.466217"
        y="31.67144" />
     <path
-       style="fill:none;stroke:#ff0000;stroke-width:0.165;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#marker2697)"
-       d="m 100.69379,31.87189 c 4.40995,-7.88445 4.40995,-7.88445 4.40995,-7.88445"
-       id="path2261" />
+       style="fill:none;stroke:#ff0000;stroke-width:0.165;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker2697)"
+       d="m 100.69379,31.87189 5.76437,-6.119019"
+       id="path2261"
+       sodipodi:nodetypes="cc" />
     <path
        style="fill:#0000ff;fill-opacity:1;stroke:#0000ff;stroke-width:0.365;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.19, 0.365;stroke-dashoffset:0;stroke-opacity:1"
        d="M 81.450388,8.7487657 V 45.506949"
@@ -231,25 +232,25 @@
        id="rect4394"
        width="25.205488"
        height="1.5558633"
-       x="95.566925"
-       y="21.944281" />
+       x="106.45816"
+       y="25.752871" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:2.82222px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="108.06721"
-       y="22.89357"
+       x="118.95844"
+       y="26.70216"
        id="text14102-2-3"><tspan
          sodipodi:role="line"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222px;font-family:serif;-inkscape-font-specification:serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
-         x="108.06721"
-         y="22.89357"
+         x="118.95844"
+         y="26.70216"
          id="tspan14140-20-1">Δx = 0.5 mm</tspan></text>
     <rect
        style="fill:none;stroke:#ff0000;stroke-width:0.372369;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1840-6"
        width="25.193554"
        height="19.283041"
-       x="95.566963"
-       y="4.2807474" />
+       x="106.4582"
+       y="8.0893383" />
   </g>
 </svg>

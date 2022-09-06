@@ -2,6 +2,7 @@
 
 
 \newcommand\scaleSLIJICF{0.15}
+\newcommand\scaleSLIJICFlarger{0.20}
 
 
 Once the global spray features have been studied, the discretization process described in $\S$\ref{subsec:SLI_spatial_discretization} can be applied to produce liquid injectors for dispersed-phase simulations. The resulting SLIs are shown in Figures \ref{fig:injectors_sli_uG75_dx10_x05} to \ref{fig:injectors_sli_uG100_dx20_x10_NT}. All sprays are discretized in grids composed of square probes, hence the convergence-driven discretization process is not applied here (it will be done in Chapter \ref{ch6:jicf_lgs_simulations} to illustrate the differences between the convergence-driven and ad-hoc injectors), since the objective here is to describe the spray states for the different sampled sprays. Then, each probe contains a spray represented by the magnitudes from Table \ref{tab:ch4_sli_injection_parameters_master_slide}: the magnitudes shown in the figures are the SMD, volume flux $q_l$, convergence map and mean velocities in axial, lateral and vertical directions ($u, v, w$ respectively). The convergence maps are shown through pixel maps, while the rest of the magnitudes have been interpolated in the grid for generating contour maps. The discretizing grids in each case are displayed in the volume-flux map and convergence maps.
@@ -24,21 +25,21 @@ The pixel maps show local converged sprays around the maximum fuel flux location
 \centering
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_SMD_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_SMD_map}
    %\caption{Case UG100\_DX20: crossflow planes}
    %\label{} 
 \end{subfigure}
    \hspace{0.17in}
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_volume_flux_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_volume_flux_map}
    %\caption{Case UG100\_DX20: filming planes}
    %\label{}
 \end{subfigure}
    \hspace{0.17in}
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_convergence_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_convergence_map}
    %\caption{Case UG100\_DX10: crossflow planes}
    %\label{} 
 \end{subfigure}
@@ -47,21 +48,21 @@ The pixel maps show local converged sprays around the maximum fuel flux location
 
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_ux_mean_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_ux_mean_map}
    %\caption{Case UG100\_DX20: crossflow planes}
    %\label{} 
 \end{subfigure}
    \hspace{0.17in}
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_uy_mean_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_uy_mean_map}
    %\caption{Case UG100\_DX20: filming planes}
    %\label{}
 \end{subfigure}
    \hspace{0.17in}
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_uz_mean_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x05_uz_mean_map}
    %\caption{Case UG100\_DX10: crossflow planes}
    %\label{} 
 \end{subfigure}
@@ -77,21 +78,21 @@ The pixel maps show local converged sprays around the maximum fuel flux location
 \centering
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_SMD_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_SMD_map}
    %\caption{Case UG100\_DX20: crossflow planes}
    %\label{} 
 \end{subfigure}
    \hspace{0.17in}
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_volume_flux_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_volume_flux_map}
    %\caption{Case UG100\_DX20: filming planes}
    %\label{}
 \end{subfigure}
    \hspace{0.17in}
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_convergence_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_convergence_map}
    %\caption{Case UG100\_DX10: crossflow planes}
    %\label{} 
 \end{subfigure}
@@ -100,21 +101,21 @@ The pixel maps show local converged sprays around the maximum fuel flux location
 
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_ux_mean_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_ux_mean_map}
    %\caption{Case UG100\_DX20: crossflow planes}
    %\label{} 
 \end{subfigure}
    \hspace{0.17in}
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_uy_mean_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_uy_mean_map}
    %\caption{Case UG100\_DX20: filming planes}
    %\label{}
 \end{subfigure}
    \hspace{0.17in}
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_uz_mean_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG75_dx10_x10_uz_mean_map}
    %\caption{Case UG100\_DX10: crossflow planes}
    %\label{} 
 \end{subfigure}
@@ -300,21 +301,21 @@ The pixel maps show local converged sprays around the maximum fuel flux location
 \centering
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_SMD_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_SMD_map}
    %\caption{Case UG100\_DX20: crossflow planes}
    %\label{} 
 \end{subfigure}
    \hspace{0.17in}
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_volume_flux_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_volume_flux_map}
    %\caption{Case UG100\_DX20: filming planes}
    %\label{}
 \end{subfigure}
    \hspace{0.17in}
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_convergence_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_convergence_map}
    %\caption{Case UG100\_DX10: crossflow planes}
    %\label{} 
 \end{subfigure}
@@ -323,21 +324,21 @@ The pixel maps show local converged sprays around the maximum fuel flux location
 
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_ux_mean_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_ux_mean_map}
    %\caption{Case UG100\_DX20: crossflow planes}
    %\label{} 
 \end{subfigure}
    \hspace{0.17in}
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_uy_mean_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_uy_mean_map}
    %\caption{Case UG100\_DX20: filming planes}
    %\label{}
 \end{subfigure}
    \hspace{0.17in}
 \begin{subfigure}[b]{0.3\textwidth}
 	\centering
-   \includegraphics[scale=\scaleSLIJICF]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_uz_mean_map}
+   \includegraphics[scale=\scaleSLIJICFlarger]{./part2_developments/figures_ch5_resolved_JICF/injectors_SLI/uG100_dx10_x05_uz_mean_map}
    %\caption{Case UG100\_DX10: crossflow planes}
    %\label{} 
 \end{subfigure}

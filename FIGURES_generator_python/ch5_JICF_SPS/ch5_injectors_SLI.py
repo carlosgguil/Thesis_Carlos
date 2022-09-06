@@ -15,7 +15,7 @@ sys.path.append('C:/Users/Carlos Garcia/Documents/GitHub/spr_post')
 sys.path.append('..')
 from sli_functions import load_all_SPS_global_sprays, load_all_SPS_grids, plot_grid
 
-folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/injectors_SLI/'
+folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch5_resolved_JICF/injectors_SLI_backup/'
 folder = 'C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/'
 
 plt.rcParams['xtick.labelsize'] = 80*FFIG #40*FFIG

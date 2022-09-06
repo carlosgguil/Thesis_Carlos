@@ -8,6 +8,9 @@ Created on Mon Jul  1 10:04:13 2019
 
 import sys
 sys.path.append('C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/LGS_previous_numerical_works/')
+sys.path.append('C:/Users/Carlos Garcia/Documents/GitHub/spr_post')
+from sprPost_functions import pickle_load
+from functions_expe_comparison import average_along_y, average_along_z
 
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
@@ -45,7 +48,7 @@ figsize_SMD_z  = (FFIG*18,FFIG*21)
 folder_manuscript='C:/Users/Carlos Garcia/Documents/GitHub/Thesis_Carlos/part2_developments/figures_ch6_lagrangian_JICF/previous_numerical_results/'
 folder_numerics = 'C:/Users/Carlos Garcia/Desktop/Ongoing/JICF/LGS_previous_numerical_works/'
 folder_expe = 'C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/DLR_data/'
-
+folder_present_work = 'C:/Users/Carlos Garcia/Desktop/Ongoing/Droplet postprocessing/LGS_sprays_LAST/apte_model_calibration_u_vw_lognorm/k1_0p05_k2_1p0/store_variables/'
 
 PLOT_numerical_works = True
 
@@ -79,9 +82,25 @@ width_error_lines = 4*FFIG
 caps_error_lines  = 15*FFIG
 
 
-#%% Read numerical data
+#%% Read numerical data from previous works
 
 y_q, q_y, y_SMD, SMD_y, z_q, q_z, z_SMD, SMD_z = read_cases_integrated_profiles(folder_numerics)
+
+
+#%% Read data from present work (pw)
+format_pw = '--k'
+label_pw = r'$\mathrm{Present~work}$'
+
+spray_pw = pickle_load(folder_present_work + 'sprays_list_x=80mm')
+grid_pw  = pickle_load(folder_present_work + 'grids_list_x=80mm')
+
+
+# averaged along y
+z_loc_pw, vol_flux_pw_along_z, SMD_pw_along_z = average_along_y(grid_pw)
+    
+# averaged along z
+y_loc_pw, vol_flux_pw_along_y, SMD_pw_along_y = average_along_z(grid_pw)
+
 
 #%% Read experimental data
 
@@ -109,12 +128,16 @@ error_SMD_z_expe = SMD_z_expe*error_SMD
 #%% Plot flux along z
 
 plt.figure(figsize=figsize_flux_z)
+# expe results
 plt.plot(q_z_expe, z_expe,format_expe,label=labels_expe)
 plt.errorbar(q_z_expe, z_expe, xerr=error_q_z_expe, color='black', fmt='o',
              linewidth=width_error_lines,capsize=caps_error_lines)
+# previous numerical works
 if PLOT_numerical_works:
     for i in range(len(z_q)):
         plt.plot(q_z[i], z_q[i], formats[i], label=labels_cases[i])
+# my results        
+plt.plot(vol_flux_pw_along_z, z_loc_pw, format_pw, label = label_pw)
 plt.legend(loc='best')
 plt.xlabel(label_ql)
 plt.xlim(lims_ql)
@@ -128,6 +151,8 @@ plt.close()
 
 
 
+
+
 #%% Plot SMD along z
 
 plt.figure(figsize=figsize_SMD_z)
@@ -138,6 +163,7 @@ if PLOT_numerical_works:
     for i in range(len(z_SMD)):
         if z_SMD[i] is not None:
             plt.plot(SMD_z[i], z_SMD[i], formats[i], label=labels_cases[i])
+plt.plot(SMD_pw_along_z, z_loc_pw, format_pw, label = label_pw)
 #plt.legend(loc='best')
 plt.xlabel(label_SMD)
 plt.xlim(lims_SMD_z)
@@ -175,6 +201,7 @@ plt.errorbar(y_expe, q_y_expe, yerr=error_q_y_expe, color='black', fmt='o',
 if PLOT_numerical_works:
     for i in range(len(y_q)):
         plt.plot(y_q[i], q_y[i], formats[i], label=labels_cases[i])
+plt.plot(y_loc_pw, vol_flux_pw_along_y, format_pw, label = label_pw)
 #plt.legend(loc='best')
 plt.xlabel(label_y)
 plt.xlim(lims_y)
@@ -185,6 +212,8 @@ plt.tight_layout()
 plt.savefig(folder_manuscript+'flux_profiles_along_y.pdf')
 plt.show()
 plt.close()
+
+
 
 #%% Plot SMD along y
 
@@ -197,6 +226,8 @@ if PLOT_numerical_works:
     for i in range(len(y_SMD)):
         if y_SMD[i] is not None:
             plt.plot(y_SMD[i], SMD_y[i], formats[i], label=labels_cases[i])
+
+plt.plot(y_loc_pw, SMD_pw_along_y, format_pw, label = label_pw)
 #plt.legend(loc='best')
 plt.xlabel(label_y)
 plt.xlim(lims_y)
@@ -208,3 +239,4 @@ plt.tight_layout()
 plt.savefig(folder_manuscript+'SMD_profiles_along_y.pdf')
 plt.show()
 plt.close()
+
