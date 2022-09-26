@@ -69,7 +69,8 @@ y_label_alpha_mean = r'$\overline{\alpha}_\mathrm{VW}$'
 y_label_alpha_rms  = r'$\alpha_\mathrm{RMS}$'
 y_label_beta_mean = r'$\overline{\beta}_\mathrm{VW}$'
 y_label_beta_rms = r'$\beta_\mathrm{RMS}$'
-y_label_alpha_beta_mean = r'$\overline{\alpha}_\mathrm{VW}, \overline{\beta}_\mathrm{VW}$'
+#y_label_alpha_beta_mean = r'$\overline{\alpha}_\mathrm{VW}, \overline{\beta}_\mathrm{VW}$'
+y_label_alpha_beta_mean = r'$\hspace{-1in}\overline{\beta}_\mathrm{VW} ~~~~~~~~~~~ \overline{\alpha}_\mathrm{VW}$'
 
 
 # legend labels
@@ -168,6 +169,7 @@ ax.set_ylim(0.2,2.5)
 #ax.set_yticks([0.25,0.5,0.75, 1,2, 3,4])
 ax.grid()
 ax.legend(loc='best',ncol=1)
+ax.yaxis.set_label_coords(-.1, .425)
 plt.tight_layout(pad=0)
 plt.savefig(folder_manuscript+'deformation_both_alpha_beta_mean.pdf')
 plt.show()

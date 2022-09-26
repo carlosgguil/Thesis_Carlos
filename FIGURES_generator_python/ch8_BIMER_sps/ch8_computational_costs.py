@@ -115,11 +115,19 @@ plt.arrow(x_arrow, y_arrow, 0, -1*l_arrow, head_width=head_width_, head_length=h
 plt.text(x_arrow-0.15, y_arrow-l_arrow/1.5, r'$\mathrm{Cost~\\savings}$',
              color='black', rotation='vertical',fontsize=90*FFIG)
 # texts with accumulation times
+'''
 plt.text(-0.40, -2.5, r'$t_\mathrm{acc} = 2.64~\mathrm{ms} $',
          color='black', fontsize=90*FFIG)
 plt.text(0.60, -2.5, r'$t_\mathrm{acc} = 0.96~\mathrm{ms} $',
          color='black', fontsize=90*FFIG)
 plt.text(1.60, -2.5, r'$t_\mathrm{acc} = 2.64~\mathrm{ms} $',
+         color='black', fontsize=90*FFIG)
+'''
+plt.text(-0.40, -2.5, r'$t_\mathrm{ph} = 3.81~\mathrm{ms} $',
+         color='black', fontsize=90*FFIG)
+plt.text(0.60, -2.5, r'$t_\mathrm{ph} = 1.73~\mathrm{ms} $',
+         color='black', fontsize=90*FFIG)
+plt.text(1.60, -2.5, r'$t_\mathrm{ph} = 3.81~\mathrm{ms} $',
          color='black', fontsize=90*FFIG)
 
 '''    

@@ -445,7 +445,7 @@ Figure \ref{fig:BIMER_application_streamlines} shows the mean axial velocity fie
 \label{fig:BIMER_application_streamlines}
 \end{figure}
 
-
+\subsection{Velocity fields in the middle plane}
 
 The mean and RMS velocity fields in the axial, vertical and transversal directions are shown in Figure \ref{fig:field_application}. The high values of mean vertical velocity $\overline{v}$ in the diffusor indicate the jet opening, and can influence the fuel introduced through the multipoint injector: as shown later in Chapter \ref{ch9:BIMER_lagrangian}, such high velocities make the injected spray to open and approach the walls of the diffusor, while moving away from the central line $x = 0$. This creates a \textsl{hollow cone} of droplets if the pilot injector is not activated. Furthermore, the mean transversal velocity $\overline{w}$ has also a very strong component, which will give a rotational motion to the droplets in the azimuthal direction. The high maximum values of $\overline{w}$, which are of the order of $\overline{u}$, indicate a strong swirl of the jet, being in accord with the value for the swirl number $S_w \sim 1$ as stated by \citeColor[renaud_high-speed_2015].
 
@@ -482,46 +482,46 @@ In all cases, the RMS values are really high closer to the injector and decrease
 \end{figure}
 
 \clearpage
-%
-%\subsection{Turbulent structures}
-%
-%As specified in $\S$\ref{subsec:BIMER_ch7_sw_vortex_breakdown}, when $S_w > 0.6$ a change in the flow field topology due to the strong rotational motion appears, known as vortex breakdown \citepColor[lucca-negro_vortex_2001]. This topology change creates two main features: different recirculation regions, discussed previously and seen in Figures \ref{fig:BIMER_mean_axial_velocities} and \ref{fig:BIMER_application_streamlines}, and the appearance of the Precessing Vortex Core (PVC). The PVC is a helical structure of high rotational velocity arising from an instability in the shear layer at the exit of the injector. It rotates around the axis of symmetry. Figure \ref{fig:BIMER_application_turbulent_structures} left shows the PVC visualized by a isobaric contour of low static pressure. The PVC can strongly impact the spray dispersion and the mixing field in reactive cases, creating pockets of low mixture fraction where ignition could hardly take place \citepColor[jaegle_eulerian_2011].
-%
-%Finally, the high turbulent state found within BIMER can also be demonstrated by showing the unsteady, coherent vortical structures of the flow. Such structures can be illustrated with the Q-criterion defined by \citeColor[jeong_identification_1995]:
-%
+
+\subsection{Turbulent structures}
+
+As specified in $\S$\ref{subsec:BIMER_ch7_sw_vortex_breakdown}, when $S_w > 0.6$ a change in the flow field topology due to the strong rotational motion appears, known as vortex breakdown \citepColor[lucca-negro_vortex_2001]. This topology change creates two main features: different recirculation regions, discussed previously and seen in Figures \ref{fig:BIMER_mean_axial_velocities} and \ref{fig:BIMER_application_streamlines}, and the appearance of the Precessing Vortex Core (PVC). The PVC is a helical structure of high rotational velocity arising from an instability in the shear layer at the exit of the injector. It rotates around the axis of symmetry. Figure \ref{fig:BIMER_application_turbulent_structures} left shows the PVC visualized by a isobaric contour of low static pressure. The PVC can strongly impact the spray dispersion and the mixing field in reactive cases, creating pockets of low mixture fraction where ignition could hardly take place \citepColor[jaegle_eulerian_2011].
+
+Finally, the high turbulent state found within BIMER can also be demonstrated by showing the unsteady, coherent vortical structures of the flow. Such structures can be illustrated with the Q-criterion defined by \citeColor[jeong_identification_1995]:
+
+\begin{equation}
+Q = \frac{1}{2} \left( \Omega_{ij} \Omega_{ij} - S_{ij} S_{ij} \right)
+\end{equation}
+
+where $\Omega_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} - \frac{\partial u_j}{\partial x_i} \right)$ and $S_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i} \right)$ are respectively the symmetric and antisymmetric components of $\nabla \textbf{u}$. Figure \ref{fig:BIMER_application_turbulent_structures} right shows the vortical structures visualized through an iso-contour Q = $2 \cdot 10^8$ s$^{-2}$. Small eddies are created at the exit of the injector, upstream the diffuser, due to the swirling motion of the flow. Further downstream, the eddies show larger characteristic sizes. These vortices show a transversal structure and more wrinkling with respect to the vortices upstream, probably due to the roll-up of shear layers in this region \citepColor[huang_systematic_2006].
+
 %\begin{equation}
-%Q = \frac{1}{2} \left( \Omega_{ij} \Omega_{ij} - S_{ij} S_{ij} \right)
+%S_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i} \right) ~~~~ ; ~~~~ \Omega_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} - \frac{\partial u_j}{\partial x_i} \right)
 %\end{equation}
-%
-%where $\Omega_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} - \frac{\partial u_j}{\partial x_i} \right)$ and $S_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i} \right)$ are respectively the symmetric and antisymmetric components of $\nabla \textbf{u}$. Figure \ref{fig:BIMER_application_turbulent_structures} right shows the vortical structures visualized through an iso-contour Q = $2 \cdot 10^8$ s$^{-2}$. Small eddies are created at the exit of the injector, upstream the diffuser, due to the swirling motion of the flow. Further downstream, the eddies show larger characteristic sizes. These vortices show a transversal structure and more wrinkling with respect to the vortices upstream, probably due to the roll-up of shear layers in this region \citepColor[huang_systematic_2006].
-%
-%%\begin{equation}
-%%S_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i} \right) ~~~~ ; ~~~~ \Omega_{ij} = \frac{1}{2} \left( \frac{\partial u_i}{\partial x_j} - \frac{\partial u_j}{\partial x_i} \right)
-%%\end{equation}
-%
-%
-%
-%
-%% ref vortices in swirl: https://arc.aiaa.org/doi/pdf/10.2514/1.15382
-%
-%\begin{figure}[ht]
-%\centering
-%\begin{subfigure}[b]{0.4\textwidth}
-%	\centering
-%   \includegraphics[scale=0.35]{./part3_applications/figures_ch7_aero/BIMER_application_PVC/PVC_P_m3000}
-%   %\caption{PVC visualization (green) by iso-contour of statis pressure}
-%   \label{fig:BIMER_application_PVC}
-%\end{subfigure}
-%\hspace{0.8in}
-%\begin{subfigure}[b]{0.4\textwidth}
-%\centering
-%   \includegraphics[scale=0.35]{./part3_applications/figures_ch7_aero/BIMER_application_PVC/Q_crit_2e8}
-%   %\caption{Vortical structures shown by iso-surface of Q-criterion}
-%   \label{fig:BIMER_application_Qcrit}
-%\end{subfigure}
-%\caption[Turbulent structures in BIMER]{Turbulent structures in BIMER from case APP\_FINE. \textsl{Left}: PVC visualization (blue) by iso-contour of static pressure. \textsl{Right}: Vortical structures (red) shown by iso-surface of Q-criterion}
-%\label{fig:BIMER_application_turbulent_structures}
-%\end{figure}
+
+
+
+
+% ref vortices in swirl: https://arc.aiaa.org/doi/pdf/10.2514/1.15382
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.4\textwidth}
+	\centering
+   \includegraphics[scale=0.35]{./part3_applications/figures_ch7_aero/BIMER_application_PVC/PVC_P_m3000}
+   %\caption{PVC visualization (green) by iso-contour of statis pressure}
+   \label{fig:BIMER_application_PVC}
+\end{subfigure}
+\hspace{0.8in}
+\begin{subfigure}[b]{0.4\textwidth}
+\centering
+   \includegraphics[scale=0.35]{./part3_applications/figures_ch7_aero/BIMER_application_PVC/Q_crit_2e8}
+   %\caption{Vortical structures shown by iso-surface of Q-criterion}
+   \label{fig:BIMER_application_Qcrit}
+\end{subfigure}
+\caption[Turbulent structures in BIMER]{Turbulent structures in BIMER from case APP\_FINE. \textsl{Left}: PVC visualization (blue) by iso-contour of static pressure. \textsl{Right}: Vortical structures (red) shown by iso-surface of Q-criterion}
+\label{fig:BIMER_application_turbulent_structures}
+\end{figure}
 
 
 
@@ -530,6 +530,6 @@ In all cases, the RMS values are really high closer to the injector and decrease
 
 \section{Conclusion}
 
-This chapter has presented non-reactive LES gaseous simulations of the BIMER test bench. In first place, the experimental test rig at EM2C and the operating conditions chosen to perform simulations have been introduced. Two experimental points have been chosen: one studied by \citeColor[providakis_etude_2013] which presents data on the gaseous flow field, and another one tested by \citeColor[renaud_high-speed_2015] which does not show aerodynamic quantities, but studies the spray injection and dispersion. Firstly, simulations with YALES2 have been validated on the former operating condition. From this study, a fine mesh of 38 million elements has been chosen as the baseline mesh for simulating the second operating condition (application case). Results for this case show a good behaviour of the gaseous flow field for swirling jets with high swirl number, in accordance with the flow topologies and velocity fields from literature in similar cases. The simulations of the application case are then used as initial solutions to perform the resolved simulations from Chapter \ref{ch8:bimer_resolved_atomization} and the dispersed phase computations from Chapter \ref{ch9:BIMER_lagrangian}.
+This chapter has presented non-reactive LES gaseous simulations of the BIMER test bench. In first place, the experimental test rig at EM2C and the operating conditions chosen to perform simulations have been introduced. Two experimental points have been chosen: one studied by \citeColor[providakis_etude_2013] which presents data on the gaseous flow field, and another one tested by \citeColor[renaud_high-speed_2015] which does not show aerodynamic quantities, but studies the spray injection and dispersion. Firstly, simulations with YALES2 have been validated on the former operating condition. From this study, a fine mesh of 38 million elements has been chosen as the baseline mesh for simulating the second operating condition. Results for this case show a good behaviour of the gaseous flow field for swirling jets with high swirl number, in accordance with the flow topologies and velocity fields from literature in similar cases. Turbulent structures (PVC and vortices visualized through the Q-criterion) have been identified, demonstrating the turbulent characteristics of the operating points simulated. The simulations of the application case are then used as initial solutions to perform the resolved simulations from Chapter \ref{ch8:bimer_resolved_atomization} and the dispersed phase computations from Chapter \ref{ch9:BIMER_lagrangian}.
 
 %

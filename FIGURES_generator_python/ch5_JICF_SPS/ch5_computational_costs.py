@@ -58,9 +58,12 @@ cases = [label_UG75_DX10 , label_UG75_DX20,
          label_UG100_DX10, label_UG100_DX20,
          label_UG100_DX20_NT]
 
-label_UG100_DX20_saving = r'$\mathrm{UG}100\_\mathrm{DX}20$\\\\ ~~~~~~~~~~$t_\mathrm{acc} = 5.57~\mathrm{ms} $'
-label_UG100_DX10_saving = r'$\mathrm{UG}100\_\mathrm{DX}10$\\\\ ~~~~~~~~~~$t_\mathrm{acc} = 0.37~\mathrm{ms} $'
-label_UG100_DX10_saving_long = r'$\mathrm{UG}100\_\mathrm{DX}10$\\\\ ~~~~~~~~~~$t_\mathrm{acc} = 5.57~\mathrm{ms} $'
+#label_UG100_DX20_saving = r'$\mathrm{UG}100\_\mathrm{DX}20$\\\\ ~~~~~~~~~~$t_\mathrm{acc} = 5.57~\mathrm{ms} $'
+#label_UG100_DX10_saving = r'$\mathrm{UG}100\_\mathrm{DX}10$\\\\ ~~~~~~~~~~$t_\mathrm{acc} = 0.37~\mathrm{ms} $'
+#label_UG100_DX10_saving_long = r'$\mathrm{UG}100\_\mathrm{DX}10$\\\\ ~~~~~~~~~~$t_\mathrm{acc} = 5.57~\mathrm{ms} $'
+label_UG100_DX20_saving = r'$\mathrm{UG}100\_\mathrm{DX}20$\\\\ ~~~~~~~~~~$t_\mathrm{ph} = 6.16~\mathrm{ms} $'
+label_UG100_DX10_saving = r'$\mathrm{UG}100\_\mathrm{DX}10$\\\\ ~~~~~~~~~~$t_\mathrm{ph} = 0.78~\mathrm{ms} $'
+label_UG100_DX10_saving_long = r'$\mathrm{UG}100\_\mathrm{DX}10$\\\\ ~~~~~~~~~~$t_\mathrm{ph} = 6.16~\mathrm{ms} $'
 cases_saving = [label_UG100_DX20_saving, label_UG100_DX10_saving, label_UG100_DX10_saving_long]
 
 

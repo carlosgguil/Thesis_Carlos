@@ -424,7 +424,7 @@ Finally, the gaseous fields at planes perpendicular to the vertical direction $z
 \end{figure}
 
 
-
+\vspace*{-0.2in}
 
 
 \subsection{Direct measurement of liquid fluxes}
@@ -449,7 +449,7 @@ In first place, the instantaneous flux for simulation DX10 are shown in Figure \
 
 The evolution of the mean ($\overline{Q}_l$) and RMS ($Q_\mathrm{l,\mathrm{RMS}}$) flow rates through the IBS for all simulations is shown in Figure \ref{fig:IB_mean_RMS_Ql_evolution}. Mean fluxes (Figure \ref{fig:IB_mean_RMS_Ql_evolution} left) show oscillations at the early instants and a later stabilization to converged values. Case DX15 is converged while case DX10 still shows oscillations at the last sampling times due to the flux overshoots around $t^\prime \sim 4.2$ shown in Figure \ref{fig:IB_liquid_flow_rate_inst_evolution_BIMER}. Such overshoots are also reflected in the step increase in the RMS evolution (Figure \ref{fig:IB_mean_RMS_Ql_evolution} right) for the same case. %\hl{The coarses case DX15 shows the mean flux at the location $x_c/d_\mathrm{inj} = 0.33$, which is the closest location to the injector, to be larger than the injected mass flow rate: this is due to liquid flow recirculation at this location, since the resolution is coarse and the liquid structures emanating from the dense core stay attached to it... This recirculation has not been observed for the other two resolutions, which indicates that the interface resolution $\Delta x_\mathrm{min} = 15~\mu $m is not enough to resolve BIMER}.
 
-In all simulations, there is a decrease in the mass flux with increasing axial distance $x_c$ as it was also observed in the JICF simulations of Chapter \ref{ch5:jicf_resolved_simulations}. The final mean values of the fluxes, displayed in the bar chart of Figure \ref{fig:BIMER_IB_bargraph_mean}, reflect this trend of mass flux reduction in a more visual way. The RMS values are also shown in the same graph by the vertical bars: these ones have large magnitudes, of the order of the mass flow rates obtained (see Figure \ref{fig:IB_mean_RMS_Ql_evolution}b), which indicate the high variance in the instantaneous mass flow rates crossing the sampling planes. Regarding fluxes decreases with axial distance, it is seen that the losses among consecutive sampling planes are larger for the coarse case DX15 than for the fine one DX10, since in the former the resolution limit is more restrictive and there are more droplets disappearing than in the latter. Even so, the mean fluxes show a good evolution with values close to the injected flow rates, with reductions along the axial distance due to filming and vanishing liquid structures when reaching a size of the order of the mesh resolution, as it was demonstrated in the resolved simualtions of the JICF test case from Chapter \ref{ch5:jicf_resolved_simulations}.
+In all simulations, there is a decrease in the mass flux with increasing axial distance $x_c$ as it was also observed in the JICF simulations of Chapter \ref{ch5:jicf_resolved_simulations}. The final mean values of the fluxes, displayed in the bar chart of Figure \ref{fig:BIMER_IB_bargraph_mean}, reflect this trend of mass flux reduction in a more visual way. The reason of flux decrease is the same as in that chapter: small droplets reach characteristic dimensiones around the order of the interface cell size and are removed from the simulation. The RMS values are also shown in Figure \ref{fig:BIMER_IB_bargraph_mean} by the vertical bars: these ones have large magnitudes, of the order of the mass flow rates obtained (see Figure \ref{fig:IB_mean_RMS_Ql_evolution}b), which indicate the high variance in the instantaneous mass flow rates crossing the sampling planes. Regarding fluxes decreases with axial distance, it is seen that the losses among consecutive sampling planes are larger for the coarse case DX15 than for the fine one DX10, since in the former the resolution limit is more restrictive and there are more droplets disappearing than in the latter. Even so, the mean fluxes show a good evolution with values close to the injected flow rates, with reductions along the axial distance due to filming and vanishing liquid structures when reaching a size of the order of the mesh resolution. 
 
 %\begin{figure}[ht]
 %\centering
@@ -469,6 +469,7 @@ In all simulations, there is a decrease in the mass flux with increasing axial d
    %\label{} 
 \end{subfigure}
 \vskip\baselineskip
+\vspace*{-0.2in}
 \begin{subfigure}[b]{0.9\textwidth}
 	\centering
    \includegraphics[scale=0.3]{./part3_applications/figures_ch8_resolved/flow_rates_ibs/evolution_RMS_Q_iso_x}
@@ -476,6 +477,7 @@ In all simulations, there is a decrease in the mass flux with increasing axial d
    %\caption{RMS $Q_l$ evolution in IBs perpendicular to crossflow.}
    %\label{}
 \end{subfigure}
+\vspace*{-0.1in}
 \caption{Time evolution of mean (\textsl{top}) and RMS (\textsl{bottom}) fluxes in BIMER IBs}
 \label{fig:IB_mean_RMS_Ql_evolution}
 \end{figure}
