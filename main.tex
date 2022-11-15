@@ -34,7 +34,8 @@
 % Include the cover
 % My cover
 \begin{titlepage}
-	\include{cover}
+	%\include{cover}
+	\includepdf[pages=-]{couverture_these.pdf}
 \end{titlepage}
 
 %%%% Toulouse Cover %%%%%%%%%%% https://tlsflyleaf.onada.fr/
@@ -42,9 +43,14 @@
 
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \pagenumbering{roman}
+\newpage
+\shipout\null 
+\newpage
+\include{abstract}
 \newpage
 
 %\shipout\null % Blank page 
@@ -78,10 +84,6 @@
 \newpage
 \shipout\null 
 \newpage
-\include{abstract}
-\newpage
-\shipout\null 
-\newpage
 \listoffigures
 \addcontentsline{toc}{chapter}{List of Figures}
 \newpage
@@ -110,7 +112,7 @@
 
 %
 
-%%----------- Part 0: Intro --------------
+%----------- Part 0: Intro --------------
 \include{ch1_introduction}
 \newpage	
 
