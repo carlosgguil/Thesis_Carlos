@@ -95,7 +95,7 @@ plt.legend(loc='best', numpoints = 2, framealpha=1)
 #plt.title(title)
 #plt.title(r'$(b)$ $q=6$, $We_\infty = 1470$')
 plt.tight_layout()
-plt.savefig(folder_manuscript+'trajectories_BIMER.pdf')
+#plt.savefig(folder_manuscript+'trajectories_BIMER.pdf')
 plt.show()
 plt.close()
 

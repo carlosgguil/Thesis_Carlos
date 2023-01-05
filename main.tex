@@ -88,11 +88,13 @@
 \addcontentsline{toc}{chapter}{List of Figures}
 \newpage
 \shipout\null 
+\stepcounter{page}
 \newpage
 \listoftables
 \addcontentsline{toc}{chapter}{List of Tables}
 \newpage
 \shipout\null 
+\stepcounter{page}
 \newpage
 
 
@@ -119,7 +121,15 @@
 %%%----------- Part I: Numerical approaches --------------
 \part{Numerical approaches to model injection systems}
 
+\newpage
+\shipout\null 
+\stepcounter{page}
+\newpage
+
 \include{ch2_numerical_methods_resolved_atomization}
+\newpage
+\shipout\null 
+\stepcounter{page}
 \newpage
 
 \include{ch3_numerical_methods_disperse_phase}
@@ -131,25 +141,53 @@
 
 %----------- Part II: Building SLI  --------------
 \part{Building lagrangian injectors from resolved atomization simulations}
+
+
+\newpage
+\shipout\null 
+\stepcounter{page}
+\newpage
+
 \include{ch4_SLI}
 \newpage 
 \include{ch5_JICF_resolved}
 \newpage
 \include{ch6_JICF_lagrangian}
 \newpage
+\shipout\null % Blank page
+\stepcounter{page}
+\newpage
 %
 %%%%%%----------- Part III: BIMER  --------------
+
 \part{Application to a multipoint injector}
+\newpage
+\shipout\null % Blank page
+\stepcounter{page}
+\newpage
 \include{ch7_BIMER_aero}
 \newpage 
+\shipout\null % Blank page
+\stepcounter{page}
+\newpage
 \include{ch8_BIMER_resolved}
+\newpage
+\shipout\null % Blank page
+\stepcounter{page}
 \newpage
 \include{ch9_BIMER_lagrangian}
 \newpage
 
 \part{Conclusions and perspectives}
+\newpage
+\shipout\null % Blank page
+\stepcounter{page}
+\newpage
 \include{ch_last_conclusions_perspectives}
-
+\newpage
+\shipout\null % Blank page
+\stepcounter{page}
+\newpage
 
 \fancyhead[LO]{}
 \fancyhead[RO]{Bibliography}
@@ -162,10 +200,17 @@
 
 %%%% Appendices
 \newpage
+\shipout\null % Blank page
+\stepcounter{page}
+\newpage
 
 
 %%%----------- Part IV: Appendices --------------
 \part{Appendices}
+\newpage
+\shipout\null % Blank page
+\stepcounter{page}
+\newpage
 \begin{appendices}
 \input{appendix_A_JICF_BL_SETUP}
 \newpage
