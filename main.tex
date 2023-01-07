@@ -28,50 +28,55 @@
 \begin{document}
 
 
-% Portada:
+%%%% ----------- Portada
 % https://tlsflyleaf.onada.fr/
 
 % Include the cover
 % My cover
+
+\pagenumbering{roman}
 \begin{titlepage}
 	%\include{cover}
 	\includepdf[pages=-]{couverture_these.pdf}
 \end{titlepage}
 
-%%%% Toulouse Cover %%%%%%%%%%% https://tlsflyleaf.onada.fr/
-%\include{cover_toulouse}
 
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\pagenumbering{roman}
+%%%% ----------- Citas
+\shipout\null % Blank page 
+\stepcounter{page}
 \newpage
+%%\setcounter{page}{3}
+\include{citas_espanol_frances}
+\newpage
+
+
+
+
+%%%% ----------- Acknowledgments
+\shipout\null % Blank page 
+\stepcounter{page}
+\newpage
+\include{acknowledgements}
+\newpage
+
+
+
+%%%% ----------- Abstracts
 \shipout\null 
+\stepcounter{page}
 \newpage
 \include{abstract}
 \newpage
 
-%\shipout\null % Blank page 
-%\stepcounter{page}
-%\newpage
-%\setcounter{page}{3}
-%\include{citas_espanol_frances}
-%\newpage
 
 \shipout\null % Blank page
 \stepcounter{page}
 \setcounter{tocdepth}{2}    % entries down to \subsections in the TOC
 \tableofcontents
 %\newpage
-%\include{acknowledgements}
-
-%\newpage
-%\shipout\null % Blank page
-%\stepcounter{page}
-%\newpage
-%\include{cita_zafon}
 
 
 
@@ -83,6 +88,7 @@
 \include{nomenclature}
 \newpage
 \shipout\null 
+\stepcounter{page}
 \newpage
 \listoffigures
 \addcontentsline{toc}{chapter}{List of Figures}
