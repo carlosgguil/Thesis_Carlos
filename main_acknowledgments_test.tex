@@ -1,0 +1,153 @@
+
+\documentclass[twoside]{report}
+
+
+% Load the packagesl
+\include{packages_load}
+
+
+% Greek letters inkscape:
+% http://kestrel.nmt.edu/~raymond/software/howtos/greekscape.xhtml
+
+% Headers and footers
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+
+\pagestyle{fancy}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RE]{}
+\fancyhead[LO]{}
+%\fancyhead[RO]{Guides and tutorials}
+\fancyfoot[CE,CO]{\thepage}
+
+
+
+% volume fraction reference in document:
+% \ref{eq:vol_frac_definition}
+
+\begin{document}
+
+
+%%%% ----------- Portada
+% https://tlsflyleaf.onada.fr/
+
+% Include the cover
+% My cover
+
+\pagenumbering{roman}
+\begin{titlepage}
+	%\include{cover}
+	\includepdf[pages=-]{couverture_these.pdf}
+\end{titlepage}
+
+
+
+
+
+%%%% ----------- Citas
+\shipout\null % Blank page 
+\stepcounter{page}
+\newpage
+%%\setcounter{page}{3}
+\include{citas_espanol_frances}
+\newpage
+
+
+
+
+%%%% ----------- Acknowledgments
+\shipout\null % Blank page 
+\stepcounter{page}
+\newpage
+\include{acknowledgements}
+\newpage
+
+
+
+%%%% ----------- Abstracts
+\shipout\null 
+\stepcounter{page}
+\newpage
+\include{abstract}
+\newpage
+
+
+\shipout\null % Blank page
+\stepcounter{page}
+\setcounter{tocdepth}{2}    % entries down to \subsections in the TOC
+\tableofcontents
+%\newpage
+
+
+
+
+\newpage
+\shipout\null % Blank page
+\stepcounter{page}
+\newpage
+\include{nomenclature}
+\newpage
+\shipout\null 
+\stepcounter{page}
+\newpage
+\listoffigures
+\addcontentsline{toc}{chapter}{List of Figures}
+\newpage
+\shipout\null 
+\stepcounter{page}
+\newpage
+\listoftables
+\addcontentsline{toc}{chapter}{List of Tables}
+\newpage
+\shipout\null 
+\stepcounter{page}
+\newpage
+
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+
+\renewcommand{\thechapter}{\arabic{chapter}}
+\titleformat{\chapter}[display]
+{\bfseries\Huge}
+{\filleft{\chaptertitlename} \Huge\thechapter}
+{1ex}
+{
+\filleft}
+[\vspace{1ex}%
+\titlerule]
+
+%
+
+%----------- Part 0: Intro --------------
+\include{ch1_introduction}
+\newpage	
+
+
+
+
+
+\newpage
+\shipout\null % Blank page
+\stepcounter{page}
+\newpage
+
+\fancyhead[LO]{}
+\fancyhead[RO]{Bibliography}
+\nocite{*}
+\addcontentsline{toc}{chapter}{Bibliography}
+% If Natbib is used for bibliography
+\bibliography{bibliography_thesis}
+% If biblatex is used:
+%\printbibliographyphyFile}
+
+%%%% Appendices
+\newpage
+\shipout\null % Blank page
+\stepcounter{page}
+\newpage
+
+
+
+\end{document}
