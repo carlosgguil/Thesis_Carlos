@@ -49,7 +49,7 @@
 The previous chapter has detailed the theory of the Smart Lagrangian Injectors (SLI) models to build injectors for dispersed-phase simulations. These models aim at being generic and applicable to a broad range of operating conditions
 and injector configurations. In this thesis, they are developed from resolved simulations of an academic kerosene jet in crossflow (JICF) configuration. This chapter details these simulations, performed with the software YALES2 \citepColor[moureau_design_2011], and how SLI can be built from them. % \textbf{https://reader.elsevier.com/reader/sd/pii/S1631072110002111?token=9137B6903478D4E8E427F5D8218DFC3EB42446DB034970B14BA9DE87AA7E80D130124A7EF8D8608D21D5D465CCE05A4F&originRegion=eu-west-1&originCreation=20210524114835}
 
-In first place, the experimental bench by \citeColor[becker_breakup_2002] is presented in $\S$\ref{sec:ch5_experimental_bench}. The computational setup for the resolved simulations is detailed in $\S$\ref{sec:computational_setup}. Two operating conditions to simulate are given in $\S$\ref{sec:JICF_SPS_OPs_detailed}. Gaseous conditions for initializing the liquid computations are reported in $\S$\ref{sec:ch5_initial_conditions}. Then, results from the resolved atomization simulations are provided in $\S$\ref{sec:ch5_JICF_simus_analysis}, where a physical analysis of the JICF simulations is performed. Studied features include the evolution of the liquid jet, the jet breakup process, its vertical trajectories (which are also validated with an experimental correlation), gaseous turbulent structures, and computation of resolved liquid fluxes. Finally, the simulations are processed to provide the necessary data for building SLI in $\S$\ref{sec:ch5_SLI_building}. These will be later used for dispersed-phase computations in Chapter \ref{ch6:jicf_lgs_simulations}.
+In first place, the experimental bench by \citeColor[becker_breakup_2002] is presented in $\S$\ref{sec:ch5_experimental_bench}. The computational setup for the resolved simulations is detailed in $\S$\ref{sec:computational_setup}. Two operating conditions to simulate are given in $\S$\ref{sec:JICF_SPS_OPs_detailed}. Gaseous conditions for initializing the liquid computations are reported in $\S$\ref{sec:ch5_initial_conditions}. Then, results from the resolved atomization simulations are provided in $\S$\ref{sec:ch5_JICF_simus_analysis}, where a physical analysis of the JICF simulations is performed. Studied features include the evolution of the liquid jet, the jet breakup process, its vertical trajectories (which are also validated with an experimental correlation), gaseous disturbances due to liquid dense core, and computation of resolved liquid fluxes. Finally, the simulations are processed to provide the necessary data for building SLI in $\S$\ref{sec:ch5_SLI_building}. These will be later used for dispersed-phase computations in Chapter \ref{ch6:jicf_lgs_simulations}.
 
 
 
@@ -893,7 +893,7 @@ $L_2$ & 0.29 & 1.16 & 0.44 & 1.40 & 1.35 \\
 
 
 
-\subsection{Turbulent structures in the gaseous field}
+\subsection{Gaseous perturbations due to liquid core}
 \label{ch5:subsec_turbulent_structures_in_gaseous_field}
 
 
@@ -907,7 +907,7 @@ Resolved simulations capture the liquid dense core, which perturbs the incoming 
 \end{figure}
 
 
-In this section, the turbulent structures created as a consequence of the dense core presence are studied. These results will be used in Chapter \ref{ch6:jicf_lgs_simulations} to compare with the disturbance effects in the gaseous field modeled in the dispersed phase simulations. The gaseous field is investigated by analyzing the mean axial gaseous velocity field $\overline{u}$ in the planes illustrated in Figure \ref{fig:jicf_sps_with_gaseous_planes}. %These planes are: the symmetry plane $y = 0$ mm, planes perpendicular to the crossflow $x = 5, 10$ mm (which correspond to the planes where spray has been sampled and postprocessed, see Figure \ref{fig:jicf_interior_boundaries_surface_measurements}), and the planes perpendicular to the injection directions $z = 0.2, 0.8, 1.6$ mm. 
+In this section, the gaseous perturbations created by the presence of the liquid dense core are studied. These results will be used in Chapter \ref{ch6:jicf_lgs_simulations} to compare with the disturbance effects in the gaseous field modeled in the dispersed phase simulations. The gaseous field is investigated by analyzing the mean axial gaseous velocity field $\overline{u}$ in the planes illustrated in Figure \ref{fig:jicf_sps_with_gaseous_planes}. %These planes are: the symmetry plane $y = 0$ mm, planes perpendicular to the crossflow $x = 5, 10$ mm (which correspond to the planes where spray has been sampled and postprocessed, see Figure \ref{fig:jicf_interior_boundaries_surface_measurements}), and the planes perpendicular to the injection directions $z = 0.2, 0.8, 1.6$ mm. 
 
 
 \begin{figure}[h!]
