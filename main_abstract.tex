@@ -1,0 +1,43 @@
+
+\documentclass[twoside]{report}
+
+
+% Load the packagesl
+\include{packages_load}
+
+
+% Greek letters inkscape:
+% http://kestrel.nmt.edu/~raymond/software/howtos/greekscape.xhtml
+
+% Headers and footers
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+
+\pagestyle{fancy}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RE]{}
+\fancyhead[LO]{}
+%\fancyhead[RO]{Guides and tutorials}
+\fancyfoot[CE,CO]{\thepage}
+
+
+
+% volume fraction reference in document:
+% \ref{eq:vol_frac_definition}
+
+\begin{document}
+
+
+
+
+
+\include{abstract_francais}
+
+
+
+
+
+
+
+
+\end{document}
