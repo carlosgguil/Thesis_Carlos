@@ -1,0 +1,84 @@
+%% Creator: Inkscape inkscape 0.92.0, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'DLR_becker_numerical_config.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{1022.86356453bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.45428607)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{DLR_becker_numerical_config.pdf}}%
+    \put(0.24005759,0.03602323){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$25$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{DLR_becker_numerical_config.pdf}}%
+    \put(0.13105477,0.16424456){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$40$}}}%
+    \put(0.25576805,0.36095219){\color[rgb]{0,0,0}\rotatebox{31}{\makebox(0,0)[lb]{\smash{$270$}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{DLR_becker_numerical_config.pdf}}%
+    \put(0.36922002,0.12377543){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
+    \put(0.3067485,0.12147733){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$y$}}}%
+    \put(0.34515609,0.13894901){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$z$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{DLR_becker_numerical_config.pdf}}%
+    \put(0.35249955,0.05133139){\color[rgb]{0,0,0}\rotatebox{31}{\makebox(0,0)[lb]{\smash{$120$}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{DLR_becker_numerical_config.pdf}}%
+    \put(0.79802109,0.11140564){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\diameter 1.5$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{DLR_becker_numerical_config.pdf}}%
+    \put(0.85702162,0.39177531){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\diameter 0.45$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{DLR_becker_numerical_config.pdf}}%
+    \put(0.93788751,0.22942672){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$5.000$}}}%
+    \put(0.93765789,0.30167963){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$0.525$}}}%
+    \put(0.93734117,0.34064253){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$0.700$}}}%
+    \put(0.01345543,0.26267165){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{Gaseous}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{DLR_becker_numerical_config.pdf}}%
+    \put(0.54119345,0.4149865){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{Outlet}}}}%
+    \put(0.47898625,0.11841828){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{Wall law}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{DLR_becker_numerical_config.pdf}}%
+    \put(0.66720121,0.33194965){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{Wall}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{DLR_becker_numerical_config.pdf}}%
+    \put(0.85786803,0.06689487){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{Liquid inlet}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{DLR_becker_numerical_config.pdf}}%
+    \put(0.53482905,0.15857019){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{Slip walls}}}}%
+    \put(0.03800504,0.23643676){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\textbf{inlet}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{DLR_becker_numerical_config.pdf}}%
+  \end{picture}%
+\endgroup%
