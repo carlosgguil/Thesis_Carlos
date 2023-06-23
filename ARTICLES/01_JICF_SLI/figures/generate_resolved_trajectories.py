@@ -60,12 +60,13 @@ data_op2_dx10 = pd.read_csv('./data_resolved_trajectories/q6uG75_dx10.csv')
 
 # OP1
 plt.figure(figsize=(FFIG*26,FFIG*18))
-plt.plot(becker_corr.xD, becker_corr.zD_mean, 'k', label=r'$\mathrm{Exp.~correlation}$',linewidth=8*FFIG)
+#plt.plot(becker_corr.xD, becker_corr.zD_mean, 'k', label=r'$\mathrm{Exp.~correlation}$',linewidth=8*FFIG)
+plt.plot(becker_corr.xD, becker_corr.zD_mean, 'k',linewidth=8*FFIG)
 plt.fill_between(becker_corr.xD, becker_corr.zD_lower, 
                  becker_corr.zD_upper, alpha=0.1, facecolor='black')
 plt.plot(data_op1_dx10['xD'], data_op1_dx10['zD'], 'b', label = r'$\mathrm{UG}100\_\mathrm{DX}10$')
-plt.plot(data_op1_dx20['xD'], data_op1_dx20['zD'], 'r', label = r'$\mathrm{UG}100\_\mathrm{DX}20$')
-plt.plot(data_op2_dx10['xD'], data_op2_dx10['zD'], '--b', label = r'$\mathrm{UG}75\_\mathrm{DX}10$')
+plt.plot(data_op1_dx20['xD'], data_op1_dx20['zD'], '--b', label = r'$\mathrm{UG}100\_\mathrm{DX}20$')
+plt.plot(data_op2_dx10['xD'], data_op2_dx10['zD'], 'r', label = r'$\mathrm{UG}75\_\mathrm{DX}10$')
 plt.plot(data_op2_dx20['xD'], data_op2_dx20['zD'], '--r', label = r'$\mathrm{UG}75\_\mathrm{DX}20$')
 #plt.plot(data_op1_dx20_no_turb['xD'], data_op1_dx20_no_turb['zD'], format_[2], label = r'$\mathrm{UG}100\_\mathrm{DX}20\_\mathrm{NT}$')
 plt.xlabel(r'$x/d_\mathrm{inj}$')
